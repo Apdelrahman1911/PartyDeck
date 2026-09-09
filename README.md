@@ -70,4 +70,6 @@ See [docs/IMPLEMENTATION.md](docs/IMPLEMENTATION.md) for ownership and acceptanc
 
 Signing credentials are supplied through environment variables and never stored in source. A release build without credentials produces an unsigned bundle. The exact automated evidence and remaining hardware/store gates are maintained in [docs/release-qualification.md](docs/release-qualification.md). Native compilation alone does not qualify mixed Android/iOS Wi-Fi behavior, physical-device performance, local-network permission prompts or store submission.
 
+The detailed [status report](docs/STATUS.md) lists completed features, remaining work, and estimated milestone completion percentages.
+
 The privacy inventory is in [docs/privacy.md](docs/privacy.md). The app stores preferences locally; transient names, cards and session credentials are exchanged with the host over the local encrypted connection. Camera frames used for QR scanning are not retained.
