@@ -19,11 +19,14 @@ import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertIsOn
 import androidx.compose.ui.test.assertTextContains
+import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.captureToImage
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.test.performScrollToIndex
 import androidx.compose.ui.test.performTextReplacement
 import androidx.compose.ui.test.v2.runSkikoComposeUiTest
 import androidx.compose.ui.unit.Density
@@ -54,6 +57,7 @@ import dev.partydeck.app.ui.shell.ConnectionBanner
 import dev.partydeck.app.ui.shell.InvitationDialog
 import dev.partydeck.app.ui.shell.LobbyScreen
 import dev.partydeck.app.ui.shell.SettingsScreen
+import dev.partydeck.app.ui.shell.splitLicenseText
 import dev.partydeck.app.ui.theme.PartyDeckColors
 import dev.partydeck.app.ui.theme.PartyDeckTheme
 import dev.partydeck.session.LobbyPlayer
@@ -269,6 +273,42 @@ class ShellLayoutTest {
         onNodeWithTag("settings-reduce-motion").performScrollTo().assertIsDisplayed().performClick().assertIsOn()
         assertEquals(true, state.settings.reduceMotion)
         onNodeWithTag("shell-snapshot-root").shellSnapshot("settings-large-text-motion")
+    }
+
+    @Test
+    fun completeBundledNoticesRemainReadableToTheEndAtLargeText() = runSkikoComposeUiTest(
+        size = Size(320f, 740f),
+        density = Density(1f, 2f),
+        testTimeout = 45.seconds,
+    ) {
+        val document = File("src/commonMain/composeResources/files/licenses/third_party_notices.txt").readText()
+        val chunks = splitLicenseText(document)
+        assertTrue(chunks.isNotEmpty())
+        assertEquals(document, chunks.joinToString(""), "The complete legal text must be preserved")
+        assertTrue(chunks.all { it.length <= 1_500 }, "No item may lay out a giant license paragraph")
+        setContent {
+            ShellTestFrame {
+                SettingsScreen(AppUiState(screen = AppScreen.SETTINGS), onBack = {}, onSettingsChange = {})
+            }
+        }
+        onNodeWithTag("settings-licenses").performScrollTo().assertIsDisplayed().performClick()
+        waitUntil(timeoutMillis = 10_000) {
+            onAllNodesWithTag("licenses-list").fetchSemanticsNodes().isNotEmpty()
+        }
+        onNodeWithTag("licenses-done").assertIsDisplayed()
+        onNodeWithTag("licenses-dialog").shellSnapshot("licenses-large-text-start")
+        onNodeWithTag("licenses-list").performScrollToIndex(1)
+        onNodeWithTag("license-section-0").assertIsDisplayed().assertTextEquals(chunks.first())
+        onNodeWithTag("licenses-dialog").shellSnapshot("licenses-large-text-first-notice")
+        // The overview is item 0; the final one-pixel marker follows every unchanged text chunk.
+        onNodeWithTag("licenses-list").performScrollToIndex(chunks.size + 1)
+        onNodeWithTag("license-document-end").assertIsDisplayed()
+        onNodeWithTag("license-section-${chunks.lastIndex}").assertIsDisplayed().assertTextEquals(chunks.last())
+        onNodeWithTag("licenses-done").assertIsDisplayed()
+        onNodeWithTag("licenses-dialog").shellSnapshot("licenses-large-text-end")
+        onNodeWithTag("licenses-done").performClick()
+        onNodeWithTag("licenses-dialog").assertDoesNotExist()
+        println("License viewport verified ${document.encodeToByteArray().size} UTF-8 bytes in ${chunks.size} bounded text sections")
     }
 
     @Test

@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.text.selection.SelectionContainer
@@ -40,6 +42,8 @@ import dev.partydeck.app.ui.theme.PartyDeckColors
 import dev.partydeck.app.ui.theme.SectionLabel
 import dev.partydeck.resources.*
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -109,7 +113,10 @@ fun SettingsScreen(
             style = MaterialTheme.typography.bodyMedium,
             color = PartyDeckColors.Muted,
         )
-        TextButton(onClick = { showLicenses = true }, modifier = Modifier.heightIn(min = 48.dp)) {
+        TextButton(
+            onClick = { showLicenses = true },
+            modifier = Modifier.heightIn(min = 48.dp).testTag("settings-licenses"),
+        ) {
             Text(stringResource(Res.string.shell_credits_action))
         }
         Spacer(Modifier.height(24.dp))
@@ -159,13 +166,15 @@ private fun PreferenceRow(
 
 @Composable
 private fun LicenseDialog(onDismiss: () -> Unit) {
-    var notices by remember { mutableStateOf<String?>(null) }
+    var notices by remember { mutableStateOf<List<String>?>(null) }
     var loadFailed by remember { mutableStateOf(false) }
     var attempt by remember { mutableStateOf(0) }
     LaunchedEffect(attempt) {
         loadFailed = false
         try {
-            notices = Res.readBytes("files/licenses/third_party_notices.txt").decodeToString()
+            notices = withContext(Dispatchers.Default) {
+                splitLicenseText(Res.readBytes("files/licenses/third_party_notices.txt").decodeToString())
+            }
         } catch (cancelled: CancellationException) {
             throw cancelled
         } catch (_: Exception) {
@@ -174,30 +183,70 @@ private fun LicenseDialog(onDismiss: () -> Unit) {
     }
     AlertDialog(
         onDismissRequest = onDismiss,
+        modifier = Modifier.testTag("licenses-dialog"),
         title = { Text(stringResource(Res.string.shell_licenses_title)) },
         text = {
-            Column(Modifier.verticalScroll(rememberScrollState())) {
-                Text(stringResource(Res.string.shell_licenses_description), style = MaterialTheme.typography.bodyMedium)
-                Spacer(Modifier.height(20.dp))
-                when {
-                    loadFailed -> {
+            val chunks = notices
+            when {
+                loadFailed -> {
+                    Column(Modifier.verticalScroll(rememberScrollState())) {
                         Text(stringResource(Res.string.shell_licenses_error))
                         TextButton(onClick = { attempt++ }, modifier = Modifier.heightIn(min = 48.dp)) {
                             Text(stringResource(Res.string.shell_retry))
                         }
                     }
-                    notices == null -> Text(stringResource(Res.string.shell_licenses_loading))
-                    else -> SelectionContainer {
-                        Text(notices.orEmpty(), style = MaterialTheme.typography.bodySmall)
+                }
+                chunks == null -> Text(stringResource(Res.string.shell_licenses_loading))
+                else -> SelectionContainer {
+                    // AlertDialog bounds this viewport and keeps Done outside the lazy content.
+                    LazyColumn(Modifier.fillMaxWidth().testTag("licenses-list")) {
+                        item(key = "overview") {
+                            Text(
+                                stringResource(Res.string.shell_licenses_description),
+                                modifier = Modifier.padding(bottom = 20.dp),
+                                style = MaterialTheme.typography.bodyMedium,
+                            )
+                        }
+                        itemsIndexed(chunks, key = { index, _ -> index }) { index, text ->
+                            Text(
+                                text,
+                                modifier = Modifier.testTag("license-section-$index"),
+                                style = MaterialTheme.typography.bodySmall,
+                            )
+                        }
+                        item(key = "document-end") {
+                            Spacer(Modifier.fillMaxWidth().height(1.dp).testTag("license-document-end"))
+                        }
                     }
                 }
             }
         },
         confirmButton = {
-            TextButton(onClick = onDismiss, modifier = Modifier.heightIn(min = 48.dp)) {
+            TextButton(onClick = onDismiss, modifier = Modifier.heightIn(min = 48.dp).testTag("licenses-done")) {
                 Text(stringResource(Res.string.shell_done))
             }
         },
         containerColor = PartyDeckColors.Surface,
     )
+}
+
+/** Preserve every character while bounding the text laid out by any one lazy item. */
+internal fun splitLicenseText(text: String): List<String> = buildList {
+    var start = 0
+    while (start < text.length) {
+        val limit = minOf(start + 1_200, text.length)
+        var end = limit
+        if (limit < text.length) {
+            val newline = text.lastIndexOf('\n', limit - 1)
+            val space = text.lastIndexOf(' ', limit - 1)
+            end = when {
+                newline >= start + 600 -> newline + 1
+                space >= start + 600 -> space + 1
+                else -> limit
+            }
+            if (text[end - 1] in '\uD800'..'\uDBFF' && text[end] in '\uDC00'..'\uDFFF') end--
+        }
+        add(text.substring(start, end))
+        start = end
+    }
 }

@@ -30,16 +30,25 @@ def require(condition: bool, message: str) -> None:
 def check_sources() -> dict:
     fonts = json.loads((ASSETS / "font_sources.json").read_text())
     notices = json.loads((ASSETS / "software_notice_sources.json").read_text())
+    runtime = json.loads((ASSETS / "licenses/runtime/software_notice_sources.json").read_text())
+    notices += runtime
     aggregate = (RESOURCES / "files/licenses/third_party_notices.txt").read_bytes()
     font_details = []
+    notice_hashes = set()
+    notice_count = 0
     for source in fonts + notices:
         path = ROOT / source["file"]
         data = path.read_bytes()
         require(sha256(data).hexdigest() == source["sha256"], f"Source integrity failed: {path}")
-        if path.suffix == ".txt":
-            bundled = RESOURCES / "files/licenses" / path.name
+        if path.suffix.lower() != ".ttf":
+            bundled = RESOURCES / "files/licenses" / source.get("resource_file", path.name)
             require(bundled.read_bytes() == data, f"Changed bundled license: {path.name}")
             require(data in aggregate, f"Aggregate omits complete notice: {path.name}")
+            for field in ("title", "component"):
+                if field in source:
+                    require(source[field].encode("utf-8") in aggregate, f"Aggregate omits {field}: {path.name}")
+            notice_count += 1
+            notice_hashes.add(source["sha256"])
         else:
             with TTFont(path) as face:
                 mapping = face.getBestCmap()
@@ -55,7 +64,28 @@ def check_sources() -> dict:
                         "english_and_accented_latin_probe": "pass",
                     }
                 )
-    return {"pinned_files_verified": len(fonts) + len(notices), "fonts": font_details, "complete_notices_bundled": 8}
+    runtime_root = RESOURCES / "files/licenses/runtime"
+    expected_runtime = {source["resource_file"] for source in runtime}
+    actual_runtime = {
+        path.relative_to(RESOURCES / "files/licenses").as_posix()
+        for path in runtime_root.rglob("*") if path.is_file()
+    }
+    require(actual_runtime == expected_runtime, f"Runtime notice resource inventory differs: {sorted(actual_runtime ^ expected_runtime)}")
+    acknowledgments = [source for source in runtime if source["resource_file"] == "runtime/required_acknowledgments.txt"]
+    require(len(acknowledgments) == 1, "Missing required native acknowledgment source")
+    acknowledgment_bytes = (ROOT / acknowledgments[0]["file"]).read_bytes()
+    require(0 <= aggregate.find(acknowledgment_bytes) < 512, "Required native acknowledgments must appear prominently at the beginning")
+    return {
+        "pinned_files_verified": len(fonts) + len(notices),
+        "fonts": font_details,
+        "complete_notices_bundled": notice_count,
+        "distinct_notice_texts": len(notice_hashes),
+        "runtime_notice_resources": len(actual_runtime),
+        "runtime_resources_match_manifest": True,
+        "required_acknowledgments_prominent": True,
+        "aggregate_bytes": len(aggregate),
+        "aggregate_sha256": sha256(aggregate).hexdigest(),
+    }
 
 
 def check_audio() -> dict:
