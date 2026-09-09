@@ -12,6 +12,13 @@ Keep the host app open during play. Guests can reconnect to their existing seat 
 
 Full rules and edge cases are in [docs/game-rules.md](docs/game-rules.md).
 
+## Screenshots and visual feedback
+
+Browse the [app screenshot gallery](docs/screenshots/README.md) for reviewed app
+views, with platform and scenario labels. Refer to the image filename when
+sharing feedback. The gallery will also retain both Godot presentations and
+their later visual iterations as they are captured.
+
 ## Build and run
 
 Use JDK 21. The checked-in wrapper installs Gradle 9.7.0 and verifies its distribution checksum. Android needs command-line tools, platform-tools, **platform 37.1** and build-tools 36.0.0. Runtime target is Android 36; minimum Android 26.
@@ -61,8 +68,9 @@ On macOS, run `./scripts/validate-ios-shared.sh`, `./scripts/validate-ios-app.sh
 | `games` | Game catalog and coarse optional engine extension |
 | `composeApp` | Shared UI, app/session controller, practice, native service interfaces, desktop launcher |
 | `androidApp` / `iosApp` | Native lifecycle, platform services, QR scanner and app packaging |
+| `godot` | Active, isolated 2D/3D renderer comparison, shared authority bridge and native embedding qualification |
 
-The shell owns navigation and lifecycle. Last Light renders in Compose. A future Godot renderer can use the engine extension; no Godot runtime is started by this game. Clients send intents, the host validates actions and owns cryptographic randomness, and every guest receives only their own private hand. Disconnects preserve a seat for reconnection. Host loss ends the session; host migration and persistence of live matches are not implemented.
+The shell owns navigation and lifecycle. The existing Last Light production baseline renders in Compose. Both [2D and 3D Godot presentations](godot/README.md) are now being built in parallel for hands-on comparison and independent platform qualification. Clients send intents, the host validates actions and owns cryptographic randomness, and every guest receives only their own private hand. Disconnects preserve a seat for reconnection. Host loss ends the session; host migration and persistence of live matches are not implemented.
 
 See [docs/IMPLEMENTATION.md](docs/IMPLEMENTATION.md) for ownership and acceptance criteria, [docs/security-review.md](docs/security-review.md) for the threat model, and [docs/ASSETS.md](docs/ASSETS.md) for original assets and third-party licenses.
 
