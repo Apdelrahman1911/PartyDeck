@@ -14,12 +14,13 @@ Checked on 2026-09-09. Scope: the initial bluffing game, host authority, immutab
 | [Kotlin — AbstractList](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-abstract-list/) | Common `AbstractList` provides the skeletal implementation of a read-only list through `size` and `get`. | An internal snapshot list can copy its input and expose a read-only implementation without an additional collection dependency. |
 | [Kotlin — ConsistentCopyVisibility](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-consistent-copy-visibility/) | The annotation makes generated data-class `copy` visibility match constructor visibility. | Explicitly apply it to host-only state types with internal constructors so external modules cannot use generated `copy` as a public state factory. |
 | [Kotlin — Serialization](https://kotlinlang.org/docs/serialization.html) | `@Serializable` generates support for Kotlin models and supports standard collections, with multiplatform runtime libraries. | Annotate only intentionally public model types; never provide a serializer for the full authority state. |
+| [Kotlin — kotlin.test](https://kotlinlang.org/api/core/kotlin-test/kotlin.test/) | Common test assertions include stable `assertEquals`, `assertTrue`, `assertFalse`, `assertNotNull`, and `assertIs` APIs. | Behavior tests use the platform-independent Kotlin test library already configured by the project. No testing library or experimental assertion overload is added. |
 
 No external card art, text passages, sounds, character designs, logos, or implementation were imported. The public rules are written for PartyDeck in [game-rules.md](../game-rules.md).
 
 ## Chosen rule structure and tradeoffs
 
-The working title is **Last Light**. A 30-card deck supports all six five-card hands without replenishing during a round. Nine cards of each ordinary rank and three Wild cards make 12 of 30 cards truthful for any given table rank. Every rank has the same treatment. A five-card opening hand therefore has an expected two truthful cards. The chance of no truthful card is `C(18, 5) / C(30, 5)`, about six percent. These are deck arithmetic, not a playtest result.
+The initial game is **Last Light**. A 30-card deck supports all six five-card hands without replenishing during a round. Nine cards of each ordinary rank and three Wild cards make 12 of 30 cards truthful for any given table rank. Every rank has the same treatment. A five-card opening hand therefore has an expected two truthful cards. The chance of no truthful card is `C(18, 5) / C(30, 5)`, about six percent. These are deck arithmetic, not a playtest result.
 
 Allowing up to three cards creates a visible tradeoff: shedding faster can require mixing truthful cards with a bluff, while a one-card play is easier to support with a truthful card. A new player needs to learn only Play and Challenge. There are no extra powers, changing bid quantities, resource purchases, or hidden exceptions in version 1.
 
@@ -29,7 +30,7 @@ Six persistent fuse steps preserve escalating tension. The host preselects one h
 
 Every challenge produces one atomic rule outcome and ends the round. A distinct result phase gives all devices time to present the reveal without letting a renderer, sound cue, or timer decide the winner. Host continuation explicitly redeals. Opening turns rotate across survivors, separately from penalty ownership, to distribute the opener role.
 
-## Proposed domain boundary
+## Implemented domain boundary
 
 The domain uses common Kotlin and the standard library, plus the project's pinned serialization annotations on safe public models. It owns card/rule types, authoritative game state, validation, the reducer, and safe per-viewer projections. It contains no networking, persistence, coroutines, Compose, Android, iOS, or Godot APIs.
 
@@ -60,7 +61,7 @@ class LastLightEngine(private val random: Random) {
 }
 ```
 
-`GameState` contains the complete private authority state, including secret burnout steps. Its collection inputs are copied, and reducers return fresh states without mutating earlier states or caller-owned selections. Start rejects malformed rosters as a programming/configuration error; player actions use typed rejection values. Validation always precedes random draws. A rejected action neither changes game state nor consumes gameplay entropy.
+`GameState` contains the complete private authority state, including secret burnout steps. Engine-produced collection values use defensive read-only snapshots, and reducers return fresh states without mutating earlier states or caller-owned selections. State constructors and generated copy methods are internal to `:core`. Start rejects malformed rosters as a programming/configuration error; player actions use typed rejection values. Validation always precedes random draws. A rejected action neither changes game state nor consumes gameplay entropy.
 
 `GameView` includes public player rows, only the viewer's own cards, the required rank, round number, active actor, latest claim size/owner, forced-challenge status, phase, the public round outcome, and winner. The session wraps this serializable safe view in its separately versioned protocol DTOs. `GameState` is never annotated as a public wire payload. The hidden latest-play type is not reused for the public claim: doing so would risk serializing its cards later.
 
@@ -82,9 +83,13 @@ The test owner should work from [the rule acceptance cases](../game-rules.md#acc
 
 State conservation and multiple seeded legal-match simulations should supplement small examples. They must show that no physical card duplicates across zones, each live turn has a legal action, challenge losers are correct, and matches reach a unique winner within the mathematical penalty bound. Performance work should focus on bounded, infrequent turn transitions rather than micro-optimizing a maximum of six hands of five cards.
 
-## Outstanding validation
+## Validation evidence and remaining checks
 
-- Implement the frozen API in `:core` and integrate it with session, UI, and controller owners.
-- Run common/JVM domain tests under the project's researched, pinned Kotlin toolchain; run the same common tests on iOS through macOS CI when available.
-- Independently review projection privacy and rejected-action entropy behavior.
+On 2026-09-09, `:core:compileKotlinJvm` completed successfully. The first focused run, `flock /tmp/partydeck-gradle.lock ./gradlew :core:jvmTest`, completed successfully with six tests, zero failures, zero errors, and no skipped tests in `LastLightEngineTest`. These cover all-Wild truth, mixed matching/Wild truth, one mismatching card, challenging only the latest play, persistent penalties after redeal, and a unique winner after burnout. The bootstrap arithmetic test was removed once these behavioral tests were available.
+
+The independent gameplay reviewer subsequently added eight tests in `LastLightAdversarialTest` and reran the same locked command successfully. The resulting suite contains **14 tests, zero failures, zero errors, and no skipped tests**. It includes 240 complete legal matches across every supported table size with early and delayed challenges, plus additional paired deterministic histories with rejected commands and repeated views injected as noise. Checks preserve all 30 cards, ensure compulsory challenges remain possible, verify penalty/round/winner invariants, reject stale/unowned selections, keep private hands confined to their recipients, and prevent caller lists or recipient views from mutating authority state. No domain defect was found in that review; details are maintained independently in [game-review.md](../game-review.md).
+
+- Integrate the implemented frozen API with session, UI, and controller owners.
+- Run the same common tests on iOS through macOS CI when available; JVM success is not iOS execution evidence.
+- Complete integrated wire-snapshot security checks in the session review; object-level projection privacy and rejected-action entropy checks already pass in the independent domain suite.
 - Playtest two-, four-, and six-player pacing. The arithmetic supports a starting design but does not establish enjoyment, bluff frequency, or ideal animation lengths.
