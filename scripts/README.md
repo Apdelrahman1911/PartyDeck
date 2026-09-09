@@ -66,7 +66,9 @@ sdkmanager 'emulator' 'system-images;android-36;default;x86_64'
 ```
 
 It requires accessible `/dev/kvm` and passes `-accel on`; it does not silently
-fall back to slow software CPU emulation. The emulator uses an isolated AVD under
+fall back to slow software CPU emulation. Graphics use the supported `swangle`
+mode (ANGLE GLES with SwiftShader), with the Pixel 7 display profile retained.
+The emulator uses an isolated AVD under
 `build/ci/android/avd`, resets the test app's data, and is stopped on exit. The
 default serial is `emulator-5554`; choose another unused even port with
 `PARTYDECK_EMULATOR_PORT`. Boot has a 180-second deadline, UI states have
@@ -128,6 +130,17 @@ For a smaller native toolchain/rules/protocol check, manually dispatch
 `gh workflow run toolchain-smoke.yml`. This runs only the `:core` and `:session`
 Apple simulator tests. Both workflows pass the selected simulator UDID explicitly
 to every native test task, so an unrelated newer installed runtime is not chosen.
+
+The Validate workflow runs both platforms for normal pushes and pull requests.
+Manual runs accept `platform=all` (default), `android`, or `ios`, for example:
+
+```sh
+gh workflow run validate.yml --ref main -f platform=android
+```
+
+Verify the resulting run's `headSha` against the intended commit. A platform-only
+run records that platform's evidence; cite the separate unchanged-platform run
+when reusing earlier qualification results.
 
 ## Android release signing
 

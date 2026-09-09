@@ -16,6 +16,7 @@ if [[ ! "$PARTYDECK_EMULATOR_PORT" =~ ^5[0-9]{3}$ ]] || (( PARTYDECK_EMULATOR_PO
 fi
 
 "$PARTYDECK_ANDROID_SDK/emulator/emulator" -accel-check | tee "$PARTYDECK_ANDROID_OUTPUT/acceleration.log"
+"$PARTYDECK_ANDROID_SDK/emulator/emulator" -help-gpu > "$PARTYDECK_ANDROID_OUTPUT/graphics-options.log"
 if [[ "$(uname -s)" != Linux || ! -r /dev/kvm || ! -w /dev/kvm ]]; then
   printf '%s\n' 'This bounded CI smoke requires Linux with accessible KVM acceleration.' >&2
   exit 1
@@ -67,7 +68,7 @@ printf 'no\n' | avdmanager create avd \
 setsid "$PARTYDECK_ANDROID_SDK/emulator/emulator" \
   -avd partydeck_ci_api36 \
   -port "$PARTYDECK_EMULATOR_PORT" \
-  -accel on -gpu swiftshader -memory 3072 -cores "$PARTYDECK_EMULATOR_CORES" \
+  -accel on -gpu swangle -memory 3072 -cores "$PARTYDECK_EMULATOR_CORES" \
   -no-window -no-audio -no-snapshot -no-boot-anim \
   -camera-back none -camera-front none \
   > "$PARTYDECK_ANDROID_OUTPUT/emulator.log" 2>&1 &

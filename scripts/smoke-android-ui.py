@@ -8,6 +8,7 @@ import pathlib
 import re
 import struct
 import subprocess
+import sys
 import time
 import xml.etree.ElementTree as ET
 
@@ -343,6 +344,7 @@ class AndroidSmoke:
         self.capture(f"{prefix}-intro", "rules-first-step", "Know the table.", scroll="down")
         self.capture(f"{prefix}-last-step", "rules-last-step", "Be the last light.", scroll="down")
         self.wait_for_tag("rules-practice", "Try a practice table", scroll="down")
+        self.capture(f"{prefix}-practice-action", "rules-practice", "Try a practice table")
         self.back()
         self.wait_for_tag("home-practice", scroll="down")
         self.record("Verified rules content and final practice action are reachable")
@@ -599,23 +601,40 @@ def main():
         "steps": smoke.steps, "observations": smoke.observations,
         "scope": "Single-emulator UI and local hosting; physical LAN, camera frames and store signing are separate gates.",
     }
+    run_failed = False
     try:
         smoke.run(arguments.apk)
         result["passed"] = True
-        print(f"Android {smoke.variant} runtime flows passed.", flush=True)
-    except (RuntimeError, ValueError, *TRANSIENT_ERRORS) as error:
+    except Exception as error:
+        run_failed = True
         result["error"] = redacted(str(error))
         result["stage"] = smoke.stage
         raise
     finally:
-        smoke.diagnostics()
-        restore_errors = smoke.restore_environment()
-        if restore_errors:
+        try:
+            smoke.diagnostics()
+        except Exception as error:
             result["passed"] = False
-            result["environment_restore_errors"] = restore_errors
-        (arguments.output / "smoke-result.json").write_text(json.dumps(result, indent=2) + "\n")
-        if restore_errors:
-            raise SystemExit("Android environment settings could not be restored; see restore-errors.log.")
+            result["diagnostic_errors"] = [redacted(str(error))]
+        finally:
+            # A diagnostic parse/write failure must not skip restoring settings
+            # or replace the original app failure with a cleanup exception.
+            try:
+                restore_errors = smoke.restore_environment()
+            except Exception as error:
+                restore_errors = [str(error)]
+            if restore_errors:
+                result["passed"] = False
+                result["environment_restore_errors"] = [redacted(error) for error in restore_errors]
+            try:
+                (arguments.output / "smoke-result.json").write_text(json.dumps(result, indent=2) + "\n")
+            except OSError as error:
+                if not run_failed:
+                    raise
+                print(f"Could not write Android smoke result: {redacted(str(error))}", file=sys.stderr, flush=True)
+    if not result["passed"]:
+        raise SystemExit("Android diagnostic collection or environment restoration failed; see smoke-result.json.")
+    print(f"Android {smoke.variant} runtime flows passed.", flush=True)
 
 
 if __name__ == "__main__":

@@ -14,9 +14,19 @@ xcodebuild -project iosApp/PartyDeck.xcodeproj -scheme PartyDeck \
   CODE_SIGNING_ALLOWED=NO build
 ```
 
-Run `scripts/validate-ios-app.sh` on macOS for native transport tests and shared UI smoke tests. The script discovers an available iPhone simulator and saves the `.xcresult`, ready-state screenshots, logs, and built app. `PartyDeckTests` exercises the real Swift TLS adapter with an ephemeral host certificate, correct and incorrect pins, ordered framed data, and close callbacks. A Java fixture runs on the Mac while the simulator verifies both Swift-host and Java-host connections, exact certificate pins, and framed payloads up to 64 KiB. CI requires both XCTest success and the Java fixture's completion result. Running the scheme directly without that fixture skips only the mixed Java/Swift test. `PartyDeckUITests` opens practice and settings through the actual Compose accessibility tree.
+Run `scripts/validate-ios-app.sh` on macOS for a **Debug Simulator** build and the native transport and shared UI tests. The script discovers an available iPhone simulator and saves the `.xcresult`, screenshots, logs, link maps, and `PartyDeck-simulator.app.tar.gz` under `build/ci/ios`.
 
-After the simulator tests pass, the script builds an unsigned arm64 device app with Xcode's **Release** configuration. This selects the optimized Kotlin/Native release framework and Swift release settings. The unsigned app and link map support packaging review; signing and device execution are separate steps.
+The three `PartyDeckTests` cases exercise the real Swift TLS adapter: pinned connections with ordered framed data and close callbacks, wrong-pin rejection, and Java/Swift interoperability. A Java fixture runs on the Mac while the simulator verifies both Swift-host and Java-host connections, exact certificate pins, and framed payloads up to 64 KiB. The validation script requires both XCTest success and the Java fixture's completion result. Running the scheme directly without that fixture skips only the mixed Java/Swift test.
+
+The three `PartyDeckUITests` flows use the actual Compose accessibility tree:
+
+- Practice: reveal a hand, select a card, hide it and clear the selection, reveal and play, then confirm leaving. Concealed hands must expose no private card accessibility elements.
+- Native hosting: enter a host name, create a table, open its invitation, check the QR and invitation controls, close the dialog, then confirm leaving.
+- Settings: open the shared settings screen, check its controls, and return home.
+
+Explicit screenshots cover home, settings, practice states, and the host lobby before and after closing its invitation. The capture helper skips an open invitation dialog.
+
+Run `scripts/validate-ios-device.sh` separately on macOS to build an unsigned arm64 device app with Xcode's **Release** configuration. This selects the optimized Kotlin/Native release framework and Swift release settings. The script checks that the build reports `:composeApp:linkReleaseFrameworkIosArm64` and saves `xcodebuild-device.log`, a link map, and `PartyDeck-device-unsigned.app.tar.gz` under `build/ci/ios`. These artifacts support packaging review; signing and device execution are separate steps.
 
 For a physical device or archive, copy `Configuration/Signing.xcconfig.example` to `Configuration/Signing.xcconfig`, enter your Apple team, and choose a bundle identifier registered to that team. The local file is ignored by Git. Automatic signing remains enabled; CI disables signing only for its verification artifacts. Use Xcode's Archive and Validate App flows with your distribution identity before TestFlight or App Store submission.
 

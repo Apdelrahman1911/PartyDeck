@@ -111,13 +111,27 @@ An additional in-process fake-driver lifecycle unit run identified SEC-02 and SE
 
 | Area | Evidence required | Current status |
 | --- | --- | --- |
-| TLS/pinning | Real handshake succeeds with the invited certificate; altered pin fails before credentials or gameplay; no plaintext fallback. | Java and Apple identity source reviewed; execution/interoperability evidence belongs to integration qualification |
-| Platform bridge | Compile the exact Apple SDK/package; connect Android/JVM TLS to the Apple TLS listener in both host directions. | Apple identity and native adapter source reviewed; SDK/package and interoperability qualification remain |
+| TLS/pinning | Real handshake succeeds with the invited certificate; altered pin fails before credentials or gameplay; no plaintext fallback. | Java and Apple identity source reviewed; native execution evidence is recorded below |
+| Platform bridge | Compile the exact Apple SDK/package; connect Android/JVM TLS to the Apple TLS listener in both host directions. | Exact Apple SDK/packages compiled; Java–Swift Simulator interoperability passed in both directions; physical Android/iOS networking remains |
 | Projection | Adversarial recipient and serialized-message tests exclude unauthorized private fields. | Independent session unit tests passed for described cases |
 | Parser | Malformed UTF-8, lengths, truncation, decoded duplicate keys, depth, unknown fields/types, and field/collection bounds. | Independent session/transport unit tests passed for described cases |
 | Identity/replay | Stale socket, wrong credential, resume/disconnect race, ID conflict, cache eviction, session mismatch, and integer exhaustion. | Independent session unit tests passed for described cases |
 | Resource ownership | Bounded connection admission, partial-frame expiry, queue isolation, repeated start/stop, and cancellation during setup/return. | Shared ownership/queue, Java wrapper, and native handshake deadline fixes reviewed in source; runtime/device qualification remains |
 | Mobile network behavior | Physical Android/iOS cross-host play, network permission denial, background/foreground, network change, host loss. | External/device qualification required |
+
+### Integration evidence
+
+The coordinator and environment reviewer verified the saved artifacts from
+[`987d380`, run 34398824935](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34398824935).
+All three native TLS tests passed: pinned ordered frames and closure, wrong-pin
+rejection, and actual Java–Swift TLS in both host directions. The fixture reported
+65,536 bytes received and 20,000 sent in the forward direction, 20,000 sent and
+65,536 received in reverse, and both terminal states `Closed`; XCTest and the Java
+process exited successfully. The optimized unsigned iOS device app also built.
+These are integration results, separate from this reviewer's 18 independent
+tests and subsequent source-only review. They do not qualify physical-device
+LAN, permission, suspension, or hostile-network behavior. Current package and
+runtime evidence is maintained in [release qualification](release-qualification.md).
 
 ## Primary sources
 
