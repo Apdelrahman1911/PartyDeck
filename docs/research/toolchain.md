@@ -254,6 +254,94 @@ XML, framework headers, Xcode result bundle/log, simulator metadata, and the
 actual resolved Swift package file. The complete job log is
 `/tmp/partydeck-toolchain-review/integrated-ios-34378549932.log`.
 
+### Integrated Swift tests and optimized device build passed
+
+In [run 34384326819][36], commit
+`c73a659221f94a5ba7eeafa38a4b7a0754a54265`, the reviewer independently saved and
+read the complete iOS job **102576688218** log. Both build/test steps succeeded;
+the job failed only in artifact creation with
+`Failed to CreateArtifact: Unable to make request: ENOTFOUND`. The artifact API
+returned an empty list. This infrastructure failure is not a Swift build or
+test failure, but it prevents independent inspection of this run's binaries,
+native JUnit XML, fixture JSON, screenshots, and link maps.
+
+| Executed gate | Evidence in the completed job log |
+| --- | --- |
+| All five shared-native suites and device framework | Successful native invocation; **13m 22s, 92 tasks executed** |
+| Swift ordered TLS frames and peer closure | XCTest passed, 2.162 s |
+| Swift–Java TLS in both host directions | XCTest passed, 0.460 s |
+| Swift wrong-pin rejection | XCTest passed, 1.688 s |
+| Shared Settings navigation | UI test passed, 14.808 s |
+| Playable practice table | UI test passed, 10.349 s |
+| XCTest totals | **3 native + 2 UI**, zero failures; `TEST SUCCEEDED` |
+| Optimized device Kotlin framework | `:composeApp:linkReleaseFrameworkIosArm64` executed; native build **23m 51s** |
+| Actual Release Swift device app | `BUILD SUCCEEDED`, `iphoneos`, generic iOS destination, signing disabled |
+
+The required mixed XCTest ran without a skip. The checked-in supervisor also
+returned successfully before the script entered device compilation, which
+requires JVM exit zero and the complete two-direction PASS result. Independent
+inspection of that JSON's exact terminal-state values remains pending because
+its upload failed. Similarly, the expected **82** shared-native test count is
+not presented as an independently parsed count without the missing XML.
+
+The complete log and API metadata are preserved as
+`/tmp/partydeck-toolchain-review/integrated-ios-34384326819.log`,
+`integrated-ios-34384326819-job.json`, and
+`integrated-ios-34384326819-artifacts.json`. The app/test script completed at
+18:38:34 UTC on 2026-09-09, including both app-archive commands. Archive content
+and minimum-OS runtime behavior still require their own evidence.
+
+The next workflow separates shared-test preservation, Simulator tests/artifacts,
+and a bounded optimized-device step. Independent source review confirmed that
+artifact failures remain job failures while explicit status conditions permit
+the remaining independent build diagnostics. The device script retains the
+Release configuration, no-signing flag, link maps, and required optimized Kotlin
+task. This review is distinct from successful execution of the new split.
+
+### JVM–Swift interoperability harness source review
+
+The independent reviewer inspected the JVM fixture, Swift native test/probe,
+classpath export, Python runner, shell integration, and artifact paths before
+the next macOS execution. Four exact patterned payloads match across the peers:
+65,536 bytes and 20,000 bytes in each host direction. ACKs establish remote
+receipt before each close; the Java fixture waits for terminal states and
+closes its transport before publishing PASS. Swift incrementally parses framed
+bytes, handles zero-length heartbeats separately, and asserts complete payload
+content, ordering, and application-write results.
+
+The original runner could block indefinitely on Xcode stdout and signalled only
+direct child processes. The CI owner corrected it after review: selector-based
+pipe reads check a **30-minute Xcode deadline** and premature nonzero Java exit;
+both children own new process sessions, with bounded process-group TERM/KILL
+cleanup. The Python documentation confirms these POSIX process and Unix-pipe
+semantics. [29][30][31]
+
+Success requires a named XCTest **passed** record, Xcode and JVM zero exit
+statuses, fresh version-1 PASS JSON, all four exact byte counts, and both
+terminal-state fields in `Closed`, `Failed:UNAVAILABLE`, or `Failed:IO_ERROR`.
+Missing environment delivery cannot become a silent successful skip: Swift
+fails when its required flag is present but the manifest is absent; if both
+forwarded values are absent, the runner rejects the missing test-pass record.
+The manifest publishes only a loopback port and public certificate fingerprint;
+fixture outputs do not write private keys. Both identities remain in memory.
+
+Python AST parsing, shell syntax, and whitespace checks passed. This was a
+**source review**, with no additional local Gradle execution. Installed Xcode
+help/manual output is retained as evidence, but actual `TEST_RUNNER_` delivery,
+Simulator loopback reachability, and JSSE–Network.framework interoperability
+must be established by the required mixed test in macOS CI. Apple documents
+the test's async expectation waits as concurrency-safe and timeout-bounded. [32]
+
+The reviewer also independently checked the Ubuntu graphics setup correction:
+the exact hosted-image source configures `ubuntu.sources`; official Noble
+documentation confirms its deb822 format, signed-keyring verification, and
+acquisition retries. Installed `apt-config` independently confirmed the
+`Dir::Etc::sourcelist` and `Dir::Etc::sourceparts` keys. Both update and install
+receive the restricted source options, without changing persistent APT
+configuration or disabling authentication. Shell syntax passed; this reviewer
+did not execute a package update/install. Actual missing-package installation
+remains a CI check. [33][34][35]
+
 ## Authoritative sources
 
 [1]: https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html
@@ -284,3 +372,11 @@ actual resolved Swift package file. The complete job log is
 [26]: https://repo.maven.apache.org/maven2/org/jetbrains/kotlinx/kotlinx-coroutines-core/1.11.0/kotlinx-coroutines-core-1.11.0-sources.jar
 [27]: https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34376593582
 [28]: https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34378549932
+[29]: https://docs.python.org/3/library/subprocess.html
+[30]: https://docs.python.org/3/library/os.html#os.killpg
+[31]: https://docs.python.org/3/library/selectors.html
+[32]: https://developer.apple.com/documentation/xctest/xctestcase/fulfillment(of:timeout:enforceorder:)
+[33]: https://github.com/actions/runner-images/blob/ubuntu24/20260907.300/images/ubuntu/scripts/build/configure-apt-sources.sh
+[34]: https://manpages.ubuntu.com/manpages/noble/en/man5/apt.conf.5.html
+[35]: https://manpages.ubuntu.com/manpages/noble/en/man5/sources.list.5.html
+[36]: https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34384326819

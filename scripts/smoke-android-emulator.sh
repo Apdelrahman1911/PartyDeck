@@ -73,6 +73,13 @@ setsid "$PARTYDECK_ANDROID_SDK/emulator/emulator" \
   > "$PARTYDECK_ANDROID_OUTPUT/emulator.log" 2>&1 &
 PARTYDECK_EMULATOR_PID=$!
 
+# Keep first-boot OS initialization outside app acceptance. The helper preserves
+# an observed System UI ANR and permits only one empty-AVD reboot for that cause.
+# Every other preparation failure stops both APK runs; neither APK is retried.
+python3 scripts/prepare-android-emulator.py \
+  --serial "$PARTYDECK_EMULATOR_SERIAL" \
+  --output "$PARTYDECK_ANDROID_OUTPUT/preparation"
+
 PARTYDECK_DEBUG_STATUS=0
 python3 scripts/smoke-android-ui.py \
   --serial "$PARTYDECK_EMULATOR_SERIAL" \

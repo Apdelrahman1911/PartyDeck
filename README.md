@@ -1,12 +1,14 @@
 # PartyDeck
 
-A Kotlin Multiplatform party-game app for Android and iOS. **Last Light**, the first game, is an original local bluffing card game for two to six people. Practice with bots, host a table, or join a friend's encrypted invitation. The optional desktop launcher shares the same rules and interface.
+A Kotlin Multiplatform party-game app for Android and iOS. **Last Light**, the first game, is an original local bluffing card game for two to six people. Practice with bots, host a table, or join a friend's table over an encrypted connection. The optional desktop launcher shares the same rules and interface.
 
 ## Play
 
 Each round names a rank: Crown, Moon or Star. Play one to three cards face down and claim they match. Wilds always match. The next player can play or challenge. A caught bluff costs its author a light; a truthful claim costs the challenger. Burn out and you're eliminated. The last player lit wins.
 
 Hosts and guests use the same reachable Wi-Fi network. Create a table, share its invitation or display its QR code, and have guests paste or scan it. Ready up, then the host starts. Invitations contain a host certificate fingerprint and private admission credential; share them only with intended players. No account or central matchmaking service is required. Some guest/public networks isolate devices and will prevent local connections.
+
+Keep the host app open during play. Guests can reconnect to their existing seat after a brief interruption; ending the host process ends that table. Live matches are not saved across process termination.
 
 Full rules and edge cases are in [docs/game-rules.md](docs/game-rules.md).
 
@@ -42,11 +44,12 @@ Focused rules/protocol/network tests:
 Linux application validation, including Compose UI tests, Android lint and packaging:
 
 ```bash
-# Install xvfb and the graphics libraries listed in .github/workflows/validate.yml.
+# On Ubuntu 24.04, install the required graphics packages if missing.
+./scripts/setup-ubuntu-graphics.sh
 xvfb-run -a ./scripts/validate-android.sh
 ```
 
-On macOS, run `./scripts/validate-ios-shared.sh` and `./scripts/validate-ios-app.sh`. The **Validate** workflow runs Linux and macOS checks and retains reports, screenshots, debug APK, unsigned release bundle and simulator app artifacts. See [scripts/README.md](scripts/README.md) for exact commands and signing variables.
+On macOS, run `./scripts/validate-ios-shared.sh`, `./scripts/validate-ios-app.sh`, and `./scripts/validate-ios-device.sh`. These check the native shared code, Simulator navigation and Java–Swift TLS interoperability, and the optimized unsigned device app. The **Validate** workflow also exercises debug and optimized Android APKs in an emulator and retains reports, screenshots, and build artifacts. See [scripts/README.md](scripts/README.md) for exact commands and signing variables.
 
 ## Architecture
 

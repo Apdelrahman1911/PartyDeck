@@ -39,9 +39,7 @@ jobs:
           cache-provider: basic
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
       - name: Install graphics support for Compose tests
-        run: |
-          sudo apt-get update
-          sudo apt-get install --yes --no-install-recommends xvfb libgl1 libegl1 libx11-6 libxi6 libxrender1 libxtst6
+        run: ./scripts/setup-ubuntu-graphics.sh
       - name: Record toolchain
         run: |
           java -version
@@ -62,11 +60,11 @@ jobs:
           sudo chmod a+rw /dev/kvm
       - name: Exercise debug and optimized Android APKs
         if: ${{ !cancelled() && hashFiles('androidApp/build/outputs/apk/debug/*.apk') != '' }}
-        timeout-minutes: 20
+        timeout-minutes: 30
         run: ./scripts/smoke-android-emulator.sh
       - name: Upload test and lint reports
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: ./.github/actions/upload-artifact
         with:
           name: android-jvm-reports
           path: |
@@ -81,7 +79,7 @@ jobs:
           if-no-files-found: warn
       - name: Upload Android packages
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: ./.github/actions/upload-artifact
         with:
           name: android-packages-and-shrinker-reports
           path: |
@@ -96,7 +94,7 @@ jobs:
   ios:
     name: iOS native tests and app smoke
     runs-on: macos-26
-    timeout-minutes: 60
+    timeout-minutes: 90
     env:
       DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
     steps:
@@ -131,17 +129,28 @@ jobs:
           xcrun simctl help
       - name: Run native shared tests and link device framework
         run: ./scripts/validate-ios-shared.sh
-      - name: Build and test the iOS application
-        if: ${{ !cancelled() && steps.apple-toolchain.outcome == 'success' }}
-        run: ./scripts/validate-ios-app.sh
-      - name: Upload iOS reports and simulator app
+      - name: Preserve native shared test evidence before app compilation
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: ./.github/actions/upload-artifact
         with:
-          name: ios-reports-simulator-app-and-unsigned-device-app
+          name: ios-shared-native-reports
           path: |
             **/build/reports/**
             **/build/test-results/**
+            build/ci/ios/*.json
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Build and test the iOS Simulator application
+        id: ios-app
+        if: ${{ !cancelled() && steps.apple-toolchain.outcome == 'success' }}
+        timeout-minutes: 40
+        run: ./scripts/validate-ios-app.sh
+      - name: Upload iOS reports and simulator app
+        if: always()
+        uses: ./.github/actions/upload-artifact
+        with:
+          name: ios-reports-and-simulator-app
+          path: |
             build/ci/ios/*.log
             build/ci/ios/*.json
             build/ci/ios/*.png
@@ -151,7 +160,22 @@ jobs:
             build/ci/ios/interop/**
             build/ci/ios/**/*LinkMap*.txt
             composeApp/build/bin/ios*/debugFramework/PartyDeckKit.framework/Headers/**
-            composeApp/build/bin/ios*/releaseFramework/PartyDeckKit.framework/Headers/**
             iosApp/PartyDeck.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Build the optimized unsigned iOS device application
+        if: ${{ !cancelled() && steps.ios-app.outcome == 'success' }}
+        timeout-minutes: 40
+        run: ./scripts/validate-ios-device.sh
+      - name: Upload optimized iOS device evidence
+        if: always()
+        uses: ./.github/actions/upload-artifact
+        with:
+          name: ios-unsigned-release-device-app
+          path: |
+            build/ci/ios/xcodebuild-device.log
+            build/ci/ios/PartyDeck-device-unsigned.app.tar.gz
+            build/ci/ios/DeviceDerivedData/**/*LinkMap*.txt
+            composeApp/build/bin/iosArm64/releaseFramework/PartyDeckKit.framework/Headers/**
           retention-days: 14
           if-no-files-found: warn

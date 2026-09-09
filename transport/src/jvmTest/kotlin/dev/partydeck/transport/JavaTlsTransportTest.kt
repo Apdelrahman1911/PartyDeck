@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
+import java.net.ConnectException
 import java.net.InetSocketAddress
 import java.net.ServerSocket
 import java.net.Socket
@@ -51,11 +52,8 @@ class JavaTlsTransportTest {
                 server.state.first { it != ConnectionState.Connected }
                 assertEquals(ConnectionState.Closed, client.state.value)
                 host.close()
-                withContext(Dispatchers.IO) {
-                    assertFailsWith<SocketException> {
-                        Socket().use { it.connect(InetSocketAddress("127.0.0.1", host.info.endpoints.first().port), 1_000) }
-                    }
-                }
+                assertEquals(emptyList(), host.incomingConnections.toList(), "A closed host must finish its incoming stream")
+                awaitListenerRefusal(host.info.endpoints.first().port)
             } finally {
                 joining.close()
                 hosting.close()
@@ -232,6 +230,34 @@ class JavaTlsTransportTest {
     }
 
     private fun loopback(host: LanHost) = LanEndpoint("127.0.0.1", host.info.endpoints.first().port)
+
+    private suspend fun awaitListenerRefusal(port: Int): Unit = withTimeout(2_000) {
+        // OpenJDK21 NioSocketImpl.close() defers final descriptor closure until an active
+        // accept() reaches endAccept(). Closing the Java socket and retiring its kernel
+        // listener are therefore distinct observations; require actual refusal within a bound.
+        // https://github.com/openjdk/jdk21u/blob/master/src/java.base/share/classes/sun/nio/ch/NioSocketImpl.java
+        var refused = false
+        while (!refused) {
+            refused = withContext(Dispatchers.IO) {
+                Socket().use { probe ->
+                    probe.bind(InetSocketAddress("127.0.0.1", 0))
+                    if (probe.localPort == port) {
+                        // Never let the probe's ephemeral source equal its destination.
+                        false
+                    } else {
+                        try {
+                            probe.connect(InetSocketAddress("127.0.0.1", port), 250)
+                            false
+                        } catch (_: ConnectException) {
+                            true
+                        }
+                    }
+                }
+            }
+            if (!refused) delay(10)
+        }
+        // A connect timeout, arbitrary I/O error, or a listener surviving the bound fails.
+    }
 
     private suspend fun pinnedSocket(host: LanHost): SSLSocket = withContext(Dispatchers.IO) {
         (JavaTlsIdentity.clientContext(host.info.certificateSha256).socketFactory

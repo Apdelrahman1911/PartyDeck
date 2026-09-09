@@ -1,42 +1,59 @@
 # Release qualification
 
-Review date: **2026-09-09**. This is the acceptance plan and evidence ledger for
-PartyDeck's first release. A passing compile, a desktop screenshot, and a
-simulator launch are different forms of evidence; none establishes physical
-mobile multiplayer or store readiness by itself.
+Review date: **2026-09-09**. This records executed evidence and remaining
+acceptance work for PartyDeck's first release. Source inspection, JVM rendering,
+mobile runtime tests, physical-network tests, and distribution signing are
+recorded separately.
 
 ## Current decision
 
-**Not qualified for public distribution.** Implementation and independent
-verification are in progress. Replace pending entries with the exact commit,
-command or workflow run, artifact, device/OS, result, and remaining limitation.
-Do not mark an unexecuted check as passing.
+**Not yet qualified for public distribution.** Local Android/JVM validation and
+the final Android package audit passed at source commit
+**`c73a659221f94a5ba7eeafa38a4b7a0754a54265`**. The same commit passed native
+iOS TLS/UI tests and an optimized device build. Repeated Android CI found one
+transport-test failure, a preinstall emulator ANR, and a text-entry automation
+failure after several optimized-app flows passed. Follow-up execution and
+inspection of the iOS bundle remain open; its artifact upload failed.
+Physical-device multiplayer, accessibility/performance measurements, production
+signing, and store validation remain open.
 
 | Gate | Evidence required | Current evidence |
 | --- | --- | --- |
-| Common game/session correctness | Independent domain, serialization, authority, replay, projection, and reconnect tests | Domain/session review results recorded in [game-review.md](game-review.md); integrated app and native transport qualification pending |
-| Android application | Installable APK from the actual launcher; release AAB; lint; launch and critical navigation | Integrated debug APK metadata/signature/alignment/resources independently passed; final manifest/notices, release AAB, and accelerated app navigation pending |
-| iOS application | Actual SwiftUI/UIKit app links PartyDeckKit, builds for device and simulator, and launches in simulator | App wrapper and simulator/device CI scripts exist; final app build and simulator results pending |
-| LAN integration | Real transport tests and two-to-six-device mixed Android/iOS sessions | Pending; same-process simulation alone is insufficient |
-| Lifecycle | Client recovery, host loss, background/foreground, process termination, clean session teardown | Pending |
-| Accessibility and presentation | Independent visual review plus TalkBack/VoiceOver, large text, insets, and reduced motion | Pending |
-| Release privacy/security | Final dependency/data-flow audit, manifests, transport protection, no secret leakage | Pending; see [privacy.md](privacy.md) and security review |
+| Common game/session correctness | Domain, serialization, authority, replay, projection, and reconnect tests | 117 local tests passed; repeated CI ran 117 with one transport shutdown assertion failing. See [game-review.md](game-review.md) for independent behavioral review |
+| Android application | Actual launcher, optimized APK/AAB, lint, launch and critical navigation | Local build/lint and package audit passed; CI debug failed before install and optimized smoke failed after successful practice/host/settings subflows |
+| iOS application | Actual SwiftUI/UIKit app builds for device and simulator and executes XCTest | Shared-native gate, 3 native TLS tests, 2 UI tests, and optimized unsigned device build passed at `c73a659`; artifact upload failed, so bundle audit remains open |
+| LAN integration | Real transport tests and two-to-six-device mixed Android/iOS sessions | JVM socket/session integration and Java–Swift native TLS in both directions passed; physical Android/iOS LAN sessions pending |
+| Lifecycle | Client recovery, host loss, background/foreground, process termination, clean teardown | Controller/callback tests and Android emulator practice concealment on return passed; physical suspension/process-death checks pending |
+| Accessibility and presentation | Independent visual review, TalkBack/VoiceOver, large text, insets, reduced motion | Shared visual review passed: 7 gameplay, 10 shell and 4 Home tests. Android captures show no material product defect; soft keyboard, spoken traversal, and physical-device checks remain open |
+| Release privacy/security | Final data-flow/dependency audit, packaged manifests, transport protection | Source fixes, Android packages, and all 64 notice entries independently reviewed. iOS bundle/native-network audit pending; see [privacy.md](privacy.md), [security-review.md](security-review.md), and [dependency-licenses.md](dependency-licenses.md) |
 | Signing and distribution | Owner-controlled signing identities, signed packages, store validation and metadata | External credentials/store access required |
+
+The following **local** artifacts were frozen and independently inspected at
+that commit. CI rebuilds have their own hashes and runtime evidence.
+
+| Artifact | Bytes | SHA-256 |
+| --- | ---: | --- |
+| Debug APK, Android Debug identity | 22,819,660 | `9b9224ef89f711f78bcd3763e87a61f87078ab8306f90ce218e1845466d950f2` |
+| Optimized unsigned APK | 4,522,956 | `f3d619df91a5e7d384745533415c6e34693c05f4fe6be7467d4aaafa9da6c4e5` |
+| Optimized unsigned AAB | 7,655,558 | `fd74a9958b9aa295dc0237b0d7dcb4632b7f2b91cec1e92389c1ad4718e44618` |
+
+Frozen artifacts, command results, manifests, R8 reports, and inspection records
+are in `/tmp/partydeck-release-qa/final-c73a659/`. Temporary local evidence is
+not a public release or a store-delivered package.
 
 ## Verified platform baseline
 
 - The checked-in Android configuration selects application ID
   `dev.partydeck.app`, minimum SDK 26, compile SDK 37.1, and target SDK 36. The
   compile SDK was raised to satisfy the selected dependencies' AAR metadata;
-  the target SDK remains a separate runtime-policy choice. The merged
-  **release** manifest must be inspected again after integration.
+  the target SDK remains a separate runtime-policy choice.
 - Google Play requires new phone apps and updates to target **Android 16 / API
   36 or later from August 31, 2026**. This requirement was verified against the
   official page updated September 1, 2026. [1]
 - Apple's upload requirement since **April 28, 2026** is **Xcode 26 or later
   using the iOS 26 SDK or later**. This is the build-SDK floor, not a requirement
-  to exclude older supported iPhones. Record the selected Xcode and deployment
-  target separately. [2]
+  to exclude older supported iPhones. CI selects **Xcode 26.4.1 / iOS SDK 26.4**
+  on ARM64 `macos-26`; the app's deployment target is **iOS 15**. [2]
 - The selected toolchain, compatibility sources, and independent bootstrap
   results live in [research/toolchain.md](research/toolchain.md). Version pins
   are not evidence that every platform has built successfully.
@@ -53,86 +70,198 @@ Do not mark an unexecuted check as passing.
   entitlement requirements and must be reviewed if introduced. **The simulator
   does not support local-network privacy testing.** [4]
 
-## Independent evidence recorded so far
+## Executed evidence
 
-On 2026-09-09 the release reviewer captured the environment reviewer's rebuilt
-bootstrap APK before feature integration. It is **16,541,418 bytes**, SHA-256
-`c19f3756c8b75f18f56a7e7eda3f48179655fd7c41a8ee092fe5764cf9540b00`.
-This artifact contains only the toolchain smoke screen and is not the finished
-game application.
+### Local tests and shared presentation
 
-- `aapt2 dump badging` confirmed package `dev.partydeck.app`, the launchable
-  `dev.partydeck.app.MainActivity`, minimum SDK 26, target SDK 36, and the debug
-  flag. The application icon was absent in this bootstrap artifact; the final
-  app must include the delivered launcher artwork.
-- `apksigner verify --verbose --print-certs` passed APK Signature Scheme v2 and
-  identified **Android Debug** signing. This is development signing evidence.
-- `zipalign -c -P 16 4` passed. `readelf -lW` on both packaged 64-bit
-  `libandroidx.graphics.path.so` libraries showed every LOAD segment aligned to
-  `0x4000`. This does not validate a future artifact with changed dependencies.
-- Android Emulator **37.1.11.0 / build 15917651** and the official API 36 default
-  x86_64 image revision 2 were installed. The missing `libpulse.so.0` dependency
-  was resolved with Ubuntu's `libpulse0` package. The host has no `/dev/kvm`;
-  the 720×1280 small-phone AVD required about 18 minutes to boot with software
-  CPU emulation and suffered repeated Android system-process ANRs. After boot,
-  `adb install -r` succeeded and screenshots showed the bootstrap's
-  `PartyDeck · toolchain ready` text. However, `am start -W` reported
-  **`Status: timeout`**, and Settings/system ANR dialogs interrupted capture.
-  This is installation and limited rendering evidence, **not a clean launch,
-  navigation, or performance pass**. The reviewer stopped this emulator after
-  capture; accelerated Android CI is the next executable runtime gate.
-- The four delivered font binaries independently matched the SHA-256 hashes of
-  the pinned upstream files documented in [research/assets.md](research/assets.md).
-  All six original WAVs parsed as 44.1 kHz mono 16-bit PCM, measured 0.07–1.28 s,
-  had zero-valued endpoints and no clipped samples, and totaled 285,150 bytes.
-  Licensing inclusion in the finished app and mobile listening remain open.
+The coordinator's complete local `scripts/validate-android.sh` invocation
+passed at **`c73a659`**, including Android lint and all three package tasks.
+The release reviewer independently parsed the frozen **117** test reports:
+core 14, session 27, transport 18, games 7, Compose app 47, and Android QR
+decoder 4; zero failures, errors, or skips. The invocation reused Gradle's
+up-to-date results for unchanged suites and reran the complete Compose suite,
+including the new permission regression. It completed in 31 seconds.
 
-The bootstrap APK, installation/launch output, screenshots, and asset inspection
-records are retained locally under `/tmp/partydeck-release-qa/`. These temporary
-files are diagnostic evidence, not published release artifacts.
+The complete XML set, command log, and module totals were frozen in
+`/tmp/partydeck-c73a659-local-validation/`. The independent parse/hashes are in
+`/tmp/partydeck-release-qa/final-c73a659/independent-test-report-review.json`.
+This supersedes the earlier 116-test milestone and intervening focused runs.
 
-Source review confirmed that Android exposes Compose test tags as resource IDs
-for the UIAutomator smoke. The iOS inactive-scene cover now also hides the
-underlying Compose accessibility tree and disables interaction. Both are
-implementation findings; platform accessibility behavior remains a runtime gate.
-The iOS scanner uses AVFoundation QR metadata without a photo/video file output,
-and removes capture inputs, outputs, and its delegate on completion. Android's
-scanner closes every analyzed image and decodes locally. Permission, cancellation,
-rotation, and background behavior still require the packaged-app checks below.
+The independent [design review](design-review.md) closed the observed shared-UI
+findings. Its final gameplay set has 7 passing tests covering phone, 200% text,
+short landscape, tablet, spectator, concealment, actions, and result/history
+presentation. Shell and Home sets passed 10 and 4 tests respectively. The large
+license document reached its final text at **320 dp / 200%** in **222 bounded
+text sections**, with Done still reachable. These are executed Compose/JVM
+layout and semantics results; native spoken traversal and device rendering
+remain separate gates.
 
-### Integrated Android package inspection
+### Mobile CI
 
-The reviewer froze the local integration APK built at **16:12:27 UTC** on
-2026-09-09: **22,437,392 bytes**, SHA-256
-`7e849de280b5ea0f7c92400e3140b1b9ba98b3bc1d47c1a72f79815e86895b23`.
-This is a transitional build from active integration, identified by its artifact
-hash rather than attributed to a final source commit.
+[Run 34384326819](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34384326819)
+tests `c73a659`. Its first Android attempt failed during `apt-get update` with
+a Google Chrome repository **Hash Sum mismatch**, before Gradle or emulator
+work. The reviewer read the retained job log; no app/runtime result is inferred.
 
-- The actual launcher, version `1.0.0` / code `1`, minimum SDK 26, target SDK 36,
-  optional camera hardware, adaptive launcher icons, disabled backup, and
-  disabled cleartext traffic are present in the packaged manifest. The scanner
-  and resource/startup providers are not exported. The dependency-provided
-  ProfileInstaller receiver is exported behind `android.permission.DUMP`.
-- APK v2 signing verified as **Android Debug**. `zipalign -c -P 16 4` passed.
-  All **12** packaged native libraries, across arm64-v8a, armeabi-v7a, x86, and
-  x86_64, have `0x4000` LOAD-segment alignment. They comprise the AndroidX path
-  library and CameraX image/surface utilities. This is binary compatibility
-  inspection, not an executed 16 KB-device test.
-- All four font files and six WAV files exactly match the inspected source
-  assets. The font, QR, CameraX/libyuv notices are present. The final runtime
-  dependency notice set was still being assembled when this APK was built;
-  complete license inclusion must be rechecked after integration.
-- The merged manifest includes `ACCESS_NETWORK_STATE` from Media3 and an
-  automatic EmojiCompat initializer. Exact published EmojiCompat 1.4.0 source
-  confirms that initializer requests a system downloadable-font provider.
-  These dependency additions were reported to the Android owner for the final
-  permission/offline-behavior decision. The source manifest alone had not shown
-  them; final merged-manifest inspection remains required.
+**Android attempt 2 failed.** The reviewer independently parsed its uploaded
+XML: **117 tests, 1 failure, 0 errors, 0 skips**. The failure is
+`JavaTlsTransportTest.completePinProtectsOrderedMaximumSizeFramesAndPeerClosure`:
+after `host.close()`, line 55 expected a `SocketException` from raw TCP connect,
+but connect completed. The transport owner is investigating; the earlier local
+117-test pass remains valid historical evidence, not a green CI result.
 
-Package listings and the resource/native inspection record are retained as
-`integrated-debug-entries.txt` and `integrated-debug-content-review.json` in the
-reviewer's temporary evidence directory. This APK has not passed full app
-navigation or been designated a final release candidate.
+Both emulator variants exited **1**, on an accelerated API 36 AVD at
+1080 × 2400 / density 420:
+
+- **Debug:** a captured **System UI isn't responding** dialog failed readiness
+  before APK installation; no application steps executed.
+- **Optimized, disposable test signature:** cold launch passed with
+  **`Status: ok` / 2,752 ms**. Home/rules, settings persistence across process
+  restart, reveal/select/hide, background-return concealment and selection
+  clearing, one-card play/leave, real native hosting, invitation QR/Copy/Share
+  cancellation, teardown, and normal-size invalid-invitation editing passed.
+  The run reached 200% Home/rules/settings/invalid Join, then failed replacement
+  text entry. The actual editable field contained
+  `not-an-invitedited-invitationtion` instead of `edited-invitation`.
+
+The executed optimized APK SHA-256 is
+`2c4adc0151dbcc2330507d3761eebc4732a699037557a0db0a73ed8fc615efb9`;
+its CI unsigned input is
+`7324d29cca91e405c34f619acb57feaefbb293f6a67ba6b1ebf16672edbb459b`.
+The signing record explicitly says `distributionSigned: false`. These hashes
+differ from the separately audited local packages above.
+
+Independent image/tree review confirmed five revealed cards with one selected,
+zero private-card nodes while concealed or after returning from background,
+and four cards after the accepted play. The inspected captures contain no
+invitation URI. Design review found no material product defect in these images.
+No screenshot shows a soft keyboard, and the large-text final-rules capture
+shows only a clipped slice of the last step; neither is complete coverage of
+those conditions. The run did not reach large-text hand acceptance.
+
+The corrected text-entry helper was independently replayed against the actual
+failed XML with Select All ignored and the cursor at the start, middle, and end.
+It requires an empty focused EditText before typing and exact final editable
+text. This validates the helper correction; mobile execution remains required.
+The next wrapper separates empty-AVD preparation from app acceptance. Its
+single reboot is restricted to the observed System UI boot ANR with retained
+tree/log evidence, verified app absence, a changed kernel boot ID, and restored
+settings. Eleven independent injected boundary cases passed; installed-app
+failures, other errors, and a second preparation failure stop validation.
+Neither APK acceptance run is retried.
+Reports/captures are under `/tmp/partydeck-c73a659-android-report/`; independent
+test and capture reviews are in `/tmp/partydeck-release-qa/final-c73a659/`.
+
+**iOS attempt 1:** the reviewer independently read
+`/tmp/partydeck-c73a659-ios-job.log`:
+
+- The complete shared-native test/framework gate passed in **13m 22s**, with
+  all 92 tasks executed. Its expected 82-test count cannot yet be independently
+  confirmed because the XML artifacts were not uploaded; do not report that
+  expected count as a parsed result.
+- **Three native XCTest tests passed**, with zero failures: ordered pinned-TLS
+  frames and connection cleanup; wrong-pin rejection before a client connection
+  is announced; and **Java–Swift TLS in both host directions**, including exact
+  65,536-byte and 20,000-byte payloads and peer shutdown. These use the real
+  native driver and an external JVM peer on simulator/host loopback. They do
+  not establish physical Android/iPhone Wi-Fi behavior.
+- **Two UI XCTest tests passed**, with zero failures: Home→Practice rendering
+  and Settings→Home navigation. `TEST SUCCEEDED` is recorded at **18:09:20 UTC**.
+  These tests do not cover native hand actions, host/join UI, large text, or
+  background concealment. A test-only expansion is staged for the next run.
+- The optimized device invocation executed
+  `:composeApp:linkReleaseFrameworkIosArm64`, then built the actual
+  **Release-iphoneos/PartyDeck.app** with `CODE_SIGNING_ALLOWED=NO`.
+  `BUILD SUCCEEDED` is recorded at **18:38:30 UTC**. This is successful device
+  compile/link evidence, not installation or distribution signing.
+- The upload step then failed at **CreateArtifact / `ENOTFOUND`**. Independent
+  artifact-list queries returned no artifacts. Consequently screenshots,
+  XCTest bundles, packaged Info/privacy/resources, and link maps from this run
+  cannot yet be independently inspected. The overall failed job does not erase
+  the recorded test/build passes or supply the missing package audit.
+
+Earlier Android runs also encountered emulator ANRs, including accelerated
+[run 34378549932](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34378549932)
+and a local software emulator without KVM. Their partial launch/rendering
+evidence contributes no clean runtime pass. Earlier bootstrap/transitional
+artifact hashes are superseded for final qualification.
+
+### Android package and signing review
+
+The three final local artifacts listed above passed **12 independent tool
+checks** using Android Build Tools 36.0.0, `readelf`, `jarsigner`, and the
+hash-verified official bundletool 1.18.3:
+
+- Packaged manifests contain `dev.partydeck.app`, version **1.0.0 / 1**, SDK
+  **26 / 36**, optional camera hardware, disabled backup and cleartext traffic,
+  and the actual launcher. Optimized packages are not debuggable. Only Internet,
+  Camera, and AndroidX's app-owned signature permission remain. Startup metadata
+  contains lifecycle/profile initialization; the unused network-state permission
+  and EmojiCompat downloadable-font initializer are absent.
+- The scanner, camera metadata service, and resource/startup providers are not
+  exported. The launcher is the only unprotected exported component;
+  ProfileInstaller's receiver requires `android.permission.DUMP`. Adaptive
+  launcher resources, including the API 33 monochrome layer, are present in
+  debug and optimized APKs.
+- Debug APK Signature Scheme v2 verifies as **Android Debug**. The optimized
+  APK and AAB are **unsigned**; they contain no signing entries. Bundle validation
+  passes. Both APKs pass `zipalign -c -P 16 -v 4`, and the bundle declares
+  `PAGE_ALIGNMENT_16K` with uncompressed native-library support.
+- All **12 native libraries** across four ABIs are byte-identical between the
+  three packages. Every ELF LOAD segment has **`0x4000` alignment**. The libraries
+  are AndroidX path and CameraX image/surface utilities. This is binary inspection;
+  an executed 16 KB Android device/image remains a separate check.
+- All **75** inspected font/audio/license resources match source bytes in each
+  package: four fonts, six WAVs, and 65 license files, including the final complete
+  aggregate. No key-container files or named test-fixture classes were found in
+  the package-entry/DEX inspection.
+
+Lint reports **0 errors and 5 warnings**. Its Bouncy Castle trust-all warning is
+in the unused EST helper: final R8 usage lists the complete
+`JcaJceUtils`, `$1`, and `$2` classes as removed, and none appears in the mapping.
+The warning was not blanket-suppressed. The other warnings concern the deliberate
+target-SDK choice, an API 33 attribute, a redundant versioned icon folder, and the
+older icon fallback; the actual API 33 monochrome resource was independently
+verified in both APKs. Review records include `package-review.json`,
+`launcher-icon-review.json`, and `packaged-fixture-and-native-review.json`.
+
+The reviewer also executed `prepare-android-runtime-apk.sh` on a preceding
+optimized integration artifact.
+Its six acceptance/rejection cases passed: valid temporary signing, existing
+signature, production-signing environment, identical paths, symlinks, and hard
+links. Every original ZIP entry and the unsigned input hash were preserved.
+The helper creates a short-lived private key outside the artifact tree and
+deletes it on exit. Resulting APKs are explicitly **test signed, not distribution
+signed**. Exact hashes and checks are recorded in
+`/tmp/partydeck-release-qa/runtime-signing-review/independent-review.json`.
+
+### Assets and dependency notices
+
+The final aggregate is **258,067 bytes**, SHA-256
+`d5c47822bd82a0f2b775b1f8c76863a4e5d5de7fbe6ca1aa1ad2713794a32066`.
+The reviewer independently verified all **64 notice entries** against source
+hashes, resource bytes, complete aggregate text, and titles. The runtime set has
+56 entries; duplicate exact texts are retained where components require them.
+All **279 cached dependency artifacts** also matched the recorded binary
+inventory. Audit records are in `/tmp/partydeck-release-qa/`, including
+`all-notices-source-review-final.json` and `dependency-binary-hash-review.json`.
+
+The actual Xcode `Package.resolved` from run 34378549932 locks Swift Certificates
+**1.20.0**, Swift Crypto **4.5.2**, and Swift ASN.1 **1.7.2**. The license owner
+verified its commits and license/notice objects against the audit; see
+[dependency licenses](dependency-licenses.md). Final iOS linker coverage and
+iOS packaged notice inclusion remain required.
+
+All four font binaries independently matched their pinned upstream files.
+All six original WAVs passed format and signal checks: 44.1 kHz mono 16-bit PCM,
+0.07–1.28 seconds, zero-valued endpoints, no clipped samples, and 285,150 bytes
+combined. Android resource inclusion passed; actual mobile listening and iOS
+resource inclusion remain separate.
+
+Source review also verified local-only QR decoding, scanner cleanup, preference
+contents, interaction/background distinction, and the iOS inactive-scene cover's
+hidden accessibility tree. Runtime permission, native privacy, and teardown
+checks remain in the following acceptance scenarios.
 
 ## Runnable build and integration gates
 

@@ -34,6 +34,14 @@ These results exercise common Kotlin code on the JVM. Real TLS controller integr
 | Wrong-room or wrong-seat snapshots on an established link disconnected terminally without publishing an error/recovery. | The initial independent test reproduced a null issue after disconnection. Terminal `failLink` now reports the reason with recovery; both mismatch cases pass, preserve the last accepted private view, and stop retries. |
 | A failed asynchronous Leave from a discarded session could publish its error into a newly started session. | Cleanup reporting now checks the departing session generation. A regression starts practice before the old Leave fails and verifies that neither a late old private snapshot nor its error can overwrite the new session. |
 
+## Discovery and reconnect follow-up
+
+The bounded review of `ClientSessionRuntime.kt` and `ClientDiscoveryFlowTest.kt` accepted discovery cleanup, cancellation, endpoint selection, and deadlines. Direct connection can succeed independently of discovery startup. Fallback requires an exact service-name match and a transport availability, timeout, or I/O failure; authentication and permission failures do not switch endpoints. Every attempt retains the invitation's original full certificate pin and admission/resume identity. Discovery's five-second matching wait remains inside the eight-second attempt deadline and the ten-second initial or thirty-second resume batch. Serialized connection-loop lifetimes and noncancellable final cleanup prevent old browsing cleanup from interfering with a replacement loop. The native boundary requires prompt-return methods; adapter stop does not wait for native completion.
+
+One finding was fixed: permission denial during an admitted client's reconnect continued the automatic retry batch. The batch now ends immediately while retaining the seat credentials for explicit Retry after permission restoration. The new regression checks disconnected state, permission recovery, disabled actions, preserved session view, stopped browsing, no additional automatic attempts over sixty virtual seconds, and successful explicit resume with the original token and certificate pin. Public controller `setBackgrounded` controls transport suspension; `setForeground` controls interaction, privacy, and audio so an iOS permission alert does not cancel Join merely by making the app inactive.
+
+The controller owner executed the focused `ClientDiscoveryFlowTest` class under the shared Gradle lock. This reviewer independently inspected the production change, regression, and resulting XML: **8 tests, 0 failures, 0 errors, 0 skipped**, suite time 0.258 seconds. `git diff --check` passed. No Gradle run was launched by this reviewer for this follow-up. No finding remains open within this review scope; native and physical-device qualification remain separate evidence.
+
 ## Findings and required decisions
 
 | Priority | Finding | Required behavior / status |

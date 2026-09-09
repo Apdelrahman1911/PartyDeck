@@ -231,29 +231,67 @@ class AndroidSmoke:
         if not re.search(r"^\s*Status:\s*ok\s*$", output, re.MULTILINE):
             raise RuntimeError(f"Activity startup did not return Status: ok: {redacted(output)}")
 
-    def replace_text(self, tag, value, scroll="down"):
+    def replace_text(self, tag, value, scroll="down", ime_capture=None):
         if not re.fullmatch(r"[A-Za-z0-9_-]+", value):
             raise ValueError("UI smoke text fixtures must be simple shell-safe ASCII.")
         # The supporting error/hint can be tall at 200% text. Tap the editable
         # field's upper area, rather than the center of that decorated height.
         self.tap_node(self.wait_for_tag(tag, scroll=scroll), tag, height_fraction=0.25)
-        # Android 16 InputShellCommand supports keycombination; Ctrl+A replaces
-        # the actual editable field instead of relying on its initial length.
+        self.wait_until(f"Expected focused editable {tag}", lambda root: self.editable_field(root, tag, focused=True))
+        # A refocusing/recomposing field can miss Ctrl+A. Never assume that
+        # Delete cleared it: CI observed insertion into the previous text.
         self.adb("shell", "input", "keycombination", "KEYCODE_CTRL_LEFT", "KEYCODE_A")
         self.adb("shell", "input", "keyevent", "KEYCODE_DEL")
+        field = self.wait_until(f"Expected focused editable {tag} after clearing", lambda root: self.editable_field(root, tag, focused=True))
+        remaining = field.get("text", "")
+        if remaining:
+            if len(remaining) > 128:
+                raise RuntimeError(f"{tag} contains more text than the bounded CI replacement allows.")
+            # Clear both sides of the cursor. Unlike End, this also handles a
+            # wrapped field where an end key can mean only the current line.
+            self.adb("shell", "input", "keyevent",
+                     *(["KEYCODE_DEL"] * len(remaining)),
+                     *(["KEYCODE_FORWARD_DEL"] * len(remaining)), timeout=30)
+            self.record(f"Cleared remaining text in {tag} after Select all did not clear it")
+        self.wait_until(f"Expected empty focused editable {tag}", lambda root: (
+            self.editable_field(root, tag, focused=True) is not None and self.field_contains(root, tag, "")
+        ))
         self.adb("shell", "input", "text", value)
         self.wait_until(f"Expected edited {tag}", lambda root: self.field_contains(root, tag, value))
+        if ime_capture:
+            def visible_ime(root):
+                if self.editable_field(root, tag, focused=True) is None:
+                    return None
+                state = self.adb("shell", "dumpsys", "input_method", timeout=10)
+                self.write_text(f"{ime_capture}-input-method.log", state)
+                return state if all(re.search(rf"\b{name}=true\b", state) for name in (
+                    "mInputShown", "mIsInputViewShown", "mDecorViewVisible", "mWindowVisible",
+                )) else None
+
+            self.wait_until(f"Expected visible soft keyboard for {tag}", visible_ime, seconds=30)
+            self.capture(ime_capture, tag)
+            self.observations.setdefault("soft_ime_captures", []).append(ime_capture)
         # Some AVDs expose a hardware keyboard and never show the soft IME.
         # Back in that case would leave the form instead of dismissing input.
         ime_state = self.adb("shell", "dumpsys", "input_method")
         if re.search(r"\bmInputShown=true\b", ime_state):
             self.back()
 
-    def field_contains(self, root, tag, value):
+    def editable_field(self, root, tag, focused=None):
         node = self.find(root, tag, enabled=None)
-        return node is not None and any(child.get("text") == value for child in node.iter("node"))
+        if node is not None:
+            for child in node.iter("node"):
+                if (child.get("class") == "android.widget.EditText" and child.get("package") == PACKAGE
+                        and child.get("enabled") != "false" and self.visible(child)
+                        and (focused is None or (child.get("focused") == "true") == focused)):
+                    return child
+        return None
 
-    def setup(self, apk):
+    def field_contains(self, root, tag, value):
+        node = self.editable_field(root, tag)
+        return node is not None and node.get("text") == value
+
+    def prepare_device(self):
         self.stage = "emulator readiness"
         self.wait_for_boot()
         self.adb("shell", "input", "keyevent", "KEYCODE_WAKEUP")
@@ -261,6 +299,9 @@ class AndroidSmoke:
         for setting in ("window_animation_scale", "transition_animation_scale", "animator_duration_scale"):
             self.save_setting("global", setting, "0")
         self.save_setting("system", "font_scale", "1.0")
+        self.save_setting("secure", "show_ime_with_hard_keyboard", "1")
+        if self.adb("shell", "settings", "get", "secure", "show_ime_with_hard_keyboard").strip() != "1":
+            raise RuntimeError("Android did not enable the soft keyboard with its hardware keyboard attached.")
         size_output = self.adb("shell", "wm", "size")
         sizes = re.findall(r"(?:Physical|Override) size:\s*(\d+)x(\d+)", size_output)
         if not sizes:
@@ -285,6 +326,9 @@ class AndroidSmoke:
                 node.get("package") == home_package for node in root.iter("node")
             ), seconds=90)
         self.record("Verified responsive Android launcher before app installation")
+
+    def setup(self, apk):
+        self.prepare_device()
         self.stage = "install and launch"
         self.adb("install", "-r", str(apk), timeout=120)
         cleared = self.adb("shell", "pm", "clear", PACKAGE, timeout=30)
@@ -455,7 +499,7 @@ class AndroidSmoke:
     def invalid_join(self, prefix="join"):
         self.stage = f"{prefix} validation and recovery"
         self.tap("home-join", scroll="up")
-        self.replace_text("join-name", "CIPlayer")
+        self.replace_text("join-name", "CIPlayer", ime_capture=f"{prefix}-name-soft-ime")
         self.replace_text("join-invitation", "not-an-invitation")
         self.tap("join-submit", scroll="down")
         self.capture(f"{prefix}-invalid", "invalid-invitation", INVALID_INVITATION, scroll="up")
@@ -528,7 +572,7 @@ class AndroidSmoke:
         except TRANSIENT_ERRORS as error:
             self.write_text("ui-dump.error.log", str(error))
         if self.sensitive_surface:
-            self.write_text("final-screen-omitted.txt", "A live invitation or Sharesheet may be visible; screenshot omitted.\n")
+            self.write_text("final-screen-omitted.log", "A live invitation or Sharesheet may be visible; screenshot omitted.\n")
         else:
             try:
                 screenshot = self.adb("exec-out", "screencap", "-p", timeout=15, binary=True)

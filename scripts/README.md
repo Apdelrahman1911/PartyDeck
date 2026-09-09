@@ -12,8 +12,10 @@ required by the selected Compose/lifecycle artifacts.
 ./scripts/validate-android.sh
 ```
 
-On Linux without a display, install Xvfb and the graphics libraries listed in
-[the workflow](../.github/workflows/validate.yml), then run:
+On Ubuntu 24.04 without a display, `./scripts/setup-ubuntu-graphics.sh` verifies
+Xvfb and the required graphics libraries, installing missing packages from the
+configured Ubuntu sources. It skips APT network access when they are present.
+Then run:
 
 ```sh
 xvfb-run -a ./scripts/validate-android.sh
@@ -40,6 +42,14 @@ opening the app. Native screenshots, redacted XML/logcat, launch output and JSON
 results are retained under `build/ci/android/debug` and
 `build/ci/android/optimized-test-signed`, including failure diagnostics.
 
+Before installing either APK, `prepare-android-emulator.py` checks the empty AVD
+with the same strict launcher assertions. An observed first-boot System UI ANR
+may trigger one clean reboot, only after preserving its failing XML and full
+diagnostics and confirming PartyDeck is absent. The kernel boot ID must change,
+boot must finish, and launcher checks must pass again. Other preparation errors
+stop the run. Preparation evidence is retained under `build/ci/android/preparation`;
+each app variant runs once on the resulting boot and rejects every crash/ANR.
+
 `prepare-android-runtime-apk.sh` signs a **separate copy** of the unsigned optimized
 APK with a newly generated two-day CI test key. It rejects production signing
 variables and already signed input, verifies the APK signature and 16 KiB ZIP
@@ -60,7 +70,7 @@ fall back to slow software CPU emulation. The emulator uses an isolated AVD unde
 `build/ci/android/avd`, resets the test app's data, and is stopped on exit. The
 default serial is `emulator-5554`; choose another unused even port with
 `PARTYDECK_EMULATOR_PORT`. Boot has a 180-second deadline, UI states have
-45-second deadlines, ADB commands are bounded, and the CI step has a 20-minute
+45-second deadlines, ADB commands are bounded, and the CI step has a 30-minute
 limit. This is a single-device application smoke, not LAN interoperability proof.
 
 ## iOS on macOS or GitHub Actions
@@ -72,6 +82,7 @@ To run the same validation on a compatible Mac:
 export DEVELOPER_DIR=/Applications/Xcode_26.4.1.app/Contents/Developer
 ./scripts/validate-ios-shared.sh
 ./scripts/validate-ios-app.sh
+./scripts/validate-ios-device.sh
 ```
 
 The shared script runs the common suites on `iosSimulatorArm64` and links the
@@ -86,7 +97,7 @@ cannot make this step pass. Manifest, process logs and results are retained in
 `build/ci/ios/interop`. This checks native TLS interoperability over simulator
 loopback; physical-device LAN behavior remains a separate gate.
 
-After Debug XCTest passes, the script compiles the actual Swift/Kotlin app in
+After Debug XCTest passes, `validate-ios-device.sh` compiles the actual Swift/Kotlin app in
 **Release** for a generic iOS device with signing disabled. This covers optimized
 device-only scanner/bridge code and retains linker maps for symbol/license review.
 The build must report `:composeApp:linkReleaseFrameworkIosArm64`. Both Xcode test
@@ -100,6 +111,14 @@ are retained under `build/ci/ios` and uploaded by CI. Move or remove a prior
 executable permissions; it is a simulator artifact, not a device or App Store
 package. The separate Release device `.app` is unsigned. Neither artifact qualifies local-network privacy prompts or
 physical Android/iOS interoperability.
+
+CI uploads shared native test reports before app compilation, then simulator/XCTest
+evidence before starting the separate optimized device build. A long Release link
+therefore cannot hide completed test results. The iOS job has a 90-minute ceiling;
+simulator and device steps each have 40-minute limits, and the test supervisor's
+Xcode command has its own 30-minute deadline.
+Artifact uploads retry once after ten seconds for transient service failures;
+if both attempts fail, the workflow fails and the missing evidence stays explicit.
 
 Linux contributors can run the **Validate** workflow from GitHub Actions or
 `gh workflow run validate.yml`. A successful framework link alone does not count

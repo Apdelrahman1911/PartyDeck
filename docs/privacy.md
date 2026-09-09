@@ -1,10 +1,15 @@
 # PartyDeck privacy and local multiplayer
 
 Last reviewed: **2026-09-09**. This document records the inspected first-release
-implementation and the remaining audit needed for a published policy. Source
-review is complete for the native settings, invitation actions, and scanners;
-final packaged-app and network checks are in progress. This is not yet a store
-privacy declaration.
+implementation and the remaining audit needed for a published policy. Native
+settings, invitation actions, and scanners have been inspected in source. The
+Android packages at `c73a659` passed manifest/resource inspection. iOS native
+TLS/UI tests and an optimized device build passed, while its packaged inventory
+awaits a successful artifact upload. Android emulator subflows confirmed hand
+concealment and settings persistence within an overall failed smoke run.
+Physical-network checks remain open. Artifact hashes and executed evidence are
+recorded in [release qualification](release-qualification.md).
+This is not yet a store privacy declaration.
 
 ## Data needed to play
 
@@ -41,11 +46,16 @@ permission; denying it can prevent joining until access is enabled in Settings.
 Permission behavior must be verified on a real device. Android permissions
 depend on the shipped target SDK and actual transport. [1][2]
 
-The final transport and security review must establish exactly how host
-authentication, encryption, invitations, and reconnection work. **Do not claim
-encrypted transport, end-to-end encryption, or protection from other Wi-Fi users
-until the implemented protocol and packaged builds have been verified.** The
-host's authority over game secrets remains even with an encrypted connection.
+The inspected transport uses TLS and checks the complete SHA-256 host-certificate
+fingerprint carried in the invitation before sending admission or reconnect
+credentials. Public discovery does not establish a trusted host identity.
+Android/JVM socket and session tests have executed. Three native iOS TLS tests
+also passed, covering ordered frames/cleanup, wrong-pin rejection, and actual
+Java–Swift exchanges in both host directions on simulator/host loopback.
+Physical Android/iPhone LAN behavior remains unverified. See
+[security review](security-review.md) and [release qualification](release-qualification.md)
+for the checks and their limits.
+The host retains authority over game secrets even with an encrypted connection.
 
 Share invitations only with the people intended to join. Treat a reconnect
 capability as a credential: it must not be shown in public lobby text, included
@@ -72,11 +82,15 @@ retention are outside PartyDeck's session cleanup.
 
 ## Local storage and optional services
 
-The release design has no advertising, analytics, crash-reporting upload,
-account, payment, location, contacts, or microphone feature. These are
-design constraints that must be checked against the final dependency graph and
-runtime behavior. A future SDK or feature that transmits data requires this
-document and the store answers to be updated before release.
+The inspected release source has no advertising, analytics, crash-reporting
+upload, account, payment, location, contacts, or microphone feature. Final
+Android manifests contain only Internet, optional-scanner Camera, and an
+AndroidX signature permission. The automatic EmojiCompat downloadable-font
+initializer and unused network-state permission were removed; packaged startup
+metadata contains only lifecycle and profile initialization. This package
+inspection does not replace observing native network behavior. A future SDK or
+feature that transmits data requires this document and store answers to be
+updated before release.
 
 The inspected Android settings implementation stores the display name and the
 sound, haptic, and reduced-motion choices in app-private preferences. iOS uses
@@ -89,10 +103,15 @@ documentation explicitly includes persistent defaults databases in device
 backups. [7]
 
 Temporary backgrounding retains the app owner, while a client connection is
-closed and can reconnect with its in-memory seat capability on return. Host
-process death ends the room; the implementation does not restore a match or
-seat from disk. Runtime controller tests cover cleanup and stale connection
-events; actual phone suspension and process-death behavior remain release gates.
+closed and can reconnect with its in-memory seat capability on return. Permission
+dialogs that only interrupt interaction are tracked separately from actual OS
+backgrounding. Host process death ends the room; the implementation does not
+restore a match or seat from disk. Runtime controller tests cover cleanup, stale
+connection events, and permission interruption. In the optimized Android
+emulator run, returning from background concealed the practice hand, removed
+private-card accessibility nodes, and cleared selection. That run later failed
+an unrelated text-entry step; actual phone suspension, app-switcher images, and
+process-death behavior remain release gates.
 Saved preferences can be changed in the app or removed through the operating
 system's app-data deletion controls. On iOS, offloading an app is different from
 deleting its data. [8] Do not promise secure deletion of information held or recorded
