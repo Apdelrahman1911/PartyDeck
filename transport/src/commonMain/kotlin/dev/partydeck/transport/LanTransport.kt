@@ -57,7 +57,10 @@ data class LanEndpoint(
         require(host.length <= 253 && host.none { it.isWhitespace() || it.isISOControl() })
         require(host.isNotBlank() || !serviceName.isNullOrBlank())
         require(port in 1..65535)
-        require(serviceName == null || (serviceName.isNotBlank() && serviceName.encodeToByteArray().size <= 63))
+        require(serviceName == null || (
+            serviceName.isNotBlank() && serviceName.encodeToByteArray().size <= 63 &&
+                serviceName.none { it.isISOControl() }
+            ))
     }
 }
 

@@ -25,13 +25,13 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(project(":core"))
-            implementation(project(":session"))
+            api(project(":session"))
             api(project(":transport"))
             implementation(project(":games"))
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
             implementation(libs.compose.material3)
-            implementation(libs.compose.ui)
+            api(libs.compose.ui)
             implementation(libs.compose.resources)
             implementation(libs.coroutines.core)
             implementation(libs.lifecycle.runtime.compose)
@@ -46,6 +46,10 @@ kotlin {
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.coroutines.swing)
+        }
+        jvmTest.dependencies {
+            implementation(libs.compose.ui.test.junit4)
+            implementation(libs.zxing.core)
         }
     }
 }

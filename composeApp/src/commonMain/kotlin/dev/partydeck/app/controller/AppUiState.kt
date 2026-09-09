@@ -36,6 +36,7 @@ enum class PendingAction {
     CHALLENGE,
     NEXT_ROUND,
     RETURN_TO_LOBBY,
+    KICK_PLAYER,
 }
 
 enum class UiProblemCode {
@@ -43,6 +44,7 @@ enum class UiProblemCode {
     INVALID_INVITE,
     CONNECTION_FAILED,
     CONNECTION_LOST,
+    LOCAL_NETWORK_PERMISSION_DENIED,
     HOST_UNAVAILABLE,
     SESSION_ENDED,
     SESSION_FULL,
@@ -53,6 +55,7 @@ enum class UiProblemCode {
     SETTINGS_UNAVAILABLE,
     COPY_UNAVAILABLE,
     SHARING_UNAVAILABLE,
+    SCANNING_UNAVAILABLE,
     INTERNAL_ERROR,
 }
 
@@ -75,6 +78,11 @@ data class AppUiState(
     val joinAddress: String = "",
     val settings: AppSettings = AppSettings(),
     val systemReduceMotion: Boolean = false,
+    val isForeground: Boolean = true,
+    val isBackgrounded: Boolean = false,
+    val privacyEpoch: Long = 0,
+    val canScanInvitation: Boolean = false,
+    val isScanningInvitation: Boolean = false,
     val connection: ConnectionUiState = ConnectionUiState(),
     val session: SessionView? = null,
     val invitation: HostInvitation? = null,
@@ -90,7 +98,7 @@ data class AppUiState(
         get() = connection.mode == SessionMode.PRACTICE
 
     val canSendSessionAction: Boolean
-        get() = session != null &&
+        get() = isForeground && !isBackgrounded && session != null &&
             connection.status == ConnectionStatus.CONNECTED &&
             pendingAction == null
 }

@@ -4,7 +4,7 @@ Verified against the official sources below on **2026-09-09**. Android platform 
 
 ## Shipping baseline
 
-- **Approved:** `applicationId = dev.partydeck.app`, `compileSdk = 36`, `targetSdk = 36`, `minSdk = 26`. The minimum SDK is our product support decision, not a Compose requirement.
+- **Approved:** `applicationId = dev.partydeck.app`, compile SDK **37.1**, `targetSdk = 36`, `minSdk = 26`. The higher compile SDK satisfies the selected current AndroidX dependencies; the target SDK remains 36. The minimum SDK is our product support decision, not a Compose requirement.
 - Google Play has required new phone/tablet apps and updates to target **Android 16 / API 36 since August 31, 2026**. The current official page was updated September 1, 2026. API 35 is no longer sufficient for a new PartyDeck submission. [Target API requirements](https://developer.android.com/google/play/requirements/target-sdk)
 - Use a separate Android application module and the supported Android KMP library plugin in shared modules. Do not use a combined KMP + `com.android.application` module under modern AGP. [Android KMP plugin](https://developer.android.com/kotlin/multiplatform/plugin)
 - Keep release signing credentials external to the repository. Build a release AAB and inspect its merged manifest and packaged libraries before store submission. Store accounts, signing identity, listing/rating declarations, and real devices are external qualification steps.
@@ -47,6 +47,14 @@ PartyDeck's baseline does not scan Wi-Fi SSIDs, use Wi-Fi Direct, create a hotsp
 - Support both portrait and landscape and window resizing; do not lock orientation. Android 16's large-screen restriction changes have a documented game-category exception, so they must not be described as applying universally to games. Responsive PartyDeck layouts remain the product decision independent of that exception. Test narrow-height landscape and `sw600dp` layouts.
 - Apply `FLAG_KEEP_SCREEN_ON` only during an active table/game. Android automatically permits the display to sleep when such an Activity is backgrounded. No wake lock is needed. [Keep the screen on](https://developer.android.com/develop/background-work/background-tasks/awake/screen-on)
 
+### Private hands and inactive windows
+
+Before drawing the Activity, disable Recents screenshots on API 33+ with `setRecentsScreenshotEnabled(false)`. This API specifically excludes the Activity's screenshot from Recents while preserving normal user screenshots. On API 26–32, set `FLAG_SECURE` while a session exists, including on Activity recreation before the first frame. [Activity API](https://developer.android.com/reference/android/app/Activity#setRecentsScreenshotEnabled(boolean)), [Secure window guidance](https://developer.android.com/security/fraud-prevention/activities)
+
+An opaque native cover appears immediately on pause or loss of window focus while a session exists; it also hides the Compose accessibility subtree. Restore only when both resumed and focused. This is separate from the `onStop` networking/feedback foreground signal, and does not depend on asynchronous Compose recomposition finishing before a snapshot. The camera scanner also excludes its preview from Recents. Older manufacturer behavior still requires device qualification; the secure-window documentation notes limitations on older Android releases.
+
+Android's `ValueAnimator.areAnimatorsEnabled()` (API 26+) exposes the system animation setting and applicable system disabling, and feeds the controller's system-reduced-motion preference on resume. [ValueAnimator API](https://developer.android.com/reference/android/animation/ValueAnimator#areAnimatorsEnabled())
+
 ## Native service contract
 
 The shared controller owner freezes these public interfaces in `dev.partydeck.app.controller`; platform implementations use constructor injection rather than platform checks throughout common UI:
@@ -54,16 +62,18 @@ The shared controller owner freezes these public interfaces in `dev.partydeck.ap
 - `AppSettings(displayName, soundEnabled, hapticsEnabled, reduceMotion)`.
 - `SettingsStore`: suspending `load()` and `save(settings)`.
 - `Feedback`: `play(cue, settings)`, `setForeground(Boolean)`, and `close()`.
-- `PlatformServices`: `settingsStore`, `feedback`, `secureSeed(): Long`, and `secureToken(): String`.
+- `PlatformServices`: `settingsStore`, `feedback`, `gameRandom(): Random`, `secureToken(): String`, `copyText`, `shareText`, `showsCopyConfirmation`, `canScanInvitation`, and callback-based `scanInvitation`.
 - Cues: `CLICK`, `CARD_PLAY`, `CHALLENGE`, `ROUND_END`, `LIGHT_OUT`, `WIN`.
 
-`secureSeed` uses a platform CSPRNG for authoritative game seeding. `secureToken` must use **32 directly generated CSPRNG bytes encoded as 64 lowercase hexadecimal characters**; deriving reconnection credentials from a seeded game RNG would expose them if the game RNG state were recovered. Android uses `java.security.SecureRandom`.
+Every production `gameRandom()` output comes directly from Android's `java.security.SecureRandom` through the standard `asKotlinRandom()` adapter. A seeded deterministic generator is not appropriate for secret authoritative outcomes, even when its initial seed is secure. `secureToken` uses **32 directly generated CSPRNG bytes encoded as 64 lowercase hexadecimal characters**, separate from game randomness. [SecureRandom](https://developer.android.com/reference/java/security/SecureRandom), [Kotlin adapter](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.random/as-kotlin-random.html)
 
 ### Settings
 
 Android recommends DataStore for asynchronous, consistent, transactional persistence; its official KMP documentation currently lists Preferences DataStore 1.2.1. [DataStore KMP](https://developer.android.com/kotlin/multiplatform/datastore)
 
 For four small settings the coordinator explicitly selected dependency-free native `SharedPreferences`, isolated behind `SettingsStore`. Perform load and checked `Editor.commit()` on `Dispatchers.IO`; surface failed writes instead of pretending they succeeded. Serialize full-setting writes in the controller/store so rapid toggles cannot persist stale snapshots. Do not persist hidden cards or reconnect credentials in settings.
+
+`Editor.commit()` returns whether the preferences were successfully written to persistent storage; it is synchronous, which is why this implementation uses the IO dispatcher. [Editor API](https://developer.android.com/reference/android/content/SharedPreferences.Editor#commit())
 
 Make backup policy explicit. `allowBackup=false` alone does not disable every manufacturer's device-to-device transfer on Android 12+; use `dataExtractionRules` when exclusion is required. [Android backup](https://developer.android.com/identity/data/autobackup)
 
@@ -87,6 +97,22 @@ Load shared files with suspending `Res.readBytes("files/audio/...")` on IO and w
 Use `View.performHapticFeedback` with action-oriented `HapticFeedbackConstants`. This respects system haptic preferences and does not need `VIBRATE`. `CONFIRM` / `REJECT` require API 30; use older action constants on API 26–29. Do not use flags that override system settings. [Haptic feedback guide](https://developer.android.com/develop/ui/views/haptics/haptic-feedback), [Haptic constants reference](https://developer.android.com/reference/android/view/HapticFeedbackConstants)
 
 Sound and haptic settings are independent. Reduced motion is consumed in common UI. A background or closed feedback service must ignore new cues. If audio focus is requested, respect focus loss and abandon the same request when finished; target 35+ can request focus only while topmost or running an appropriate foreground service. PartyDeck must not introduce a foreground service to play short effects. [Audio focus](https://developer.android.com/media/optimize/audio-focus)
+
+The implementation requests transient focus with ducking only for ready-to-play clips, stops on focus loss, and abandons focus after the generated clip duration plus a short decoder tail. It tracks at most four stream IDs and does not grow a list of historical playback handles. Exact clip durations are in `assets/audio_manifest.json`.
+
+### Invitations: copy, share, and offline scan
+
+Copy and share happen only after explicit user actions. Mark clipboard invitations sensitive using `ClipDescription.EXTRA_IS_SENSITIVE` before `setPrimaryClip`; the shared controller shows a copied confirmation only below API 33 because newer Android already displays one (`showsCopyConfirmation`). Launch the standard Sharesheet with `ACTION_SEND`, MIME type `text/plain`, and `Intent.createChooser`. Keep the attached Activity weak and detach it by identity so a rotating window cannot leak. [Clipboard guidance](https://developer.android.com/develop/ui/views/touch-and-input/copy-paste), [Android Sharesheet](https://developer.android.com/training/sharing/send)
+
+The approved offline scanner is **CameraX 1.6.2** (`camera-camera2`, `camera-lifecycle`, `camera-view`) plus **ZXing core 3.5.4**, scoped to QR decoding. CameraX's current release table identifies 1.6.2 as stable; its code example also lists a newer alpha, which we deliberately do not copy. ZXing's official 3.5.4 release is dated November 11, 2025. Its README describes maintenance mode with fixes and minor enhancements; that is an accepted tradeoff for this mature, bounded decoder. We do not embed the unsupported old ZXing Barcode Scanner app. [CameraX releases](https://developer.android.com/jetpack/androidx/releases/camera), [ZXing release](https://github.com/zxing/zxing/releases/tag/zxing-3.5.4), [ZXing status](https://github.com/zxing/zxing)
+
+Alternatives researched: Google Code Scanner requires an unbundled module downloaded before use. ML Kit's bundled barcode library 17.3.0 makes its model immediately available but adds approximately 2.4 MB and its SDK/privacy integration. The approved ZXing decoder needs neither a model download nor cloud processing. [Google Code Scanner](https://developers.google.com/ml-kit/vision/barcode-scanning/code-scanner), [ML Kit barcode integration](https://developers.google.com/ml-kit/vision/barcode-scanning/android)
+
+The separate scanner Activity requests `CAMERA` only after Scan is chosen. Camera hardware is optional in the manifest, preserving manual invitation entry on devices without cameras. Denial provides an explanation and retry/settings action; cancel returns to Join. Bind CameraX to the Activity lifecycle, use keep-only-latest analysis backpressure and a single worker, throttle decoder work, honor Y-plane row and pixel strides, and close every `ImageProxy` in `finally`. Clear the copied luminance buffer after each attempt, clear the analyzer/unbind camera/shut down its worker on destruction, and never save images or log QR contents. [CameraX analysis](https://developer.android.com/media/camera/camerax/analyze), [Preview](https://developer.android.com/media/camera/camerax/preview), [Activity result API](https://developer.android.com/training/basics/intents/result)
+
+Only a successfully parsed `LanInvitation` of at most 2,048 characters is returned. Scanning fills the Join field; it does not automatically connect. Pure decoder tests cover exact invitation recovery through padded/interleaved camera memory, quarter-turn orientation, invalid/oversized QR payloads, and truncated-plane rejection. A cross-encoder fixture from the shared QR renderer and physical scanning remain additional integration checks.
+
+The assets owner bundles ZXing's Apache 2.0 license and NOTICE, AndroidX's Apache 2.0 license, and CameraX's additional published libyuv notices. Dependency provenance is recorded in `assets/software_notice_sources.json`.
 
 ## Packaging and qualification
 

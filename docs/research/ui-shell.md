@@ -81,6 +81,25 @@ Distinguish a dropped connection from confirmed session termination: a socket ti
 
 The transport freeze uses native TLS and a full pinned host certificate fingerprint carried out of band. `HostInvitation(joinAddress, displayAddress)` contains an opaque join string and a short display endpoint. The invitation also carries an admission secret; it is not a short numeric code. A compact address plus working Copy/Share is necessary. A full QR display-and-scan flow is preferred if implemented; do not show a decorative or nonfunctional QR placeholder. Copy on the host alone requires another channel to transfer the string to a guest, so native sharing/QR is an explicit product-integration concern raised with the coordinator. Advertised nearby discovery must wait for functioning discovery, and permission failures must be inferred only from concrete native evidence.
 
+Coordinator approved native Share/Copy and requested QR implementation if clean and offline. The controller adds `copyInvitation()` / `shareInvitation()` backed by platform `copyText()` / `shareText()`; bounded failures stay in `UiProblem`, and successful copy uses `UiNoticeCode.INVITATION_COPIED`. Native camera scanning returns the exact invitation into the Join form; it never silently joins a different table.
+
+### QR dependency verification
+
+Recommended dependency: `io.github.alexzhirkevich:qrose:1.2.0`. [Official repository](https://github.com/alexzhirkevich/qrose) is unarchived and currently maintained; [Maven metadata](https://repo.maven.apache.org/maven2/io/github/alexzhirkevich/qrose/maven-metadata.xml) identifies stable 1.2.0, published 2026-09-07. Tag `1.2.0` resolves to commit `d286c1b5a1739488a7b22340cf1eb6ff124a2725`. [Published POM](https://repo.maven.apache.org/maven2/io/github/alexzhirkevich/qrose/1.2.0/qrose-1.2.0.pom) uses Kotlin 2.4.0, Compose UI 1.12.0, and its `qrose-core` 1.2.0 module. [MIT license](https://github.com/alexzhirkevich/qrose/blob/1.2.0/LICENSE), copyright 2023 Alexander Zhirkevich, requires the notice to remain with distributions; assets owner has been notified.
+
+The [tagged API source](https://github.com/alexzhirkevich/qrose/blob/1.2.0/qrose/src/commonMain/kotlin/io/github/alexzhirkevich/qrose/QrCodePainter.kt) verifies:
+
+```kotlin
+import io.github.alexzhirkevich.qrose.rememberQrCodePainter
+import io.github.alexzhirkevich.qrose.options.QrOptions
+import io.github.alexzhirkevich.qrose.options.QrErrorCorrectionLevel
+
+val options = remember { QrOptions(errorCorrectionLevel = QrErrorCorrectionLevel.Medium) }
+val painter = rememberQrCodePainter(data = invitation.joinAddress, options = options)
+```
+
+Use an unaltered black square pattern on white, with an explicit quiet zone. The source defaults to `scale = 1f`, so a quiet margin is not automatically supplied. [DENSO WAVE's official guidance](https://www.qrcode.com/en/howto/code.html) requires at least four modules of clear margin on every side. Do not embed logos, round modules, invert colors, animate the code, or include surrounding text inside that margin. Render a large QR in an accessible, scrollable invitation sheet/dialog rather than squeezing it into the six-seat lobby. Keep Share/Copy available as alternatives. QR creation is remembered for the invitation, not repeated each frame. Validate the actual rendered invite with a decoder and native cameras; a plausible-looking square is not evidence of successful scanning. A QR painter's `toString()` includes data in the tagged source, so never log the painter or invitation.
+
 ### Settings / How to play
 
 Settings contains only functional preferences: sound/haptics when implemented, reduced motion, and privacy/credits/license information supported by the app. Entire setting rows are accessible toggles with the switch itself treated as part of the row, avoiding duplicate focus/actions. User preference persistence belongs to the app controller/platform store.

@@ -122,10 +122,70 @@ Source: [Gradle distribution checksum][15]. Pin this in the wrapper properties.
 - Nonblocking output: a dependency's `libandroidx.graphics.path.so` was packaged
   without symbol stripping, and plugins emitted Gradle 10 deprecation notices.
   Gradle is pinned to 9.7.0; neither warning prevented the smoke build.
-- iOS compilation and simulator execution require the macOS workflow. Physical
+- iOS application compilation and simulator execution require the macOS workflow. Physical
   device behavior, signing, and distribution must be qualified separately from
   a successful unsigned simulator build. The release reviewer owns Android
   emulator launch validation, keeping that separate from this build gate.
+
+## Independent CI and Apple toolchain checkpoint
+
+The reviewer independently resolved all five action tags to the full commits
+recorded in `docs/research/engine-ci.md` and inspected each pinned `action.yml`.
+Checkout 7.0.1, setup-java 6.0.1, upload-artifact 7.0.1, Gradle actions 6.3.0,
+and setup-android 4.0.1 all use Node 24. Shell/Python syntax checks passed;
+the workflow uses read-only repository permissions, explicit Xcode selection,
+the checked-in wrapper, and failure-preserving Xcode log piping.
+
+Kotlin 2.4.20's published plugin sources revealed that the default native-test
+device selector scans all available runtime groups and retains a device from
+the last group for each platform. It is not tied to the selected SDK. The CI
+owner corrected this by passing the SDK-matching simulator UDID through the
+verified `KotlinNativeSimulatorTest` `--device` option for each native test task.
+The selection script was independently checked with SDK 26.4 / runtime 26.4.1
+fixtures and an additional booted 26.5 device; it selects 26.4.1 and fails
+explicitly if that matching runtime is unavailable. These fixture checks were
+script validation; the actual native execution evidence follows. [23]
+
+**Native core/session gate passed:**
+[Apple toolchain smoke run 34370981268][24], commit
+`7c476586983bed92688c2715dd7ed1c6fedb20f4`, completed 2026-09-09 at 15:37:32 UTC.
+The reviewer downloaded and inspected the run log, simulator JSON, and JUnit XML
+reports, rather than relying only on the workflow conclusion.
+
+| Execution evidence | Observed result |
+| --- | --- |
+| Runner / host | Actions runner 2.337.0; macOS 26.6.2, aarch64 |
+| JDK | Temurin 21.0.12.1+1 LTS |
+| Xcode / SDK | Xcode 26.4.1, build 17E202; iOS SDK 26.4 |
+| Simulator | iPhone 17; iOS runtime 26.4.1, build 23E254a |
+| Native compilation | Core and session `compileKotlinIosSimulatorArm64` and `linkDebugTestIosSimulatorArm64` executed |
+| Core native tests | **14 passed**, 0 failed, 0 errors, 0 skipped |
+| Session native tests | **21 passed**, 0 failed, 0 errors, 0 skipped |
+| Gradle result | **28 tasks executed**, success in 2m 46s |
+
+This manual job excludes transport implementation, the Compose framework, and
+the Swift application/UI tests. Their full native qualification remains open.
+The executed job confirms that the selected action pins, Android SDK setup for
+KMP configuration, Kotlin/Native compiler, and Apple simulator work together.
+
+The log identifies three nonblocking warnings: intentionally disabled Android
+host tests; `val javaMain by creating` deprecations in the transport build script
+(the indicated replacement is `val javaMain = create("javaMain")`); and a native
+compiler warning that its four threads exceed the runner's three processors.
+None prevented compilation or tests. Android host tests should be enabled when
+meaningful Android-specific host tests are added, rather than hiding the warning.
+
+Static iOS review confirmed that `:transport` is both an `api` dependency and an
+explicit framework export, sufficient for the callback driver/observer facade.
+The Swift-used app-handle/native-action types live in `composeApp` itself; no
+transitive export of rules/session/coroutines is required by that facade.
+JetBrains explicitly discourages unnecessary `transitiveExport` because it
+expands the framework API, code retention, and compilation work. [25]
+
+New Android scanner dependencies were also checked directly: CameraX
+`camera-camera2`, `camera-lifecycle`, and `camera-view` **1.6.2** each declare
+minimum SDK **23**, minimum compile SDK **36**, and minimum AGP **8.9.1** in their
+published AARs. These fit PartyDeck's minimum 26 / compile 37.1 / AGP 9.3.1.
 
 ## Authoritative sources
 
@@ -151,3 +211,6 @@ Source: [Gradle distribution checksum][15]. Pin this in the wrapper properties.
 [20]: https://developer.android.com/reference/tools/gradle-api/9.3/com/android/build/api/dsl/KotlinMultiplatformAndroidLibraryExtension
 [21]: https://services.gradle.org/distributions/gradle-9.7.0-wrapper.jar.sha256
 [22]: https://developer.android.com/reference/tools/gradle-api/9.3/com/android/build/api/dsl/ResourcesPackaging
+[23]: https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-gradle-plugin/2.4.20/kotlin-gradle-plugin-2.4.20-sources.jar
+[24]: https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34370981268
+[25]: https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#export-dependencies-to-binaries

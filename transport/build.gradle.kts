@@ -15,9 +15,12 @@ kotlin {
             api(libs.coroutines.core)
             implementation(libs.serialization.json)
         }
-        val javaMain by creating {
+        val javaMain = create("javaMain") {
             dependsOn(commonMain.get())
-            dependencies { implementation("org.bouncycastle:bcpkix-jdk18on:1.85") }
+            dependencies {
+                implementation("org.bouncycastle:bcpkix-jdk18on:1.85")
+                implementation("org.bouncycastle:bcprov-jdk18on:1.85.2")
+            }
         }
         androidMain { dependsOn(javaMain) }
         jvmMain { dependsOn(javaMain) }

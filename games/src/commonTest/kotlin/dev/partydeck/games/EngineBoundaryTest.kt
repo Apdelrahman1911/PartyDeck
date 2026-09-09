@@ -23,6 +23,7 @@ class EngineBoundaryTest {
 
     @Test
     fun wrongPresentationAndProtocolCannotAdvanceTheEventStream() {
+        assertFailsWith<IllegalArgumentException> { launch.copy(protocolVersion = 2) }
         val gate = EngineEventGate(launch)
         assertRejected(EngineEventRejection.WRONG_PRESENTATION, gate.accept(event(0).copy(presentationId = "old")))
         assertRejected(EngineEventRejection.UNSUPPORTED_PROTOCOL, gate.accept(event(0).copy(protocolVersion = 2)))

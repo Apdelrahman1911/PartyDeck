@@ -7,6 +7,8 @@ Research and frozen contract, 2026-09-09. Owner: session/protocol implementation
 - [Kotlin serialization documentation](https://kotlinlang.org/docs/serialization.html): serialization is available in common Kotlin through the compiler plugin and runtime libraries. Use the project's selected stable compiler/plugin version together.
 - [kotlinx.serialization 1.11.0 release](https://github.com/Kotlin/kotlinx.serialization/releases/tag/v1.11.0): the stable release is based on Kotlin 2.3.20. The coordinator owns the final dependency matrix. The GitHub `releases/latest` endpoint returned `v1.12.0-RC` with `prerelease=false`; do not treat that metadata as proof of stability.
 - [Stable sealed-polymorphism guide](https://github.com/Kotlin/kotlinx.serialization/blob/v1.11.0/docs/polymorphism.md), [stable JSON guide](https://github.com/Kotlin/kotlinx.serialization/blob/v1.11.0/docs/json.md), and [stable configuration source](https://github.com/Kotlin/kotlinx.serialization/blob/v1.11.0/formats/json/commonMain/src/kotlinx/serialization/json/JsonConfiguration.kt): sealed messages can have explicit `@SerialName` values; the JSON discriminator, strict parsing, unknown-key policy, and encoding defaults are configurable. Stable 1.11.0 does not expose the newer `maxNestingDepth` setting shown by current online RC API documentation.
+- [RFC 8259](https://www.rfc-editor.org/rfc/rfc8259): JSON object names should be unique; duplicate handling differs between parsers. Implementations may bound text size, nesting, numbers, and strings. The protocol requires unique decoded keys, valid Unicode, and the strict JSON grammar.
+- [Kotlin UTF-8 decoding](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/decode-to-string.html) and [serialization `Required` annotation source](https://github.com/Kotlin/kotlinx.serialization/blob/v1.11.0/core/commonMain/src/kotlinx/serialization/Annotations.kt): invalid input sequences can throw instead of being replaced, and a defaulted field can still be required on receipt. These enforce wire encoding and explicit version presence.
 - [OWASP session management guidance](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Session_Management_Cheat_Sheet.md): custom session credentials should use a CSPRNG with at least 128 bits of entropy; encrypted transport protects credentials in transit. This supports opaque, host-generated reconnect credentials. Cookie/browser-specific advice is not being applied to this native protocol.
 
 ## Ownership and boundaries
@@ -15,7 +17,7 @@ Research and frozen contract, 2026-09-09. Owner: session/protocol implementation
 
 The transport establishes an encrypted channel with strict host certificate pinning, assigns its connection identifier, bounds inbound frames, and closes revoked connections. It does not authenticate an individual client with a client certificate. Session admission and resume credentials establish player identity. The controller serializes all authority calls and adapts deliveries to transport and visible state. The domain owns all card/rule/penalty decisions and host randomness. Authority state is never serialized for clients.
 
-Proposed shape:
+Implemented shape:
 
 ```kotlin
 data class SessionPeer(val connectionId: String)
@@ -33,13 +35,13 @@ data class SessionDispatch(
 )
 ```
 
-The factory creates the host seat and its first welcome/snapshot. Host-only authority checks compare immutable seat identity, independently of whether the host's game seat has been eliminated. All joins, resumes, revocations, commands, presence changes, and game applications run through the same serial ownership gate.
+The constructor creates the host seat; `initialDispatch()` returns its idempotent first welcome/snapshot. Host-only authority checks compare immutable seat identity, independently of whether the host's game seat has been eliminated. All joins, resumes, revocations, commands, presence changes, and game applications run through the same serial ownership gate.
 
 ## Wire format and admission
 
 Use bounded UTF-8 JSON with an explicit protocol version (`1`), session identifier, stable discriminator names, and a sealed set of messages. Require the version on received messages and reject unsupported versions. Reject unknown message types/fields, duplicate decoded object keys (including escaped aliases), malformed JSON, invalid UTF-8, oversized payloads, and excessive structural nesting before deserialization. Return a fixed, non-sensitive error code; do not log raw input or parser exceptions that may contain cards or credentials.
 
-The exact frame limit is shared with transport; the proposed ceiling is 64 KiB, far above a six-player turn snapshot. The codec independently enforces it. A small bounded preflight for JSON nesting avoids relying on a release-candidate-only serialization setting.
+The shared frame limit is 64 KiB, far above a six-player turn snapshot. The codec independently enforces it, together with at most 16 nesting levels, 32 members per object, 64 array items, 64-character decoded keys, and 1,024 source characters per JSON string. Typed fields impose tighter limits (64-character IDs, at most 32 submitted card IDs before rule validation, six roster entries, five private cards, and three revealed cards). The bounded preflight avoids relying on a release-candidate-only serialization setting.
 
 Client messages:
 
@@ -70,7 +72,7 @@ Tokens are invalidated when a player leaves or is kicked, or the host ends the s
 
 Each accepted state change increments one global session revision. Joining, leaving, readiness, starting, game actions, round progression, presence changes, and connection replacement are state changes. Rejected actions and exact no-ops do not advance it. Revisions are never reset when returning to the lobby.
 
-For an admitted seat, the authority maintains its highest processed command ID and a bounded insertion-ordered cache of recent command envelopes and receipts (proposed 64 entries per seat):
+For an admitted seat, the authority maintains its highest processed command ID and a bounded insertion-ordered cache of recent command envelopes and receipts (64 entries per seat by default; the configuration is limited to 1–256):
 
 1. A cached exact duplicate returns the original receipt and a fresh current snapshot; it never reapplies the game action or consumes randomness.
 2. A cached command ID with different contents is rejected as an ID conflict.
@@ -110,4 +112,10 @@ Host loss ends the client session with a recoverable UI route back to the main m
 - Disconnect/reconnect revisions are monotonic, active-seat interruption is explicit, and host loss ends the session.
 - Versioned round trips and rejection of malformed, unknown, oversized, deeply nested, and invalid UTF-8 input.
 
-Implementation waits only for the coordinator's environment smoke test and API/module freeze; no independent product approval is needed for these documented defaults.
+## Implementation and validation
+
+The bootstrap gate passed before full implementation. `HostAuthority`, `SessionCodec`, protocol DTOs, validation, and focused behavior tests are implemented in `:session`. `SessionCodec.decodeClient` / `decodeServer` return `WireDecodeResult.Success(value)` or `Failure(error)`, never raw parser text. The controller owns serialization of authority calls and acceptance of snapshot session IDs/revisions; native transport owns encrypted delivery and connection lifetime.
+
+Linux validation passed `:session:compileKotlinJvm` and `:session:jvmTest`. The independent game reviewer reran the entire session suite: 27 tests, zero failures/errors. Owned tests exercise lobby/host gates, bounded admission and Unicode names, an entire match through winner and rematch, explicit leave/kick/host-loss invalidation, recipient-only serialized cards, mutable input detachment, stable wire round trips, version/schema handling, malformed JSON, and selection limits. The security reviewer's 11 adversarial tests cover replay eviction, credential abuse, stale connection revocation, escaped duplicate keys, nesting, encoding, and private-card leakage. The game reviewer's six integration tests additionally run 20 complete matches across two to six peers, historical receipts with current views, monotonic resume counters, host continuation after elimination, disconnected eliminated/empty-handed players, and leave/rematch readiness and replay state.
+
+These common/JVM results do not assert device LAN or native TLS behavior. Android/iOS packaging and cross-device networking verification belong to their integration streams. No host migration, process-death match restoration, or background match persistence is claimed.

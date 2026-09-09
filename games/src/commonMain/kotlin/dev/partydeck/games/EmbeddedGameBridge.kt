@@ -31,7 +31,7 @@ data class EngineLaunch(
     init {
         require(presentationId.isNotBlank() && presentationId.length <= 128) { "Invalid presentation identifier." }
         require(initialRevision >= 0) { "A view revision cannot be negative." }
-        require(protocolVersion > 0) { "An engine bridge version must be positive." }
+        require(protocolVersion == ENGINE_BRIDGE_PROTOCOL_VERSION) { "Unsupported engine bridge protocol." }
     }
 }
 
@@ -123,7 +123,7 @@ class EmbeddedGameRegistry(factories: List<EmbeddedGameFactory>) {
         presentation as GamePresentation.Embedded
         val factory = byId[presentation.engineId]
             ?: return EngineResolution.Unavailable(EngineUnavailableReason.NOT_INSTALLED)
-        if (factory.protocolVersion != presentation.protocolVersion) {
+        if (presentation.protocolVersion != ENGINE_BRIDGE_PROTOCOL_VERSION || factory.protocolVersion != presentation.protocolVersion) {
             return EngineResolution.Unavailable(EngineUnavailableReason.UNSUPPORTED_PROTOCOL)
         }
         if (game.id !in factory.supportedGames) {

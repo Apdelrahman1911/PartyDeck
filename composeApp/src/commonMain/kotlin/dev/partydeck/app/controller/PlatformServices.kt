@@ -34,12 +34,17 @@ interface Feedback {
 interface PlatformServices {
     val settingsStore: SettingsStore
     val feedback: Feedback
+    val canScanInvitation: Boolean
+    val showsCopyConfirmation: Boolean get() = false
 
     /** Called only for an explicit user copy action. Implementations should mark secrets sensitive. */
     fun copyText(value: String)
 
     /** Opens the native sharing flow for an explicit user action. */
     fun shareText(value: String)
+
+    /** Null is cancellation or permission denial. Scanning never joins a session by itself. */
+    fun scanInvitation(onResult: (String?) -> Unit)
 
     /** Every output must come from the platform CSPRNG, not a seeded deterministic generator. */
     fun gameRandom(): Random

@@ -14,9 +14,9 @@ Do not mark an unexecuted check as passing.
 
 | Gate | Evidence required | Current evidence |
 | --- | --- | --- |
-| Common game/session correctness | Independent domain, serialization, authority, replay, projection, and reconnect tests | Pending implementation milestone |
-| Android application | Installable APK from the actual launcher; release AAB; lint; launch and critical navigation | Initial source scaffolding inspected; build and launch pending |
-| iOS application | Actual SwiftUI/UIKit app links PartyDeckKit, builds for device and simulator, and launches in simulator | macOS workflow and app wrapper pending |
+| Common game/session correctness | Independent domain, serialization, authority, replay, projection, and reconnect tests | Domain/session review results recorded in [game-review.md](game-review.md); integrated app and native transport qualification pending |
+| Android application | Installable APK from the actual launcher; release AAB; lint; launch and critical navigation | Bootstrap APK metadata/signature/alignment and installation passed; bootstrap rendered under an unstable software emulator; final app checks pending |
+| iOS application | Actual SwiftUI/UIKit app links PartyDeckKit, builds for device and simulator, and launches in simulator | App wrapper and simulator/device CI scripts exist; final app build and simulator results pending |
 | LAN integration | Real transport tests and two-to-six-device mixed Android/iOS sessions | Pending; same-process simulation alone is insufficient |
 | Lifecycle | Client recovery, host loss, background/foreground, process termination, clean session teardown | Pending |
 | Accessibility and presentation | Independent visual review plus TalkBack/VoiceOver, large text, insets, and reduced motion | Pending |
@@ -25,8 +25,10 @@ Do not mark an unexecuted check as passing.
 
 ## Verified platform baseline
 
-- The checked-in Android configuration initially selects application ID
-  `dev.partydeck.app`, minimum SDK 26, and compile/target SDK 36. The merged
+- The checked-in Android configuration selects application ID
+  `dev.partydeck.app`, minimum SDK 26, compile SDK 37.1, and target SDK 36. The
+  compile SDK was raised to satisfy the selected dependencies' AAR metadata;
+  the target SDK remains a separate runtime-policy choice. The merged
   **release** manifest must be inspected again after integration.
 - Google Play requires new phone apps and updates to target **Android 16 / API
   36 or later from August 31, 2026**. This requirement was verified against the
@@ -50,6 +52,53 @@ Do not mark an unexecuted check as passing.
   corresponding Bonjour services. Multicast/broadcast behavior has separate
   entitlement requirements and must be reviewed if introduced. **The simulator
   does not support local-network privacy testing.** [4]
+
+## Independent evidence recorded so far
+
+On 2026-09-09 the release reviewer captured the environment reviewer's rebuilt
+bootstrap APK before feature integration. It is **16,541,418 bytes**, SHA-256
+`c19f3756c8b75f18f56a7e7eda3f48179655fd7c41a8ee092fe5764cf9540b00`.
+This artifact contains only the toolchain smoke screen and is not the finished
+game application.
+
+- `aapt2 dump badging` confirmed package `dev.partydeck.app`, the launchable
+  `dev.partydeck.app.MainActivity`, minimum SDK 26, target SDK 36, and the debug
+  flag. The application icon was absent in this bootstrap artifact; the final
+  app must include the delivered launcher artwork.
+- `apksigner verify --verbose --print-certs` passed APK Signature Scheme v2 and
+  identified **Android Debug** signing. This is development signing evidence.
+- `zipalign -c -P 16 4` passed. `readelf -lW` on both packaged 64-bit
+  `libandroidx.graphics.path.so` libraries showed every LOAD segment aligned to
+  `0x4000`. This does not validate a future artifact with changed dependencies.
+- Android Emulator **37.1.11.0 / build 15917651** and the official API 36 default
+  x86_64 image revision 2 were installed. The missing `libpulse.so.0` dependency
+  was resolved with Ubuntu's `libpulse0` package. The host has no `/dev/kvm`;
+  the 720×1280 small-phone AVD required about 18 minutes to boot with software
+  CPU emulation and suffered repeated Android system-process ANRs. After boot,
+  `adb install -r` succeeded and screenshots showed the bootstrap's
+  `PartyDeck · toolchain ready` text. However, `am start -W` reported
+  **`Status: timeout`**, and Settings/system ANR dialogs interrupted capture.
+  This is installation and limited rendering evidence, **not a clean launch,
+  navigation, or performance pass**. The reviewer stopped this emulator after
+  capture; accelerated Android CI is the next executable runtime gate.
+- The four delivered font binaries independently matched the SHA-256 hashes of
+  the pinned upstream files documented in [research/assets.md](research/assets.md).
+  All six original WAVs parsed as 44.1 kHz mono 16-bit PCM, measured 0.07–1.28 s,
+  had zero-valued endpoints and no clipped samples, and totaled 285,150 bytes.
+  Licensing inclusion in the finished app and mobile listening remain open.
+
+The bootstrap APK, installation/launch output, screenshots, and asset inspection
+records are retained locally under `/tmp/partydeck-release-qa/`. These temporary
+files are diagnostic evidence, not published release artifacts.
+
+Source review confirmed that Android exposes Compose test tags as resource IDs
+for the UIAutomator smoke. The iOS inactive-scene cover now also hides the
+underlying Compose accessibility tree and disables interaction. Both are
+implementation findings; platform accessibility behavior remains a runtime gate.
+The iOS scanner uses AVFoundation QR metadata without a photo/video file output,
+and removes capture inputs, outputs, and its delegate on completion. Android's
+scanner closes every analyzed image and decodes locally. Permission, cancellation,
+rotation, and background behavior still require the packaged-app checks below.
 
 ## Runnable build and integration gates
 
@@ -141,6 +190,7 @@ app artifact/commit, router/hotspot arrangement, and timestamps.
 | First join, two players, both host directions | New users can find/copy the actual invitation and complete a full match without documentation or a developer console |
 | Six players | All clients converge on each result; no private-hand leaks, lost turns, duplicate penalty, or unusable small-screen layout |
 | iOS local-network prompt | Allow, deny, initial request race, Settings re-enable, and retry all yield clear recoverable behavior; no false claim that a simulator passed this gate |
+| Invitation QR scan, copy, and share | Both platforms scan without uploading frames; denial/cancel leaves the Join form intact; decoded invites require an explicit join; system sharing exposes only the room invitation |
 | Wi-Fi disabled, wrong subnet, client isolation, unreachable host | Join fails within a bounded period with actionable guidance; leaving or retrying remains responsive |
 | Client backgrounds, locks screen, or briefly loses Wi-Fi | Authority does not invent turns; recovery restores the authenticated seat and latest state within the supported reconnect policy |
 | Host backgrounds, locks, is killed, or loses Wi-Fi | Peers receive an understandable paused/ended state within the implemented timeout; return-home/rehost works |

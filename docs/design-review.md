@@ -2,9 +2,9 @@
 
 Reviewer: dedicated independent design/UX reviewer. Research checked 2026-09-09.
 
-**Initial decision:** proceed with the ink-and-paper direction below. This approves a direction for implementation, not the quality of an unseen interface. No application screenshots, device interactions, or accessibility trees have been reviewed yet. Commercial polish and accessibility remain acceptance gates.
+**Current decision:** the ink-and-paper direction is working in actual renders, but the first visual gate is held for compact-height and enlarged-text corrections. Shared Compose/JVM screenshots have now been independently inspected; Android/iOS device interaction and native accessibility are not yet verified. A passing reachability test does not resolve the visible defects recorded below.
 
-The product must explain itself as a local party game on separate phones. PartyDeck is the collection; **Last Light** is the first game. The first release needs one compelling game presentation, without empty “coming soon” shelves. Rule-dependent text below follows [game-rules.md](game-rules.md), currently proposed pending coordinator freeze. Connection-dependent promises must follow the selected transport and session implementation.
+The product must explain itself as a local party game on separate phones. PartyDeck is the collection; **Last Light** is the first game. The first release needs one compelling game presentation, without empty “coming soon” shelves. Rule-dependent text below follows [game-rules.md](game-rules.md) and the coordinator's [implementation contract](IMPLEMENTATION.md). Connection-dependent promises must follow the selected transport and session implementation.
 
 ## Visual direction: a lively printed card table
 
@@ -126,7 +126,7 @@ At least Home, Join, Gameplay, and Result must also be captured at 200%/largest 
 
 Screenshots alone cannot pass touch targets, screen-reader behavior, privacy during backgrounding, haptics, networking, or animation smoothness. Those need interaction/device evidence. The Linux reviewer can inspect rendered artifacts and UI implementation immediately; native-device limitations must be explicit rather than counted as passes.
 
-Open dependencies: coordinator rule/name freeze; exact invitation/discovery support; session reconnect and host-loss policy; native privacy/settings integration; actual compiled fonts and icons. Review findings should identify file/component, trigger, visible impact, and a concrete fix. Re-review meaningful corrections; do not repeatedly build unchanged screens for ceremony.
+Open dependencies: complete invitation transfer/scanning; session reconnect and host-loss integration; native privacy/settings integration; actual Android/iOS rendering and assistive behavior. Review findings should identify file/component, trigger, visible impact, and a concrete fix. Re-review meaningful corrections; do not repeatedly build unchanged screens for ceremony.
 
 ## Initial cross-stream review findings
 
@@ -141,6 +141,44 @@ Reviewed [shell research](research/ui-shell.md) and [gameplay research](research
 
 First fast visual gate: Home and a six-seat Lobby at 360 × 640; Join with an error/keyboard; your turn with five cards; the same constrained flows at 200% text; forced challenge and a bluff reveal. Expand to the full matrix at integration/final review. This catches layout and comprehension failures before effort goes into effects.
 
+## Implementation review in progress
+
+Reviewed the actual shared theme, buttons, Home, Host/Join, card art, and private-hand components as they landed on 2026-09-09. The palette and font resources are wired; actions use real controls; hand cards have explicit toggle semantics; the concealed hand removes the card-face subtree; selected-card translation is suppressed under reduced motion. These are code observations, not native interaction passes.
+
+Inspected [asset proof](../assets/previews/asset_sheet.png) and [launcher mask proof](../assets/previews/launcher_masks.png). Crown/Moon/Star/Wild remain visibly distinct in monochrome, the typography supports the proposed identity, and the launcher mark survives the shown masks and small sizes. No asset geometry blocker was found. Verify the small Wild intersections, Moon detail, and card-back hairlines in actual 64 × 96 card rendering; simplify only if they fill in or shimmer. Speaker listening and Android/iOS rasterization are unverified.
+
+The transport contract now uses a complete opaque invitation containing endpoint and trust/admission material, on a mutually reachable LAN. Discovery is only a candidate refresh; no short room-code resolver or automatic hotspot exists. **Host Copy alone is not a complete cross-device journey.** Native Share plus working guest Paste is the minimum; the owners are adding QR display/scanning to make transfer practical. Show a human-readable table/address summary rather than requiring players to interpret fingerprints or secrets.
+
+| Finding | Severity | Requested correction / evidence | Status |
+| --- | --- | --- | --- |
+| Android hand privacy depends only on `onStop` UI updates | High | Protect Recents proactively and verify inactive hand concealment; do not assume a late Compose update proves a safe snapshot. Android API 33+ provides `setRecentsScreenshotEnabled(false)` specifically for Recents [12]; choose a verified older-platform policy. | Source fix inspected: `SessionPrivacyGuard` proactively disables Recents, applies an older-API secure-window fallback, covers on pause/focus loss, and hides accessibility descendants. Native interaction evidence outstanding. |
+| Connection banner only receives a paused-player Boolean | Medium | Use the available `SessionView.pausedPlayerIds` and public names: “Waiting for Maya to reconnect” helps the group recover. | Source fix inspected: named banner with plural support. |
+| Fourth-card selection limit appears as ordinary text | Medium | Announce the new count-only limit message politely once; a screen-reader user otherwise has no immediate explanation for a rejected selection. | Source fix inspected: polite live region added to the limit message. Native announcement verification outstanding. |
+| Scanner instructions remain when scanning is unavailable | Low | Use paste-only Join wording when `canScanInvitation` is false. | Source fix inspected: conditional Join description now matches scanner capability. |
+| Compact Home/Join retain substantial decorative height | Pending rendered evidence | Check that primary actions and scanner remain easy to reach at 360 × 640 and with the keyboard/large text; reduce art/spacers before shrinking controls or text. | Screenshot gate requested. Lobby now separately pins its primary controls at normal text/height and returns them to scrolling content for constrained layouts. |
+| Offscreen private-card accessibility | Pending interaction evidence | Select the fifth card in the compact rail through assistive actions; Hide hand must then remove all private-rank semantics. Clearing semantics must remain on the decorative child, not erase the actionable parent [13]. | Requested meaningful UI/semantics check. |
+| Active player loses public card count | Medium | Preserve the remaining-card count alongside “To play”; the count is strategic public information. | Source fix inspected: localized count-plus-turn status. |
+| Duplicate display names make claims/results ambiguous | High | Ordinary devices default to “Guest”, and names need not be unique. Disambiguate repeated names using stable public seat numbers in roster, claims, challenge actions, outcomes, and semantics. | Source fix inspected: shared gameplay name formatter and numbered visible roster names. Duplicate-name screenshot fixture still required. |
+| Previous result disappears when host continues | Medium | `GameView.roundOutcome` intentionally preserves the previous proof. Add an inspectable, round-labeled history expansion during play so slower readers can finish after the host continues. | Source fix inspected: previous-round expansion added, with its own round label and repeated live announcements disabled. |
+| Dense QR in compact dialog | Pending rendered evidence | Decode a genuine rendered invitation at 320-wide layout. If the symbol is too small, use more screen area while preserving a valid quiet zone. | Requested end-to-end QR render/decode evidence. |
+
+## First actual screenshot review
+
+Inspected real Compose/Skiko fixture captures generated on 2026-09-09 around 15:54–15:55 UTC. The working tree was based on `7a4f8b8` with uncommitted implementation changes; these are not images of that commit alone. Sources are `HomeLayoutTest` and `GameplayLayoutTest`, and current renders are under `composeApp/build/ui-snapshots/`. First-render comparison copies were preserved in `/tmp/partydeck-design-review/first-render/`. Game fixtures use actual engine projections, six seats, duplicate names, and a real shell-header footprint. They do not simulate native bars/keyboard or establish native font scaling.
+
+The 390 × 844 Home composition succeeds: strong type hierarchy, distinctive paper deck, clear local-play description, two obvious actions, and coherent spacing. The 844 × 390 gameplay composition also places readable cards and controls sensibly in the available width. Rank silhouettes are clear at actual card size; the first asset-size concerns are not apparent in these renders.
+
+| Capture / trigger | Observed defect | Required correction | Status |
+| --- | --- | --- | --- |
+| `home-large-text.png`, 320 × 740, 200% | PartyDeck breaks into “PartyDec” / “k”; almost the entire first viewport goes to slogan/art before the purpose and actions. | Reflow the header; remove decorative competition for the name. Let functional game description/actions take priority over slogan/art at enlarged text. Keep body/control text scaling. | Shell owner reports source correction; refreshed image review pending. |
+| `home-phone-landscape.png`, 844 × 390 | Oversized hero is clipped and only the top portion of Host appears initially; Join is below the first viewport. | Use height-aware composition with modest art and both core actions available early. | Shell owner reports source correction; refreshed image review pending. |
+| `game-phone-concealed.png`, 360 × 640 | The opening claim/hint is cut through its text immediately above the fixed hand. | Collapse compact roster, simplify the large concealed-hand panel, and/or tighten table detail so the claim and immediate action remain readable together. | Requested fix; not accepted as ordinary scroll overflow. |
+| `game-large-text-hand.png` and selected variant, 320 × 740, 200% | Hide hand consumes the header width; “selected” breaks into “select” / “ed”. | Stack the full-width hand heading/count and Hide control at enlarged text. | Requested fix. |
+| `game-bluff-with-wild.png`, 360 × 640 | Verdict and proof appear, but the actual Safe/Out outcome falls below the fold. | Put a concise penalty recipient and settled Safe/Out result near the verdict; detailed fuse/proof can follow in scrollable content. | Requested fix. |
+| Integrated global-error state at enlarged text | Code inspection found an unscrollable error above the weighted screen could consume the window. | Bound and scroll the error or use an accessible modal recovery presentation; verify the actual integrated state. | Shell owner reports bounded, scrollable error implementation; screenshot pending. |
+
+The initial normal-phone gameplay test stopped before producing the shown/selected hand images. `performScrollTo()` requires a scrolling ancestor; pinned controls do not have one. The verified Compose test source explicitly throws in that case. The gameplay owner was asked to correct the test helper, preserving pinned UI behavior, and produce the missing images. This test-fixture issue does not explain away the visibly clipped claim already captured.
+
 ## Authoritative sources checked
 
 1. [Android: Make apps more accessible](https://developer.android.com/guide/topics/ui/accessibility/apps) — 48 dp touch targets, text contrast, useful descriptions.
@@ -154,3 +192,5 @@ First fast visual gate: Home and a six-seat Lobby at 360 × 640; Join with an er
 9. [W3C: Understanding contrast minimum](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html) — text contrast and sRGB relative-luminance calculation.
 10. [Apple TN3179: Understanding local network privacy](https://developer.apple.com/documentation/technotes/tn3179-understanding-local-network-privacy) — permission lifecycle and real-device testing requirement. Read through [official documentation data](https://developer.apple.com/tutorials/data/documentation/technotes/tn3179-understanding-local-network-privacy.json).
 11. [Android: App orientation, aspect ratio, and resizability](https://developer.android.com/develop/ui/compose/layouts/adaptive/app-orientation-aspect-ratio-resizability) — current target/large-screen behavior and game exceptions; verify against the shipping manifest rather than assuming a universal rule.
+12. [Android Activity: `setRecentsScreenshotEnabled`](https://developer.android.com/reference/android/app/Activity#setRecentsScreenshotEnabled(boolean)) — added in API 33; disables screenshots used for Recents, distinct from the wider effect of `FLAG_SECURE`.
+13. [Android Compose: Merging and clearing semantics](https://developer.android.com/develop/ui/compose/accessibility/merging-clearing) — clearing removes information for accessibility/testing consumers; modifier order and child ownership matter.

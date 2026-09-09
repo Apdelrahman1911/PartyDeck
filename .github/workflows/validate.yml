@@ -1,0 +1,144 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  android:
+    name: Android and shared JVM tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Java
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@40fd30fb8d7440372e1316f5d1809ec01dcd3699 # v4.0.1
+        with:
+          packages: 'platform-tools platforms;android-37.1 build-tools;36.0.0'
+          log-accepted-android-sdk-licenses: false
+      - name: Set up Gradle and validate wrapper
+        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+        with:
+          cache-provider: basic
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+      - name: Install graphics support for Compose tests
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends xvfb libgl1 libegl1 libx11-6 libxi6 libxrender1 libxtst6
+      - name: Record toolchain
+        run: |
+          java -version
+          ./gradlew --version
+          sdkmanager --list_installed
+      - name: Test, lint, and package Android
+        run: xvfb-run -a ./scripts/validate-android.sh
+      - name: Install the Android runtime test image
+        run: sdkmanager 'emulator' 'system-images;android-36;default;x86_64'
+      - name: Enable runner KVM access
+        run: |
+          test -e /dev/kvm
+          sudo chmod a+rw /dev/kvm
+      - name: Install, launch, and navigate the real Android APK
+        timeout-minutes: 12
+        run: ./scripts/smoke-android-emulator.sh
+      - name: Upload test and lint reports
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: android-jvm-reports
+          path: |
+            **/build/reports/**
+            **/build/test-results/**
+            composeApp/build/ui-snapshots/**
+            build/ci/android/*.log
+            build/ci/android/*.json
+            build/ci/android/*.xml
+            build/ci/android/*.png
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Upload Android packages
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: android-debug-apk-and-unsigned-release-aab
+          path: |
+            androidApp/build/outputs/apk/debug/*.apk
+            androidApp/build/outputs/bundle/release/*.aab
+            androidApp/build/outputs/mapping/release/**
+          retention-days: 14
+          if-no-files-found: warn
+
+  ios:
+    name: iOS native tests and app smoke
+    runs-on: macos-26
+    timeout-minutes: 60
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Java
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Set up Android SDK for KMP project configuration
+        uses: android-actions/setup-android@40fd30fb8d7440372e1316f5d1809ec01dcd3699 # v4.0.1
+        with:
+          packages: 'platform-tools platforms;android-37.1 build-tools;36.0.0'
+          log-accepted-android-sdk-licenses: false
+      - name: Set up Gradle and validate wrapper
+        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+        with:
+          cache-provider: basic
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+      - name: Record and check Apple toolchain
+        run: |
+          test -d "$DEVELOPER_DIR"
+          test "$(uname -m)" = arm64
+          java -version
+          ./gradlew --version
+          xcodebuild -version
+          xcodebuild -showsdks
+          xcrun simctl help
+      - name: Run native shared tests and link device framework
+        run: ./scripts/validate-ios-shared.sh
+      - name: Build and test the iOS application
+        run: ./scripts/validate-ios-app.sh
+      - name: Upload iOS reports and simulator app
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: ios-reports-simulator-app-and-unsigned-device-app
+          path: |
+            **/build/reports/**
+            **/build/test-results/**
+            build/ci/ios/*.log
+            build/ci/ios/*.json
+            build/ci/ios/*.png
+            build/ci/ios/*.tar.gz
+            build/ci/ios/PartyDeck.xcresult/**
+            build/ci/ios/attachments/**
+            composeApp/build/bin/ios*/debugFramework/PartyDeckKit.framework/Headers/**
+            iosApp/PartyDeck.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+          retention-days: 14
+          if-no-files-found: warn

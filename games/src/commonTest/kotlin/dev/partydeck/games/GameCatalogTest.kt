@@ -47,6 +47,12 @@ class GameCatalogTest {
             EmbeddedGameRegistry(listOf(wrongVersion)).resolve(game),
         )
         assertEquals(
+            EngineResolution.Unavailable(EngineUnavailableReason.UNSUPPORTED_PROTOCOL),
+            EmbeddedGameRegistry(listOf(wrongVersion)).resolve(
+                game.copy(presentation = GamePresentation.Embedded("test-engine", protocolVersion = 2)),
+            ),
+        )
+        assertEquals(
             EngineResolution.Unavailable(EngineUnavailableReason.UNSUPPORTED_GAME),
             EmbeddedGameRegistry(listOf(TestFactory())).resolve(game),
         )
