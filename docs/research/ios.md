@@ -1,0 +1,60 @@
+# iOS integration research
+
+Verified against the authoritative sources below on 2026-09-09. These are researched constraints and the agreed implementation contract, not a claim that Xcode or device validation has already passed.
+
+## Build and source contract
+
+- The coordinator selected Kotlin **2.4.20**, Compose Multiplatform **1.12.0**, **iOS 15.0** deployment, `iosArm64` and `iosSimulatorArm64`. The official release endpoints identify those Kotlin/Compose versions as stable. Compose's documented iOS floor is 14; 15 is PartyDeck's product minimum. Kotlin's compatibility guide lists Xcode 26.4 for this Kotlin version. [1–3]
+- `:composeApp` produces a **static** framework named **PartyDeckKit**. Common app package: `dev.partydeck.app`. Keep platform implementations in `composeApp/src/iosMain/kotlin/dev/partydeck/app/`.
+- Native project: `iosApp/PartyDeck.xcodeproj`; shared scheme/app target: `PartyDeck`; UI smoke target: `PartyDeckUITests`; app bundle identifier: `dev.partydeck.app`.
+- The iOS agent owns the Xcode project, `iosApp/PartyDeck/`, `iosApp/PartyDeckUITests/`, and `composeApp/src/iosMain/`. The transport agent exclusively owns `iosApp/Networking/`. The CI agent owns workflows and CI scripts. Native networking sources must be included in the app target.
+- SwiftUI embeds `ComposeUIViewController` through `UIViewControllerRepresentable`. A retained Kotlin app handle owns the shared controller and view controller. Scene changes forward foreground state; a temporary background transition does not destroy the controller. Do not construct a controller on every SwiftUI view update. [4, 11]
+- Xcode's Run Script phase calls `./gradlew :composeApp:embedAndSignAppleFrameworkForXcode` from the repository root **before Compile Sources**. Use JetBrains' `OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED=YES` early-return guard; disable script dependency analysis and `ENABLE_USER_SCRIPT_SANDBOXING`. The Gradle task exists only when a framework binary is declared. [5]
+- Set `CADisableMinimumFrameDurationOnPhone=true` in `Info.plist`: the current official Compose integration guide explicitly requires it. Include the asset catalog, app launch appearance, and `PrivacyInfo.xcprivacy` in the native app resources. [4]
+
+## Local multiplayer and privacy
+
+- Include `NSLocalNetworkUsageDescription`: “PartyDeck connects to nearby players on your Wi-Fi network so you can host and join a table.” Direct outgoing TCP to a LAN address requires access even without discovery. Listening for and accepting incoming TCP alone does not, but Bonjour registration does. [6, 7]
+- Declare exactly `_partydeck._tcp` in `NSBonjourServices` for the chosen Bonjour service. The matching declared service type is sufficient for ordinary Bonjour browse/register/resolve; do **not** add Apple's restricted multicast entitlement for this use case. Raw multicast/broadcast and browsing arbitrary service types have different entitlement requirements. [6–8]
+- Start discovery/listening/connection from Host or Join, giving the prompt meaningful context. There is no public API that directly requests or queries the Local Network permission. Infer actionable failures from the actual network API, and provide retry/Settings guidance without inventing a permission status. The first attempt may fail before the user answers; the transport must wait or retry appropriately. [6]
+- Do not use a blanket `NSAllowsArbitraryLoads` exception. The selected native Network.framework TLS transport does not need a cleartext URL-loading exception. If a future URLSession transport is introduced, reassess ATS against its actual hostnames, IPs, and TLS policy. [9]
+- The **simulator does not support local network privacy**. Real-device allow, deny, re-enable, fresh-install, and background/rejoin checks remain required. Permission state is system-managed and can change in Settings. [6]
+- Add no analytics, tracking identifiers, account data collection, or secrets to diagnostic logs as part of native bootstrap. LAN game traffic and the final dependency/privacy declarations still need review against the actual implementation.
+
+## Native services and lifecycle
+
+- `PlatformServices` is a common injected interface, owned by the controller agent: persistent settings, feedback, `secureSeed(): Long`, and `secureToken(): String`. Use native cryptographic randomness for both; tokens contain 32 random bytes rendered as 64 lowercase hexadecimal characters. Do not derive tokens from a game RNG.
+- Use app-private `UserDefaults` for display name and sound/haptics/reduced-motion preferences. Persist no private hands or resume credentials. Declare required reason **CA92.1** for this app-only defaults access. [10]
+- Effective reduced motion is `settings.reduceMotion || systemReduceMotion`. Read `UIAccessibilityIsReduceMotionEnabled`, observe `UIAccessibilityReduceMotionStatusDidChangeNotification` through the default notification center, update the controller on the main thread, and unregister on permanent disposal. Persist only the user's override. [12]
+- Observe the enclosing SwiftUI scene's `scenePhase`. Inactive/background state hides private cards and quiets feedback immediately. Background execution is not a durable LAN-host service: Apple advises unregistering Bonjour and closing related listeners on background transition. The transport/controller must surface session loss or reconnect behavior honestly. A privacy cover reduces app-switcher exposure; it is not screenshot protection. [11]
+- Short PCM WAV cues can use `AVAudioPlayer`. Configure `AVAudioSession.Category.ambient`: it mixes with other audio and respects the silent switch and screen lock. Load/decode assets before the feedback hot path; stop players and release audio activation on background/disposal. Use UIKit impact/notification generators for haptics, respecting the user's toggle. Device QA must verify interruptions, hardware haptics, silent mode, and cue levels. [13]
+
+## Manifests and release qualification
+
+- Apple's required-reason declarations must match the shipped binary, including dependencies. Kotlin's guidance says Compose can introduce `stat`, `fstat`, and `mach_absolute_time`. It recommends `0A2A.1` for the file APIs and `35F9.1` for timing; **Apple defines `0A2A.1` as a third-party SDK wrapper reason**. Do not copy that reason into the app manifest without checking scope. Inspect the linked artifact and use the appropriate app/resource reason or the dependency's own manifest. [10, 14]
+- Since **April 28, 2026**, App Store uploads must use **Xcode 26+ and an iOS 26+ SDK**. This build-SDK rule is separate from PartyDeck's iOS 15 deployment minimum. [15]
+- Use GitHub Actions `macos-26` with explicit `/Applications/Xcode_26.4.1.app/Contents/Developer`; the current official image inventory includes this version. Do not rely on the runner's current Xcode default. Use JDK 21 and the checked-in Gradle wrapper. [2, 16]
+- CI should compile/link both Kotlin device and simulator targets, run an unsigned simulator `xcodebuild build`, then run `xcodebuild test` on an available arm64 iPhone simulator with the shared `PartyDeck` scheme. Discover a simulator from the selected Xcode, rather than assuming a device name/runtime exists. Retain build logs, the `.app`, and `.xcresult`.
+- Representative build command: `xcodebuild -project iosApp/PartyDeck.xcodeproj -scheme PartyDeck -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build`.
+- Simulator compilation/tests do not prove real-device networking, privacy prompts, GPU performance, haptics, energy use, or App Store acceptance. Physical iPhone↔Android and iPhone↔iPhone sessions must exercise host/join, denial/retry, screen lock, app switching, host loss, and resumed connections.
+- Distribution needs an Apple Developer team, a unique registered bundle identifier, signing/provisioning, an archive, and App Store Connect setup. Supply account/signing material through protected CI inputs or Xcode account configuration; do not commit credentials or fabricate a development team. Xcode's archive validation is useful but is explicitly limited automated validation. [17]
+
+## Sources
+
+1. [Compose stable release 1.12.0](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.12.0) and [Kotlin stable release 2.4.20](https://github.com/JetBrains/kotlin/releases/tag/v2.4.20).
+2. [JetBrains: Kotlin Multiplatform compatibility guide](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html).
+3. [JetBrains: Compose compatibility and versions](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-compatibility-and-versioning.html).
+4. [JetBrains: Compose integration with SwiftUI](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-swiftui-integration.html).
+5. [JetBrains: Direct Xcode integration](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-direct-integration.html).
+6. [Apple TN3179: Understanding local network privacy](https://developer.apple.com/documentation/technotes/tn3179-understanding-local-network-privacy).
+7. [Apple: NSLocalNetworkUsageDescription](https://developer.apple.com/documentation/bundleresources/information-property-list/nslocalnetworkusagedescription) and [NSBonjourServices](https://developer.apple.com/documentation/bundleresources/information-property-list/nsbonjourservices).
+8. [Apple: Multicast networking entitlement](https://developer.apple.com/documentation/bundleresources/entitlements/com.apple.developer.networking.multicast).
+9. [Apple: NSAllowsLocalNetworking](https://developer.apple.com/documentation/bundleresources/information-property-list/nsapptransportsecurity/nsallowslocalnetworking).
+10. [Apple: Required-reason API declarations](https://developer.apple.com/documentation/bundleresources/describing-use-of-required-reason-api) and [approved API reasons](https://developer.apple.com/documentation/bundleresources/app-privacy-configuration/nsprivacyaccessedapitypes/nsprivacyaccessedapitypereasons).
+11. [Apple: ScenePhase](https://developer.apple.com/documentation/swiftui/scenephase) and [Preparing your UI to run in the background](https://developer.apple.com/documentation/uikit/preparing-your-ui-to-run-in-the-background).
+12. [Apple: isReduceMotionEnabled](https://developer.apple.com/documentation/uikit/uiaccessibility/isreducemotionenabled) and [reduceMotionStatusDidChangeNotification](https://developer.apple.com/documentation/uikit/uiaccessibility/reducemotionstatusdidchangenotification).
+13. [Apple: Ambient audio category](https://developer.apple.com/documentation/avfaudio/avaudiosession/category-swift.struct/ambient), [AVAudioPlayer](https://developer.apple.com/documentation/avfaudio/avaudioplayer), [UIImpactFeedbackGenerator](https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator), and [UINotificationFeedbackGenerator](https://developer.apple.com/documentation/uikit/uinotificationfeedbackgenerator).
+14. [JetBrains: Privacy manifests for iOS apps](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-privacy-manifest.html).
+15. [Apple: Upcoming requirements](https://developer.apple.com/news/upcoming-requirements/).
+16. [GitHub's macOS 26 arm64 runner inventory](https://github.com/actions/runner-images/blob/main/images/macos/macos-26-arm64-Readme.md).
+17. [Apple: Distributing your app for beta testing and releases](https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases).
