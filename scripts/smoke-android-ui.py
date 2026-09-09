@@ -238,7 +238,9 @@ class AndroidSmoke:
         # The supporting error/hint can be tall at 200% text. Tap the editable
         # field's upper area, rather than the center of that decorated height.
         self.tap_node(self.wait_for_tag(tag, scroll=scroll), tag, height_fraction=0.25)
-        self.wait_until(f"Expected focused editable {tag}", lambda root: self.editable_field(root, tag, focused=True))
+        # Opening the IME can shrink the viewport and move the focused field
+        # off screen. Scroll it back into view before sending editing keys.
+        self.wait_until(f"Expected focused editable {tag}", lambda root: self.editable_field(root, tag, focused=True), scroll=scroll)
         # A refocusing/recomposing field can miss Ctrl+A. Never assume that
         # Delete cleared it: CI observed insertion into the previous text.
         self.adb("shell", "input", "keycombination", "KEYCODE_CTRL_LEFT", "KEYCODE_A")
