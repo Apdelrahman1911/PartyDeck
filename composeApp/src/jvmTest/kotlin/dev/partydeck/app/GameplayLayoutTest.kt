@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.toAwtImage
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.assertCountEquals
@@ -22,12 +23,16 @@ import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertIsOn
 import androidx.compose.ui.test.assertIsOff
 import androidx.compose.ui.test.captureToImage
+import androidx.compose.ui.test.hasAnyDescendant
 import androidx.compose.ui.test.hasContentDescription
+import androidx.compose.ui.test.hasScrollAction
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.isDisplayed
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.test.performSemanticsAction
 import androidx.compose.ui.test.v2.runSkikoComposeUiTest
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
@@ -66,6 +71,9 @@ class GameplayLayoutTest {
 
     @Test
     fun handAndResultsRemainUsableOnShortLandscapePhone() = qualifyGame(844, 390, 1f, "game-landscape")
+
+    @Test
+    fun handAndResultsRemainUsableInTabletWindow() = qualifyGame(1024, 768, 1f, "game-tablet")
 
     private fun qualifyGame(width: Int, height: Int, scale: Float, prefix: String) = runSkikoComposeUiTest(
         size = Size(width.toFloat(), height.toFloat()),
@@ -106,6 +114,13 @@ class GameplayLayoutTest {
             val file = File("build/ui-snapshots/$prefix-$suffix.png").apply { parentFile.mkdirs() }
             ImageIO.write(onNodeWithTag("game-snapshot").captureToImage().toAwtImage(), "png", file)
         }
+        fun scrollTextToTop(label: String) {
+            val target = onNodeWithText(label).performScrollTo()
+            val scroller = onNode(hasScrollAction() and hasAnyDescendant(hasText(label)))
+            val distance = target.fetchSemanticsNode().boundsInRoot.top - scroller.fetchSemanticsNode().boundsInRoot.top
+            scroller.performSemanticsAction(SemanticsActions.ScrollBy) { scroll -> scroll(0f, distance) }
+            target.assertIsDisplayed()
+        }
 
         onNodeWithTag("game-card-0").assertDoesNotExist()
         onAllNodes(hasContentDescription("Card ", substring = true)).assertCountEquals(0)
@@ -139,7 +154,20 @@ class GameplayLayoutTest {
         onNodeWithTag("game-next-round").bringIntoView().performClick()
         assertEquals(true, continued)
 
+        authority = (engine.advanceRound(authority) as GameDecision.Applied).state
+        runOnUiThread { view = engine.viewFor(authority, viewer) }
+        assertEquals(2, view.roundNumber)
+        assertEquals(1, view.roundOutcome!!.roundNumber)
+        onNodeWithText("Round 1 reveal").bringIntoView().performClick()
+        scrollTextToTop("ROUND 1")
+        capture("previous-reveal")
+        scrollTextToTop("REVEALED CARDS")
+        capture("previous-proof")
+        onNodeWithText("Hide round 1 reveal").bringIntoView().performClick()
+        onNodeWithText("ROUND 1").assertDoesNotExist()
+
         var transitions = 0
+        var capturedEliminated = false
         while (authority.phase != GamePhase.FINISHED) {
             check(transitions++ < 150) { "Fixture match failed to finish within its rule bound" }
             authority = when (authority.phase) {
@@ -153,10 +181,27 @@ class GameplayLayoutTest {
                 }
                 GamePhase.FINISHED -> authority
             }
+            if (!capturedEliminated && authority.phase == GamePhase.PLAYING) {
+                authority.players.firstOrNull { it.eliminated }?.let { eliminated ->
+                    runOnUiThread { view = engine.viewFor(authority, eliminated.identity.id) }
+                    onNodeWithTag("game-hand").assertDoesNotExist()
+                    onNodeWithTag("game-card-0").assertDoesNotExist()
+                    onNodeWithTag("game-reveal-hand").assertDoesNotExist()
+                    onNodeWithTag("game-play").assertDoesNotExist()
+                    onNodeWithTag("game-challenge").assertDoesNotExist()
+                    if (scale > 1f) scrollTextToTop("Stay for the showdown.")
+                    else onNodeWithText("Stay for the showdown.").bringIntoView()
+                    capture("eliminated")
+                    capturedEliminated = true
+                }
+            }
         }
+        assertTrue(capturedEliminated, "The real match must expose an eliminated viewer before the winner")
         runOnUiThread { view = engine.viewFor(authority, viewer) }
+        onNodeWithText("Alexandria Longname wins.").assertIsDisplayed()
+        onNodeWithTag("game-rematch").assertIsDisplayed()
         capture("winner")
-        onNodeWithTag("game-rematch").bringIntoView().performClick()
+        onNodeWithTag("game-rematch").performClick()
         assertEquals(true, rematched)
     }
 

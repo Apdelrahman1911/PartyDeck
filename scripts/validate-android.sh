@@ -16,4 +16,5 @@ cd "$PARTYDECK_ROOT"
   :androidApp:testDebugUnitTest \
   :androidApp:lintDebug \
   :androidApp:assembleDebug \
+  :androidApp:assembleRelease \
   :androidApp:bundleRelease

@@ -85,6 +85,47 @@ class JavaTlsTransportTest {
     }
 
     @Test
+    fun cachedDiscoveryCanReplaceAnUnreachableAddressButNotAnAuthenticationFailure(): Unit = runBlocking {
+        withTimeout(15_000) {
+            val hosting = JvmLanTransportFactory().create()
+            val otherHosting = JvmLanTransportFactory().create()
+            var joining: LanTransport? = null
+            try {
+                val host = hosting.host("TLS discovery target")
+                val otherHost = otherHosting.host("Different TLS identity")
+                val discovered = loopback(host).copy(serviceName = host.info.serviceName)
+                val discovery = object : JavaLanDiscovery by ManualJavaDiscovery() {
+                    override fun lookup(serviceName: String): LanEndpoint? =
+                        discovered.takeIf { it.serviceName == serviceName }
+                }
+                val client = CallbackLanTransport(JavaLanDriver(discovery, allowLoopbackFallback = true))
+                joining = client
+                val unusedPort = withContext(Dispatchers.IO) { ServerSocket(0).use { it.localPort } }
+
+                // A current public NSD address can recover a stale endpoint, using the same pin.
+                client.connect(
+                    LanEndpoint("127.0.0.1", unusedPort, host.info.serviceName),
+                    host.info.certificateSha256,
+                ).close()
+
+                // A live endpoint that presents another certificate is a terminal rejection,
+                // even when discovery could supply a correctly pinned alternative afterward.
+                val rejected = assertFailsWith<TransportException> {
+                    client.connect(
+                        loopback(otherHost).copy(serviceName = host.info.serviceName),
+                        host.info.certificateSha256,
+                    )
+                }
+                assertEquals(TransportFailureCode.AUTHENTICATION_FAILED, rejected.failure.code)
+            } finally {
+                joining?.close()
+                otherHosting.close()
+                hosting.close()
+            }
+        }
+    }
+
+    @Test
     fun malformedAndTruncatedTlsPayloadsCloseOnlyTheirConnection(): Unit = runBlocking {
         withTimeout(15_000) {
             val hosting = JvmLanTransportFactory().create()

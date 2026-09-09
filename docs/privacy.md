@@ -60,7 +60,9 @@ invitation, never a player's private reconnect capability. These behaviors must
 also be confirmed in the packaged Android and iOS apps. The inspected Android
 scanner decodes a bounded luminance buffer and closes every analyzed camera
 image. The iOS scanner consumes AVFoundation QR metadata and has no photo/video
-file output. Both stop capture when inactive and tear it down on completion.
+file output; it hides the preview and stops capture when its scene is inactive.
+Android binds capture to the scanner Activity's lifecycle and stops analyzer
+delivery when that Activity stops. Both tear capture down when the scanner closes.
 
 Copy and Share deliberately pass the room invitation to the operating system.
 iOS requests a local-only clipboard item with a two-minute expiration; Android

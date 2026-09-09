@@ -49,6 +49,9 @@ jobs:
           sdkmanager --list_installed
       - name: Test, lint, and package Android
         run: xvfb-run -a ./scripts/validate-android.sh
+      - name: Release Gradle build workers before emulator startup
+        if: ${{ !cancelled() && hashFiles('androidApp/build/outputs/apk/debug/*.apk') != '' }}
+        run: ./gradlew --stop
       - name: Install the Android runtime test image
         if: ${{ !cancelled() && hashFiles('androidApp/build/outputs/apk/debug/*.apk') != '' }}
         run: sdkmanager 'emulator' 'system-images;android-36;default;x86_64'
@@ -57,9 +60,9 @@ jobs:
         run: |
           test -e /dev/kvm
           sudo chmod a+rw /dev/kvm
-      - name: Install, launch, and navigate the real Android APK
+      - name: Exercise debug and optimized Android APKs
         if: ${{ !cancelled() && hashFiles('androidApp/build/outputs/apk/debug/*.apk') != '' }}
-        timeout-minutes: 12
+        timeout-minutes: 20
         run: ./scripts/smoke-android-emulator.sh
       - name: Upload test and lint reports
         if: always()
@@ -70,21 +73,23 @@ jobs:
             **/build/reports/**
             **/build/test-results/**
             composeApp/build/ui-snapshots/**
-            build/ci/android/*.log
-            build/ci/android/*.json
-            build/ci/android/*.xml
-            build/ci/android/*.png
+            build/ci/android/**/*.log
+            build/ci/android/**/*.json
+            build/ci/android/**/*.xml
+            build/ci/android/**/*.png
           retention-days: 14
           if-no-files-found: warn
       - name: Upload Android packages
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: android-debug-apk-and-unsigned-release-aab
+          name: android-packages-and-shrinker-reports
           path: |
             androidApp/build/outputs/apk/debug/*.apk
+            androidApp/build/outputs/apk/release/*.apk
             androidApp/build/outputs/bundle/release/*.aab
             androidApp/build/outputs/mapping/release/**
+            build/ci/android/packages/*.apk
           retention-days: 14
           if-no-files-found: warn
 
@@ -143,8 +148,10 @@ jobs:
             build/ci/ios/*.tar.gz
             build/ci/ios/PartyDeck.xcresult/**
             build/ci/ios/attachments/**
+            build/ci/ios/interop/**
             build/ci/ios/**/*LinkMap*.txt
             composeApp/build/bin/ios*/debugFramework/PartyDeckKit.framework/Headers/**
+            composeApp/build/bin/ios*/releaseFramework/PartyDeckKit.framework/Headers/**
             iosApp/PartyDeck.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
           retention-days: 14
           if-no-files-found: warn

@@ -17,7 +17,7 @@ final class NativeActions: NSObject, IosNativeActions {
         AVCaptureDevice.default(for: .video) != nil
     }
 
-    func copyText(value: String) -> Bool {
+    func doCopyText(value: String) -> Bool {
         guard !closed, foreground else { return false }
         UIPasteboard.general.setItems(
             [[UTType.utf8PlainText.identifier: value]],

@@ -20,22 +20,33 @@ xvfb-run -a ./scripts/validate-android.sh
 ```
 
 The script runs the shared JVM behavior/UI suites, Android local unit tests
-where present, Android lint, a debug APK, and an optimized release AAB. A task
+where present, Android lint, a debug APK, and optimized release APK/AAB. A task
 with `NO-SOURCE` is not test evidence. Reports live under each module's
 `build/reports` and `build/test-results`; Android packages live under
 `androidApp/build/outputs`. Debug APKs use debug signing. The release AAB is
-unsigned unless the complete signing environment below is supplied.
+unsigned unless the complete signing environment below is supplied, as is the
+original release APK.
 
 For focused work, run the affected module's `jvmTest` task instead of the full
 script. Use the complete script at integration and release checkpoints.
 
-The full workflow also installs the real debug APK into an API 36 emulator and
-checks Home → Settings → Home → Practice → leave confirmation → Home. It locates
-controls by their accessibility resource IDs and derives taps from actual node
-bounds, rather than assuming screen coordinates. Each screen must expose its
-expected marker before a screenshot is captured. UI XML, screenshots, launch
-output, logcat, and a JSON result are retained under `build/ci/android`, including
-failure diagnostics.
+The full workflow runs the same native UI smoke against debug and an optimized
+APK, sequentially on one API 36 emulator boot. It checks rules, persisted settings,
+practice hand actions and privacy after backgrounding, host/invite/leave, invalid
+join recovery, and large-text reachability. Controls are found through actual
+accessibility nodes and their bounds. Each captured screen must expose its expected
+marker. Crash/ANR dialogs fail explicitly; launcher readiness is checked before
+opening the app. Native screenshots, redacted XML/logcat, launch output and JSON
+results are retained under `build/ci/android/debug` and
+`build/ci/android/optimized-test-signed`, including failure diagnostics.
+
+`prepare-android-runtime-apk.sh` signs a **separate copy** of the unsigned optimized
+APK with a newly generated two-day CI test key. It rejects production signing
+variables and already signed input, verifies the APK signature and 16 KiB ZIP
+alignment, records both APK hashes and the public certificate fingerprint, and
+deletes its temporary keystore. The original unsigned APK and AAB remain separate.
+The copy is named `PartyDeck-release-ci-test-signed.apk` and is for runtime tests;
+it has no publisher identity. The debug app is uninstalled before switching keys.
 
 To run that separate smoke on Linux with usable KVM:
 
@@ -49,7 +60,7 @@ fall back to slow software CPU emulation. The emulator uses an isolated AVD unde
 `build/ci/android/avd`, resets the test app's data, and is stopped on exit. The
 default serial is `emulator-5554`; choose another unused even port with
 `PARTYDECK_EMULATOR_PORT`. Boot has a 180-second deadline, UI states have
-45-second deadlines, ADB commands are bounded, and the CI step has a 12-minute
+45-second deadlines, ADB commands are bounded, and the CI step has a 20-minute
 limit. This is a single-device application smoke, not LAN interoperability proof.
 
 ## iOS on macOS or GitHub Actions
@@ -66,9 +77,20 @@ export DEVELOPER_DIR=/Applications/Xcode_26.4.1.app/Contents/Developer
 The shared script runs the common suites on `iosSimulatorArm64` and links the
 device framework. The app script chooses an installed iPhone runtime matching
 the selected Xcode's simulator SDK, builds the actual SwiftUI/Compose application,
-and runs `PartyDeckUITests`. It also compiles the actual Swift app for a generic
-iOS device with signing disabled, covering device-only scanner/bridge code. It
-preserves Xcode's error status through log piping.
+and runs app-hosted `PartyDeckTests` plus `PartyDeckUITests`. A test-only JVM TLS
+peer runs alongside XCTest, with its real port and certificate pin passed through
+Xcode's documented `TEST_RUNNER_` environment forwarding. CI requires the named
+Java–Swift interoperability test to pass, Java to exit successfully, and its result
+to prove the complete exchanges in both directions. A skipped or missing fixture
+cannot make this step pass. Manifest, process logs and results are retained in
+`build/ci/ios/interop`. This checks native TLS interoperability over simulator
+loopback; physical-device LAN behavior remains a separate gate.
+
+After Debug XCTest passes, the script compiles the actual Swift/Kotlin app in
+**Release** for a generic iOS device with signing disabled. This covers optimized
+device-only scanner/bridge code and retains linker maps for symbol/license review.
+The build must report `:composeApp:linkReleaseFrameworkIosArm64`. Both Xcode test
+and device-build failure statuses are preserved.
 The Xcode project drives `:composeApp:embedAndSignAppleFrameworkForXcode`; do not
 invoke that task from a generic shell without its Xcode environment.
 
@@ -76,7 +98,7 @@ The simulator result, logs, runtime/device metadata, XCTest screenshot attachmen
 are retained under `build/ci/ios` and uploaded by CI. Move or remove a prior
 `PartyDeck.xcresult` before repeating an app test. The app tarball preserves
 executable permissions; it is a simulator artifact, not a device or App Store
-package. The separate device `.app` is unsigned. Neither artifact qualifies local-network privacy prompts or
+package. The separate Release device `.app` is unsigned. Neither artifact qualifies local-network privacy prompts or
 physical Android/iOS interoperability.
 
 Linux contributors can run the **Validate** workflow from GitHub Actions or
@@ -103,8 +125,9 @@ Set these through a local secure environment or protected GitHub environment
 secrets, then run `./gradlew :androidApp:bundleRelease`. An incomplete set fails
 configuration. When none are present, the build deliberately produces an
 unsigned release artifact. Never commit a keystore or passwords, generate a new
-publisher identity during validation, or replace release signing with a debug
-key. The Validate workflow supplies no signing secrets and performs no upload
+publisher identity during validation, or replace production signing with a debug
+key. The explicitly named CI test-signed APK described above is a separate copy.
+The Validate workflow supplies no signing secrets and performs no upload
 to an app store.
 
 ## iOS release signing

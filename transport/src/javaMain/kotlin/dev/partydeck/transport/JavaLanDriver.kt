@@ -61,10 +61,10 @@ internal class JavaLanDriver(
             var listener: ServerSocket? = null
             try {
                 val identity = JavaTlsIdentity.generate()
-                listener = ServerSocket().apply {
-                    reuseAddress = false
-                    bind(InetSocketAddress(0), MAX_NATIVE_CONNECTIONS)
-                }
+                // Own the listener before configuring it so a failed bind also reaches cleanup.
+                listener = ServerSocket()
+                listener.reuseAddress = false
+                listener.bind(InetSocketAddress(0), MAX_NATIVE_CONNECTIONS)
                 val serviceName = "partydeck-${UUID.randomUUID().toString().replace("-", "").take(12)}"
                 val endpoints = localEndpoints(listener.localPort, serviceName, allowLoopbackFallback)
                 if (endpoints.isEmpty()) throw IOException("No local network address")
@@ -371,9 +371,15 @@ internal class JavaLanDriver(
 
 internal fun localEndpoints(port: Int, serviceName: String, allowLoopbackFallback: Boolean): List<LanEndpoint> {
     val interfaces = NetworkInterface.getNetworkInterfaces()?.let(Collections::list).orEmpty()
-    val addresses = interfaces.filter { it.isUp && !it.isLoopback }.flatMap { Collections.list(it.inetAddresses) }
-        .filter { !it.isLoopbackAddress && !it.isAnyLocalAddress && !it.isMulticastAddress && !it.isLinkLocalAddress }
-        .sortedBy { if (it is Inet4Address) 0 else 1 }
+    val addresses = interfaces.filter { it.isUp && !it.isLoopback }
+        // Prefer broadcast-capable LAN interfaces over other active routes. A phone may have
+        // Wi-Fi plus mobile/VPN addresses; interface enumeration order is not a routing policy.
+        .sortedBy { network -> network.interfaceAddresses.none { it.broadcast != null } }
+        .flatMap { network ->
+            Collections.list(network.inetAddresses)
+                .filter { !it.isLoopbackAddress && !it.isAnyLocalAddress && !it.isMulticastAddress && !it.isLinkLocalAddress }
+                .sortedBy { if (it is Inet4Address) 0 else 1 }
+        }
         .mapNotNull { it.hostAddress }
         .distinct()
     return if (addresses.isEmpty() && allowLoopbackFallback) listOf(LanEndpoint("127.0.0.1", port, serviceName))

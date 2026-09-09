@@ -2,7 +2,7 @@
 
 Audit date: 2026-09-09. This audit covers the resolved dependency inputs below, their published POM license declarations, embedded archive notices, and identified native source notices. It does not equate a dependency declaration with proof that every object survives final linking or Android shrinking.
 
-The machine-readable evidence is [dependency_inventory.json](../assets/licenses/runtime/dependency_inventory.json). Every artifact entry records its coordinate, filename, SHA-256, size, configuration membership, published POM URL/hash/license declarations, and embedded license/notice entries. License inheritance is followed through parent POMs when the selected module omits its own declaration. Build plugins, test-only dependencies, the operating system, and SDK/compiler distributions are outside the runtime inventory.
+The machine-readable Gradle evidence is [dependency_inventory.json](../assets/licenses/runtime/dependency_inventory.json). Every artifact entry records its coordinate, filename, SHA-256, size, configuration membership, published POM URL/hash/license declarations, and embedded license/notice entries. License inheritance is followed through parent POMs when the selected module omits its own declaration. [swift_package_resolution.json](../assets/licenses/runtime/swift_package_resolution.json) records the separately verified Xcode package lock and pinned source comparison. Build plugins, test-only dependencies, the operating system, and SDK/compiler distributions are outside the runtime inventory.
 
 ## Resolution evidence
 
@@ -15,7 +15,7 @@ Read-only Gradle 9.7.0 resolution was executed under the shared build lock, with
 | `:composeApp:iosArm64CompileKlibraries` | 102 | 52 |
 | `:composeApp:iosSimulatorArm64CompileKlibraries` | 102 | 52 |
 
-There are 279 distinct artifact files across the four reports; a shared file is recorded once with all applicable configurations. JAR, AAR, and KLIB contents were inspected, including JARs nested inside AARs. Source artifact coordinates are retained even where Android release shrinking could remove their classes. The iOS rows describe resolved Kotlin/Native inputs on Linux, not a completed Apple link or a resolved Swift package graph.
+There are 279 distinct artifact files across the four reports; a shared file is recorded once with all applicable configurations. JAR, AAR, and KLIB contents were inspected, including JARs nested inside AARs. Source artifact coordinates are retained even where Android release shrinking could remove their classes. The iOS rows describe Kotlin/Native inputs resolved on Linux. The Xcode package graph is recorded separately below; neither resolution report establishes a completed Apple link.
 
 Gradle API references: [Configuration](https://docs.gradle.org/9.7.0/javadoc/org/gradle/api/artifacts/Configuration.html), [ResolvedArtifactResult](https://docs.gradle.org/9.7.0/javadoc/org/gradle/api/artifacts/result/ResolvedArtifactResult.html), and [ModuleComponentIdentifier](https://docs.gradle.org/9.7.0/javadoc/org/gradle/api/artifacts/component/ModuleComponentIdentifier.html).
 
@@ -46,7 +46,8 @@ Each owning project resolves its own configurations, as required by Gradle's pro
 | Jakarta Dependency Injection | `jakarta.inject-api:2.0.1` | The actual JAR contains both Apache `META-INF/LICENSE.txt` and `META-INF/NOTICE.md`; both are preserved. The notice identifies the Eclipse Jakarta Dependency Injection project. |
 | Checker Framework qualifiers | `checker-qual:3.43.0` | The actual JAR contains the MIT license with the Checker Framework developers' copyright. This is the qualifier library, not the Checker Framework compiler tool. |
 | Skiko / Skia | Skiko 0.150.1; Skia `m150-1f14f1166a` | Skiko's POM/license is Apache 2.0, with a separate [NOTICE](https://github.com/JetBrains/skiko/blob/v0.150.1/NOTICE). Skia's BSD license and its bundled native components need their own notices; see below. |
-| Swift Certificates | Exact Xcode package pin 1.20.0 | [LICENSE.txt](https://github.com/apple/swift-certificates/blob/1.20.0/LICENSE.txt), [NOTICE.txt](https://github.com/apple/swift-certificates/blob/1.20.0/NOTICE.txt), and the full musl MIT copyright/permission text embedded in [TimeCalculations.swift](https://github.com/apple/swift-certificates/blob/1.20.0/Sources/X509/X509BaseTypes/TimeCalculations.swift). |
+| Swift Certificates | Resolved by Xcode to 1.20.0 | [LICENSE.txt](https://github.com/apple/swift-certificates/blob/c8aece90ea05f9866bd392a5bf13b5cae56c0e03/LICENSE.txt), [NOTICE.txt](https://github.com/apple/swift-certificates/blob/c8aece90ea05f9866bd392a5bf13b5cae56c0e03/NOTICE.txt), and the full musl MIT copyright/permission text embedded in [TimeCalculations.swift](https://github.com/apple/swift-certificates/blob/c8aece90ea05f9866bd392a5bf13b5cae56c0e03/Sources/X509/X509BaseTypes/TimeCalculations.swift), all verified against the locked commit. |
+| Swift Crypto / Swift ASN.1 | Resolved by Xcode to 4.5.2 / 1.7.2 | Each package's Apache LICENSE and NOTICE bytes match its locked source commit. The audited BoringSSL source revision is also confirmed by the locked Swift Crypto package. |
 
 ## Embedded notices versus native code
 
@@ -82,13 +83,21 @@ These come from the pinned IJG, FreeType, and DNG patent terms linked in the man
 
 DNG's [source-code agreement](../assets/licenses/runtime/skia_dng_sdk_LICENSE.source_code) grants redistribution rights, but section 5 addresses indemnification when distributing the software in a commercial product, and section 6 restricts trademark use. The release owner must account for those terms if DNG code remains in the distributed product. The notices are included conservatively while final-link retention is unverified. Absence of a standalone `libdng_sdk.a` file in an app bundle would not demonstrate exclusion of statically linked DNG code.
 
-## Swift resolution boundary
+## Resolved Swift packages and native boundary
 
-The Xcode project pins Swift Certificates 1.20.0. Its [Package.swift](https://github.com/apple/swift-certificates/blob/1.20.0/Package.swift) permits Swift Crypto `3.12.3..<5.0.0` and Swift ASN.1 from 1.1.0. No `Package.resolved` was present locally when this audit began; the native owner has been asked for the actual CI resolution.
+The [Xcode Package.resolved](../iosApp/PartyDeck.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved) retrieved from macOS CI run `34378549932` has SHA-256 `47eb4a3e1acc5072f207aaf2d4dc924544afeeda3e01800079c81d05322b08d3`. The workspace file matches the captured CI artifact byte-for-byte. It selects exactly these packages:
 
-Upstream tag enumeration verified Swift Crypto 4.5.2 at `da9d28d69ebe3894b18376c8f2395c2f37b8448f` and Swift ASN.1 1.7.2 at `d9a5b37470adc940d22c3bcd5ca6953a516b727f` as current stable source candidates in the allowed ranges. Their license/NOTICE texts are collected as source evidence, not asserted to be Xcode's selected versions. Swift Crypto 4.5.2's manifest also depends on Swift ASN.1 and records vendored BoringSSL commit `0226f30467f540a3f62ef48d453f93927da199b6`. `_CryptoExtras` leads to `CryptoExtras`, whose target dependencies include BoringSSL on Apple platforms; it is incorrect to assume the whole dependency uses only system CryptoKit.
+| Package | Selected version | Locked revision |
+|---|---|---|
+| Swift Certificates | 1.20.0 | `c8aece90ea05f9866bd392a5bf13b5cae56c0e03` |
+| Swift Crypto | 4.5.2 | `da9d28d69ebe3894b18376c8f2395c2f37b8448f` |
+| Swift ASN.1 | 1.7.2 | `d9a5b37470adc940d22c3bcd5ca6953a516b727f` |
 
-The final Swift lock and linked iOS bundle must be compared with these source revisions before claiming that native package coverage is complete. System frameworks imported by the helper—Security, Network, CryptoKit, and Foundation—are not copied into the app as third-party source packages.
+All three audited upstream checkouts match those locked revisions. The six LICENSE/NOTICE files were compared directly with their pinned Git objects; their bytes already match the bundled texts. The Swift Certificates musl source hash and complete extracted permission block also match its locked commit. The [resolution record](../assets/licenses/runtime/swift_package_resolution.json) retains the package manifest and notice-source hashes. All recorded Swift notices are verified against the resolved sources.
+
+Swift Crypto's locked [Package.swift](https://github.com/apple/swift-crypto/blob/da9d28d69ebe3894b18376c8f2395c2f37b8448f/Package.swift) and [vendored hash file](https://github.com/apple/swift-crypto/blob/da9d28d69ebe3894b18376c8f2395c2f37b8448f/Sources/CCryptoBoringSSL/hash.txt) both identify BoringSSL commit `0226f30467f540a3f62ef48d453f93927da199b6`, matching the audited BoringSSL license source. `_CryptoExtras` leads to `CryptoExtras`, whose declared target dependencies include BoringSSL on Apple platforms. This source dependency is recorded without inferring which objects the final app retains.
+
+The completed iOS link and distributed bundle still need inspection before claiming complete native binary coverage, including the DNG terms and retention qualification above. Package resolution does not prove successful app compilation, linking, or code retention. System frameworks imported by the helper—Security, Network, CryptoKit, and Foundation—are not copied into the app as third-party source packages.
 
 ## Packaging and maintenance
 
@@ -96,6 +105,6 @@ Canonical runtime texts live under `assets/licenses/runtime/`; byte-identical ap
 
 The completed [runtime bundling manifest](../assets/licenses/runtime/software_notice_sources.json) has 56 records: five distinct embedded notice texts, 27 additional upstream/source notices, 23 Skia component notices, and one generated acknowledgment text. There are 49 distinct text hashes and 295,998 bytes across the 56 canonical files. All 56 app-resource copies were verified against their manifest SHA-256 and canonical bytes. Only listed text resources are copied; the inventory, manifests, and Gradle reporting helper are not app resources. Exact upstream bytes are retained, including upstream formatting; transformations of source comments are recorded explicitly.
 
-The regenerated aggregate contains 64 total notice entries in 56 groups of identical text, retaining every component/title attribution. Its size is 258,084 bytes and SHA-256 is `1cbfc067e97159c272953f363f5b0729faa656a55b1bf76c0c9200c6dd90a455`. All 56 runtime texts and titles were independently checked against the aggregate after generation, with the required acknowledgments appearing first. The assets verifier also passes its 68 pinned source-file checks.
+The regenerated aggregate contains 64 total notice entries in 56 groups of identical text, retaining every component/title attribution. Its size is 258,067 bytes and SHA-256 is `d5c47822bd82a0f2b775b1f8c76863a4e5d5de7fbe6ca1aa1ad2713794a32066`. All 56 runtime texts and titles were independently checked against the aggregate after generation, with the required acknowledgments appearing first. The assets verifier also passes its 68 pinned source-file checks.
 
-The release owner is independently inspecting the rebuilt APK/AAB/iOS legal resources. Native Swift resolution and final linked-product inventory remain explicit qualification checks; a source/POM review alone is not described as exhaustive binary compliance. After dependency upgrades, repeat resolution, update pinned native/source evidence and texts, run `python3 assets/tools/bundle_notices.py`, verify all hashes, and inspect the rebuilt packages before updating the release evidence.
+The release owner is independently inspecting the rebuilt APK/AAB/iOS legal resources. Final linked-product inventory and shipped-resource inclusion remain explicit qualification checks; the verified Swift lock closes dependency selection only. A source/POM review alone is not described as exhaustive binary compliance. After dependency upgrades, repeat Gradle and Xcode resolution, compare the locked source revisions, update native/source evidence and texts, run `python3 assets/tools/bundle_notices.py`, verify all hashes, and inspect the rebuilt packages before updating the release evidence.

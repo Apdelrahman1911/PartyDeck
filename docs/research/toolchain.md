@@ -187,6 +187,73 @@ New Android scanner dependencies were also checked directly: CameraX
 minimum SDK **23**, minimum compile SDK **36**, and minimum AGP **8.9.1** in their
 published AARs. These fit PartyDeck's minimum 26 / compile 37.1 / AGP 9.3.1.
 
+### First integrated native run
+
+[Integrated run 34376593582][27], commit
+`b1c24bb421b1f01b3b6a92b300dee9e6aad4fe19`, reached the full native module graph.
+The reviewer independently downloaded completed iOS job **102550842446** logs.
+SDK/JDK/Xcode setup succeeded and production
+`:transport:compileKotlinIosSimulatorArm64` completed. Compilation then failed in
+`SecurityTransportLifecycleTest.PausedDispatcher` at lines 109–114: its
+unqualified `Runnable` was unresolved on Native and therefore its `dispatch`
+method did not override the common coroutine dispatcher method.
+
+The reviewer checked coroutines **1.11.0**'s published source archive:
+`commonMain/CoroutineDispatcher.kt` takes `kotlinx.coroutines.Runnable`,
+`commonMain/Runnable.common.kt` declares its `expect fun interface`, and
+`nativeMain/Runnable.kt` provides the native implementation. Its JVM
+representation is `java.lang.Runnable`, explaining why the missing common
+import escaped JVM compilation. The transport owner added the verified
+`import kotlinx.coroutines.Runnable`; the next integrated run below validated
+that correction. [26]
+
+This failed run did **not** compile or launch the Swift application: the app
+step was skipped after shared-test compilation failed. The CI owner is allowing
+independent framework/app diagnostics to continue after a shared-test failure
+while preserving the overall failed result. No Swift or physical-device success
+is inferred from this run.
+
+### Full shared-native gate and first Swift compile
+
+[Integrated run 34378549932][28], commit
+`303abb651165497402794ae857e182a2581645cb`, completed the full shared-native
+gate successfully at 16:56:54 UTC on 2026-09-09. The reviewer independently
+downloaded iOS job **102557400358** logs and artifact **10115636035**, then
+parsed every native JUnit report:
+
+| Native module | Tests passed | Failures / errors / skips |
+| --- | ---: | --- |
+| Core rules | 14 | 0 / 0 / 0 |
+| Session authority/protocol | 27 | 0 / 0 / 0 |
+| Transport callback/security | 10 | 0 / 0 / 0 |
+| Game catalog/engine boundary | 7 | 0 / 0 / 0 |
+| Compose app controller | 16 | 0 / 0 / 0 |
+| **Total** | **74** | **0 / 0 / 0** |
+
+The native invocation completed in **12m 8s; 92 actionable tasks, all
+executed**. All five modules compiled and linked their simulator tests.
+`:composeApp:linkDebugFrameworkIosArm64` succeeded; the subsequent Xcode
+invocation also executed `:composeApp:linkDebugFrameworkIosSimulatorArm64`
+successfully. The archive contains the generated `PartyDeckKit.h` for both
+architectures, including the public `CallbackLanTransport(driver:)`
+constructor and synchronous native driver/observer protocols.
+
+The actual Swift application reached Xcode compilation but **failed before
+XCTest execution** at `NativeActions.swift:7`: `NativeActions` did not conform
+to `IosNativeActions`. Both the compiler diagnostic and generated header
+require `func doCopyText(value: String) -> Bool`; the Swift implementation
+used `copyText(value:)`. The reviewer routed this exact diagnostic and the
+generated header to the iOS owner. Remaining Swift bodies, simulator UI tests,
+and the unsigned device application still require a successful subsequent
+run. This artifact contains no completed app archives; shared transport tests
+do not substitute for execution of the Swift TLS implementation.
+
+Local evidence is preserved under
+`/tmp/partydeck-toolchain-review/integrated-ios-34378549932/`, including JUnit
+XML, framework headers, Xcode result bundle/log, simulator metadata, and the
+actual resolved Swift package file. The complete job log is
+`/tmp/partydeck-toolchain-review/integrated-ios-34378549932.log`.
+
 ## Authoritative sources
 
 [1]: https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html
@@ -214,3 +281,6 @@ published AARs. These fit PartyDeck's minimum 26 / compile 37.1 / AGP 9.3.1.
 [23]: https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-gradle-plugin/2.4.20/kotlin-gradle-plugin-2.4.20-sources.jar
 [24]: https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34370981268
 [25]: https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#export-dependencies-to-binaries
+[26]: https://repo.maven.apache.org/maven2/org/jetbrains/kotlinx/kotlinx-coroutines-core/1.11.0/kotlinx-coroutines-core-1.11.0-sources.jar
+[27]: https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34376593582
+[28]: https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34378549932

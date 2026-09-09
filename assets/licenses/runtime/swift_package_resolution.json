@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "captured_on": "2026-09-09",
+  "resolution_source": {
+    "file": "iosApp/PartyDeck.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved",
+    "sha256": "47eb4a3e1acc5072f207aaf2d4dc924544afeeda3e01800079c81d05322b08d3",
+    "ci_run_id": "34378549932",
+    "ci_platform": "macOS",
+    "verified_against_ci_artifact": true,
+    "format_version": 3,
+    "origin_hash": "3463062aa037aa20e4b5ff4c0943eb304b7e4d96575353d967b372ba93cd2aa5"
+  },
+  "packages": [
+    {
+      "identity": "swift-certificates",
+      "location": "https://github.com/apple/swift-certificates.git",
+      "version": "1.20.0",
+      "revision": "c8aece90ea05f9866bd392a5bf13b5cae56c0e03",
+      "audited_checkout_matches_locked_revision": true,
+      "notice_files": [
+        {
+          "source_path": "LICENSE.txt",
+          "file": "assets/licenses/runtime/swift_certificates_license.txt",
+          "sha256": "8c6db340475136df3c1201d458fa5755698eace76e510471ecc9d857d6083dac",
+          "source": "https://raw.githubusercontent.com/apple/swift-certificates/c8aece90ea05f9866bd392a5bf13b5cae56c0e03/LICENSE.txt"
+        },
+        {
+          "source_path": "NOTICE.txt",
+          "file": "assets/licenses/runtime/swift_certificates_notice.txt",
+          "sha256": "57d7797703d906b63c2be50d891cf70bdec307ae6f77a881638c33343f3dd195",
+          "source": "https://raw.githubusercontent.com/apple/swift-certificates/c8aece90ea05f9866bd392a5bf13b5cae56c0e03/NOTICE.txt"
+        }
+      ],
+      "package_manifest": {
+        "source": "https://raw.githubusercontent.com/apple/swift-certificates/c8aece90ea05f9866bd392a5bf13b5cae56c0e03/Package.swift",
+        "sha256": "c3f671218bdec18adbde1416d9ae956595f40a36879427a151f80b0a4285fe32"
+      }
+    },
+    {
+      "identity": "swift-crypto",
+      "location": "https://github.com/apple/swift-crypto.git",
+      "version": "4.5.2",
+      "revision": "da9d28d69ebe3894b18376c8f2395c2f37b8448f",
+      "audited_checkout_matches_locked_revision": true,
+      "notice_files": [
+        {
+          "source_path": "LICENSE.txt",
+          "file": "assets/licenses/runtime/swift_crypto_license.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source": "https://raw.githubusercontent.com/apple/swift-crypto/da9d28d69ebe3894b18376c8f2395c2f37b8448f/LICENSE.txt"
+        },
+        {
+          "source_path": "NOTICE.txt",
+          "file": "assets/licenses/runtime/swift_crypto_notice.txt",
+          "sha256": "b3ddc2ae068e76b3beb71be03c0400f90090f9469aa491bf7b1ac42320af37b8",
+          "source": "https://raw.githubusercontent.com/apple/swift-crypto/da9d28d69ebe3894b18376c8f2395c2f37b8448f/NOTICE.txt"
+        }
+      ],
+      "package_manifest": {
+        "source": "https://raw.githubusercontent.com/apple/swift-crypto/da9d28d69ebe3894b18376c8f2395c2f37b8448f/Package.swift",
+        "sha256": "78563df9020b2bf273172ace10da2a45275a0fe6856d10b3b4d873f67da7b588"
+      }
+    },
+    {
+      "identity": "swift-asn1",
+      "location": "https://github.com/apple/swift-asn1.git",
+      "version": "1.7.2",
+      "revision": "d9a5b37470adc940d22c3bcd5ca6953a516b727f",
+      "audited_checkout_matches_locked_revision": true,
+      "notice_files": [
+        {
+          "source_path": "LICENSE.txt",
+          "file": "assets/licenses/runtime/swift_asn1_license.txt",
+          "sha256": "8c6db340475136df3c1201d458fa5755698eace76e510471ecc9d857d6083dac",
+          "source": "https://raw.githubusercontent.com/apple/swift-asn1/d9a5b37470adc940d22c3bcd5ca6953a516b727f/LICENSE.txt"
+        },
+        {
+          "source_path": "NOTICE.txt",
+          "file": "assets/licenses/runtime/swift_asn1_notice.txt",
+          "sha256": "11dd3b3b783e6ec26098dd38ebc962986ea109b85447e28e62867b83bd0f8c5b",
+          "source": "https://raw.githubusercontent.com/apple/swift-asn1/d9a5b37470adc940d22c3bcd5ca6953a516b727f/NOTICE.txt"
+        }
+      ],
+      "package_manifest": {
+        "source": "https://raw.githubusercontent.com/apple/swift-asn1/d9a5b37470adc940d22c3bcd5ca6953a516b727f/Package.swift",
+        "sha256": "c46482de4edb5c21c263682d102e52b180c1420be592d6c957cdc06f8fc4e516"
+      }
+    }
+  ],
+  "additional_source_notices": [
+    {
+      "component": "musl-derived Swift Certificates time calculations",
+      "resolved_package": "swift-certificates",
+      "source_path": "Sources/X509/X509BaseTypes/TimeCalculations.swift",
+      "source_sha256": "96135d14eef88b5cd918e36f537e2054469c1ab3f97912d684eb7cfcb4df0544",
+      "file": "assets/licenses/runtime/swift_certificates_musl_mit.txt",
+      "sha256": "e239ef69c9c4eead9406bdc6a34f2bd1220c3dcd3b17c8377cb2fb73fdaf0d38",
+      "source_lines": [
+        25,
+        44
+      ]
+    },
+    {
+      "component": "BoringSSL",
+      "resolved_package": "swift-crypto",
+      "upstream_revision": "0226f30467f540a3f62ef48d453f93927da199b6",
+      "source_revision_evidence": {
+        "source": "https://raw.githubusercontent.com/apple/swift-crypto/da9d28d69ebe3894b18376c8f2395c2f37b8448f/Sources/CCryptoBoringSSL/hash.txt",
+        "sha256": "31fb466314c7e2ad27ac255a53f4d195dbd05c0df48eacba5ef2ef67e0761969"
+      },
+      "file": "assets/licenses/runtime/swift_crypto_boringssl_license.txt",
+      "sha256": "827c8d8fc207c2392794eef9e00fe246f9f61fdcc132556c275be3dd8c3cd97f",
+      "source": "https://boringssl.googlesource.com/boringssl/+/0226f30467f540a3f62ef48d453f93927da199b6/LICENSE?format=TEXT",
+      "scope": "The locked package declares and vendors this source revision; final linked-code retention remains unverified."
+    }
+  ],
+  "scope": "Exact Swift package selection and notice-source verification. Does not establish successful app linking or retention of any particular native object.",
+  "verification": {
+    "resolved_package_count": 3,
+    "license_and_notice_files_verified_from_pinned_git_objects": 6,
+    "musl_notice_extraction_verified": true,
+    "boringssl_vendored_revision_matches_audited_source": true,
+    "license_text_bytes_changed": false,
+    "final_link_verified": false
+  }
+}

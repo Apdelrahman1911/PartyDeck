@@ -7,6 +7,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -18,6 +19,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -46,6 +48,7 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import dev.partydeck.app.controller.PendingAction
 import dev.partydeck.app.ui.theme.DeckButton
@@ -313,33 +316,7 @@ internal fun MatchResultScreen(
     modifier: Modifier = Modifier,
 ) {
     var showReveal by rememberSaveable(view.winnerId, view.roundNumber) { mutableStateOf(false) }
-    Column(
-        modifier = modifier.fillMaxSize().verticalScroll(rememberScrollState())
-            .padding(horizontal = 20.dp, vertical = 24.dp).testTag("game-winner"),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(20.dp),
-    ) {
-        SectionLabel(stringResource(Res.string.game_winner_eyebrow), color = PartyDeckColors.Citron)
-        WinnerEmblem(view.winnerId)
-        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text(
-                stringResource(Res.string.game_winner_name, playerName(view, view.winnerId)),
-                style = MaterialTheme.typography.displaySmall,
-                color = PartyDeckColors.Paper,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.semantics { heading() },
-            )
-            Text(
-                stringResource(
-                    if (view.winnerId == view.viewerId) Res.string.game_you_won else Res.string.game_winner_support,
-                ),
-                style = MaterialTheme.typography.bodyLarge,
-                color = PartyDeckColors.Muted,
-                textAlign = TextAlign.Center,
-            )
-            SectionLabel(stringResource(Res.string.game_round_label, view.roundNumber))
-        }
-        Spacer(Modifier.height(2.dp))
+    val continuation: @Composable () -> Unit = {
         if (isHost) {
             DeckButton(
                 text = stringResource(
@@ -364,6 +341,77 @@ internal fun MatchResultScreen(
             if (showReveal) ChallengeResult(view, outcome, largeText, Modifier.fillMaxWidth(), announceVerdict = false)
         }
     }
+    BoxWithConstraints(
+        modifier = modifier.fillMaxSize().testTag("game-winner"),
+        contentAlignment = Alignment.TopCenter,
+    ) {
+        val shortLandscape = maxWidth >= 680.dp && maxHeight < 480.dp && !largeText
+        if (shortLandscape) {
+            Row(
+                modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp, vertical = 12.dp),
+                horizontalArrangement = Arrangement.spacedBy(24.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Column(
+                    modifier = Modifier.width(176.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                ) {
+                    SectionLabel(stringResource(Res.string.game_winner_eyebrow), color = PartyDeckColors.Citron)
+                    WinnerEmblem(view.winnerId, diameter = 112.dp)
+                }
+                Column(
+                    modifier = Modifier.weight(1f).verticalScroll(rememberScrollState()),
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                ) {
+                    WinnerSummary(view, largeText = false, shortLandscape = true)
+                    continuation()
+                }
+            }
+        } else {
+            Column(
+                modifier = Modifier.widthIn(max = 560.dp).fillMaxSize().verticalScroll(rememberScrollState())
+                    .padding(horizontal = 20.dp, vertical = if (largeText) 16.dp else 24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(if (largeText) 16.dp else 20.dp),
+            ) {
+                SectionLabel(stringResource(Res.string.game_winner_eyebrow), color = PartyDeckColors.Citron)
+                if (!largeText) WinnerEmblem(view.winnerId)
+                WinnerSummary(view, largeText, shortLandscape = false)
+                if (!largeText) Spacer(Modifier.height(2.dp))
+                continuation()
+            }
+        }
+    }
+}
+
+@Composable
+private fun WinnerSummary(view: GameView, largeText: Boolean, shortLandscape: Boolean) {
+    val textAlign = if (shortLandscape) TextAlign.Start else TextAlign.Center
+    Column(
+        horizontalAlignment = if (shortLandscape) Alignment.Start else Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(if (shortLandscape) 8.dp else 12.dp),
+    ) {
+        Text(
+            stringResource(Res.string.game_winner_name, playerName(view, view.winnerId)),
+            // Use a readable base style while preserving the user's complete system font scale.
+            style = if (largeText) MaterialTheme.typography.titleLarge else MaterialTheme.typography.displaySmall,
+            color = PartyDeckColors.Paper,
+            textAlign = textAlign,
+            modifier = Modifier.semantics { heading() },
+        )
+        if (!largeText) {
+            Text(
+                stringResource(
+                    if (view.winnerId == view.viewerId) Res.string.game_you_won else Res.string.game_winner_support,
+                ),
+                style = MaterialTheme.typography.bodyLarge,
+                color = PartyDeckColors.Muted,
+                textAlign = textAlign,
+            )
+        }
+        SectionLabel(stringResource(Res.string.game_round_label, view.roundNumber))
+    }
 }
 
 @Composable
@@ -378,7 +426,7 @@ private fun WaitingForHost() {
 }
 
 @Composable
-private fun WinnerEmblem(winnerId: String?) {
+private fun WinnerEmblem(winnerId: String?, diameter: Dp = 152.dp) {
     val reduceMotion = LocalReduceMotion.current
     var entered by remember(winnerId) { mutableStateOf(false) }
     LaunchedEffect(winnerId) { entered = true }
@@ -388,7 +436,7 @@ private fun WinnerEmblem(winnerId: String?) {
         label = "winner-ornament",
     )
     Box(
-        modifier = Modifier.size(152.dp).clearAndSetSemantics { }
+        modifier = Modifier.size(diameter).clearAndSetSemantics { }
             .graphicsLayer { alpha = if (reduceMotion) 1f else 0.7f + entrance * 0.3f },
         contentAlignment = Alignment.Center,
     ) {
@@ -408,10 +456,10 @@ private fun WinnerEmblem(winnerId: String?) {
             }
         }
         Box(
-            Modifier.size(112.dp).background(PartyDeckColors.Citron, CircleShape),
+            Modifier.size(diameter * (112f / 152f)).background(PartyDeckColors.Citron, CircleShape),
             contentAlignment = Alignment.Center,
         ) {
-            RankSymbol(CardRank.STAR, Modifier.size(76.dp))
+            RankSymbol(CardRank.STAR, Modifier.size(diameter * 0.5f))
         }
     }
 }

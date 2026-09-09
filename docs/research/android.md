@@ -120,6 +120,8 @@ The assets owner bundles ZXing's Apache 2.0 license and NOTICE, AndroidX's Apach
 
 CameraX's UI dependencies also bring in Emoji2 1.4.0. Its default `EmojiCompatInitializer` configures a system downloadable-font provider and requests its font shortly after the first resume. PartyDeck uses bundled typography and has no need for that automatic provider request. The manifest removes only `androidx.emoji2.text.EmojiCompatInitializer` metadata using the exact AndroidX opt-out recipe, preserving `ProcessLifecycleInitializer` and `ProfileInstallerInitializer`. Normal system text/emoji fallback remains available. [EmojiCompat initializer API](https://developer.android.com/reference/androidx/emoji2/text/EmojiCompatInitializer), [exact published 1.4.0 sources](https://dl.google.com/dl/android/maven2/androidx/emoji2/emoji2/1.4.0/emoji2-1.4.0-sources.jar)
 
+App Startup 1.2.0 is an explicit application dependency because the manifest directly references `InitializationProvider`. Relying only on CameraX's runtime dependency packaged the class but left the manual manifest reference absent from the lint/compile classpath. [App Startup 1.2.0 artifact](https://dl.google.com/dl/android/maven2/androidx/startup/startup-runtime/1.2.0/startup-runtime-1.2.0.pom)
+
 ## Packaging and qualification
 
 Use an original adaptive launcher icon, app label, dark launch background matching the app, explicit exported launcher Activity, and `android:appCategory="game"`. Keep app-private state out of logs. Release manifests should not accidentally gain unneeded permissions from dependencies.
@@ -127,5 +129,29 @@ Use an original adaptive launcher icon, app label, dark launch background matchi
 Inspect packaged `.so` files even when PartyDeck has no direct native dependency: libraries can bring native code transitively. The current official page states target-35+ Play apps must support 16 KB memory page sizes on 64-bit devices and that updates without support are blocked starting **February 1, 2027**. This current page differs from older published deadlines; verify again before submission. AGP 8.5.1+ handles 16 KB ZIP alignment, NDK r28+ builds 16 KB-aligned ELF by default, but prebuilt libraries still need verification. Use `zipalign -c -P 16 -v 4` for APK alignment and inspect bundle alignment configuration. [16 KB page sizes](https://developer.android.com/guide/practices/page-sizes)
 
 Required Linux checks after integration: shared Android compilation, debug APK assembly, Android lint, release assembly/bundle, manifest and asset inspection. Do not substitute successful compilation for lifecycle/discovery verification.
+
+### First integrated Android qualification milestone
+
+On 2026-09-09, the following command completed successfully in **1 minute 6 seconds**, including optimized release shrinking. This is implementation-milestone evidence; later UI and license-notice edits require the coordinator's final validation again.
+
+```sh
+flock /tmp/partydeck-gradle.lock ./gradlew \
+  :androidApp:assembleDebug :androidApp:testDebugUnitTest \
+  :androidApp:lintDebug :androidApp:bundleRelease --console=plain
+```
+
+- Four QR decoder tests passed, with zero failures, errors, or skips. The recorded run began at `2026-09-09T16:42:21.970Z`.
+- Lint completed with zero errors. Its five warnings were the intentional target-36 baseline, the older-device-ignored predictive-back manifest attribute, two launcher-resource variant advisories (the API-33 icon has its monochrome layer), and a dependency-wide Bouncy Castle trust-manager finding forwarded for independent security reachability review. No broad lint baseline was added.
+- Debug APK: 22,590,680 bytes; SHA-256 `2ff5e86d72e30fe5c7a9f6d7a15742d7323cd682ab1944b2ac6f0c84bc01ebfb`.
+- Optimized unsigned release AAB: 7,588,784 bytes; SHA-256 `17ac426c4608d945eb2b3135db54eeb715e21f2e05297b1b5d268af71223064c`. No archive signing entries were present; this is not a signed production deliverable.
+- Debug and release merged manifests contained `INTERNET`, `CAMERA`, and AndroidX's internal signature permission, with only lifecycle/profile-installer startup metadata. Neither the network-state permission nor the emoji-font initializer remained.
+
+### Runtime smoke evidence and limits
+
+The accelerated Android job in [CI run 34378549932](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34378549932) installed the app and returned a successful cold launch in 6,745 ms. Its screenshot showed the rendered Home screen behind a **System UI** ANR dialog. The active accessibility tree contained that system dialog, so the first Home selector timed out. This does not establish passed app navigation. The unaccelerated local emulator was also unusable for acceptance and is not counted as device evidence.
+
+The expanded `scripts/smoke-android-ui.py` requires three consecutive fresh trees from the device's resolved HOME Activity before installing the app, and aborts with the actual crash/ANR dialog title instead of disguising a system failure as a missing app tag. It exercises rules, persisted switches across process restart, private-card selection/concealment/background restoration/play, local hosting and invitation actions, invalid-Join editing, and 200% text reachability. The same script accepts debug and **test-signed optimized** variants; its test key is separate from production signing. Actual success is recorded only by a completed per-variant run.
+
+Saved UI/log text redacts invitation bearer URIs. Screenshots are omitted while a live QR invitation or system share preview can be visible. The script restores font and animation settings in `finally` and preserves bounded main/system/crash/events buffers plus the last ANR report for failure diagnosis. The Android-16 source confirms the used `input keycombination` command, `dumpsys activity lastanr`, and the `mInputShown` diagnostic that prevents Back from leaving a form when the emulator has no soft keyboard. [Input command source](https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-16.0.0_r1/services/core/java/com/android/server/input/InputShellCommand.java), [Activity diagnostics source](https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-16.0.0_r1/services/core/java/com/android/server/wm/ActivityTaskManagerService.java), [IME visibility source](https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-16.0.0_r1/services/core/java/com/android/server/inputmethod/ImeVisibilityStateComputer.java)
 
 Device qualification: install and cold launch; API 26 and API 36+ smoke tests; orientation changes during hosting/playing; actual Android↔Android and Android↔iOS LAN host/join/challenge; app background/foreground and host loss; router client isolation; network changes; screen timeout policy; safe areas/IME/font scaling; haptics enabled/disabled; audio mute, focus, loading, and interruption; process restart; 16 KB device/emulator where applicable. When target SDK rises to 37, add permission grant/deny/revocation tests before enabling that target.

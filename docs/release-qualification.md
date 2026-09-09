@@ -15,7 +15,7 @@ Do not mark an unexecuted check as passing.
 | Gate | Evidence required | Current evidence |
 | --- | --- | --- |
 | Common game/session correctness | Independent domain, serialization, authority, replay, projection, and reconnect tests | Domain/session review results recorded in [game-review.md](game-review.md); integrated app and native transport qualification pending |
-| Android application | Installable APK from the actual launcher; release AAB; lint; launch and critical navigation | Bootstrap APK metadata/signature/alignment and installation passed; bootstrap rendered under an unstable software emulator; final app checks pending |
+| Android application | Installable APK from the actual launcher; release AAB; lint; launch and critical navigation | Integrated debug APK metadata/signature/alignment/resources independently passed; final manifest/notices, release AAB, and accelerated app navigation pending |
 | iOS application | Actual SwiftUI/UIKit app links PartyDeckKit, builds for device and simulator, and launches in simulator | App wrapper and simulator/device CI scripts exist; final app build and simulator results pending |
 | LAN integration | Real transport tests and two-to-six-device mixed Android/iOS sessions | Pending; same-process simulation alone is insufficient |
 | Lifecycle | Client recovery, host loss, background/foreground, process termination, clean session teardown | Pending |
@@ -99,6 +99,40 @@ The iOS scanner uses AVFoundation QR metadata without a photo/video file output,
 and removes capture inputs, outputs, and its delegate on completion. Android's
 scanner closes every analyzed image and decodes locally. Permission, cancellation,
 rotation, and background behavior still require the packaged-app checks below.
+
+### Integrated Android package inspection
+
+The reviewer froze the local integration APK built at **16:12:27 UTC** on
+2026-09-09: **22,437,392 bytes**, SHA-256
+`7e849de280b5ea0f7c92400e3140b1b9ba98b3bc1d47c1a72f79815e86895b23`.
+This is a transitional build from active integration, identified by its artifact
+hash rather than attributed to a final source commit.
+
+- The actual launcher, version `1.0.0` / code `1`, minimum SDK 26, target SDK 36,
+  optional camera hardware, adaptive launcher icons, disabled backup, and
+  disabled cleartext traffic are present in the packaged manifest. The scanner
+  and resource/startup providers are not exported. The dependency-provided
+  ProfileInstaller receiver is exported behind `android.permission.DUMP`.
+- APK v2 signing verified as **Android Debug**. `zipalign -c -P 16 4` passed.
+  All **12** packaged native libraries, across arm64-v8a, armeabi-v7a, x86, and
+  x86_64, have `0x4000` LOAD-segment alignment. They comprise the AndroidX path
+  library and CameraX image/surface utilities. This is binary compatibility
+  inspection, not an executed 16 KB-device test.
+- All four font files and six WAV files exactly match the inspected source
+  assets. The font, QR, CameraX/libyuv notices are present. The final runtime
+  dependency notice set was still being assembled when this APK was built;
+  complete license inclusion must be rechecked after integration.
+- The merged manifest includes `ACCESS_NETWORK_STATE` from Media3 and an
+  automatic EmojiCompat initializer. Exact published EmojiCompat 1.4.0 source
+  confirms that initializer requests a system downloadable-font provider.
+  These dependency additions were reported to the Android owner for the final
+  permission/offline-behavior decision. The source manifest alone had not shown
+  them; final merged-manifest inspection remains required.
+
+Package listings and the resource/native inspection record are retained as
+`integrated-debug-entries.txt` and `integrated-debug-content-review.json` in the
+reviewer's temporary evidence directory. This APK has not passed full app
+navigation or been designated a final release candidate.
 
 ## Runnable build and integration gates
 
@@ -234,6 +268,15 @@ separately justified platform design and device evidence. [9]
 The publisher must supply or confirm the production signing identity, store
 accounts, public support/privacy URL and contact, app name/identifier ownership,
 listing screenshots, content/age-rating answers, and applicable export answers.
+The dependency audit also found Adobe DNG SDK objects in the selected Skiko iOS
+KLIB. Its [license](../assets/licenses/runtime/skia_dng_sdk_LICENSE) permits
+redistribution but includes a commercial-product indemnification clause (§5);
+its [patent license](../assets/licenses/runtime/skia_dng_sdk_PATENTS) requires
+the stated DNG acknowledgement. The release reviewer independently read those
+terms. Final link coverage remains unverified, so the notices are included
+conservatively and the publisher must assess the commercial terms before
+distribution. Adding a notice alone does not resolve that separate obligation.
+
 Rate the shipped **non-graphic six-light fuse** presentation and actual content;
 do not assign a rating by analogy to another game. Complete store validation,
 testing-track/TestFlight installation, and physical-device checks before calling

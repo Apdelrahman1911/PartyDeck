@@ -36,6 +36,7 @@ import dev.partydeck.app.controller.AppUiState
 import dev.partydeck.app.controller.PartyDeckController
 import dev.partydeck.app.controller.RecoveryAction
 import dev.partydeck.app.ui.game.GameplayScreen
+import dev.partydeck.app.ui.game.playerName
 import dev.partydeck.app.ui.shell.ConnectionBanner
 import dev.partydeck.app.ui.shell.HomeScreen
 import dev.partydeck.app.ui.shell.HostJoinScreen
@@ -94,7 +95,9 @@ fun PartyDeckApp(
                             connection = state.connection,
                             pausedPlayerNames = session?.players
                                 ?.filter { it.id in session.pausedPlayerIds }
-                                ?.map { it.displayName }.orEmpty(),
+                                ?.map { player ->
+                                    session.game?.let { playerName(it, player.id) } ?: player.displayName
+                                }.orEmpty(),
                             canReturnToLobby = session?.let {
                                 it.phase == SessionPhase.GAME && it.selfPlayerId == it.hostPlayerId &&
                                     it.pausedPlayerIds.isNotEmpty() && it.controls.canReturnToLobby

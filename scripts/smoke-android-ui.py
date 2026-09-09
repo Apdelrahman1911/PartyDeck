@@ -1,31 +1,95 @@
 #!/usr/bin/env python3
-"""Install PartyDeck and exercise real Android navigation through accessibility tags."""
+"""Exercise the installed Android UI; no app test hooks or production signing keys."""
 
 import argparse
+import hashlib
 import json
 import pathlib
 import re
+import struct
 import subprocess
 import time
 import xml.etree.ElementTree as ET
 
 
+PACKAGE = "dev.partydeck.app"
+ACTIVITY = f"{PACKAGE}/.MainActivity"
+QR_DESCRIPTION = "Private table invitation QR code. Share and Copy are also available."
+INVALID_INVITATION = "That invitation does not look right. Scan or paste the full invitation again."
+INVITATION_HINT = "Only accept an invitation from the person hosting your table."
+TRANSIENT_ERRORS = (subprocess.SubprocessError, OSError, ET.ParseError)
+
+
+def redacted(text):
+    # System chooser/log output can contain the bearer URI. Never persist it.
+    return re.sub(r"partydeck:v1:[A-Za-z0-9_-]+", "partydeck:v1:[redacted]", text)
+
+
+def node_bounds(node):
+    if node is None:
+        return None
+    match = re.fullmatch(r"\[(-?\d+),(-?\d+)\]\[(-?\d+),(-?\d+)\]", node.get("bounds", ""))
+    return tuple(map(int, match.groups())) if match else None
+
+
+def checked(node):
+    if node is not None:
+        for candidate in node.iter("node"):
+            if candidate.get("checkable") == "true":
+                return candidate.get("checked") == "true"
+    return None
+
+
+def selected(node):
+    return node is not None and (node.get("selected") == "true" or checked(node) is True)
+
+
 class AndroidSmoke:
-    def __init__(self, serial, output):
+    def __init__(self, serial, output, variant="unspecified"):
         self.serial = serial
         self.output = output
+        self.variant = variant
         self.last_error = "No UI dump yet."
         self.steps = []
+        self.observations = {}
+        self.stage = "initialization"
+        self.display_size = (0, 0)
+        self.rotation = 0
+        self.saved_settings = {}
+        self.sensitive_surface = False
+        self.launch_count = 0
 
     def adb(self, *arguments, timeout=20, binary=False):
         result = subprocess.run(
-            ["adb", "-s", self.serial, *arguments],
-            capture_output=True,
-            text=not binary,
-            timeout=timeout,
-            check=True,
+            ["adb", "-s", self.serial, *arguments], capture_output=True,
+            text=not binary, timeout=timeout, check=True,
         )
         return result.stdout
+
+    def record(self, message):
+        self.steps.append(message)
+        print(f"[{self.variant}] {message}", flush=True)
+
+    def write_text(self, name, value):
+        (self.output / name).write_text(redacted(value))
+
+    def save_setting(self, namespace, name, value):
+        key = (namespace, name)
+        if key not in self.saved_settings:
+            self.saved_settings[key] = self.adb("shell", "settings", "get", namespace, name).strip()
+        self.adb("shell", "settings", "put", namespace, name, value)
+
+    def restore_environment(self):
+        errors = []
+        for (namespace, name), value in self.saved_settings.items():
+            try:
+                command = ("delete", namespace, name) if value in ("", "null") else ("put", namespace, name, value)
+                self.adb("shell", "settings", *command, timeout=10)
+            except TRANSIENT_ERRORS as error:
+                errors.append(f"{namespace}/{name}: {error}")
+        if errors:
+            self.write_text("restore-errors.log", "\n".join(errors))
+        return errors
 
     def wait_for_boot(self):
         deadline = time.monotonic() + 180
@@ -34,113 +98,444 @@ class AndroidSmoke:
                 timeout = min(10, max(0.1, deadline - time.monotonic()))
                 if self.adb("shell", "getprop", "sys.boot_completed", timeout=timeout).strip() == "1":
                     return
-            except (subprocess.SubprocessError, OSError) as error:
+            except TRANSIENT_ERRORS as error:
                 self.last_error = str(error)
-            time.sleep(min(2, max(0, deadline - time.monotonic())))
+            time.sleep(min(1, max(0, deadline - time.monotonic())))
         raise RuntimeError(f"Android did not boot within 180 seconds: {self.last_error}")
 
     def dump_ui(self, deadline=None):
-        if deadline is None:
-            deadline = time.monotonic() + 30
+        deadline = deadline or time.monotonic() + 30
 
-        def remaining_timeout():
+        def timeout():
             remaining = deadline - time.monotonic()
             if remaining <= 0:
                 raise TimeoutError("UI dump deadline expired.")
             return min(20, remaining)
 
-        # A failed uiautomator dump can return exit 0 and leave its old file intact.
-        # Remove it first so readiness can only use a fresh accessibility snapshot.
-        self.adb("shell", "rm", "-f", "/sdcard/partydeck-ci-ui.xml", timeout=remaining_timeout())
-        dump_output = self.adb("shell", "uiautomator", "dump", "/sdcard/partydeck-ci-ui.xml", timeout=remaining_timeout())
-        (self.output / "last-ui-dump.log").write_text(dump_output)
-        xml = self.adb("shell", "cat", "/sdcard/partydeck-ci-ui.xml", timeout=remaining_timeout())
+        # uiautomator can exit zero after a failed dump and leave an old file.
+        self.adb("shell", "rm", "-f", "/sdcard/partydeck-ci-ui.xml", timeout=timeout())
+        output = self.adb("shell", "uiautomator", "dump", "/sdcard/partydeck-ci-ui.xml", timeout=timeout())
+        self.write_text("last-ui-dump.log", output)
+        xml = self.adb("shell", "cat", "/sdcard/partydeck-ci-ui.xml", timeout=timeout())
         root = ET.fromstring(xml)
-        (self.output / "last-ui.xml").write_text(xml)
+        self.rotation = int(root.get("rotation", "0"))
+        self.write_text("last-ui.xml", xml)
         return root
 
-    def wait_for_tag(self, tag, fallback_text=None):
-        deadline = time.monotonic() + 45
+    def reject_crash_dialog(self, root):
+        error_ids = {"android:id/aerr_close", "android:id/aerr_wait", "android:id/aerr_restart"}
+        if any(node.get("resource-id") in error_ids for node in root.iter("node")):
+            titles = [node.get("text", "") for node in root.iter("node")
+                      if node.get("resource-id") == "android:id/alertTitle"]
+            title = "; ".join(titles) or "Android crash/ANR dialog"
+            raise RuntimeError(f"{self.stage}: {title}. Runtime checks cannot continue through a crash/ANR dialog.")
+
+    def visible(self, node):
+        bounds = node_bounds(node)
+        if not bounds:
+            return False
+        left, top, right, bottom = bounds
+        width, height = self.display_size
+        if self.rotation % 2:
+            width, height = height, width
+        return right > left >= 0 and bottom > top >= 0 and right <= width and bottom <= height
+
+    def find(self, root, tag, fallback_text=None, enabled=True):
+        for node in root.iter("node"):
+            resource_id = node.get("resource-id", "")
+            matches_tag = resource_id == tag or resource_id.endswith("/" + tag)
+            matches_text = fallback_text is not None and fallback_text in (node.get("text"), node.get("content-desc"))
+            is_enabled = node.get("enabled") != "false"
+            if (matches_tag or matches_text) and (enabled is None or is_enabled == enabled) and self.visible(node):
+                return node
+        return None
+
+    def wait_until(self, description, predicate, seconds=45, scroll=None):
+        deadline = time.monotonic() + seconds
+        swipes = 0
+        direction = scroll
+        previous_layout = None
+        stationary = 0
+        reversed_direction = False
         while time.monotonic() < deadline:
             try:
                 root = self.dump_ui(deadline)
-                for node in root.iter("node"):
-                    resource_id = node.get("resource-id", "")
-                    matches_tag = resource_id == tag or resource_id.endswith("/" + tag)
-                    matches_text = fallback_text is not None and fallback_text in (
-                        node.get("text"), node.get("content-desc")
-                    )
-                    if (matches_tag or matches_text) and node.get("enabled") != "false":
-                        return node
-                self.last_error = f"Tag {tag!r} was absent from the accessibility tree."
-            except (subprocess.SubprocessError, OSError, ET.ParseError) as error:
+                self.reject_crash_dialog(root)
+                value = predicate(root)
+                if value is not None and value is not False:
+                    return value
+                self.last_error = description
+                if scroll and swipes < 16:
+                    layout = ET.tostring(root)
+                    stationary = stationary + 1 if layout == previous_layout else 0
+                    previous_layout = layout
+                    if stationary >= 2 and not reversed_direction:
+                        direction = "up" if direction == "down" else "down"
+                        reversed_direction = True
+                    self.swipe(direction, root, timeout=min(10, max(0.1, deadline - time.monotonic())))
+                    swipes += 1
+            except TRANSIENT_ERRORS as error:
                 self.last_error = str(error)
-            time.sleep(min(1, max(0, deadline - time.monotonic())))
-        raise RuntimeError(f"Screen did not become ready within 45 seconds: {self.last_error}")
+            time.sleep(min(0.4, max(0, deadline - time.monotonic())))
+        raise RuntimeError(f"{self.stage}: {description} within {seconds} seconds: {self.last_error}")
 
-    def tap(self, tag, fallback_text=None):
-        node = self.wait_for_tag(tag, fallback_text)
-        bounds = re.fullmatch(r"\[(\d+),(\d+)\]\[(\d+),(\d+)\]", node.get("bounds", ""))
-        if bounds is None:
-            raise RuntimeError(f"Tag {tag!r} has no usable on-screen bounds.")
-        left, top, right, bottom = map(int, bounds.groups())
-        if right <= left or bottom <= top:
-            raise RuntimeError(f"Tag {tag!r} has empty on-screen bounds.")
-        self.adb("shell", "input", "tap", str((left + right) // 2), str((top + bottom) // 2))
-        self.steps.append(f"Tapped {tag}")
+    def wait_for_tag(self, tag, fallback_text=None, enabled=True, scroll=None, seconds=45):
+        return self.wait_until(
+            f"Expected visible {tag!r}",
+            lambda root: self.find(root, tag, fallback_text, enabled), seconds, scroll,
+        )
 
-    def capture(self, name, ready_tag):
-        self.wait_for_tag(ready_tag)
+    def swipe(self, direction, root, timeout=10):
+        # Prefer the actual scroll viewport, including a dialog's inner list.
+        candidates = [node_bounds(node) for node in root.iter("node")
+                      if node.get("scrollable") == "true" and self.visible(node)]
+        candidates = [bounds for bounds in candidates if bounds[3] - bounds[1] > 100]
+        if not candidates:
+            return
+        left, top, right, bottom = max(candidates, key=lambda b: (b[2] - b[0]) * (b[3] - b[1]))
+        x = (left + right) // 2
+        upper = top + (bottom - top) // 4
+        lower = top + (bottom - top) * 3 // 4
+        start, end = (lower, upper) if direction == "down" else (upper, lower)
+        self.adb("shell", "input", "swipe", str(x), str(start), str(x), str(end), "250", timeout=timeout)
+
+    def tap_node(self, node, label, height_fraction=0.5):
+        if not self.visible(node):
+            raise RuntimeError(f"{label!r} has no usable on-screen bounds.")
+        left, top, right, bottom = node_bounds(node)
+        self.adb("shell", "input", "tap", str((left + right) // 2), str(top + int((bottom - top) * height_fraction)))
+        self.record(f"Tapped {label}")
+
+    def tap(self, tag, fallback_text=None, scroll=None):
+        self.tap_node(self.wait_for_tag(tag, fallback_text, scroll=scroll), tag)
+
+    def back(self):
+        self.adb("shell", "input", "keyevent", "KEYCODE_BACK")
+
+    def capture(self, name, ready_tag, fallback_text=None, scroll=None):
+        self.wait_for_tag(ready_tag, fallback_text, enabled=None, scroll=scroll)
+        if self.sensitive_surface:
+            raise RuntimeError("Refusing to save a screenshot of a live invitation or system share preview.")
         screenshot = self.adb("exec-out", "screencap", "-p", binary=True)
         if not screenshot.startswith(b"\x89PNG\r\n\x1a\n"):
             raise RuntimeError(f"Android did not return a PNG screenshot for {name}.")
         (self.output / f"{name}.png").write_bytes(screenshot)
         (self.output / f"{name}.xml").write_text((self.output / "last-ui.xml").read_text())
-        self.steps.append(f"Verified {name}: {ready_tag}")
+        self.observations.setdefault("screenshots", {})[name] = dict(zip(("width", "height"), struct.unpack(">II", screenshot[16:24])))
+        self.record(f"Verified {name}: {ready_tag}")
 
-    def run(self, apk):
+    def launch(self, name):
+        output = self.adb("shell", "am", "start", "-W", "-n", ACTIVITY, timeout=60)
+        self.launch_count += 1
+        self.write_text(f"launch-{self.launch_count}-{name}.log", output)
+        if not re.search(r"^\s*Status:\s*ok\s*$", output, re.MULTILINE):
+            raise RuntimeError(f"Activity startup did not return Status: ok: {redacted(output)}")
+
+    def replace_text(self, tag, value, scroll="down"):
+        if not re.fullmatch(r"[A-Za-z0-9_-]+", value):
+            raise ValueError("UI smoke text fixtures must be simple shell-safe ASCII.")
+        # The supporting error/hint can be tall at 200% text. Tap the editable
+        # field's upper area, rather than the center of that decorated height.
+        self.tap_node(self.wait_for_tag(tag, scroll=scroll), tag, height_fraction=0.25)
+        # Android 16 InputShellCommand supports keycombination; Ctrl+A replaces
+        # the actual editable field instead of relying on its initial length.
+        self.adb("shell", "input", "keycombination", "KEYCODE_CTRL_LEFT", "KEYCODE_A")
+        self.adb("shell", "input", "keyevent", "KEYCODE_DEL")
+        self.adb("shell", "input", "text", value)
+        self.wait_until(f"Expected edited {tag}", lambda root: self.field_contains(root, tag, value))
+        # Some AVDs expose a hardware keyboard and never show the soft IME.
+        # Back in that case would leave the form instead of dismissing input.
+        ime_state = self.adb("shell", "dumpsys", "input_method")
+        if re.search(r"\bmInputShown=true\b", ime_state):
+            self.back()
+
+    def field_contains(self, root, tag, value):
+        node = self.find(root, tag, enabled=None)
+        return node is not None and any(child.get("text") == value for child in node.iter("node"))
+
+    def setup(self, apk):
+        self.stage = "emulator readiness"
         self.wait_for_boot()
-        self.adb("shell", "input", "keyevent", "82")
-        for setting in ["window_animation_scale", "transition_animation_scale", "animator_duration_scale"]:
-            self.adb("shell", "settings", "put", "global", setting, "0")
+        self.adb("shell", "input", "keyevent", "KEYCODE_WAKEUP")
+        self.adb("shell", "input", "keyevent", "KEYCODE_MENU")
+        for setting in ("window_animation_scale", "transition_animation_scale", "animator_duration_scale"):
+            self.save_setting("global", setting, "0")
+        self.save_setting("system", "font_scale", "1.0")
+        size_output = self.adb("shell", "wm", "size")
+        sizes = re.findall(r"(?:Physical|Override) size:\s*(\d+)x(\d+)", size_output)
+        if not sizes:
+            raise RuntimeError(f"Could not determine Android display size: {size_output}")
+        self.display_size = tuple(map(int, sizes[-1]))
+        self.observations["display_size"] = self.display_size
+        self.write_text("display-size.log", size_output)
+        self.write_text("display-density.log", self.adb("shell", "wm", "density"))
+        self.write_text("input-help.log", self.adb("shell", "input", "help"))
+        self.write_text("uiautomator-help.log", self.adb("shell", "uiautomator", "help"))
+        home = self.adb("shell", "cmd", "package", "resolve-activity", "--brief", "-a", "android.intent.action.MAIN", "-c", "android.intent.category.HOME")
+        self.write_text("home-activity.log", home)
+        components = re.findall(r"^([A-Za-z0-9_.]+)/(?:[A-Za-z0-9_.$]+)$", home, re.MULTILINE)
+        if not components:
+            raise RuntimeError("Android has no resolved HOME Activity for the runtime check.")
+        home_package = components[-1]
+        self.adb("shell", "input", "keyevent", "KEYCODE_HOME")
+        # boot_completed alone allowed a System UI ANR to cover the first app
+        # in CI. Require consecutive fresh launcher trees before installation.
+        for _ in range(3):
+            self.wait_until("Expected a responsive Android launcher", lambda root: any(
+                node.get("package") == home_package for node in root.iter("node")
+            ), seconds=90)
+        self.record("Verified responsive Android launcher before app installation")
+        self.stage = "install and launch"
         self.adb("install", "-r", str(apk), timeout=120)
-        cleared = self.adb("shell", "pm", "clear", "dev.partydeck.app", timeout=30)
+        cleared = self.adb("shell", "pm", "clear", PACKAGE, timeout=30)
         if cleared.strip() != "Success":
             raise RuntimeError(f"Android could not reset the test app: {cleared}")
-        (self.output / "uiautomator-help.log").write_text(self.adb("shell", "uiautomator", "help"))
-        launch = self.adb("shell", "am", "start", "-W", "-n", "dev.partydeck.app/.MainActivity", timeout=60)
-        (self.output / "launch.log").write_text(launch)
-        if not re.search(r"^\s*Status:\s*ok\s*$", launch, re.MULTILINE):
-            raise RuntimeError(f"Android activity did not complete startup with Status: ok: {launch}")
+        self.launch("cold")
+        self.capture("home", "home-practice", scroll="down")
 
-        self.capture("home", "home-practice")
-        self.tap("home-settings")
-        self.capture("settings", "settings-sound")
-        self.tap("navigation-back")
-        self.wait_for_tag("home-practice")
-        self.tap("home-practice")
-        self.capture("practice", "game-table")
-        self.tap("navigation-back")
-        # A dialog may have its own accessibility root. Its visible, localized
-        # English button is a fallback if the activity's resource-ID opt-in is absent.
-        self.tap("leave-confirm", fallback_text="Leave table")
-        self.capture("returned-home", "home-practice")
+    def rules(self, prefix="rules"):
+        self.stage = prefix
+        self.tap("home-how-to", scroll="down")
+        self.capture(f"{prefix}-intro", "rules-first-step", "Know the table.", scroll="down")
+        self.capture(f"{prefix}-last-step", "rules-last-step", "Be the last light.", scroll="down")
+        self.wait_for_tag("rules-practice", "Try a practice table", scroll="down")
+        self.back()
+        self.wait_for_tag("home-practice", scroll="down")
+        self.record("Verified rules content and final practice action are reachable")
+
+    def settings_persistence(self):
+        self.stage = "settings persistence"
+        self.tap("home-settings", scroll="up")
+        expected = {}
+        for tag in ("settings-sound", "settings-haptics", "settings-reduce-motion"):
+            node = self.wait_for_tag(tag, scroll="down")
+            initial = checked(node)
+            if initial is None:
+                raise RuntimeError(f"{tag} does not expose its switch state to accessibility.")
+            expected[tag] = not initial
+            self.tap_node(node, tag)
+            self.wait_until(f"Expected changed switch state for {tag}", lambda root: checked(self.find(root, tag)) == expected[tag])
+        self.capture("settings-changed", "settings-reduce-motion")
+        self.back()
+        self.capture("settings-return-home", "home-practice", scroll="down")
+        self.adb("shell", "am", "force-stop", PACKAGE)
+        self.launch("saved-settings")
+        self.tap("home-settings", scroll="up")
+        for tag, value in expected.items():
+            self.wait_for_tag(tag, scroll="down")
+            self.wait_until(f"Expected saved {tag} after process restart", lambda root: checked(self.find(root, tag)) == value)
+        self.observations["persisted_switches"] = expected
+        self.capture("settings-persisted", "settings-reduce-motion")
+        self.back()
+        self.wait_for_tag("home-practice", scroll="down")
+        self.record("Verified all three settings survive a real process restart")
+
+    def wait_for_human_turn(self):
+        deadline = time.monotonic() + 120
+        rounds = 0
+        while time.monotonic() < deadline:
+            root = self.dump_ui(deadline)
+            self.reject_crash_dialog(root)
+            if self.find(root, "game-play", enabled=None) is not None:
+                return
+            next_round = self.find(root, "game-next-round")
+            if next_round is not None:
+                rounds += 1
+                if rounds > 8:
+                    raise RuntimeError("Practice did not offer a human play within eight rounds.")
+                self.tap_node(next_round, "game-next-round")
+            elif self.find(root, "game-winner", enabled=None) is not None:
+                raise RuntimeError("Practice ended before the human play could be exercised.")
+            else:
+                self.swipe("down", root)
+            time.sleep(0.3)
+        raise RuntimeError("Practice did not offer a human play within 120 seconds.")
+
+    def assert_concealed(self):
+        self.wait_for_tag("game-reveal-hand", scroll="up")
+        root = self.dump_ui()
+        for node in root.iter("node"):
+            tag = node.get("resource-id", "").rsplit("/", 1)[-1]
+            if tag.startswith("game-card-") or re.search(r"\b(?:Crown|Moon|Star|Wild)\. Card \d+ of \d+\.", node.get("content-desc", "")):
+                raise RuntimeError("A concealed hand still exposes private card semantics.")
+
+    @staticmethod
+    def hand_count(root):
+        for node in root.iter("node"):
+            match = re.search(r"\bCard \d+ of (\d+)\.", node.get("content-desc", ""))
+            if match:
+                return int(match.group(1))
+        return None
+
+    def leave_table(self, hosting=False):
+        self.back()
+        self.tap("leave-confirm", "End table" if hosting else "Leave table")
+        self.wait_for_tag("home-practice", scroll="down")
+
+    def practice(self):
+        self.stage = "practice actions and privacy"
+        self.tap("home-practice", scroll="down")
+        self.wait_for_tag("game-table", enabled=None)
+        self.wait_for_human_turn()
+        self.assert_concealed()
+        self.capture("practice-concealed", "game-reveal-hand")
+        self.tap("game-reveal-hand")
+        self.wait_for_tag("game-card-0")
+        self.tap("game-card-0")
+        self.wait_until("Expected a selected private card", lambda root: selected(self.find(root, "game-card-0")))
+        self.wait_for_tag("game-play")
+        self.capture("practice-selected", "game-card-0")
+        self.tap("game-hide-hand")
+        self.assert_concealed()
+        self.wait_for_tag("game-play", enabled=False)
+        self.tap("game-reveal-hand")
+        self.wait_until("Expected selection cleared by Hide hand", lambda root: (
+            self.find(root, "game-card-0") is not None and not selected(self.find(root, "game-card-0"))
+        ))
+        self.tap("game-card-0")
+        self.wait_for_tag("game-play")
+        self.adb("shell", "input", "keyevent", "KEYCODE_HOME")
+        self.wait_until("Expected PartyDeck to leave the foreground", lambda root: not any(
+            node.get("package") == PACKAGE for node in root.iter("node")
+        ))
+        self.launch("resume-practice")
+        self.wait_for_tag("game-table", enabled=None)
+        self.assert_concealed()
+        self.wait_for_tag("game-play", enabled=False)
+        self.capture("practice-resumed-concealed", "game-reveal-hand")
+        self.tap("game-reveal-hand")
+        self.wait_until("Expected selection cleared after background", lambda root: (
+            self.find(root, "game-card-0") is not None and not selected(self.find(root, "game-card-0"))
+        ))
+        count_before = self.hand_count(self.dump_ui())
+        if count_before is None:
+            raise RuntimeError("The revealed hand does not expose a card count.")
+        self.tap("game-card-0")
+        self.tap("game-play")
+
+        def accepted_play(root):
+            if self.find(root, "problem-panel", enabled=None) is not None:
+                raise RuntimeError("Playing a selected card raised a session error.")
+            if self.find(root, "game-round-result", enabled=None) is not None:
+                return "round result after play"
+            if self.find(root, "game-winner", enabled=None) is not None:
+                return "match result after play"
+            return "hand decreased by one" if self.hand_count(root) == count_before - 1 else None
+
+        self.observations["played_card"] = self.wait_until("Expected an accepted one-card play", accepted_play)
+        self.capture("practice-after-play", "game-table")
+        self.leave_table()
+        self.capture("practice-returned-home", "home-practice")
+        self.record("Verified reveal, selection, hide, background concealment, one-card play and leave")
+
+    def host_invitation(self):
+        self.stage = "host and invitation"
+        self.tap("home-host", scroll="up")
+        self.replace_text("host-name", "CIPlayer")
+        self.tap("host-create", scroll="down")
+        self.capture("host-lobby", "lobby-invitation", scroll="down")
+        self.sensitive_surface = True
+        self.tap("lobby-invitation")
+        self.wait_for_tag("invitation-qr", QR_DESCRIPTION, enabled=None, scroll="down")
+        self.tap("invitation-copy", "Copy invitation", scroll="down")
+        self.wait_for_tag("invitation-done", "Done")
+        self.tap("invitation-share", "Share invitation", scroll="up")
+        self.wait_until("Expected the Android system Sharesheet", lambda root: any(
+            node.get("package") in ("android", "com.android.intentresolver") for node in root.iter("node")
+        ) and not any(node.get("package") == PACKAGE for node in root.iter("node")))
+        self.back()
+        self.tap("invitation-done", "Done")
+        self.wait_for_tag("lobby-invitation")
+        self.sensitive_surface = False
+        self.capture("host-after-share", "lobby-invitation")
+        self.leave_table(hosting=True)
+        self.capture("host-returned-home", "home-practice")
+        self.record("Verified real host, invitation QR/copy, Sharesheet cancellation and host teardown")
+
+    def invalid_join(self, prefix="join"):
+        self.stage = f"{prefix} validation and recovery"
+        self.tap("home-join", scroll="up")
+        self.replace_text("join-name", "CIPlayer")
+        self.replace_text("join-invitation", "not-an-invitation")
+        self.tap("join-submit", scroll="down")
+        self.capture(f"{prefix}-invalid", "invalid-invitation", INVALID_INVITATION, scroll="up")
+        self.replace_text("join-invitation", "edited-invitation", scroll="up")
+        self.wait_for_tag("invitation-hint", INVITATION_HINT, enabled=None)
+        self.wait_for_tag("join-submit", scroll="down")
+        self.wait_for_tag("join-name", scroll="up")
+        if not self.field_contains(self.dump_ui(), "join-name", "CIPlayer"):
+            raise RuntimeError("Editing an invalid invitation discarded the player name.")
+        self.back()
+        self.wait_for_tag("home-practice", scroll="down")
+        self.record("Verified invalid invitation feedback, editing recovery, preserved name and Back")
+
+    def large_text(self):
+        self.stage = "large text"
+        self.save_setting("system", "font_scale", "2.0")
+        self.adb("shell", "am", "force-stop", PACKAGE)
+        self.launch("large-text")
+        if self.adb("shell", "settings", "get", "system", "font_scale").strip() != "2.0":
+            raise RuntimeError("Android did not apply font_scale=2.0.")
+        self.observations["large_text_font_scale"] = 2.0
+        for tag in ("home-host", "home-join", "home-practice", "home-how-to"):
+            self.wait_for_tag(tag, scroll="down")
+        self.capture("large-text-home-actions", "home-practice", scroll="up")
+        self.rules("large-text-rules")
+        self.tap("home-settings", scroll="up")
+        for tag in ("settings-sound", "settings-haptics", "settings-reduce-motion"):
+            self.wait_for_tag(tag, scroll="down")
+        self.capture("large-text-settings", "settings-reduce-motion")
+        self.back()
+        self.invalid_join("large-text-join")
+        self.tap("home-practice", scroll="down")
+        self.wait_for_human_turn()
+        self.assert_concealed()
+        self.tap("game-reveal-hand", scroll="down")
+        self.tap("game-card-0", scroll="down")
+        self.wait_until("Expected a selected card at large text", lambda root: selected(self.find(root, "game-card-0")))
+        self.capture("large-text-private-hand", "game-card-0")
+        self.wait_for_tag("game-play", scroll="down")
+        self.capture("large-text-play-action", "game-play")
+        self.tap("game-hide-hand", scroll="up")
+        self.assert_concealed()
+        self.leave_table()
+        self.record("Verified 200% text reachability for Home, rules, settings, Join, hand and play action")
+
+    def run(self, apk):
+        self.setup(apk)
+        self.rules()
+        self.settings_persistence()
+        self.practice()
+        self.host_invitation()
+        self.invalid_join()
+        self.large_text()
+        self.stage = "complete"
 
     def diagnostics(self):
-        for name, arguments, binary in [
-            ("logcat.log", ("logcat", "-d", "-t", "2000"), False),
-            ("final-screen.png", ("exec-out", "screencap", "-p"), True),
-        ]:
+        # The emulator has bounded logcat buffers; retain startup events rather
+        # than losing ANRs under repeated uiautomator process startup messages.
+        for name, arguments in (
+            ("logcat.log", ("logcat", "-d", "-b", "main", "-b", "system", "-b", "crash")),
+            ("events.log", ("logcat", "-d", "-b", "events")),
+            ("last-anr.log", ("shell", "dumpsys", "activity", "lastanr")),
+        ):
             try:
-                content = self.adb(*arguments, timeout=15, binary=binary)
-                path = self.output / name
-                path.write_bytes(content) if binary else path.write_text(content)
-            except (subprocess.SubprocessError, OSError) as error:
-                (self.output / (name + ".error.log")).write_text(str(error))
+                self.write_text(name, self.adb(*arguments, timeout=20))
+            except TRANSIENT_ERRORS as error:
+                self.write_text(name + ".error.log", str(error))
         try:
             self.dump_ui()
-        except (subprocess.SubprocessError, OSError, ET.ParseError) as error:
-            (self.output / "ui-dump.error.log").write_text(str(error))
+        except TRANSIENT_ERRORS as error:
+            self.write_text("ui-dump.error.log", str(error))
+        if self.sensitive_surface:
+            self.write_text("final-screen-omitted.txt", "A live invitation or Sharesheet may be visible; screenshot omitted.\n")
+        else:
+            try:
+                screenshot = self.adb("exec-out", "screencap", "-p", timeout=15, binary=True)
+                if screenshot.startswith(b"\x89PNG\r\n\x1a\n"):
+                    (self.output / "final-screen.png").write_bytes(screenshot)
+            except TRANSIENT_ERRORS as error:
+                self.write_text("final-screen.error.log", str(error))
 
 
 def main():
@@ -148,22 +543,35 @@ def main():
     parser.add_argument("--serial", required=True)
     parser.add_argument("--apk", type=pathlib.Path, required=True)
     parser.add_argument("--output", type=pathlib.Path, required=True)
+    parser.add_argument("--variant", choices=("debug", "optimized-test-signed"), default=None)
     arguments = parser.parse_args()
     arguments.output.mkdir(parents=True, exist_ok=True)
     if not arguments.apk.is_file():
         raise SystemExit(f"APK does not exist: {arguments.apk}")
-    smoke = AndroidSmoke(arguments.serial, arguments.output)
-    result = {"serial": arguments.serial, "passed": False, "steps": smoke.steps}
+    smoke = AndroidSmoke(arguments.serial, arguments.output, arguments.variant or "unspecified")
+    result = {
+        "serial": arguments.serial, "variant": smoke.variant, "passed": False,
+        "apk_sha256": hashlib.sha256(arguments.apk.read_bytes()).hexdigest(),
+        "steps": smoke.steps, "observations": smoke.observations,
+        "scope": "Single-emulator UI and local hosting; physical LAN, camera frames and store signing are separate gates.",
+    }
     try:
         smoke.run(arguments.apk)
         result["passed"] = True
-        print("Android install, launch, settings, practice, and return-home smoke passed.", flush=True)
-    except (RuntimeError, subprocess.SubprocessError, OSError) as error:
-        result["error"] = str(error)
+        print(f"Android {smoke.variant} runtime flows passed.", flush=True)
+    except (RuntimeError, ValueError, *TRANSIENT_ERRORS) as error:
+        result["error"] = redacted(str(error))
+        result["stage"] = smoke.stage
         raise
     finally:
         smoke.diagnostics()
+        restore_errors = smoke.restore_environment()
+        if restore_errors:
+            result["passed"] = False
+            result["environment_restore_errors"] = restore_errors
         (arguments.output / "smoke-result.json").write_text(json.dumps(result, indent=2) + "\n")
+        if restore_errors:
+            raise SystemExit("Android environment settings could not be restored; see restore-errors.log.")
 
 
 if __name__ == "__main__":

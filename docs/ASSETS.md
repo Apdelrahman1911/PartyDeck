@@ -6,7 +6,7 @@ The design uses ink `#191526`, paper `#F4F0E8`, citron `#D6EF82`, and restrained
 
 ## Shipping inventory
 
-Shared resources live in `composeApp/src/commonMain/composeResources`. The generated resource package is `dev.partydeck.resources`. The fonts, vectors, cues, and license bundle below occupy **1,441,997 bytes before platform packaging**. This excludes screen strings and native launcher exports.
+Shared resources live in `composeApp/src/commonMain/composeResources`. The generated resource package is `dev.partydeck.resources`. The fonts, vectors, cues, and license bundle below occupy **1,441,980 bytes before platform packaging**. This excludes screen strings and native launcher exports.
 
 | Resources | Content | Size |
 | --- | --- | ---: |
@@ -16,7 +16,7 @@ Shared resources live in `composeApp/src/commonMain/composeResources`. The gener
 | `font/manrope_semibold.ttf` | Upstream Manrope SemiBold, weight 600 | 144,976 B |
 | `drawable/*.xml` | 24 original Android XML vectors | 27,361 B |
 | `files/audio/*.wav` | Six original mono PCM cues | 285,150 B |
-| `files/licenses/` including `runtime/` | 64 complete notices plus one readable aggregate | 590,986 B |
+| `files/licenses/` including `runtime/` | 64 complete notices plus one readable aggregate | 590,969 B |
 
 Use Fraunces for short display headings and large rank lettering. Use Manrope for instructions, actions, small labels, room information, and numeric text. Fonts are loaded through Compose's `Font(Res.font.name, FontWeight.… )`; the UI must request the corresponding weight explicitly. These are static font files, not generated or subsetted derivatives.
 
@@ -82,9 +82,9 @@ The source [assets/licenses](../assets/licenses) files and their copies in `file
 
 Both font licenses allow software bundling with their copyright and license notices. Neither inspected font license declares a Reserved Font Name. Keep font files under OFL; attribution does not imply author endorsement. First-party PartyDeck geometry and synthesis contain no third-party asset material.
 
-[software_notice_sources.json](../assets/software_notice_sources.json) records the original software notice sources and digests. The required [runtime manifest](../assets/licenses/runtime/software_notice_sources.json) adds 56 notice entries covering the inspected Kotlin, Compose, AndroidX, QR, cryptography, and Skiko/Skia sources. The source revisions, resolved artifact inventory, and license-specific evidence are documented in [dependency-licenses.md](dependency-licenses.md). Swift Crypto and Swift ASN.1 source candidates retain their audit qualifications; the actual native lock and linked iOS bundle still require comparison before claiming complete native coverage.
+[software_notice_sources.json](../assets/software_notice_sources.json) records the original software notice sources and digests. The required [runtime manifest](../assets/licenses/runtime/software_notice_sources.json) adds 56 notice entries covering the inspected Kotlin, Compose, AndroidX, QR, cryptography, and Skiko/Skia sources. The source revisions, resolved artifact inventory, and license-specific evidence are documented in [dependency-licenses.md](dependency-licenses.md). The actual `Package.resolved` from macOS CI run `34378549932` confirms Swift Certificates 1.20.0, Swift Crypto 4.5.2, and Swift ASN.1 1.7.2 at the audited revisions. Final linked iOS bundle inclusion remains a release check.
 
-The offline aggregate is **258,084 bytes**, with **64 notice entries in 56 distinct text groups**. Identical text is printed once with every component/title attribution retained, and every individual resource preserves its source bytes. The required Independent JPEG Group, FreeType, and Adobe DNG acknowledgments appear at the beginning. Runtime notice filenames retain their original extensions or lack of an extension. Audit inventories, JSON manifests, and reporting helpers are not shipped as app resources.
+The offline aggregate is **258,067 bytes**, with **64 notice entries in 56 distinct text groups**. Identical text is printed once with every component/title attribution retained, and every individual resource preserves its source bytes. The required Independent JPEG Group, FreeType, and Adobe DNG acknowledgments appear at the beginning. Runtime notice filenames retain their original extensions or lack of an extension. Audit inventories, JSON manifests, and reporting helpers are not shipped as app resources.
 
 ## Localization and accessibility
 
@@ -115,7 +115,7 @@ CairoSVG needs the platform Cairo library. No Python package is bundled into Par
 
 Verification completed on Linux on 2026-09-09:
 
-- All 68 pinned source font/notice files match their recorded SHA-256; all 64 notices appear unabridged in the app aggregate with their component/title attributions. Its SHA-256 is `1cbfc067e97159c272953f363f5b0729faa656a55b1bf76c0c9200c6dd90a455`.
+- All 68 pinned source font/notice files match their recorded SHA-256; all 64 notices appear unabridged in the app aggregate with their component/title attributions. Its SHA-256 is `d5c47822bd82a0f2b775b1f8c76863a4e5d5de7fbe6ca1aa1ad2713794a32066`.
 - The 56 runtime notice resources match the manifest exactly, with no audit inventory or helper files included. Required native acknowledgments appear within the first 512 bytes of the aggregate.
 - Four TTFs parse; expected weights and English/Latin probes pass.
 - All 24 vectors parse, avoid platform resource references, and render through CairoSVG at small sizes. The original geometry, typography, and launcher mask sheets passed independent design review.

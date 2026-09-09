@@ -2,7 +2,7 @@
 
 Open `PartyDeck.xcodeproj` and select the shared **PartyDeck** scheme. Use Xcode **26.4.1**, JDK **21**, and the repository's Gradle/Android SDK setup. The app supports iPhone and iPad on **iOS 15+**. Kotlin device and simulator targets are arm64; Intel simulators are not configured.
 
-Xcode's first build resolves the exact Swift Certificates **1.20.0** package and invokes `:composeApp:embedAndSignAppleFrameworkForXcode`. That task builds the static **PartyDeckKit** framework and packages Compose resources. A Run Script phase runs before Swift compilation; user script sandboxing is disabled as required by JetBrains' direct integration. Kotlin integration does not use CocoaPods.
+Xcode's first build uses the committed SwiftPM lock to resolve Swift Certificates **1.20.0** and its dependencies, then invokes `:composeApp:embedAndSignAppleFrameworkForXcode`. That task builds the static **PartyDeckKit** framework and packages Compose resources. A Run Script phase runs before Swift compilation; user script sandboxing is disabled as required by JetBrains' direct integration. Kotlin integration does not use CocoaPods.
 
 For a simulator build from the repository root:
 
@@ -14,7 +14,9 @@ xcodebuild -project iosApp/PartyDeck.xcodeproj -scheme PartyDeck \
   CODE_SIGNING_ALLOWED=NO build
 ```
 
-Run `scripts/validate-ios-app.sh` on macOS for native transport tests and shared UI smoke tests. The script discovers an available iPhone simulator and saves the `.xcresult`, ready-state screenshots, logs, and built app. `PartyDeckTests` exercises the real Swift TLS adapter with an ephemeral host certificate, correct and incorrect pins, ordered framed data, and close callbacks. `PartyDeckUITests` opens practice and settings through the actual Compose accessibility tree.
+Run `scripts/validate-ios-app.sh` on macOS for native transport tests and shared UI smoke tests. The script discovers an available iPhone simulator and saves the `.xcresult`, ready-state screenshots, logs, and built app. `PartyDeckTests` exercises the real Swift TLS adapter with an ephemeral host certificate, correct and incorrect pins, ordered framed data, and close callbacks. A Java fixture runs on the Mac while the simulator verifies both Swift-host and Java-host connections, exact certificate pins, and framed payloads up to 64 KiB. CI requires both XCTest success and the Java fixture's completion result. Running the scheme directly without that fixture skips only the mixed Java/Swift test. `PartyDeckUITests` opens practice and settings through the actual Compose accessibility tree.
+
+After the simulator tests pass, the script builds an unsigned arm64 device app with Xcode's **Release** configuration. This selects the optimized Kotlin/Native release framework and Swift release settings. The unsigned app and link map support packaging review; signing and device execution are separate steps.
 
 For a physical device or archive, copy `Configuration/Signing.xcconfig.example` to `Configuration/Signing.xcconfig`, enter your Apple team, and choose a bundle identifier registered to that team. The local file is ignored by Git. Automatic signing remains enabled; CI disables signing only for its verification artifacts. Use Xcode's Archive and Validate App flows with your distribution identity before TestFlight or App Store submission.
 

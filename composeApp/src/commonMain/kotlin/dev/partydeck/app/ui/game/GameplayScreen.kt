@@ -137,7 +137,6 @@ fun GameplayScreen(
                 pendingAction = pendingAction,
                 largeText = largeText,
                 onReturnToLobby = onReturnToLobby,
-                modifier = Modifier.widthIn(max = 560.dp),
             )
             GamePhase.PLAYING -> PlayingLayout(
                 view = view,

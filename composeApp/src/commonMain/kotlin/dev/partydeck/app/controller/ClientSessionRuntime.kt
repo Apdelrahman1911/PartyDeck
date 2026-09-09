@@ -16,6 +16,8 @@ import dev.partydeck.transport.LanConnection
 import dev.partydeck.transport.LanInvitation
 import dev.partydeck.transport.LanTransport
 import dev.partydeck.transport.LanTransportFactory
+import dev.partydeck.transport.TransportException
+import dev.partydeck.transport.TransportFailureCode
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
@@ -24,13 +26,18 @@ import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.cancelAndJoin
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import kotlinx.coroutines.withTimeoutOrNull
@@ -47,6 +54,7 @@ internal class ClientSessionRuntime(
 ) {
     private var transport: LanTransport? = null
     private var connectionLoop: Job? = null
+    private val connectionLoopLifetime = Mutex()
     private var activeLink: Link? = null
     private var credentials: Credentials? = null
     private var pending: PendingCommand? = null
@@ -81,32 +89,63 @@ internal class ClientSessionRuntime(
     private fun launchConnectionLoop() {
         connectionLoop?.cancel()
         connectionLoop = scope.launch {
-            try {
-                if (transport == null) transport = transportFactory.create()
-                while (!closed && foregroundActive && !terminal) {
-                    val link = connectBatch(coroutineContext[Job]) ?: return@launch
-                    val failure = link.lost.await()
-                    discardLink(link)
-                    if (!closed && foregroundActive && !terminal) {
-                        mutableState.update { it.copy(connection = ConnectionStatus.RECONNECTING) }
-                        report(failure.code, failure.recovery)
+            // A rapid retry may cancel another retry before it runs. Serialize the entire
+            // lifetime so every predecessor has finished native cleanup before a new browse.
+            connectionLoopLifetime.withLock {
+                try {
+                    if (transport == null) transport = transportFactory.create()
+                    while (!closed && foregroundActive && !terminal) {
+                        val link = connectBatch(coroutineContext[Job]) ?: return@launch
+                        val failure = link.lost.await()
+                        discardLink(link)
+                        if (!closed && foregroundActive && !terminal) {
+                            mutableState.update { it.copy(connection = ConnectionStatus.RECONNECTING) }
+                            report(failure.code, failure.recovery)
+                        }
                     }
+                } catch (cancelled: CancellationException) {
+                    throw cancelled
+                } catch (error: Exception) {
+                    val failure = error.toRuntimeFailure()
+                    mutableState.update { it.copy(connection = ConnectionStatus.DISCONNECTED) }
+                    report(failure.code, failure.recovery)
+                } finally {
+                    // A cancelled older loop must never close a replacement loop's connection.
+                    val link = activeLink
+                    if (link != null && link.owner === coroutineContext[Job]) discardLink(link)
                 }
-            } catch (cancelled: CancellationException) {
-                throw cancelled
-            } catch (error: Exception) {
-                val failure = error.toRuntimeFailure()
-                mutableState.update { it.copy(connection = ConnectionStatus.DISCONNECTED) }
-                report(failure.code, failure.recovery)
-            } finally {
-                // A cancelled older loop must never close a replacement loop's connection.
-                val link = activeLink
-                if (link != null && link.owner === coroutineContext[Job]) discardLink(link)
             }
         }
     }
 
-    private suspend fun connectBatch(owner: Job?): Link? {
+    private suspend fun connectBatch(owner: Job?): Link? = coroutineScope {
+        val currentTransport = checkNotNull(transport)
+        val discovery = if (invitation.endpoint.serviceName != null) launch {
+            try {
+                currentTransport.startDiscovery()
+            } catch (cancelled: CancellationException) {
+                throw cancelled
+            } catch (_: Exception) {
+                // Discovery is optional. A reachable, pinned direct invitation still works.
+            }
+        } else null
+        try {
+            connectWithRetries(owner)
+        } finally {
+            if (discovery != null) withContext(NonCancellable) {
+                discovery.cancelAndJoin()
+                try {
+                    currentTransport.stopDiscovery()
+                } catch (cancelled: CancellationException) {
+                    throw cancelled
+                } catch (_: Exception) {
+                    // An unavailable discovery backend cannot invalidate a successful join.
+                }
+            }
+        }
+    }
+
+    private suspend fun connectWithRetries(owner: Job?): Link? {
         val resuming = credentials != null
         var lastFailure = RuntimeFailure(UiProblemCode.CONNECTION_FAILED, RecoveryAction.RETRY_CONNECTION)
         mutableState.update {
@@ -133,7 +172,9 @@ internal class ClientSessionRuntime(
                     }
                 }
                 activeLink?.let { discardLink(it) }
-                if (terminal) return@batch null
+                // Permission can be restored in settings, but more attempts in this batch
+                // cannot restore it. Retain the seat for an explicit Retry afterwards.
+                if (terminal || lastFailure.code == UiProblemCode.LOCAL_NETWORK_PERMISSION_DENIED) return@batch null
             }
             null
         }
@@ -149,7 +190,7 @@ internal class ClientSessionRuntime(
     }
 
     private suspend fun openLink(owner: Job?): Link {
-        val connection = checkNotNull(transport).connect(invitation.endpoint, invitation.certificateSha256)
+        val connection = connectToInvitedHost()
         if (closed || !currentCoroutineContext().isActive) {
             withContext(NonCancellable) { connection.close() }
             throw CancellationException("The connection attempt was cancelled")
@@ -193,6 +234,30 @@ internal class ClientSessionRuntime(
         connection.send(SessionCodec.encodeClient(hello))
         link.welcome.await()
         return link
+    }
+
+    private suspend fun connectToInvitedHost(): LanConnection {
+        val currentTransport = checkNotNull(transport)
+        try {
+            return currentTransport.connect(invitation.endpoint, invitation.certificateSha256)
+        } catch (cancelled: CancellationException) {
+            throw cancelled
+        } catch (error: Exception) {
+            val serviceName = invitation.endpoint.serviceName ?: throw error
+            // Never try another endpoint after a permission, identity, or protocol failure.
+            if ((error as? TransportException)?.failure?.code !in rediscoverableFailures) throw error
+            // Browsing starts concurrently with the direct attempt. Native discovery may
+            // report "started" before resolving the invited host's changed address.
+            val discovered = withTimeoutOrNull(5_000) {
+                currentTransport.discoveredHosts.first { hosts ->
+                    hosts.any { it.serviceName == serviceName }
+                }.first { it.serviceName == serviceName }
+            } ?: throw error
+            return currentTransport.connect(
+                discovered.endpoint.copy(serviceName = serviceName),
+                invitation.certificateSha256,
+            )
+        }
     }
 
     override suspend fun send(intent: ClientIntent): CommandReceipt {
@@ -387,6 +452,11 @@ internal class ClientSessionRuntime(
     }
 
     private companion object {
+        val rediscoverableFailures = setOf(
+            TransportFailureCode.UNAVAILABLE,
+            TransportFailureCode.TIMED_OUT,
+            TransportFailureCode.IO_ERROR,
+        )
         val terminalProblems = setOf(
             UiProblemCode.VERSION_MISMATCH,
             UiProblemCode.JOIN_REJECTED,
