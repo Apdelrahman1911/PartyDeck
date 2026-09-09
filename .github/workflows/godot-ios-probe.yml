@@ -1,0 +1,60 @@
+name: Godot iOS embedding probe
+
+on:
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: Engine compilation or actual native host tests
+        required: true
+        type: choice
+        default: engine
+        options:
+          - engine
+          - test
+
+permissions:
+  contents: read
+
+concurrency:
+  group: godot-ios-probe-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  ios-probe:
+    name: Build and qualify the isolated iOS host
+    runs-on: macos-26
+    timeout-minutes: 120
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
+      PARTYDECK_GODOT_PROBE_STAGE: ${{ inputs.stage }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Record Apple toolchain
+        run: |
+          test -d "$DEVELOPER_DIR"
+          test "$(uname -m)" = arm64
+          xcodebuild -version
+          xcodebuild -showsdks
+          python3 --version
+      - name: Cache content-addressed engine objects
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: godot/ios-host/build/scons-cache
+          key: godot-ios-ed1daf0bf-xcode26.4.1-arm64-sim-gl-${{ hashFiles('godot/ios-host/modules/**', 'godot/ios-host/build-probe.sh') }}
+          restore-keys: |
+            godot-ios-ed1daf0bf-xcode26.4.1-arm64-sim-gl-
+      - name: Execute the requested probe stage
+        run: bash godot/ios-host/build-probe.sh "$PARTYDECK_GODOT_PROBE_STAGE"
+      - name: Preserve native probe evidence
+        if: always()
+        uses: ./.github/actions/upload-artifact
+        with:
+          name: godot-ios-probe-${{ inputs.stage }}
+          path: |
+            godot/ios-host/build/evidence/**
+            godot/ios-host/build/artifacts/**
+          retention-days: 14
+          if-no-files-found: warn

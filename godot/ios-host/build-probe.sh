@@ -1,0 +1,123 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PARTYDECK_PROBE_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+PARTYDECK_PROBE_BUILD="$PARTYDECK_PROBE_ROOT/build"
+PARTYDECK_PROBE_SOURCE="$PARTYDECK_PROBE_BUILD/upstream"
+PARTYDECK_PROBE_EVIDENCE="$PARTYDECK_PROBE_BUILD/evidence"
+PARTYDECK_PROBE_ARTIFACTS="$PARTYDECK_PROBE_BUILD/artifacts"
+PARTYDECK_PROBE_STAGE="${1:-engine}"
+
+case "$PARTYDECK_PROBE_STAGE" in
+  source|engine|test) ;;
+  *) printf '%s\n' 'Usage: build-probe.sh source|engine|test' >&2; exit 2 ;;
+esac
+
+mkdir -p "$PARTYDECK_PROBE_EVIDENCE" "$PARTYDECK_PROBE_ARTIFACTS"
+PARTYDECK_GODOT_TAG="$(python3 "$PARTYDECK_PROBE_ROOT/source_audit.py" --pin tag)"
+PARTYDECK_GODOT_COMMIT="$(python3 "$PARTYDECK_PROBE_ROOT/source_audit.py" --pin commit)"
+PARTYDECK_GODOT_REPOSITORY="$(python3 "$PARTYDECK_PROBE_ROOT/source_audit.py" --pin repository)"
+
+if [[ ! -d "$PARTYDECK_PROBE_SOURCE/.git" ]]; then
+  if [[ -e "$PARTYDECK_PROBE_SOURCE" ]]; then
+    printf '%s\n' 'The probe source path exists without its expected Git metadata.' >&2
+    exit 1
+  fi
+  git clone --depth 1 --branch "$PARTYDECK_GODOT_TAG" \
+    "$PARTYDECK_GODOT_REPOSITORY" "$PARTYDECK_PROBE_SOURCE" \
+    2>&1 | tee "$PARTYDECK_PROBE_EVIDENCE/source-download.log"
+fi
+
+python3 "$PARTYDECK_PROBE_ROOT/source_audit.py" \
+  --source "$PARTYDECK_PROBE_SOURCE" \
+  --output "$PARTYDECK_PROBE_EVIDENCE/upstream-audit.json"
+
+if [[ "$PARTYDECK_PROBE_STAGE" == source ]]; then
+  exit 0
+fi
+
+if [[ "$(uname -s)" != Darwin ]]; then
+  printf '%s\n' 'The real iOS engine probe requires macOS and Xcode. The source audit can run on Linux.' >&2
+  exit 1
+fi
+
+export DEVELOPER_DIR="${DEVELOPER_DIR:-/Applications/Xcode_26.4.1.app/Contents/Developer}"
+xcodebuild -version | tee "$PARTYDECK_PROBE_EVIDENCE/xcode-version.log"
+python3 - "$PARTYDECK_PROBE_EVIDENCE/xcode-version.log" <<'PY'
+from pathlib import Path
+import sys
+if Path(sys.argv[1]).read_text().splitlines()[0] != "Xcode 26.4.1":
+    raise SystemExit("This probe is pinned to Xcode 26.4.1.")
+PY
+xcodebuild -showsdks > "$PARTYDECK_PROBE_EVIDENCE/xcode-sdks.log"
+xcrun --sdk iphonesimulator clang --version > "$PARTYDECK_PROBE_EVIDENCE/clang-version.log"
+
+if [[ ! -x "$PARTYDECK_PROBE_BUILD/venv/bin/python" ]]; then
+  python3 -m venv "$PARTYDECK_PROBE_BUILD/venv"
+fi
+PARTYDECK_PROBE_PYTHON="$PARTYDECK_PROBE_BUILD/venv/bin/python"
+"$PARTYDECK_PROBE_PYTHON" -m pip install --require-hashes --only-binary=:all: \
+  -r "$PARTYDECK_PROBE_ROOT/requirements.txt"
+"$PARTYDECK_PROBE_PYTHON" -m SCons --version > "$PARTYDECK_PROBE_EVIDENCE/scons-version.log"
+
+# iOS's normal export-template build already produces a static archive.
+# SConstruct explicitly rejects library_type=static_library/shared_library on iOS.
+# Simulator drivers are limited to Compatibility by this exact upstream source.
+(
+  cd "$PARTYDECK_PROBE_SOURCE"
+  "$PARTYDECK_PROBE_PYTHON" -m SCons \
+    platform=ios target=template_debug arch=arm64 simulator=yes \
+    vulkan=no metal=no opengl3=yes generate_bundle=no \
+    custom_modules="$PARTYDECK_PROBE_ROOT/modules" \
+    cache_path="$PARTYDECK_PROBE_BUILD/scons-cache" \
+    -j2
+) 2>&1 | tee "$PARTYDECK_PROBE_EVIDENCE/engine-build.log"
+
+"$PARTYDECK_PROBE_PYTHON" - "$PARTYDECK_PROBE_SOURCE" "$PARTYDECK_PROBE_ARTIFACTS" "$PARTYDECK_PROBE_EVIDENCE" "$PARTYDECK_GODOT_COMMIT" <<'PY'
+import hashlib
+import json
+from pathlib import Path
+import shutil
+import sys
+
+source, artifacts, evidence = map(Path, sys.argv[1:4])
+archives = [p for p in (source / "bin").glob("libgodot.ios.*.a") if "simulator" in p.name and "arm64" in p.name]
+if len(archives) != 1:
+    raise SystemExit(f"Expected one combined Simulator engine archive, found {[p.name for p in archives]}")
+destination = artifacts / "libpartydeck_godot_ios_probe.a"
+shutil.copy2(archives[0], destination)
+digest = hashlib.sha256()
+with destination.open("rb") as archive:
+    for block in iter(lambda: archive.read(1024 * 1024), b""):
+        digest.update(block)
+result = {
+    "engine_commit": sys.argv[4],
+    "upstream_archive": archives[0].name,
+    "artifact": destination.name,
+    "sha256": digest.hexdigest(),
+    "bytes": destination.stat().st_size,
+    "stage": "engine_compile_only",
+    "ios_runtime_executed": False,
+    "kmp_factory_qualified": False,
+}
+(evidence / "engine-artifact.json").write_text(json.dumps(result, indent=2) + "\n")
+PY
+
+xcrun nm -g "$PARTYDECK_PROBE_ARTIFACTS/libpartydeck_godot_ios_probe.a" \
+  > "$PARTYDECK_PROBE_EVIDENCE/engine-symbols.log"
+python3 - "$PARTYDECK_PROBE_EVIDENCE/engine-symbols.log" <<'PY'
+from pathlib import Path
+import sys
+symbols = Path(sys.argv[1]).read_text()
+for required in ("apple_embedded_main", "apple_embedded_finish", "PDGodotHostViewController"):
+    if required not in symbols:
+        raise SystemExit(f"The compiled archive is missing the expected native source probe symbol: {required}")
+PY
+
+if [[ "$PARTYDECK_PROBE_STAGE" == test ]]; then
+  if [[ ! -f "$PARTYDECK_PROBE_ROOT/test-probe.sh" ]]; then
+    printf '%s\n' 'Native engine compilation finished; the executable host stage has not been installed yet.' >&2
+    exit 1
+  fi
+  bash "$PARTYDECK_PROBE_ROOT/test-probe.sh"
+fi
