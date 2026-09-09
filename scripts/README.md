@@ -33,7 +33,7 @@ For focused work, run the affected module's `jvmTest` task instead of the full
 script. Use the complete script at integration and release checkpoints.
 
 The full workflow runs the same native UI smoke against debug and an optimized
-APK, sequentially on one API 36 emulator boot. It checks rules, persisted settings,
+APK, sequentially on one standard API 35 emulator boot by default. It checks rules, persisted settings,
 practice hand actions and privacy after backgrounding, host/invite/leave, invalid
 join recovery, and large-text reachability. Controls are found through actual
 accessibility nodes and their bounds. Each captured screen must expose its expected
@@ -61,9 +61,17 @@ it has no publisher identity. The debug app is uninstalled before switching keys
 To run that separate smoke on Linux with usable KVM:
 
 ```sh
-sdkmanager 'emulator' 'system-images;android-36;default;x86_64'
+sdkmanager 'emulator' 'system-images;android-35;default;x86_64'
 ./scripts/smoke-android-emulator.sh
 ```
+
+Set `PARTYDECK_ANDROID_API=36` and install
+`system-images;android-36;default;x86_64` to select Android 16 instead. Both the
+wrapper and CI restrict the image choice to API 35 or 36. The installed image
+metadata and actual guest API are recorded, and the actual API must match the
+requested value before either APK installs. API 36 runtime qualification remains
+unresolved on the two-vCPU CI runner because System UI failed during empty-AVD
+preparation; API 35 execution does not satisfy that separate gate.
 
 It requires accessible `/dev/kvm` and passes `-accel on`; it does not silently
 fall back to slow software CPU emulation. Graphics use the supported `swangle`
@@ -141,6 +149,9 @@ Manual runs accept `platform=all` (default), `android`, or `ios`, for example:
 ```sh
 gh workflow run validate.yml --ref main -f platform=android
 ```
+
+The manual `android_api` choice defaults to `35`; add `-f android_api=36` for
+the separate Android 16 qualification attempt.
 
 Verify the resulting run's `headSha` against the intended commit. A platform-only
 run records that platform's evidence; cite the separate unchanged-platform run

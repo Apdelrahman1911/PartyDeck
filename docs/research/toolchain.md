@@ -428,11 +428,31 @@ PartyDeck absent; the second forbids recovery, and neither APK acceptance run
 started. This establishes preparation behavior, not application runtime success.
 The preserved second-boot log shows high CPU pressure and **43.86 seconds** of
 RenderEngine shader-cache generation, with no corresponding memory-pressure
-signal. The subsequent `swangle` candidate is supported by both installed
-emulator help and Android's documentation: ANGLE with SwiftShader for GLES,
-while Vulkan still uses SwiftShader. Pixel 7 dimensions/density, API 36, KVM,
-memory, preparation limits, and application assertions are unchanged. Its
-performance requires a new runtime result. [47]
+signal. Subsequent API 36 candidates using `swangle` and a reduced physical
+display also failed empty-AVD preparation. These are historical unsuccessful
+qualification attempts, detailed in `docs/research/engine-ci.md`; none provides
+application runtime acceptance. `swangle` remains a supported mode: ANGLE with
+SwiftShader for GLES, while Vulkan still uses SwiftShader. The retained
+**720×1600 at 280 dpi** configuration preserves the former logical viewport of
+**411.43×914.29 dp** with **55.56% fewer pixels**. [47]
+
+Commit `b192d342e7830841451063ad642e71159dce6be2` makes standard **API 35** the
+default functional runtime baseline. **API 36 remains a separate unresolved
+runner qualification**, selectable through `PARTYDECK_ANDROID_API=36` or the
+manual workflow's `android_api` input. Official Google repository metadata
+confirms `system-images;android-35;default;x86_64`, revision **2**; each run saves
+the installed image's `source.properties` as evidence. [48]
+
+Independent source review confirms that both the workflow installer and direct
+wrapper reject values other than **35/36** before SDK-image or AVD mutation.
+Preparation records the guest API before launcher checks, retaining it with
+subsequent ANR failures. Before either APK starts, bounded commands require
+`ro.build.version.sdk` to equal the selected
+API and verify the physical size/density and any overrides. KVM, memory, the
+single preparation recovery, existing deadlines, strict ANR rejection, and all
+debug/optimized application assertions are retained. Changing the selected API
+does not change the app's compile/target SDK or count as runtime success; an
+API 35 result cannot qualify API 36.
 
 The manual workflow platform selector is a required single-choice string with
 default `all`. Source review confirms normal push/PR events select both jobs,
@@ -540,3 +560,4 @@ remains a CI check. [33][34][35]
 [45]: https://github.com/apple-oss-distributions/cctools/blob/main/include/mach-o/nlist.h
 [46]: https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#onworkflow_dispatchinputs
 [47]: https://developer.android.com/studio/run/emulator-acceleration
+[48]: https://dl.google.com/android/repository/sys-img/android/sys-img2-1.xml

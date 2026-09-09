@@ -313,19 +313,25 @@ class AndroidSmoke:
         self.write_text("display-density.log", self.adb("shell", "wm", "density"))
         self.write_text("input-help.log", self.adb("shell", "input", "help"))
         self.write_text("uiautomator-help.log", self.adb("shell", "uiautomator", "help"))
-        home = self.adb("shell", "cmd", "package", "resolve-activity", "--brief", "-a", "android.intent.action.MAIN", "-c", "android.intent.category.HOME")
-        self.write_text("home-activity.log", home)
-        components = re.findall(r"^([A-Za-z0-9_.]+)/(?:[A-Za-z0-9_.$]+)$", home, re.MULTILINE)
-        if not components:
-            raise RuntimeError("Android has no resolved HOME Activity for the runtime check.")
-        home_package = components[-1]
+        def launcher_ready(root):
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                raise TimeoutError("HOME resolution deadline expired.")
+            # First-boot setup can hand HOME to the launcher after KEYCODE_HOME.
+            # Match each fresh tree against the currently resolved Activity.
+            home = self.adb("shell", "cmd", "package", "resolve-activity", "--brief", "-a", "android.intent.action.MAIN", "-c", "android.intent.category.HOME", timeout=min(20, remaining))
+            self.write_text("home-activity.log", home)
+            components = re.findall(r"^([A-Za-z0-9_.]+)/(?:[A-Za-z0-9_.$]+)$", home, re.MULTILINE)
+            if not components:
+                raise RuntimeError("Android has no resolved HOME Activity for the runtime check.")
+            return any(node.get("package") == components[-1] for node in root.iter("node"))
+
         self.adb("shell", "input", "keyevent", "KEYCODE_HOME")
         # boot_completed alone allowed a System UI ANR to cover the first app
         # in CI. Require consecutive fresh launcher trees before installation.
         for _ in range(3):
-            self.wait_until("Expected a responsive Android launcher", lambda root: any(
-                node.get("package") == home_package for node in root.iter("node")
-            ), seconds=90)
+            deadline = time.monotonic() + 90
+            self.wait_until("Expected a responsive Android launcher", launcher_ready, seconds=90)
         self.record("Verified responsive Android launcher before app installation")
 
     def setup(self, apk):
