@@ -240,3 +240,16 @@ At this review, accelerated Android CI has not supplied native review images. Th
 11. [Android: App orientation, aspect ratio, and resizability](https://developer.android.com/develop/ui/compose/layouts/adaptive/app-orientation-aspect-ratio-resizability) — current target/large-screen behavior and game exceptions; verify against the shipping manifest rather than assuming a universal rule.
 12. [Android Activity: `setRecentsScreenshotEnabled`](https://developer.android.com/reference/android/app/Activity#setRecentsScreenshotEnabled(boolean)) — added in API 33; disables screenshots used for Recents, distinct from the wider effect of `FLAG_SECURE`.
 13. [Android Compose: Merging and clearing semantics](https://developer.android.com/develop/ui/compose/accessibility/merging-clearing) — clearing removes information for accessibility/testing consumers; modifier order and child ownership matter.
+
+## Native iOS qualification
+
+Independently inspected all **eight native screenshots** from revision `987d380`, CI run `34398824935`. The exported attachment manifest identifies a portrait iPhone 17; PNGs are 1206 × 2622 pixels and simulator metadata records runtime 26.4.1. The run's `ios-reports-and-simulator-app` artifact contains `build/ci/ios/attachments/manifest.json` and `build/ci/ios/xcodebuild.log`; the latter records **3 UI tests, 0 failures**.
+
+No blocking visual defect was found. Home, Settings, and Lobby retain readable typography, assets, and controls; the entered **Native Host** name appears intact. Practice shows five separately readable cards, an explicit **1 of 3 selected** count, and concealed faces with disabled Play after Hide. The accepted-play capture shows a coherent Round 2 result: Moxie challenges Native Host's Moon, the claim is true, and Moxie is still in. The log also confirms an earlier Next round tap advanced to Round 2. None of the captures contains the live invitation dialog or its credentials.
+
+Coverage limits remain specific to this run:
+
+- Settings' Credits action and the result's Next round button are partly below the captured viewport. Both use scrollable containers; complete bottom-of-page views remain uncaptured.
+- Host text replacement and Create reachability after a swipe passed, but no screenshot or explicit assertion establishes a visible software keyboard. Native keyboard layout remains unqualified.
+- These portrait captures do not qualify enlarged native text, landscape/iPad, VoiceOver focus or announcements, lifecycle/App Switcher hand protection, or device game feel.
+- Settings navigation does not verify preference changes or persistence. Invitation control checks do not verify native Copy/Share/Paste effects, camera transfer, or physical-network/permission flows.

@@ -2,13 +2,14 @@
 
 Last reviewed: **2026-09-09**. This document records the inspected first-release
 implementation and the remaining audit needed for a published policy. Native
-settings, invitation actions, and scanners have been inspected in source. The
-Android packages at `c73a659` passed manifest/resource inspection. iOS native
-TLS/UI tests and an optimized device build passed, while its packaged inventory
-awaits a successful artifact upload. Android emulator subflows confirmed hand
-concealment and settings persistence within an overall failed smoke run.
-Physical-network checks remain open. Artifact hashes and executed evidence are
-recorded in [release qualification](release-qualification.md).
+settings, invitation actions, and scanners have been inspected in source.
+Android and iOS package inventories passed inspection at `987d380`; the actual
+iOS device app includes the expected privacy manifests and complete notices.
+Three native TLS and three UI XCTest tests passed. Earlier Android emulator
+subflows confirmed hand concealment and settings persistence within an overall
+failed smoke run; current Android runtime and physical-network checks remain
+open. Artifact hashes and executed evidence are recorded in
+[release qualification](release-qualification.md).
 This is not yet a store privacy declaration.
 
 ## Data needed to play
@@ -49,7 +50,7 @@ depend on the shipped target SDK and actual transport. [1][2]
 The inspected transport uses TLS and checks the complete SHA-256 host-certificate
 fingerprint carried in the invitation before sending admission or reconnect
 credentials. Public discovery does not establish a trusted host identity.
-Android/JVM socket and session tests have executed. Three native iOS TLS tests
+JVM socket and session tests have executed. Three native iOS TLS tests
 also passed, covering ordered frames/cleanup, wrong-pin rejection, and actual
 Java–Swift exchanges in both host directions on simulator/host loopback.
 Physical Android/iPhone LAN behavior remains unverified. See
@@ -112,16 +113,22 @@ emulator run, returning from background concealed the practice hand, removed
 private-card accessibility nodes, and cleared selection. That run later failed
 an unrelated text-entry step; actual phone suspension, app-switcher images, and
 process-death behavior remain release gates.
+The iOS practice XCTest separately verified deliberate Hide removes private-card
+accessibility nodes and clears selection. It did not exercise backgrounding or
+app-switcher snapshots.
 Saved preferences can be changed in the app or removed through the operating
 system's app-data deletion controls. On iOS, offloading an app is different from
 deleting its data. [8] Do not promise secure deletion of information held or recorded
 by another participant.
 
-The iOS app privacy manifest currently declares app-owned UserDefaults reason
+The inspected iOS app privacy manifest declares app-owned UserDefaults reason
 `CA92.1`, app/container file timestamp reason `C617.1`, and elapsed-time/timer
 reason `35F9.1`. Their permitted uses were checked against Apple's published
-reason catalog. [9] Final framework/archive inspection must still verify all
-required-reason API use and dependency manifests.
+reason catalog. [9] The packaged dictionary matches source. The optimized
+device bundle also contains five Swift Crypto privacy manifests declaring no
+tracking, collected-data categories, or required-reason categories. The binary
+inventory and packaged manifests were inspected; the final signed archive's
+required-reason use and Xcode aggregated privacy report remain release checks.
 
 ## Store privacy audit
 
@@ -146,8 +153,8 @@ Google and Apple define their form questions differently.
   reason codes by guessing, or leave arrays empty merely because there is no
   analytics SDK. [5][6]
 
-Before public distribution, replace intended behavior above with the verified
-data inventory; publish a stable publicly accessible policy; add the publisher's
+Before public distribution, complete the remaining device and archive checks;
+publish a stable publicly accessible policy; add the publisher's
 identity, effective date, and privacy contact; provide an in-app route to it; and
 complete store disclosures for the signed release. These publication/account
 details require the publisher's confirmation. They do not prevent implementing

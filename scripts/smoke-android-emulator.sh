@@ -65,6 +65,29 @@ printf 'no\n' | avdmanager create avd \
   --path "$ANDROID_AVD_HOME/partydeck_ci_api36.avd" \
   --force
 
+# Reduce software-rendered pixels while retaining the Pixel 7 logical viewport.
+# Numeric skin.path takes precedence over skin.name, so keep both in agreement.
+python3 - "$ANDROID_AVD_HOME/partydeck_ci_api36.avd/config.ini" "$PARTYDECK_ANDROID_OUTPUT" <<'PY'
+import json
+from pathlib import Path
+import sys
+
+config, output = map(Path, sys.argv[1:3])
+values = {
+    "hw.lcd.width": "720", "hw.lcd.height": "1600", "hw.lcd.density": "280",
+    "skin.name": "720x1600", "skin.path": "720x1600",
+}
+lines = [line for line in config.read_text().splitlines() if line.partition("=")[0].strip() not in values]
+lines.extend(f"{key}={value}" for key, value in values.items())
+config.write_text("\n".join(lines) + "\n")
+(output / "avd-config.log").write_text(config.read_text())
+(output / "display-configuration.json").write_text(json.dumps({
+    "expectedPhysicalSize": [720, 1600], "expectedDensityDpi": 280,
+    "logicalSizeDp": [720 * 160 / 280, 1600 * 160 / 280],
+    "displayVerified": False,
+}, indent=2) + "\n")
+PY
+
 setsid "$PARTYDECK_ANDROID_SDK/emulator/emulator" \
   -avd partydeck_ci_api36 \
   -port "$PARTYDECK_EMULATOR_PORT" \
@@ -80,6 +103,37 @@ PARTYDECK_EMULATOR_PID=$!
 python3 scripts/prepare-android-emulator.py \
   --serial "$PARTYDECK_EMULATOR_SERIAL" \
   --output "$PARTYDECK_ANDROID_OUTPUT/preparation"
+
+# Prove the booted display matches the configuration before either APK starts.
+python3 - "$PARTYDECK_EMULATOR_SERIAL" "$PARTYDECK_ANDROID_OUTPUT" <<'PY'
+import json
+from pathlib import Path
+import re
+import subprocess
+import sys
+
+serial, output = sys.argv[1], Path(sys.argv[2])
+report = output / "display-configuration.json"
+result = json.loads(report.read_text())
+try:
+    for command in ("size", "density"):
+        value = subprocess.run(["adb", "-s", serial, "shell", "wm", command],
+                               capture_output=True, text=True, check=True, timeout=20).stdout
+        (output / f"display-{command}.log").write_text(value)
+        result[f"actual{command.title()}Output"] = value.strip()
+    sizes = [list(map(int, pair)) for pair in re.findall(
+        r"(?:Physical|Override) size:\s*(\d+)x(\d+)", result["actualSizeOutput"])]
+    densities = list(map(int, re.findall(r"(?:Physical|Override) density:\s*(\d+)", result["actualDensityOutput"])))
+    physical_size = re.search(r"^Physical size:\s*\d+x\d+\s*$", result["actualSizeOutput"], re.MULTILINE)
+    physical_density = re.search(r"^Physical density:\s*\d+\s*$", result["actualDensityOutput"], re.MULTILINE)
+    result["displayVerified"] = bool(physical_size and physical_density and sizes and densities) and all(
+        size == result["expectedPhysicalSize"] for size in sizes
+    ) and all(density == result["expectedDensityDpi"] for density in densities)
+finally:
+    report.write_text(json.dumps(result, indent=2) + "\n")
+if not result["displayVerified"]:
+    raise SystemExit("Android display does not match the expected physical size and density; APK checks cannot start.")
+PY
 
 PARTYDECK_DEBUG_STATUS=0
 python3 scripts/smoke-android-ui.py \

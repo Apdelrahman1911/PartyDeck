@@ -67,7 +67,11 @@ sdkmanager 'emulator' 'system-images;android-36;default;x86_64'
 
 It requires accessible `/dev/kvm` and passes `-accel on`; it does not silently
 fall back to slow software CPU emulation. Graphics use the supported `swangle`
-mode (ANGLE GLES with SwiftShader), with the Pixel 7 display profile retained.
+mode (ANGLE GLES with SwiftShader). The Pixel 7 logical viewport is preserved
+with a 720 × 1600 framebuffer at 280 dpi to reduce software rendering load.
+The wrapper sets both numeric skin keys and the three LCD keys before boot,
+then requires actual `wm size` and `wm density` to match before installing either
+APK. Expected and actual values are retained in `display-configuration.json`.
 The emulator uses an isolated AVD under
 `build/ci/android/avd`, resets the test app's data, and is stopped on exit. The
 default serial is `emulator-5554`; choose another unused even port with

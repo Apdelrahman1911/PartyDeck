@@ -4,6 +4,15 @@ Research date: 2026-09-09. Sources below were fetched directly from the official
 documentation, release APIs, and artifact repositories. This document distinguishes
 documented compatibility from builds actually executed by the independent reviewer.
 
+Current iOS qualification: [run 34398824935][37] at
+`987d380967149d80d8ba5761e206ecdf7386af25` passed the complete iOS job, including
+**82 shared-native tests, three Swift TLS tests, three UI tests, and the optimized
+unsigned device build**. All three evidence artifacts were downloaded and the
+test results and interop JSON independently inspected. Earlier incomplete runs
+below are historical checkpoints; their missing artifacts do not describe the
+current qualification. Physical-device, minimum-OS, LAN, and signing gates remain
+separate.
+
 ## Selected versions
 
 | Component | PartyDeck selection | Evidence and reason |
@@ -164,7 +173,8 @@ reports, rather than relying only on the workflow conclusion.
 | Gradle result | **28 tasks executed**, success in 2m 46s |
 
 This manual job excludes transport implementation, the Compose framework, and
-the Swift application/UI tests. Their full native qualification remains open.
+the Swift application/UI tests. Their full native qualification was open at this
+checkpoint; the completed qualification in run 34398824935 below supersedes it.
 The executed job confirms that the selected action pins, Android SDK setup for
 KMP configuration, Kotlin/Native compiler, and Apple simulator work together.
 
@@ -244,8 +254,8 @@ to `IosNativeActions`. Both the compiler diagnostic and generated header
 require `func doCopyText(value: String) -> Bool`; the Swift implementation
 used `copyText(value:)`. The reviewer routed this exact diagnostic and the
 generated header to the iOS owner. Remaining Swift bodies, simulator UI tests,
-and the unsigned device application still require a successful subsequent
-run. This artifact contains no completed app archives; shared transport tests
+and the unsigned device application were unverified in this run and passed in
+later runs below. This artifact contains no completed app archives; shared transport tests
 do not substitute for execution of the Swift TLS implementation.
 
 Local evidence is preserved under
@@ -280,9 +290,10 @@ native JUnit XML, fixture JSON, screenshots, and link maps.
 The required mixed XCTest ran without a skip. The checked-in supervisor also
 returned successfully before the script entered device compilation, which
 requires JVM exit zero and the complete two-direction PASS result. Independent
-inspection of that JSON's exact terminal-state values remains pending because
+inspection of that run's JSON terminal-state values was unavailable because
 its upload failed. Similarly, the expected **82** shared-native test count is
-not presented as an independently parsed count without the missing XML.
+not presented as an independently parsed count for this run without its missing
+XML. The subsequent run below supplies both current XML and complete fixture JSON.
 
 The complete log and API metadata are preserved as
 `/tmp/partydeck-toolchain-review/integrated-ios-34384326819.log`,
@@ -297,6 +308,143 @@ artifact failures remain job failures while explicit status conditions permit
 the remaining independent build diagnostics. The device script retains the
 Release configuration, no-signing flag, link maps, and required optimized Kotlin
 task. This review is distinct from successful execution of the new split.
+
+### Complete iOS qualification and preserved artifacts
+
+[Run 34398824935][37], commit `987d380967149d80d8ba5761e206ecdf7386af25`,
+completed iOS job **102625289447** successfully, including every build/test and
+artifact-upload step. The reviewer independently downloaded all three artifacts:
+
+| Artifact | GitHub artifact ID | Preserved evidence |
+| --- | --- | --- |
+| `ios-shared-native-reports` | `10122764571` | Native JUnit XML and HTML reports, simulator selection |
+| `ios-reports-and-simulator-app` | `10123022960` | Simulator app archive, Xcode log and result bundle, interop JSON/logs, eight UI screenshots, debug headers and link maps |
+| `ios-unsigned-release-device-app` | `10123371908` | Actual unsigned Release device app archive, Xcode log, release framework header and link maps |
+
+All **13** native JUnit reports were parsed and their declared counts checked
+against individual testcase elements: **82 tests, zero failures, errors, or
+skips**. The breakdown is core **14**, session **27**, transport **10**, games
+**7**, and app controller **24**. The job log shows all five native test tasks
+executing; the full native invocation completed in **4m 14s**, with **92 tasks:
+73 executed and 19 from cache**.
+
+The actual Xcode log contains exactly these six named passing XCTest records:
+
+| XCTest | Duration |
+| --- | ---: |
+| `testPinnedTLSExchangesOrderedFramesAndClosesBothPeers` | 1.744 s |
+| `testSwiftAndJavaTLSInteroperabilityInBothDirections` | 0.615 s |
+| `testWrongCertificatePinFailsBeforeOutgoingConnectionIsAnnounced` | 0.934 s |
+| `testNativeHostCanNavigateSharedSettings` | 21.573 s |
+| `testSharedControllerHostsANativeTableAndShowsItsInvitation` | 25.946 s |
+| `testSharedHomeOpensAPlayablePracticeTable` | 29.517 s |
+
+Both XCTest suites report **three tests and zero failures**, followed by
+`TEST SUCCEEDED`. The recorded destination is an **iPhone 17 Simulator running
+iOS 26.4.1**, selected against SDK **26.4**. These results do not establish
+execution on iOS 15 or a physical phone.
+
+The downloaded fixture result is the complete version-1 PASS record:
+
+```json
+{
+  "version": 1,
+  "status": "PASS",
+  "forwardBytesReceived": 65536,
+  "forwardBytesSent": 20000,
+  "reverseBytesSent": 20000,
+  "reverseBytesReceived": 65536,
+  "forwardTerminalState": "Closed",
+  "reverseTerminalState": "Closed"
+}
+```
+
+`orchestration.json` independently records `passed: true`, `xcodeExitCode: 0`,
+`javaExitCode: 0`, and the required mixed-test name. The fixture log records both
+host directions, acknowledged payloads, and peer closure. This replaces the
+previous run's evidence limitation with inspected JSON; no skipped interop test
+is counted as success.
+
+The actual `:composeApp:linkReleaseFrameworkIosArm64` task executed in a native
+invocation lasting **6m 50s**; the Release `iphoneos` Swift application then
+reported `BUILD SUCCEEDED`. Both application archives, generated framework
+headers, and link maps are present in the downloaded artifacts. Bundle contents,
+notices, privacy declarations, and signing inspection are recorded separately
+in `docs/release-qualification.md`.
+
+Evidence root: `/tmp/partydeck-toolchain-review/integrated-ios-34398824935/`.
+It contains the complete `ios-job.log`, run/job/artifact API snapshots, original
+artifact ZIPs and extracted trees, `independent-native-junit-summary.json`, and
+`independent-xctest-result-summary.json`. No Gradle or device command was rerun
+locally for this artifact review.
+
+### Native warning classification
+
+Both successful Swift configurations warn about `retainedActions` and
+`retainedHandle` captured by the main-queue cleanup closure in
+`PartyDeckOwner.deinit`. Swift's SE-0371 confirms that a plain synchronous
+`deinit` does not inherit its class's `@MainActor` isolation. The implementation
+retains the two dependencies in local references, avoids an escaping `self`,
+and performs their cleanup on the main thread. These are unresolved Sendable
+annotation warnings; passing tests alone do not prove every deinitialization
+interleaving safe. No blanket suppression or unchecked Sendable conformance was
+added. Adopting Swift 6.2's `isolated deinit` would need a separate deployment
+compatibility review for the retained iOS 15 minimum. [40]
+
+The simulator linker warning names Skiko **0.150.1**'s
+`libicu.icudtl_dat.o`, whose minimum simulator version is **18.5** while the
+app links for **15.0**. The reviewer verified the resolved simulator/device KLIB
+SHA-256 values against published module metadata, unwrapped their universal
+static archives, and inspected all four arm64/arm64e ICU data objects using
+Apple's Mach-O header layouts. The simulator objects contain **zero instruction
+bytes, zero relocations, and zero undefined symbols**. Their only nonempty
+section is **6,296,800 bytes of constant data**, byte-identical to the device
+objects; the device arm64/arm64e minimum versions are **12.0/14.0**. The Skia
+`m150-1f14f1166a` build and generator sources confirm that this member is emitted
+from ICU's data file as assembly constants. [41][42][43][44][45]
+
+This specific warning is a dependency data-object deployment-metadata mismatch,
+with no newer-OS API reference in that object. It does not justify raising the
+application's minimum OS or globally suppressing linker warnings. It also does
+not establish minimum-OS compatibility of the entire dependency graph. The
+inspection is preserved in
+`/tmp/partydeck-toolchain-review/skiko-icu/independent-icu-object-inspection.json`.
+
+### Android preparation and JVM close-test review
+
+The extracted Android readiness method preserves the strict launcher and crash
+dialog checks before APK installation. The wrapper's preparation phase permits
+at most one recovery, requiring confirmed app absence, the exact System UI ANR
+in both fresh UI evidence and logcat, successful settings restoration, and a
+new kernel boot ID with completed boot. It preserves the first failing UI before
+collecting fresh diagnostics. A diagnostic exception cannot bypass restoration
+or grant recovery. The later application-driver cleanup correction likewise
+retains the original application failure, records cleanup failures separately,
+and prints success only after cleanup and result writing succeed.
+
+Run 34398824935 exercised the failure boundary: System UI failed startup on the
+first boot and after the single permitted reboot. Both attempt records confirm
+PartyDeck absent; the second forbids recovery, and neither APK acceptance run
+started. This establishes preparation behavior, not application runtime success.
+The preserved second-boot log shows high CPU pressure and **43.86 seconds** of
+RenderEngine shader-cache generation, with no corresponding memory-pressure
+signal. The subsequent `swangle` candidate is supported by both installed
+emulator help and Android's documentation: ANGLE with SwiftShader for GLES,
+while Vulkan still uses SwiftShader. Pixel 7 dimensions/density, API 36, KVM,
+memory, preparation limits, and application assertions are unchanged. Its
+performance requires a new runtime result. [47]
+
+The manual workflow platform selector is a required single-choice string with
+default `all`. Source review confirms normal push/PR events select both jobs,
+while manual `android` or `ios` selects only the named job. [46]
+
+The JVM listener-close test now requires the incoming stream to finish and a
+loopback `ConnectException` within two seconds. Successful probes retry only
+within that bound; timeouts and unrelated I/O exceptions fail. OpenJDK 21's
+`NioSocketImpl.close()`, `tryClose()`, and `endAccept()` confirm why an in-flight
+accept can defer final descriptor closure. The correction changes only the
+test's observation of closure, with no production transport modification.
+[38][39]
 
 ### JVM–Swift interoperability harness source review
 
@@ -326,11 +474,12 @@ The manifest publishes only a loopback port and public certificate fingerprint;
 fixture outputs do not write private keys. Both identities remain in memory.
 
 Python AST parsing, shell syntax, and whitespace checks passed. This was a
-**source review**, with no additional local Gradle execution. Installed Xcode
-help/manual output is retained as evidence, but actual `TEST_RUNNER_` delivery,
-Simulator loopback reachability, and JSSE–Network.framework interoperability
-must be established by the required mixed test in macOS CI. Apple documents
-the test's async expectation waits as concurrency-safe and timeout-bounded. [32]
+**source review**, with no additional local Gradle execution. Actual
+`TEST_RUNNER_` delivery, Simulator loopback reachability, and
+JSSE–Network.framework interoperability were subsequently established by the
+required mixed test and complete fixture evidence in run 34398824935 above.
+Installed Xcode help/manual output is retained; Apple documents the test's async
+expectation waits as concurrency-safe and timeout-bounded. [32]
 
 The reviewer also independently checked the Ubuntu graphics setup correction:
 the exact hosted-image source configures `ubuntu.sources`; official Noble
@@ -380,3 +529,14 @@ remains a CI check. [33][34][35]
 [34]: https://manpages.ubuntu.com/manpages/noble/en/man5/apt.conf.5.html
 [35]: https://manpages.ubuntu.com/manpages/noble/en/man5/sources.list.5.html
 [36]: https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34384326819
+[37]: https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34398824935
+[38]: https://github.com/openjdk/jdk21u/blob/master/src/java.base/share/classes/sun/nio/ch/NioSocketImpl.java
+[39]: https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/net/ConnectException.html
+[40]: https://github.com/swiftlang/swift-evolution/blob/main/proposals/0371-isolated-synchronous-deinit.md
+[41]: https://github.com/JetBrains/skia/blob/m150-1f14f1166a/third_party/icu/BUILD.gn
+[42]: https://github.com/JetBrains/skia/blob/m150-1f14f1166a/third_party/icu/make_data_assembly_for_skiko.py
+[43]: https://github.com/apple-oss-distributions/cctools/blob/main/include/mach-o/loader.h
+[44]: https://github.com/apple-oss-distributions/cctools/blob/main/include/mach-o/fat.h
+[45]: https://github.com/apple-oss-distributions/cctools/blob/main/include/mach-o/nlist.h
+[46]: https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#onworkflow_dispatchinputs
+[47]: https://developer.android.com/studio/run/emulator-acceleration
