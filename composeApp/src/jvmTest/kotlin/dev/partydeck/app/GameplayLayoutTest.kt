@@ -269,6 +269,7 @@ class GameplayLayoutTest {
         }
         onNodeWithTag("game-reveal-hand").bringIntoView().performClick()
         onNodeWithTag("game-challenge").assertIsEnabled()
+        onNodeWithText("Challenge Alexandria Longname").assertExists()
         onNodeWithTag("game-play").assertIsNotEnabled()
         capture("choice-long-name")
         for (index in 0..2) onNodeWithTag("game-card-$index").performScrollTo().performClick().assertIsOn()

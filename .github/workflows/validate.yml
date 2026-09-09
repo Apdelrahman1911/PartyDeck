@@ -50,12 +50,15 @@ jobs:
       - name: Test, lint, and package Android
         run: xvfb-run -a ./scripts/validate-android.sh
       - name: Install the Android runtime test image
+        if: ${{ !cancelled() && hashFiles('androidApp/build/outputs/apk/debug/*.apk') != '' }}
         run: sdkmanager 'emulator' 'system-images;android-36;default;x86_64'
       - name: Enable runner KVM access
+        if: ${{ !cancelled() && hashFiles('androidApp/build/outputs/apk/debug/*.apk') != '' }}
         run: |
           test -e /dev/kvm
           sudo chmod a+rw /dev/kvm
       - name: Install, launch, and navigate the real Android APK
+        if: ${{ !cancelled() && hashFiles('androidApp/build/outputs/apk/debug/*.apk') != '' }}
         timeout-minutes: 12
         run: ./scripts/smoke-android-emulator.sh
       - name: Upload test and lint reports
@@ -112,6 +115,7 @@ jobs:
           cache-provider: basic
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
       - name: Record and check Apple toolchain
+        id: apple-toolchain
         run: |
           test -d "$DEVELOPER_DIR"
           test "$(uname -m)" = arm64
@@ -123,6 +127,7 @@ jobs:
       - name: Run native shared tests and link device framework
         run: ./scripts/validate-ios-shared.sh
       - name: Build and test the iOS application
+        if: ${{ !cancelled() && steps.apple-toolchain.outcome == 'success' }}
         run: ./scripts/validate-ios-app.sh
       - name: Upload iOS reports and simulator app
         if: always()
@@ -138,6 +143,7 @@ jobs:
             build/ci/ios/*.tar.gz
             build/ci/ios/PartyDeck.xcresult/**
             build/ci/ios/attachments/**
+            build/ci/ios/**/*LinkMap*.txt
             composeApp/build/bin/ios*/debugFramework/PartyDeckKit.framework/Headers/**
             iosApp/PartyDeck.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
           retention-days: 14

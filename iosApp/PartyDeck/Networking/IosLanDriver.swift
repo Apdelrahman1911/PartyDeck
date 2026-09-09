@@ -136,11 +136,14 @@ final class IosLanDriver: NSObject, NativeLanDriver {
                 return
             }
             do {
-                let destination: NWEndpoint
-                if endpoint.host.isEmpty, let service = endpoint.serviceName {
-                    destination = self.discovery.endpoint(serviceName: service) ?? .service(
+                let serviceDestination: NWEndpoint? = endpoint.serviceName.map { service in
+                    self.discovery.endpoint(serviceName: service) ?? .service(
                         name: service, type: IosBonjourDiscovery.serviceType, domain: "local.", interface: nil
                     )
+                }
+                let destination: NWEndpoint
+                if endpoint.host.isEmpty, let serviceDestination {
+                    destination = serviceDestination
                 } else {
                     guard let port = NWEndpoint.Port(rawValue: UInt16(endpoint.port)) else {
                         self.observer?.onConnectFailed(operationId: operationId, code: .unavailable, message: "Invalid host endpoint")
@@ -151,6 +154,8 @@ final class IosLanDriver: NSObject, NativeLanDriver {
                 let tls = try IosTlsIdentity.clientOptions(certificateSha256: certificateSha256, queue: self.queue)
                 let connection = NWConnection(to: destination, using: Self.parameters(tls: tls))
                 let handle = ConnectionHandle(connection: connection, operationId: operationId, hostId: nil)
+                handle.certificateSha256 = certificateSha256
+                if !endpoint.host.isEmpty { handle.fallbackDestination = serviceDestination }
                 self.connections[handle.id] = handle
                 self.start(handle)
             } catch {
@@ -161,13 +166,17 @@ final class IosLanDriver: NSObject, NativeLanDriver {
 
     private func start(_ handle: ConnectionHandle) {
         let connection = handle.connection
-        connection.stateUpdateHandler = { [weak self, weak handle] state in
-            guard let self, let handle, self.connections[handle.id] === handle else { return }
+        connection.stateUpdateHandler = { [weak self, weak handle, weak connection] state in
+            guard let self, let handle, let connection, self.connections[handle.id] === handle,
+                  handle.connection === connection
+            else { return }
             switch state {
             case .ready:
                 guard !handle.ready else { return }
                 handle.ready = true
                 handle.timeout?.cancel()
+                handle.fallbackTimeout?.cancel()
+                handle.fallbackDestination = nil
                 if let operationId = handle.operationId {
                     self.observer?.onConnected(operationId: operationId, connectionId: handle.id)
                 } else if let hostId = handle.hostId {
@@ -177,9 +186,14 @@ final class IosLanDriver: NSObject, NativeLanDriver {
             case .waiting(let error):
                 if Self.isPermissionFailure(error) {
                     self.finish(handle, code: .permissionDenied, message: "Allow local network access to join a game")
+                } else if Self.failureCode(error) == .authenticationFailed {
+                    self.finish(handle, code: .authenticationFailed, message: "The host identity did not match the invitation")
+                } else {
+                    self.retryService(handle)
                 }
             case .failed(let error):
                 let code = Self.failureCode(error)
+                if code != .authenticationFailed, code != .permissionDenied, self.retryService(handle) { return }
                 let message = code == .authenticationFailed
                     ? "The host identity did not match the invitation"
                     : "The secure connection was interrupted"
@@ -190,13 +204,48 @@ final class IosLanDriver: NSObject, NativeLanDriver {
                 break
             }
         }
-        let timeout = DispatchWorkItem { [weak self, weak handle] in
-            guard let self, let handle, self.connections[handle.id] === handle, !handle.ready else { return }
-            self.finish(handle, code: .timedOut, message: "The secure connection did not become ready")
+        if handle.timeout == nil {
+            let timeout = DispatchWorkItem { [weak self, weak handle] in
+                guard let self, let handle, self.connections[handle.id] === handle, !handle.ready else { return }
+                self.finish(handle, code: .timedOut, message: "The secure connection did not become ready")
+            }
+            handle.timeout = timeout
+            queue.asyncAfter(deadline: .now() + Self.handshakeTimeout, execute: timeout)
         }
-        handle.timeout = timeout
-        queue.asyncAfter(deadline: .now() + Self.handshakeTimeout, execute: timeout)
+        if handle.fallbackDestination != nil {
+            // A stale IP may stay in TCP preparation for a long time. Leave time to resolve
+            // its Bonjour identity, without extending the original handshake deadline.
+            let fallback = DispatchWorkItem { [weak self, weak handle, weak connection] in
+                guard let self, let handle, let connection, self.connections[handle.id] === handle,
+                      handle.connection === connection
+                else { return }
+                self.retryService(handle)
+            }
+            handle.fallbackTimeout = fallback
+            queue.asyncAfter(deadline: .now() + 4, execute: fallback)
+        }
         connection.start(queue: queue)
+    }
+
+    @discardableResult
+    private func retryService(_ handle: ConnectionHandle) -> Bool {
+        guard connections[handle.id] === handle, !handle.ready, !closed,
+              let destination = handle.fallbackDestination, let pin = handle.certificateSha256
+        else { return false }
+        handle.fallbackDestination = nil
+        handle.fallbackTimeout?.cancel()
+        handle.fallbackTimeout = nil
+        handle.connection.stateUpdateHandler = nil
+        handle.connection.cancel()
+        do {
+            // Discovery is only a candidate address; it cannot replace the invitation's pin.
+            let tls = try IosTlsIdentity.clientOptions(certificateSha256: pin, queue: queue)
+            handle.connection = NWConnection(to: destination, using: Self.parameters(tls: tls))
+            start(handle)
+        } catch {
+            finish(handle, code: .authenticationFailed, message: "The host identity did not match the invitation")
+        }
+        return true
     }
 
     private func receive(_ handle: ConnectionHandle) {
@@ -261,6 +310,7 @@ final class IosLanDriver: NSObject, NativeLanDriver {
         guard connections[handle.id] === handle else { return }
         connections.removeValue(forKey: handle.id)
         handle.timeout?.cancel()
+        handle.fallbackTimeout?.cancel()
         handle.connection.stateUpdateHandler = nil
         handle.connection.cancel()
         if handle.ready {
@@ -383,11 +433,14 @@ final class IosLanDriver: NSObject, NativeLanDriver {
 
     private final class ConnectionHandle {
         let id = UUID().uuidString.lowercased()
-        let connection: NWConnection
+        var connection: NWConnection
         let operationId: String?
         let hostId: String?
         var ready = false
         var timeout: DispatchWorkItem?
+        var fallbackTimeout: DispatchWorkItem?
+        var fallbackDestination: NWEndpoint?
+        var certificateSha256: String?
         init(connection: NWConnection, operationId: String?, hostId: String?) {
             self.connection = connection
             self.operationId = operationId

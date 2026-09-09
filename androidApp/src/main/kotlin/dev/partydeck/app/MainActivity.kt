@@ -96,8 +96,8 @@ class MainActivity : ComponentActivity(), InvitationScannerHost {
         if (owner.services.isAttachedActivity(this)) {
             owner.controller.setSystemReduceMotion(!ValueAnimator.areAnimatorsEnabled())
         }
-        privacy.setResumed(true)
         privacy.setFocused(activityFocused)
+        privacy.setResumed(true)
         updateInteractivity()
     }
 

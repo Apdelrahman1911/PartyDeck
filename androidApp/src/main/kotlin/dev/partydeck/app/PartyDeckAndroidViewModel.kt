@@ -19,6 +19,5 @@ class PartyDeckAndroidViewModel(application: Application) : AndroidViewModel(app
     override fun onCleared() {
         controller.close()
         services.close()
-        super.onCleared()
     }
 }

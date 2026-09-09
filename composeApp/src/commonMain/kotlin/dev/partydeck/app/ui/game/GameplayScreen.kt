@@ -5,10 +5,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
@@ -37,6 +39,7 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import dev.partydeck.app.controller.PendingAction
 import dev.partydeck.app.ui.theme.DeckButton
@@ -227,12 +230,17 @@ private fun PlayingLayout(
                 actions()
             }
             else -> Column(Modifier.fillMaxSize()) {
-                PublicGameTable(
-                    view,
-                    largeText = false,
-                    modifier = Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(vertical = 12.dp),
-                    compact = compact,
-                )
+                BoxWithConstraints(Modifier.weight(1f).fillMaxWidth()) {
+                    val publicHeight = maxHeight
+                    PublicGameTable(
+                        view,
+                        largeText = false,
+                        modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(vertical = 12.dp),
+                        compact = compact,
+                        showCompactRoster = publicHeight >= 280.dp,
+                        decorateClaim = compact && publicHeight >= 360.dp && view.forcedChallenge,
+                    )
+                }
                 HorizontalDivider(
                     modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp),
                     color = PartyDeckColors.Divider,
@@ -294,6 +302,7 @@ private fun GameActions(
                     color = PartyDeckColors.Muted,
                 )
                 BoxWithConstraints(Modifier.fillMaxWidth()) {
+                    val stacked = largeText || maxWidth < 310.dp
                     val play: @Composable (Modifier) -> Unit = { buttonModifier ->
                         if (canPlay) {
                             val label = when {
@@ -316,19 +325,24 @@ private fun GameActions(
                                 else stringResource(Res.string.game_challenge_player, claimantName),
                                 enabled = canSendAction,
                                 onClick = onChallenge,
+                                maxLabelLines = if (stacked) Int.MAX_VALUE else 2,
                                 modifier = buttonModifier,
                             )
                         }
                     }
-                    if (largeText || maxWidth < 310.dp) {
+                    if (stacked) {
                         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                             play(Modifier.fillMaxWidth())
                             challenge(Modifier.fillMaxWidth())
                         }
                     } else {
-                        Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
-                            play(Modifier.weight(1f))
-                            challenge(Modifier.weight(1f))
+                        Row(
+                            modifier = Modifier.height(IntrinsicSize.Min),
+                            horizontalArrangement = Arrangement.spacedBy(10.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            play(Modifier.weight(1f).fillMaxHeight())
+                            challenge(Modifier.weight(1f).fillMaxHeight())
                         }
                     }
                 }
@@ -347,7 +361,13 @@ private fun GameActions(
 }
 
 @Composable
-private fun ChallengeButton(text: String, enabled: Boolean, onClick: () -> Unit, modifier: Modifier = Modifier) {
+private fun ChallengeButton(
+    text: String,
+    enabled: Boolean,
+    onClick: () -> Unit,
+    maxLabelLines: Int,
+    modifier: Modifier = Modifier,
+) {
     OutlinedButton(
         onClick = onClick,
         enabled = enabled,
@@ -360,7 +380,13 @@ private fun ChallengeButton(text: String, enabled: Boolean, onClick: () -> Unit,
         ),
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
     ) {
-        Text(text, style = MaterialTheme.typography.labelLarge, textAlign = TextAlign.Center)
+        Text(
+            text,
+            style = MaterialTheme.typography.labelLarge,
+            textAlign = TextAlign.Center,
+            maxLines = maxLabelLines,
+            overflow = TextOverflow.Ellipsis,
+        )
     }
 }
 

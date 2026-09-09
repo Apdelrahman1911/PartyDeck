@@ -32,6 +32,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import dev.partydeck.app.controller.AppScreen
 import dev.partydeck.app.controller.AppUiState
+import dev.partydeck.app.controller.ConnectionStatus
 import dev.partydeck.app.controller.PendingAction
 import dev.partydeck.app.controller.UiProblemCode
 import dev.partydeck.app.ui.theme.DeckButton
@@ -55,7 +56,10 @@ fun HostJoinScreen(
     modifier: Modifier = Modifier,
 ) {
     val hosting = state.screen == AppScreen.HOST
-    val busy = state.pendingAction == PendingAction.HOST || state.pendingAction == PendingAction.JOIN
+    val busy = state.pendingAction == PendingAction.HOST || state.pendingAction == PendingAction.JOIN ||
+        state.connection.status in setOf(
+            ConnectionStatus.STARTING_HOST, ConnectionStatus.CONNECTING, ConnectionStatus.RECONNECTING,
+        )
     val nameInvalid = state.problem?.code == UiProblemCode.INVALID_NAME ||
         state.displayName.trim().length !in 1..LastLightRules.MAX_DISPLAY_NAME_LENGTH
     val inviteInvalid = state.problem?.code == UiProblemCode.INVALID_INVITE

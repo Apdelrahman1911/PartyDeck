@@ -18,11 +18,16 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -134,34 +139,35 @@ internal fun InlineProblem(
         shape = MaterialTheme.shapes.medium,
     ) {
         Column(
-            Modifier.heightIn(max = 260.dp).verticalScroll(rememberScrollState())
-                .padding(start = 16.dp, end = 8.dp, top = 8.dp, bottom = 12.dp),
+            Modifier.heightIn(max = 260.dp)
+                .padding(start = 16.dp, end = 8.dp, top = 12.dp, bottom = 8.dp),
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    text = stringResource(Res.string.shell_problem_title),
-                    modifier = Modifier.weight(1f).semantics { heading() },
-                    style = MaterialTheme.typography.titleSmall,
-                )
+            Text(
+                problemMessage(problem.code),
+                Modifier.weight(1f, fill = false).fillMaxWidth()
+                    .verticalScroll(rememberScrollState()).padding(end = 8.dp)
+                    .testTag("problem-message"),
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            Row(
+                Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.End,
+            ) {
+                if (problem.recovery != RecoveryAction.DISMISS) {
+                    TextButton(
+                        onClick = onRecover,
+                        modifier = Modifier.weight(1f).heightIn(min = 48.dp).testTag("problem-recover"),
+                    ) {
+                        Text(recoveryLabel(problem.recovery), color = PartyDeckColors.Paper)
+                    }
+                }
                 ShellIconAction(
                     icon = Res.drawable.icon_close,
                     label = stringResource(Res.string.shell_dismiss),
                     onClick = onDismiss,
                     modifier = Modifier.testTag("problem-dismiss"),
                 )
-            }
-            Text(
-                problemMessage(problem.code),
-                Modifier.padding(end = 8.dp),
-                style = MaterialTheme.typography.bodyMedium,
-            )
-            if (problem.recovery != RecoveryAction.DISMISS) {
-                TextButton(
-                    onClick = onRecover,
-                    modifier = Modifier.heightIn(min = 48.dp).testTag("problem-recover"),
-                ) {
-                    Text(recoveryLabel(problem.recovery), color = PartyDeckColors.Paper)
-                }
             }
         }
     }
@@ -206,6 +212,9 @@ internal fun ConnectionBanner(
     connection: ConnectionUiState,
     pausedPlayerNames: List<String>,
     modifier: Modifier = Modifier,
+    canReturnToLobby: Boolean = false,
+    canSendAction: Boolean = false,
+    onReturnToLobby: () -> Unit = {},
 ) {
     val message = when {
         connection.status == ConnectionStatus.RECONNECTING ->
@@ -221,16 +230,61 @@ internal fun ConnectionBanner(
         )
         else -> return
     }
-    Row(
+    var returnConfirmation by remember { mutableStateOf(false) }
+    Column(
         modifier = modifier
             .fillMaxWidth()
             .background(PartyDeckColors.Surface)
             .padding(horizontal = 20.dp, vertical = 12.dp)
             .semantics { liveRegion = LiveRegionMode.Polite },
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
-        verticalAlignment = Alignment.CenterVertically,
     ) {
-        Box(Modifier.size(8.dp).background(PartyDeckColors.Copper, CircleShape))
-        Text(message, style = MaterialTheme.typography.bodySmall)
+        Row(
+            modifier = Modifier.weight(1f, fill = false).verticalScroll(rememberScrollState()),
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Box(Modifier.size(8.dp).background(PartyDeckColors.Copper, CircleShape))
+            Text(message, style = MaterialTheme.typography.bodySmall)
+        }
+        if (canReturnToLobby) {
+            TextButton(
+                onClick = { returnConfirmation = true },
+                enabled = canSendAction,
+                modifier = Modifier.heightIn(min = 48.dp).testTag("session-return-lobby"),
+            ) {
+                Text(stringResource(Res.string.shell_return_lobby), color = PartyDeckColors.Citron)
+            }
+        }
+    }
+    if (returnConfirmation && canReturnToLobby) {
+        AlertDialog(
+            onDismissRequest = { returnConfirmation = false },
+            modifier = Modifier.testTag("return-lobby-dialog"),
+            title = { Text(stringResource(Res.string.shell_return_lobby_title)) },
+            text = {
+                Column(Modifier.verticalScroll(rememberScrollState())) {
+                    Text(stringResource(Res.string.shell_return_lobby_description))
+                }
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        returnConfirmation = false
+                        onReturnToLobby()
+                    },
+                    enabled = canSendAction,
+                    modifier = Modifier.heightIn(min = 48.dp).testTag("return-lobby-confirm"),
+                ) {
+                    Text(stringResource(Res.string.shell_return_lobby), color = PartyDeckColors.Copper)
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = { returnConfirmation = false },
+                    modifier = Modifier.heightIn(min = 48.dp).testTag("return-lobby-cancel"),
+                ) { Text(stringResource(Res.string.shell_keep_waiting)) }
+            },
+            containerColor = PartyDeckColors.Surface,
+        )
     }
 }

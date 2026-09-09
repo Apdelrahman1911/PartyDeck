@@ -54,5 +54,6 @@ dependencies {
     implementation(libs.camera.lifecycle)
     implementation(libs.camera.view)
     implementation(libs.zxing.core)
+    implementation(libs.android.startup)
     testImplementation(libs.kotlin.test.junit)
 }

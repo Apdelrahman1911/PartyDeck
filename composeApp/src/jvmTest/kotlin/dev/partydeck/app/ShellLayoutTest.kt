@@ -1,6 +1,8 @@
 package dev.partydeck.app
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -15,6 +17,7 @@ import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
+import androidx.compose.ui.test.assertIsOn
 import androidx.compose.ui.test.assertTextContains
 import androidx.compose.ui.test.captureToImage
 import androidx.compose.ui.test.onNodeWithTag
@@ -24,6 +27,7 @@ import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performTextReplacement
 import androidx.compose.ui.test.v2.runSkikoComposeUiTest
 import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.dp
 import com.google.zxing.BinaryBitmap
 import com.google.zxing.DecodeHintType
 import com.google.zxing.RGBLuminanceSource
@@ -46,8 +50,10 @@ import dev.partydeck.app.controller.SettingsStore
 import dev.partydeck.app.controller.UiProblem
 import dev.partydeck.app.controller.UiProblemCode
 import dev.partydeck.app.ui.shell.HostJoinScreen
+import dev.partydeck.app.ui.shell.ConnectionBanner
 import dev.partydeck.app.ui.shell.InvitationDialog
 import dev.partydeck.app.ui.shell.LobbyScreen
+import dev.partydeck.app.ui.shell.SettingsScreen
 import dev.partydeck.app.ui.theme.PartyDeckColors
 import dev.partydeck.app.ui.theme.PartyDeckTheme
 import dev.partydeck.session.LobbyPlayer
@@ -185,13 +191,84 @@ class ShellLayoutTest {
         onNodeWithTag("join-name").performScrollTo().assertTextContains("Ada Lovelace")
         onNodeWithTag("join-invitation").performScrollTo().assertTextContains(invitation)
         onNodeWithTag("shell-snapshot-root").shellSnapshot("join-constrained-large-text-input")
-        onNodeWithTag("problem-recover").performScrollTo().assertIsDisplayed()
+        onNodeWithTag("problem-panel").performScrollTo().assertIsDisplayed()
+        onNodeWithTag("problem-recover").assertIsDisplayed()
+        onNodeWithTag("problem-dismiss").assertIsDisplayed()
         onNodeWithTag("shell-snapshot-root").shellSnapshot("join-constrained-large-text-error")
         onNodeWithTag("problem-recover").performClick()
         assertEquals(1, recovered)
-        onNodeWithTag("problem-dismiss").performScrollTo().assertIsDisplayed().performClick()
+        onNodeWithTag("problem-dismiss").assertIsDisplayed().performClick()
         assertNull(state.problem)
         onNodeWithTag("join-submit").performScrollTo().assertIsDisplayed().assertIsEnabled()
+        runOnUiThread {
+            state = state.copy(connection = ConnectionUiState(ConnectionStatus.RECONNECTING, SessionMode.LAN_CLIENT))
+        }
+        onNodeWithTag("join-submit").assertIsNotEnabled()
+        onNodeWithTag("join-name").assertIsNotEnabled()
+        onNodeWithTag("join-invitation").assertIsNotEnabled()
+        assertEquals("Ada Lovelace", state.displayName)
+        assertEquals(invitation, state.joinAddress)
+    }
+
+    @Test
+    fun pausedHostCanConfirmReturnToLobbyAtLargeText() = runSkikoComposeUiTest(
+        size = Size(320f, 740f),
+        density = Density(1f, 2f),
+        testTimeout = 45.seconds,
+    ) {
+        var requests = 0
+        var canSend by mutableStateOf(true)
+        setContent {
+            ShellTestFrame {
+                Box(Modifier.fillMaxSize()) {
+                    ConnectionBanner(
+                        connection = ConnectionUiState(ConnectionStatus.CONNECTED, SessionMode.LAN_HOST),
+                        pausedPlayerNames = listOf("Alexandria Montgomery", "Juniper"),
+                        canReturnToLobby = true,
+                        canSendAction = canSend,
+                        onReturnToLobby = { requests++ },
+                        modifier = Modifier.heightIn(max = 222.dp),
+                    )
+                }
+            }
+        }
+        onNodeWithTag("session-return-lobby").assertIsDisplayed().performClick()
+        assertEquals(0, requests, "A paused match is not ended before the host confirms")
+        onNodeWithTag("return-lobby-dialog").shellSnapshot("paused-host-return-large-text")
+        onNodeWithTag("return-lobby-cancel").assertIsDisplayed().performClick()
+        assertEquals(0, requests)
+        onNodeWithTag("session-return-lobby").performClick()
+        onNodeWithTag("return-lobby-confirm").assertIsDisplayed().performClick()
+        assertEquals(1, requests)
+        runOnUiThread { canSend = false }
+        onNodeWithTag("session-return-lobby").assertIsNotEnabled()
+    }
+
+    @Test
+    fun settingsKeepLabelsAndTogglesReachableAtLargeText() = runSkikoComposeUiTest(
+        size = Size(320f, 740f),
+        density = Density(1f, 2f),
+        testTimeout = 45.seconds,
+    ) {
+        var state by mutableStateOf(AppUiState(screen = AppScreen.SETTINGS))
+        setContent {
+            ShellTestFrame {
+                SettingsScreen(
+                    state = state,
+                    onBack = {},
+                    onSettingsChange = { state = state.copy(settings = it) },
+                )
+            }
+        }
+        onNodeWithTag("settings-sound").assertIsDisplayed().assertIsOn()
+        onNodeWithTag("shell-snapshot-root").shellSnapshot("settings-large-text")
+        onNodeWithTag("settings-sound").performClick()
+        assertEquals(false, state.settings.soundEnabled)
+        onNodeWithTag("settings-haptics").performScrollTo().assertIsDisplayed().assertIsOn().performClick()
+        assertEquals(false, state.settings.hapticsEnabled)
+        onNodeWithTag("settings-reduce-motion").performScrollTo().assertIsDisplayed().performClick().assertIsOn()
+        assertEquals(true, state.settings.reduceMotion)
+        onNodeWithTag("shell-snapshot-root").shellSnapshot("settings-large-text-motion")
     }
 
     @Test
@@ -261,13 +338,13 @@ class ShellLayoutTest {
             val problemBounds = onNodeWithTag("problem-panel").fetchSemanticsNode().boundsInRoot
             assertTrue(problemBounds.height <= 241f, "The global problem must leave room for page content")
             onNodeWithTag("problem-dismiss").assertIsDisplayed()
+            onNodeWithTag("problem-recover").assertIsDisplayed()
             onNodeWithTag("shell-snapshot-root").shellSnapshot("global-error-large-text")
-            onNodeWithTag("problem-recover").performScrollTo().assertIsDisplayed()
             onNodeWithTag("shell-snapshot-root").shellSnapshot("global-error-large-text-recovery")
             onNodeWithTag("problem-recover").performClick()
             waitForIdle()
             assertEquals(2, transport.attempts, "Retry must reach the real controller")
-            onNodeWithTag("problem-dismiss").performScrollTo().assertIsDisplayed().performClick()
+            onNodeWithTag("problem-dismiss").assertIsDisplayed().performClick()
             assertNull(controller.state.value.problem)
             onNodeWithTag("home-host").performScrollTo().assertIsDisplayed().performClick()
             assertEquals(AppScreen.HOST, controller.state.value.screen)

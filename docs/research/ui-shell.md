@@ -1,8 +1,8 @@
 # PartyDeck shell: research and implementation contract
 
-Research date: 2026-09-09. Owner: `ui_shell`. This document is a proposal until the coordinator freezes the shared contracts and verifies the bootstrap. Implementation ownership is `composeApp/.../ui/shell`, `composeApp/.../ui/theme`, and `PartyDeckApp.kt`. Gameplay, domain rules, platform entry points, application/session controller, and font/vector source files have separate owners.
+Research and implementation date: 2026-09-09. Owner: `ui_shell`. The shared shell is implemented after the coordinator's contract freeze and independently verified bootstrap. Implementation ownership is `composeApp/.../ui/shell`, `composeApp/.../ui/theme`, `PartyDeckApp.kt`, `values/shell_strings.xml`, and the dedicated `ShellLayoutTest.kt`. Gameplay, domain rules, platform entry points, application/session controller, and font/vector source files have separate owners.
 
-Coordinator freeze: package `dev.partydeck.app`; generated resources `dev.partydeck.resources`; Compose Multiplatform 1.12.0, independently pinned stable Material 3 1.9.0, Kotlin 2.4.20, lifecycle 2.11.0, coroutines 1.11.0. Use simple `AppScreen` routing without a Navigation dependency. Android minimum 26; iOS minimum 15. UI owns `values/shell_strings.xml`, gameplay owns its separate game strings, and assets owns fonts/vectors/notices. Bootstrap verification remains the implementation gate.
+Coordinator freeze: package `dev.partydeck.app`; generated resources `dev.partydeck.resources`; Compose Multiplatform 1.12.0, independently pinned stable Material 3 1.9.0, Kotlin 2.4.20, lifecycle 2.11.0, coroutines 1.11.0. Simple controller-owned `AppScreen` routing uses no Navigation dependency. Android minimum 26; iOS minimum 15. UI owns `values/shell_strings.xml`, gameplay owns its separate game strings, and assets owns fonts/vectors/notices. The bootstrap gate has passed; target-device qualification remains distinct from JVM rendering evidence.
 
 ## Verified foundations
 
@@ -42,7 +42,7 @@ Typography resources agreed with `assets` (license records are owned there): `fr
 
 Use an 8 dp spacing rhythm with 4 dp detail increments, 24 dp compact-screen margins (16 dp on very narrow screens), and controls at least 52–56 dp high that can grow for multiline labels. Paper corners are restrained (roughly 12–16 dp); major buttons may be pill-shaped. Decorative card art can rotate; playable controls and body copy remain straight and stable. No interactive control overlaps another's touch area.
 
-Shared theme contract proposed:
+Implemented shared theme contract:
 
 ```kotlin
 @Composable
@@ -142,7 +142,7 @@ fun PartyDeckApp(
 
 User actions: `navigate(screen)`, `setDisplayName`, `setJoinAddress`, `host()`, `join()`, `startPractice()`, `setReady(Boolean)`, `startGame()`, `leaveSession()`, `retryConnection()`, `dismissProblem()`, `updateSettings(...)`, `requestBack(): Boolean`, `dismissLeaveConfirmation()`. `requestBack()` returns false at Home so the platform can handle its default; elsewhere it navigates or requests the shared leave dialog. Gameplay has its own callbacks mapped to the same controller. Platform owner calls `setForeground(Boolean)`, `setSystemReduceMotion(Boolean)`, and `close()`; composable recomposition never creates or tears down the session. Android owner handles system back and edge-to-edge; common root handles safe inset padding. No extra controller is created per screen.
 
-Controller coordination still needed: working invitation copy/share boundary; operation cancellation; exact start eligibility/reason from SessionView; lifecycle privacy overlay. `effectiveReduceMotion`, operation identity, settings fields, and shared back confirmation are now published. The official common [ui-backhandler source](https://github.com/JetBrains/compose-multiplatform-core/blob/jb-main/compose/ui/ui-backhandler/src/commonMain/kotlin/androidx/compose/ui/backhandler/BackHandler.kt) currently marks BackHandler experimental and deprecated in favor of NavigationEventHandler, so it is not added just for the shell. iOS visible back is required; swipe integration must be verified independently rather than implied by custom route state.
+Copy/share/scan, operation cancellation, authority-provided `SessionControls`, effective reduced motion, and shared back confirmation are implemented through the controller. Host/Join busy state includes initial and retried connections. The game receives foreground state and `privacyEpoch`, which requires a fresh hand reveal after backgrounding even if lifecycle collection skipped the inactive value. The shell offers hosts a confirmed return to the lobby when a disconnected seat pauses a match and the authority permits that action. The official common [ui-backhandler source](https://github.com/JetBrains/compose-multiplatform-core/blob/jb-main/compose/ui/ui-backhandler/src/commonMain/kotlin/androidx/compose/ui/backhandler/BackHandler.kt) currently marks BackHandler experimental and deprecated in favor of NavigationEventHandler, so it is not added just for the shell. iOS visible back is provided; native gesture integration is verified by the platform owner rather than inferred from custom route state.
 
 ## Motion, accessibility, and performance acceptance
 

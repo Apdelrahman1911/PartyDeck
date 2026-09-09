@@ -86,6 +86,7 @@ fun PartyDeckApp(
         Surface(modifier.fillMaxSize(), color = PartyDeckColors.Ink) {
             BoxWithConstraints(Modifier.fillMaxSize().safeDrawingPadding()) {
                 val maxProblemHeight = minOf(240.dp, maxHeight * 0.45f)
+                val maxConnectionHeight = maxHeight * 0.30f
                 Column(Modifier.fillMaxSize()) {
                     if (state.screen == AppScreen.SESSION) {
                         val session = state.session
@@ -94,6 +95,13 @@ fun PartyDeckApp(
                             pausedPlayerNames = session?.players
                                 ?.filter { it.id in session.pausedPlayerIds }
                                 ?.map { it.displayName }.orEmpty(),
+                            canReturnToLobby = session?.let {
+                                it.phase == SessionPhase.GAME && it.selfPlayerId == it.hostPlayerId &&
+                                    it.pausedPlayerIds.isNotEmpty() && it.controls.canReturnToLobby
+                            } == true,
+                            canSendAction = state.canSendSessionAction,
+                            onReturnToLobby = controller::returnToLobby,
+                            modifier = Modifier.heightIn(max = maxConnectionHeight),
                         )
                     }
                     if (state.screen != AppScreen.HOST && state.screen != AppScreen.JOIN) {

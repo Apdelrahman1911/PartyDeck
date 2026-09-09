@@ -320,7 +320,7 @@ private fun SeatRow(
                 onRemove,
                 enabled = canRemove,
             )
-        } else if (player.isConnected && (player.isReady || isHost)) {
+        } else if (player.isConnected && (player.isReady || isHost) && LocalDensity.current.fontScale < 1.5f) {
             Icon(painterResource(Res.drawable.icon_check), null, Modifier.size(20.dp), tint = PartyDeckColors.Citron)
         }
     }

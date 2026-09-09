@@ -94,19 +94,20 @@ internal fun PublicGameTable(
     largeText: Boolean,
     modifier: Modifier = Modifier,
     compact: Boolean = false,
+    showCompactRoster: Boolean = false,
+    decorateClaim: Boolean = false,
 ) {
+    val claimForDecoration = view.latestClaim.takeIf { decorateClaim }
     Column(modifier) {
         TurnHeading(view, Modifier.padding(horizontal = 20.dp), compact)
-        if (compact) {
-            Spacer(Modifier.height(10.dp))
-            LatestClaim(view, largeText, Modifier.padding(horizontal = 20.dp), compact = true)
-            Spacer(Modifier.height(6.dp))
-            PlayerRail(view, largeText, collapse = true)
-        } else {
-            Spacer(Modifier.height(14.dp))
-            PlayerRail(view, largeText)
-            Spacer(Modifier.height(16.dp))
-            LatestClaim(view, largeText, Modifier.padding(horizontal = 20.dp))
+        Spacer(Modifier.height(if (compact) 10.dp else 16.dp))
+        LatestClaim(view, largeText, Modifier.padding(horizontal = 20.dp), compact)
+        Spacer(Modifier.height(if (compact) 6.dp else 16.dp))
+        PlayerRail(view, largeText, collapse = compact && !showCompactRoster)
+        if (claimForDecoration != null) {
+            Box(Modifier.fillMaxWidth().padding(top = 12.dp), contentAlignment = Alignment.Center) {
+                ClaimPile(claimForDecoration.cardCount, Modifier.size(width = 112.dp, height = 104.dp))
+            }
         }
         view.roundOutcome?.takeIf { it.roundNumber < view.roundNumber }?.let { outcome ->
             var showHistory by rememberSaveable(outcome.roundNumber) { mutableStateOf(false) }

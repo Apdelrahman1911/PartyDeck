@@ -96,7 +96,7 @@ internal class JavaLanDriver(
                     ready(serviceName)
                 }
             } catch (error: Exception) {
-                listener?.let(::closeResource)
+                listener?.let(::closeResource)?.let(error::addSuppressed)
                 val notify = synchronized(lock) {
                     if (host === handle) { host = null; !closed } else false
                 }
@@ -116,7 +116,7 @@ internal class JavaLanDriver(
                     else ConnectionHandle(UUID.randomUUID().toString(), raw, null, hostHandle.id).also { connections[it.id] = it }
                 }
                 if (connection == null) {
-                    closeResource(raw)
+                    closeResource(raw)?.let { throw it }
                     continue
                 }
                 startHandshakeDeadline(connection)
@@ -160,9 +160,12 @@ internal class JavaLanDriver(
             host?.takeIf { it.id == hostId }?.also { host = null }
         }
         discovery.stopAdvertising(hostId)
-        stopped?.listener?.let(::closeResource)
+        val cleanupFailure = stopped?.listener?.let(::closeResource)
         val owned = synchronized(lock) { connections.values.filter { it.hostId == hostId } }
         owned.forEach { disconnect(it, null) }
+        if (cleanupFailure != null) {
+            observer?.onHostFailed(hostId, TransportFailureCode.IO_ERROR, "The host listener could not be stopped cleanly")
+        }
     }
 
     override fun connect(operationId: String, endpoint: LanEndpoint, certificateSha256: String) {

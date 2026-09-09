@@ -321,6 +321,37 @@ class PartyDeckControllerTest {
         }
     }
 
+    @Test
+    fun returningFromALongPermissionAlertRetriesAnExpiredInitialAdmission() = runTest {
+        val transport = PermissionControllerTransport()
+        val controller = PartyDeckController(ControllerTestServices(), object : LanTransportFactory {
+            override fun create(): LanTransport = transport
+        }, this)
+        try {
+            val invite = LanInvitation("long-permission", "a".repeat(64), LanEndpoint("192.168.1.2", 42424), "b".repeat(64))
+            controller.navigate(AppScreen.JOIN)
+            controller.setJoinAddress(invite.encode())
+            controller.join()
+            runCurrent()
+            controller.setForeground(false)
+            advanceTimeBy(10_000)
+            runCurrent()
+            assertTrue(transport.connections.single().closed)
+            assertEquals(ConnectionStatus.DISCONNECTED, controller.state.value.connection.status)
+
+            controller.setForeground(true)
+            runCurrent()
+            assertEquals(2, transport.connections.size)
+            assertIs<ClientMessage.Join>(transport.connections.last().messages.single())
+            assertEquals(ConnectionStatus.CONNECTING, controller.state.value.connection.status)
+            assertNull(controller.state.value.problem)
+        } finally {
+            controller.close()
+            runCurrent()
+            controller.awaitClosed()
+        }
+    }
+
     private suspend fun TestScope.reachOwnPlay(controller: PartyDeckController) {
         repeat(120) {
             val game = assertNotNull(controller.state.value.session?.game)

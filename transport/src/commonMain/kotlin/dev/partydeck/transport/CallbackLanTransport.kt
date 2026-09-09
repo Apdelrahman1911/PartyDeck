@@ -106,29 +106,29 @@ class CallbackLanTransport internal constructor(
         var acquired: Host? = null
         try {
             return withContext(dispatcher) {
-        ensureOpen()
-        require(displayName.isNotBlank() && displayName.encodeToByteArray().size <= 80 &&
-            displayName.none { it.isISOControl() }) { "Invalid host name" }
-        if (activeHost != null || pendingHost != null) {
-            throw failure(TransportFailureCode.BUSY, "This transport is already hosting")
-        }
-        val pending = PendingHost(operationId())
-        pendingHost = pending
-        var claimed = false
-        try {
-            driver.startHost(pending.id, displayName)
-            val host = await(pending.result, "Hosting did not start")
-            currentCoroutineContext().ensureActive()
-            acquired = host
-            claimed = true
-            host
-        } finally {
-            if (pendingHost === pending) pendingHost = null
-            if (!claimed) {
-                driver.stopHost(pending.id)
-                pending.host?.let { closeHost(it, null) }
-            }
-        }
+                ensureOpen()
+                require(displayName.isNotBlank() && displayName.encodeToByteArray().size <= 80 &&
+                    displayName.none { it.isISOControl() }) { "Invalid host name" }
+                if (activeHost != null || pendingHost != null) {
+                    throw failure(TransportFailureCode.BUSY, "This transport is already hosting")
+                }
+                val pending = PendingHost(operationId())
+                pendingHost = pending
+                var claimed = false
+                try {
+                    driver.startHost(pending.id, displayName)
+                    val host = await(pending.result, "Hosting did not start")
+                    currentCoroutineContext().ensureActive()
+                    acquired = host
+                    claimed = true
+                    host
+                } finally {
+                    if (pendingHost === pending) pendingHost = null
+                    if (!claimed) {
+                        driver.stopHost(pending.id)
+                        pending.host?.let { closeHost(it, null) }
+                    }
+                }
             }
         } catch (cancelled: CancellationException) {
             // withContext also has prompt cancellation when dispatching its result to the caller.
@@ -141,29 +141,29 @@ class CallbackLanTransport internal constructor(
         var acquired: Connection? = null
         try {
             return withContext(dispatcher) {
-            ensureOpen()
-            require(isSha256Hex(certificateSha256)) { "A complete certificate fingerprint is required" }
-            if (connections.size + pendingConnections.size >= MAX_NATIVE_CONNECTIONS) {
-                throw failure(TransportFailureCode.BUSY, "Too many connections")
-            }
-            val pending = PendingConnection(operationId())
-            pendingConnections[pending.id] = pending
-            var claimed = false
-            try {
-                driver.connect(pending.id, endpoint, certificateSha256)
-                val connection = await(pending.result, "The host did not respond")
-                currentCoroutineContext().ensureActive()
-                acquired = connection
-                claimed = true
-                connection
-            } finally {
-                pendingConnections.remove(pending.id)
-                if (!claimed) {
-                    driver.cancelConnect(pending.id)
-                    pending.connection?.let { closeConnection(it, null) }
+                ensureOpen()
+                require(isSha256Hex(certificateSha256)) { "A complete certificate fingerprint is required" }
+                if (connections.size + pendingConnections.size >= MAX_NATIVE_CONNECTIONS) {
+                    throw failure(TransportFailureCode.BUSY, "Too many connections")
+                }
+                val pending = PendingConnection(operationId())
+                pendingConnections[pending.id] = pending
+                var claimed = false
+                try {
+                    driver.connect(pending.id, endpoint, certificateSha256)
+                    val connection = await(pending.result, "The host did not respond")
+                    currentCoroutineContext().ensureActive()
+                    acquired = connection
+                    claimed = true
+                    connection
+                } finally {
+                    pendingConnections.remove(pending.id)
+                    if (!claimed) {
+                        driver.cancelConnect(pending.id)
+                        pending.connection?.let { closeConnection(it, null) }
+                    }
                 }
             }
-        }
         } catch (cancelled: CancellationException) {
             withContext(NonCancellable + dispatcher) { acquired?.let { closeConnection(it, null) } }
             throw cancelled

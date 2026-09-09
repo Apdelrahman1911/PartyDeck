@@ -210,7 +210,11 @@ class PartyDeckController(
 
     private fun canStartSession(): Boolean {
         if (closed || state.value.session != null) return false
-        return state.value.pendingAction == null
+        return state.value.pendingAction == null && state.value.connection.status !in setOf(
+            ConnectionStatus.STARTING_HOST,
+            ConnectionStatus.CONNECTING,
+            ConnectionStatus.RECONNECTING,
+        )
     }
 
     private fun validDisplayName(): String? {
@@ -387,6 +391,15 @@ class PartyDeckController(
             showProblem(UiProblemCode.INTERNAL_ERROR)
         }
         updateRuntimeActivity()
+        if (value && !state.value.isBackgrounded && state.value.session == null &&
+            state.value.connection.mode == SessionMode.LAN_CLIENT &&
+            state.value.connection.status == ConnectionStatus.DISCONNECTED &&
+            (state.value.problem == null || state.value.problem?.code in connectionProblems)
+        ) {
+            // The permission alert may outlast the bounded initial handshake attempt.
+            dismissProblem()
+            runtime?.retry()
+        }
     }
 
     /** Actual OS background is distinct from a permission alert or temporary loss of focus. */

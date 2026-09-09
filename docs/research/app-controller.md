@@ -1,6 +1,6 @@
 # Application controller research and proposal
 
-Owner: application controller implementation stream. Researched 2026-09-09. This document proposes contracts for the coordinator to freeze after environment smoke verification; the illustrative names below are not claims about APIs already present in the repository.
+Owner: application controller implementation stream. Researched and implemented 2026-09-09. The frozen coordination notes and qualification section describe the completed implementation; the illustrative contract fragments preserve the original design rationale. Source files are the final API reference.
 
 ## Verified foundations
 
@@ -8,12 +8,13 @@ Owner: application controller implementation stream. Researched 2026-09-09. This
 | --- | --- | --- |
 | [Kotlin StateFlow API](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-state-flow/) | StateFlow always has a value, never completes normally, conflates equal values using `Any.equals`, and is thread safe. Errors and completion must be represented explicitly. | Publish immutable `AppUiState` through a read-only StateFlow. Connection loss, shutdown, and recoverable errors are explicit state. Do not use a state collector as a guaranteed delivery channel for every animation or acknowledgment. |
 | [Kotlin CoroutineScope API](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope/) | An entity-owned scope must be cancelled when its owner is no longer needed. A parent cancellation cancels its children. `SupervisorJob` can isolate sibling failures. | One explicitly owned controller scope, one child job per active session, and cancellation of session jobs on leave or replacement. Preserve cancellation exceptions rather than presenting them as connection errors. |
-| [Kotlin Mutex API](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.sync/-mutex/) | Coroutine mutual exclusion is available in common code; Mutex is non-reentrant. | Serialize authority transitions. Compute outgoing effects under the lock and perform suspending network sends after releasing it. Do not recursively call authority methods while holding its lock. |
+| [Kotlin Mutex API](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.sync/-mutex/) | Coroutine mutual exclusion is available in common code; Mutex is non-reentrant. | Authority transitions need one serial owner. The implementation uses a bounded event queue, with socket writes outside that owner, avoiding lock re-entry and network waits inside authority transitions. |
 | [Compose Multiplatform lifecycle](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-lifecycle.html) | Compose provides common LifecycleOwner support. iOS background maps to `ON_STOP`; desktop main-dispatcher support requires the Swing coroutine dispatcher when those lifecycle scopes are used. | Shared UI can observe lifecycle, but transport survival is a separate concern. Platform owners explicitly forward foreground changes. A desktop target must provision its dispatcher if adopted. |
 | [Compose Multiplatform ViewModel](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-viewmodel.html) | Common ViewModel support exists. Common `viewModel` creation needs an explicit initializer because non-JVM platforms lack the JVM reflection-based creation path. Shared Compose examples collect StateFlow using `collectAsState()`. | A root ViewModel wrapper is viable, but the controller itself can remain a plain common class with injected dependencies. Avoid a controller per screen and avoid reflection-dependent factories. |
 | [Android ViewModel overview](https://developer.android.com/topic/libraries/architecture/viewmodel) | A ViewModel remains until its owner is cleared and survives owner configuration changes. SavedStateHandle is a separate process-restoration mechanism. | Retain the controller through Activity recreation. Do not imply that a retained controller, socket, or host authority survives process death. |
 | [Apple application lifecycle](https://developer.apple.com/documentation/uikit/managing-your-app-s-life-cycle) | Background apps should minimize work; background scenes eventually suspend and may be disconnected to reclaim resources. Foreground/background and final cleanup are distinct transitions. | No guaranteed background host service. Pause bots and feedback in background, then reconnect or resynchronize clients on return. Temporary background must not permanently close the owner. |
 | [Kotlin coroutine testing](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-test/) | `runTest`, TestScope, and TestCoroutineScheduler allow virtual-time coroutine tests. Work on uninjected production dispatchers does not automatically use virtual time. | Inject scope/dispatcher and bot/reconnect timing so critical flow tests remain fast and deterministic. |
+| [Java SecureRandom](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/security/SecureRandom.html) and [Kotlin Random](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.random/-random/) | SecureRandom provides cryptographically strong random output; Kotlin Random is an abstract random-source boundary that can be adapted. | Inject a native CSPRNG-backed Random for every authority output. Seeded deterministic generators are confined to tests and independent practice strategy. Native implementations are reviewed by their platform/security streams. |
 
 Dependency versions belong to the coordinator's verified toolchain lock. This proposal adds no version pins. Current documentation pages can show differing lifecycle versions, so their examples must not be copied into the build independently.
 
@@ -25,21 +26,21 @@ Protocol contracts are in `dev.partydeck.session`; the safe game models are in `
 
 `PlatformServices.gameRandom(): Random` supplies an adapter whose every output comes from the platform CSPRNG. A secure initial seed for Kotlin's deterministic generator is insufficient for secret deck/fuse outcomes; independent security review corrected the original seed-only proposal before implementation. Separately, `secureToken(): String` must return exactly 32 directly CSPRNG-generated bytes encoded as 64 lowercase hexadecimal characters for admission/resume tokens; deriving these secrets from a seeded Kotlin random generator is prohibited. The native services also supply `copyText(String)` and `shareText(String)` for explicit invitation buttons, because the full pinned invite is too long to expect people to transcribe. Clipboard implementations should use their verified native sensitive-content facilities where available.
 
-The native controller methods include `setForeground`, `setSystemReduceMotion`, and `close`. `requestBack(): Boolean` returns false at Home for native default handling and consumes other Back actions; session Back exposes `leaveConfirmationRequested` in state. Copy feedback is represented by a localizable `UiNotice` rather than an exception message. `FeedbackCue.LIGHT_OUT` distinguishes a burned-out fuse from the safe round-end cue.
+The native controller methods include `setForeground`, `setBackgrounded`, `setSystemReduceMotion`, `close`, and suspending `awaitClosed`. Foreground means interactive visibility, while background means actual OS background. `requestBack(): Boolean` returns false at Home for native default handling and consumes other Back actions; session Back exposes `leaveConfirmationRequested` in state. Copy feedback is represented by a localizable `UiNotice`, suppressed when the platform already provides its own confirmation. `FeedbackCue.LIGHT_OUT` distinguishes a burned-out fuse from the safe round-end cue. Native scanner capability/result callbacks fill a validated invitation form without joining automatically.
 
 ## Ownership and dependency direction
 
-`Compose UI -> AppController -> session runtime -> pure SessionAuthority / byte transport`
+`Compose UI -> PartyDeckController -> session runtime -> pure HostAuthority / byte transport`
 
 The controller owns navigation, editable forms, persisted preferences, foreground state, a single active runtime, pending user actions, and presentation of recoverable problems. It never validates game truth or computes penalty outcomes. The session module owns protocol validation, authentication binding, deduplication, roster/session rules, and player-specific snapshots. The game module owns Last Light rules. The transport owns listeners, sockets, framing, connection state, and its own resource cleanup.
 
-Because the session stream proposes a synchronous authority without coroutines, the controller package needs small runtime adapters:
+The session authority is synchronous and has no coroutine or transport dependency. The controller package supplies these runtime adapters:
 
-- `HostSessionRuntime`: serialize incoming peer messages through SessionAuthority, publish the host's sanitized snapshot, and deliver each outgoing message only to its bound recipient.
+- `AuthoritySessionRuntime`: serialize incoming peer messages through HostAuthority, publish the host's sanitized snapshot, and deliver each outgoing message only to its bound recipient.
 - `ClientSessionRuntime`: handshake, retain private reconnect credentials in memory, consume authoritative snapshots, and send typed intents with request IDs and expected revisions.
-- `PracticeSessionRuntime`: register the human and bots through the same authority using in-memory peer bindings; no sockets and no alternate game rules.
+- Practice is a mode of the same `AuthoritySessionRuntime`: register the human and bots through the same authority using in-memory peer bindings; no sockets and no alternate game rules.
 
-The adapters implement one narrow interface used by AppController: observed player-visible session/connection state, typed commands, foreground transition, and close. Avoid exposing raw wire frames or `GameState` to Compose. A host may possess the authority internally, but its UI receives precisely the same sanitized `SessionView` shape as a client.
+The adapters implement one narrow interface used by PartyDeckController: observed player-visible session/connection state, typed commands, execution-availability transition, and close. Neither raw wire frames nor `GameState` reach Compose. A host possesses the authority internally, but its UI receives precisely the same sanitized `SessionView` shape as a client.
 
 All session mutations are serialized. A lock must not span network IO. Async completions also carry a monotonically increasing controller session-generation marker; a late join, old collector, or reconnect response cannot revive a session after leave or overwrite a newer session.
 
@@ -88,10 +89,10 @@ host(), join(), startPractice()
 setReady(value), startGame(), playCards(cardIds), challenge(), nextRound()
 leaveSession(), retryConnection(), dismissProblem()
 updateSettings(settings), setSystemReduceMotion(value)
-setForeground(value), close()
+setForeground(value), setBackgrounded(value), close(), awaitClosed()
 ```
 
-`navigate` must not route to a nonexistent session or move to host/join while another runtime remains active. `leaveSession` explicitly closes owned work and then resets the session route. Host start and continuation eligibility comes from validated session state; the UI can explain why a control is unavailable without duplicating authority decisions. Future games add feature-specific commands/projections at the session boundary instead of taking over application lifecycle.
+`navigate` must not route to a nonexistent session or move to host/join while another runtime remains active. `leaveSession` immediately detaches the visible session and cancels its actions/collectors, then completes bounded departure and resource cleanup. Generation guards prevent those old completions from affecting a later table. Host start and continuation eligibility comes from validated session state; the UI can explain why a control is unavailable without duplicating authority decisions. Future games add feature-specific commands/projections at the session boundary instead of taking over application lifecycle.
 
 ## Platform service and lifecycle contract
 
@@ -114,9 +115,11 @@ interface Feedback {
 
 Android and iOS owners agree on this direction. The platform implementation owns native persistence and feedback resources. Only expose settings with working effects. Save small preferences, not full host game state or resume secrets. Loading must not overwrite a newer edit made while asynchronous persistence work was running; saves must be serialized or coalesced so an old write cannot win. Persistence failure preserves the user's in-memory choice and reports that it could not be saved.
 
-The Android owner retains the controller through a ViewModel and reattaches feedback to the current window if needed. The proposed iOS owner is a SwiftUI-retained exported Kotlin handle owning the UIViewController and controller. `scenePhase` forwards foreground transitions; permanent disposal calls close. A common Compose root ViewModel is an alternative if the coordinator chooses it, but there must be only one owner and one cleanup path.
+The Android owner retains the controller through a ViewModel and reattaches feedback to the current window. The iOS owner is a SwiftUI-retained exported Kotlin handle owning the UIViewController and controller. `scenePhase` forwards both interactive and actual-background transitions; permanent disposal calls close. Controller/runtime cleanup is registered before acquiring resources and runs in NonCancellable finalizers, including when the platform has already cancelled the parent owner scope. `awaitClosed` lets deterministic tests and desktop shutdown wait for cleanup.
 
-`setForeground(false)` pauses practice bot delays, prevents retries from spinning while suspended, and stops feedback. It does not destroy a live controller. Resume recalculates bot eligibility from the newest authority revision and resynchronizes a client connection. Hosting is a foreground activity; if the system suspends or terminates the host, peers see recoverable host loss. There is no initial host migration or promised process-death restoration.
+`setForeground(false)` immediately conceals private UI, increments a durable privacy epoch, pauses practice bot delays, and stops feedback. It leaves a first LAN join alive while a permission alert is visible. If an alert outlasts the bounded initial handshake, returning interactive automatically retries that unadmitted connection. `setBackgrounded(true)` separately pauses/closes the client connection while retaining its private seat credential; return from actual background authenticates a Resume and accepts a fresh snapshot. Neither event destroys the retained controller.
+
+The coordinator deliberately preserves the host authority/listener across sharing and task switching. This preserves an invitation when native Share opens another app. It does not promise background availability: the OS can suspend the host, peers can time out, and clients reconnect or explicitly retry after it returns. Explicit Leave/close or process death ends the host. Practice stays in memory with bots paused. There is no host migration or promised process-death restoration.
 
 System Reduce Motion is runtime state, supplied by platform observers through `setSystemReduceMotion`; effective motion preference is system request OR user preference. Only the user preference is persisted. Observers and feedback resources are removed/released on final close.
 
@@ -126,9 +129,9 @@ System Reduce Motion is runtime state, supplied by platform observers through `s
 2. Join validates the invite through the transport's parser, establishes the connection, completes protocol join, then publishes the initial session snapshot. An abandoned or superseded join cannot publish into a later session.
 3. Gameplay always sends an intent, request ID, and expected revision. Actor identity comes from session peer binding, not from an untrusted action payload. The authority provides each player's redacted response.
 4. A rejected or stale action surfaces the specific recoverable problem and refreshes state. The controller does not optimistically deal cards or independently advance rounds.
-5. On client disconnection, preserve the latest snapshot for context, disable gameplay controls, and attempt a bounded reconnect while foreground. The transport stream proposed 0.5/1/2/4-second backoff with jitter within approximately 30 seconds; these are product policy suggestions for the coordinator to finalize, not platform guarantees.
+5. On client disconnection, preserve the latest snapshot for context, disable gameplay controls, and attempt bounded reconnect while outside actual OS background. The implemented policy allows five attempts with 0.5/1/2/4/4-second delays, an eight-second connection/admission attempt deadline, and a 30-second retry-window limit. Initial admission permits one bounded attempt; explicit Retry starts another window. These are application policy limits, not platform guarantees.
 6. Reconnect proves the private resume credential, replaces the old peer binding, and receives a full fresh snapshot. Do not blindly replay a queued gameplay action. A lost acknowledgment is reconciled using the session's duplicate-request semantics and authoritative state; an unresolved old action must not block the UI forever.
-7. Failure after the retry window offers explicit Retry and Leave. A known ended session, invalid credential, or version mismatch cannot be fixed by unlimited retries. Host termination ends the initial architecture's session; starting another lobby is the recovery.
+7. Failure after the retry window offers explicit Retry and Leave. A known ended session, invalid credential, or version mismatch stops retries. Explicit session end clears the private hand, credentials, and game controls; temporary connection loss alone can retain read-only context. Host termination ends the initial architecture's session; starting another lobby is the recovery.
 
 | Condition | Controller behavior |
 | --- | --- |
@@ -162,3 +165,22 @@ Domain guidance currently proposes an explicit round-end phase following challen
 - Settings load/save completion ordering cannot overwrite a later user edit; failure retains usable in-memory settings.
 
 Use fake transport and virtual time for controller edge cases. Integration validation must separately use the real selected transport with at least a host and clients. Native device checks remain necessary for platform lifecycle, local-network permissions, and real reconnection behavior; passing in-memory tests is not evidence that those platform constraints were exercised.
+
+## Implemented qualification
+
+The following final focused command passed after the inactive/background separation:
+
+```sh
+flock /tmp/partydeck-gradle.lock ./gradlew :composeApp:jvmTest \
+  --tests '*PartyDeckControllerTest*' \
+  --tests '*ControllerAdversarialFlowTest*' \
+  --tests '*LanMultiplayerIntegrationTest*' --console=plain
+```
+
+Result: BUILD SUCCESSFUL in 11 seconds; 18 tests across the selected classes. This also compiled the integrated common controller, Compose shell, and game UI for JVM.
+
+- Eight controller tests cover a complete same-authority practice match and ready lobby return, duplicate taps, bot pause/leave cancellation, late host startup, settings load/write ordering, scanner result isolation, initial permission-alert inactivity, actual-background authenticated resume, and a permission prompt outlasting the initial handshake.
+- Eight independently authored adversarial tests cover receipt/snapshot ordering, wrong-room and wrong-seat snapshots, stale snapshots, old-loop cleanup, command-timeout authenticated resume without replay, explicit-ended private-card removal, immediate authority presence changes on revocation, and old-session completion isolation.
+- Two independently authored tests use real JVM TLS sockets with the production transport factory, CSPRNG-backed services, protocol, and controller. They cover a three-seat invited lobby, ready/start gates, recipient-only hands on the wire, play/challenge/redeal, guest/host leave, port closure, real socket interruption, and authenticated TLS resume with the same hand/turn and a fresh command ID.
+
+Independent source review also confirmed that cancellation cleanup is registered before acquisition and the real callback transport tracks/cleans cancelled native returns. Native permission prompts, iOS suspension timing, platform clipboard/share/scanner presentation, audio, and actual-device lifecycle remain platform qualification items; the JVM evidence does not claim those were exercised on Android or iOS hardware.

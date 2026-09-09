@@ -28,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.heading
@@ -51,16 +52,19 @@ fun SettingsScreen(
     modifier: Modifier = Modifier,
 ) {
     var showLicenses by remember { mutableStateOf(false) }
+    val largeText = LocalDensity.current.fontScale >= 1.5f
     ScrollablePage(modifier) {
         ScreenHeader(stringResource(Res.string.shell_settings), onBack)
-        SectionLabel(stringResource(Res.string.shell_settings_eyebrow))
-        Spacer(Modifier.height(10.dp))
-        Text(
-            stringResource(Res.string.shell_settings_title),
-            style = MaterialTheme.typography.headlineLarge,
-            modifier = Modifier.semantics { heading() },
-        )
-        Spacer(Modifier.height(28.dp))
+        if (!largeText) {
+            SectionLabel(stringResource(Res.string.shell_settings_eyebrow))
+            Spacer(Modifier.height(10.dp))
+            Text(
+                stringResource(Res.string.shell_settings_title),
+                style = MaterialTheme.typography.headlineLarge,
+                modifier = Modifier.semantics { heading() },
+            )
+            Spacer(Modifier.height(28.dp))
+        }
         PreferenceRow(
             icon = if (state.settings.soundEnabled) Res.drawable.icon_sound else Res.drawable.icon_sound_off,
             title = stringResource(Res.string.shell_sound),
@@ -122,19 +126,34 @@ private fun PreferenceRow(
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Row(
-        modifier = modifier.fillMaxWidth().heightIn(min = 80.dp)
-            .toggleable(value = checked, role = Role.Switch, onValueChange = onCheckedChange)
-            .padding(vertical = 18.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Icon(painterResource(icon), null, Modifier.size(24.dp), tint = PartyDeckColors.Muted)
-        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Text(title, style = MaterialTheme.typography.titleSmall)
+    val rowModifier = modifier.fillMaxWidth().heightIn(min = 80.dp)
+        .toggleable(value = checked, role = Role.Switch, onValueChange = onCheckedChange)
+        .padding(vertical = 18.dp)
+    if (LocalDensity.current.fontScale >= 1.5f) {
+        Column(rowModifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Row(
+                Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(title, Modifier.weight(1f), style = MaterialTheme.typography.titleSmall)
+                Switch(checked = checked, onCheckedChange = null)
+            }
             Text(description, style = MaterialTheme.typography.bodySmall, color = PartyDeckColors.Muted)
         }
-        Switch(checked = checked, onCheckedChange = null)
+    } else {
+        Row(
+            modifier = rowModifier,
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Icon(painterResource(icon), null, Modifier.size(24.dp), tint = PartyDeckColors.Muted)
+            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text(title, style = MaterialTheme.typography.titleSmall)
+                Text(description, style = MaterialTheme.typography.bodySmall, color = PartyDeckColors.Muted)
+            }
+            Switch(checked = checked, onCheckedChange = null)
+        }
     }
 }
 

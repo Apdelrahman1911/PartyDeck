@@ -6,7 +6,7 @@ cd "$PARTYDECK_ROOT"
 
 # On a headless Linux host, invoke this script through xvfb-run for Compose UI tests.
 # CI deliberately supplies no release signing credentials; its release AAB is unsigned.
-./gradlew --stacktrace --console=plain \
+./gradlew --continue --stacktrace --console=plain \
   :core:jvmTest \
   :session:jvmTest \
   :transport:jvmTest \

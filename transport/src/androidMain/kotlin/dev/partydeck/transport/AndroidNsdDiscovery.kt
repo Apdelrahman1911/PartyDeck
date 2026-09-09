@@ -182,14 +182,18 @@ internal class AndroidNsdDiscovery(context: Context) : JavaLanDiscovery {
             }
         }
         try {
+            val timeout = Runnable { finishResolution(request, null) }
+            request.timeout = timeout
             manager.resolveService(request.info, listener)
-            handler.postDelayed({ finishResolution(request, null) }, 5_000)
+            handler.postDelayed(timeout, 5_000)
         } catch (_: Exception) {
             finishResolution(request, null)
         }
     }
 
     private fun finishResolution(request: ResolveRequest, info: NsdServiceInfo?) {
+        request.timeout?.let(handler::removeCallbacks)
+        request.timeout = null
         if (resolving !== request) return
         resolving = null
         if (info != null && discovery?.id == request.discoveryId && found[info.serviceName] == request.revision) {
@@ -202,16 +206,16 @@ internal class AndroidNsdDiscovery(context: Context) : JavaLanDiscovery {
 
     private fun toHost(info: NsdServiceInfo): DiscoveredHost? {
         return try {
-        if (info.port !in 1..65535 || info.attributes["v"]?.decodeToString() != "1") return null
-        val addresses = if (Build.VERSION.SDK_INT >= 34) info.hostAddresses else listOfNotNull(info.host)
-        val address = addresses.filter { !it.isAnyLocalAddress && !it.isMulticastAddress }
-            .sortedBy { if (it is Inet4Address) 0 else 1 }.firstOrNull()?.hostAddress ?: return null
-        val name = info.attributes["name"]?.decodeToString(throwOnInvalidSequence = true) ?: info.serviceName
-        if (name.isBlank() || name.encodeToByteArray().size > 80 || name.any { it.isISOControl() }) return null
-        DiscoveredHost(info.serviceName, name, LanEndpoint(address, info.port, info.serviceName))
-    } catch (_: Exception) {
-        null // Untrusted malformed DNS-SD metadata is not a usable candidate.
-    }
+            if (info.port !in 1..65535 || info.attributes["v"]?.decodeToString() != "1") return null
+            val addresses = if (Build.VERSION.SDK_INT >= 34) info.hostAddresses else listOfNotNull(info.host)
+            val address = addresses.filter { !it.isAnyLocalAddress && !it.isMulticastAddress }
+                .sortedBy { if (it is Inet4Address) 0 else 1 }.firstOrNull()?.hostAddress ?: return null
+            val name = info.attributes["name"]?.decodeToString(throwOnInvalidSequence = true) ?: info.serviceName
+            if (name.isBlank() || name.encodeToByteArray().size > 80 || name.any { it.isISOControl() }) return null
+            DiscoveredHost(info.serviceName, name, LanEndpoint(address, info.port, info.serviceName))
+        } catch (_: Exception) {
+            null // Untrusted malformed DNS-SD metadata is not a usable candidate.
+        }
     }
 
     private fun emitHosts(operationId: String) {
@@ -251,6 +255,8 @@ internal class AndroidNsdDiscovery(context: Context) : JavaLanDiscovery {
             discovery = null
             advertisements.values.toList().forEach(::unregister)
             advertisements.clear()
+            resolving?.timeout?.let(handler::removeCallbacks)
+            resolving = null
             resolveQueue.clear()
             resolved.clear()
             found.clear()
@@ -263,5 +269,7 @@ internal class AndroidNsdDiscovery(context: Context) : JavaLanDiscovery {
         var completed = false
     }
     private class DiscoveryRegistration(val id: String, val listener: NsdManager.DiscoveryListener) { var stopRequested = false }
-    private class ResolveRequest(val discoveryId: String, val info: NsdServiceInfo, val revision: Long)
+    private class ResolveRequest(val discoveryId: String, val info: NsdServiceInfo, val revision: Long) {
+        var timeout: Runnable? = null
+    }
 }
