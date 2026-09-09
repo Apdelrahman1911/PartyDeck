@@ -5,6 +5,12 @@ PARTYDECK_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$PARTYDECK_ROOT"
 PARTYDECK_ANDROID_OUTPUT="$PARTYDECK_ROOT/build/ci/android"
 PARTYDECK_ANDROID_SDK="${ANDROID_HOME:?Set ANDROID_HOME to the installed Android SDK.}"
+PARTYDECK_ANDROID_API="${PARTYDECK_ANDROID_API:-35}"
+if [[ "$PARTYDECK_ANDROID_API" != 35 && "$PARTYDECK_ANDROID_API" != 36 ]]; then
+  printf '%s\n' 'PARTYDECK_ANDROID_API must be 35 or 36.' >&2
+  exit 1
+fi
+PARTYDECK_AVD_NAME="partydeck_ci_api$PARTYDECK_ANDROID_API"
 PARTYDECK_EMULATOR_PORT="${PARTYDECK_EMULATOR_PORT:-5554}"
 PARTYDECK_EMULATOR_SERIAL="emulator-$PARTYDECK_EMULATOR_PORT"
 PARTYDECK_EMULATOR_PID=''
@@ -58,16 +64,18 @@ trap 'exit 143' TERM
 
 export ANDROID_AVD_HOME="$PARTYDECK_ANDROID_OUTPUT/avd"
 mkdir -p "$ANDROID_AVD_HOME"
+cp "$PARTYDECK_ANDROID_SDK/system-images/android-$PARTYDECK_ANDROID_API/default/x86_64/source.properties" \
+  "$PARTYDECK_ANDROID_OUTPUT/system-image-source.log"
 printf 'no\n' | avdmanager create avd \
-  --name partydeck_ci_api36 \
-  --package 'system-images;android-36;default;x86_64' \
+  --name "$PARTYDECK_AVD_NAME" \
+  --package "system-images;android-$PARTYDECK_ANDROID_API;default;x86_64" \
   --device pixel_7 \
-  --path "$ANDROID_AVD_HOME/partydeck_ci_api36.avd" \
+  --path "$ANDROID_AVD_HOME/$PARTYDECK_AVD_NAME.avd" \
   --force
 
 # Reduce software-rendered pixels while retaining the Pixel 7 logical viewport.
 # Numeric skin.path takes precedence over skin.name, so keep both in agreement.
-python3 - "$ANDROID_AVD_HOME/partydeck_ci_api36.avd/config.ini" "$PARTYDECK_ANDROID_OUTPUT" <<'PY'
+python3 - "$ANDROID_AVD_HOME/$PARTYDECK_AVD_NAME.avd/config.ini" "$PARTYDECK_ANDROID_OUTPUT" "$PARTYDECK_ANDROID_API" <<'PY'
 import json
 from pathlib import Path
 import sys
@@ -84,12 +92,12 @@ config.write_text("\n".join(lines) + "\n")
 (output / "display-configuration.json").write_text(json.dumps({
     "expectedPhysicalSize": [720, 1600], "expectedDensityDpi": 280,
     "logicalSizeDp": [720 * 160 / 280, 1600 * 160 / 280],
-    "displayVerified": False,
+    "expectedAndroidApi": int(sys.argv[3]), "guestApiVerified": False, "displayVerified": False,
 }, indent=2) + "\n")
 PY
 
 setsid "$PARTYDECK_ANDROID_SDK/emulator/emulator" \
-  -avd partydeck_ci_api36 \
+  -avd "$PARTYDECK_AVD_NAME" \
   -port "$PARTYDECK_EMULATOR_PORT" \
   -accel on -gpu swangle -memory 3072 -cores "$PARTYDECK_EMULATOR_CORES" \
   -no-window -no-audio -no-snapshot -no-boot-anim \
@@ -116,6 +124,11 @@ serial, output = sys.argv[1], Path(sys.argv[2])
 report = output / "display-configuration.json"
 result = json.loads(report.read_text())
 try:
+    api = subprocess.run(["adb", "-s", serial, "shell", "getprop", "ro.build.version.sdk"],
+                         capture_output=True, text=True, check=True, timeout=20).stdout
+    (output / "android-api.log").write_text(api)
+    result["actualAndroidApi"] = int(api.strip())
+    result["guestApiVerified"] = result["actualAndroidApi"] == result["expectedAndroidApi"]
     for command in ("size", "density"):
         value = subprocess.run(["adb", "-s", serial, "shell", "wm", command],
                                capture_output=True, text=True, check=True, timeout=20).stdout
@@ -131,8 +144,8 @@ try:
     ) and all(density == result["expectedDensityDpi"] for density in densities)
 finally:
     report.write_text(json.dumps(result, indent=2) + "\n")
-if not result["displayVerified"]:
-    raise SystemExit("Android display does not match the expected physical size and density; APK checks cannot start.")
+if not result["displayVerified"] or not result["guestApiVerified"]:
+    raise SystemExit("Android guest API or display does not match the expected configuration; APK checks cannot start.")
 PY
 
 PARTYDECK_DEBUG_STATUS=0

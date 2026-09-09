@@ -15,6 +15,14 @@ on:
           - all
           - android
           - ios
+      android_api:
+        description: Android runtime API (API 36 remains an unresolved runner qualification)
+        required: true
+        type: choice
+        default: '35'
+        options:
+          - '35'
+          - '36'
 
 permissions:
   contents: read
@@ -29,6 +37,8 @@ jobs:
     if: ${{ github.event_name != 'workflow_dispatch' || inputs.platform == 'all' || inputs.platform == 'android' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 45
+    env:
+      PARTYDECK_ANDROID_API: ${{ inputs.android_api || '35' }}
     steps:
       - name: Check out source
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -63,7 +73,12 @@ jobs:
         run: ./gradlew --stop
       - name: Install the Android runtime test image
         if: ${{ !cancelled() && hashFiles('androidApp/build/outputs/apk/debug/*.apk') != '' }}
-        run: sdkmanager 'emulator' 'system-images;android-36;default;x86_64'
+        run: |
+          case "$PARTYDECK_ANDROID_API" in
+            35|36) ;;
+            *) printf '%s\n' 'PARTYDECK_ANDROID_API must be 35 or 36.' >&2; exit 1 ;;
+          esac
+          sdkmanager 'emulator' "system-images;android-${PARTYDECK_ANDROID_API};default;x86_64"
       - name: Enable runner KVM access
         if: ${{ !cancelled() && hashFiles('androidApp/build/outputs/apk/debug/*.apk') != '' }}
         run: |

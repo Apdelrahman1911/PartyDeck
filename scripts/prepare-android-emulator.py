@@ -62,6 +62,8 @@ def prepare_attempt(serial, output, number):
         smoke.sensitive_surface = False
         result["app_absent"] = True
         result["boot_id"] = boot_id(smoke)
+        result["android_api"] = smoke.adb("shell", "getprop", "ro.build.version.sdk").strip()
+        smoke.write_text("android-api.log", result["android_api"] + "\n")
         smoke.prepare_device()
         result["passed"] = True
     except ERRORS as caught:
