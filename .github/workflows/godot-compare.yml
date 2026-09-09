@@ -1,0 +1,66 @@
+name: Godot comparison builds
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: godot-comparison-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  bridge-and-packages:
+    name: Shared authority, renderer pack and Android comparison host
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Java
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@40fd30fb8d7440372e1316f5d1809ec01dcd3699 # v4.0.1
+        with:
+          packages: 'platform-tools platforms;android-37.1 build-tools;36.0.0'
+          log-accepted-android-sdk-licenses: false
+      - name: Set up Gradle and validate wrapper
+        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+        with:
+          cache-provider: basic
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+      - name: Install graphics support
+        run: ./scripts/setup-ubuntu-graphics.sh
+      - name: Install checksum-verified Godot
+        run: python3 godot/tools/renderer.py install --destination godot/qualification/build/toolchain
+      - name: Test the bridge and build the desktop authority runner
+        run: |
+          ./gradlew -p godot/qualification --console=plain \
+            :bridge:jvmTest :bridge:generateFixtures \
+            :comparison:test :comparison:installDist
+      - name: Validate both real scenes and export their PCK
+        run: python3 godot/tools/renderer.py pack --godot godot/qualification/build/toolchain/godot
+      - name: Lint and package the native Android comparison host
+        run: |
+          ./gradlew -p godot/qualification --console=plain \
+            :androidHost:lintDebug :androidHost:assembleDebug :androidHost:assembleRelease
+      - name: Preserve build and validation evidence
+        if: always()
+        uses: ./.github/actions/upload-artifact
+        with:
+          name: godot-comparison-builds
+          path: |
+            godot/qualification/build/modules/**/reports/**
+            godot/qualification/build/modules/**/test-results/**
+            godot/qualification/build/modules/androidHost/outputs/apk/**
+            godot/qualification/build/modules/androidHost/outputs/mapping/**
+            godot/qualification/build/modules/comparison/install/**
+            godot/qualification/build/renderer/**
+          retention-days: 14
+          if-no-files-found: warn
