@@ -9,7 +9,10 @@ kotlin {
     iosSimulatorArm64()
     jvmToolchain(21)
     sourceSets {
-        commonMain.dependencies { api(libs.coroutines.core) }
+        commonMain.dependencies {
+            api(libs.coroutines.core)
+            implementation(project(":core"))
+        }
         commonTest.dependencies { implementation(libs.kotlin.test) }
     }
 }
