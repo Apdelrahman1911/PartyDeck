@@ -20,6 +20,11 @@ on:
         options:
           - build
           - test
+      retained_stack_sampling:
+        description: Collect bounded external retained-app stack samples for diagnosis
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -230,6 +235,7 @@ jobs:
     env:
       DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
       PARTYDECK_RETAINED_CI_STAGE: ${{ inputs.retained_stage || 'test' }}
+      PARTYDECK_RETAINED_STACK_SAMPLING: ${{ inputs.retained_stack_sampling && '1' || '0' }}
       PARTYDECK_GODOT_RETAINED_FRAMEWORK: ${{ github.workspace }}/godot/ios-host/build/framework-input/PartyDeckGodotBridge.framework
       PARTYDECK_GODOT_RETAINED_FRAMEWORK_RECEIPT: ${{ github.workspace }}/godot/ios-host/build/evidence/authority-framework-result.json
       PARTYDECK_GODOT_RETAINED_PCK: ${{ github.workspace }}/godot/ios-host/build/retained-inputs/renderer/partydeck-last-light.pck
@@ -386,8 +392,16 @@ jobs:
         timeout-minutes: 40
         shell: bash
         run: |
-          bash godot/ios-host/test-retained-host.sh "$PARTYDECK_RETAINED_CI_STAGE" \
-            2>&1 | tee godot/ios-host/build/evidence/retained-ci-runner.log
+          if [[ "$PARTYDECK_RETAINED_STACK_SAMPLING" == 1 && "$PARTYDECK_RETAINED_CI_STAGE" == test ]]; then
+            python3 godot/ios-host/diagnostics/sample-retained-stacks.py \
+              --host-root godot/ios-host \
+              --output godot/ios-host/build/retained-stack-samples \
+              -- bash godot/ios-host/test-retained-host.sh "$PARTYDECK_RETAINED_CI_STAGE" \
+              2>&1 | tee godot/ios-host/build/evidence/retained-ci-runner.log
+          else
+            bash godot/ios-host/test-retained-host.sh "$PARTYDECK_RETAINED_CI_STAGE" \
+              2>&1 | tee godot/ios-host/build/evidence/retained-ci-runner.log
+          fi
       - name: Archive complete retained-host inputs and available native evidence
         if: always()
         timeout-minutes: 10
@@ -441,3 +455,13 @@ jobs:
             godot/ios-host/build/retained-host-*/artifacts/**
           retention-days: 14
           if-no-files-found: error
+      - name: Preserve optional retained stack samples separately
+        if: ${{ always() && inputs.retained_stack_sampling && (inputs.retained_stage || 'test') == 'test' }}
+        continue-on-error: true
+        timeout-minutes: 5
+        uses: ./.github/actions/upload-artifact
+        with:
+          name: godot-ios-retained-stack-samples-attempt-${{ github.run_attempt }}
+          path: godot/ios-host/build/retained-stack-samples/**
+          retention-days: 14
+          if-no-files-found: warn
