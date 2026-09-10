@@ -1,4 +1,4 @@
-package dev.partydeck.godot.compare
+package dev.partydeck.godot.android
 
 /**
  * Godot 4.7.2's public timed exit wait can return false after an unrelated GL-monitor
@@ -6,7 +6,7 @@ package dev.partydeck.godot.compare
  * This bounds requested waits, not time spent acquiring Godot's monitor/native cleanup.
  * The caller must be outside the render thread.
  */
-internal fun waitForRendererExit(
+fun waitForRendererExit(
     timeoutMillis: Long,
     nowMillis: () -> Long,
     requestExitAndWait: (Long) -> Boolean,

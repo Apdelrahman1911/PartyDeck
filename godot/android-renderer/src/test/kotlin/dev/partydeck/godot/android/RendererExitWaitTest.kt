@@ -1,4 +1,4 @@
-package dev.partydeck.godot.compare
+package dev.partydeck.godot.android
 
 import kotlin.test.Test
 import kotlin.test.assertEquals

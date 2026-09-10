@@ -24,6 +24,8 @@ rootProject.name = "PartyDeckGodotQualification"
 
 // Share the production domain and event contracts, without changing that build.
 include(":core", ":games", ":bridge", ":androidHost", ":comparison")
+include(":androidRenderer")
+project(":androidRenderer").projectDir = file("../android-renderer")
 project(":core").projectDir = file("../../core")
 project(":games").projectDir = file("../../games")
 project(":bridge").projectDir = file("../bridge")

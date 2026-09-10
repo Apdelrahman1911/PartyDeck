@@ -1,5 +1,1 @@
-# Runtime GodotPlugin registration reflects declared methods and their annotations.
--keepattributes RuntimeVisibleAnnotations
--keepclassmembers class dev.partydeck.godot.compare.PartyDeckBridgePlugin {
-    @org.godotengine.godot.plugin.UsedByGodot <methods>;
-}
+# Shared plugin reflection rules are supplied by androidRenderer's consumer rules.

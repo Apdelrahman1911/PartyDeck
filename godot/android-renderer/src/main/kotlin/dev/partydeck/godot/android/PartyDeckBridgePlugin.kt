@@ -1,8 +1,10 @@
-package dev.partydeck.godot.compare
+package dev.partydeck.godot.android
 
 import android.os.Handler
 import android.os.Looper
+import dev.partydeck.games.EngineEventBody
 import dev.partydeck.games.MAX_ENGINE_PAYLOAD_BYTES
+import dev.partydeck.godot.bridge.LastLightWireCodec
 import dev.partydeck.godot.bridge.MAX_RENDERER_EVENT_BYTES
 import org.godotengine.godot.Godot
 import org.godotengine.godot.plugin.GodotPlugin
@@ -13,8 +15,8 @@ import java.util.concurrent.atomic.AtomicLong
 import java.util.concurrent.atomic.AtomicReference
 import javax.microedition.khronos.opengles.GL10
 
-/** Runtime plugin supplied only by GodotGameActivity.getHostPlugins(). */
-internal class PartyDeckBridgePlugin(
+/** Runtime plugin installed explicitly by the owning native Godot host. */
+class PartyDeckBridgePlugin(
     engine: Godot,
     launchDocument: String,
     private val displayScale: Double,
@@ -29,7 +31,7 @@ internal class PartyDeckBridgePlugin(
     }
 
     private sealed interface Inbound {
-        data class Event(val document: String) : Inbound
+        data class Event(val document: String, val inputGeneration: Long?) : Inbound
         data class Diagnostics(val document: String) : Inbound
     }
 
@@ -41,6 +43,7 @@ internal class PartyDeckBridgePlugin(
 
     private val main = Handler(Looper.getMainLooper())
     private val active = AtomicBoolean(true)
+    private val inputGate = RendererInputGate()
     private val initialLaunch = AtomicReference<String?>(launchDocument)
     private val nativeSetup = AtomicBoolean(false)
     private val rendererReady = AtomicBoolean(false)
@@ -54,7 +57,9 @@ internal class PartyDeckBridgePlugin(
         schedule = { task -> main.post { task() } },
         consume = { input, done ->
             if (active.get()) when (input) {
-                is Inbound.Event -> listener.onRendererEvent(input.document)
+                is Inbound.Event -> if (input.inputGeneration == null || inputGate.accepts(input.inputGeneration)) {
+                    listener.onRendererEvent(input.document)
+                }
                 is Inbound.Diagnostics -> listener.onRendererDiagnostics(input.document)
             }
             done()
@@ -107,11 +112,19 @@ internal class PartyDeckBridgePlugin(
     @UsedByGodot
     fun renderer_event(document: String) {
         if (!active.get()) return
+        val inputGeneration = inputGate.capture()
         if (!withinUtf8Limit(document, MAX_RENDERER_EVENT_BYTES)) {
             fail("oversized_renderer_event")
             return
         }
-        incoming.offer(Inbound.Event(document))
+        val playerInput = try {
+            LastLightWireCodec.decodeEvent(document).body is EngineEventBody.PlayerIntent
+        } catch (_: IllegalArgumentException) {
+            fail("invalid_renderer_event")
+            return
+        }
+        if (playerInput && inputGeneration == null) return
+        incoming.offer(Inbound.Event(document, if (playerInput) inputGeneration else null))
     }
 
     @UsedByGodot
@@ -160,6 +173,11 @@ internal class PartyDeckBridgePlugin(
         startDeliveryIfReady()
     }
 
+    /** Cover/input ownership is native. Ready, failure and exit remain deliverable while covered. */
+    fun setInputEnabled(enabled: Boolean) {
+        inputGate.setEnabled(enabled && active.get())
+    }
+
     fun send(document: String, afterDelivery: (() -> Unit)? = null): Boolean {
         if (!withinUtf8Limit(document, MAX_ENGINE_PAYLOAD_BYTES)) {
             fail("oversized_host_command")
@@ -180,6 +198,7 @@ internal class PartyDeckBridgePlugin(
 
     fun close(document: String, afterDelivery: () -> Unit) {
         if (!active.getAndSet(false)) return
+        inputGate.setEnabled(false)
         initialLaunch.set(null)
         afterDraw.set(null)
         incoming.close()
@@ -189,6 +208,7 @@ internal class PartyDeckBridgePlugin(
 
     fun dispose() {
         active.set(false)
+        inputGate.setEnabled(false)
         initialLaunch.set(null)
         afterDraw.set(null)
         diagnosticsExpected.set(false)
@@ -202,6 +222,7 @@ internal class PartyDeckBridgePlugin(
 
     private fun fail(code: String) {
         if (!active.getAndSet(false)) return
+        inputGate.setEnabled(false)
         initialLaunch.set(null)
         afterDraw.set(null)
         incoming.close()
@@ -212,7 +233,7 @@ internal class PartyDeckBridgePlugin(
     companion object {
         const val MAX_DIAGNOSTICS_BYTES = 16_384
 
-        internal fun withinUtf8Limit(document: String, limit: Int): Boolean =
+        fun withinUtf8Limit(document: String, limit: Int): Boolean =
             document.length <= limit && document.toByteArray(Charsets.UTF_8).size <= limit
     }
 }

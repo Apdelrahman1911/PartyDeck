@@ -1,5 +1,7 @@
 package dev.partydeck.godot.compare
 
+import dev.partydeck.godot.android.PartyDeckBridgePlugin
+
 import dev.partydeck.godot.bridge.validateBoundedJson
 import org.json.JSONArray
 import org.json.JSONObject

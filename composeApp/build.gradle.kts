@@ -28,6 +28,7 @@ kotlin {
             api(project(":session"))
             api(project(":transport"))
             implementation(project(":games"))
+            implementation(project(":bridge"))
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
             implementation(libs.compose.material3)

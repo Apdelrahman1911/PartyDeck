@@ -25,6 +25,8 @@ import androidx.fragment.app.FragmentActivity
 import dev.partydeck.core.GameAction
 import dev.partydeck.core.GamePhase
 import dev.partydeck.games.EngineEventBody
+import dev.partydeck.godot.android.PartyDeckBridgePlugin
+import dev.partydeck.godot.android.waitForRendererExit
 import dev.partydeck.godot.bridge.BridgeDecision
 import dev.partydeck.godot.bridge.BridgeInput
 import dev.partydeck.godot.bridge.BridgeRejection

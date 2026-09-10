@@ -99,7 +99,7 @@ jobs:
         if: ${{ !cancelled() && steps.renderer-pack.outcome == 'success' }}
         run: |
           ./gradlew -p godot/qualification --console=plain \
-            :androidHost:testDebugUnitTest :androidHost:lintDebug \
+            :androidRenderer:testDebugUnitTest :androidHost:testDebugUnitTest :androidHost:lintDebug \
             :androidHost:assembleDebug :androidHost:assembleRelease :androidHost:bundleRelease
       - name: Preserve the exact debug runtime inputs
         id: runtime-inputs

@@ -1,4 +1,4 @@
-package dev.partydeck.godot.compare
+package dev.partydeck.godot.android
 
 /**
  * Bounded FIFO with one delivery in flight. The consumer acknowledges completion;
