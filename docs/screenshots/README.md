@@ -1,6 +1,6 @@
 # Screenshot review gallery
 
-This collection preserves **228 original app and renderer captures** and links to **four existing asset proofs**. Click a collection, then any thumbnail to open the full PNG. Every record includes its original filename, scenario, platform, pixel dimensions and full SHA-256; [manifest.json](manifest.json) also records source locations, exact revisions where known, CI runs, receipts and duplicate-source aliases.
+This collection preserves **239 original app and renderer captures** and links to **four existing asset proofs**. Click a collection, then any thumbnail to open the full PNG. Every record includes its original filename, scenario, platform, pixel dimensions and full SHA-256; [manifest.json](manifest.json) also records source locations, exact revisions where known, CI runs, receipts and duplicate-source aliases.
 
 [Open the published first batch](first-batch/README.md) for the 125 initially published native, shared-UI and first desktop 2D views. The collection pages below add complete source records and original-filename mappings without duplicating those images.
 
@@ -12,6 +12,12 @@ Use the latest native and shared-UI collections for current review. Earlier capt
 | [Android debug — CI 34417204089](android-34417204089/debug/README.md) | 23 | Latest debug variant stopped at 200% Join validation while the notification shade covered the app. |
 | [iOS — CI 34398824935](ios-34398824935/README.md) | 8 | 3 UI tests passed; native qualification remains bounded to this run. |
 | [Compose shared UI — reviewed layout fixtures](compose-shared/README.md) | 65 | JVM layout fixtures; exact working-tree capture revision not recorded. |
+
+## Godot gameplay through the real authority
+
+| Collection | Images | Evidence scope |
+| --- | ---: | --- |
+| [Godot 2D — first complete seeded match](godot-first-real-2d-input/README.md) | 11 | Real Button/authority gameplay, privacy and captures retained. Shutdown logged a loopback-close error; clean engine exit is unqualified. Desktop 430 × 932; no 2D/3D parity or native execution claim. |
 
 ## Godot prototype iterations
 
@@ -50,7 +56,7 @@ The [Godot import report](../../godot/renderer/assets/proofs/import_verification
 - Original PNG bytes are preserved. Original capture filenames are retained in each record; the first-batch iOS gallery uses readable repository filenames mapped back to the original UUID filenames. Inline thumbnails display the same files at a smaller width; no image is redrawn, redacted or recompressed. Distinct scenario records remain separate even when their image bytes match.
 - Native captures were screened against their reviewed capture guards and Android UI dumps. Live invitation and share surfaces were not captured; the host lobby images precede invitation opening or follow its dismissal. Infrastructure/SystemUI preparation images and app-bundle icons are excluded. Run 34417204089 debug/final-screen.png is also excluded because it shows the notification shade; its source/hash/reason are recorded in the manifest.
 - Four Compose invitation/QR/Join captures contain explicitly labeled synthetic fixture values. `ShellLayoutTest.syntheticInvitation()` uses the documentation-only endpoint `192.0.2.44:42424` and deterministic fixture credentials. These are not live admission material.
-- Godot iteration 01 contains synthetic recipient-safe structural data; iteration 02 contains frozen Kotlin-authority projections. Original reports, diagnostics and available fixture/source provenance are retained. No LAN or admission credentials are involved.
+- Godot iteration 01 contains synthetic recipient-safe structural data; iteration 02 contains frozen Kotlin-authority projections. The later first-real-2d-input collection records actual authority-accepted desktop gameplay. Original reports, diagnostics and available fixture/source provenance are retained. No LAN or admission credentials are involved.
 - Failed runtime stages, historical layout defects and missing native qualification are recorded in the relevant collection. No retained candidate required credential redaction or omission.
 
 For accepted findings and remaining native limits, see [the shared UI design review](../design-review.md), [the Godot design review](../../godot/reviews/design-review.md), and [the Godot asset documentation](../../godot/renderer/assets/README.md).

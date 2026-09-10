@@ -177,6 +177,34 @@
       "apk": "f356fdaabf9d7b67f217fda9a66014d3121b5ea5becf8b0b3a1ec4fc26b7ae43",
       "text": "API 35 AVD; 720 × 1600 pixels; 280 dpi (about 411 × 914 dp); three-button navigation. Normal font scale is 1.0; large-text captures and the optimized final-screen.png use 2.0. Software keyboard captures show the actual Android IME.",
       "status": "Debug smoke failed while seeking visible invalid-invitation feedback at 200% text. The final diagnostic image shows the Android notification shade covering the app, so the failure does not establish that the app omitted validation feedback. That SystemUI image is excluded from this app gallery."
+    },
+    {
+      "id": "godot-first-real-2d-input",
+      "path": "godot-first-real-2d-input",
+      "title": "Godot 2D — first complete match through the real authority",
+      "platform": "Godot 4.7.2 desktop 2D, real Kotlin authority, 430 × 932 viewport",
+      "kind": "authority_gameplay_capture",
+      "tier": "gameplay_current",
+      "revision": null,
+      "basis": "5dd00c994cdef2a5c0fdee023595d6c691b81651",
+      "source_fingerprint_sha256": "264752032a7425fcfa4995eb03e8a8abb807b337c9a744eda66989d0efd97935",
+      "ci_run": null,
+      "source_directory": "/root/projects/PartyDeck/godot/qualification/build/comparison/first-real-2d-input/2d",
+      "count": 11,
+      "status": "The seed-2 gameplay scenario completed: 2 viewer plays, 2 viewer challenges, 13 round advances and a winner in round 14. Actual Godot Button inputs passed through the shared bridge and Kotlin LastLightEngine; pending/authority-view, privacy, navigation-intent and fresh-entry assertions completed. The original report says passed, but the original Godot log records ERROR: Comparison loopback connection closed during shutdown. That report did not check child exit. Clean engine exit is not qualified by this run.",
+      "text": "Actual Godot 4.7.2-stable (official), gl_compatibility / X11 / Xvfb; 430 × 932 pixels, text scale 1.0, reduced motion enabled. Desktop rendering at a phone-sized viewport is not native phone execution.",
+      "run_started_utc": "2026-09-09T23:58:56.263518790Z",
+      "run_completed_utc": "2026-09-09T23:59:11.999396064Z",
+      "seed": 2,
+      "authority_trace_sha256": "79b5b2a6415a365d531da3488b7b87f1b2309f2b1208899ee5b4618da16be674",
+      "qualification": {
+        "gameplay_and_capture_evidence": "retained; completed real-input/shared-authority/privacy assertions and independently verified screenshots/trace",
+        "original_report_status": "passed",
+        "clean_engine_exit": "not qualified",
+        "shutdown_error": "ERROR: Comparison loopback connection closed",
+        "diagnostic_log": "godot-first-real-2d-input/2d/godot.log",
+        "cause": "Owner confirmed that the JVM closed its socket after the quit reply while the Godot probe still waited before marking shutdown; the first report did not validate child exit."
+      }
     }
   ],
   "screenshots": [
@@ -5388,6 +5416,341 @@
       "notes": [],
       "reviewed_ui_dump_source": "/tmp/partydeck-engine-ci/34417204089/android-jvm-reports/build/ci/android/debug/settings-return-home.xml",
       "reviewed_ui_dump_sha256": "035b6df440c5a044f9cfc89bc6626f754d004d33bc190a8323bf905a7b3cdc8e"
+    },
+    {
+      "id": "godot-first-real-2d-input/01-concealed",
+      "collection": "godot-first-real-2d-input",
+      "path": "godot-first-real-2d-input/2d/01-concealed.png",
+      "original_filename": "01-concealed.png",
+      "scenario": "Initial concealed hand",
+      "platform": "Godot 4.7.2 desktop 2D, real Kotlin authority, 430 × 932 viewport",
+      "artifact_type": "authority_gameplay_capture",
+      "width_px": 430,
+      "height_px": 932,
+      "font_scale": 1.0,
+      "bytes": 67034,
+      "sha256": "573c066bbb9a94a5b8ee38b27c5768b06fab0bf96506f91388d92b9ec6be069c",
+      "source_original": "/root/projects/PartyDeck/godot/qualification/build/comparison/first-real-2d-input/2d/01-concealed.png",
+      "source_revision": null,
+      "source_revision_exact": false,
+      "source_basis_revision": "5dd00c994cdef2a5c0fdee023595d6c691b81651",
+      "source_fingerprint_sha256": "264752032a7425fcfa4995eb03e8a8abb807b337c9a744eda66989d0efd97935",
+      "ci_run": null,
+      "synthetic_invitation_fixture": false,
+      "notes": [],
+      "receipt_path": "godot-first-real-2d-input/2d/01-concealed.receipt.json",
+      "authority_revision": "0",
+      "authority_view_sha256": "edf527cc8ff21d8a5485008fc35d21e784dda2adb745e2c1188b9c6b08f447ca",
+      "seed": 2,
+      "run_qualification_limitations": [
+        "Shutdown logged Comparison loopback connection closed; the original report did not validate child exit. Gameplay/capture evidence is retained, clean engine exit is not qualified."
+      ]
+    },
+    {
+      "id": "godot-first-real-2d-input/02-revealed",
+      "collection": "godot-first-real-2d-input",
+      "path": "godot-first-real-2d-input/2d/02-revealed.png",
+      "original_filename": "02-revealed.png",
+      "scenario": "Own hand revealed",
+      "platform": "Godot 4.7.2 desktop 2D, real Kotlin authority, 430 × 932 viewport",
+      "artifact_type": "authority_gameplay_capture",
+      "width_px": 430,
+      "height_px": 932,
+      "font_scale": 1.0,
+      "bytes": 61460,
+      "sha256": "a54d55a66ec2f09cd921a10b8127b77052862d8973aab05423b55ca7132b41b0",
+      "source_original": "/root/projects/PartyDeck/godot/qualification/build/comparison/first-real-2d-input/2d/02-revealed.png",
+      "source_revision": null,
+      "source_revision_exact": false,
+      "source_basis_revision": "5dd00c994cdef2a5c0fdee023595d6c691b81651",
+      "source_fingerprint_sha256": "264752032a7425fcfa4995eb03e8a8abb807b337c9a744eda66989d0efd97935",
+      "ci_run": null,
+      "synthetic_invitation_fixture": false,
+      "notes": [],
+      "receipt_path": "godot-first-real-2d-input/2d/02-revealed.receipt.json",
+      "authority_revision": "0",
+      "authority_view_sha256": "edf527cc8ff21d8a5485008fc35d21e784dda2adb745e2c1188b9c6b08f447ca",
+      "seed": 2,
+      "run_qualification_limitations": [
+        "Shutdown logged Comparison loopback connection closed; the original report did not validate child exit. Gameplay/capture evidence is retained, clean engine exit is not qualified."
+      ]
+    },
+    {
+      "id": "godot-first-real-2d-input/03-selected",
+      "collection": "godot-first-real-2d-input",
+      "path": "godot-first-real-2d-input/2d/03-selected.png",
+      "original_filename": "03-selected.png",
+      "scenario": "Moon selected for a Star claim",
+      "platform": "Godot 4.7.2 desktop 2D, real Kotlin authority, 430 × 932 viewport",
+      "artifact_type": "authority_gameplay_capture",
+      "width_px": 430,
+      "height_px": 932,
+      "font_scale": 1.0,
+      "bytes": 59631,
+      "sha256": "b926c9f847c2b4c8065c376169b3242f4044f5605ebca6472c6a061dcffbf1b8",
+      "source_original": "/root/projects/PartyDeck/godot/qualification/build/comparison/first-real-2d-input/2d/03-selected.png",
+      "source_revision": null,
+      "source_revision_exact": false,
+      "source_basis_revision": "5dd00c994cdef2a5c0fdee023595d6c691b81651",
+      "source_fingerprint_sha256": "264752032a7425fcfa4995eb03e8a8abb807b337c9a744eda66989d0efd97935",
+      "ci_run": null,
+      "synthetic_invitation_fixture": false,
+      "notes": [
+        "Selected Moon is visibly checked; the primary action correctly says Claim 1 Star. The hand scrolls horizontally beyond the captured cards."
+      ],
+      "receipt_path": "godot-first-real-2d-input/2d/03-selected.receipt.json",
+      "authority_revision": "0",
+      "authority_view_sha256": "edf527cc8ff21d8a5485008fc35d21e784dda2adb745e2c1188b9c6b08f447ca",
+      "seed": 2,
+      "run_qualification_limitations": [
+        "Shutdown logged Comparison loopback connection closed; the original report did not validate child exit. Gameplay/capture evidence is retained, clean engine exit is not qualified."
+      ]
+    },
+    {
+      "id": "godot-first-real-2d-input/04-covered",
+      "collection": "godot-first-real-2d-input",
+      "path": "godot-first-real-2d-input/2d/04-covered.png",
+      "original_filename": "04-covered.png",
+      "scenario": "Hand covered and selection cleared",
+      "platform": "Godot 4.7.2 desktop 2D, real Kotlin authority, 430 × 932 viewport",
+      "artifact_type": "authority_gameplay_capture",
+      "width_px": 430,
+      "height_px": 932,
+      "font_scale": 1.0,
+      "bytes": 67034,
+      "sha256": "573c066bbb9a94a5b8ee38b27c5768b06fab0bf96506f91388d92b9ec6be069c",
+      "source_original": "/root/projects/PartyDeck/godot/qualification/build/comparison/first-real-2d-input/2d/04-covered.png",
+      "source_revision": null,
+      "source_revision_exact": false,
+      "source_basis_revision": "5dd00c994cdef2a5c0fdee023595d6c691b81651",
+      "source_fingerprint_sha256": "264752032a7425fcfa4995eb03e8a8abb807b337c9a744eda66989d0efd97935",
+      "ci_run": null,
+      "synthetic_invitation_fixture": false,
+      "notes": [],
+      "receipt_path": "godot-first-real-2d-input/2d/04-covered.receipt.json",
+      "authority_revision": "0",
+      "authority_view_sha256": "edf527cc8ff21d8a5485008fc35d21e784dda2adb745e2c1188b9c6b08f447ca",
+      "seed": 2,
+      "run_qualification_limitations": [
+        "Shutdown logged Comparison loopback connection closed; the original report did not validate child exit. Gameplay/capture evidence is retained, clean engine exit is not qualified."
+      ]
+    },
+    {
+      "id": "godot-first-real-2d-input/05-background-privacy",
+      "collection": "godot-first-real-2d-input",
+      "path": "godot-first-real-2d-input/2d/05-background-privacy.png",
+      "original_filename": "05-background-privacy.png",
+      "scenario": "Inactive presentation with private hand erased",
+      "platform": "Godot 4.7.2 desktop 2D, real Kotlin authority, 430 × 932 viewport",
+      "artifact_type": "authority_gameplay_capture",
+      "width_px": 430,
+      "height_px": 932,
+      "font_scale": 1.0,
+      "bytes": 68147,
+      "sha256": "ff16dba781567c7262efa6acd75d77c80da7fd2afacd628866d7d8c14113c413",
+      "source_original": "/root/projects/PartyDeck/godot/qualification/build/comparison/first-real-2d-input/2d/05-background-privacy.png",
+      "source_revision": null,
+      "source_revision_exact": false,
+      "source_basis_revision": "5dd00c994cdef2a5c0fdee023595d6c691b81651",
+      "source_fingerprint_sha256": "264752032a7425fcfa4995eb03e8a8abb807b337c9a744eda66989d0efd97935",
+      "ci_run": null,
+      "synthetic_invitation_fixture": false,
+      "notes": [
+        "Renderer foreground message is false, private faces/labels/selection are cleared and Reveal is disabled. This is not a native OS lifecycle snapshot test."
+      ],
+      "receipt_path": "godot-first-real-2d-input/2d/05-background-privacy.receipt.json",
+      "authority_revision": "0",
+      "authority_view_sha256": "edf527cc8ff21d8a5485008fc35d21e784dda2adb745e2c1188b9c6b08f447ca",
+      "seed": 2,
+      "run_qualification_limitations": [
+        "Shutdown logged Comparison loopback connection closed; the original report did not validate child exit. Gameplay/capture evidence is retained, clean engine exit is not qualified."
+      ]
+    },
+    {
+      "id": "godot-first-real-2d-input/06-play-pending",
+      "collection": "godot-first-real-2d-input",
+      "path": "godot-first-real-2d-input/2d/06-play-pending.png",
+      "original_filename": "06-play-pending.png",
+      "scenario": "Play submitted, awaiting authority acceptance",
+      "platform": "Godot 4.7.2 desktop 2D, real Kotlin authority, 430 × 932 viewport",
+      "artifact_type": "authority_gameplay_capture",
+      "width_px": 430,
+      "height_px": 932,
+      "font_scale": 1.0,
+      "bytes": 59662,
+      "sha256": "b2741012013047fe9e7d6aa375d1092b86b8a82fad6d3c0021bfafd4ae0130ba",
+      "source_original": "/root/projects/PartyDeck/godot/qualification/build/comparison/first-real-2d-input/2d/06-play-pending.png",
+      "source_revision": null,
+      "source_revision_exact": false,
+      "source_basis_revision": "5dd00c994cdef2a5c0fdee023595d6c691b81651",
+      "source_fingerprint_sha256": "264752032a7425fcfa4995eb03e8a8abb807b337c9a744eda66989d0efd97935",
+      "ci_run": null,
+      "synthetic_invitation_fixture": false,
+      "notes": [
+        "Captured before acceptance at authority revision 0; Sending play is visible and gameplay actions are disabled. Own card faces remain visible in this pending frame."
+      ],
+      "receipt_path": "godot-first-real-2d-input/2d/06-play-pending.receipt.json",
+      "authority_revision": "0",
+      "authority_view_sha256": "edf527cc8ff21d8a5485008fc35d21e784dda2adb745e2c1188b9c6b08f447ca",
+      "seed": 2,
+      "run_qualification_limitations": [
+        "Shutdown logged Comparison loopback connection closed; the original report did not validate child exit. Gameplay/capture evidence is retained, clean engine exit is not qualified."
+      ]
+    },
+    {
+      "id": "godot-first-real-2d-input/07-public-round-result",
+      "collection": "godot-first-real-2d-input",
+      "path": "godot-first-real-2d-input/2d/07-public-round-result.png",
+      "original_filename": "07-public-round-result.png",
+      "scenario": "Round 1 result: Moon bluff caught against a Star claim",
+      "platform": "Godot 4.7.2 desktop 2D, real Kotlin authority, 430 × 932 viewport",
+      "artifact_type": "authority_gameplay_capture",
+      "width_px": 430,
+      "height_px": 932,
+      "font_scale": 1.0,
+      "bytes": 55761,
+      "sha256": "0b5c78fa181a6b9f63e658dcaf761b870a3e3999bafe6fd6972079ad45075e90",
+      "source_original": "/root/projects/PartyDeck/godot/qualification/build/comparison/first-real-2d-input/2d/07-public-round-result.png",
+      "source_revision": null,
+      "source_revision_exact": false,
+      "source_basis_revision": "5dd00c994cdef2a5c0fdee023595d6c691b81651",
+      "source_fingerprint_sha256": "264752032a7425fcfa4995eb03e8a8abb807b337c9a744eda66989d0efd97935",
+      "ci_run": null,
+      "synthetic_invitation_fixture": false,
+      "notes": [
+        "Public Moon proof and Star-or-Wild mismatch explanation are visible; Ari used light 1 and remains in."
+      ],
+      "receipt_path": "godot-first-real-2d-input/2d/07-public-round-result.receipt.json",
+      "authority_revision": "2",
+      "authority_view_sha256": "0aa7ada0d2891b98c3751f2ece396f921c4eaa223f44d344a860ff006766b852",
+      "seed": 2,
+      "run_qualification_limitations": [
+        "Shutdown logged Comparison loopback connection closed; the original report did not validate child exit. Gameplay/capture evidence is retained, clean engine exit is not qualified."
+      ]
+    },
+    {
+      "id": "godot-first-real-2d-input/08-next-round",
+      "collection": "godot-first-real-2d-input",
+      "path": "godot-first-real-2d-input/2d/08-next-round.png",
+      "original_filename": "08-next-round.png",
+      "scenario": "Round 2 redeal with Moxie taking the turn",
+      "platform": "Godot 4.7.2 desktop 2D, real Kotlin authority, 430 × 932 viewport",
+      "artifact_type": "authority_gameplay_capture",
+      "width_px": 430,
+      "height_px": 932,
+      "font_scale": 1.0,
+      "bytes": 66544,
+      "sha256": "52d55bcbabc8b2eae5bf9a07758ec4fd0be4288285fb2db9ea9d2160dc15a280",
+      "source_original": "/root/projects/PartyDeck/godot/qualification/build/comparison/first-real-2d-input/2d/08-next-round.png",
+      "source_revision": null,
+      "source_revision_exact": false,
+      "source_basis_revision": "5dd00c994cdef2a5c0fdee023595d6c691b81651",
+      "source_fingerprint_sha256": "264752032a7425fcfa4995eb03e8a8abb807b337c9a744eda66989d0efd97935",
+      "ci_run": null,
+      "synthetic_invitation_fixture": false,
+      "notes": [
+        "New deal begins concealed; the previous round proof is not shown in this screenshot."
+      ],
+      "receipt_path": "godot-first-real-2d-input/2d/08-next-round.receipt.json",
+      "authority_revision": "3",
+      "authority_view_sha256": "598baddae45fa6e87442003dd27d382e28529575c23ebf6b363b79ec914f40ea",
+      "seed": 2,
+      "run_qualification_limitations": [
+        "Shutdown logged Comparison loopback connection closed; the original report did not validate child exit. Gameplay/capture evidence is retained, clean engine exit is not qualified."
+      ]
+    },
+    {
+      "id": "godot-first-real-2d-input/09-challenge-pending",
+      "collection": "godot-first-real-2d-input",
+      "path": "godot-first-real-2d-input/2d/09-challenge-pending.png",
+      "original_filename": "09-challenge-pending.png",
+      "scenario": "Challenge submitted, awaiting authority acceptance",
+      "platform": "Godot 4.7.2 desktop 2D, real Kotlin authority, 430 × 932 viewport",
+      "artifact_type": "authority_gameplay_capture",
+      "width_px": 430,
+      "height_px": 932,
+      "font_scale": 1.0,
+      "bytes": 68698,
+      "sha256": "7e0b63d3254c3e85659b76828acf1c4d644dc312e77bf6cec3d44bb58509999a",
+      "source_original": "/root/projects/PartyDeck/godot/qualification/build/comparison/first-real-2d-input/2d/09-challenge-pending.png",
+      "source_revision": null,
+      "source_revision_exact": false,
+      "source_basis_revision": "5dd00c994cdef2a5c0fdee023595d6c691b81651",
+      "source_fingerprint_sha256": "264752032a7425fcfa4995eb03e8a8abb807b337c9a744eda66989d0efd97935",
+      "ci_run": null,
+      "synthetic_invitation_fixture": false,
+      "notes": [
+        "Captured before acceptance at authority revision 10; Calling challenge is visible and gameplay actions are disabled. Hand remains covered."
+      ],
+      "receipt_path": "godot-first-real-2d-input/2d/09-challenge-pending.receipt.json",
+      "authority_revision": "10",
+      "authority_view_sha256": "40a9485d3575a9891e566cb632da0e357ea0c43542ebc38a6927198a5a2a9e68",
+      "seed": 2,
+      "run_qualification_limitations": [
+        "Shutdown logged Comparison loopback connection closed; the original report did not validate child exit. Gameplay/capture evidence is retained, clean engine exit is not qualified."
+      ]
+    },
+    {
+      "id": "godot-first-real-2d-input/10-winner",
+      "collection": "godot-first-real-2d-input",
+      "path": "godot-first-real-2d-input/2d/10-winner.png",
+      "original_filename": "10-winner.png",
+      "scenario": "Round 14 result: Orbit wins",
+      "platform": "Godot 4.7.2 desktop 2D, real Kotlin authority, 430 × 932 viewport",
+      "artifact_type": "authority_gameplay_capture",
+      "width_px": 430,
+      "height_px": 932,
+      "font_scale": 1.0,
+      "bytes": 58598,
+      "sha256": "0d40ebdba17a674973244aaf8ea0734d9db2e783c39ee21fa7197213f743fb31",
+      "source_original": "/root/projects/PartyDeck/godot/qualification/build/comparison/first-real-2d-input/2d/10-winner.png",
+      "source_revision": null,
+      "source_revision_exact": false,
+      "source_basis_revision": "5dd00c994cdef2a5c0fdee023595d6c691b81651",
+      "source_fingerprint_sha256": "264752032a7425fcfa4995eb03e8a8abb807b337c9a744eda66989d0efd97935",
+      "ci_run": null,
+      "synthetic_invitation_fixture": false,
+      "notes": [
+        "Orbit wins after Moxie burns out on light 4; the final public proof and Return to lobby action are visible."
+      ],
+      "receipt_path": "godot-first-real-2d-input/2d/10-winner.receipt.json",
+      "authority_revision": "41",
+      "authority_view_sha256": "ce5672d29351f3e806102334c6b6ed1946ad63ba2cc206b5064a883f128e69ad",
+      "seed": 2,
+      "run_qualification_limitations": [
+        "Shutdown logged Comparison loopback connection closed; the original report did not validate child exit. Gameplay/capture evidence is retained, clean engine exit is not qualified."
+      ]
+    },
+    {
+      "id": "godot-first-real-2d-input/12-fresh-presentation",
+      "collection": "godot-first-real-2d-input",
+      "path": "godot-first-real-2d-input/2d/12-fresh-presentation.png",
+      "original_filename": "12-fresh-presentation.png",
+      "scenario": "Fresh seeded presentation after return-to-lobby intent",
+      "platform": "Godot 4.7.2 desktop 2D, real Kotlin authority, 430 × 932 viewport",
+      "artifact_type": "authority_gameplay_capture",
+      "width_px": 430,
+      "height_px": 932,
+      "font_scale": 1.0,
+      "bytes": 67034,
+      "sha256": "573c066bbb9a94a5b8ee38b27c5768b06fab0bf96506f91388d92b9ec6be069c",
+      "source_original": "/root/projects/PartyDeck/godot/qualification/build/comparison/first-real-2d-input/2d/12-fresh-presentation.png",
+      "source_revision": null,
+      "source_revision_exact": false,
+      "source_basis_revision": "5dd00c994cdef2a5c0fdee023595d6c691b81651",
+      "source_fingerprint_sha256": "264752032a7425fcfa4995eb03e8a8abb807b337c9a744eda66989d0efd97935",
+      "ci_run": null,
+      "synthetic_invitation_fixture": false,
+      "notes": [
+        "The harness exercised the return-to-lobby bridge intent, reset the renderer and opened a fresh seeded presentation. No native lobby screen is claimed."
+      ],
+      "receipt_path": "godot-first-real-2d-input/2d/12-fresh-presentation.receipt.json",
+      "authority_revision": "0",
+      "authority_view_sha256": "edf527cc8ff21d8a5485008fc35d21e784dda2adb745e2c1188b9c6b08f447ca",
+      "seed": 2,
+      "run_qualification_limitations": [
+        "Shutdown logged Comparison loopback connection closed; the original report did not validate child exit. Gameplay/capture evidence is retained, clean engine exit is not qualified."
+      ]
     }
   ],
   "evidence": [
@@ -5774,6 +6137,118 @@
       "sha256": "1cb0e7fc9d905de07b43c40f4fa9341e8d1260147686bebb63304abe36cd9313",
       "bytes": 5726,
       "collection": "android-34417204089-debug"
+    },
+    {
+      "path": "godot-first-real-2d-input/report.json",
+      "original_filename": "report.json",
+      "source_original": "/root/projects/PartyDeck/godot/qualification/build/comparison/first-real-2d-input/report.json",
+      "sha256": "bec385a21d92ccb0baff01dfa0159158028dfc127d40a221456969aee9392a2f",
+      "bytes": 34489,
+      "collection": "godot-first-real-2d-input"
+    },
+    {
+      "path": "godot-first-real-2d-input/2d/result.json",
+      "original_filename": "result.json",
+      "source_original": "/root/projects/PartyDeck/godot/qualification/build/comparison/first-real-2d-input/2d/result.json",
+      "sha256": "b4dbead601d8a989075ebcd29992367e98e667f9e96df7661bc6d438071a6fa3",
+      "bytes": 33893,
+      "collection": "godot-first-real-2d-input"
+    },
+    {
+      "path": "godot-first-real-2d-input/2d/01-concealed.receipt.json",
+      "original_filename": "01-concealed.receipt.json",
+      "source_original": "/root/projects/PartyDeck/godot/qualification/build/comparison/first-real-2d-input/2d/01-concealed.receipt.json",
+      "sha256": "1fcbb71da66f48316e47ec964532aec64cd6769131557604ce87732b2ce5b295",
+      "bytes": 2199,
+      "collection": "godot-first-real-2d-input"
+    },
+    {
+      "path": "godot-first-real-2d-input/2d/02-revealed.receipt.json",
+      "original_filename": "02-revealed.receipt.json",
+      "source_original": "/root/projects/PartyDeck/godot/qualification/build/comparison/first-real-2d-input/2d/02-revealed.receipt.json",
+      "sha256": "19785f5b53fdefd211af0e7010d343fc03086f99f06081989c0ddf4fe3ef5ec2",
+      "bytes": 2839,
+      "collection": "godot-first-real-2d-input"
+    },
+    {
+      "path": "godot-first-real-2d-input/2d/03-selected.receipt.json",
+      "original_filename": "03-selected.receipt.json",
+      "source_original": "/root/projects/PartyDeck/godot/qualification/build/comparison/first-real-2d-input/2d/03-selected.receipt.json",
+      "sha256": "5ac30d962a63d3afd2ae0bf802c8a4af5f5a6e891674bbffdb2e4ddf22d0bde1",
+      "bytes": 2837,
+      "collection": "godot-first-real-2d-input"
+    },
+    {
+      "path": "godot-first-real-2d-input/2d/04-covered.receipt.json",
+      "original_filename": "04-covered.receipt.json",
+      "source_original": "/root/projects/PartyDeck/godot/qualification/build/comparison/first-real-2d-input/2d/04-covered.receipt.json",
+      "sha256": "72ea6bb2715a3b62e59032a57909fed8fe0b22be02ae8a2fd9997412da0681b4",
+      "bytes": 2197,
+      "collection": "godot-first-real-2d-input"
+    },
+    {
+      "path": "godot-first-real-2d-input/2d/05-background-privacy.receipt.json",
+      "original_filename": "05-background-privacy.receipt.json",
+      "source_original": "/root/projects/PartyDeck/godot/qualification/build/comparison/first-real-2d-input/2d/05-background-privacy.receipt.json",
+      "sha256": "4fddcc141a94d71f945acd00fc5d90651b16ee93a9b45f3f6a6605523960ddc0",
+      "bytes": 2223,
+      "collection": "godot-first-real-2d-input"
+    },
+    {
+      "path": "godot-first-real-2d-input/2d/06-play-pending.receipt.json",
+      "original_filename": "06-play-pending.receipt.json",
+      "source_original": "/root/projects/PartyDeck/godot/qualification/build/comparison/first-real-2d-input/2d/06-play-pending.receipt.json",
+      "sha256": "d43f8a925fbb9c45947bffa73cd959bacf17e3aa5b8b1a67f1d47ec2d30efbfa",
+      "bytes": 2854,
+      "collection": "godot-first-real-2d-input"
+    },
+    {
+      "path": "godot-first-real-2d-input/2d/07-public-round-result.receipt.json",
+      "original_filename": "07-public-round-result.receipt.json",
+      "source_original": "/root/projects/PartyDeck/godot/qualification/build/comparison/first-real-2d-input/2d/07-public-round-result.receipt.json",
+      "sha256": "581294e86a9467a961490ebb1417dadfff6ac5388942986a358217e77c21a2d7",
+      "bytes": 2224,
+      "collection": "godot-first-real-2d-input"
+    },
+    {
+      "path": "godot-first-real-2d-input/2d/08-next-round.receipt.json",
+      "original_filename": "08-next-round.receipt.json",
+      "source_original": "/root/projects/PartyDeck/godot/qualification/build/comparison/first-real-2d-input/2d/08-next-round.receipt.json",
+      "sha256": "6ee2d9aa99eda153afb76ddeefe418c8d8410fd2cb5b8ecb6ccc726fdc1c6b79",
+      "bytes": 2204,
+      "collection": "godot-first-real-2d-input"
+    },
+    {
+      "path": "godot-first-real-2d-input/2d/09-challenge-pending.receipt.json",
+      "original_filename": "09-challenge-pending.receipt.json",
+      "source_original": "/root/projects/PartyDeck/godot/qualification/build/comparison/first-real-2d-input/2d/09-challenge-pending.receipt.json",
+      "sha256": "9285e352d57a3b040eb705aff4f51a2b77b5ecde035a51f4b69052b0203292f8",
+      "bytes": 2221,
+      "collection": "godot-first-real-2d-input"
+    },
+    {
+      "path": "godot-first-real-2d-input/2d/10-winner.receipt.json",
+      "original_filename": "10-winner.receipt.json",
+      "source_original": "/root/projects/PartyDeck/godot/qualification/build/comparison/first-real-2d-input/2d/10-winner.receipt.json",
+      "sha256": "0369f97605c950112c7a24d344baf7d0e9d2ce71b9b54b62fade06e6f3cc3f8f",
+      "bytes": 2203,
+      "collection": "godot-first-real-2d-input"
+    },
+    {
+      "path": "godot-first-real-2d-input/2d/12-fresh-presentation.receipt.json",
+      "original_filename": "12-fresh-presentation.receipt.json",
+      "source_original": "/root/projects/PartyDeck/godot/qualification/build/comparison/first-real-2d-input/2d/12-fresh-presentation.receipt.json",
+      "sha256": "4407088069437c78c6da228c5f11dfed76530a58d5ca225e25155e305660915a",
+      "bytes": 2217,
+      "collection": "godot-first-real-2d-input"
+    },
+    {
+      "path": "godot-first-real-2d-input/2d/godot.log",
+      "original_filename": "godot.log",
+      "source_original": "/root/projects/PartyDeck/godot/qualification/build/comparison/first-real-2d-input/2d/godot.log",
+      "sha256": "72019c7b8a522627df7bbba60ddaab833286bd4f6d80287621d6271f7c883b50",
+      "bytes": 943,
+      "collection": "godot-first-real-2d-input"
     }
   ],
   "referenced_asset_proofs": [
