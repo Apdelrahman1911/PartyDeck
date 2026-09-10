@@ -1749,9 +1749,21 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 		// The shared renderer answers this read-only request synchronously. Do
 		// not query between an accepted event and its queued replacement view.
 		NSString *request = _diagnosticsRequest;
+		const uint64_t presentationGeneration = _presentationGeneration;
+		const uint64_t lifecycleGeneration = _lifecycleGeneration;
+		const NSUInteger foregroundGeneration = _foregroundGeneration;
 		++_engineDepth;
 		bridge->emit_signal("diagnostics_requested", String::utf8(request.UTF8String));
 		--_engineDepth;
+		if (!_diagnosticsRequest && [_rendererDiagnostics[@"requestId"] isEqual:request] &&
+				_presentationGeneration == presentationGeneration && _lifecycleGeneration == lifecycleGeneration &&
+				_foregroundGeneration == foregroundGeneration && NSThread.isMainThread &&
+				_foreground && _appliedForeground && [self canDraw]) {
+			// Diagnostics do not invalidate a static scene in low-processor mode.
+			// Request one coalesced draw for this accepted, still-current sample;
+			// the normal draw and successful layer-presentation gates remain in force.
+			Main::force_redraw();
+		}
 		if (_diagnosticsRequest) {
 			++_unansweredDiagnostics;
 			_diagnosticsRequest = nil;
