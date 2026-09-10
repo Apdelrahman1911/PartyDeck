@@ -18,6 +18,10 @@ from test_evidence import hidden, png_fixture
 
 
 IDENTITY = "a517cdd0-90ad-4c75-8c6a-73174d30fe39"
+CACHE_WARNING = (
+    "09-10 03:34:52.733  3074  3111 E godot   : WARNING: Failed to load cached shader, recompiling.\n"
+    "09-10 03:34:52.733  3074  3111 E godot   :    at: _load_from_cache (drivers/gles3/shader_gles3.cpp:615)\n"
+)
 
 
 def host():
@@ -237,6 +241,28 @@ class DriverReplayTest(unittest.TestCase):
             qualification.refresh("fresh response")
         self.assertEqual(qualification.device.taps, [])
         self.assertIsNone(qualification.snapshot)
+
+    def test_incomplete_live_warning_does_not_accept_host_state_until_context_arrives(self):
+        qualification = self.qualification(host())
+        qualification.engine_log = mock.Mock()
+        qualification.engine_log.check.side_effect = (False, True)
+        predicate = mock.Mock(return_value=True)
+        qualification.wait_host("complete engine log", predicate)
+        self.assertEqual(qualification.engine_log.check.call_count, 2)
+        self.assertEqual(qualification.device.dump_count, 2)
+        predicate.assert_called_once()
+        self.assertEqual(qualification.device.taps, [])
+
+    def test_missing_live_warning_context_cannot_extend_host_deadline(self):
+        qualification = self.qualification(host())
+        qualification.engine_log = mock.Mock()
+        qualification.engine_log.check.return_value = False
+        predicate = mock.Mock(return_value=True)
+        with self.assertRaisesRegex(CheckFailure, "within 1 seconds"):
+            qualification.wait_host("complete engine log", predicate, seconds=1)
+        self.assertLessEqual(self.clock.now, 1.3)
+        predicate.assert_not_called()
+        self.assertEqual(qualification.device.taps, [])
 
     def test_hidden_but_retained_private_binding_cannot_satisfy_response(self):
         value = refreshed()
@@ -474,6 +500,68 @@ class ProcessAndCleanupTest(unittest.TestCase):
                         "09-10 07:11:12.345 1234 1452 E godot : ERROR: Failed loading resource: res://missing.png."):
             with self.subTest(message=message), self.assertRaises(CheckFailure):
                 runner.EngineLog.inspect(message)
+
+    def test_verified_cache_warning_remains_in_live_and_final_log_evidence(self):
+        header, location = CACHE_WARNING.splitlines(keepends=True)
+        interleaved = header + "09-10 03:34:52.733  3074  3102 I Godot   : Frame delivery\n" + location
+        self.assertTrue(runner.EngineLog.inspect(interleaved))
+        with tempfile.TemporaryDirectory() as directory:
+            log = object.__new__(runner.EngineLog)
+            log.path, log.errors = pathlib.Path(directory) / "log", pathlib.Path(directory) / "errors"
+            log.output, log.error_output = log.path.open("wb"), log.errors.open("wb")
+            log.output.write(CACHE_WARNING.encode())
+            log.output.flush()
+            log.process, log.device, log.pid = mock.Mock(), mock.Mock(), 3074
+            log.process.poll.return_value = None
+            log.device.adb.return_value = CACHE_WARNING
+            self.assertTrue(log.check())
+            log.close()
+            self.assertEqual(log.path.read_text(), CACHE_WARNING)
+            self.assertEqual(log.path.with_name("final-process-logcat.log").read_text(), CACHE_WARNING)
+
+    def test_cache_warning_does_not_hide_compilation_unknown_error_crash_or_timeout(self):
+        header, location = CACHE_WARNING.splitlines(keepends=True)
+        for error in (
+            "09-10 03:34:52.733  3074  3111 E godot : ERROR: Fragment shader compilation failed.\n",
+            "09-10 03:34:52.733  3074  3111 E godot : ERROR: Program linking failed.\n",
+            "godot: SHADER ERROR: Invalid shader source\n",
+            "09-10 03:34:52.733  3074  3111 E godot : WARNING: An unverified warning.\n",
+            "09-10 03:34:52.733  3074  3111 E godot : Unknown engine failure\n",
+            "09-10 03:34:52.733  3074  3111 E Godot : Unknown native failure\n",
+            "AndroidRuntime: FATAL EXCEPTION: main\n",
+            "libc: Fatal signal 11\n",
+            "godot: SCRIPT ERROR: Invalid call\n",
+            "Godot: Unable to exit the renderer within 1500 ms... Force quitting the process.\n",
+        ):
+            with self.subTest(error=error), self.assertRaises(CheckFailure):
+                runner.EngineLog.inspect(header + error + location)
+
+    def test_cache_warning_exception_requires_exact_paired_thread_and_source(self):
+        header, location = CACHE_WARNING.splitlines(keepends=True)
+        for invalid in (
+            header, location, header + header + location,
+            header + location.replace("  3074 ", "  3075 "),
+            header + location.replace("  3111 ", "  3112 "),
+            header + location.replace(".cpp:615", ".cpp:616"),
+            header + location.replace("_load_from_cache", "_compile_specialization"),
+            header.replace("recompiling.", "recompiling. Unexpected failure") + location,
+            CACHE_WARNING.replace("E godot", "E Godot"),
+        ):
+            with self.subTest(invalid=invalid), self.assertRaises(CheckFailure):
+                runner.EngineLog.inspect(invalid)
+
+    def test_partial_live_warning_waits_but_final_inspection_requires_complete_context(self):
+        header, location = CACHE_WARNING.splitlines(keepends=True)
+        for prefix in (header[:60], header, header + location[:80]):
+            with self.subTest(prefix=prefix):
+                self.assertFalse(runner.EngineLog.inspect(prefix, complete=False))
+        self.assertTrue(runner.EngineLog.inspect(CACHE_WARNING, complete=False))
+        with self.assertRaisesRegex(CheckFailure, "Incomplete shader-cache warning source context"):
+            runner.EngineLog.inspect(header)
+        with self.assertRaises(CheckFailure):
+            runner.EngineLog.inspect(header + location[:80])
+        with self.assertRaises(CheckFailure):
+            runner.EngineLog.inspect(header + "09-10 03:34:52.733  3074  3111 E godot : Unknown error\n", complete=False)
 
     def test_early_successful_logcat_exit_is_a_missing_evidence_interval(self):
         with tempfile.TemporaryDirectory() as directory:

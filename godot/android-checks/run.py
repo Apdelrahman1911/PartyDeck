@@ -195,16 +195,49 @@ class EngineLog:
 
     def check(self):
         require(self.process.poll() is None, "Live process-specific logcat collection stopped unexpectedly.")
-        self.inspect(self.path.read_text(errors="replace"))
+        return self.inspect(self.path.read_text(errors="replace"), complete=False)
 
     @staticmethod
-    def inspect(text):
+    def inspect(text, complete=True):
         require("Unable to exit the renderer within" not in text,
                 "Upstream Godot timed out exiting its renderer; a killed process is not successful teardown.")
-        require(re.search(r"FATAL EXCEPTION:|Fatal signal [0-9]+|SCRIPT ERROR:|Parse Error:", text) is None,
+        require(re.search(r"FATAL EXCEPTION:|Fatal signal [0-9]+|SCRIPT ERROR:|SHADER ERROR:|Parse Error:", text) is None,
                 "Native or renderer failure appeared in the actual engine process log.")
-        require(re.search(r"\b(?:godot|Godot)\s*:\s*ERROR:|\bE\s+(?:godot|Godot)\s*:", text) is None,
+        require(re.search(r"\b(?:godot|Godot)\s*:\s*ERROR:", text) is None,
                 "Godot reported an engine or resource error in the actual process log.")
+        # Godot 4.7.2 logs warnings and their locations at Android ERROR priority:
+        # core/io/logger.cpp:61-79, platform/android/os_android.cpp:93-97.
+        # This exact cache miss returns false and falls back to source compilation:
+        # https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/drivers/gles3/shader_gles3.cpp#L615
+        # Classify only the paired message; compilation errors are still rejected.
+        pending, unclassified, partial_line = set(), [], False
+        for raw_line in text.splitlines(keepends=True):
+            if not complete and not raw_line.endswith(("\n", "\r")):
+                partial_line = True
+                continue
+            line = raw_line.rstrip("\r\n")
+            entry = re.fullmatch(
+                r"\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}\.\d{3}\s+([1-9]\d*)\s+([1-9]\d*)"
+                r"\s+E\s+godot\s*:\s*(.*)", line,
+            )
+            if entry is not None:
+                pid, tid, message = entry.groups()
+                identity = (pid, tid)
+                if message == "WARNING: Failed to load cached shader, recompiling.":
+                    require(identity not in pending, "Repeated shader-cache warning without its source context.")
+                    pending.add(identity)
+                    continue
+                if (message == "at: _load_from_cache (drivers/gles3/shader_gles3.cpp:615)"
+                        and identity in pending):
+                    pending.remove(identity)
+                    continue
+            unclassified.append(line)
+        require(re.search(r"\bE\s+(?:godot|Godot)\s*:", "\n".join(unclassified)) is None,
+                "Godot reported an engine or resource error in the actual process log.")
+        require(not complete or not pending, "Incomplete shader-cache warning source context in the actual process log.")
+        # Live reads can split the two logger writes. Wait for complete evidence
+        # inside the existing host deadline; final process dumps must be complete.
+        return not pending and not partial_line
 
     def close(self):
         running = self.process.poll() is None
@@ -307,9 +340,8 @@ class Qualification:
             # Crash/ANR rejection precedes accepting a cached or fresh JSON file.
             self.device.check_ui(deadline)
             value = self.observe(self.device.read_host())
-            if self.engine_log is not None:
-                self.engine_log.check()
-            if predicate(value):
+            logs_ready = self.engine_log is None or self.engine_log.check()
+            if logs_ready and predicate(value):
                 return value
             time.sleep(min(0.2, max(0, deadline - time.monotonic())))
         raise CheckFailure(f"{self.device.stage}: {description} within {seconds} seconds.")
