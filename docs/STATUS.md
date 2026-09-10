@@ -1,233 +1,197 @@
 # PartyDeck status report
 
-**Snapshot: 2026-09-10, 02:19 UTC.** Latest completed Android baseline validation commit:
-`d3418f150e908667560767e4b825f8968b337df3`.
+**Snapshot: 2026-09-10, 03:30 UTC.** The original Compose application passed its
+refreshed Android and iOS baseline in
+[run 34428798269](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34428798269),
+at `15ab6408d16c04941d133214b03d4e8c6c42ced9`. This includes the Rules→Practice
+navigation fix. Both real Godot presentations work in the desktop comparison;
+the native Godot hosts still have implementation and runtime qualification work.
+**The app is not yet cleared for public distribution.**
 
-**Historical production-release estimate for the original Compose scope: 81%,
-pending refreshed qualification.** The planned features were implemented at the
-validated baseline. Later review found that starting Practice from Rules could
-leave Rules visible over the new session. The shared-controller fix and a local
-regression pass are recorded below; fresh Android/iOS validation is running in
-[run 34428798269](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34428798269)
-at `15ab6408d16c04941d133214b03d4e8c6c42ced9`.
-Physical-device verification, Android API 36 qualification, and publisher/store
-setup also remain. The app is **not yet cleared for public distribution**.
+## Completion percentages
 
-These historical percentages are milestone estimates, not code coverage, a guarantee of
-reliability, or an estimate of time remaining. The weighted calculation below
-is 80.5%, rounded to 81%, for the previously validated baseline. Both Android APK
-variants passed that run's complete configured flow on standard API 35,
-independently verified; it did not tap the Rules Practice button. The estimate
-has not been refreshed for the subsequent fix.
+**Original Compose release scope: 81% estimated completion.** This is the
+weighted milestone calculation below: 80.5%, rounded to 81%. It is not code
+coverage, a reliability guarantee, or an estimate of time remaining. Refreshed
+baseline qualification has now passed; hardware, API 36 and publisher gates
+remain. A residual screenshot framing issue is tracked separately below.
 
-**Expanded scope:** the user requested **both 2D and 3D Godot presentations**,
-built in parallel for comparison. The 81% estimate applies only to the original
-Compose scope. Godot progress is recorded separately below without a readiness
-percentage; engine compilation and screenshots do not establish a playable
-native integration.
-
-| Workstream | Weight | Historical baseline completion | What the percentage means |
+| Workstream | Weight | Completion | Meaning and remaining limit |
 | --- | ---: | ---: | --- |
-| Core features and architecture | 30% | 100% | Planned first-release game, authority, protocol, transport, practice and app flows implemented |
-| UI, assets and accessibility implementation | 15% | 100% | Screens, responsive layouts, original assets, controls, preferences and accessibility semantics implemented; device validation is separate |
-| Configured baseline automated qualification | 20% | 100% | Android/JVM, iOS shared, Swift TLS and iOS UI suites passed; debug and optimized APKs both pass the complete API 35 runtime gate. This does not qualify API 36 or physical devices |
-| Builds and unsigned packaging | 15% | 100% | Android debug/release APK and AAB, iOS Simulator and optimized unsigned device app built and inspected |
-| Physical-device release validation | 15% | 0% | No physical Android/iPhone release matrix has been executed in this environment |
-| Publisher, signing and store readiness | 5% | 10% | Signing configuration and release/privacy instructions exist; actual identities, public policy, store setup and submission remain |
+| Core features and architecture | 30% | 100% | Game, authority, protocol, transport, practice and app flows implemented |
+| UI, assets and accessibility implementation | 15% | 100% | Screens, responsive layouts, original assets, preferences and Compose accessibility semantics implemented; physical-device qualification remains separate |
+| Configured baseline automated qualification | 20% | 100% | Refreshed Android/JVM, iOS shared, Swift TLS, iOS UI and both API 35 APK flows pass; API 36 is not qualified |
+| Builds and unsigned packaging | 15% | 100% | Android debug/release APK and AAB, iOS Simulator and optimized unsigned device app built; renewed device-package differential review passes |
+| Physical-device release validation | 15% | 0% | Physical Android/iPhone release matrix not executed here |
+| Publisher, signing and store readiness | 5% | 10% | Configuration and instructions exist; actual identities, public policy, store setup and submission remain |
 
-## Implemented
+**Godot comparison: 3 of 6 acceptance groups fully satisfied (50%).** This is an
+unweighted count of the acceptance groups in [the Godot plan](../godot/README.md),
+not a production-readiness or effort percentage. Engine/export/package evidence,
+shared bridge checks, and matched desktop gameplay are complete. Native
+lifecycle, complete mobile interaction/accessibility qualification, and delivery
+of both playable native previews remain partial or open. The percentages cover
+different scopes and must not be added or averaged. Both renderers are retained
+until the user chooses.
+
+## Implemented product
 
 - **Last Light:** original two-to-six-player bluffing game, a 30-card deck,
   private hands, one-to-three-card claims, challenges, six-light penalties,
   elimination, round advancement, winner and rematch flows.
-- **Practice:** playable bot matches using the same game authority as
-  multiplayer, rather than a separate rules implementation.
+- **Practice:** playable bot matches using the same authority as multiplayer.
+  Starting Practice from Rules now opens the new session correctly; Rules can
+  still remain open during updates to an already active session.
 - **Local multiplayer:** host-authoritative sessions, lobby readiness,
-  invitation sharing/pasting, QR display and native QR scanning, optional
+  invitation sharing/pasting, QR display and native scanning, optional
   discovery, reconnection to the same seat, and recoverable connection errors.
-- **Transport and privacy:** native TLS with the full host-certificate pin,
-  admission and reconnect credentials, bounded messages and queues, replay and
-  revision checks, recipient-specific state, and cryptographic game randomness.
+- **Transport and privacy:** native TLS with full host-certificate pinning,
+  admission/reconnect credentials, bounded messages and queues, replay and
+  revision checks, recipient-specific views, and cryptographic randomness.
 - **App experience:** Home, Host, Join, Lobby, Rules, Settings, gameplay,
   round-result and winner screens; deliberate hand reveal/concealment;
   persisted sound, haptic and reduced-motion preferences.
-- **Visual/audio assets:** original cards, rank symbols, launcher artwork and
-  sounds; licensed typography; offline credits and the complete notice bundle.
-- **Architecture:** shared Kotlin Multiplatform modules for rules, sessions,
-  transport, game catalog and UI, with native Android/iOS services and an
-  optional shared desktop launcher.
+- **Assets and architecture:** original cards, symbols, launcher artwork and
+  sounds; licensed typography and offline notices; shared KMP rules, sessions,
+  transport, catalog and UI with native Android/iOS services and an optional
+  shared desktop launcher.
 
-The existing shipping baseline uses Compose and does not require a Godot runtime.
-The newly requested Godot comparison is active alongside that baseline, as
-described above. Host migration and restoring a live match
-after host process death are deliberately outside the agreed first-release
-scope; they are not unfinished advertised features.
+The existing Compose application does not depend on Godot. Godot comparison
+hosts currently use real local practice; their production LAN-shell integration
+is unfinished. Host migration and restoring a match after host process death
+are outside the agreed first-release scope.
 
-## Verified baseline results
+## Refreshed Compose validation
 
-These results apply to the cited revisions and executed assertions. They do not
-qualify the newer shared-controller fix or the Godot hosts.
+All results below refer to `15ab640` and the actual assertions executed in
+[run 34428798269](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34428798269).
+The workflow completed successfully. Independent Android review is complete;
+independent iOS test-evidence review is continuing after artifact collection.
+The refreshed device-package differential review passes: all 75 resources, six
+privacy manifests, notices and metadata are unchanged; only executable bytes
+change. Actual compiled controller code and release-link logs tie the new
+binary to the navigation fix. No signature/provisioning/test payload is present.
 
 | Verification | Result and practical limit |
 | --- | --- |
-| Android/JVM tests | **117 passed**, zero failures/errors/skips in independently inspected reports: core 14, session 27, transport 18, games 7, shared app 47, Android QR 4 |
-| Android builds | Debug APK, optimized unsigned APK and unsigned AAB built; lint has zero errors and five classified warnings |
-| Android packages | Manifest, permissions, assets/notices, shrinking and native-library alignment inspected; production signing remains separate |
-| Android debug and optimized APK runtime | **Both passed the configured flow** on standard API 35 in run 34421746656: Rules display, settings persistence, hand selection/concealment/background/play/leave, hosting/invitation/share teardown, invalid-invitation recovery, real soft keyboard and 200% text flows. All 52 stage captures and 115 input-geometry records independently inspected. Rules→Practice was not tapped |
-| iOS shared-native tests | **82 passed**, zero failures/errors/skips: core 14, session 27, transport 10, games 7, app 24 |
-| Native Swift TLS tests | **3 passed:** ordered pinned TLS/closure, incorrect-pin rejection, and real Java–Swift interoperability in both host directions |
-| iOS UI tests | **3 passed:** Settings navigation, real native hosting/invitation flow, and playable practice with reveal/select/hide/play/leave |
-| iOS builds | Simulator test app and optimized unsigned arm64 device app built successfully; iOS 15 deployment metadata and iOS 26.4 SDK confirmed |
-| iOS package audit | All 75 expected resource files match source; app plus five Swift Crypto privacy manifests present; no test bundle or provisioning profile in the device app |
-| Design review | Shared-layout tests and actual Android/iOS captures independently inspected; this historical evidence did not cover the newly found Rules→Practice navigation defect |
+| Android/JVM tests | **118 passed**, zero failures/errors/skips: core 14, session 27, transport 18, games 7, shared app 48, Android QR 4 |
+| Android builds | Debug APK, optimized unsigned APK and unsigned AAB built; lint passes |
+| Android runtime | **Both debug and optimized test-signed APKs pass** on standard API 35, including Rules→Practice→confirmed leave→Home at normal and 200% text, settings persistence, hand privacy/background/play, hosting/invitation/share teardown, invalid-invitation recovery and real soft-keyboard flows |
+| Android evidence | Exact executed APK hashes verified; 60 stage captures plus two final Home images, 132 input-geometry records; no matched crash/ANR in retained preparation or app logs |
+| Shared iOS tests | **83 passed**, zero failures/errors/skips, including all nine controller tests |
+| Native Swift TLS | **3 tests passed**; pinned transport and real Java–Swift exchange in both directions, with successful exits and both remote-close results |
+| Native iOS UI | **3 tests passed:** Settings, actual hosting/invitation, and playable practice with reveal/select/hide/play/leave; eight original screenshots retained |
+| iOS builds | Simulator test app and optimized unsigned ARM64 device app built; release Kotlin framework task executed, minimum iOS 15 and iPhoneOS 26.4 metadata verified |
 
-The complete iOS job passed at `987d380` in
-[run 34398824935](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34398824935).
-Its 82 native tests, six XCTest results, both TLS fixture terminal states
-(`Closed`), screenshots and app archives were independently inspected. The new
-Rules→Practice fix changes the shipping shared controller and its common tests
-after that validated revision. The earlier iOS pass remains historical evidence;
-it does not qualify the changed shipping sources.
+The Rules labels are readable and all four actual navigation routes pass.
+**Three of four CTA captures show the complete button.** The optimized normal
+capture clips about ten pixels from its rounded bottom; UIAutomator reports the
+parent already clamped to the scroll edge. This is a capture-readiness limitation,
+not evidence that scrolling or the functional route is broken. The harness now
+requires a small visible gap from the viewport edge, with eleven passing host
+regressions. Its Android recapture is running in
+[34432935952](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34432935952)
+at `8d8d429`; original images remain unchanged.
 
-## Godot comparison progress
+Exact artifacts from the refreshed baseline:
 
-| Workstream | Completed evidence | Still required |
+| Artifact | SHA-256 |
+| --- | --- |
+| Android debug APK | `fb5ab7ffc54d5f01cd7a93761c03f10743f4b5d3e6f8019f0486fddee0079d0b` |
+| Optimized Android APK, CI test signed | `a0adb50939b13eb83b21e37bd0d0604aba309e3d106d1f0c38dd0746a7115724` |
+| Optimized unsigned iOS device archive | `d77f59a8272803879a31ed6b56fb32db7d1ab4ae8deae940f7874e871e10b89f` |
+
+Earlier Android run 34421746656 and iOS run 34398824935 remain historical
+receipts. The old expired Launcher3 ANR occurred before app installation in
+34421746656 and was not an app runtime failure. The refreshed run has its own
+evidence; earlier images or package hashes are not relabeled as current.
+
+## Godot implementation and qualification
+
+| Workstream | Completed | Still required |
 | --- | --- | --- |
-| Engine and build setup | Official Godot 4.7.2 executable and Android AAR independently checksum-verified; isolated Gradle outputs; both initial and refreshed 136-entry packs independently mounted; all refreshed payloads match an independent export | Archive byte reproducibility: notice payload order still varies in upstream export; tooling correction is underway |
-| Shared artwork/fonts/audio | 54 mapped source files and 47 import settings independently hash-checked; all 47 runtime resources loaded; initial PCK resources/notices independently verified; all 19 Android notice sources audited | Final package inclusion and device filtering/playback |
-| Rules bridge | Source findings closed; 12 JVM behavior tests passed independently; all 15 real-authority fixtures reproduce byte-for-byte; GDScript JSON parser corpus has 61 passes | Remaining renderer/native boundary qualification |
-| 2D renderer | Latest touch/large-text fixes passed the full packed desktop match and independent review: 21 renderer events, 42 authority snapshots, 2 player plays, 2 challenges, 13 round continuations, winner/lobby/fresh-entry/exit and clean exit | Native input/lifecycle execution and refreshed deterministic archive |
-| 3D renderer | Latest narrow/large-text, selection and winner-information fixes passed the same complete packed match, clean exit and independent review; its 42-view authority trace exactly matches 2D | Native input/lifecycle execution and refreshed deterministic archive |
-| Android host | Real official AAR host, chooser, engine-process ownership, bounded bridge and privacy cover implemented; 4 queue tests pass; refreshed debug APK, optimized unsigned APK and unsigned AAB built with all notice sources; lint has zero errors and 8 classified warnings | Final package audit; correct transient UI-dump handling and execute both-mode input, background, exit/re-entry and teardown checks |
-| iOS host | Native engine/archive compiled and audited. Attempts 34423784931 and 34425278588 failed at link, with zero lifecycle tests executed. Reviewed platform glue and shell idle-timer restoration fixes are pushed; run 34428221586 is executing them | Successful link and all five lifecycle tests with the fixes; native view, cleanup and re-entry qualification remain open |
-| iOS authority facade | Real authority facade passed owner/independent JVM tests and all 20 native bridge tests in run 34427976260; actual framework compiled, nine declarations checked and Swift import typechecked | Actual Swift caller and factory execution, host integration and an authority-driven iOS match |
-| Delivery and comparison | Runnable desktop 2D/3D commands committed; identical complete authority traces and clean exits independently verified; 22 matching capture records published | Refreshed comparison after UI fixes and installable native previews with executed platform checks |
+| Engine and export | Official Godot 4.7.2 executable/AAR verified; isolated builds; deterministic 136-entry PCK independently reproduced byte-for-byte; replacement native-fix pack passes import/export and 41 packed boundary assertions | Native package/runtime checks for the replacement |
+| Shared assets | Original artwork/fonts/audio and all 47 runtime resources loaded; all 19 Android notices verified in actual packages | Native filtering/playback and notice-screen execution |
+| Authority bridge | Recipient-safe versioned codec, real rules authority, bounded events/revisions/lifetimes; common tests and all 20 iOS bridge tests pass | Native host event round trips and actual Swift factory/gameplay execution |
+| 2D renderer | Final packed desktop match passes: 42 authority snapshots, 21 renderer events, two player plays, two challenges, thirteen continuations, winner/lobby/fresh entry and clean exit | Native input, lifecycle, text scaling and accessibility |
+| 3D renderer | Same complete desktop match and identical authority trace; corrected winner rank, narrow/large-text layout and touch handling; deferred-scroll teardown race fixed and boundary-tested | Native input and lifecycle checks |
+| Android host | Real official AAR, chooser, owned engine process, bounded bridge, privacy cover; packages built/audited; Java discovery and exit-wake fixes committed with seven passing host tests | Four native cases rerunning in 34433457249; current package audit |
+| iOS diagnostic host | All five actual diagnostic lifecycle tests pass in 34431377938: rendering, foreground loss/resume, touch exit, deferred cleanup and initialization boundaries | Actual Last Light gameplay, repeat entry/dormancy and physical-device qualification remain separate |
+| iOS authority host | Actual ARM64 framework/header verified and Swift module import compiled; native Swift caller, bounded diagnostics and gameplay tests are being implemented | Compile/link caller and execute four reference matches plus secure-default exit; repeat entry/dormancy remains unresolved |
+| Delivery | Both desktop previews run; matched screenshots and original failures published; Android packages retain exact notices and alignment | Playable native previews for both modes, production shell/LAN integration and mobile accessibility |
 
-The first workflow scheduling native Android checks for both Godot modes,
-[run 34427418175](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34427418175),
-**failed** at `c0474960f76459bf07160ec3dba6dcbb084af3ea`.
-Its build, desktop gameplay and package checks passed. All four native cases
-installed the app and tapped their real launch button, then stopped while
-reading a missing fresh UI-automation XML file during match entry. No gameplay
-action or complete native entry was accepted. The checker is being corrected
-to retry transient dump failures within its existing deadline while retaining
-failure evidence and crash rejection. This run also predates the final renderer
-changes and the shipping-controller fix.
+The previously accepted deterministic pack is 1,542,328 bytes, SHA-256
+`26bfbb72efa55b63bef2e0ab989c82356c75b3bb3ca40bcf1c5e70e931bff890`.
+Its independent export, all 136 mounted entries, 19 Android notices, package
+alignment and both complete desktop matches passed. The native-fix replacement
+is 1,542,296 bytes, SHA-256
+`6599f825a418f9d2a7049b3ba9325e8e0dcb474685262899079231b7ec955938`.
+Only the two intended compiled scripts change; all four import/export/check
+stages and 41 packed boundary assertions pass. Its complete 2D/3D comparison
+also passes: both 42-view traces and all 22 image bytes match the earlier run,
+with clean exits. Native package/runtime checks are running; desktop results
+do not establish mobile qualification.
 
-The refreshed local PCK is 1,542,328 bytes, SHA-256
-`0b3de6b276d15972708cfc7919d7f2f5bf2aefe8a05afb8859357e7139057d37`.
-Its mounted content, final complete matched gameplay and 22 capture receipts
-passed independent review; rebuilt Android packaging passed locally. A second
-export contains the same 136 payloads but orders nine notice payloads differently.
-The archive-order correction and final package inspection remain open.
+[Android Godot run 34430556814](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34430556814)
+at `83874c1` passed build/package/desktop checks, **24 JUnit tests and 54 checker
+tests**. All four native cases failed before Ready with the actual message
+“PartyDeck Android bridge did not provide its display density.” The host
+recorded density 1.75; pinned-source review found that Android Java methods use
+`has_java_method`, while the renderer checked only `Object.has_method`. The
+3D/200% case additionally emitted the upstream renderer-exit timeout; native
+destroy-return flags do not override that failure. Both fixes are pushed at `bf77ea7` and are being exercised in
+[34433457249](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34433457249).
 
-The first iOS host link failed because its archive search path was missing.
-After that path was corrected, the second link identified two SDL UIKit device
-query symbols and two Apple export-plugin hooks. The frozen source supplies
-those platform definitions and restores the shell's previous idle-timer policy
-on terminal paths. Their new native probe is
-[run 34428221586](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34428221586)
-at `a04f22be8623bec9fbf38d4e74d8f96a94ebb225`; it has not completed.
-Separately, the authority framework passed
-[run 34427976260](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34427976260)
-at `cf6434df2fd32909f70feee68bfcb82e527e2b70`. Its framework/header and Swift
-module import do not establish a compiled Swift gameplay caller or native match.
-The [iOS host record](../godot/ios-host/README.md) and
-[independent facade review](../godot/reviews/ios-facade-review.md) keep source,
-common-code, framework, host and runtime evidence separate.
+[iOS diagnostic run 34428221586](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34428221586)
+at `a04f22b` linked and ran five tests: **one passed, four failed**. Actual stderr
+shows `Main::setup` rejected the host's `--path` because path overrides were
+disabled. There were zero Ready events, draws and iterations. The corrected
+`disable_path_overrides=no` build and explicit startup-stage diagnostics are
+pushed at `4f7776a` and **all five diagnostic tests pass** in
+[34431377938](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34431377938).
+Nine paired images/measurements show actual OpenGL rendering, pause/resume,
+touch-generated Exit and checked cleanup. Closed initialized cases release
+the view/controller and OS singleton, stop the loop, and restore the prior
+idle-timer policy. The reopen assertion confirms refusal after full cleanup;
+it does not qualify another game entry. This diagnostic gate remains separate
+from the new real-authority gameplay host.
 
-[The Godot work plan](../godot/README.md) records ownership and acceptance.
-Godot mobile accessibility, physical-device graphics/performance, networking
-integration and publisher gates remain separate. Neither renderer is selected
-for production; both are retained for the user's comparison.
+## Remaining release work
 
-## Still unfinished
+1. **Complete unblocked Godot implementation and native checks.** Verify the
+   corrected Android failures; finish the real iOS caller/gameplay gate and
+   lifecycle/re-entry behavior. Qualify both selectable native previews.
+   Production integration still needs the existing LAN shell and accessible
+   native controls: Godot desktop accessibility does not supply mobile
+   TalkBack/VoiceOver support.
+2. **Finish independent refreshed iOS audit and Rules recapture.** The original
+   app suites pass; these follow-ups narrow package and screenshot claims.
+3. **Qualify Android API 36.** Standard runner attempts have failed during empty
+   emulator preparation before installation. API 35 passes do not qualify API
+   36; physical or suitable alternative runner evidence remains necessary.
+4. **Execute physical-device release validation.** Android↔iPhone and
+   same-platform LAN matches/rematches with two-to-six players; camera/QR,
+   permission denial/recovery, real sharing/clipboard, network loss/reconnect,
+   host loss, background/lock/privacy/process death; supported minimum/current
+   OS, TalkBack/VoiceOver, large text, phone/tablet/orientation; release launch,
+   frame pacing, memory, battery and network use. Hardware is unavailable here.
+5. **Complete publisher/store setup.** Publisher name, public privacy URL and
+   support contact; Android signing identity and Apple team/provisioning; Play
+   Console/App Store Connect listings, disclosures and submission; signed
+   testing-track/TestFlight installation. These details were already requested.
+   Publisher assessment of Adobe DNG SDK commercial terms also remains; bundled
+   notices alone do not settle those terms.
 
-### 1. Refreshed native qualification and additional Android platforms
+## Published deliverables
 
-The Rules Practice button was located and captured in the completed Android
-baseline flow, without being tapped. Later review found that a new practice
-session could start while the Rules screen stayed open. The shared controller
-now opens the session when starting new practice. The updated controller suite
-has **9 passing JVM tests**, including a regression for Rules→Practice entry,
-preserving Rules during an existing live session, and clean leave/teardown.
-This is local common-code evidence; the changed app still needs native Android
-and iOS qualification. The historical 117-test and API 35 receipts above must
-not be relabeled as validation of this fix.
-
-Both debug and optimized test-signed APKs passed the then-configured acceptance flow in
-[run 34421746656](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34421746656),
-at `d3418f1`. Independent review verified 117 actual test cases, package integrity,
-the optimized test signature/payload, all 52 stage captures and 115 input records.
-The actual APK SHA-256 values are:
-
-- Debug: `69c168aaec7c5bf3900515d1c12e6d99f379d596046a78be41047b3d5f911598`.
-- Optimized test-signed: `a3c7f01fc586dc76d868bce781951048def30d69cda662521e29a4ba447e7a60`.
-
-The viewport fix is exercised by both APKs, including normal and 200% Join
-submission. An expired Launcher3 ANR at 00:45:38–39 is retained in the empty-AVD
-preparation logs; launcher readiness and the first PartyDeck installation at
-00:46:06 occurred afterward. No reboot or crash-dialog dismissal occurred, and
-no new ANR/crash appeared during either application's acceptance flow.
-
-Recent API 36 runs failed while preparing an **empty emulator**, before either
-APK was installed. ANGLE reduced shader startup substantially, but System UI
-still hit startup ANRs on the two-core runner. Reducing physical resolution to
-720 × 1600 at 280 dpi preserved the logical layout but did not resolve it.
-
-Standard API 35 runs 34413839964, 34417204089 and 34421746656 passed first-boot
-preparation with actual API and 720 × 1600/280 dpi verified. The earlier cached
-HOME handoff defect is fixed and runtime-proven. The post-keyboard focus fix is
-also exercised by both APKs. **API 36 remains an unresolved runner/runtime
-qualification**; the API 35 results do not close it. All soft keyboard, focus,
-text, crash, deadline and application assertions remained enforced.
-
-### 2. Physical devices, accessibility and performance — not executed
-
-- Android-to-iPhone, iPhone-to-Android and same-platform Wi-Fi sessions,
-  including two-to-six players and a complete match/rematch.
-- Camera scanning, local-network permission denial/recovery, real share and
-  clipboard behavior, Wi-Fi loss, reconnection and host loss.
-- Backgrounding, locking, app-switcher privacy, process death and cleanup on
-  actual phones.
-- TalkBack/VoiceOver traversal, large text, small/large screens, iPad/landscape,
-  and supported minimum OS versions.
-- Release-build launch, frame pacing, memory and battery/network measurements.
-
-Simulator/JVM results do not close these gates. No physical-device performance
-numbers or guaranteed frame rate have been claimed.
-
-### 3. Publisher configuration and store release — external input required
-
-- Publisher name, public privacy-policy URL and support contact. These have
-  been requested; the public in-app policy route depends on those details.
-- Production Android signing identity and Apple signing team/provisioning.
-- Play Console/App Store Connect access, store listing/screenshots, age/content
-  and privacy disclosures, and applicable export answers.
-- Signed testing-track/TestFlight installation and final store validation.
-- Publisher assessment of Adobe DNG SDK's commercial terms. DNG code is
-  confirmed in the optimized iOS renderer. Required notices are bundled;
-  including notices alone does not settle its commercial indemnification terms.
-
-## Existing deliverables
-
-- Source and coherent milestone commits are pushed to the private repository.
-- The committed and published [screenshot gallery](screenshots/README.md)
-  contains **477 app/renderer captures**, 469 evidence files, and four
-  linked artwork proofs after publication commit `19501a2`. The count is checked
-  against the committed manifest; no pending batch is included.
-- Build, test and signing commands are documented in [the main README](../README.md),
-  [script instructions](../scripts/README.md) and [iOS instructions](../iosApp/README.md).
-- Verified iOS archives and independent test summaries are copied locally to
-  `artifacts/delivery/`, with hashes in `ios-artifacts.json`.
-- Exact package hashes, inspected evidence and the complete release gate matrix
-  are in [release qualification](release-qualification.md).
-- Supporting records: [game review](game-review.md), [design review](design-review.md),
-  [security review](security-review.md), [privacy inventory](privacy.md), and
-  [dependency licenses](dependency-licenses.md).
-
-The **81%** original-scope estimate is retained as a historical baseline after
-the two configured API 35 passes, pending refreshed qualification of the shared
-controller fix. Native reruns, additional platform, physical-device and
-publisher gates remain open. Godot has no supported production-readiness
-percentage; both renderers remain available for comparison.
+- Source and coherent milestones are pushed to the repository.
+- [Screenshot gallery](screenshots/README.md): **672 original app/renderer PNGs**,
+  **938 evidence files**, four linked artwork proofs and **1,615 verified
+  checksums**, published at `75a5899`. Newer batches are not included until pushed.
+- [Main build instructions](../README.md), [validation scripts](../scripts/README.md),
+  [iOS instructions](../iosApp/README.md), and
+  [both desktop Godot preview commands](../godot/comparison/README.md).
+- Exact artifacts, review limits and release gates are documented in
+  [release qualification](release-qualification.md),
+  [CI research](research/engine-ci.md), and the
+  [Godot review records](../godot/reviews/).
