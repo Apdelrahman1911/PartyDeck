@@ -4,6 +4,17 @@ Research date: 2026-09-09. Sources below were fetched directly from the official
 documentation, release APIs, and artifact repositories. This document distinguishes
 documented compatibility from builds actually executed by the independent reviewer.
 
+Latest Android baseline result (2026-09-10): [run 34457458638][49] at
+`f11f92ed4ec4f91630396bf493ba2fd984f07bb9` **passed the ordinary API 36 debug
+and disposable-test-signed optimized application smoke**. First-boot preparation
+passed with PartyDeck absent and no reboot; all **23 independent evidence
+checks passed**. The public `ubuntu-24.04` runner supplied **four CPUs** and
+**15,989 MiB RAM** on image `20260831.293.1`. This supersedes the earlier
+unresolved baseline status below. Native Godot presentation, session, and
+lifecycle qualification were outside this run (`android_godot_session=false`);
+physical-device, mixed-device LAN, camera-frame, distribution-signing, and store
+qualification remain separate.
+
 Current iOS qualification: [run 34398824935][37] at
 `987d380967149d80d8ba5761e206ecdf7386af25` passed the complete iOS job, including
 **82 shared-native tests, three Swift TLS tests, three UI tests, and the optimized
@@ -436,10 +447,11 @@ SwiftShader for GLES, while Vulkan still uses SwiftShader. The retained
 **720×1600 at 280 dpi** configuration preserves the former logical viewport of
 **411.43×914.29 dp** with **55.56% fewer pixels**. [47]
 
-Commit `b192d342e7830841451063ad642e71159dce6be2` makes standard **API 35** the
-default functional runtime baseline. **API 36 remains a separate unresolved
-runner qualification**, selectable through `PARTYDECK_ANDROID_API=36` or the
-manual workflow's `android_api` input. Official Google repository metadata
+Commit `b192d342e7830841451063ad642e71159dce6be2` made standard **API 35** the
+default functional runtime baseline. **API 36 runner qualification was unresolved
+at that checkpoint**, selectable through `PARTYDECK_ANDROID_API=36` or the
+manual workflow's `android_api` input. The dated API 36 result below supersedes
+that open baseline status. Official Google repository metadata
 confirms `system-images;android-35;default;x86_64`, revision **2**; each run saves
 the installed image's `source.properties` as evidence. [48]
 
@@ -453,6 +465,46 @@ single preparation recovery, existing deadlines, strict ANR rejection, and all
 debug/optimized application assertions are retained. Changing the selected API
 does not change the app's compile/target SDK or count as runtime success; an
 API 35 result cannot qualify API 36.
+
+The **2026-09-10 API 36 baseline pass** came from [run 34457458638][49] at
+`f11f92ed4ec4f91630396bf493ba2fd984f07bb9`, whose app targets API 36. The public
+`ubuntu-24.04` x86_64 host had **four CPUs** (AMD EPYC 7763), **15,989 MiB RAM**,
+and usable KVM. Its runner image was **`20260831.293.1`**, the same version as
+the latest prior API 36 failure, run `34406555185`. That run and earlier failures
+`34398824935` and `34402895350` each had two CPUs and 7,938 MiB RAM and failed
+empty-AVD System UI readiness before either APK installed. The larger public
+runner allocation is verified; CPU count was not isolated as the sole cause
+of success. [17]
+
+The passing run used Android Emulator **37.1.11.0**, build **15917651**, and the
+full official **`system-images;android-36;default;x86_64` revision 2** image. [9][50]
+Receipts verify actual guest API **36**, `swangle`, and **720 × 1600 at 280 dpi**.
+First-boot preparation passed with PartyDeck absent, without recovery or a reboot;
+the emulator reported boot completion in **36,473 ms**.
+
+Both debug and disposable-test-signed optimized APK flows passed, each with
+**86 recorded steps** and **30 named stage captures**. The executed scope covers
+rules, settings persistence, practice privacy/background/play, local hosting/share
+teardown, invalid-Join recovery, and reachability at standard and **200% text**
+with real soft-keyboard checks. Neither result records diagnostic or
+settings-restoration errors.
+
+The independent retained-evidence audit passed **23 checks**. The reports ZIP
+matched GitHub's published SHA-256 and passed ZIP integrity checks. A scan of
+**44 retained diagnostic logs** found no ANR, fatal-exception, or fatal-signal
+markers. Generic `crash_dump` seccomp-policy warnings remain; this scan covers
+the collected logs and does not establish an exhaustive history or clean driver
+logs. The audit receipt is
+`/tmp/partydeck-api36-independent-_pxljpkr/run-34457458638/final-receipt.json`,
+SHA-256 `90646e74f95150462306d51bafcff50dbbf389b70bf1776e7e07395aea19728a`.
+
+APK identities came from the executed-input receipts; the optimized hash matches
+the disposable-signing receipt. The separate **474 MB package artifact was not
+downloaded** by this audit. Screenshot identities and dimensions were checked;
+this was not an independent visual/accessibility review of every image.
+`android_godot_session=false`, so the result does not qualify native Godot
+presentation, session, or renderer lifecycle. Physical-device, mixed-device LAN,
+camera-frame, distribution-signing, and store acceptance remain outside this run.
 
 The manual workflow platform selector is a required single-choice string with
 default `all`. Source review confirms normal push/PR events select both jobs,
@@ -561,3 +613,5 @@ remains a CI check. [33][34][35]
 [46]: https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#onworkflow_dispatchinputs
 [47]: https://developer.android.com/studio/run/emulator-acceleration
 [48]: https://dl.google.com/android/repository/sys-img/android/sys-img2-1.xml
+[49]: https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34457458638
+[50]: https://dl.google.com/android/repository/sys-img/android/sys-img2-4.xml

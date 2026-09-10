@@ -106,9 +106,24 @@ Set `PARTYDECK_ANDROID_API=36` and install
 `system-images;android-36;default;x86_64` to select Android 16 instead. Both the
 wrapper and CI restrict the image choice to API 35 or 36. The installed image
 metadata and actual guest API are recorded, and the actual API must match the
-requested value before either APK installs. API 36 runtime qualification remains
-unresolved on the two-vCPU CI runner because System UI failed during empty-AVD
-preparation; API 35 execution does not satisfy that separate gate.
+requested value before either APK installs.
+
+Verified API 36 baseline (2026-09-10): [run 34457458638](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34457458638)
+at `f11f92ed4ec4f91630396bf493ba2fd984f07bb9` passed first-boot preparation
+with PartyDeck absent and no reboot, then both debug and disposable-test-signed
+optimized app flows at standard and 200% text, including real soft-keyboard
+checks. The public `ubuntu-24.04` runner supplied **four CPUs**, **15,989 MiB RAM**,
+usable KVM, and runner image `20260831.293.1`. It ran the full official API 36
+image above, revision **2**, with actual guest API **36** and the
+`swangle`/720 × 1600/280 dpi configuration below.
+
+The earlier two-CPU System UI preparation failures remain historical; the latest
+failure used this same runner image version. This pass establishes the API 36
+baseline for the ordinary app flows at that revision.
+`android_godot_session=false`, so native Godot presentation, session, and lifecycle
+qualification remain separate. Physical devices, mixed-device LAN, camera frames,
+distribution signing, and store acceptance are outside this run. See the
+[detailed toolchain evidence](../docs/research/toolchain.md#android-preparation-and-jvm-close-test-review).
 
 It requires accessible `/dev/kvm` and passes `-accel on`; it does not silently
 fall back to slow software CPU emulation. Graphics use the supported `swangle`
@@ -188,7 +203,7 @@ gh workflow run validate.yml --ref main -f platform=android
 ```
 
 The manual `android_api` choice defaults to `35`; add `-f android_api=36` for
-the separate Android 16 qualification attempt.
+the Android 16 application smoke.
 
 Verify the resulting run's `headSha` against the intended commit. A platform-only
 run records that platform's evidence; cite the separate unchanged-platform run
