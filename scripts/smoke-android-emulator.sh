@@ -7,6 +7,7 @@ PARTYDECK_ANDROID_OUTPUT="$PARTYDECK_ROOT/build/ci/android"
 PARTYDECK_ANDROID_SDK="${ANDROID_HOME:?Set ANDROID_HOME to the installed Android SDK.}"
 PARTYDECK_ANDROID_API="${PARTYDECK_ANDROID_API:-35}"
 PARTYDECK_ANDROID_GODOT_SESSION_SMOKE="${PARTYDECK_ANDROID_GODOT_SESSION_SMOKE:-0}"
+PARTYDECK_ANDROID_GODOT_ADAPTIVE_SMOKE="${PARTYDECK_ANDROID_GODOT_ADAPTIVE_SMOKE:-0}"
 PARTYDECK_SOURCE_REVISION="${PARTYDECK_SOURCE_REVISION:-${GITHUB_SHA:-}}"
 if [[ "$PARTYDECK_ANDROID_API" != 35 && "$PARTYDECK_ANDROID_API" != 36 ]]; then
   printf '%s\n' 'PARTYDECK_ANDROID_API must be 35 or 36.' >&2
@@ -15,6 +16,31 @@ fi
 if [[ "$PARTYDECK_ANDROID_GODOT_SESSION_SMOKE" != 0 && "$PARTYDECK_ANDROID_GODOT_SESSION_SMOKE" != 1 ]]; then
   printf '%s\n' 'PARTYDECK_ANDROID_GODOT_SESSION_SMOKE must be 0 or 1.' >&2
   exit 1
+fi
+if [[ "$PARTYDECK_ANDROID_GODOT_ADAPTIVE_SMOKE" != 0 && "$PARTYDECK_ANDROID_GODOT_ADAPTIVE_SMOKE" != 1 ]]; then
+  printf '%s\n' 'PARTYDECK_ANDROID_GODOT_ADAPTIVE_SMOKE must be 0 or 1.' >&2
+  exit 1
+fi
+if [[ "$PARTYDECK_ANDROID_GODOT_ADAPTIVE_SMOKE" == 1 ]]; then
+  if [[ "$PARTYDECK_ANDROID_API" != 36 || "$PARTYDECK_ANDROID_GODOT_SESSION_SMOKE" != 0 || \
+        "$PARTYDECK_SOURCE_REVISION" != "${GITHUB_SHA:-}" ]]; then
+    printf '%s\n' 'Adaptive CI requires API36, the workflow source revision and its own execution path.' >&2
+    exit 1
+  fi
+  PARTYDECK_ADAPTIVE_VARIANT="${PARTYDECK_ADAPTIVE_VARIANT:?Set the exact adaptive APK variant.}"
+  PARTYDECK_ADAPTIVE_FONT_SCALE="${PARTYDECK_ADAPTIVE_FONT_SCALE:?Set the adaptive font scale.}"
+  if [[ "$PARTYDECK_ADAPTIVE_VARIANT" != debug && "$PARTYDECK_ADAPTIVE_VARIANT" != optimized-test-signed ]] || \
+     [[ "$PARTYDECK_ADAPTIVE_FONT_SCALE" != 1.0 && "$PARTYDECK_ADAPTIVE_FONT_SCALE" != 2.0 ]]; then
+    printf '%s\n' 'Adaptive CI requires debug/optimized-test-signed and 1.0/2.0 text.' >&2
+    exit 1
+  fi
+  PARTYDECK_ADAPTIVE_BUNDLE="$PARTYDECK_ANDROID_OUTPUT/adaptive-inputs"
+  PARTYDECK_ADAPTIVE_OUTPUT="$PARTYDECK_ANDROID_OUTPUT/godot-adaptive"
+  # Check the producer's exact same-run inputs before starting an emulator.
+  python3 -B scripts/android_godot_adaptive_inputs.py verify \
+    --bundle "$PARTYDECK_ADAPTIVE_BUNDLE" \
+    --output "$PARTYDECK_ADAPTIVE_OUTPUT/package-inputs" \
+    --manifest-sha256 "${PARTYDECK_ADAPTIVE_MANIFEST_SHA256:?Set the producer input manifest SHA-256.}"
 fi
 if [[ "$PARTYDECK_ANDROID_GODOT_SESSION_SMOKE" == 1 ]]; then
   if [[ ! "$PARTYDECK_SOURCE_REVISION" =~ ^[0-9a-f]{40}$ ]]; then
@@ -165,6 +191,69 @@ finally:
 if not result["displayVerified"] or not result["guestApiVerified"]:
     raise SystemExit("Android guest API or display does not match the expected configuration; APK checks cannot start.")
 PY
+
+if [[ "$PARTYDECK_ANDROID_GODOT_ADAPTIVE_SMOKE" == 1 ]]; then
+  # Preserve the exact installed SDK image files and the observed guest identity.
+  python3 - "$PARTYDECK_EMULATOR_SERIAL" "$PARTYDECK_ANDROID_SDK" "$PARTYDECK_ADAPTIVE_OUTPUT" <<'PY'
+import hashlib
+import json
+from pathlib import Path
+import subprocess
+import sys
+
+serial, sdk, output = sys.argv[1], Path(sys.argv[2]), Path(sys.argv[3])
+image = sdk / 'system-images/android-36/default/x86_64'
+files = []
+for path in sorted(image.rglob('*')):
+    if path.is_file():
+        with path.open('rb') as stream:
+            digest = hashlib.file_digest(stream, 'sha256').hexdigest()
+        files.append({'path': str(path.relative_to(image)), 'bytes': path.stat().st_size, 'sha256': digest})
+guest = {}
+for key in ('ro.build.fingerprint', 'ro.build.version.sdk', 'ro.build.version.release',
+            'ro.build.version.incremental', 'ro.build.type', 'ro.debuggable', 'ro.product.cpu.abi'):
+    value = subprocess.run(['adb', '-s', serial, 'shell', 'getprop', key],
+                           capture_output=True, text=True, check=True, timeout=20)
+    guest[key] = value.stdout.strip()
+for name in ('source.properties', 'package.xml'):
+    path = sdk / 'emulator' / name
+    if path.is_file():
+        (output / ('emulator-' + name)).write_bytes(path.read_bytes())
+(output / 'device-provenance.json').write_text(json.dumps({
+    'requestedSystemImage': 'system-images;android-36;default;x86_64',
+    'sdkImageFiles': files, 'guestProperties': guest, 'serial': serial,
+    'api35AdaptiveScope': 'Separate; no compatibility or qualification claim.',
+}, indent=2) + '\n')
+if not files or guest['ro.build.version.sdk'] != '36' or not guest['ro.build.fingerprint']:
+    raise SystemExit('Cannot attribute the actual API36 emulator image and guest.')
+PY
+  PARTYDECK_ADAPTIVE_APK="$PARTYDECK_ADAPTIVE_BUNDLE/androidApp-debug.apk"
+  if [[ "$PARTYDECK_ADAPTIVE_VARIANT" == optimized-test-signed ]]; then
+    PARTYDECK_ADAPTIVE_APK="$PARTYDECK_ADAPTIVE_BUNDLE/PartyDeck-release-ci-test-signed.apk"
+  fi
+  PARTYDECK_ADAPTIVE_STATUS=0
+  python3 -B scripts/smoke_android_godot_adaptive.py \
+    --session-checker scripts/smoke-android-godot-session.py \
+    --serial "$PARTYDECK_EMULATOR_SERIAL" --apk "$PARTYDECK_ADAPTIVE_APK" \
+    --source-revision "$PARTYDECK_SOURCE_REVISION" --variant "$PARTYDECK_ADAPTIVE_VARIANT" \
+    --font-scale "$PARTYDECK_ADAPTIVE_FONT_SCALE" --modes 2d 3d \
+    --output "$PARTYDECK_ADAPTIVE_OUTPUT/runtime" || PARTYDECK_ADAPTIVE_STATUS=$?
+  python3 - "$PARTYDECK_ADAPTIVE_OUTPUT" "$PARTYDECK_ADAPTIVE_STATUS" \
+    "$PARTYDECK_ADAPTIVE_VARIANT" "$PARTYDECK_ADAPTIVE_FONT_SCALE" <<'PY'
+import json
+from pathlib import Path
+import sys
+
+output, status, variant, font = Path(sys.argv[1]), int(sys.argv[2]), sys.argv[3], sys.argv[4]
+(output / 'execution.json').write_text(json.dumps({
+    'runnerExitCode': status, 'variant': variant, 'fontScale': font, 'modes': ['2d', '3d'],
+    'androidApi': 36, 'unsupported': status == 2,
+    'scope': 'Adaptive automated scope only; original pixel privacy review remains required.',
+}, indent=2) + '\n')
+PY
+  # Exit 2 remains unsupported and fails the job; ordinary baseline flows do not run here.
+  exit "$PARTYDECK_ADAPTIVE_STATUS"
+fi
 
 run_godot_session_smoke() {
   local variant="$1" apk="$2" output="$3"

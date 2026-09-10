@@ -149,10 +149,123 @@ class SessionSmokeSafetyTests(unittest.TestCase):
     def test_process_table_keeps_full_names_and_rejects_an_unknown_schema(self):
         rows = smoke.parse_process_table(f"  PID UID NAME\n601 10234 {smoke.PACKAGE}\n602 10234 {smoke.RENDERER_PROCESS}-other\n")
         self.assertEqual(smoke.RENDERER_PROCESS + "-other", rows[602]["name"])
-        for text in ("USER PID NAME\nu0_a234 602 dev.partydeck.app\n", "PID UID NAME\n602 x name\n",
+        for text in ("USER PID NAME\nu0_a234 602 dev.partydeck.app\n", "PID USER NAME\n602 10234 name\n",
+                     "PID UID NAME EXTRA\n602 10234 name\n", "PID UID NAME\n602 u0_a234 name\n",
+                     "PID UID NAME\n602 x name\n", "PID UID NAME\n602 ١٠٢٣٤ name\n",
+                     "PID UID NAME\n٠٦٠٢ 10234 name\n", "PID UID NAME\n0 10234 name\n",
                      "PID UID NAME\n602 10234 name\n602 10234 other\n"):
             with self.subTest(text=text), self.assertRaises(smoke.CheckFailure):
                 smoke.parse_process_table(text)
+
+    def test_toybox_padded_header_does_not_normalize_process_names(self):
+        # Source-derived fixture: AOSP Android 15/16 get_headers() keeps NAME's
+        # 27-column padding. The failed CI run did not retain its actual stdout.
+        header = f"{'PID':>6} {'UID':>5} {'NAME':<27}"
+        for newline in ("\n", "\r\n"):
+            text = newline.join((header, f"601 10234 {smoke.PACKAGE}",
+                                 f"602 10234 {smoke.RENDERER_PROCESS}-other",
+                                 "603 0 [kernel worker]", f"604 10234 {smoke.PACKAGE} ", ""))
+            with self.subTest(newline=newline):
+                rows = smoke.parse_process_table(text)
+                self.assertEqual(smoke.PACKAGE, rows[601]["name"])
+                self.assertEqual(smoke.RENDERER_PROCESS + "-other", rows[602]["name"])
+                self.assertEqual("[kernel worker]", rows[603]["name"])
+                self.assertEqual(smoke.PACKAGE + " ", rows[604]["name"])
+
+    def test_process_sample_retains_exact_bytes_and_command_before_parsing(self):
+        device = smoke.GodotSessionSmoke("host-only-replay", self.output)
+        raw = (f"{'PID':>6} {'UID':>5} {'NAME':<27}\r\n"
+               f"601 10234 {smoke.PACKAGE}\r\n602 10234 {smoke.RENDERER_PROCESS}\r\n").encode()
+        result = subprocess.CompletedProcess([], 0, raw, b"")
+        original_parser = smoke.parse_process_table
+
+        def parse_after_preservation(value):
+            receipt = json.loads((self.output / "logs/process-table-0001.json").read_text())
+            self.assertEqual(raw, (self.output / receipt["stdout"]["file"]).read_bytes())
+            self.assertEqual(b"", (self.output / receipt["stderr"]["file"]).read_bytes())
+            self.assertEqual(smoke.sha256_file(self.output / receipt["stdout"]["file"]), receipt["stdout"]["sha256"])
+            self.assertEqual(0, receipt["returncode"])
+            self.assertEqual(["adb", "-s", "host-only-replay", "shell", "ps", "-A", "-n", "-w", "-o", "PID,UID,NAME"], receipt["argv"])
+            return original_parser(value)
+
+        with patch.object(device, "adb", return_value=activity_dump()), \
+                patch.object(device, "pids", side_effect=[[601], [602]]), \
+                patch.object(device, "command", return_value=result) as command, \
+                patch.object(smoke, "parse_process_table", side_effect=parse_after_preservation):
+            state = device.state()
+        command.assert_called_once_with("shell", "ps", "-A", "-n", "-w", "-o", "PID,UID,NAME", binary=True)
+        self.assertEqual([601], state["shell_pids"])
+        self.assertEqual([602], state["renderer_pids"])
+
+    def test_rejected_process_header_keeps_original_output(self):
+        device = smoke.GodotSessionSmoke("host-only-replay", self.output)
+        raw = b"PID USER NAME   \r\n601 10234 name\r\n"
+        with patch.object(device, "adb", return_value=activity_dump()), \
+                patch.object(device, "pids", side_effect=[[601], []]), \
+                patch.object(device, "command", return_value=subprocess.CompletedProcess([], 0, raw, b"")), \
+                self.assertRaises(smoke.CheckFailure):
+            device.state()
+        self.assertEqual(raw, (self.output / "logs/process-table-0001.stdout.log").read_bytes())
+        self.assertFalse((self.output / "logs/last-processes.log").exists())
+
+    def test_process_command_errors_retain_stdout_stderr_and_exit(self):
+        for index, returncode in enumerate((0, 2)):
+            output = self.output / str(index)
+            output.mkdir()
+            device = smoke.GodotSessionSmoke("host-only-replay", output)
+            raw, error = b"PID UID NAME   \n", b"ps: read error\xff\r\n"
+            with patch.object(device, "command", return_value=subprocess.CompletedProcess([], returncode, raw, error)), \
+                    self.assertRaises(smoke.CheckFailure):
+                device.read_process_table()
+            receipt = json.loads((output / "logs/process-table-0001.json").read_text())
+            self.assertEqual(returncode, receipt["returncode"])
+            self.assertEqual(raw, (output / receipt["stdout"]["file"]).read_bytes())
+            self.assertEqual(error, (output / receipt["stderr"]["file"]).read_bytes())
+
+    def test_process_timeout_retains_partial_bytes_without_inventing_exit(self):
+        device = smoke.GodotSessionSmoke("host-only-replay", self.output)
+        partial = b"PID UID NAME   \r\n601 10234 "
+        timeout = subprocess.TimeoutExpired(["adb"], 20, output=partial, stderr=None)
+        with patch.object(device, "command", side_effect=timeout), self.assertRaises(subprocess.TimeoutExpired):
+            device.read_process_table()
+        receipt = json.loads((self.output / "logs/process-table-0001.json").read_text())
+        self.assertIsNone(receipt["returncode"])
+        self.assertEqual("timeout", receipt["error"])
+        self.assertEqual(20, receipt["timeout_seconds"])
+        self.assertEqual(partial, (self.output / receipt["stdout"]["file"]).read_bytes())
+        self.assertEqual({"available": False}, receipt["stderr"])
+
+    def test_process_launch_failure_records_unavailable_streams(self):
+        device = smoke.GodotSessionSmoke("host-only-replay", self.output)
+        with patch.object(device, "command", side_effect=FileNotFoundError("adb unavailable")), \
+                self.assertRaises(FileNotFoundError):
+            device.read_process_table()
+        receipt = json.loads((self.output / "logs/process-table-0001.json").read_text())
+        self.assertIsNone(receipt["returncode"])
+        self.assertEqual("FileNotFoundError", receipt["error"])
+        self.assertEqual({"available": False}, receipt["stdout"])
+        self.assertEqual({"available": False}, receipt["stderr"])
+
+    def test_invalid_process_output_encoding_remains_available(self):
+        device = smoke.GodotSessionSmoke("host-only-replay", self.output)
+        raw = b"PID UID NAME\n601 10234 \xff\n"
+        with patch.object(device, "command", return_value=subprocess.CompletedProcess([], 0, raw, b"")), \
+                self.assertRaises(UnicodeDecodeError):
+            device.read_process_table()
+        self.assertEqual(raw, (self.output / "logs/process-table-0001.stdout.log").read_bytes())
+
+    def test_inconsistent_process_samples_never_accept_a_similar_name_or_overwrite_originals(self):
+        device = smoke.GodotSessionSmoke("host-only-replay", self.output)
+        raw = f"PID UID NAME   \n601 10234 {smoke.PACKAGE}-other\n".encode()
+        with patch.object(device, "adb", return_value=activity_dump()), \
+                patch.object(device, "pids", side_effect=[[601], []] * 3), \
+                patch.object(device, "command", return_value=subprocess.CompletedProcess([], 0, raw, b"")), \
+                patch.object(smoke.time, "sleep"), self.assertRaisesRegex(smoke.CheckFailure, "repeatedly disagree"):
+            device.state()
+        for sequence in range(1, 4):
+            self.assertEqual(raw, (self.output / f"logs/process-table-{sequence:04d}.stdout.log").read_bytes())
+            self.assertTrue((self.output / f"logs/process-table-{sequence:04d}.json").is_file())
+        self.assertFalse((self.output / "logs/last-processes.log").exists())
 
     def test_ambiguous_or_unrecognized_focus_cannot_prove_foreground(self):
         for value in ("ACTIVITY " + smoke.NATIVE_COMPONENT,

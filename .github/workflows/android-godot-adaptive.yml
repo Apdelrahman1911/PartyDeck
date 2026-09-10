@@ -1,0 +1,174 @@
+name: Android Godot adaptive execution
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: android-godot-adaptive-${{ github.ref }}
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  packages:
+    name: Build both production qualification APKs and bind their inputs
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    outputs:
+      artifact-id: ${{ steps.inputs.outputs.artifact-id }}
+      inputs-sha256: ${{ steps.bind-inputs.outputs.inputs-sha256 }}
+    steps:
+      - name: Check out the exact source revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Set up Java
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Set up the production Android build tools
+        uses: android-actions/setup-android@40fd30fb8d7440372e1316f5d1809ec01dcd3699 # v4.0.1
+        with:
+          packages: 'platform-tools platforms;android-37.1 build-tools;36.0.0'
+          log-accepted-android-sdk-licenses: false
+      - name: Set up Gradle and validate the wrapper
+        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+        with:
+          cache-provider: basic
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+      - name: Prepare graphics support and the source-checked renderer pack
+        run: |
+          bash scripts/setup-ubuntu-graphics.sh
+          bash scripts/prepare-godot-renderer.sh
+      - name: Build debug and optimized APKs with explicit qualification activation
+        run: |
+          for PARTYDECK_SIGNING_VARIABLE in PARTYDECK_KEYSTORE_PATH PARTYDECK_KEYSTORE_PASSWORD PARTYDECK_KEY_ALIAS PARTYDECK_KEY_PASSWORD; do
+            if [[ -v "$PARTYDECK_SIGNING_VARIABLE" ]]; then
+              printf '%s\n' 'Adaptive CI requires all production signing variables to be absent.' >&2
+              exit 1
+            fi
+          done
+          ./gradlew --console=plain -PpartydeckGodotQualificationModes=2d,3d \
+            :androidApp:recordGodotPresentationActivation \
+            :androidApp:assembleDebug :androidApp:assembleRelease \
+            2>&1 | tee build/ci/android/adaptive-build.log
+      - name: Prepare the optimized runtime APK with one disposable CI identity
+        run: |
+          bash scripts/prepare-android-runtime-apk.sh \
+            androidApp/build/outputs/apk/release/androidApp-release-unsigned.apk \
+            build/ci/android/packages
+      - name: Verify and bind the exact APKs, activation metadata and pack
+        id: bind-inputs
+        run: |
+          python3 -B scripts/android_godot_adaptive_inputs.py record \
+            --bundle build/ci/android/adaptive-inputs \
+            --output build/ci/android/adaptive-producer
+          PARTYDECK_INPUTS_SHA="$(sha256sum build/ci/android/adaptive-inputs/inputs.json)"
+          printf 'inputs-sha256=%s\n' "${PARTYDECK_INPUTS_SHA%% *}" >> "$GITHUB_OUTPUT"
+      - name: Preserve the same-run runtime inputs
+        id: inputs
+        uses: ./.github/actions/upload-artifact
+        with:
+          name: android-adaptive-inputs-${{ github.run_id }}-${{ github.run_attempt }}
+          path: build/ci/android/adaptive-inputs/
+          retention-days: 14
+          if-no-files-found: error
+      - name: Preserve producer evidence
+        if: always()
+        uses: ./.github/actions/upload-artifact
+        with:
+          name: android-adaptive-build-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            build/ci/android/**/*.json
+            build/ci/android/**/*.xml
+            build/ci/android/**/*.log
+            androidApp/build/outputs/apk/**
+            build/ci/android/packages/*.apk
+            godot/qualification/build/renderer/*.receipt.json
+            godot/qualification/build/toolchain/install.receipt.json
+          retention-days: 14
+          if-no-files-found: warn
+
+  adaptive:
+    name: API36 / ${{ matrix.variant }} / ${{ matrix.font_scale }}x text / both modes
+    needs: packages
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: ['debug', 'optimized-test-signed']
+        font_scale: ['1.0', '2.0']
+    steps:
+      - name: Check out the same source revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Set up Java for Android SDK tools
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Set up the standard Android 36 image and package inspection tools
+        uses: android-actions/setup-android@40fd30fb8d7440372e1316f5d1809ec01dcd3699 # v4.0.1
+        with:
+          packages: 'platform-tools emulator system-images;android-36;default;x86_64 build-tools;36.0.0'
+          log-accepted-android-sdk-licenses: false
+      - name: Install FFmpeg and ffprobe from the runner's Ubuntu sources
+        run: |
+          mkdir -p build/ci/android
+          PARTYDECK_UBUNTU_SOURCES=/etc/apt/sources.list.d/ubuntu.sources
+          test -r "$PARTYDECK_UBUNTU_SOURCES"
+          cp "$PARTYDECK_UBUNTU_SOURCES" build/ci/android/video-ubuntu-sources.log
+          PARTYDECK_APT_EMPTY="$(mktemp -d "$RUNNER_TEMP/partydeck-video-apt.XXXXXX")"
+          trap 'rmdir -- "$PARTYDECK_APT_EMPTY"' EXIT
+          PARTYDECK_APT_OPTIONS=(-o "Dir::Etc::sourcelist=$PARTYDECK_UBUNTU_SOURCES" -o "Dir::Etc::sourceparts=$PARTYDECK_APT_EMPTY" -o Acquire::Retries=3)
+          sudo apt-get "${PARTYDECK_APT_OPTIONS[@]}" update \
+            2>&1 | tee build/ci/android/video-apt-update.log
+          sudo apt-get "${PARTYDECK_APT_OPTIONS[@]}" install --yes --no-install-recommends ffmpeg \
+            2>&1 | tee build/ci/android/video-apt-install.log
+          ffmpeg -version > build/ci/android/ffmpeg-version.log
+          ffprobe -version > build/ci/android/ffprobe-version.log
+      - name: Download the producer's exact artifact from this workflow run
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          artifact-ids: ${{ needs.packages.outputs.artifact-id }}
+          path: build/ci/android/adaptive-inputs
+      - name: Enable KVM access
+        run: |
+          test -e /dev/kvm
+          sudo chmod a+rw /dev/kvm
+      - name: Run both modes through the adaptive runner on a fresh AVD
+        timeout-minutes: 40
+        env:
+          PARTYDECK_ANDROID_API: '36'
+          PARTYDECK_ANDROID_GODOT_ADAPTIVE_SMOKE: '1'
+          PARTYDECK_ANDROID_GODOT_SESSION_SMOKE: '0'
+          PARTYDECK_SOURCE_REVISION: ${{ github.sha }}
+          PARTYDECK_ADAPTIVE_VARIANT: ${{ matrix.variant }}
+          PARTYDECK_ADAPTIVE_FONT_SCALE: ${{ matrix.font_scale }}
+          PARTYDECK_ADAPTIVE_MANIFEST_SHA256: ${{ needs.packages.outputs.inputs-sha256 }}
+          PARTYDECK_ADAPTIVE_ARTIFACT_ID: ${{ needs.packages.outputs.artifact-id }}
+        run: |
+          timeout --signal=TERM --kill-after=30s 38m bash scripts/smoke-android-emulator.sh \
+            2>&1 | tee build/ci/android/adaptive-wrapper.log
+      - name: Preserve original adaptive videos, images, observations and failure evidence
+        if: always()
+        uses: ./.github/actions/upload-artifact
+        with:
+          name: android-adaptive-api36-${{ matrix.variant }}-font-${{ matrix.font_scale }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            build/ci/android/godot-adaptive/**
+            build/ci/android/preparation/**
+            build/ci/android/*.log
+            build/ci/android/display-configuration.json
+          retention-days: 14
+          if-no-files-found: warn

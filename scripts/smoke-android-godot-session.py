@@ -12,6 +12,8 @@ Platform contracts checked against Android android-16.0.0_r1 sources:
   frameworks/base/services/core/java/com/android/server/am/ActivityManagerShellCommand.java
   system/core/run-as/run-as.cpp; external/toybox/toys/lsb/pidof.c
   packages/apps/Launcher3/quickstep/res/layout/{overview_panel,fallback_recents_activity}.xml
+Toybox ps formatting also checked against android-15.0.0_r1 and android-16.0.0_r1:
+  external/toybox/toys/posix/ps.c
 Sources: https://android.googlesource.com/platform/
 """
 
@@ -99,11 +101,15 @@ def parse_pidof(returncode, stdout, stderr):
 
 
 def parse_process_table(value):
-    lines = [line.split(None, 2) for line in value.splitlines() if line.strip()]
-    require(lines and lines[0] == ["PID", "UID", "NAME"], "Unrecognized Android ps PID/UID/NAME output.")
+    lines = [line for line in value.splitlines() if line.strip()]
+    # Toybox pads the final NAME header, but not the final process-name field.
+    # Normalize header whitespace only; process names must retain exact identity.
+    require(lines and lines[0].split() == ["PID", "UID", "NAME"], "Unrecognized Android ps PID/UID/NAME output.")
     rows = {}
-    for fields in lines[1:]:
-        require(len(fields) == 3 and fields[0].isdigit() and fields[1].isdigit(), "Malformed Android ps row.")
+    for line in lines[1:]:
+        fields = line.split(None, 2)
+        require(len(fields) == 3 and re.fullmatch(r"[0-9]+", fields[0])
+                and re.fullmatch(r"[0-9]+", fields[1]), "Malformed Android ps row.")
         pid, uid, name = int(fields[0]), int(fields[1]), fields[2]
         require(pid > 0 and pid not in rows, "Invalid or duplicate Android ps PID.")
         rows[pid] = {"pid": pid, "uid": uid, "name": name}
@@ -294,6 +300,7 @@ class GodotSessionSmoke(ui.AndroidSmoke):
         self.intentional_signals = []
         self.home_component = None
         self.logcat_started = False
+        self.process_table_sequence = 0
         for directory in ("captures", "identity", "logs"):
             (output / directory).mkdir()
 
@@ -358,6 +365,42 @@ class GodotSessionSmoke(ui.AndroidSmoke):
         result = self.command("shell", "pidof", name)
         return parse_pidof(result.returncode, result.stdout, result.stderr)
 
+    def read_process_table(self):
+        self.process_table_sequence += 1
+        prefix = f"logs/process-table-{self.process_table_sequence:04d}"
+        # UID is numeric in Toybox; -n makes that intent explicit and -w avoids
+        # truncation. Keep the verified PID/UID/NAME schema, without USER aliases.
+        arguments = ("shell", "ps", "-A", "-n", "-w", "-o", "PID,UID,NAME")
+        receipt = {"argv": ["adb", "-s", self.serial, *arguments],
+                   "started_utc": utc_now(), "returncode": None}
+        stdout = stderr = None
+        try:
+            result = self.command(*arguments, binary=True)
+            stdout, stderr = result.stdout, result.stderr
+            receipt["returncode"] = result.returncode
+        except subprocess.TimeoutExpired as error:
+            stdout, stderr = error.stdout, error.stderr
+            receipt.update(error="timeout", timeout_seconds=error.timeout)
+            raise
+        except OSError as error:
+            receipt.update(error=type(error).__name__, message=ui.redacted(str(error)))
+            raise
+        finally:
+            # Preserve every sample before decoding, parsing or consistency checks.
+            # A timeout has no observed exit code; missing streams stay unavailable.
+            receipt["ended_utc"] = utc_now()
+            for stream, raw in (("stdout", stdout), ("stderr", stderr)):
+                entry = {"available": raw is not None}
+                if raw is not None:
+                    name = f"{prefix}.{stream}.log"
+                    (self.output / name).write_bytes(raw)
+                    entry.update(file=name, bytes=len(raw), sha256=sha256_file(self.output / name))
+                receipt[stream] = entry
+            self.write_json(f"{prefix}.json", receipt)
+        require(result.returncode == 0 and not result.stderr.strip(),
+                f"Android ps failed (exit {result.returncode}); inspect {prefix}.json.")
+        return result.stdout.decode("utf-8", errors="strict")
+
     def state(self):
         started = utc_now()
         # Process creation/exit can happen between these read-only commands.
@@ -365,7 +408,7 @@ class GodotSessionSmoke(ui.AndroidSmoke):
         for attempt in range(3):
             activity = self.adb("shell", "dumpsys", "activity", "activities")
             shell_pids, child_pids = self.pids(PACKAGE), self.pids(RENDERER_PROCESS)
-            processes = self.adb("shell", "ps", "-A", "-o", "PID,UID,NAME")
+            processes = self.read_process_table()
             rows = parse_process_table(processes)
             relevant = []
             consistent = True
