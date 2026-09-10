@@ -31,7 +31,7 @@ PINS = {
     "scripts/smoke-android-ui.py": "831b57634a0cee99a466e6820059bb55209a26db3723b2ffff703b2ee0f60836",
     "scripts/tests/test_android_godot_session.py": "77aa9c7dee4147141c61d95266d7bb6cdab0e3287fc3e41b9ed23a207bbf756e",
     "scripts/adaptive_observations.py": "8b636b7f2687d6ddc0bca37624e678c3f1779a2df9537062088fd1e203a481c5",
-    "scripts/smoke_android_godot_adaptive.py": "794b4b436ee837617482227ef218133a8eae904181e34073faa000d8a3d240a9",
+    "scripts/smoke_android_godot_adaptive.py": "9ed771c96e7f16a8c669e4db5c11904836c0e3937341ad3513a76f037401b918",
     "scripts/android_godot_session_observation.py": "4a9340d49e69d596d2d6ed3cfd12b69eb567ab0fb49fed0fa49a643dfc877a8f",
     "scripts/tests/test_android_engine_gameplay.py": "d4cdec6444f4b7dd8240e5b8ae5b1f1ee26717ebac61efc68f92944ae7eb9f83",
 }

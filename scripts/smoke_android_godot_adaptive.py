@@ -520,6 +520,185 @@ class OriginalRecording:
                                                              identity=identity, output_bytes=int(size)))
 
 
+class HeldReturnUiDiagnostics:
+    """Bounded original rejection samples; never an acceptance/deadline proof."""
+
+    STREAM_LIMIT = 4
+    SAMPLE_LIMIT = 8
+    XML_BYTE_LIMIT = 256 * 1024
+    INDEX_BYTE_LIMIT = 16 * 1024
+
+    def __init__(self):
+        self.seen, self.samples, self.reasons, self.statuses = 0, [], {}, {}
+        self.capture_failures = 0
+
+    @classmethod
+    def begin(cls, smoke, prefix):
+        # Optional allocation/registration precedes live input. A failed collector
+        # must not change the held-input check or create an unguarded transport.
+        try:
+            pending = getattr(smoke, "held_ui_diagnostics_pending", None)
+            if pending is None:
+                pending = []
+                smoke.held_ui_diagnostics_pending = pending
+            if len(pending) >= cls.STREAM_LIMIT:
+                smoke.held_ui_diagnostics_overflow = getattr(smoke, "held_ui_diagnostics_overflow", 0) + 1
+                return None
+            entry = dict(prefix=prefix, collector=None)
+            pending.append(entry)
+            try:
+                entry["collector"] = cls()
+            except Exception as error:
+                entry["initialization_error_type"] = type(error).__name__[:64]
+            return entry["collector"]
+        except Exception:
+            # Queue allocation itself is optional, too.
+            return None
+
+    @classmethod
+    def flush_pending(cls, smoke):
+        # Called only after main's original cleanup and result classification.
+        # Both local and caller-owned recorder contexts have then unwound.
+        pending = getattr(smoke, "held_ui_diagnostics_pending", None) or []
+        overflow = getattr(smoke, "held_ui_diagnostics_overflow", 0)
+        smoke.held_ui_diagnostics_pending = None
+        smoke.held_ui_diagnostics_overflow = 0
+        summaries = []
+        for entry in pending:
+            collector = entry["collector"]
+            if collector is None:
+                summary = dict(status="collector-initialization-failed",
+                               error_type=entry.get("initialization_error_type", "unavailable"))
+            elif collector.seen or collector.capture_failures:
+                try:
+                    summary = collector.finish(smoke, entry["prefix"])
+                except Exception as error:
+                    summary = dict(status="diagnostic-finalization-failed", error_type=type(error).__name__[:64])
+            else:
+                continue
+            summaries.append(dict(prefix=entry["prefix"], **summary))
+        if summaries or overflow:
+            return dict(stream_limit=cls.STREAM_LIMIT, omitted_streams=overflow, streams=summaries)
+        return None
+
+    @staticmethod
+    def rejection_reason(smoke, state, root):
+        # Explain only a result the unchanged predicate has already rejected.
+        if not smoke.matches_activity(state, smoke.session.MAIN_COMPONENT):
+            return "main-not-foreground"
+        if state["renderer_pids"]:
+            return "renderer-present"
+        if any(item["component"] == smoke.session.NATIVE_COMPONENT for item in state["activities"]):
+            return "native-activity-record-present"
+        marker = smoke.session.tagged_node(root, "game-reveal-hand")
+        if marker is None:
+            return "reveal-marker-absent"
+        if marker.get("enabled") == "false":
+            return "reveal-marker-disabled"
+        return "reveal-marker-no-visible-intersection"
+
+    def remember(self, smoke, state, root, error=None):
+        try:
+            self.remember_sample(smoke, state, root, error)
+        except Exception:
+            # Even buffer/accounting allocation is optional while input is live.
+            try:
+                self.capture_failures += 1
+            except Exception:
+                pass
+
+    def remember_sample(self, smoke, state, root, error=None):
+        self.seen += 1
+        sample, raw = dict(observation=self.seen), None
+        try:
+            sample["reason"] = "concealment-check-raised" if error is not None else self.rejection_reason(smoke, state, root)
+            if error is not None:
+                # The actual check error still propagates and is recorded by the caller.
+                sample["check_error_type"] = type(error).__name__[:64]
+            data = smoke.last_xml_bytes
+            state_prefix = state.get("original_log_prefix", "")
+            times = (state.get("started_utc"), state.get("ended_utc"), getattr(smoke, "last_xml_time", None))
+            if (getattr(smoke, "ui_root", None) is not root or not isinstance(data, bytes)
+                    or not re.fullmatch(r"states/[0-9]{5,10}", state_prefix)
+                    or not all(isinstance(value, str) and 0 < len(value) <= 64 for value in times)
+                    or type(getattr(smoke, "ui_sequence", None)) is not int):
+                sample["status"] = "original-association-unavailable"
+            else:
+                sample.update(state=dict(file=state_prefix + ".json", started_utc=times[0], ended_utc=times[1]),
+                              ui=dict(received_utc=times[2], sequence=smoke.ui_sequence), original_xml_bytes=len(data))
+                if len(data) > self.XML_BYTE_LIMIT:
+                    sample["status"] = "xml-byte-limit"
+                else:
+                    sample["status"], raw = "buffered-original", data
+        except Exception as diagnostic_error:
+            sample.update(reason="diagnostic-association-error", status="original-association-unavailable",
+                          diagnostic_error_type=type(diagnostic_error).__name__[:64])
+        self.reasons[sample["reason"]] = self.reasons.get(sample["reason"], 0) + 1
+        self.statuses[sample["status"]] = self.statuses.get(sample["status"], 0) + 1
+        # Keep the first rejection and the latest seven, including omission records.
+        # Original immutable bytes stay in memory through every live recorder
+        # checkpoint and caller cleanup, until main finalizes the run.
+        if len(self.samples) == self.SAMPLE_LIMIT:
+            self.samples.pop(1)
+        self.samples.append((sample, raw))
+
+    @staticmethod
+    def write_exact(path, data):
+        created = False
+        try:
+            with path.open("xb") as stream:
+                created = True
+                if stream.write(data) != len(data):
+                    raise OSError("Short diagnostic write")
+        except Exception:
+            if created:
+                try:
+                    path.unlink()
+                except OSError:
+                    pass
+            raise
+
+    def finish(self, smoke, prefix):
+        summary = dict(observations_seen=self.seen, evicted_observations=self.seen - len(self.samples),
+                       reason_counts=self.reasons.copy(), sampling_status_counts=self.statuses.copy(),
+                       capture_failures=self.capture_failures, original_xml_files=0)
+        try:
+            index = dict(schema_version=1, kind="rejected-held-return-ui", **summary,
+                         selection="First rejection and latest seven; oversized originals are omitted, never truncated.",
+                         limits=dict(samples=self.SAMPLE_LIMIT, xml_bytes_each=self.XML_BYTE_LIMIT,
+                                     index_bytes=self.INDEX_BYTE_LIMIT),
+                         timing="Existing sequential state/UI host UTC only; no device-clock before-UP proof.",
+                         provenance="XML files are unchanged dump bytes; this index contains derived explanations.",
+                         samples=[])
+            originals = []
+            for sample, raw in self.samples:
+                entry = sample.copy()
+                if raw is not None:
+                    relative = f"observations/{prefix}-rejected-held-ui-{sample['observation']:04d}.xml"
+                    entry.update(status="retained-original", xml=dict(file=relative, bytes=len(raw),
+                                                                     sha256=hashlib.sha256(raw).hexdigest()))
+                    originals.append((smoke.output / relative, raw))
+                index["samples"].append(entry)
+            index["original_xml_files"] = len(originals)
+            data = (json.dumps(index, indent=2, sort_keys=True) + "\n").encode("utf-8")
+            if len(data) > self.INDEX_BYTE_LIMIT:
+                summary["status"] = "index-byte-limit"
+                return summary
+            for path, raw in originals:
+                self.write_exact(path, raw)
+                summary["original_xml_files"] += 1
+            relative = f"observations/{prefix}-rejected-held-ui.json"
+            self.write_exact(smoke.output / relative, data)
+            summary.update(status="retained", index=dict(file=relative, bytes=len(data),
+                                                         sha256=hashlib.sha256(data).hexdigest()))
+        except Exception as error:
+            # Additional diagnostics must not replace the original check/transport outcome.
+            summary.update(status="diagnostic-write-failed", error_type=type(error).__name__[:64])
+        finally:
+            self.samples.clear()
+        return summary
+
+
 class AdaptiveScenarios:
     def __init__(self, session, serial, output, variant, font_scale, hold_ms):
         super().__init__(serial, output, variant, font_scale)
@@ -691,6 +870,11 @@ class AdaptiveScenarios:
         ) is not None
 
     def rotate_while_held(self, pid, before, portrait_rotation, prefix, *, recording=None):
+        rejected_ui = None
+        try:
+            rejected_ui = HeldReturnUiDiagnostics.begin(self, prefix)
+        except Exception:
+            pass
         prepared_recording = recording is not None
         if prepared_recording:
             recording.await_started()
@@ -759,7 +943,27 @@ class AdaptiveScenarios:
                             time.sleep(0.1)
                             continue
                         root = self.dump_ui(deadline=time.monotonic() + 8)
-                        if not self.concealed_readonly(after, root):
+                        try:
+                            concealed = self.concealed_readonly(after, root)
+                        except Exception as error:
+                            try:
+                                if rejected_ui is not None:
+                                    rejected_ui.remember(self, after, root, error)
+                            except Exception:
+                                try:
+                                    rejected_ui.capture_failures += 1
+                                except Exception:
+                                    pass
+                            raise
+                        if not concealed:
+                            try:
+                                if rejected_ui is not None:
+                                    rejected_ui.remember(self, after, root)
+                            except Exception:
+                                try:
+                                    rejected_ui.capture_failures += 1
+                                except Exception:
+                                    pass
                             continue
                         cfg = after["foreground"]["configuration"]
                         require(after["display"]["rotation"] == cfg["display_rotation"] == portrait_rotation
@@ -1188,6 +1392,18 @@ def main(argv=None):
         unsupported = aborted_unsupported or any(entry["status"] == "unsupported" for entry in smoke.checks.values())
         result.update(status="failed" if failed else "unsupported" if unsupported else "passed-automated-scope",
                       pixel_privacy_review="required", ended_utc=session.utc_now())
+        try:
+            optional_diagnostics = HeldReturnUiDiagnostics.flush_pending(smoke)
+            if optional_diagnostics is not None:
+                result["rejected_ui_diagnostics"] = optional_diagnostics
+        except Exception as error:
+            # The original outcome is fixed. Optional queue/summary/write errors
+            # must not bypass the required artifact inventory and result receipt.
+            try:
+                result["rejected_ui_diagnostics"] = dict(status="diagnostic-finalization-failed",
+                                                        error_type=type(error).__name__[:64])
+            except Exception:
+                pass
         result["artifacts"] = [dict(file=str(path.relative_to(args.output)), bytes=path.stat().st_size, sha256=sha256(path))
                                for path in sorted(args.output.rglob("*")) if path.is_file()]
         smoke.write_json("godot-adaptive-result.json", result)
