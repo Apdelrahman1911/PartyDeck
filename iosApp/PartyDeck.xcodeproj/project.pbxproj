@@ -352,8 +352,8 @@
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "$(PARTYDECK_APP_INFO_PLIST)";
 				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks",);
-				/* Global -ObjC also loads Godot's Swift @main; scope registration loading to Kotlin. */
-				OTHER_LDFLAGS = ("$(inherited)", "-framework", PartyDeckKit, "-Xlinker", "-force_load", "-Xlinker", "$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)/PartyDeckKit.framework/PartyDeckKit", "-lc++", "-lz", "-liconv", "-framework", Security,);
+				/* Swift class references retain Kotlin registration; whole-archive loading duplicates Skiko and -ObjC loads Godot's Swift @main. */
+				OTHER_LDFLAGS = ("$(inherited)", "-framework", PartyDeckKit, "-lc++", "-lz", "-liconv", "-framework", Security,);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -377,8 +377,8 @@
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "$(PARTYDECK_APP_INFO_PLIST)";
 				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks",);
-				/* Global -ObjC also loads Godot's Swift @main; scope registration loading to Kotlin. */
-				OTHER_LDFLAGS = ("$(inherited)", "-framework", PartyDeckKit, "-Xlinker", "-force_load", "-Xlinker", "$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)/PartyDeckKit.framework/PartyDeckKit", "-lc++", "-lz", "-liconv", "-framework", Security,);
+				/* Swift class references retain Kotlin registration; whole-archive loading duplicates Skiko and -ObjC loads Godot's Swift @main. */
+				OTHER_LDFLAGS = ("$(inherited)", "-framework", PartyDeckKit, "-lc++", "-lz", "-liconv", "-framework", Security,);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -419,6 +419,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = ("$(inherited)", "$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)", "$(BUILT_PRODUCTS_DIR)",);
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = ("$(inherited)", "$(SRCROOT)/../godot/ios-host/modules/partydeck_ios_probe",);
 				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks",);
 				PRODUCT_BUNDLE_IDENTIFIER = dev.partydeck.app.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -433,6 +434,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = ("$(inherited)", "$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)", "$(BUILT_PRODUCTS_DIR)",);
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = ("$(inherited)", "$(SRCROOT)/../godot/ios-host/modules/partydeck_ios_probe",);
 				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks",);
 				PRODUCT_BUNDLE_IDENTIFIER = dev.partydeck.app.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

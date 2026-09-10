@@ -17,6 +17,12 @@ ROOT = Path(__file__).resolve().parents[1]
 HOST = ROOT / "godot/ios-host"
 ARCHIVES = ("libpartydeck_godot_ios_probe.a", "libpartydeck_godot_camera.a")
 NATIVE_CLASSES = ("_OBJC_CLASS_$_PDGodotEngineOwner", "_OBJC_CLASS_$_PDGodotPresentation")
+# Public Kotlin classes retained by the Swift facade and its superclass chain.
+KOTLIN_CLASSES = (
+    "_OBJC_CLASS_$_PDKBase",
+    "_OBJC_CLASS_$_PDKIosAppHandle",
+    "_OBJC_CLASS_$_PDKIosGodotRegistration",
+)
 VARIANTS = {
     ("Debug", "iphonesimulator"): ("template_debug", True, "7"),
     ("Release", "iphoneos"): ("template_release", False, "2"),
@@ -292,7 +298,7 @@ def verify_app(args: argparse.Namespace) -> None:
                 match = re.match(r"0x[0-9A-Fa-f]+\s+0x[0-9A-Fa-f]+\s+\[\s*(\d+)\]\s+(.+)", line)
                 if match:
                     symbols.setdefault(match[2], []).append(match[1])
-    for symbol in ("_main", *NATIVE_CLASSES):
+    for symbol in ("_main", *NATIVE_CLASSES, *KOTLIN_CLASSES):
         if len(symbols.get(symbol, [])) != 1:
             raise RuntimeError(f"The production executable needs exactly one live definition of {symbol}.")
     kotlin_owners = {
@@ -301,6 +307,11 @@ def verify_app(args: argparse.Namespace) -> None:
     }
     if len(kotlin_owners) != 1:
         raise RuntimeError("Expected exactly one linked static PartyDeckKit framework.")
+    kotlin_class_owners = {symbol: objects.get(symbols[symbol][0], "") for symbol in KOTLIN_CLASSES}
+    for symbol, owner in kotlin_class_owners.items():
+        match = re.match(r"(.+PartyDeckKit\.framework/PartyDeckKit)\(", owner)
+        if match is None or match[1] not in kotlin_owners:
+            raise RuntimeError(f"{symbol} must come from the single linked PartyDeckKit framework.")
     loaded_archive_members = {}
     for name in ARCHIVES:
         archive_path = args.inputs.parent / "artifacts" / name
@@ -328,6 +339,7 @@ def verify_app(args: argparse.Namespace) -> None:
         "link_map": receipt(args.link_map), "partydeck_kit_link_owners": sorted(kotlin_owners),
         "loaded_archive_members": loaded_archive_members,
         "linked_native_classes": list(NATIVE_CLASSES), "main_owner": main_owner,
+        "linked_kotlin_classes": list(KOTLIN_CLASSES), "kotlin_class_owners": kotlin_class_owners,
         "ios_runtime_executed": False, "kmp_factory_qualified": False,
         "app_info_plist": built_plist, "packaged_activation": packaged_activation,
         "activation_profile": packaged_activation["profile"],
