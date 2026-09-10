@@ -14,6 +14,7 @@
 		B00000000000000000000015 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000015 /* Assets.xcassets */; };
 		B00000000000000000000021 /* PartyDeckUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000021 /* PartyDeckUITests.swift */; };
 		B00000000000000000000022 /* NativeTransportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000022 /* NativeTransportTests.swift */; };
+		B00000000000000000000024 /* GodotPresentationViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000024 /* GodotPresentationViewControllerTests.swift */; };
 		B00000000000000000000031 /* IosLanTransportFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000031 /* IosLanTransportFactory.swift */; };
 		B00000000000000000000032 /* IosLanDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000032 /* IosLanDriver.swift */; };
 		B00000000000000000000033 /* IosTlsIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000033 /* IosTlsIdentity.swift */; };
@@ -58,6 +59,7 @@
 		F00000000000000000000018 /* NativeFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeFeedback.swift; sourceTree = "<group>"; };
 		F00000000000000000000021 /* PartyDeckUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyDeckUITests.swift; sourceTree = "<group>"; };
 		F00000000000000000000022 /* NativeTransportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeTransportTests.swift; sourceTree = "<group>"; };
+		F00000000000000000000024 /* GodotPresentationViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GodotPresentationViewControllerTests.swift; sourceTree = "<group>"; };
 		F00000000000000000000031 /* IosLanTransportFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosLanTransportFactory.swift; sourceTree = "<group>"; };
 		F00000000000000000000032 /* IosLanDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosLanDriver.swift; sourceTree = "<group>"; };
 		F00000000000000000000033 /* IosTlsIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosTlsIdentity.swift; sourceTree = "<group>"; };
@@ -135,7 +137,7 @@
 		};
 		A00000000000000000000010 /* PartyDeckTests */ = {
 			isa = PBXGroup;
-			children = (F00000000000000000000022 /* NativeTransportTests.swift */,);
+			children = (F00000000000000000000022 /* NativeTransportTests.swift */, F00000000000000000000024 /* GodotPresentationViewControllerTests.swift */,);
 			path = PartyDeckTests;
 			sourceTree = "<group>";
 		};
@@ -279,7 +281,7 @@
 		C00000000000000000000008 /* Native Test Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
-			files = (B00000000000000000000022 /* NativeTransportTests.swift in Sources */,);
+			files = (B00000000000000000000022 /* NativeTransportTests.swift in Sources */, B00000000000000000000024 /* GodotPresentationViewControllerTests.swift in Sources */,);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
@@ -416,6 +418,8 @@
 		D00000000000000000000007 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				PARTYDECK_SESSION_QUALIFICATION_CONDITION = "";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) $(PARTYDECK_SESSION_QUALIFICATION_CONDITION)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = ("$(inherited)", "$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)", "$(BUILT_PRODUCTS_DIR)",);
 				GENERATE_INFOPLIST_FILE = YES;

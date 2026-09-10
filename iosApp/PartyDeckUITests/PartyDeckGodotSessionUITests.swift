@@ -238,7 +238,7 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
                   native.bootstrapCount == 1, native.processIdentifier > 0, native.retainedEnginePolicy,
                   native.retainedIdentitiesMatchFirstEntry, native.authorityReadyConfirmed, native.readyEvents == 1,
                   native.nativeForeground, native.authorityForegroundGrant, !native.applicationBackgrounded,
-                  native.inputViewEnabled, native.surfaceAttached, native.surfaceAccessibilityHidden,
+                  native.inputViewEnabled, native.surfaceAttached, geometry.surfaceAccessibilityHiddenByContainer,
                   native.renderLoopActive, !native.dormant, !native.emptyTree, !native.privacyCoverVisible,
                   !geometry.outerCoverVisible, geometry.engineAccessibilityHidden,
                   scene.schemaVersion == 1, scene.presentationMode == mode, scene.coordinateSpace == "root_viewport",
@@ -525,6 +525,9 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
         let coordinateSpace: String
         let frame: [Double], bounds: [Double]
         let outerCoverVisible: Bool, engineAccessibilityHidden: Bool
+        // The actual native child must remain inside the container that hides its subtree.
+        // Native's separate surfaceAccessibilityHidden is only the child-local property.
+        let surfaceAccessibilityHiddenByContainer: Bool
     }
     private struct Size: Decodable, Equatable {
         let width: Double, height: Double
@@ -558,7 +561,7 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
                 state.lifecycle == "ACTIVE" && state.foreground && !state.backgrounded && !state.leaveConfirmation &&
                 native.nativeForeground && native.authorityForegroundGrant && native.authorityReadyConfirmed &&
                 native.inputViewEnabled && native.renderLoopActive && !native.privacyCoverVisible && !native.dormant &&
-                !native.emptyTree && native.surfaceAttached && native.surfaceAccessibilityHidden && geometry.engineAccessibilityHidden &&
+                !native.emptyTree && native.surfaceAttached && geometry.surfaceAccessibilityHiddenByContainer && geometry.engineAccessibilityHidden &&
                 !geometry.outerCoverVisible && renderer.foreground && renderer.sceneStateApplied && renderer.revision == state.projectedRendererRevision &&
                 state.sessionRevision != nil && state.sessionRevision == state.projectedSessionRevision
         }

@@ -47,6 +47,7 @@ final class GodotPresentationViewController: UIViewController {
         status.numberOfLines = 2
         status.text = text("Godot.Opening", "Opening your table…")
         status.accessibilityIdentifier = "godot-session-status"
+        status.setContentHuggingPriority(.defaultHigh, for: .vertical)
 
         standardButton = button(
             title: text("Godot.StandardTable", "Standard table"),
@@ -76,6 +77,9 @@ final class GodotPresentationViewController: UIViewController {
         cover.isAccessibilityElement = true
         cover.accessibilityIdentifier = "godot-session-privacy-cover"
         cover.text = text("Godot.Opening", "Opening your table…")
+        // The cover stays constrained when hidden. Let the stage take spare height,
+        // rather than stretching the status or toolbar to preserve the label's height.
+        cover.setContentHuggingPriority(.fittingSizeLevel, for: .vertical)
 
         for child in [status, buttons, stage] {
             child.translatesAutoresizingMaskIntoConstraints = false
@@ -176,7 +180,9 @@ final class GodotPresentationViewController: UIViewController {
         return ["coordinateSpace": "screen", "frame": [rect.minX, rect.minY, rect.width, rect.height],
                 "bounds": [child.bounds.minX, child.bounds.minY, child.bounds.width, child.bounds.height],
                 "outerCoverVisible": !cover.isHidden,
-                "engineAccessibilityHidden": engineContainer.accessibilityElementsHidden]
+                "engineAccessibilityHidden": engineContainer.accessibilityElementsHidden,
+                "surfaceAccessibilityHiddenByContainer": child.isDescendant(of: engineContainer) &&
+                    engineContainer.accessibilityElementsHidden]
     }
 
     func setSessionQualificationValue(_ document: String) {
@@ -264,6 +270,7 @@ final class GodotPresentationViewController: UIViewController {
         result.titleLabel?.numberOfLines = 0
         result.accessibilityHint = hint
         result.accessibilityIdentifier = identifier
+        result.setContentHuggingPriority(.defaultHigh, for: .vertical)
         result.heightAnchor.constraint(greaterThanOrEqualToConstant: 48).isActive = true
         result.addTarget(self, action: action, for: .touchUpInside)
         return result
