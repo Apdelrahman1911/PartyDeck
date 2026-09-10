@@ -1,6 +1,6 @@
 # PartyDeck status report
 
-**Snapshot: 2026-09-10, 16:19 UTC.** Published source is through `1b9c1a0`.
+**Snapshot: 2026-09-10, 17:00 UTC.** Published source is through `16d828e`.
 Estimated completion of the original app release scope is **81%**. The added
 Godot scope has **3 of 6 acceptance groups complete (50%)**. These are different
 scopes and must not be averaged. **The app is not yet ready for production.**
@@ -88,6 +88,9 @@ coverage, and earlier successes are not assigned to a new pack or host.
 | iOS production, [34496252392](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34496252392), `410c938` | Shared tests: 150 cases/23 suites, one failure in a deferred mode switch. Ordinary native unit tests: 6/6 pass, including all three UIKit layout cases' unguarded assertions. Qualification-only geometry assertions were not compiled in that ordinary bundle. Ordinary UI: 2/3 pass; expanded practice fails the unfiltered hit-area audit for selection-count feedback. The separate layout gate and both production session gates are skipped. Unsigned device artifact retained; ordinary failure prevents the Simulator app archive step |
 | Earlier iOS production, [34480503751](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34480503751), `7012ba0` | Simulator/device packages and real link maps verify. Both sessions reach ACTIVE/Ready but fail observation with a roughly 26-point-high native surface; this is the original evidence for the subsequent layout correction |
 | iOS native hosts, [34488350932](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34488350932), `4f69429` | Authority 5/5 pass. Retained 2/3 pass: background/resume and repeated entries pass; stale-callback re-entry fails. Both retained qualification flags remain false. Long engine/main-thread intervals are measured; their blocking work is not yet identified |
+| Current iOS retry, [34503244345](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34503244345), `1cd34a3` | Still running. Shared native suite passes 156/156 cases in 24 suites, including the original deferred-close regression and six new common cases. Unsigned device job passes. App accessibility audit, separate layout gate and production sessions are not yet reported |
+| Current Android API 35 retry, [34503251315](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34503251315), `1cd34a3` | Runtime in progress with the JNI retention fix, enlarged feedback bounds and cumulative twenty-minute variant budget. No final runtime outcome yet |
+| Current retained diagnostic, [34505106959](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34505106959), `16d828e` | Optional stack sampling enabled around the unchanged retained tests. No native diagnostic or qualification result yet; sampling may affect timing |
 | Packed renderer, `4d8bd92` / `c6ea1dd` | 677 real-render assertions pass: 155 boundary, 216 terminal-return and 306 redraw |
 
 Historical screenshot reports are excluded from current test totals. The latest
@@ -102,14 +105,14 @@ shell, physical LAN or hardware GPUs.
 | --- | --- | --- |
 | iOS linkage and test headers | Corrected archive extraction and native header search paths. Actual Simulator/device links, sole framework ownership, unit compilation and baseline XCTest pass | Closed for the tested packages; retain regression checks |
 | Android presentation selection | Bounded pending choice integrated; 73 focused controller/lifecycle/observation tests passed. Real debug runs now launch both modes; normal/200% initial 2D landscape entry passes | Complete subsequent lifecycle and gameplay acceptance; optimized crash is separate |
-| Common deferred mode switch | Narrow correction integrated after two independent source reviews. Original coordinator reproduced the exact failure; corrected source passes all 35 focused common tests, including six new tests covering 31 scenarios | Run the original iOS regression and production mode switches; keep factory, focus, binding, privacy and the original five-second deadline revalidation |
-| Optimized Android JNI | Original debug/optimized DEX and pinned native source identify a rewritten GodotRenderView return type and removed GodotIO methods; both API 35 and 36 crash evidence matches | Preserve the actual JNI ABI through optimization, inspect rebuilt DEX and rerun both variants |
-| Android adaptive scenarios | Current ancestor-pane scrolling fixes initial landscape preparation. Original rotation evidence distinguishes an exiting destroyed Activity record from actual live ownership | Poll actual removal within the existing deadline; explicitly reveal again after portrait recreation; correctly recognize documented screenrecord metadata. Preserve all privacy, process-attribution, timing and visibility gates |
-| Android runtime budget | Debug progresses normally until the whole-session ten-minute wrapper cap; expanded Standard checks add about 102 seconds per mode | Give the expanded sequence a bounded cumulative budget while retaining every per-stage deadline; rerun to an actual final result |
+| Common deferred mode switch | Narrow correction integrated and pushed after two independent source reviews; 35 focused common tests pass. The original failing iOS regression and all six new common cases now pass in the 156-case native suite | Complete real production mode switching; factory, focus, binding, privacy and the original five-second deadline remain enforced |
+| Optimized Android JNI | Independently reviewed retention rules pushed. Rebuilt optimized APK passes all 122 selected exact native-interface declarations, versus 69/122 in the original failed optimized APK | Confirm native Ready, gameplay and lifecycle on the running API 35 retry, then API 36. The static audit covers the exercised string/primitive boundary, not every optional Godot reflection feature |
+| Android adaptive scenarios | Three corrections integrated and independently reviewed: poll actual Activity removal, verify/reveal after a real portrait rotation, and validate the two documented screenrecord metadata tracks while preserving decode timestamps. All 172 host tests pass, retaining every baseline test | Rerun the adaptive native matrix and the separate API 36 real-engine gameplay checks. Existing privacy, process-attribution, timing, recorder-growth and visibility gates remain |
+| Android runtime budget | Expanded sequence now has a bounded twenty-minute cumulative budget on both API 35 and 36; independently reviewed and pushed | Running retry must reach an actual final result; every per-stage deadline stays unchanged |
 | iOS production layout | Content sizing and hidden-ancestor observation integrated. All three UIKit cases executed and passed in the ordinary native unit bundle | Pass the separate layout receipt and both production sessions after the earlier failing checks are fixed |
-| iOS native responsiveness | Authority 5/5 and retained 2/3 pass. Numeric timing/source maps narrow the investigation but do not establish a graphics cause | Review/integrate bounded optional stack sampling around unchanged tests, collect actual blocked stacks, fix the diagnosed cause and rerun retained acceptance |
+| iOS native responsiveness | Authority 5/5 and retained 2/3 pass. Bounded optional stack sampler reviewed, integrated and pushed; 22 portable checks and eight owner workflow branch checks pass | Collect actual stacks from the running diagnostic, identify and fix the cause, then rerun retained acceptance. Missing or partial samples do not qualify behavior |
 | Android Standard accessibility | Extended five-card, checked-state, selection-limit, Hide and authoritative Standard action checks integrated; API 35 debug progresses through the full 2D return/action sequence | Complete current full runs and adaptive return scenarios; hardware TalkBack remains separate |
-| iOS Standard accessibility | Expanded tests integrated and executed: five-card/checked-state checks precede a real unfiltered audit failure. Original attachment proves selection-count feedback has an approximately 18.7-point-high semantic frame | Enlarge the actual feedback semantic bounds; rerun the unchanged audit, Hide/fresh-Reveal checks and authoritative Standard action after Godot return |
+| iOS Standard accessibility | Feedback semantic layout now has a 48-dp minimum height. Exact modifier/frame propagation independently reviewed; seven gameplay layout tests pass and the original JVM screenshot is retained | Running native retry must pass the unchanged unfiltered audit, Hide/fresh-Reveal checks and authoritative Standard action after Godot return |
 | Android native gameplay evidence | Qualification-only geometry hook and separate real Reveal/card/Play checker independently reviewed, integrated and pushed; 155 host tests pass | Execute the new checker in actual API 36 production-app runs; renderer view revisions alone are not authority receipts |
 | Screenshots | 2,013 originals plus 13 supplements pushed at `1b9c1a0`; 309 new/changed paths verified against the frozen handoff | Publish the next batch from newly completed runs and their original failure context |
 
@@ -125,9 +128,9 @@ No cover, lifecycle, input-currentness or timeout gate is relaxed for a pass.
 
 ## What still needs to be done to finish
 
-1. **Complete implementation and automated native qualification.** Fix optimized
-   Android JNI, common deferred switching, iOS accessibility/responsiveness and
-   the diagnosed test-harness issues. Complete production 2D/3D gameplay
+1. **Complete implementation and automated native qualification.** Qualify the
+   integrated Android JNI, common switching and accessibility fixes, finish
+   Android checker review and diagnose/fix iOS responsiveness. Complete production 2D/3D gameplay
    and lifecycle/return/process-loss checks, run all adaptive cases, finish
    supported accessibility assertions and visual review, rerun affected baselines,
    and enable shipping Godot modes only after their gates pass. This work
@@ -146,7 +149,7 @@ No cover, lifecycle, input-currentness or timeout gate is relaxed for a pass.
 
 ## Published deliverables
 
-- Source milestones pushed through `1b9c1a0`.
+- Source milestones pushed through `16d828e`.
 - [Screenshot gallery](screenshots/README.md): **2,013 original PNGs plus 13 supplemental images**,
   with 6,858 evidence files and 8,876 checksum entries. Recent captures are being
   prepared with their actual run/failure context.
