@@ -12,11 +12,13 @@ from contextlib import contextmanager
 import hashlib
 import importlib.util
 import json
+import math
 from pathlib import Path
 import re
 import shlex
 import shutil
 import subprocess
+import struct
 import sys
 import time
 import uuid
@@ -80,30 +82,152 @@ def recorder_signal_script(identity, argv):
     ])
 
 
+def screenrecord_metadata(path, streams, video_frames):
+    """Accept only the two bounded Winscope tracks emitted by Android screenrecord.
+
+    Android 16 screenrecord.cpp writes legacy and version-2 timestamp payloads;
+    MPEG4Writer.cpp writes the application/octet-stream MIME twice in `mett`.
+    FFprobe 6.1 identifies these as data but does not expose their packets, so
+    bind the sample tables to track IDs and read only their bounded mdat bytes.
+    https://android.googlesource.com/platform/frameworks/av/+/android-16.0.0_r1/cmds/screenrecord/screenrecord.cpp
+    https://android.googlesource.com/platform/frameworks/av/+/android-16.0.0_r1/media/libstagefright/MPEG4Writer.cpp
+    """
+    metadata = [stream for stream in streams if stream.get("codec_type") == "data"]
+    require(len(metadata) in (0, 2), "Expected zero or both Android Winscope metadata tracks.")
+    if not metadata:
+        return []
+    require(all(stream.get("codec_tag_string") == "mett" for stream in metadata),
+            "Unrecognized non-video recording stream.")
+    require(all(type(stream.get("index")) is int and stream["index"] >= 0
+                and re.fullmatch(r"0x[0-9a-fA-F]+", str(stream.get("id", ""))) for stream in streams),
+            "Recording stream lacks its exact MP4 track identity.")
+    track_ids = [int(stream["id"], 16) for stream in streams]
+    require(len(set(track_ids)) == len(streams) and all(0 < value <= 0xffffffff for value in track_ids)
+            and len({stream["index"] for stream in streams}) == len(streams), "Ambiguous recording track identity.")
+    file_size = path.stat().st_size
+    scanned_boxes = 0
+    with path.open("rb") as source:
+        def read_at(offset, size, limit=2 * 1024 * 1024):
+            require(0 <= size <= limit and 0 <= offset <= file_size - size, "Metadata read exceeds its original file bounds.")
+            source.seek(offset)
+            data = source.read(size)
+            require(len(data) == size, "Truncated original metadata bytes.")
+            return data
+
+        def boxes(start, end):
+            nonlocal scanned_boxes
+            values = []
+            while start < end:
+                scanned_boxes += 1
+                require(scanned_boxes <= 4096 and end - start >= 8, "Invalid or excessive MP4 box structure.")
+                size, kind = struct.unpack(">I4s", read_at(start, 8))
+                header = 8
+                if size == 1:
+                    require(end - start >= 16, "Truncated extended MP4 box.")
+                    size = struct.unpack(">Q", read_at(start + 8, 8))[0]
+                    header = 16
+                elif size == 0:
+                    size = end - start
+                require(header <= size <= end - start, "MP4 box escapes its parent.")
+                values.append((kind, start + header, start + size))
+                start += size
+            return values
+
+        def only(values, kind):
+            found = [value for value in values if value[0] == kind]
+            require(len(found) == 1, "Missing or duplicate metadata sample-table box.")
+            return found[0]
+
+        def payload(box):
+            return read_at(box[1], box[2] - box[1], limit=4096)
+
+        top = boxes(0, file_size)
+        moov = only(top, b"moov")
+        media_data = [box for box in top if box[0] == b"mdat"]
+        tracks = [box for box in boxes(moov[1], moov[2]) if box[0] == b"trak"]
+        require(len(tracks) == len(streams), "MP4 tracks differ from observed streams.")
+        by_id = {}
+        for track in tracks:
+            children = boxes(track[1], track[2])
+            header = payload(only(children, b"tkhd"))
+            require(len(header) >= 24 and header[0] in (0, 1), "Unsupported metadata track header.")
+            track_id = struct.unpack_from(">I", header, 12 if header[0] == 0 else 20)[0]
+            require(track_id not in by_id, "Duplicate MP4 track ID.")
+            by_id[track_id] = children
+        require(set(by_id) == set(track_ids), "FFprobe and MP4 track IDs differ.")
+        accepted = []
+        for stream in metadata:
+            children = by_id[int(stream["id"], 16)]
+            for kind in (b"mdia", b"minf", b"stbl"):
+                box = only(children, kind)
+                children = boxes(box[1], box[2])
+            mime = b"application/octet-stream\0" * 2
+            expected_description = struct.pack(">III4s", 0, 1, len(mime) + 8, b"mett") + mime
+            require(payload(only(children, b"stsd")) == expected_description,
+                    "Data track is not the documented Android metadata sample entry.")
+            require(payload(only(children, b"stsc")) == struct.pack(">IIIII", 0, 1, 1, 1, 1),
+                    "Winscope metadata must contain exactly one sample in one chunk.")
+            sizes = payload(only(children, b"stsz"))
+            require(len(sizes) == 16 and sizes[:12] == struct.pack(">III", 0, 0, 1),
+                    "Unsupported Winscope metadata sample-size table.")
+            sample_size = struct.unpack_from(">I", sizes, 12)[0]
+            offsets = payload(only(children, b"co64"))
+            require(len(offsets) == 16 and offsets[:8] == struct.pack(">II", 0, 1),
+                    "Unsupported Winscope metadata chunk-offset table.")
+            offset = struct.unpack_from(">Q", offsets, 8)[0]
+            require(any(box[1] <= offset and offset + sample_size <= box[2] for box in media_data),
+                    "Winscope sample does not lie within original media data.")
+            raw = read_at(offset, sample_size)
+            if raw.startswith(b"#VV1NSC0PET1ME!#"):
+                kind, header_size, count_offset = "winscope_legacy", 20, 16
+            elif raw.startswith(b"#VV1NSC0PET1ME2#"):
+                kind, header_size, count_offset = "winscope_v2", 32, 28
+                require(len(raw) >= header_size and struct.unpack_from("<I", raw, 16)[0] == 2,
+                        "Unknown Winscope metadata version.")
+            else:
+                raise ObservationFailure("Unknown recording metadata payload.")
+            require(len(raw) >= header_size and struct.unpack_from("<I", raw, count_offset)[0] == video_frames
+                    and len(raw) == header_size + 8 * video_frames,
+                    "Winscope metadata does not describe exactly the decoded video frames.")
+            accepted.append(dict(stream_index=stream["index"], track_id=int(stream["id"], 16),
+                                 kind=kind, sample_bytes=len(raw), sample_sha256=hashlib.sha256(raw).hexdigest(),
+                                 video_frames=video_frames))
+        require({item["kind"] for item in accepted} == {"winscope_legacy", "winscope_v2"},
+                "Recording lacks the distinct legacy and version-2 Winscope metadata tracks.")
+        return accepted
+
+
 def verify_video(path, width, height, output_prefix):
     probe = subprocess.run(["ffprobe", "-v", "error", "-count_frames", "-show_entries",
-                            "stream=codec_type,width,height,nb_read_frames:format=duration", "-of", "json", str(path)],
+                            "stream=index,id,codec_type,codec_tag_string,width,height,nb_read_frames:format=duration", "-of", "json", str(path)],
                            capture_output=True, text=True, timeout=45, check=False)
     output_prefix.with_suffix(".ffprobe.json").write_text(probe.stdout)
     output_prefix.with_suffix(".ffprobe.log").write_text(probe.stderr)
     require(probe.returncode == 0 and not probe.stderr.strip(), "Original video failed ffprobe.")
     payload = json.loads(probe.stdout)
     streams = payload.get("streams", [])
-    require(len(streams) == 1 and streams[0].get("codec_type") == "video", "Expected one original screenrecord video stream.")
-    stream = streams[0]
+    video = [stream for stream in streams if stream.get("codec_type") == "video"]
+    require(len(video) == 1 and all(stream.get("codec_type") in ("video", "data") for stream in streams),
+            "Expected exactly one video and no audio or unknown recording streams.")
+    stream = video[0]
+    duration = float(payload.get("format", {}).get("duration", 0))
     require((stream.get("width"), stream.get("height")) == (width, height)
             and str(stream.get("nb_read_frames", "")).isdigit()
             and int(stream["nb_read_frames"]) >= 2
-            and float(payload.get("format", {}).get("duration", 0)) > 0,
+            and math.isfinite(duration) and duration > 0,
             "Original video lacks complete frames at the requested canvas size.")
+    metadata = screenrecord_metadata(path, streams, int(stream["nb_read_frames"]))
+    # FFmpeg's default 1/framerate output time base can collapse distinct VFR
+    # timestamps in the null sink. Preserve every source frame and its time base.
+    # https://github.com/FFmpeg/FFmpeg/blob/n6.1.1/doc/ffmpeg.texi
     decode = subprocess.run(["ffmpeg", "-nostdin", "-v", "error", "-i", str(path),
-                             "-map", "0:v:0", "-f", "null", "-"],
+                             "-map", "0:v:0", "-fps_mode", "passthrough", "-enc_time_base", "demux", "-f", "null", "-"],
                             capture_output=True, text=True, timeout=45, check=False)
     output_prefix.with_suffix(".decode.log").write_text(decode.stdout + decode.stderr)
     require(decode.returncode == 0 and not decode.stderr.strip(), "Original transition video did not decode cleanly.")
     return dict(file=path.name, sha256=sha256(path), bytes=path.stat().st_size,
                 width=width, height=height, frames=int(stream["nb_read_frames"]),
-                duration_seconds=float(payload["format"]["duration"]),
+                duration_seconds=duration, metadata=metadata,
                 pixel_privacy="Review required; decode success does not establish cover order or privacy.")
 
 
@@ -133,7 +257,9 @@ class OriginalRecording:
             self.handles.append((self.smoke.output / "videos" / f"{self.name}.{extension}").open("xb"))
         self.process = subprocess.Popen(["adb", "-s", self.smoke.serial, "shell", *self.argv],
                                         stdout=self.handles[0], stderr=self.handles[1])
-        deadline = time.monotonic() + 8
+        startup_started = time.monotonic()
+        deadline = startup_started + 8
+        self.entry.update(startup_timeout_seconds=8, startup_observations=[])
         previous_size = None
         while time.monotonic() < deadline:
             if self.process.poll() is not None:
@@ -147,11 +273,20 @@ class OriginalRecording:
                 stat = self.smoke.adb("shell", "cat", f"/proc/{pid}/stat")
                 candidates.append(self.smoke.session.parse_proc_identity(pid, self.argv[0], self.uid, raw.stdout, status, stat))
             require(len(candidates) <= 1, "Multiple exact owned recorders; refusing ambiguous cleanup.")
+            observation = dict(identity_query_ended_seconds=time.monotonic() - startup_started,
+                               identity=candidates[0] if candidates else None, output_bytes=None)
+            if len(self.entry["startup_observations"]) < 32:
+                self.entry["startup_observations"].append(observation)
+            else:
+                self.entry["startup_observations_truncated"] = True
             if candidates:
                 self.identity = candidates[0]
                 current = self.smoke.command("shell", "stat", "-c", "%s", self.remote)
+                observation["size_query_returncode"] = current.returncode
+                observation["size_query_ended_seconds"] = time.monotonic() - startup_started
                 if current.returncode == 0 and current.stdout.strip().isdigit():
                     current_size = int(current.stdout.strip())
+                    observation["output_bytes"] = current_size
                     if previous_size is not None and current_size > previous_size > 0:
                         self.started_successfully = True
                         self.entry.update(status="recording", identity=self.identity, growth_observed_utc=self.smoke.session.utc_now(),
@@ -159,6 +294,7 @@ class OriginalRecording:
                         return
                     previous_size = current_size
             time.sleep(0.25)
+        self.entry["startup_unavailable_condition"] = "growth-not-observed" if self.identity is not None else "identity-not-observed"
         raise Unavailable("Cannot prove the exact recorder identity and growing original output on this device.")
 
     def finish(self):
@@ -403,8 +539,10 @@ class AdaptiveScenarios:
         if not self.matches_activity(state, self.session.MAIN_COMPONENT) or state["renderer_pids"]:
             return False
         require(state["foreground"]["task_id"] == self.shell_task, "Return changed the retained shell task.")
-        require(not any(item["component"] == self.session.NATIVE_COMPONENT for item in state["activities"]),
-                "Native Activity remains after supposed retirement.")
+        # A destroyed process can leave an EXITING ActivityRecord through its window transition.
+        # Keep waiting for actual removal within the held-input loop's existing deadline.
+        if any(item["component"] == self.session.NATIVE_COMPONENT for item in state["activities"]):
+            return False
         self.assert_no_private_semantics(root)
         require(self.text_node(root, "Leave the table?") is None, "Held touch opened a stale Leave dialog.")
         return self.find(root, "game-reveal-hand") is not None
@@ -539,7 +677,12 @@ class AdaptiveScenarios:
             if self.matches_activity(state, self.session.NATIVE_COMPONENT):
                 self.tap_action("native-standard-table", "Standard table", scroll=None)
             self.require_concealed_return(baseline, prefix + "-unsupported-return")
+            rotation_before_request = self.state()["display"]["rotation"]
             self.set_rotation(display["portrait"], self.session.MAIN_COMPONENT, "port")
+            if rotation_before_request != display["portrait"]:
+                # A real shell rotation can conceal the hand again. Verify that
+                # boundary and explicitly reveal before selecting a fresh card.
+                self.require_concealed_return(baseline, prefix + "-unsupported-portrait-return")
         with self.check(prefix + ".portrait-reentry-standard") as entry:
             self.select_first_card(prefix + "-reentry")
             fresh_pid, _, _ = self.enter_native(mode, prefix + "-portrait")

@@ -425,6 +425,104 @@ class PinnedCheckerIntegrationTests(unittest.TestCase):
 
         return Replay()
 
+    def concealed_fixture(self):
+        replay = self.replay(self.output)
+        replay.shell_task = 19
+        replay.display_size = (1080, 1920)
+        root = self.session.ET.fromstring(
+            '<hierarchy rotation="0"><node package="dev.partydeck.app" '
+            'resource-id="game-reveal-hand" bounds="[10,10][200,100]" enabled="true" /></hierarchy>')
+        state = dict(foreground=dict(component=MAIN, task_id=19), renderer_pids=[],
+                     activities=[dict(component=MAIN, lifecycle_state="RESUMED", app_pid=601)])
+        return replay, state, root
+
+    def test_destroyed_native_record_waits_for_actual_removal_before_concealed_success(self):
+        replay, state, root = self.concealed_fixture()
+        exiting = dict(component=NATIVE, record_id="aaaa", task_id=19,
+                       lifecycle_state="DESTROYED", visible=True, visible_requested=False)
+        state["activities"].append(exiting)
+        self.assertFalse(replay.concealed_readonly(state, root))
+        self.assertIn(exiting, state["activities"], "Observation must retain the exiting record")
+        state["activities"].remove(exiting)
+        self.assertTrue(replay.concealed_readonly(state, root))
+        self.assertEqual([], replay.commands, "Retirement observation must not mutate the device")
+
+    def test_any_remaining_native_record_or_process_still_blocks_retirement(self):
+        replay, base, root = self.concealed_fixture()
+        for lifecycle in ("RESUMED", "STOPPING", "STOPPED", "DESTROYING", "DESTROYED", "UNKNOWN"):
+            for visible in (False, True):
+                with self.subTest(lifecycle=lifecycle, visible=visible):
+                    state = copy.deepcopy(base)
+                    state["activities"].append(dict(component=NATIVE, lifecycle_state=lifecycle,
+                                                    visible=visible, visible_requested=False))
+                    self.assertFalse(replay.concealed_readonly(state, root))
+        self.assertFalse(replay.concealed_readonly(base | dict(renderer_pids=[602]), root))
+        self.assertFalse(replay.concealed_readonly(base | dict(foreground=None), root))
+        self.assertFalse(replay.concealed_readonly(base | dict(foreground=dict(component=NATIVE, task_id=19)), root))
+
+    def test_completed_retirement_keeps_task_privacy_leave_and_reveal_guards(self):
+        replay, state, root = self.concealed_fixture()
+        with self.assertRaisesRegex(obs.ObservationFailure, "retained shell task"):
+            replay.concealed_readonly(state | dict(foreground=dict(component=MAIN, task_id=20)), root)
+        private = self.session.ET.fromstring(
+            '<hierarchy><node resource-id="game-card-0" bounds="[0,0][100,100]" /></hierarchy>')
+        with self.assertRaisesRegex(self.session.CheckFailure, "Private hand semantics"):
+            replay.concealed_readonly(state, private)
+        leave = self.session.ET.fromstring(
+            '<hierarchy><node package="dev.partydeck.app" text="Leave the table?" '
+            'bounds="[0,0][100,100]" /></hierarchy>')
+        with self.assertRaisesRegex(obs.ObservationFailure, "stale Leave dialog"):
+            replay.concealed_readonly(state, leave)
+        self.assertFalse(replay.concealed_readonly(state, self.session.ET.fromstring('<hierarchy />')))
+        self.assertTrue(replay.concealed_readonly(state, root))
+
+    def test_lingering_record_cannot_outlast_the_held_loop_deadline_and_be_counted_as_success(self):
+        (self.output / "observations").mkdir()
+        @contextmanager
+        def no_video(*args):
+            yield None
+        records, resumed = obs.activity_records(activities())
+        display = obs.window_display(windows())
+        before = dict(foreground=obs.attributed_focus(records, resumed, display),
+                      renderer_pids=[602], activities=records, display=display)
+        pending = dict(foreground=dict(component=MAIN, task_id=19), renderer_pids=[],
+                       activities=[dict(component=NATIVE, lifecycle_state="DESTROYED")])
+        snapshots = iter((before, before, pending))
+        saved = []
+        def save(name, **fields):
+            result = dict(name=name, **fields)
+            saved.append(result)
+            return result
+        ui = types.SimpleNamespace(node_bounds=lambda node: [0, 0, 200, 200],
+                                   intersect_bounds=lambda first, second: first)
+        smoke = types.SimpleNamespace(
+            output=self.output, serial="synthetic-host-only", hold_ms=30000,
+            last_xml_bytes=b"<synthetic-host-only />", shell_task=19, input_incomplete=False,
+            shell_identity=dict(uid=10234),
+            session=types.SimpleNamespace(ui=ui, utc_now=lambda: "synthetic-host-only", MAIN_COMPONENT=MAIN,
+                                          NATIVE_COMPONENT=NATIVE),
+            dump_ui=lambda **kwargs: object(), native_controls=lambda root: {},
+            find_action=lambda *args: object(), viewport=lambda node: [0, 0, 200, 200],
+            save_observation=save, recording=no_video, state=lambda: next(snapshots),
+            require_shell=lambda state: None,
+            matches_activity=lambda state, target: state["foreground"]["component"] == target,
+            input_observation=lambda name: (input_dump(active=False).replace("1500000000", "800000000")
+                                            .replace("1500200000", "800200000")
+                                            if name == "before-held-touch" else input_dump(), {}),
+            adb=lambda *args: None,
+            write_json=lambda name, value: (self.output / name).write_text(json.dumps(value)),
+        )
+        smoke.concealed_readonly = lambda state, root: runner.AdaptiveScenarios.concealed_readonly(smoke, state, root)
+        process = types.SimpleNamespace(poll=lambda: None, wait=lambda **kwargs: 0)
+        # The existing end is 30; a pending observation cannot renew it. No real wait or adb runs.
+        with patch.object(runner.subprocess, "Popen", return_value=process), \
+                patch.object(runner.time, "monotonic", side_effect=(0, 10, 20, 30)), \
+                self.assertRaisesRegex(obs.ObservationFailure, "No read-only concealed return"):
+            runner.AdaptiveScenarios.rotate_while_held(smoke, 602, before, 0, "pending-retirement")
+        self.assertFalse(smoke.input_incomplete)
+        self.assertFalse(any(item["name"] == "concealed-before-up" for item in saved))
+        self.assertNotIn("return_before_up", next(item for item in saved if item["name"] == "held-input-start"))
+
     def test_observer_does_not_mutate_the_accepted_single_window_parser(self):
         with self.assertRaises(self.session.CheckFailure):
             self.session.parse_focused_activity(activities())
