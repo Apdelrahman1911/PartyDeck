@@ -1,0 +1,65 @@
+{
+  "purpose": "Existing compact 2D source scene input/privacy check; not native qualification.",
+  "startedUtc": "2026-09-10T06:56:56.689751+00:00",
+  "command": [
+    "xvfb-run",
+    "-a",
+    "-s",
+    "-screen 0 1280x1800x24",
+    "/opt/partydeck-godot/godot",
+    "--path",
+    "/root/projects/PartyDeck/godot/renderer",
+    "--audio-driver",
+    "Dummy",
+    "--rendering-method",
+    "gl_compatibility",
+    "--rendering-driver",
+    "opengl3",
+    "--script",
+    "/root/projects/PartyDeck/godot/renderer/presentations/two_d/checks/scene_check.gd",
+    "--",
+    "--manual-bridge",
+    "--check-output=/tmp/partydeck-2d-initial-reveal-investigation/tracked-compact-scene-native-host-font-1.0/captures",
+    "--check-fixture=/tmp/partydeck-2d-initial-reveal-investigation/launch-native-host-font-1.0.json",
+    "--check-width=411",
+    "--check-height=711",
+    "--check-text-scale=1",
+    "--check-touch-drag=true",
+    "--check-lobby=true"
+  ],
+  "environmentOverrides": {
+    "LIBGL_ALWAYS_SOFTWARE": "1"
+  },
+  "inputs": [
+    {
+      "path": "/tmp/partydeck-2d-initial-reveal-investigation/run_source_scene_check_host.py",
+      "sha256": "a2c5f7835db3bbd7f6485cb3d044134fbeb50297dc6bf88bc221efa6dab5f851",
+      "sizeBytes": 3687
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/renderer/presentations/two_d/checks/scene_check.gd",
+      "sha256": "aedb2ca6e459044197284062067b727a36e8d5d9facdad85aff84db8514603e4",
+      "sizeBytes": 14216
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-reveal-investigation/launch-native-host-font-1.0.json",
+      "sha256": "8c141aa406711e267b81c80ead02ae290d51f7e3035dd50a30e8c714294c44c8",
+      "sizeBytes": 1156
+    },
+    {
+      "path": "/opt/partydeck-godot/godot",
+      "sha256": "8d106cbe6144c2dc7e881d61d2429c1a8a76e6b22ef48bd5e48dcf934953f71e",
+      "sizeBytes": 146414384
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/renderer/scripts/main.gd",
+      "sha256": "93658c855d32458d7fe74c8d66f3294e6c66ac496d49f2f3f76306b65a18b8e5",
+      "sizeBytes": 13411
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/renderer/presentations/two_d/table.gd",
+      "sha256": "8d8650c8b6b6c5c5052b798e540d0b618dc2d916d7fdda0c95011eac6412f993",
+      "sizeBytes": 32280
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "startedAt": "2026-09-10T06:40:49.775909+00:00",
+  "command": [
+    "flock",
+    "/tmp/partydeck-godot.lock",
+    "xvfb-run",
+    "-a",
+    "/opt/partydeck-godot/godot",
+    "--path",
+    "/tmp/partydeck-frame-reconciliation-packed-v1/focused-3d/empty-project",
+    "--main-pack",
+    "/root/projects/PartyDeck/godot/qualification/build/renderer/partydeck-last-light.pck",
+    "--rendering-method",
+    "gl_compatibility",
+    "--audio-driver",
+    "Dummy",
+    "--script",
+    "/tmp/partydeck-frame-reconciliation-packed-v1/focused-3d/three_d_scene_check.gd",
+    "--",
+    "--manual-bridge",
+    "--check-fixture=/tmp/partydeck-frame-reconciliation-packed-v1/focused-3d/six-long-names-large-text/fixture.json",
+    "--check-output=/tmp/partydeck-frame-reconciliation-packed-v1/focused-3d/six-long-names-large-text",
+    "--check-width=320",
+    "--check-height=740",
+    "--check-text-scale=2",
+    "--check-touch-drag=true",
+    "--check-lobby=true"
+  ],
+  "packSha256": "0ed324c19016f28987d6294f915c107f62234670b149f73bab585af93e29ae6d",
+  "checkerSha256": "5d36c98fc638ebeb28c906350950bb6e7b7e5f111d560e2c62461db0c5e3d32e",
+  "fixtureSha256": "888bc8cb14dbd2d2b01c283a22f5b3acb24396b9fbbefb09cfb3eb89fcb0fb62",
+  "scope": "Exact packed 3D local input/privacy/scroll/lobby regression on Linux OpenGL; no accepted authority action or native-device claim"
+}

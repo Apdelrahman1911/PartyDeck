@@ -1,0 +1,118 @@
+{
+  "case": "baseline-font-1.0",
+  "purpose": "Isolated desktop rendering of native surface geometry; not Android qualification.",
+  "startedUtc": "2026-09-10T06:42:58.161896+00:00",
+  "command": [
+    "xvfb-run",
+    "-a",
+    "-s",
+    "-screen 0 1280x1800x24",
+    "/opt/partydeck-godot/godot",
+    "--path",
+    "/tmp/partydeck-2d-initial-reveal-investigation/frame-v1-source",
+    "--audio-driver",
+    "Dummy",
+    "--rendering-method",
+    "gl_compatibility",
+    "--rendering-driver",
+    "opengl3",
+    "--resolution",
+    "720x1244",
+    "--script",
+    "/tmp/partydeck-2d-initial-reveal-investigation/initial_reveal_probe.gd",
+    "--",
+    "--manual-bridge",
+    "--probe-output=/tmp/partydeck-2d-initial-reveal-investigation/baseline-font-1.0/captures",
+    "--probe-fixture=/tmp/partydeck-2d-initial-reveal-investigation/launch-font-1.0.json",
+    "--probe-height=1244"
+  ],
+  "environmentOverrides": {
+    "LIBGL_ALWAYS_SOFTWARE": "1"
+  },
+  "inputs": [
+    {
+      "path": "/tmp/partydeck-2d-initial-reveal-investigation/run_probe.py",
+      "sha256": "ea21c0ebdd369d0ec9c129e754c3e40b05e9fc9e2a968d84780534aa1ac72d86",
+      "sizeBytes": 3907
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-reveal-investigation/initial_reveal_probe.gd",
+      "sha256": "a74e7817d7ee5587f59258ed0d9a7903cac005ac8e925883580b6b0fd390f437",
+      "sizeBytes": 3955
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-reveal-investigation/launch-font-1.0.json",
+      "sha256": "abbbaadc3a430c40b8d9c5004759cdb2aaebcdf898b25d9c70f62558ddd6ed22",
+      "sizeBytes": 1152
+    },
+    {
+      "path": "/opt/partydeck-godot/godot",
+      "sha256": "8d106cbe6144c2dc7e881d61d2429c1a8a76e6b22ef48bd5e48dcf934953f71e",
+      "sizeBytes": 146414384
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-reveal-investigation/frame-v1-source/scripts/main.gd",
+      "sha256": "93658c855d32458d7fe74c8d66f3294e6c66ac496d49f2f3f76306b65a18b8e5",
+      "sizeBytes": 13411
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-reveal-investigation/frame-v1-source/presentations/two_d/table.gd",
+      "sha256": "46fde47e8da4dbb8c8f91e0a4215ceabb4040a8ddfcbab54c8573d5b9cc96eef",
+      "sizeBytes": 32087
+    }
+  ],
+  "exitCode": 0,
+  "finishedUtc": "2026-09-10T06:43:00.469226+00:00",
+  "errors": [],
+  "missingEvidence": [],
+  "observationCount": 2,
+  "eventCount": 1,
+  "completed": true,
+  "evidence": [
+    {
+      "path": "captures/01-early.json",
+      "sha256": "766a40c98553787ea327736e465001c974f5fdfc3a3be4c5bb9052ddede4cdf0",
+      "sizeBytes": 1593
+    },
+    {
+      "path": "captures/01-early.png",
+      "sha256": "c770696a7be8b92228a810f3a2ebe5744e88121adfa0e48963ec0a32da650672",
+      "sizeBytes": 141113
+    },
+    {
+      "path": "captures/02-late.json",
+      "sha256": "93867b277902454e62331741d36a18ca78079ee63e10470eaa31acf7d109eec2",
+      "sizeBytes": 1593
+    },
+    {
+      "path": "captures/02-late.png",
+      "sha256": "c770696a7be8b92228a810f3a2ebe5744e88121adfa0e48963ec0a32da650672",
+      "sizeBytes": 141113
+    },
+    {
+      "path": "captures/bridge-events.jsonl",
+      "sha256": "20503c2c80566ef7b1b15b12c3f34f5bbf73e500ee8731d335b7860c8c4b77b9",
+      "sizeBytes": 95
+    },
+    {
+      "path": "captures/observations.json",
+      "sha256": "187b45ebca1fcb13574f630f1de2adc256d148c18ad979d7ab0226da0de07c7c",
+      "sizeBytes": 1017
+    },
+    {
+      "path": "invocation.json",
+      "sha256": "e14d9e76c799b6682a254838b71da1a101047c6ca2d1f5168e8ac6e738827a74",
+      "sizeBytes": 2206
+    },
+    {
+      "path": "stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sizeBytes": 0
+    },
+    {
+      "path": "stdout.log",
+      "sha256": "7fb638244561809b736fe5dd89922f477bcbe101a77538d58cee3ab1da8f5fb3",
+      "sizeBytes": 1383
+    }
+  ]
+}

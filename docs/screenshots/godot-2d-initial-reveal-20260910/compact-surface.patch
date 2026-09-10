@@ -1,0 +1,15 @@
+--- a/godot/renderer/presentations/two_d/table.gd
++++ b/godot/renderer/presentations/two_d/table.gd
+@@ -576,7 +576,11 @@
+ 	for button in [_exit, _hide, _reveal, _play, _challenge, _next, _lobby]:
+ 		button.add_theme_font_size_override("font_size", int(17 * _text_scale))
+ 		button.custom_minimum_size.y = 56
+-	_surface.custom_minimum_size.y = 136 if size.y < 500 else (148 if narrow else 152)
++	var surface_height := 136 if short_window else (148 if narrow else 152)
++	if narrow and not short_window and not large_text and size.y < 800:
++		# Leave room for the concealed hand above the fixed actions.
++		surface_height = 124
++	_surface.custom_minimum_size.y = surface_height
+ 	_cover_art.visible = _text_scale < 1.5 and size.x >= 420
+ 	if _dialog_scroll != null:
+ 		_fit_lobby_dialog()

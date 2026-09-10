@@ -1,0 +1,1017 @@
+--------- beginning of events
+09-10 06:46:20.451   160   160 I snet_event_log: [121035042,-1,]
+09-10 06:46:20.461   160   160 I auditd  : SELinux: Loaded service context from:
+09-10 06:46:20.464   160   160 I auditd  : 		/system/etc/selinux/plat_service_contexts
+09-10 06:46:20.465   160   160 I auditd  : 		/system_ext/etc/selinux/system_ext_service_contexts
+09-10 06:46:20.468   160   160 I auditd  : 		/vendor/etc/selinux/vendor_service_contexts
+09-10 06:46:15.065   158   158 I auditd  : type=2000 audit(0.0:1): state=initialized audit_enabled=0 res=1
+09-10 06:46:19.917   158   158 I auditd  : type=1403 audit(0.0:2): auid=4294967295 ses=4294967295 lsm=selinux res=1
+09-10 06:46:19.917   158   158 I auditd  : type=1404 audit(0.0:3): enforcing=1 old_enforcing=0 auid=4294967295 ses=4294967295 enabled=1 old-enabled=1 lsm=selinux res=1
+09-10 06:46:19.945     1     1 I auditd  : type=1107 audit(0.0:4): uid=0 auid=4294967295 ses=4294967295 subj=u:r:init:s0 msg='avc:  denied  { set } for property=persist.sys.usb.config pid=1 uid=0 gid=0 scontext=u:r:vendor_init:s0 tcontext=u:object_r:system_prop:s0 tclass=property_service permissive=0'
+09-10 06:46:20.835   183   192 I auditd  : SELinux: Loaded keystore2 context from:
+09-10 06:46:20.835   183   192 I auditd  : 		/system/etc/selinux/plat_keystore2_key_contexts
+09-10 06:46:20.835   183   192 I auditd  : 		/system_ext/etc/selinux/system_ext_keystore2_key_contexts
+09-10 06:46:20.835   183   192 I auditd  : 		/vendor/etc/selinux/vendor_keystore2_key_contexts
+09-10 06:46:21.608   233   233 I auditd  : SELinux: Loaded file context from:
+09-10 06:46:21.609   233   233 I auditd  : 		/system/etc/selinux/plat_file_contexts
+09-10 06:46:21.610   233   233 I auditd  : 		/system_ext/etc/selinux/system_ext_file_contexts
+09-10 06:46:21.611   233   233 I auditd  : 		/vendor/etc/selinux/vendor_file_contexts
+09-10 06:46:23.749     1     1 I auditd  : type=1400 audit(0.0:5): avc:  denied  { write } for  comm="init" name="error_report_end" dev="tracefs" ino=6669 scontext=u:r:init:s0 tcontext=u:object_r:debugfs_bootreceiver_tracing:s0 tclass=dir permissive=0
+09-10 06:46:24.326   366   366 I boot_progress_start: 9607
+09-10 06:46:24.742   366   366 I snet_event_log: [200284993,-1,]
+09-10 06:46:24.935   366   366 I boot_progress_preload_start: 10215
+09-10 06:46:25.462   366   366 I boot_progress_preload_end: 10743
+09-10 06:46:25.840   562   562 I system_server_start: [1,11120,11120]
+09-10 06:46:25.840   562   562 I boot_progress_system_run: 11121
+09-10 06:46:26.145   562   604 I commit_sys_config_file: [batterystats,6]
+09-10 06:46:26.150   562   604 I commit_sys_config_file: [batterystats,2]
+09-10 06:46:26.180   562   604 I commit_sys_config_file: [display-state,2]
+09-10 06:46:26.181   562   562 I boot_progress_pms_start: 11462
+09-10 06:46:26.195   562   562 I pm_critical_info: No package manager settings file
+09-10 06:46:26.197   562   562 I boot_progress_pms_system_scan_start: 11478
+09-10 06:46:26.218   562   562 I liblog  : 328
+09-10 06:46:26.441   562   562 I service_manager_stats: [100,24,11721]
+09-10 06:46:26.516   562   562 I pm_critical_info: Adding duplicate shared id: 1000 name=android
+09-10 06:46:26.585   562   562 I pm_critical_info: Adding duplicate app id: 10068 name=com.android.providers.contacts
+09-10 06:46:26.592   562   562 I pm_critical_info: Adding duplicate shared id: 1000 name=com.android.location.fused
+09-10 06:46:26.624   562   562 I pm_critical_info: Adding duplicate app id: 10068 name=com.android.providers.blockednumber
+09-10 06:46:26.627   562   562 I pm_critical_info: Adding duplicate app id: 10074 name=com.android.providers.downloads.ui
+09-10 06:46:26.631   562   562 I pm_critical_info: Adding duplicate shared id: 1001 name=com.android.ons
+09-10 06:46:26.641   562   562 I pm_critical_info: Adding duplicate app id: 10068 name=com.android.providers.userdictionary
+09-10 06:46:26.647   562   562 I pm_critical_info: Adding duplicate shared id: 1000 name=com.android.DeviceAsWebcam
+09-10 06:46:26.648   562   562 I pm_critical_info: Adding duplicate shared id: 2000 name=com.android.shell
+09-10 06:46:26.650   562   562 I pm_critical_info: Adding duplicate shared id: 1001 name=com.android.phone
+09-10 06:46:26.653   562   562 I pm_critical_info: Adding duplicate shared id: 1000 name=com.android.providers.settings
+09-10 06:46:26.656   562   562 I pm_critical_info: Adding duplicate app id: 10074 name=com.android.mtp
+09-10 06:46:26.662   562   562 I pm_critical_info: Adding duplicate app id: 10068 name=com.android.calllogbackup
+09-10 06:46:26.671   562   562 I pm_critical_info: Adding duplicate shared id: 1000 name=com.android.dynsystem
+09-10 06:46:26.675   562   562 I pm_critical_info: Adding duplicate app id: 10068 name=com.android.providers.contactkeys
+09-10 06:46:26.676   562   562 I pm_critical_info: Adding duplicate shared id: 1000 name=com.android.inputdevices
+09-10 06:46:26.685   562   562 I pm_critical_info: Adding duplicate shared id: 1073 name=com.android.networkstack
+09-10 06:46:26.687   562   562 I pm_critical_info: Adding duplicate shared id: 1001 name=com.android.mms.service
+09-10 06:46:26.688   562   562 I pm_critical_info: Adding duplicate app id: 10079 name=com.android.providers.calendar
+09-10 06:46:26.692   562   562 I pm_critical_info: Adding duplicate app id: 10074 name=com.android.providers.media
+09-10 06:46:26.695   562   562 I pm_critical_info: Adding duplicate shared id: 1001 name=com.android.providers.telephony
+09-10 06:46:26.697   562   562 I pm_critical_info: Adding duplicate shared id: 1000 name=com.android.server.telecom
+09-10 06:46:26.699   562   562 I pm_critical_info: Adding duplicate shared id: 1000 name=com.android.localtransport
+09-10 06:46:26.700   562   562 I pm_critical_info: Adding duplicate app id: 10074 name=com.android.providers.downloads
+09-10 06:46:26.701   562   562 I pm_critical_info: Adding duplicate app id: 10074 name=com.android.soundpicker
+09-10 06:46:26.714   562   562 I pm_critical_info: Adding duplicate shared id: 1068 name=com.android.se
+09-10 06:46:26.745   562   562 I pm_critical_info: Adding duplicate shared id: 1000 name=com.android.keychain
+09-10 06:46:26.758   562   562 I pm_critical_info: Adding duplicate shared id: 1001 name=com.android.stk
+09-10 06:46:26.905   562   562 I pm_critical_info: Adding duplicate app id: 10119 name=com.android.emergency
+09-10 06:46:26.915   562   562 I pm_critical_info: Adding duplicate shared id: 1000 name=com.android.emulator.multidisplay
+09-10 06:46:26.925   562   562 I pm_critical_info: Adding duplicate app id: 10120 name=com.android.systemui
+09-10 06:46:26.968   562   562 I pm_critical_info: Adding duplicate shared id: 1000 name=com.android.settings
+09-10 06:46:26.998   562   562 I pm_critical_info: Adding duplicate shared id: 1027 name=com.android.nfc
+09-10 06:46:27.012   562   562 I pm_critical_info: Adding duplicate shared id: 1073 name=com.android.networkstack.tethering
+09-10 06:46:27.141   562   562 I pm_critical_info: Adding duplicate app id: 10138 name=com.android.cts.ctsshim
+09-10 06:46:27.193   562   562 I pm_critical_info: Adding duplicate shared id: 1002 name=com.android.bluetooth
+09-10 06:46:27.321   562   562 I pm_critical_info: Adding duplicate shared id: 1073 name=com.android.cellbroadcastservice
+09-10 06:46:27.357   562   562 I boot_progress_pms_data_scan_start: 12638
+09-10 06:46:27.359   562   562 I boot_progress_pms_scan_end: 12640
+09-10 06:46:27.414   562   562 I commit_sys_config_file: [package,13]
+09-10 06:46:27.414   562   562 I boot_progress_pms_ready: 12695
+09-10 06:46:27.425   562   627 I commit_sys_config_file: [package-user-0,11]
+09-10 06:46:27.427   562   562 I am_uid_running: 1000
+09-10 06:46:27.429   562   562 I am_uid_active: 1000
+09-10 06:46:27.517   562   562 I commit_sys_config_file: [overlays,3]
+09-10 06:46:27.527   562   644 I battery_status: [2,2,1,1,Li-ion]
+09-10 06:46:27.527   562   644 I battery_level: [100,5000,250]
+09-10 06:46:27.579   562   670 I commit_sys_config_file: [settings-1-0,1]
+09-10 06:46:27.580   562   670 I commit_sys_config_file: [settings-0-0,1]
+09-10 06:46:27.581   562   670 I commit_sys_config_file: [settings-2-0,1]
+09-10 06:46:27.582   562   670 I commit_sys_config_file: [settings-1-0,1]
+09-10 06:46:27.630   562   562 I wm_task_created: 1
+09-10 06:46:27.631   562   596 I sysui_multi_action: [757,1594,758,4,759,1,806,NULL]
+09-10 06:46:27.639   562   562 I commit_sys_config_file: [net-watchlist,0]
+09-10 06:46:27.644   562   605 I am_wtf  : [0,562,system_server,-1,SystemServiceRegistry,No service published for: jobscheduler]
+09-10 06:46:27.644   562   605 I am_wtf  : [0,562,system_server,-1,SystemServiceRegistry,Manager wrapper not available: jobscheduler]
+09-10 06:46:27.661   562   562 I configuration_changed: 536894968
+09-10 06:46:27.662   562   562 I sysui_multi_action: [757,1659,758,4,759,1,1660,0]
+09-10 06:46:27.675   562   595 I am_uid_running: 10127
+09-10 06:46:27.851   562   670 I commit_sys_config_file: [settings-0-0,10]
+09-10 06:46:28.967   562   562 I sysui_multi_action: [757,804,799,opt_dialog_num_dexopted,801,18,802,1]
+09-10 06:46:28.967   562   562 I sysui_multi_action: [757,804,799,opt_dialog_num_skipped,801,95,802,1]
+09-10 06:46:28.967   562   562 I sysui_multi_action: [757,804,799,opt_dialog_num_failed,801,0,802,1]
+09-10 06:46:28.968   562   562 I sysui_multi_action: [757,804,799,opt_dialog_num_total,801,113,802,1]
+09-10 06:46:28.968   562   562 I sysui_multi_action: [757,804,799,opt_dialog_time_s,801,1,802,1]
+09-10 06:46:28.986   562   562 I device_idle: [0,boot]
+09-10 06:46:28.986   562   562 I device_idle_light: [0,boot]
+09-10 06:46:29.083   562   605 I am_wtf  : [0,562,system_server,-1,SystemServiceRegistry,No service published for: jobscheduler]
+09-10 06:46:29.083   562   605 I am_wtf  : [0,562,system_server,-1,SystemServiceRegistry,Manager wrapper not available: jobscheduler]
+09-10 06:46:29.084   562   605 I am_wtf  : [0,562,system_server,-1,SystemServiceRegistry,No service published for: jobscheduler]
+09-10 06:46:29.085   562   605 I am_wtf  : [0,562,system_server,-1,SystemServiceRegistry,Manager wrapper not available: jobscheduler]
+09-10 06:46:29.085   562   605 I am_wtf  : [0,562,system_server,-1,SystemServiceRegistry,No service published for: jobscheduler]
+09-10 06:46:29.085   562   605 I am_wtf  : [0,562,system_server,-1,SystemServiceRegistry,Manager wrapper not available: jobscheduler]
+09-10 06:46:29.087   562   562 I sysui_multi_action: [757,856,758,1,806,android,857,PHYSICAL_KEYBOARD,858,2]
+09-10 06:46:29.087   562   562 I sysui_multi_action: [757,856,758,1,806,android,857,SECURITY,858,2]
+09-10 06:46:29.087   562   562 I sysui_multi_action: [757,856,758,1,806,android,857,CAR_MODE,858,2]
+09-10 06:46:29.087   562   562 I sysui_multi_action: [757,856,758,1,806,android,857,ACCOUNT,858,2]
+09-10 06:46:29.087   562   562 I sysui_multi_action: [757,856,758,1,806,android,857,DEVELOPER,858,2]
+09-10 06:46:29.088   562   562 I sysui_multi_action: [757,856,758,1,806,android,857,DEVELOPER_IMPORTANT,858,4]
+09-10 06:46:29.088   562   562 I sysui_multi_action: [757,856,758,1,806,android,857,UPDATES,858,2]
+09-10 06:46:29.088   562   562 I sysui_multi_action: [757,856,758,1,806,android,857,NETWORK_STATUS,858,2]
+09-10 06:46:29.088   562   562 I sysui_multi_action: [757,856,758,1,806,android,857,NETWORK_ALERTS,858,4]
+09-10 06:46:29.088   562   562 I sysui_multi_action: [757,856,758,1,806,android,857,NETWORK_AVAILABLE,858,2]
+09-10 06:46:29.088   562   562 I sysui_multi_action: [757,856,758,1,806,android,857,VPN,858,2]
+09-10 06:46:29.088   562   562 I sysui_multi_action: [757,856,758,1,806,android,857,DEVICE_ADMIN_ALERTS,858,4]
+09-10 06:46:29.088   562   562 I sysui_multi_action: [757,856,758,1,806,android,857,ALERTS,858,3]
+09-10 06:46:29.088   562   562 I sysui_multi_action: [757,856,758,1,806,android,857,RETAIL_MODE,858,2]
+09-10 06:46:29.088   562   562 I sysui_multi_action: [757,856,758,1,806,android,857,USB,858,1]
+09-10 06:46:29.088   562   562 I sysui_multi_action: [757,856,758,1,806,android,857,FOREGROUND_SERVICE,858,2]
+09-10 06:46:29.088   562   562 I sysui_multi_action: [757,856,758,1,806,android,857,HEAVY_WEIGHT_APP,858,3]
+09-10 06:46:29.088   562   562 I sysui_multi_action: [757,856,758,1,806,android,857,SYSTEM_CHANGES_ALERTS,858,3]
+09-10 06:46:29.088   562   562 I sysui_multi_action: [757,856,758,1,806,android,857,DO_NOT_DISTURB,858,2]
+09-10 06:46:29.088   562   562 I sysui_multi_action: [757,856,758,1,806,android,857,ACCESSIBILITY_MAGNIFICATION,858,4]
+09-10 06:46:29.088   562   562 I sysui_multi_action: [757,856,758,1,806,android,857,ACCESSIBILITY_SECURITY_POLICY,858,2]
+09-10 06:46:29.088   562   562 I sysui_multi_action: [757,856,758,1,806,android,857,ABUSIVE_BACKGROUND_APPS,858,2]
+09-10 06:46:29.089   562   862 I storage_state: [41217664-9172-527a-b3d5-edabb50a7d69,0,0,5814636544,6228115456]
+09-10 06:46:29.114   562   605 I am_wtf  : [0,562,system_server,-1,SystemServiceRegistry,No service published for: jobscheduler]
+09-10 06:46:29.114   562   605 I am_wtf  : [0,562,system_server,-1,SystemServiceRegistry,Manager wrapper not available: jobscheduler]
+09-10 06:46:29.132   562   868 I stream_devices_changed: [4,0,2]
+09-10 06:46:29.133   562   868 I stream_devices_changed: [6,0,2]
+09-10 06:46:29.133   562   868 I stream_devices_changed: [3,0,2]
+09-10 06:46:29.133   562   868 I stream_devices_changed: [5,0,2]
+09-10 06:46:29.133   562   868 I stream_devices_changed: [2,0,2]
+09-10 06:46:29.135   562   868 I stream_devices_changed: [0,0,2]
+09-10 06:46:29.285   562   670 I commit_sys_config_file: [settings-2-0,1]
+09-10 06:46:29.287   562   670 I commit_sys_config_file: [settings-0-0,3]
+09-10 06:46:29.316   562   670 I commit_sys_config_file: [settings-1-0,3]
+09-10 06:46:29.337   562   562 I configuration_changed: 512
+09-10 06:46:29.337   562   595 I commit_sys_config_file: [notification-policy,3]
+09-10 06:46:29.345   562   846 I sysui_multi_action: [757,856,758,1,806,android,857,APM_ALERTS,858,4]
+09-10 06:46:29.368   562   562 I commit_sys_config_file: [package-session,1]
+09-10 06:46:29.380   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.dynsystem,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.381   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.server.telecom,1241,android.permission.READ_CALL_LOG]
+09-10 06:46:29.381   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.settings,1241,android.permission.ACCESS_FINE_LOCATION]
+09-10 06:46:29.381   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.settings,1241,android.permission.READ_PHONE_NUMBERS]
+09-10 06:46:29.381   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.settings,1241,android.permission.READ_MEDIA_VISUAL_USER_SELECTED]
+09-10 06:46:29.381   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.settings,1241,android.permission.BLUETOOTH_CONNECT]
+09-10 06:46:29.381   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.server.telecom,1241,android.permission.READ_EXTERNAL_STORAGE]
+09-10 06:46:29.381   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.settings,1241,android.permission.ACCESS_COARSE_LOCATION]
+09-10 06:46:29.381   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.settings,1241,android.permission.READ_PHONE_STATE]
+09-10 06:46:29.381   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.server.telecom,1241,android.permission.SEND_SMS]
+09-10 06:46:29.381   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.settings,1241,android.permission.CALL_PHONE]
+09-10 06:46:29.382   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.settings,1241,android.permission.READ_MEDIA_IMAGES]
+09-10 06:46:29.382   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.settings,1241,android.permission.WRITE_CONTACTS]
+09-10 06:46:29.382   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.DeviceAsWebcam,1241,android.permission.CAMERA]
+09-10 06:46:29.382   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.server.telecom,1241,android.permission.WRITE_CALL_LOG]
+09-10 06:46:29.382   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.settings,1241,android.permission.READ_MEDIA_AUDIO]
+09-10 06:46:29.382   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.settings,1241,android.permission.READ_MEDIA_VIDEO]
+09-10 06:46:29.382   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.settings,1241,android.permission.BLUETOOTH_ADVERTISE]
+09-10 06:46:29.382   562   562 I sysui_multi_action: [757,1243,758,4,806,android,1241,android.permission.GET_ACCOUNTS]
+09-10 06:46:29.382   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.settings,1241,android.permission.WRITE_EXTERNAL_STORAGE]
+09-10 06:46:29.382   562   562 I sysui_multi_action: [757,1243,758,4,806,android,1241,android.permission.READ_CONTACTS]
+09-10 06:46:29.382   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.location.fused,1241,android.permission.ACCESS_BACKGROUND_LOCATION]
+09-10 06:46:29.383   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.settings,1241,android.permission.BLUETOOTH_SCAN]
+09-10 06:46:29.383   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.mms.service,1241,android.permission.READ_SMS]
+09-10 06:46:29.383   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.stk,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.383   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.phone,1241,android.permission.READ_CALL_LOG]
+09-10 06:46:29.383   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.phone,1241,android.permission.ACCESS_FINE_LOCATION]
+09-10 06:46:29.383   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.providers.telephony,1241,android.permission.RECEIVE_SMS]
+09-10 06:46:29.383   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.phone,1241,android.permission.BLUETOOTH_CONNECT]
+09-10 06:46:29.383   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.providers.telephony,1241,android.permission.READ_EXTERNAL_STORAGE]
+09-10 06:46:29.383   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.phone,1241,android.permission.ACCESS_COARSE_LOCATION]
+09-10 06:46:29.383   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.mms.service,1241,android.permission.READ_PHONE_STATE]
+09-10 06:46:29.384   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.phone,1241,android.permission.SEND_SMS]
+09-10 06:46:29.384   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.phone,1241,android.permission.CALL_PHONE]
+09-10 06:46:29.384   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.phone,1241,android.permission.WRITE_CONTACTS]
+09-10 06:46:29.384   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.phone,1241,android.permission.WRITE_CALL_LOG]
+09-10 06:46:29.384   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.phone,1241,android.permission.USE_SIP]
+09-10 06:46:29.384   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.phone,1241,android.permission.GET_ACCOUNTS]
+09-10 06:46:29.384   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.providers.telephony,1241,android.permission.WRITE_EXTERNAL_STORAGE]
+09-10 06:46:29.384   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.phone,1241,android.permission.RECORD_AUDIO]
+09-10 06:46:29.384   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.phone,1241,android.permission.READ_CONTACTS]
+09-10 06:46:29.384   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.phone,1241,android.permission.BLUETOOTH_SCAN]
+09-10 06:46:29.384   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.phone,1241,com.android.voicemail.permission.ADD_VOICEMAIL]
+09-10 06:46:29.384   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.bluetooth,1241,android.permission.READ_SMS]
+09-10 06:46:29.384   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.bluetooth,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.385   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.bluetooth,1241,android.permission.READ_CALL_LOG]
+09-10 06:46:29.385   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.bluetooth,1241,android.permission.ACCESS_FINE_LOCATION]
+09-10 06:46:29.385   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.bluetooth,1241,android.permission.RECEIVE_SMS]
+09-10 06:46:29.385   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.bluetooth,1241,android.permission.BLUETOOTH_CONNECT]
+09-10 06:46:29.385   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.bluetooth,1241,android.permission.READ_EXTERNAL_STORAGE]
+09-10 06:46:29.385   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.bluetooth,1241,android.permission.ACCESS_COARSE_LOCATION]
+09-10 06:46:29.385   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.bluetooth,1241,android.permission.SEND_SMS]
+09-10 06:46:29.385   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.bluetooth,1241,android.permission.WRITE_CONTACTS]
+09-10 06:46:29.385   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.bluetooth,1241,android.permission.WRITE_CALL_LOG]
+09-10 06:46:29.385   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.bluetooth,1241,android.permission.BLUETOOTH_ADVERTISE]
+09-10 06:46:29.385   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.bluetooth,1241,android.permission.GET_ACCOUNTS]
+09-10 06:46:29.385   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.bluetooth,1241,android.permission.WRITE_EXTERNAL_STORAGE]
+09-10 06:46:29.385   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.bluetooth,1241,android.permission.READ_CONTACTS]
+09-10 06:46:29.386   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.bluetooth,1241,android.permission.BLUETOOTH_SCAN]
+09-10 06:46:29.386   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.nfc,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.386   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.nfc,1241,android.permission.BLUETOOTH_CONNECT]
+09-10 06:46:29.386   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.nfc,1241,android.permission.READ_EXTERNAL_STORAGE]
+09-10 06:46:29.386   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.nfc,1241,android.permission.WRITE_EXTERNAL_STORAGE]
+09-10 06:46:29.386   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.nfc,1241,android.permission.READ_CONTACTS]
+09-10 06:46:29.386   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.nfc,1241,android.permission.BLUETOOTH_SCAN]
+09-10 06:46:29.386   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.networkstack.tethering,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.386   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.networkstack,1241,android.permission.ACCESS_FINE_LOCATION]
+09-10 06:46:29.386   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.cellbroadcastservice,1241,android.permission.RECEIVE_SMS]
+09-10 06:46:29.386   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.networkstack.tethering,1241,android.permission.BLUETOOTH_CONNECT]
+09-10 06:46:29.386   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.networkstack,1241,android.permission.ACCESS_COARSE_LOCATION]
+09-10 06:46:29.386   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.networkstack.tethering,1241,android.permission.READ_PHONE_STATE]
+09-10 06:46:29.386   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.cellbroadcastservice,1241,android.permission.READ_CELL_BROADCASTS]
+09-10 06:46:29.386   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.READ_SMS]
+09-10 06:46:29.386   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.READ_CALENDAR]
+09-10 06:46:29.386   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.386   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.READ_CALL_LOG]
+09-10 06:46:29.387   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.ACCESS_FINE_LOCATION]
+09-10 06:46:29.387   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.ANSWER_PHONE_CALLS]
+09-10 06:46:29.387   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.RECEIVE_WAP_PUSH]
+09-10 06:46:29.387   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.BODY_SENSORS]
+09-10 06:46:29.387   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.READ_PHONE_NUMBERS]
+09-10 06:46:29.387   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.READ_MEDIA_VISUAL_USER_SELECTED]
+09-10 06:46:29.387   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.NEARBY_WIFI_DEVICES]
+09-10 06:46:29.387   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.RECEIVE_MMS]
+09-10 06:46:29.387   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.RECEIVE_SMS]
+09-10 06:46:29.387   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.BLUETOOTH_CONNECT]
+09-10 06:46:29.387   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.READ_EXTERNAL_STORAGE]
+09-10 06:46:29.387   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.ACCESS_COARSE_LOCATION]
+09-10 06:46:29.387   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.READ_PHONE_STATE]
+09-10 06:46:29.387   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.SEND_SMS]
+09-10 06:46:29.387   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.CALL_PHONE]
+09-10 06:46:29.387   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.WRITE_CONTACTS]
+09-10 06:46:29.387   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.ACCEPT_HANDOVER]
+09-10 06:46:29.387   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.CAMERA]
+09-10 06:46:29.388   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.WRITE_CALENDAR]
+09-10 06:46:29.388   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.WRITE_CALL_LOG]
+09-10 06:46:29.388   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.USE_SIP]
+09-10 06:46:29.388   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.PROCESS_OUTGOING_CALLS]
+09-10 06:46:29.388   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.READ_CELL_BROADCASTS]
+09-10 06:46:29.388   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.BLUETOOTH_ADVERTISE]
+09-10 06:46:29.388   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.GET_ACCOUNTS]
+09-10 06:46:29.388   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.WRITE_EXTERNAL_STORAGE]
+09-10 06:46:29.388   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.UWB_RANGING]
+09-10 06:46:29.388   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.ACTIVITY_RECOGNITION]
+09-10 06:46:29.388   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.RECORD_AUDIO]
+09-10 06:46:29.388   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.READ_CONTACTS]
+09-10 06:46:29.388   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.ACCESS_BACKGROUND_LOCATION]
+09-10 06:46:29.388   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.BLUETOOTH_SCAN]
+09-10 06:46:29.388   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,android.permission.ACCESS_MEDIA_LOCATION]
+09-10 06:46:29.388   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.shell,1241,com.android.voicemail.permission.ADD_VOICEMAIL]
+09-10 06:46:29.388   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.packageinstaller,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.388   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.documentsui,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.388   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.externalstorage,1241,android.permission.READ_EXTERNAL_STORAGE]
+09-10 06:46:29.388   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.externalstorage,1241,android.permission.WRITE_EXTERNAL_STORAGE]
+09-10 06:46:29.388   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.managedprovisioning,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.388   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.providers.contacts,1241,android.permission.READ_CALL_LOG]
+09-10 06:46:29.389   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.providers.contacts,1241,android.permission.READ_PHONE_STATE]
+09-10 06:46:29.389   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.providers.contacts,1241,android.permission.WRITE_CONTACTS]
+09-10 06:46:29.389   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.providers.contacts,1241,android.permission.WRITE_CALL_LOG]
+09-10 06:46:29.389   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.providers.contacts,1241,android.permission.GET_ACCOUNTS]
+09-10 06:46:29.389   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.providers.contacts,1241,android.permission.READ_CONTACTS]
+09-10 06:46:29.389   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.sharedstoragebackup,1241,android.permission.READ_EXTERNAL_STORAGE]
+09-10 06:46:29.389   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.sharedstoragebackup,1241,android.permission.WRITE_EXTERNAL_STORAGE]
+09-10 06:46:29.389   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.bips,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.389   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.providers.downloads,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.389   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.providers.downloads,1241,android.permission.READ_EXTERNAL_STORAGE]
+09-10 06:46:29.389   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.providers.downloads,1241,android.permission.WRITE_EXTERNAL_STORAGE]
+09-10 06:46:29.389   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.apps.tag,1241,android.permission.CALL_PHONE]
+09-10 06:46:29.389   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.apps.tag,1241,android.permission.READ_CONTACTS]
+09-10 06:46:29.389   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.statementservice,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.389   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.providers.calendar,1241,android.permission.READ_CALENDAR]
+09-10 06:46:29.389   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.providers.calendar,1241,android.permission.READ_EXTERNAL_STORAGE]
+09-10 06:46:29.389   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.providers.calendar,1241,android.permission.WRITE_CALENDAR]
+09-10 06:46:29.389   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.providers.calendar,1241,android.permission.GET_ACCOUNTS]
+09-10 06:46:29.389   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.providers.calendar,1241,android.permission.WRITE_EXTERNAL_STORAGE]
+09-10 06:46:29.389   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.printspooler,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.389   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.printspooler,1241,android.permission.ACCESS_FINE_LOCATION]
+09-10 06:46:29.389   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.printspooler,1241,android.permission.ACCESS_COARSE_LOCATION]
+09-10 06:46:29.389   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.egg,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.389   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.carrierdefaultapp,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.389   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.bluetoothmidiservice,1241,android.permission.BLUETOOTH_CONNECT]
+09-10 06:46:29.389   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.bluetoothmidiservice,1241,android.permission.BLUETOOTH_ADVERTISE]
+09-10 06:46:29.390   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.bluetoothmidiservice,1241,android.permission.BLUETOOTH_SCAN]
+09-10 06:46:29.390   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.captiveportallogin,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.390   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.traceur,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.390   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.companiondevicemanager,1241,android.permission.ACCESS_FINE_LOCATION]
+09-10 06:46:29.390   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.companiondevicemanager,1241,android.permission.BLUETOOTH_CONNECT]
+09-10 06:46:29.390   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.companiondevicemanager,1241,android.permission.ACCESS_COARSE_LOCATION]
+09-10 06:46:29.390   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.companiondevicemanager,1241,android.permission.BLUETOOTH_ADVERTISE]
+09-10 06:46:29.390   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.companiondevicemanager,1241,android.permission.ACCESS_BACKGROUND_LOCATION]
+09-10 06:46:29.390   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.companiondevicemanager,1241,android.permission.BLUETOOTH_SCAN]
+09-10 06:46:29.390   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.contacts,1241,android.permission.READ_CALL_LOG]
+09-10 06:46:29.390   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.contacts,1241,android.permission.READ_PHONE_STATE]
+09-10 06:46:29.390   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.contacts,1241,android.permission.CALL_PHONE]
+09-10 06:46:29.390   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.contacts,1241,android.permission.WRITE_CONTACTS]
+09-10 06:46:29.390   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.contacts,1241,android.permission.GET_ACCOUNTS]
+09-10 06:46:29.390   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.contacts,1241,android.permission.READ_CONTACTS]
+09-10 06:46:29.390   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.dialer,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.390   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.dialer,1241,android.permission.READ_CALL_LOG]
+09-10 06:46:29.390   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.dialer,1241,android.permission.READ_PHONE_STATE]
+09-10 06:46:29.390   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.dialer,1241,android.permission.SEND_SMS]
+09-10 06:46:29.390   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.dialer,1241,android.permission.CALL_PHONE]
+09-10 06:46:29.390   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.dialer,1241,android.permission.WRITE_CONTACTS]
+09-10 06:46:29.390   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.dialer,1241,android.permission.CAMERA]
+09-10 06:46:29.390   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.dialer,1241,android.permission.WRITE_CALL_LOG]
+09-10 06:46:29.390   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.dialer,1241,android.permission.PROCESS_OUTGOING_CALLS]
+09-10 06:46:29.390   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.dialer,1241,android.permission.GET_ACCOUNTS]
+09-10 06:46:29.390   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.dialer,1241,android.permission.READ_CONTACTS]
+09-10 06:46:29.390   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.dialer,1241,com.android.voicemail.permission.ADD_VOICEMAIL]
+09-10 06:46:29.391   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.music,1241,android.permission.READ_MEDIA_VISUAL_USER_SELECTED]
+09-10 06:46:29.391   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.music,1241,android.permission.READ_EXTERNAL_STORAGE]
+09-10 06:46:29.391   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.music,1241,android.permission.READ_MEDIA_IMAGES]
+09-10 06:46:29.391   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.music,1241,android.permission.READ_MEDIA_AUDIO]
+09-10 06:46:29.391   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.music,1241,android.permission.READ_MEDIA_VIDEO]
+09-10 06:46:29.391   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.camera2,1241,android.permission.CAMERA]
+09-10 06:46:29.391   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.camera2,1241,android.permission.RECORD_AUDIO]
+09-10 06:46:29.391   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.calendar,1241,android.permission.READ_CALENDAR]
+09-10 06:46:29.391   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.calendar,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.391   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.calendar,1241,android.permission.WRITE_CALENDAR]
+09-10 06:46:29.391   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.calendar,1241,android.permission.GET_ACCOUNTS]
+09-10 06:46:29.391   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.calendar,1241,android.permission.READ_CONTACTS]
+09-10 06:46:29.391   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.messaging,1241,android.permission.READ_SMS]
+09-10 06:46:29.391   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.messaging,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.391   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.messaging,1241,android.permission.READ_MEDIA_VISUAL_USER_SELECTED]
+09-10 06:46:29.391   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.messaging,1241,android.permission.RECEIVE_MMS]
+09-10 06:46:29.391   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.messaging,1241,android.permission.RECEIVE_SMS]
+09-10 06:46:29.391   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.messaging,1241,android.permission.READ_EXTERNAL_STORAGE]
+09-10 06:46:29.391   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.messaging,1241,android.permission.READ_PHONE_STATE]
+09-10 06:46:29.391   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.messaging,1241,android.permission.SEND_SMS]
+09-10 06:46:29.392   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.messaging,1241,android.permission.CALL_PHONE]
+09-10 06:46:29.392   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.messaging,1241,android.permission.READ_MEDIA_IMAGES]
+09-10 06:46:29.392   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.messaging,1241,android.permission.WRITE_CONTACTS]
+09-10 06:46:29.392   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.messaging,1241,android.permission.CAMERA]
+09-10 06:46:29.392   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.messaging,1241,android.permission.READ_MEDIA_AUDIO]
+09-10 06:46:29.392   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.messaging,1241,android.permission.READ_MEDIA_VIDEO]
+09-10 06:46:29.392   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.messaging,1241,android.permission.WRITE_EXTERNAL_STORAGE]
+09-10 06:46:29.392   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.messaging,1241,android.permission.RECORD_AUDIO]
+09-10 06:46:29.392   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.messaging,1241,android.permission.READ_CONTACTS]
+09-10 06:46:29.392   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.messaging,1241,android.permission.ACCESS_MEDIA_LOCATION]
+09-10 06:46:29.392   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.emergency,1241,android.permission.READ_PHONE_STATE]
+09-10 06:46:29.392   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.emergency,1241,android.permission.CALL_PHONE]
+09-10 06:46:29.392   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.emergency,1241,android.permission.READ_CONTACTS]
+09-10 06:46:29.392   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.systemui,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.392   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.systemui,1241,android.permission.BLUETOOTH_CONNECT]
+09-10 06:46:29.392   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.systemui,1241,android.permission.READ_EXTERNAL_STORAGE]
+09-10 06:46:29.392   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.systemui,1241,android.permission.CAMERA]
+09-10 06:46:29.392   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.systemui,1241,android.permission.BLUETOOTH_ADVERTISE]
+09-10 06:46:29.393   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.systemui,1241,android.permission.GET_ACCOUNTS]
+09-10 06:46:29.393   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.systemui,1241,android.permission.RECORD_AUDIO]
+09-10 06:46:29.393   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.systemui,1241,android.permission.READ_CONTACTS]
+09-10 06:46:29.393   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.systemui,1241,android.permission.BLUETOOTH_SCAN]
+09-10 06:46:29.393   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.launcher3,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.393   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.storagemanager,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.393   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.storagemanager,1241,android.permission.READ_EXTERNAL_STORAGE]
+09-10 06:46:29.393   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.storagemanager,1241,android.permission.WRITE_EXTERNAL_STORAGE]
+09-10 06:46:29.393   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.providers.media.module,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.393   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.providers.media.module,1241,android.permission.READ_EXTERNAL_STORAGE]
+09-10 06:46:29.393   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.providers.media.module,1241,android.permission.WRITE_EXTERNAL_STORAGE]
+09-10 06:46:29.393   562   562 I sysui_multi_action: [757,1243,758,4,806,android.ext.services,1241,android.permission.ACCESS_COARSE_LOCATION]
+09-10 06:46:29.393   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.permissioncontroller,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.393   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.devicelockcontroller,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.393   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.cellbroadcastreceiver.module,1241,android.permission.READ_SMS]
+09-10 06:46:29.393   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.cellbroadcastreceiver.module,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.393   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.cellbroadcastreceiver.module,1241,android.permission.RECEIVE_SMS]
+09-10 06:46:29.393   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.cellbroadcastreceiver.module,1241,android.permission.BLUETOOTH_CONNECT]
+09-10 06:46:29.393   562   562 I sysui_multi_action: [757,1243,758,4,806,com.android.cellbroadcastreceiver.module,1241,android.permission.READ_CELL_BROADCASTS]
+09-10 06:46:29.397   562   562 I rescue_note: [0,1,14677]
+09-10 06:46:29.437   562   562 I boot_progress_ams_ready: 14718
+09-10 06:46:29.439   562   562 I configuration_changed: 268468224
+09-10 06:46:29.450   562   562 I thermal_changed: [test temperature sensor,3,30.799999,0,0]
+09-10 06:46:29.525   562   562 I am_uid_running: 10120
+09-10 06:46:29.533   562   921 I am_uid_running: 10131
+09-10 06:46:29.541   562   606 I am_proc_start: [0,934,10120,com.android.systemui,service,{com.android.systemui/com.android.systemui.wallpapers.ImageWallpaper}]
+09-10 06:46:29.547   562   606 I am_proc_start: [0,942,10131,com.android.permissioncontroller,service,{com.android.permissioncontroller/com.android.permissioncontroller.permission.service.PermissionControllerServiceImpl}]
+09-10 06:46:29.551   562   600 I am_uid_running: 1037
+09-10 06:46:29.552   562   670 I commit_sys_config_file: [settings-0-0,9]
+09-10 06:46:29.555   562   606 I am_proc_start: [0,956,1037,WebViewLoader-x86_64,,]
+09-10 06:46:29.559   562   844 I commit_sys_config_file: [net-policy,6]
+09-10 06:46:29.559   562   839 I am_proc_bound: [0,934,com.android.systemui]
+09-10 06:46:29.561   562   839 I am_uid_active: 10120
+09-10 06:46:29.562   562   839 I am_proc_bound: [0,956,WebViewLoader-x86_64]
+09-10 06:46:29.563   562   839 I am_uid_active: 1037
+09-10 06:46:29.563   562   644 I am_proc_bound: [0,942,com.android.permissioncontroller]
+09-10 06:46:29.569   562   670 I commit_sys_config_file: [settings-2-0,15]
+09-10 06:46:29.580   562   842 I netstats_mobile_sample: [0,0,0,0,0,0,0,0,1789022789580]
+09-10 06:46:29.580   562   842 I netstats_wifi_sample: [0,0,0,0,0,0,0,0,1789022789580]
+09-10 06:46:29.603   562   595 I commit_sys_config_file: [notification-policy,7]
+09-10 06:46:29.608   562   842 I netstats_mobile_sample: [0,0,0,0,0,0,0,0,1789022789608]
+09-10 06:46:29.608   562   842 I netstats_wifi_sample: [0,0,0,0,0,0,0,0,1789022789608]
+09-10 06:46:29.632   562   644 I am_uid_active: 10131
+09-10 06:46:29.643   562   589 I am_proc_died: [0,956,WebViewLoader-x86_64,-700,0]
+09-10 06:46:29.644   562   589 I am_uid_stopped: 1037
+09-10 06:46:29.646   562   589 I am_low_memory: 3
+09-10 06:46:29.663   562   644 I wm_task_created: 2
+09-10 06:46:29.671   562   644 I wm_task_created: 3
+09-10 06:46:29.673   562   644 I wm_task_created: 4
+09-10 06:46:29.708   562   562 I am_uid_running: 1073
+09-10 06:46:29.712   562   562 I ssm_user_starting: 0
+09-10 06:46:29.718   562   839 I am_mem_factor: [3,0]
+09-10 06:46:29.724   562   604 I netstats_mobile_sample: [0,0,0,0,0,0,0,0,1789022789724]
+09-10 06:46:29.724   562   604 I netstats_wifi_sample: [0,0,0,0,0,0,0,0,1789022789724]
+09-10 06:46:29.732   562   606 I am_proc_start: [0,1051,1073,com.android.networkstack.process,service,{com.android.networkstack/com.android.server.NetworkStackService}]
+09-10 06:46:29.733   562   596 I commit_sys_config_file: [input-state,6]
+09-10 06:46:29.736   562  1044 I wm_task_removed: [3,3,0,reParentTask:sanitizeAndApplyHierarchyOp]
+09-10 06:46:29.736   562  1044 I wm_task_moved: [3,2,0,1,2147483647]
+09-10 06:46:29.736   562  1044 I wm_task_removed: [4,4,0,reParentTask:sanitizeAndApplyHierarchyOp]
+09-10 06:46:29.736   562  1044 I wm_task_moved: [4,2,0,1,2147483647]
+09-10 06:46:29.747   562   604 I netstats_mobile_sample: [0,0,0,0,0,0,0,0,1789022789737]
+09-10 06:46:29.747   562   604 I netstats_wifi_sample: [0,0,0,0,0,0,0,0,1789022789737]
+09-10 06:46:29.752   562  1050 I am_proc_bound: [0,1051,com.android.networkstack.process]
+09-10 06:46:29.753   562  1050 I am_uid_active: 1073
+09-10 06:46:29.755   934   977 I viewroot_draw_event: [VRI[ShellDropTarget],Not drawing due to not visible. Reason=View.INVISIBLE]
+09-10 06:46:29.770   562  1056 I sysui_multi_action: [757,1243,758,4,806,com.android.settings.intelligence,1241,android.permission.POST_NOTIFICATIONS]
+09-10 06:46:29.772   562  1056 I sysui_multi_action: [757,1243,758,4,806,com.android.gallery3d,1241,android.permission.ACCESS_MEDIA_LOCATION]
+09-10 06:46:29.775   562  1056 I sysui_multi_action: [757,1243,758,4,806,com.android.gallery3d,1241,android.permission.WRITE_EXTERNAL_STORAGE]
+09-10 06:46:29.775   562  1056 I sysui_multi_action: [757,1243,758,4,806,com.android.gallery3d,1241,android.permission.READ_MEDIA_VIDEO]
+09-10 06:46:29.775   562  1056 I sysui_multi_action: [757,1243,758,4,806,com.android.gallery3d,1241,android.permission.READ_MEDIA_AUDIO]
+09-10 06:46:29.775   562  1056 I sysui_multi_action: [757,1243,758,4,806,com.android.gallery3d,1241,android.permission.READ_MEDIA_IMAGES]
+09-10 06:46:29.775   562  1056 I sysui_multi_action: [757,1243,758,4,806,com.android.gallery3d,1241,android.permission.READ_EXTERNAL_STORAGE]
+09-10 06:46:29.775   562  1056 I sysui_multi_action: [757,1243,758,4,806,com.android.gallery3d,1241,android.permission.READ_MEDIA_VISUAL_USER_SELECTED]
+09-10 06:46:29.789   562   604 I netstats_mobile_sample: [0,0,0,0,0,0,0,0,1789022789789]
+09-10 06:46:29.789   562   604 I netstats_wifi_sample: [0,0,0,0,0,0,0,0,1789022789789]
+09-10 06:46:29.796   562  1056 I sysui_multi_action: [757,1243,758,4,806,org.chromium.webview_shell,1241,android.permission.ACCESS_FINE_LOCATION]
+09-10 06:46:29.804   562   670 I commit_sys_config_file: [settings-0-0,6]
+09-10 06:46:29.811   562   670 I commit_sys_config_file: [settings-2-0,6]
+09-10 06:46:29.816   562   562 I um_user_visibility_changed: [0,1]
+09-10 06:46:29.816   562   687 I am_uid_running: 1002
+09-10 06:46:29.822   562   604 I netstats_mobile_sample: [0,0,0,0,0,0,0,0,1789022789822]
+09-10 06:46:29.822   562   604 I netstats_wifi_sample: [0,0,0,0,0,0,0,0,1789022789822]
+09-10 06:46:29.824   562   606 I am_proc_start: [0,1085,1002,com.android.bluetooth,service,{com.android.bluetooth/com.android.bluetooth.btservice.AdapterService}]
+09-10 06:46:29.825   562   562 I am_uid_running: 1068
+09-10 06:46:29.827   562   562 I am_uid_running: 1001
+09-10 06:46:29.830   562   604 I netstats_mobile_sample: [0,0,0,0,0,0,0,0,1789022789830]
+09-10 06:46:29.830   562   604 I netstats_wifi_sample: [0,0,0,0,0,0,0,0,1789022789830]
+09-10 06:46:29.834   562   604 I netstats_mobile_sample: [0,0,0,0,0,0,0,0,1789022789834]
+09-10 06:46:29.834   562   604 I netstats_wifi_sample: [0,0,0,0,0,0,0,0,1789022789834]
+09-10 06:46:29.850   562   562 I wm_task_created: 5
+09-10 06:46:29.862   562   562 I wm_task_moved: [5,1,0,1,2147483647]
+09-10 06:46:29.863   562   595 I commit_sys_config_file: [notification-policy,8]
+09-10 06:46:29.865   562   562 I wm_task_moved: [1,1,0,1,1]
+09-10 06:46:29.865   562   562 I wm_create_task: [0,5,1,0]
+09-10 06:46:29.865   562   562 I wm_create_activity: [0,221749793,5,com.android.settings/.FallbackHome,android.intent.action.MAIN,NULL,NULL,276824320]
+09-10 06:46:29.865   562   562 I wm_task_moved: [1,1,0,1,1]
+09-10 06:46:29.865   562   562 I wm_task_moved: [5,1,0,1,2147483647]
+09-10 06:46:29.865   562   562 I wm_task_to_front: [0,5,0]
+09-10 06:46:29.866   562   562 I uc_send_user_broadcast: [0,android.intent.action.USER_STARTED]
+09-10 06:46:29.866   562   562 I uc_send_user_broadcast: [0,android.intent.action.USER_STARTING]
+09-10 06:46:29.867   562  1048 I sysui_multi_action: [757,856,758,1,806,com.android.networkstack,857,connected_note_loud,858,4]
+09-10 06:46:29.867   562   562 I uc_send_user_broadcast: [0,android.intent.action.USER_FOREGROUND]
+09-10 06:46:29.867   562   562 I uc_send_user_broadcast: [0,android.intent.action.USER_SWITCHED]
+09-10 06:46:29.867   562  1048 I sysui_multi_action: [757,856,758,1,806,com.android.networkstack,857,connected_note,858,3]
+09-10 06:46:29.870   562   606 I am_proc_start: [0,1097,1068,com.android.se,added application,com.android.se]
+09-10 06:46:29.871   562  1044 I am_proc_bound: [0,1085,com.android.bluetooth]
+09-10 06:46:29.876   562  1045 I sysui_multi_action: [757,856,758,1,806,com.android.networkstack.tethering,857,TETHERING_STATUS,858,2]
+09-10 06:46:29.881   562   968 I am_proc_bound: [0,1097,com.android.se]
+09-10 06:46:29.882   562   968 I am_uid_active: 1068
+09-10 06:46:29.887   562   606 I am_proc_start: [0,1111,1001,com.android.phone,added application,com.android.phone]
+09-10 06:46:29.905   562  1044 I am_proc_bound: [0,1111,com.android.phone]
+09-10 06:46:29.906   562  1052 I am_wtf  : [0,1051,com.android.networkstack.process,680050253,SystemServiceRegistry,No service published for: ethernet]
+09-10 06:46:29.912   562  1044 I am_uid_active: 1001
+09-10 06:46:29.914   562   606 I am_proc_start: [0,1123,1000,com.android.settings,top-activity,{com.android.settings/com.android.settings.FallbackHome}]
+09-10 06:46:29.914   562  1052 I am_proc_bound: [0,1123,com.android.settings]
+09-10 06:46:29.905  1051  1051 I auditd  : type=1400 audit(0.0:6): avc:  granted  { read } for  comm="rkstack.process" name="psched" dev="proc" ino=4026532021 scontext=u:r:network_stack:s0 tcontext=u:object_r:proc_net:s0 tclass=file
+09-10 06:46:29.905  1051  1051 I auditd  : type=1400 audit(0.0:7): avc:  granted  { read open } for  comm="rkstack.process" path="/proc/1051/net/psched" dev="proc" ino=4026532021 scontext=u:r:network_stack:s0 tcontext=u:object_r:proc_net:s0 tclass=file
+09-10 06:46:29.905  1051  1051 I auditd  : type=1400 audit(0.0:8): avc:  granted  { getattr } for  comm="rkstack.process" path="/proc/1051/net/psched" dev="proc" ino=4026532021 scontext=u:r:network_stack:s0 tcontext=u:object_r:proc_net:s0 tclass=file
+09-10 06:46:29.942   562  1044 I am_uid_active: 1002
+09-10 06:46:29.985   562  1052 I wm_restart_activity: [0,221749793,5,com.android.settings/.FallbackHome]
+09-10 06:46:29.985   562  1052 I wm_set_resumed_activity: [0,com.android.settings/.FallbackHome,realStartActivityLocked - onActivityStateChanged]
+09-10 06:46:30.010  1123  1123 I wm_on_create_called: [221749793,com.android.settings.FallbackHome,performCreate,13]
+09-10 06:46:30.011  1123  1123 I wm_on_start_called: [221749793,com.android.settings.FallbackHome,handleStartActivity,0]
+09-10 06:46:30.013  1123  1123 I wm_on_resume_called: [221749793,com.android.settings.FallbackHome,RESUME_ACTIVITY,0]
+09-10 06:46:30.015   562   670 I commit_sys_config_file: [settings-0-0,7]
+09-10 06:46:30.022  1123  1123 I wm_on_top_resumed_gained_called: [221749793,com.android.settings.FallbackHome,topStateChangedWhenResumed]
+09-10 06:46:30.025   562   670 I commit_sys_config_file: [settings-2-0,10]
+09-10 06:46:30.035   562   597 I input_focus: [Focus request ef7bd75 com.android.settings/com.android.settings.FallbackHome,reason=UpdateInputWindows]
+09-10 06:46:30.126   562   595 I commit_sys_config_file: [notification-policy,8]
+09-10 06:46:30.130   562   562 I notification_cancel_all: [1000,562,android,0,0,0,20,NULL]
+09-10 06:46:30.130   562   562 I notification_cancel_all: [1000,562,android,0,0,0,20,NULL]
+09-10 06:46:30.130   562   562 I notification_cancel_all: [1000,562,android,0,0,0,20,NULL]
+09-10 06:46:30.195   562   968 I am_uid_running: 10122
+09-10 06:46:30.202  1123  1123 I viewroot_draw_event: [VRI[FallbackHome],reportDrawFinished seqId=0]
+09-10 06:46:30.207   562   596 I boot_progress_enable_screen: 15488
+09-10 06:46:30.215   562   606 I am_proc_start: [0,1170,10122,com.android.launcher3,service,{com.android.launcher3/com.android.quickstep.TouchInteractionService}]
+09-10 06:46:30.219   562   593 I sysui_multi_action: [319,385,322,376,325,15,757,761,758,7,759,2,806,com.android.settings,871,com.android.settings.FallbackHome,905,0,945,86,1320,4,1321,23]
+09-10 06:46:30.220   562   593 I wm_activity_launch_time: [0,221749793,com.android.settings/.FallbackHome,376]
+09-10 06:46:30.224   562   596 I screen_toggled: 1
+09-10 06:46:30.227   934  1163 I viewroot_draw_event: [VRI[ScreenDecorOverlay],Not drawing due to not visible. Reason=View.INVISIBLE]
+09-10 06:46:30.230   934  1163 I viewroot_draw_event: [VRI[ScreenDecorOverlayBottom],Not drawing due to not visible. Reason=View.INVISIBLE]
+09-10 06:46:30.232   562  1052 I am_proc_bound: [0,1170,com.android.launcher3]
+09-10 06:46:30.244   562   562 I notification_enqueue: [1000,562,android,19,NULL,-1,Notification(channel=PHYSICAL_KEYBOARD shortcut=null contentView=null vibrate=null sound=null defaults=0 flags=AUTO_CANCEL|CAN_COLORIZE color=0x00000000 vis=PRIVATE),0]
+09-10 06:46:30.255   562  1044 I am_uid_active: 10122
+09-10 06:46:30.262  1170  1193 I jank_cuj_events_cancel_request: [-1,1789022790252419000,15533069026,15533069086]
+09-10 06:46:30.341   562   562 I sysui_multi_action: [757,856,758,1,806,com.android.server.telecom,857,TelecomMissedCalls,858,3]
+09-10 06:46:30.341   562   562 I sysui_multi_action: [757,856,758,1,806,com.android.server.telecom,857,TelecomIncomingCalls,858,5]
+09-10 06:46:30.341   562   562 I sysui_multi_action: [757,856,758,1,806,com.android.server.telecom,857,TelecomCallBlocking,858,2]
+09-10 06:46:30.341   562   562 I sysui_multi_action: [757,856,758,1,806,com.android.server.telecom,857,TelecomBackgroundAudioProcessing,858,2]
+09-10 06:46:30.341   562   562 I sysui_multi_action: [757,856,758,1,806,com.android.server.telecom,857,TelecomDisconnectedCalls,858,3]
+09-10 06:46:30.341   562   562 I sysui_multi_action: [757,856,758,1,806,com.android.server.telecom,857,TelecomInCallServiceCrash,858,3]
+09-10 06:46:30.341   562   562 I sysui_multi_action: [757,856,758,1,806,com.android.server.telecom,857,TelecomCallStreaming,858,3]
+09-10 06:46:30.466   562   562 I sysui_multi_action: [757,1501,758,1,793,728,794,0,795,728,796,19,806,android,857,PHYSICAL_KEYBOARD,858,2,947,0,1500,0]
+09-10 06:46:30.466   562   562 I sysui_multi_action: [757,804,799,note_interruptive,801,0,802,1]
+09-10 06:46:30.483   562   562 I sysui_multi_action: [757,859,758,6,806,android,860,safety_center_channels]
+09-10 06:46:30.483   562   562 I sysui_multi_action: [757,856,758,1,806,android,857,safety_center_information,858,2]
+09-10 06:46:30.483   562   562 I sysui_multi_action: [757,856,758,1,806,android,857,safety_center_recommendation,858,3]
+09-10 06:46:30.484   562   562 I sysui_multi_action: [757,856,758,1,806,android,857,safety_center_critical_warning,858,4]
+09-10 06:46:30.514   562   842 I netstats_mobile_sample: [0,0,0,0,0,0,0,0,1789022790508]
+09-10 06:46:30.514   562   842 I netstats_wifi_sample: [0,0,0,0,0,0,0,0,1789022790508]
+09-10 06:46:30.519   562   605 I am_wtf  : [0,562,system_server,-1,Binder,Outgoing transactions from this process must be FLAG_ONEWAY]
+09-10 06:46:30.555   562   670 I commit_sys_config_file: [settings-2-0,8]
+09-10 06:46:30.597   562   595 I commit_sys_config_file: [notification-policy,6]
+09-10 06:46:30.652   562   627 I commit_sys_config_file: [package-user-0,19]
+09-10 06:46:30.653   562  1112 I sysui_multi_action: [757,856,758,1,806,com.android.bluetooth,857,opp_notification_channel,858,4]
+09-10 06:46:30.658   934  1249 I sysui_multi_action: [757,213,758,4,759,-1]
+09-10 06:46:30.668   562   627 I commit_sys_config_file: [package-user-0,29]
+09-10 06:46:30.681   562   627 I commit_sys_config_file: [package-user-0,39]
+09-10 06:46:30.698   562   627 I commit_sys_config_file: [package-user-0,51]
+09-10 06:46:30.707   562   627 I commit_sys_config_file: [package-user-0,59]
+09-10 06:46:30.718   562   627 I commit_sys_config_file: [package-user-0,68]
+09-10 06:46:30.727   562   627 I commit_sys_config_file: [package-user-0,77]
+09-10 06:46:30.741   562   627 I commit_sys_config_file: [package-user-0,90]
+09-10 06:46:30.746   562   627 I commit_sys_config_file: [package-user-0,95]
+09-10 06:46:30.761   562   627 I commit_sys_config_file: [package-user-0,103]
+09-10 06:46:30.764   562   670 I commit_sys_config_file: [settings-0-0,3]
+09-10 06:46:30.775   562   968 I sysui_multi_action: [757,127,758,2]
+09-10 06:46:30.777   562   968 I notification_panel_hidden: 
+09-10 06:46:30.802   562   605 I am_uid_running: 10146
+09-10 06:46:30.811   562   606 I am_proc_start: [0,1298,10146,com.android.cellbroadcastreceiver.module,broadcast,{com.android.cellbroadcastreceiver.module/com.android.cellbroadcastreceiver.CellBroadcastReceiver}]
+09-10 06:46:30.815   562   670 I commit_sys_config_file: [settings-2-0,6]
+09-10 06:46:30.820   562   968 I am_proc_bound: [0,1298,com.android.cellbroadcastreceiver.module]
+09-10 06:46:30.889   562  1043 I sysui_multi_action: [757,856,758,1,806,com.android.systemui,857,ALR,858,4]
+09-10 06:46:30.890   562  1043 I sysui_multi_action: [757,856,758,1,806,com.android.systemui,857,INS,858,1]
+09-10 06:46:30.890   562  1043 I sysui_multi_action: [757,856,758,1,806,com.android.systemui,857,STP,858,3]
+09-10 06:46:30.890   562  1043 I sysui_multi_action: [757,856,758,1,806,com.android.systemui,857,DSK,858,2]
+09-10 06:46:30.890   562  1043 I sysui_multi_action: [757,856,758,1,806,com.android.systemui,857,SCN_HEADSUP,858,4]
+09-10 06:46:30.890   562  1043 I sysui_multi_action: [757,856,758,1,806,com.android.systemui,857,BAT,858,5]
+09-10 06:46:30.890   562  1043 I sysui_multi_action: [757,856,758,1,806,com.android.systemui,857,HNT,858,3]
+09-10 06:46:30.890   562   562 I notification_cancel_all: [1000,562,com.android.systemui,0,0,0,20,NULL]
+09-10 06:46:30.905   562  1262 I am_uid_running: 10070
+09-10 06:46:30.908   562  1043 I commit_sys_config_file: [overlays,5]
+09-10 06:46:30.913   562   606 I am_proc_start: [0,1317,10070,com.android.cellbroadcastreceiver,content provider,{com.android.cellbroadcastreceiver/com.android.cellbroadcastreceiver.LegacyCellBroadcastContentProvider}]
+09-10 06:46:30.916   562   595 I commit_sys_config_file: [notification-policy,6]
+09-10 06:46:30.918   562   593 I configuration_changed: -2147483648
+09-10 06:46:30.924   562   593 I wm_relaunch_resume_activity: [0,221749793,5,com.android.settings/.FallbackHome,80000000]
+09-10 06:46:30.924  1123  1123 I wm_on_top_resumed_lost_called: [221749793,com.android.settings.FallbackHome,pausing]
+09-10 06:46:30.925  1123  1123 I wm_on_paused_called: [221749793,com.android.settings.FallbackHome,performPause,0]
+09-10 06:46:30.926  1123  1123 I wm_on_stop_called: [221749793,com.android.settings.FallbackHome,handleRelaunchActivity,0]
+09-10 06:46:30.926   562  1052 I am_proc_bound: [0,1317,com.android.cellbroadcastreceiver]
+09-10 06:46:30.929  1123  1123 I wm_on_destroy_called: [221749793,com.android.settings.FallbackHome,performDestroy,4]
+09-10 06:46:30.934   562  1261 I am_wtf  : [0,1051,com.android.networkstack.process,680050253,SystemServiceRegistry,No service published for: ethernet]
+09-10 06:46:30.958  1123  1333 I jank_cuj_events_cancel_request: [81,1789022790954353000,16235002751,16235002821]
+09-10 06:46:30.958  1123  1333 I jank_cuj_events_end_request: [81,1789022790954367000,16235016121,16235016141]
+09-10 06:46:30.965   431   626 I sf_stop_bootanim: 16245
+09-10 06:46:30.965   562   596 I wm_boot_animation_done: 16246
+09-10 06:46:30.965   562   597 I input_focus: [Requesting to set focus to null window,reason=UpdateInputWindows]
+09-10 06:46:30.976  1123  1123 I wm_on_create_called: [221749793,com.android.settings.FallbackHome,performCreate,5]
+09-10 06:46:30.977  1123  1123 I wm_on_start_called: [221749793,com.android.settings.FallbackHome,handleStartActivity,0]
+09-10 06:46:30.977  1123  1123 I wm_on_resume_called: [221749793,com.android.settings.FallbackHome,RESUME_ACTIVITY,0]
+09-10 06:46:30.977  1123  1123 I wm_on_top_resumed_gained_called: [221749793,com.android.settings.FallbackHome,topWhenResuming]
+09-10 06:46:30.985   562   597 I input_focus: [Focus request d61103a com.android.settings/com.android.settings.FallbackHome,reason=UpdateInputWindows]
+09-10 06:46:31.006  1123  1123 I viewroot_draw_event: [VRI[FallbackHome],reportDrawFinished seqId=0]
+09-10 06:46:31.098   562   596 I uc_finish_user_boot: 0
+09-10 06:46:31.098   562   596 I am_user_state_changed: [0,1]
+09-10 06:46:31.098   562   596 I uc_send_user_broadcast: [0,android.intent.action.LOCKED_BOOT_COMPLETED]
+09-10 06:46:31.099   562   596 I uc_finish_user_unlocking: 0
+09-10 06:46:31.100   562   562 I notification_enqueue: [1000,562,android,55,NULL,-1,Notification(channel=DEVELOPER shortcut=null contentView=null vibrate=null sound=null tick defaults=0 flags=ONGOING_EVENT|CAN_COLORIZE color=0x00000000 vis=PUBLIC),0]
+09-10 06:46:31.101   562   562 I sysui_multi_action: [757,1501,758,1,793,2,794,0,795,2,796,55,806,android,857,DEVELOPER,858,2,947,0,1500,0]
+09-10 06:46:31.101   562   562 I sysui_multi_action: [757,804,799,note_interruptive,801,0,802,1]
+09-10 06:46:31.122   562   562 I notification_autogrouped: -1|android|55|null|1000
+09-10 06:46:31.122   562   562 I notification_autogrouped: -1|android|19|null|1000
+09-10 06:46:31.122   562   562 I notification_enqueue: [1000,562,android,2147483647,ranker_group,-1,Notification(channel=DEVELOPER shortcut=null contentView=null vibrate=null sound=null defaults=0 flags=ONGOING_EVENT|LOCAL_ONLY|GROUP_SUMMARY|AUTOGROUP_SUMMARY color=0x00000000 groupKey=ranker_group vis=PUBLIC),0]
+09-10 06:46:31.123   562   860 I notification_adjusted: [-1|android|55|null|1000,key_group_key,ranker_group]
+09-10 06:46:31.123   562   860 I notification_adjusted: [-1|android|19|null|1000,key_group_key,ranker_group]
+09-10 06:46:31.128   431   431 I sf_frame_dur: [com.android.settings/com.android.settings.FallbackHome#57,0,0,0,0,0,1,0]
+09-10 06:46:31.134   562   606 I am_proc_start: [0,1355,10127,android.ext.services,on-hold,]
+09-10 06:46:31.152   562  1112 I am_proc_bound: [0,1355,android.ext.services]
+09-10 06:46:31.153   562   683 I input_focus: [Focus entering d61103a com.android.settings/com.android.settings.FallbackHome (server),reason=Window became focusable. Previous reason: NOT_VISIBLE]
+09-10 06:46:31.204   562   691 I am_uid_running: 10112
+09-10 06:46:31.206   562   839 I am_uid_active: 10127
+09-10 06:46:31.211   562   606 I am_proc_start: [0,1376,10112,com.android.inputmethod.latin,service,{com.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME}]
+09-10 06:46:31.224   562   590 I sysui_multi_action: [757,856,758,1,806,com.android.phone,857,sms,858,4]
+09-10 06:46:31.224   562   590 I sysui_multi_action: [757,856,758,1,806,com.android.phone,857,wfc,858,2]
+09-10 06:46:31.224   562   590 I sysui_multi_action: [757,856,758,1,806,com.android.phone,857,simHighPriority,858,4]
+09-10 06:46:31.224   562   590 I sysui_multi_action: [757,856,758,1,806,com.android.phone,857,alert,858,3]
+09-10 06:46:31.224   562   590 I sysui_multi_action: [757,856,758,1,806,com.android.phone,857,mobileDataAlertNew,858,2]
+09-10 06:46:31.224   562   590 I sysui_multi_action: [757,856,758,1,806,com.android.phone,857,sim,858,2]
+09-10 06:46:31.224   562   590 I sysui_multi_action: [757,856,758,1,806,com.android.phone,857,callForwardNew,858,3]
+09-10 06:46:31.240  1111  1111 I service_manager_slow: [12,isub]
+09-10 06:46:31.246  1111  1258 I dvm_lock_sample: [com.android.phone,0,DeviceStateHelperThread,584,PhoneFactory.java,382,com.android.internal.telephony.Phone[] com.android.internal.telephony.PhoneFactory.getPhones(),-,486,com.android.internal.telephony.CommandsInterface[] com.android.internal.telephony.PhoneFactory.getCommandsInterfaces(),100]
+09-10 06:46:31.258   562  1112 I am_proc_bound: [0,1376,com.android.inputmethod.latin]
+09-10 06:46:31.261     1     1 I auditd  : type=1400 audit(0.0:9): avc:  denied  { write } for  comm="init" name="cfg80211_gtk_rekey_notify" dev="tracefs" ino=13929 scontext=u:r:init:s0 tcontext=u:object_r:debugfs_wifi_tracing:s0 tclass=dir permissive=0
+09-10 06:46:31.269     1     1 I auditd  : type=1400 audit(0.0:10): avc:  denied  { write } for  comm="init" name="rdev_add_key" dev="tracefs" ino=13932 scontext=u:r:init:s0 tcontext=u:object_r:debugfs_wifi_tracing:s0 tclass=dir permissive=0
+09-10 06:46:31.283   562  1262 I am_uid_active: 10112
+09-10 06:46:31.291   562   670 I commit_sys_config_file: [settings-0-0,32]
+09-10 06:46:31.304   562   670 I commit_sys_config_file: [settings-2-0,12]
+09-10 06:46:31.310   562  1052 I am_proc_died: [0,1376,com.android.inputmethod.latin,0,7]
+09-10 06:46:31.310   562  1052 I am_schedule_service_restart: [0,com.android.inputmethod.latin/.LatinIME,30000]
+09-10 06:46:31.310   562  1052 I am_uid_stopped: 10112
+09-10 06:46:31.281     1     1 I auditd  : type=1400 audit(0.0:11): avc:  denied  { write } for  comm="init" name="rdev_assoc" dev="tracefs" ino=13935 scontext=u:r:init:s0 tcontext=u:object_r:debugfs_wifi_tracing:s0 tclass=dir permissive=0
+09-10 06:46:31.317   562   593 I am_user_state_changed: [0,2]
+09-10 06:46:31.317   562   605 I ssm_user_unlocking: 0
+09-10 06:46:31.285     1     1 I auditd  : type=1400 audit(0.0:12): avc:  denied  { write } for  comm="init" name="rdev_auth" dev="tracefs" ino=13938 scontext=u:r:init:s0 tcontext=u:object_r:debugfs_wifi_tracing:s0 tclass=dir permissive=0
+09-10 06:46:31.334   562   695 I am_uid_running: 10126
+09-10 06:46:31.289     1     1 I auditd  : type=1400 audit(0.0:13): avc:  denied  { write } for  comm="init" name="rdev_connect" dev="tracefs" ino=13941 scontext=u:r:init:s0 tcontext=u:object_r:debugfs_wifi_tracing:s0 tclass=dir permissive=0
+09-10 06:46:31.297     1     1 I auditd  : type=1400 audit(0.0:14): avc:  denied  { write } for  comm="init" name="rdev_set_default_key" dev="tracefs" ino=13944 scontext=u:r:init:s0 tcontext=u:object_r:debugfs_wifi_tracing:s0 tclass=dir permissive=0
+09-10 06:46:31.305     1     1 I auditd  : type=1400 audit(0.0:15): avc:  denied  { write } for  comm="init" name="rdev_set_default_mgmt_key" dev="tracefs" ino=13947 scontext=u:r:init:s0 tcontext=u:object_r:debugfs_wifi_tracing:s0 tclass=dir permissive=0
+09-10 06:46:31.378   562   604 I am_uid_running: 10083
+09-10 06:46:31.385   562   595 I commit_sys_config_file: [jobs,5]
+09-10 06:46:31.392   562   606 I am_proc_start: [0,1403,10126,com.android.providers.media.module,service,{com.android.providers.media.module/com.android.providers.media.fuse.ExternalStorageServiceImpl}]
+09-10 06:46:31.392   562   595 I commit_sys_config_file: [notification-policy,7]
+09-10 06:46:31.309     1     1 I auditd  : type=1400 audit(0.0:16): avc:  denied  { write } for  comm="init" name="rdev_set_rekey_data" dev="tracefs" ino=13950 scontext=u:r:init:s0 tcontext=u:object_r:debugfs_wifi_tracing:s0 tclass=dir permissive=0
+09-10 06:46:31.401   934   934 I viewroot_draw_event: [VRI[NotificationShade],Not drawing due to not visible. Reason=View.INVISIBLE]
+09-10 06:46:31.321     1     1 I auditd  : type=1400 audit(0.0:17): avc:  denied  { write } for  comm="init" name="net" dev="tracefs" ino=13953 scontext=u:r:init:s0 tcontext=u:object_r:debugfs_wifi_tracing:s0 tclass=dir permissive=0
+09-10 06:46:31.440   562  1052 I service_manager_stats: [627,310,5000]
+09-10 06:46:31.448   562   605 I uc_finish_user_unlocked: 0
+09-10 06:46:31.448   562   605 I am_user_state_changed: [0,3]
+09-10 06:46:31.449   562   605 I uc_send_user_broadcast: [0,android.intent.action.USER_UNLOCKED]
+09-10 06:46:31.450   562   606 I am_proc_start: [0,1426,10083,com.android.printspooler,service,{com.android.printspooler/com.android.printspooler.model.PrintSpoolerService}]
+09-10 06:46:31.452   562   605 I uc_send_user_broadcast: [0,android.intent.action.PRE_BOOT_COMPLETED]
+09-10 06:46:31.453   562   605 I am_pre_boot: [0,com.android.documentsui]
+09-10 06:46:31.454   562   605 I am_uid_running: 10063
+09-10 06:46:31.465  1123  1123 I service_manager_slow: [10,thermalservice]
+09-10 06:46:31.482   562   606 I am_proc_start: [0,1433,1000,com.android.emulator.multidisplay,added application,com.android.emulator.multidisplay]
+09-10 06:46:31.484   562   562 I notification_enqueue: [1000,562,android,13,PreBootBroadcaster,0,Notification(channel=UPDATES shortcut=null contentView=null vibrate=null sound=null tick defaults=0 flags=ONGOING_EVENT|CAN_COLORIZE color=0x00000000 vis=PUBLIC),0]
+09-10 06:46:31.486   562  1043 I wm_finish_activity: [0,221749793,5,com.android.settings/.FallbackHome,app-request]
+09-10 06:46:31.489   562   606 I am_proc_start: [0,1459,10063,com.android.documentsui,broadcast,{com.android.documentsui/com.android.documentsui.PreBootReceiver}]
+09-10 06:46:31.494   562  1043 I wm_pause_activity: [0,221749793,com.android.settings/.FallbackHome,userLeaving=false,finish]
+09-10 06:46:31.509  1123  1123 I wm_on_top_resumed_lost_called: [221749793,com.android.settings.FallbackHome,topStateChangedWhenResumed]
+09-10 06:46:31.510  1123  1123 I wm_on_paused_called: [221749793,com.android.settings.FallbackHome,performPause,0]
+09-10 06:46:31.544   562   590 I wm_task_created: 6
+09-10 06:46:31.544   562   590 I wm_task_moved: [6,1,0,1,2147483647]
+09-10 06:46:31.554   562   670 I commit_sys_config_file: [settings-2-0,26]
+09-10 06:46:31.556   562   590 I wm_task_moved: [1,1,0,1,1]
+09-10 06:46:31.556   562   590 I wm_create_task: [0,6,1,0]
+09-10 06:46:31.557   562   590 I wm_create_activity: [0,188815219,6,com.android.sdksetup/.DefaultActivity,android.intent.action.MAIN,NULL,NULL,276824320]
+09-10 06:46:31.557   562   590 I wm_task_moved: [1,1,0,1,1]
+09-10 06:46:31.557   562   590 I wm_task_moved: [6,1,0,1,2147483647]
+09-10 06:46:31.557   562   590 I wm_task_to_front: [0,6,0]
+09-10 06:46:31.562   562   683 I input_interaction: Interaction with: d61103a com.android.settings/com.android.settings.FallbackHome (server), PointerEventDispatcher0 (server), 
+09-10 06:46:31.563   562   593 I sysui_multi_action: [757,803,799,window_time_0,802,5]
+09-10 06:46:31.566  1123  1123 I menu_opened: 0
+09-10 06:46:31.567   562  1052 I am_uid_running: 10105
+09-10 06:46:31.573   562  1262 I dvm_lock_sample: [system_server,1,binder:562_F,82,ActivityManagerService.java,4919,void com.android.server.am.ActivityManagerService.attachApplication(android.app.IApplicationThread, long),,0,null,16]
+09-10 06:46:31.573   562  1262 I am_proc_bound: [0,1403,com.android.providers.media.module]
+09-10 06:46:31.593   562   839 I am_proc_bound: [0,1433,com.android.emulator.multidisplay]
+09-10 06:46:31.601   562  1112 I am_proc_bound: [0,1426,com.android.printspooler]
+09-10 06:46:31.610   562   596 I am_uid_running: 10115
+09-10 06:46:31.610   562   606 I am_proc_start: [0,1494,10105,com.android.music,service,{com.android.music/com.android.music.MediaPlaybackService}]
+09-10 06:46:31.617   562   683 I input_focus: [Focus leaving d61103a com.android.settings/com.android.settings.FallbackHome (server),reason=NO_WINDOW]
+09-10 06:46:31.617   562   968 I am_proc_bound: [0,1459,com.android.documentsui]
+09-10 06:46:31.643   562   606 I am_proc_start: [0,1503,10115,com.android.sdksetup,top-activity,{com.android.sdksetup/com.android.sdksetup.DefaultActivity}]
+09-10 06:46:31.645   562  1043 I am_proc_bound: [0,1503,com.android.sdksetup]
+09-10 06:46:31.647   562  1043 I am_uid_active: 10115
+09-10 06:46:31.657   562  1043 I am_proc_bound: [0,1494,com.android.music]
+09-10 06:46:31.678   562   968 I dvm_lock_sample: [system_server,1,binder:562_5,21,ActivityManagerService.java,-1,void com.android.server.am.ActivityManagerService.registerStrictModeCallback(android.os.IBinder),,0,null,4]
+09-10 06:46:31.687   562   968 I am_proc_start: [0,1532,1000,com.android.keychain,service,{com.android.keychain/com.android.keychain.KeyChainService}]
+09-10 06:46:31.687   562   968 I am_proc_bound: [0,1532,com.android.keychain]
+09-10 06:46:31.701   562   606 I dvm_lock_sample: [system_server,1,ActivityManager:procStart,37,ProcessList.java,2200,void com.android.server.am.ProcessList.lambda$handleProcessStart$1(com.android.server.am.ProcessRecord, java.lang.String, int[], int, int, int, java.lang.String, java.lang.String, java.lang.String, long),ActivityManagerService.java,4925,void com.android.server.am.ActivityManagerService.attachApplication(android.app.IApplicationThread, long),7]
+09-10 06:46:31.726   562  1261 I dvm_lock_sample: [system_server,1,binder:562_E,14,MessageQueue.java,867,void android.os.MessageQueue.removeMessages(android.os.Handler, java.lang.Runnable, java.lang.Object),-,695,boolean android.os.MessageQueue.enqueueMessage(android.os.Message, long),2]
+09-10 06:46:31.726   562  1261 I wm_restart_activity: [0,188815219,6,com.android.sdksetup/.DefaultActivity]
+09-10 06:46:31.735   562  1261 I wm_set_resumed_activity: [0,com.android.sdksetup/.DefaultActivity,realStartActivityLocked - onActivityStateChanged]
+09-10 06:46:31.770   562   670 I commit_sys_config_file: [settings-1-0,12]
+09-10 06:46:31.780   562  1052 I am_uid_active: 10105
+09-10 06:46:31.780   562  1112 I am_uid_active: 10083
+09-10 06:46:31.800   562  1112 I sysui_multi_action: [757,856,758,1,806,com.android.printspooler,857,PRINT_PROGRESS,858,2]
+09-10 06:46:31.823   562   562 I sysui_multi_action: [757,1501,758,1,793,341,794,0,795,341,796,13,797,PreBootBroadcaster,806,android,857,UPDATES,858,2,947,0,1500,0,1688,1]
+09-10 06:46:31.828   562  1052 I sysui_multi_action: [757,856,758,1,806,com.android.printspooler,857,PRINT_FAILURES,858,3]
+09-10 06:46:31.837   562   968 I am_uid_running: 10064
+09-10 06:46:31.841   562   562 I sysui_multi_action: [757,804,799,note_interruptive,801,0,802,1]
+09-10 06:46:31.847   934   934 I viewroot_draw_event: [VRI[StatusBar],reportDrawFinished seqId=0]
+09-10 06:46:31.887   562  1261 I dvm_lock_sample: [system_server,1,binder:562_E,38,PowerManagerService.java,4188,void com.android.server.power.PowerManagerService.startUidChangesInternal(),-,1816,void com.android.server.power.PowerManagerService.releaseWakeLockInternal(android.os.IBinder, int),7]
+09-10 06:46:31.898   562   606 I am_proc_start: [0,1602,10064,com.android.externalstorage,content provider,{com.android.externalstorage/com.android.externalstorage.ExternalStorageProvider}]
+09-10 06:46:31.907   562  1262 I am_proc_bound: [0,1602,com.android.externalstorage]
+09-10 06:46:31.930   562   968 I am_uid_active: 10063
+09-10 06:46:31.932   562   670 I commit_sys_config_file: [settings-0-0,82]
+09-10 06:46:31.946   562   968 I am_mem_factor: [2,3]
+09-10 06:46:31.947   562   593 I am_pre_boot: [0,com.android.managedprovisioning]
+09-10 06:46:31.953   562   562 I notification_enqueue: [1000,562,android,13,PreBootBroadcaster,0,Notification(channel=UPDATES shortcut=null contentView=null vibrate=null sound=null tick defaults=0 flags=ONGOING_EVENT|CAN_COLORIZE color=0x00000000 vis=PUBLIC),1]
+09-10 06:46:31.958   934   934 I viewroot_draw_event: [VRI[Wired Charging Animation],reportDrawFinished seqId=0]
+09-10 06:46:31.968   562   605 I am_uid_running: 10065
+09-10 06:46:31.989   562   606 I am_proc_start: [0,1632,10065,com.android.managedprovisioning,broadcast,{com.android.managedprovisioning/com.android.managedprovisioning.ota.PreBootListener}]
+09-10 06:46:32.011   562  1261 I am_proc_bound: [0,1632,com.android.managedprovisioning]
+09-10 06:46:32.031   562   604 I am_schedule_service_restart: [0,com.android.inputmethod.latin/.LatinIME,19280]
+09-10 06:46:32.078   562  1052 I wm_finish_activity: [0,188815219,6,com.android.sdksetup/.DefaultActivity,app-request]
+09-10 06:46:32.079   562  1052 I wm_pause_activity: [0,188815219,com.android.sdksetup/.DefaultActivity,userLeaving=false,finish]
+09-10 06:46:32.080   562   596 I sysui_multi_action: [757,1144,758,7,806,com.android.sdksetup,871,com.android.sdksetup.DefaultActivity]
+09-10 06:46:32.080  1503  1503 I wm_on_create_called: [188815219,com.android.sdksetup.DefaultActivity,performCreate,304]
+09-10 06:46:32.082   562   595 I commit_sys_config_file: [notification-policy,14]
+09-10 06:46:32.083   562  1261 I am_uid_active: 10065
+09-10 06:46:32.114   562  1112 I wm_task_created: 7
+09-10 06:46:32.116   562  1112 I wm_task_moved: [7,1,0,1,2147483647]
+09-10 06:46:32.118   562  1112 I wm_task_moved: [1,1,0,1,1]
+09-10 06:46:32.118   562  1112 I wm_create_task: [0,7,1,0]
+09-10 06:46:32.118   562  1112 I wm_create_activity: [0,194317542,7,com.android.launcher3/.uioverrides.QuickstepLauncher,android.intent.action.MAIN,NULL,NULL,268435712]
+09-10 06:46:32.118   562  1112 I wm_task_moved: [1,1,0,1,1]
+09-10 06:46:32.118   562  1112 I wm_task_moved: [7,1,0,1,2147483647]
+09-10 06:46:32.118   562  1112 I wm_task_to_front: [0,7,0]
+09-10 06:46:32.119   562  1112 I wm_restart_activity: [0,194317542,7,com.android.launcher3/.uioverrides.QuickstepLauncher]
+09-10 06:46:32.120   562  1112 I wm_set_resumed_activity: [0,com.android.launcher3/.uioverrides.QuickstepLauncher,realStartActivityLocked - onActivityStateChanged]
+09-10 06:46:32.121   562   593 I sysui_multi_action: [757,803,799,window_time_0,802,1]
+09-10 06:46:32.141   562   670 I commit_sys_config_file: [settings-2-0,28]
+09-10 06:46:32.157   562   968 I dvm_lock_sample: [system_server,1,binder:562_5,39,ActivityTaskManagerService.java,7346,int com.android.server.wm.ActivityTaskManagerService$LocalService.getTaskToShowPermissionDialogOn(java.lang.String, int),ActivityClientController.java,234,void com.android.server.wm.ActivityClientController.activityPaused(android.os.IBinder),7]
+09-10 06:46:32.157   562   968 I sysui_multi_action: [757,856,758,1,806,com.android.providers.media.module,857,native_transcode_alert_channel,858,4]
+09-10 06:46:32.161   562  1261 I sysui_multi_action: [757,856,758,1,806,com.android.providers.media.module,857,native_transcode_progress_channel,858,2]
+09-10 06:46:32.166   562   670 I commit_sys_config_file: [settings-0-0,25]
+09-10 06:46:32.215   562   670 I commit_sys_config_file: [settings-1-0,5]
+09-10 06:46:32.251   562  1052 I am_mem_factor: [1,2]
+09-10 06:46:32.253   562   593 I am_pre_boot: [0,com.android.providers.calendar]
+09-10 06:46:32.254   562   562 I notification_enqueue: [1000,562,android,13,PreBootBroadcaster,0,Notification(channel=UPDATES shortcut=null contentView=null vibrate=null sound=null tick defaults=0 flags=ONGOING_EVENT|CAN_COLORIZE color=0x00000000 vis=PUBLIC),1]
+09-10 06:46:32.260   562   605 I am_uid_running: 10079
+09-10 06:46:32.270   562   604 I am_schedule_service_restart: [0,com.android.inputmethod.latin/.LatinIME,9041]
+09-10 06:46:32.272  1051  1070 I service_manager_slow: [10,device_policy]
+09-10 06:46:32.294   562   606 I am_proc_start: [0,1706,10079,com.android.providers.calendar,broadcast,{com.android.providers.calendar/com.android.providers.calendar.CalendarUpgradeReceiver}]
+09-10 06:46:32.358   562   670 I commit_sys_config_file: [settings-2-0,16]
+09-10 06:46:32.395   562  1045 I am_proc_bound: [0,1706,com.android.providers.calendar]
+09-10 06:46:32.395  1459  1583 I dvm_lock_sample: [com.android.documentsui,0,pool-2-thread-3,559,ProvidersCache.java,645,void com.android.documentsui.roots.ProvidersCache$MultiProviderUpdateTask.handleDocumentsProvider(android.content.pm.ProviderInfo, com.android.documentsui.base.UserId),-,648,void com.android.documentsui.roots.ProvidersCache$MultiProviderUpdateTask.handleDocumentsProvider(android.content.pm.ProviderInfo, com.android.documentsui.base.UserId),100]
+09-10 06:46:32.399   562  1043 I am_uid_running: 10074
+09-10 06:46:32.428  1111  1111 I gsm_service_state_change: [1,1,3,1]
+09-10 06:46:32.431   562  1699 I am_uid_active: 10126
+09-10 06:46:32.436   562   595 I commit_sys_config_file: [notification-policy,11]
+09-10 06:46:32.441   562   606 I am_proc_start: [0,1721,10074,android.process.media,content provider,{com.android.mtp/com.android.mtp.MtpDocumentsProvider}]
+09-10 06:46:32.442   562  1044 I am_proc_bound: [0,1721,android.process.media]
+09-10 06:46:32.577   562  1044 I am_uid_active: 10079
+09-10 06:46:32.578   562   605 I am_uid_running: 10133
+09-10 06:46:32.587   562   695 I service_manager_slow: [23,user]
+09-10 06:46:32.588   562  1488 I service_manager_slow: [27,package]
+09-10 06:46:32.591   562   606 I am_proc_start: [0,1755,10133,com.android.devicelockcontroller,broadcast,{com.android.devicelockcontroller/com.android.devicelockcontroller.receivers.RecordBootTimestampReceiver}]
+09-10 06:46:32.593  1706  1706 I calendar_upgrade_receiver: 5
+09-10 06:46:32.602   562   593 I am_pre_boot: [0,com.android.providers.contacts]
+09-10 06:46:32.604   562  1052 I am_proc_bound: [0,1755,com.android.devicelockcontroller]
+09-10 06:46:32.621   562   968 I sysui_multi_action: [757,856,758,1,806,com.android.mtp,857,device_notification_channel,858,2]
+09-10 06:46:32.627   562   562 I notification_enqueue: [1000,562,android,13,PreBootBroadcaster,0,Notification(channel=UPDATES shortcut=null contentView=null vibrate=null sound=null tick defaults=0 flags=ONGOING_EVENT|CAN_COLORIZE color=0x00000000 vis=PUBLIC),1]
+09-10 06:46:32.685  1170  1170 I wm_on_create_called: [194317542,com.android.launcher3.uioverrides.QuickstepLauncher,performCreate,131]
+09-10 06:46:32.687  1170  1170 I wm_on_start_called: [194317542,com.android.launcher3.uioverrides.QuickstepLauncher,handleStartActivity,0]
+09-10 06:46:32.688  1170  1170 I wm_on_resume_called: [194317542,com.android.launcher3.uioverrides.QuickstepLauncher,RESUME_ACTIVITY,0]
+09-10 06:46:32.692  1170  1170 I wm_on_top_resumed_gained_called: [194317542,com.android.launcher3.uioverrides.QuickstepLauncher,topStateChangedWhenResumed]
+09-10 06:46:32.727   562   695 I service_manager_slow: [36,user]
+09-10 06:46:32.785   562  1699 I am_uid_active: 10133
+09-10 06:46:32.786   562   605 I am_uid_running: 10104
+09-10 06:46:32.794   562   606 I am_proc_start: [0,1778,10104,com.android.quicksearchbox,broadcast,{com.android.quicksearchbox/com.android.quicksearchbox.SearchWidgetProvider}]
+09-10 06:46:32.807   562  1052 I am_proc_bound: [0,1778,com.android.quicksearchbox]
+09-10 06:46:32.813  1123  1333 I jank_cuj_events_end_request: [81,1789022792813773000,18094423207,18094423267]
+09-10 06:46:32.822   562  1045 I am_mem_factor: [0,1]
+09-10 06:46:32.874  1111  1111 I service_manager_slow: [15,carrier_config]
+09-10 06:46:32.881   562   604 I am_schedule_service_restart: [0,com.android.inputmethod.latin/.LatinIME,0]
+09-10 06:46:32.882   562   605 I am_uid_running: 10112
+09-10 06:46:32.884  1111  1111 I gsm_service_state_change: [3,1,0,1]
+09-10 06:46:32.884  1111  1111 I gsm_rat_switched_new: [47108,0,14]
+09-10 06:46:32.888   562   595 I commit_sys_config_file: [notification-policy,14]
+09-10 06:46:32.890   562   605 I am_uid_running: 10068
+09-10 06:46:32.890  1170  1170 I viewroot_draw_event: [VRI[Taskbar],reportDrawFinished seqId=0]
+09-10 06:46:32.908   562   606 I am_proc_start: [0,1802,10112,com.android.inputmethod.latin,service,{com.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME}]
+09-10 06:46:32.914   562  1045 I am_proc_bound: [0,1802,com.android.inputmethod.latin]
+09-10 06:46:32.919   562   606 I am_proc_start: [0,1813,10068,android.process.acore,broadcast,{com.android.providers.contacts/com.android.providers.contacts.ContactsUpgradeReceiver}]
+09-10 06:46:32.927   562   597 I input_focus: [Focus request d2dd038 com.android.launcher3/com.android.launcher3.uioverrides.QuickstepLauncher,reason=UpdateInputWindows]
+09-10 06:46:32.932   562  1044 I am_uid_active: 10112
+09-10 06:46:32.935   562  1044 I am_proc_bound: [0,1813,android.process.acore]
+09-10 06:46:32.966  1170  1170 I viewroot_draw_event: [VRI[QuickstepLauncher],Canceling draw. cancelDueToPreDrawListener=true cancelDueToSync=false]
+09-10 06:46:32.968  1459  1584 I dvm_lock_sample: [com.android.documentsui,0,pool-2-thread-4,1128,ProvidersCache.java,645,void com.android.documentsui.roots.ProvidersCache$MultiProviderUpdateTask.handleDocumentsProvider(android.content.pm.ProviderInfo, com.android.documentsui.base.UserId),-,648,void com.android.documentsui.roots.ProvidersCache$MultiProviderUpdateTask.handleDocumentsProvider(android.content.pm.ProviderInfo, com.android.documentsui.base.UserId),100]
+09-10 06:46:32.978   562   590 I am_uid_active: 10074
+09-10 06:46:32.984   562  1052 I wm_set_requested_orientation: [5,com.android.launcher3/.uioverrides.QuickstepLauncher]
+09-10 06:46:33.018  1459  1580 I dvm_lock_sample: [com.android.documentsui,0,pool-2-thread-1,1179,ProvidersCache.java,645,void com.android.documentsui.roots.ProvidersCache$MultiProviderUpdateTask.handleDocumentsProvider(android.content.pm.ProviderInfo, com.android.documentsui.base.UserId),-,648,void com.android.documentsui.roots.ProvidersCache$MultiProviderUpdateTask.handleDocumentsProvider(android.content.pm.ProviderInfo, com.android.documentsui.base.UserId),100]
+09-10 06:46:33.034   562   927 I commit_sys_config_file: [input-subtypes,6]
+09-10 06:46:33.037   562   670 I commit_sys_config_file: [settings-1-0,2]
+09-10 06:46:33.100  1802  1802 I viewroot_draw_event: [VRI[InputMethod],Not drawing due to not visible. Reason=View.INVISIBLE]
+09-10 06:46:33.104   562   590 I sysui_multi_action: [757,856,758,1,806,com.android.providers.downloads,857,active,858,1]
+09-10 06:46:33.104   562   590 I sysui_multi_action: [757,856,758,1,806,com.android.providers.downloads,857,waiting,858,3]
+09-10 06:46:33.104   562   590 I sysui_multi_action: [757,856,758,1,806,com.android.providers.downloads,857,complete,858,3]
+09-10 06:46:33.115   562   670 I commit_sys_config_file: [settings-2-0,7]
+09-10 06:46:33.116   562  1052 I am_uid_active: 10068
+09-10 06:46:33.182   562   844 I commit_sys_config_file: [net-policy,16]
+09-10 06:46:33.301   562  1052 I sysui_multi_action: [757,856,758,1,806,com.android.phone,857,voiceMail,858,3]
+09-10 06:46:33.304   562  1052 I am_uid_running: 10118
+09-10 06:46:33.307   562  1052 I configuration_changed: 3
+09-10 06:46:33.350   562   606 I am_proc_start: [0,1861,10118,com.android.carrierconfig,service,{com.android.carrierconfig/com.android.carrierconfig.DefaultCarrierConfigService}]
+09-10 06:46:33.354   562  1048 I am_wtf  : [0,1051,com.android.networkstack.process,680050253,SystemServiceRegistry,No service published for: ethernet]
+09-10 06:46:33.364   562   595 I commit_sys_config_file: [notification-policy,9]
+09-10 06:46:33.376   562  1699 I am_proc_bound: [0,1861,com.android.carrierconfig]
+09-10 06:46:33.386  1111  1111 I gsm_service_state_change: [0,1,0,0]
+09-10 06:46:33.389   562   594 I wm_new_intent: [0,194317542,7,com.android.launcher3/.uioverrides.QuickstepLauncher,android.intent.action.MAIN,NULL,NULL,268435712]
+09-10 06:46:33.389   562   594 I wm_task_moved: [1,1,0,1,1]
+09-10 06:46:33.397   562   590 I am_uid_active: 10118
+09-10 06:46:33.416   934   982 I jank_cuj_events_end_request: [55,1789022793413761000,18694409874,18694409944]
+09-10 06:46:33.423   562   595 I commit_sys_config_file: [jobs,31]
+09-10 06:46:33.436  1813  1813 I contacts_upgrade_receiver: 315
+09-10 06:46:33.439   562  1048 I am_uid_running: 10101
+09-10 06:46:33.442   562   593 I am_pre_boot: [0,com.android.providers.media.module]
+09-10 06:46:33.443   562   593 I am_pre_boot: [0,com.android.settings]
+09-10 06:46:33.444   562   562 I notification_enqueue: [1000,562,android,13,PreBootBroadcaster,0,Notification(channel=UPDATES shortcut=null contentView=null vibrate=null sound=null tick defaults=0 flags=ONGOING_EVENT|CAN_COLORIZE color=0x00000000 vis=PUBLIC),1]
+09-10 06:46:33.453   562   562 I notification_enqueue: [1000,562,android,13,PreBootBroadcaster,0,Notification(channel=UPDATES shortcut=null contentView=null vibrate=null sound=null tick defaults=0 flags=ONGOING_EVENT|CAN_COLORIZE color=0x00000000 vis=PUBLIC),1]
+09-10 06:46:33.461   562   606 I am_proc_start: [0,1885,10101,com.android.contacts,content provider,{com.android.contacts/com.android.contacts.sdn.SdnProvider}]
+09-10 06:46:33.466   562   593 I am_pre_boot: [0,com.android.settings]
+09-10 06:46:33.468   562   562 I notification_enqueue: [1000,562,android,13,PreBootBroadcaster,0,Notification(channel=UPDATES shortcut=null contentView=null vibrate=null sound=null tick defaults=0 flags=ONGOING_EVENT|CAN_COLORIZE color=0x00000000 vis=PUBLIC),1]
+09-10 06:46:33.471   562  1043 I am_proc_bound: [0,1885,com.android.contacts]
+09-10 06:46:33.474   562   593 I uc_finish_user_unlocked_completed: 0
+09-10 06:46:33.474   562   605 I ssm_user_unlocked: 0
+09-10 06:46:33.475   562   593 I uc_send_user_broadcast: [0,android.intent.action.BOOT_COMPLETED]
+09-10 06:46:33.478   562   562 I sysui_multi_action: [757,128,758,5,759,8,793,1996,794,0,795,857,796,13,797,PreBootBroadcaster,806,android,857,UPDATES,858,2,947,0,1500,857,1688,1]
+09-10 06:46:33.478   562   562 I notification_canceled: [0|android|13|PreBootBroadcaster|1000,8,1996,857,0,-1,-1,NULL]
+09-10 06:46:33.486   562   605 I am_uid_running: 10076
+09-10 06:46:33.503   562   606 I am_proc_start: [0,1904,10076,com.android.statementservice,broadcast,{com.android.statementservice/com.android.statementservice.domain.DomainVerificationReceiverV1}]
+09-10 06:46:33.514   562  1043 I am_proc_bound: [0,1904,com.android.statementservice]
+09-10 06:46:33.517   562  1043 I am_uid_active: 10076
+09-10 06:46:33.535   562  1052 I am_uid_active: 10101
+09-10 06:46:33.556   562   670 I commit_sys_config_file: [settings-0-0,3]
+09-10 06:46:33.573   562   605 I am_uid_running: 10096
+09-10 06:46:33.582   562   606 I am_proc_start: [0,1943,10096,com.android.traceur,broadcast,{com.android.traceur/com.android.traceur.Receiver}]
+09-10 06:46:33.603   562  1488 I am_proc_bound: [0,1943,com.android.traceur]
+09-10 06:46:33.613   562  1043 I am_uid_active: 10096
+09-10 06:46:33.615   562  1043 I sysui_multi_action: [757,856,758,1,806,com.android.traceur,857,trace-is-being-recorded,858,4]
+09-10 06:46:33.615   562  1043 I sysui_multi_action: [757,856,758,1,806,com.android.traceur,857,system-tracing,858,4]
+09-10 06:46:33.618   562   605 I am_uid_running: 10110
+09-10 06:46:33.620   562  1960 I commit_sys_config_file: [log-files,2]
+09-10 06:46:33.625   562   605 I am_uid_active: 10146
+09-10 06:46:33.625   562   606 I am_proc_start: [0,1961,10110,com.android.calendar,broadcast,{com.android.calendar/com.android.calendar.UpgradeReceiver}]
+09-10 06:46:33.627   562  1488 I sysui_multi_action: [757,856,758,1,806,com.android.contacts,857,DEFAULT_CHANNEL,858,2]
+09-10 06:46:33.630   562   629 I am_uid_stopped: 10127
+09-10 06:46:33.634   562   629 I am_kill : [0,1355,android.ext.services,0,change android.ext.services,119424]
+09-10 06:46:33.635   562   629 I am_schedule_service_restart: [0,android.ext.services/.autofill.InlineSuggestionRenderServiceImpl,1000]
+09-10 06:46:33.635   562   629 I am_schedule_service_restart: [0,android.ext.services/.notification.Assistant,11000]
+09-10 06:46:33.639   562  1488 I am_proc_bound: [0,1961,com.android.calendar]
+09-10 06:46:33.670   562  1043 I am_uid_active: 10110
+09-10 06:46:33.679   562   605 I am_uid_running: 10127
+09-10 06:46:33.686   562   606 I am_proc_start: [0,1984,10127,.adservices,broadcast,{android.ext.services/com.android.adservices.service.common.AdExtBootCompletedReceiver}]
+09-10 06:46:33.694   562   590 I am_proc_bound: [0,1984,.adservices]
+09-10 06:46:33.697   562   590 I am_uid_active: 10127
+09-10 06:46:33.708   562   605 I am_uid_running: 10108
+09-10 06:46:33.714   562   606 I am_proc_start: [0,1999,10108,com.android.camera2,broadcast,{com.android.camera2/com.android.camera.SetActivitiesCameraReceiver}]
+09-10 06:46:33.724   562  1048 I am_proc_bound: [0,1999,com.android.camera2]
+09-10 06:46:33.739   562   562 I notification_cancel_all: [10108,1999,com.android.camera2,0,0,32832,9,NULL]
+09-10 06:46:33.740   562   590 I am_uid_active: 10108
+09-10 06:46:33.747   562   606 I am_proc_start: [0,2013,1000,com.android.dynsystem,broadcast,{com.android.dynsystem/com.android.dynsystem.BootCompletedReceiver}]
+09-10 06:46:33.757   562   590 I am_proc_bound: [0,2013,com.android.dynsystem]
+09-10 06:46:33.764   562   605 I am_uid_running: 10129
+09-10 06:46:33.769   562   670 I commit_sys_config_file: [settings-2-0,7]
+09-10 06:46:33.769   562   606 I am_proc_start: [0,2026,10129,com.android.federatedcompute.services,broadcast,{com.android.federatedcompute.services/com.android.federatedcompute.services.FederatedComputeBroadcastReceiver}]
+09-10 06:46:33.774   562   606 I am_proc_start: [0,2030,1000,com.android.dynsystem:dynsystem,service,{com.android.dynsystem/com.android.dynsystem.DynamicSystemInstallationService}]
+09-10 06:46:33.778   562  1048 I am_proc_bound: [0,2026,com.android.federatedcompute.services]
+09-10 06:46:33.781   562   590 I am_proc_bound: [0,2030,com.android.dynsystem:dynsystem]
+09-10 06:46:33.795   562   590 I am_uid_active: 10129
+09-10 06:46:33.796   562   968 I sysui_multi_action: [757,856,758,1,806,com.android.dynsystem,857,com.android.dynsystem,858,2]
+09-10 06:46:33.796   562   605 I am_uid_running: 10142
+09-10 06:46:33.803   562   606 I am_proc_start: [0,2053,10142,com.android.healthconnect.controller,broadcast,{com.android.healthconnect.controller/com.android.healthconnect.controller.safetycenter.SafetySourceBroadcastReceiver}]
+09-10 06:46:33.812   562   590 I am_proc_bound: [0,2053,com.android.healthconnect.controller]
+09-10 06:46:33.826   562  1048 I am_uid_active: 10142
+09-10 06:46:33.828   562   605 I am_uid_running: 10100
+09-10 06:46:33.835   562   629 I am_uid_stopped: 10142
+09-10 06:46:33.835   562   629 I am_kill : [0,2053,com.android.healthconnect.controller,0,change com.android.healthconnect.controller,107436]
+09-10 06:46:33.839   562   606 I am_proc_start: [0,2070,10100,com.android.imsserviceentitlement,broadcast,{com.android.imsserviceentitlement/com.android.imsserviceentitlement.fcm.FcmRegistrationReceiver}]
+09-10 06:46:33.849   562  1048 I am_proc_bound: [0,2070,com.android.imsserviceentitlement]
+09-10 06:46:33.864   562  1052 I am_uid_active: 10100
+09-10 06:46:33.865   562   605 I am_uid_running: 10114
+09-10 06:46:33.871   562   595 I commit_sys_config_file: [notification-policy,6]
+09-10 06:46:33.872   562   606 I am_proc_start: [0,2081,10114,com.android.messaging,broadcast,{com.android.messaging/com.android.messaging.receiver.BootAndPackageReplacedReceiver}]
+09-10 06:46:33.880   562  1052 I am_proc_bound: [0,2081,com.android.messaging]
+09-10 06:46:33.904   562  1052 I am_uid_active: 10114
+09-10 06:46:33.905   562   605 I am_uid_running: 1027
+09-10 06:46:33.912   562   606 I am_proc_start: [0,2098,1027,com.android.nfc,broadcast,{com.android.nfc/com.android.nfc.NfcBootCompletedReceiver}]
+09-10 06:46:33.924   562   968 I am_proc_bound: [0,2098,com.android.nfc]
+09-10 06:46:33.939   562  1052 I am_uid_active: 1027
+09-10 06:46:33.940   562   605 I am_uid_running: 10128
+09-10 06:46:33.940   562   629 I am_uid_stopped: 1027
+09-10 06:46:33.941   562   629 I am_kill : [0,2098,com.android.nfc,0,change com.android.nfc,102660]
+09-10 06:46:33.945  1111  1670 I service_manager_stats: [100,111,19226]
+09-10 06:46:33.947   562   562 I notification_cancel_all: [1000,562,com.android.nfc,0,0,0,5,NULL]
+09-10 06:46:33.947   562   606 I am_proc_start: [0,2112,10128,com.android.ondevicepersonalization.services,broadcast,{com.android.ondevicepersonalization.services/com.android.ondevicepersonalization.services.OnDevicePersonalizationBroadcastReceiver}]
+09-10 06:46:33.956   562  1048 I am_proc_bound: [0,2112,com.android.ondevicepersonalization.services]
+09-10 06:46:33.966   562  1052 I am_uid_active: 10128
+09-10 06:46:33.967   562   605 I am_uid_running: 10062
+09-10 06:46:33.975   562   606 I am_proc_start: [0,2124,10062,com.android.packageinstaller,broadcast,{com.android.packageinstaller/com.android.packageinstaller.common.TemporaryFileManager}]
+09-10 06:46:33.981   562   968 I am_proc_bound: [0,2124,com.android.packageinstaller]
+09-10 06:46:33.990   562  1048 I am_uid_active: 10062
+09-10 06:46:33.991   562   605 I am_uid_running: 10132
+09-10 06:46:33.996   562   606 I am_proc_start: [0,2136,10132,com.android.rkpdapp,broadcast,{com.android.rkpdapp/com.android.rkpdapp.BootReceiver}]
+09-10 06:46:34.005   562  1048 I am_proc_bound: [0,2136,com.android.rkpdapp]
+09-10 06:46:34.019   562  1048 I am_uid_active: 10132
+09-10 06:46:34.020   562   605 I am_uid_running: 2000
+09-10 06:46:34.027   562   606 I am_proc_start: [0,2151,2000,com.android.shell,broadcast,{com.android.shell/com.android.shell.HeapDumpReceiver}]
+09-10 06:46:34.035   562   590 I am_proc_bound: [0,2151,com.android.shell]
+09-10 06:46:34.044   562   590 I am_uid_active: 2000
+09-10 06:46:34.051  1170  1193 I jank_cuj_events_end_request: [80,1789022794051224000,19331873380,19331873440]
+09-10 06:46:34.178  1170  1170 I wm_on_top_resumed_lost_called: [194317542,com.android.launcher3.uioverrides.QuickstepLauncher,pausing]
+09-10 06:46:34.179  1170  1170 I wm_on_paused_called: [194317542,com.android.launcher3.uioverrides.QuickstepLauncher,performPause,0]
+09-10 06:46:34.179  1170  1170 I wm_on_resume_called: [194317542,com.android.launcher3.uioverrides.QuickstepLauncher,LIFECYCLER_RESUME_ACTIVITY,0]
+09-10 06:46:34.179  1170  1170 I wm_on_top_resumed_gained_called: [194317542,com.android.launcher3.uioverrides.QuickstepLauncher,topWhenResuming]
+09-10 06:46:34.184   562   590 I am_wtf  : [0,1051,com.android.networkstack.process,680050253,SystemServiceRegistry,No service published for: ethernet]
+09-10 06:46:34.372  1170  1170 I viewroot_draw_event: [VRI[QuickstepLauncher],Draw frame after cancel]
+09-10 06:46:34.395   562  1406 I backup_transport_lifecycle: [com.android.localtransport/.LocalTransportService,1]
+09-10 06:46:34.407   562   606 I am_proc_start: [0,2195,1000,com.android.localtransport,service,{com.android.localtransport/com.android.localtransport.LocalTransportService}]
+09-10 06:46:34.417   562  1048 I am_proc_bound: [0,2195,com.android.localtransport]
+09-10 06:46:34.434   562   562 I backup_transport_connection: [com.android.localtransport/.LocalTransportService,1]
+09-10 06:46:34.434  1170  1170 I viewroot_draw_event: [VRI[QuickstepLauncher],reportDrawFinished seqId=0]
+09-10 06:46:34.438   562  1406 I backup_transport_lifecycle: [com.android.localtransport/.LocalTransportService,0]
+09-10 06:46:34.438   562  1406 I backup_transport_connection: [com.android.localtransport/.LocalTransportService,0]
+09-10 06:46:34.445   562   596 I wm_destroy_activity: [0,221749793,5,com.android.settings/.FallbackHome,finish-transit]
+09-10 06:46:34.445   562   596 I wm_destroy_activity: [0,188815219,6,com.android.sdksetup/.DefaultActivity,finish-transit]
+09-10 06:46:34.449   562   597 I wm_wallpaper_surface: [0,1,Window{d2dd038 u0 com.android.launcher3/com.android.launcher3.uioverrides.QuickstepLauncher}]
+09-10 06:46:34.450  1503  1503 I wm_on_destroy_called: [188815219,com.android.sdksetup.DefaultActivity,performDestroy,0]
+09-10 06:46:34.453   562   593 I sysui_multi_action: [319,2336,322,2326,325,17,757,761,758,8,759,2,806,com.android.launcher3,871,com.android.launcher3.uioverrides.QuickstepLauncher,905,0,1320,4,1321,23]
+09-10 06:46:34.456   562  1048 I wm_task_removed: [6,1,0,removeChild, last child = ActivityRecord{b411773 u0 com.android.sdksetup/.DefaultActivity t-1 f}} in Task{5ce3630 #6 type=home A=10115:com.android.sdksetup}]
+09-10 06:46:34.471   562   593 I wm_activity_launch_time: [0,194317542,com.android.launcher3/.uioverrides.QuickstepLauncher,2326]
+09-10 06:46:34.482   562   683 I input_focus: [Focus entering d2dd038 com.android.launcher3/com.android.launcher3.uioverrides.QuickstepLauncher (server),reason=Window became focusable. Previous reason: NOT_VISIBLE]
+09-10 06:46:34.484  1123  1123 I wm_on_stop_called: [221749793,com.android.settings.FallbackHome,LIFECYCLER_STOP_ACTIVITY,0]
+09-10 06:46:34.484  1123  1123 I wm_on_destroy_called: [221749793,com.android.settings.FallbackHome,performDestroy,0]
+09-10 06:46:34.504   562  1488 I wm_task_removed: [5,1,0,removeChild, last child = ActivityRecord{d37a221 u0 com.android.settings/.FallbackHome t-1 f}} in Task{2177007 #5 type=home A=1000:com.android.settings.FallbackHome}]
+09-10 06:46:34.626  1111  1111 I gsm_service_state_change: [0,0,1,1]
+09-10 06:46:34.626  1111  1111 I gsm_rat_switched_new: [-1,14,0]
+09-10 06:46:34.908   562  1044 I commit_sys_config_file: [overlays,16]
+09-10 06:46:34.926   562   593 I configuration_changed: -2147483648
+09-10 06:46:35.013   562   593 I wm_relaunch_resume_activity: [0,194317542,7,com.android.launcher3/.uioverrides.QuickstepLauncher,80000000]
+09-10 06:46:35.019   562   596 I dvm_lock_sample: [system_server,1,android.display,92,ActivityManagerService.java,19271,void com.android.server.am.ActivityManagerService$LocalService.updateOomLevelsForDisplay(int),-,3998,void com.android.server.am.ActivityManagerService.addPackageDependency(java.lang.String),18]
+09-10 06:46:35.044  1051  1110 I service_manager_slow: [15,carrier_config]
+09-10 06:46:35.092   562   670 I commit_sys_config_file: [settings-0-0,88]
+09-10 06:46:35.151  1111  1111 I service_manager_slow: [82,carrier_config]
+09-10 06:46:35.155   562  1043 I commit_sys_config_file: [overlays,51]
+09-10 06:46:35.171   562  1043 I am_wtf  : [0,1051,com.android.networkstack.process,680050253,SystemServiceRegistry,No service published for: ethernet]
+09-10 06:46:35.172   562   670 I commit_sys_config_file: [settings-2-0,79]
+09-10 06:46:35.186   562   605 I am_uid_running: 10087
+09-10 06:46:35.206   562   606 I am_proc_start: [0,2269,10087,com.android.carrierdefaultapp,broadcast,{com.android.carrierdefaultapp/com.android.carrierdefaultapp.CarrierDefaultBroadcastReceiver}]
+09-10 06:46:35.230   934  1163 I viewroot_draw_event: [VRI[ScreenDecorOverlay],Start draw after previous draw not visible]
+09-10 06:46:35.238   934  1163 I viewroot_draw_event: [VRI[ScreenDecorOverlay],reportDrawFinished seqId=0]
+09-10 06:46:35.244   562   589 I am_proc_bound: [0,2269,com.android.carrierdefaultapp]
+09-10 06:46:35.245  1170  1170 I wm_on_top_resumed_lost_called: [194317542,com.android.launcher3.uioverrides.QuickstepLauncher,pausing]
+09-10 06:46:35.245  1170  1170 I wm_on_paused_called: [194317542,com.android.launcher3.uioverrides.QuickstepLauncher,performPause,1]
+09-10 06:46:35.247  1170  1170 I wm_on_stop_called: [194317542,com.android.launcher3.uioverrides.QuickstepLauncher,handleRelaunchActivity,1]
+09-10 06:46:35.248   562   925 I service_manager_slow: [41,user]
+09-10 06:46:35.265  1170  1170 I wm_on_destroy_called: [194317542,com.android.launcher3.uioverrides.QuickstepLauncher,performDestroy,15]
+09-10 06:46:35.268   934  1163 I viewroot_draw_event: [VRI[ScreenDecorOverlayBottom],Start draw after previous draw not visible]
+09-10 06:46:35.276   934  1163 I viewroot_draw_event: [VRI[ScreenDecorOverlayBottom],reportDrawFinished seqId=0]
+09-10 06:46:35.282   562   597 I input_focus: [Requesting to set focus to null window,reason=UpdateInputWindows]
+09-10 06:46:35.319   562  1699 I dvm_lock_sample: [system_server,0,binder:562_12,175,OverlayManagerService.java,737,boolean com.android.server.om.OverlayManagerService$1.setEnabledExclusiveInCategory(java.lang.String, int),-,1573,java.util.List com.android.server.om.OverlayManagerService.updatePackageManagerLocked(java.util.Collection, int),35]
+09-10 06:46:35.346  1111  1111 I gsm_service_state_change: [1,1,0,0]
+09-10 06:46:35.346  1111  1111 I gsm_rat_switched_new: [47108,0,11]
+09-10 06:46:35.372   562   562 I notification_cancel_all: [10087,2269,com.android.carrierdefaultapp,0,0,32832,9,NULL]
+09-10 06:46:35.380  1170  1170 I wm_on_create_called: [194317542,com.android.launcher3.uioverrides.QuickstepLauncher,performCreate,88]
+09-10 06:46:35.381  1170  1170 I wm_on_start_called: [194317542,com.android.launcher3.uioverrides.QuickstepLauncher,handleStartActivity,0]
+09-10 06:46:35.381  1170  1170 I wm_on_resume_called: [194317542,com.android.launcher3.uioverrides.QuickstepLauncher,RESUME_ACTIVITY,0]
+09-10 06:46:35.381  1170  1170 I wm_on_top_resumed_gained_called: [194317542,com.android.launcher3.uioverrides.QuickstepLauncher,topWhenResuming]
+09-10 06:46:35.386   562  1044 I wm_set_requested_orientation: [5,com.android.launcher3/.uioverrides.QuickstepLauncher]
+09-10 06:46:35.479  1170  1170 I viewroot_draw_event: [VRI[Taskbar],reportDrawFinished seqId=0]
+09-10 06:46:35.502   562   597 I input_focus: [Focus request 9fd6955 com.android.launcher3/com.android.launcher3.uioverrides.QuickstepLauncher,reason=UpdateInputWindows]
+09-10 06:46:35.553   934   934 I viewroot_draw_event: [VRI[StatusBar],reportDrawFinished seqId=0]
+09-10 06:46:35.612  1170  1170 I viewroot_draw_event: [VRI[QuickstepLauncher],reportDrawFinished seqId=0]
+09-10 06:46:35.653   934  1163 I viewroot_draw_event: [VRI[ScreenDecorOverlay],reportDrawFinished seqId=0]
+09-10 06:46:35.659   562   595 I commit_sys_config_file: [jobs,26]
+09-10 06:46:35.674   562   595 I commit_sys_config_file: [jobs,15]
+09-10 06:46:35.677  1170  1170 I viewroot_draw_event: [VRI[Taskbar],reportDrawFinished seqId=0]
+09-10 06:46:35.768  1170  1170 I viewroot_draw_event: [VRI[QuickstepLauncher],reportDrawFinished seqId=0]
+09-10 06:46:35.773   562   683 I input_focus: [Focus entering 9fd6955 com.android.launcher3/com.android.launcher3.uioverrides.QuickstepLauncher (server),reason=Window became focusable. Previous reason: NOT_VISIBLE]
+09-10 06:46:35.841  1170  1170 I viewroot_draw_event: [VRI[Taskbar],reportDrawFinished seqId=0]
+09-10 06:46:36.068  1051  1110 I service_manager_slow: [17,carrier_config]
+09-10 06:46:36.095   562  1045 I am_wtf  : [0,1051,com.android.networkstack.process,680050253,SystemServiceRegistry,No service published for: ethernet]
+09-10 06:46:36.148   562   844 I commit_sys_config_file: [net-policy,97]
+09-10 06:46:36.371   934   934 I viewroot_draw_event: [VRI[StatusBar],reportDrawFinished seqId=0]
+09-10 06:46:36.459   562   846 I service_manager_stats: [191,348,5018]
+09-10 06:46:36.482   562   895 I sysui_multi_action: [757,1717,758,1,759,0]
+09-10 06:46:36.483   562   895 I sysui_multi_action: [757,1717,758,2,759,0]
+09-10 06:46:36.483   562   895 I sysui_multi_action: [757,1717,758,3,759,0]
+09-10 06:46:36.486   562   853 I netstats_mobile_sample: [0,0,0,0,0,0,0,0,1789022796486]
+09-10 06:46:36.486   562   853 I netstats_wifi_sample: [0,0,0,0,0,0,0,0,1789022796486]
+09-10 06:46:36.499   934   934 I viewroot_draw_event: [VRI[StatusBar],reportDrawFinished seqId=0]
+09-10 06:46:36.526   562   842 I netstats_mobile_sample: [0,0,0,0,0,0,0,0,1789022796526]
+09-10 06:46:36.526   562   842 I netstats_wifi_sample: [0,0,0,0,0,0,0,0,1789022796526]
+09-10 06:46:36.549   562   853 I netstats_mobile_sample: [0,0,0,0,0,0,0,0,1789022796549]
+09-10 06:46:36.549   562   853 I netstats_wifi_sample: [0,0,0,0,0,0,0,0,1789022796549]
+09-10 06:46:36.584   562   670 I commit_sys_config_file: [settings-0-0,20]
+09-10 06:46:36.589   562   853 I netstats_mobile_sample: [0,0,0,0,0,0,0,0,1789022796588]
+09-10 06:46:36.589   562   853 I netstats_wifi_sample: [0,135,0,2,0,0,0,0,1789022796588]
+09-10 06:46:36.650   562   629 I am_uid_stopped: 10133
+09-10 06:46:36.651   562   629 I am_kill : [0,1755,com.android.devicelockcontroller,0,change com.android.devicelockcontroller,119428]
+09-10 06:46:36.651   562   629 I am_schedule_service_restart: [0,com.android.devicelockcontroller/.DeviceLockControllerService,17983]
+09-10 06:46:36.657   562   562 I notification_cancel_all: [1000,562,com.android.devicelockcontroller,0,0,0,5,NULL]
+09-10 06:46:36.860   562   968 I am_wtf  : [0,1051,com.android.networkstack.process,680050253,SystemServiceRegistry,No service published for: ethernet]
+09-10 06:46:37.231   562   605 I am_wtf  : [0,562,system_server,-1,Binder,Outgoing transactions from this process must be FLAG_ONEWAY]
+09-10 06:46:37.358   562   853 I netstats_mobile_sample: [0,0,0,0,0,0,0,0,1789022797358]
+09-10 06:46:37.358   562   853 I netstats_wifi_sample: [860,2077,6,19,1158,981,7,8,1789022797358]
+09-10 06:46:37.376   562   562 I notification_cancel_all: [10087,2269,com.android.carrierdefaultapp,0,0,32832,9,NULL]
+09-10 06:46:37.378   562   562 I notification_cancel_all: [10087,2269,com.android.carrierdefaultapp,0,0,32832,9,NULL]
+09-10 06:46:37.405   562   853 I netstats_mobile_sample: [0,0,0,0,0,0,0,0,1789022797405]
+09-10 06:46:37.405   562   853 I netstats_wifi_sample: [1052,2469,8,24,1234,1057,8,9,1789022797405]
+09-10 06:46:37.449   562   670 I commit_sys_config_file: [settings-1-0,15]
+09-10 06:46:37.472   562   629 I commit_sys_config_file: [package,42]
+09-10 06:46:37.474   562   968 I dvm_lock_sample: [system_server,1,binder:562_5,26,PackageManagerService.java,1196,com.android.server.pm.Computer com.android.server.pm.PackageManagerService.snapshotComputer(boolean),-,1222,com.android.server.pm.Computer com.android.server.pm.PackageManagerService.snapshotComputer(boolean),5]
+09-10 06:46:37.484   562  1488 I dvm_lock_sample: [system_server,1,binder:562_10,35,PackageManagerService.java,1196,com.android.server.pm.Computer com.android.server.pm.PackageManagerService.snapshotComputer(boolean),-,1222,com.android.server.pm.Computer com.android.server.pm.PackageManagerService.snapshotComputer(boolean),7]
+09-10 06:46:37.496   562  1048 I am_wtf  : [0,1051,com.android.networkstack.process,680050253,SystemServiceRegistry,No service published for: ethernet]
+09-10 06:46:37.517   562   627 I commit_sys_config_file: [package-user-0,46]
+09-10 06:46:37.531   562   842 I netstats_mobile_sample: [3308,1199,8,9,363,295,4,5,1789022797530]
+09-10 06:46:37.531   562   842 I netstats_wifi_sample: [1805,3376,14,33,2179,1912,16,19,1789022797530]
+09-10 06:46:37.543   562   844 I commit_sys_config_file: [net-policy,9]
+09-10 06:46:37.562   562   853 I netstats_mobile_sample: [4603,1761,17,15,4643,1761,18,15,1789022797562]
+09-10 06:46:37.562   562   853 I netstats_wifi_sample: [1805,3436,14,34,2179,1912,16,19,1789022797562]
+09-10 06:46:37.657   562   842 I netstats_mobile_sample: [8748,2612,24,22,4683,1875,19,17,1789022797657]
+09-10 06:46:37.658   562   842 I netstats_wifi_sample: [1805,3436,14,34,2179,1972,16,20,1789022797657]
+09-10 06:46:37.903   562   881 I ntp_success: [time.android.com/216.239.35.4,476,-109]
+09-10 06:46:38.483   562   605 I ssm_user_completed_event: [0,2]
+09-10 06:46:38.889   562   670 I commit_sys_config_file: [settings-2-0,1]
+09-10 06:46:38.890   562   670 I commit_sys_config_file: [settings-1-0,0]
+09-10 06:46:38.905  1051  1051 I auditd  : type=1400 audit(0.0:22): avc:  granted  { read } for  comm="NetworkMonitor/" name="psched" dev="proc" ino=4026532021 scontext=u:r:network_stack:s0 tcontext=u:object_r:proc_net:s0 tclass=file
+09-10 06:46:38.905  1051  1051 I auditd  : type=1400 audit(0.0:23): avc:  granted  { read open } for  comm="NetworkMonitor/" path="/proc/1051/net/psched" dev="proc" ino=4026532021 scontext=u:r:network_stack:s0 tcontext=u:object_r:proc_net:s0 tclass=file
+09-10 06:46:38.905  1051  1051 I auditd  : type=1400 audit(0.0:24): avc:  granted  { getattr } for  comm="NetworkMonitor/" path="/proc/1051/net/psched" dev="proc" ino=4026532021 scontext=u:r:network_stack:s0 tcontext=u:object_r:proc_net:s0 tclass=file
+09-10 06:46:38.932   562   853 I netstats_mobile_sample: [33450,11058,61,62,36377,8948,74,51,1789022798822]
+09-10 06:46:38.932   562   853 I netstats_wifi_sample: [5887,9044,39,66,9148,5642,53,43,1789022798822]
+09-10 06:46:39.854   562   947 I commit_sys_config_file: [appops_accesses,54]
+09-10 06:46:39.965   562   670 I commit_sys_config_file: [settings-2-0,5]
+09-10 06:46:41.078   562   670 I commit_sys_config_file: [settings-2-0,1]
+09-10 06:46:41.987   562   671 I am_freeze: [1494,com.android.music]
+09-10 06:46:42.008   562   671 I am_compact: [1494,com.android.music,ANON,103816,52096,51080,0,-2944,0,-2944,3072,21,SOME,0,999,19,20,-2640]
+09-10 06:46:42.145   562  1052 I service_manager_stats: [221,165,5686]
+09-10 06:46:42.348   562   670 I commit_sys_config_file: [settings-2-0,1]
+09-10 06:46:43.355   562   670 I commit_sys_config_file: [settings-2-0,2]
+09-10 06:46:43.636   562   671 I am_freeze: [1503,com.android.sdksetup]
+09-10 06:46:43.667   562   671 I am_compact: [1503,com.android.sdksetup,ANON,117252,64256,52356,0,-4864,0,-4864,4992,31,SOME,0,945,19,2660,-1260]
+09-10 06:46:43.668   562   671 I am_freeze: [1426,com.android.printspooler]
+09-10 06:46:43.688   562   671 I am_compact: [1426,com.android.printspooler,ANON,105860,54016,51204,0,-3456,0,-3456,3328,21,SOME,0,999,19,3920,-940]

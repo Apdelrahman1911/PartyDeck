@@ -1,0 +1,64 @@
+{
+  "case": "compact-surface-font-2.0",
+  "purpose": "Isolated desktop rendering of native surface geometry; not Android qualification.",
+  "startedUtc": "2026-09-10T06:46:49.465563+00:00",
+  "command": [
+    "xvfb-run",
+    "-a",
+    "-s",
+    "-screen 0 1280x1800x24",
+    "/opt/partydeck-godot/godot",
+    "--path",
+    "/tmp/partydeck-2d-initial-reveal-investigation/compact-surface-source",
+    "--audio-driver",
+    "Dummy",
+    "--rendering-method",
+    "gl_compatibility",
+    "--rendering-driver",
+    "opengl3",
+    "--resolution",
+    "720x1204",
+    "--script",
+    "/tmp/partydeck-2d-initial-reveal-investigation/initial_reveal_probe.gd",
+    "--",
+    "--manual-bridge",
+    "--probe-output=/tmp/partydeck-2d-initial-reveal-investigation/compact-surface-font-2.0/captures",
+    "--probe-fixture=/tmp/partydeck-2d-initial-reveal-investigation/launch-font-2.0.json",
+    "--probe-height=1204"
+  ],
+  "environmentOverrides": {
+    "LIBGL_ALWAYS_SOFTWARE": "1"
+  },
+  "inputs": [
+    {
+      "path": "/tmp/partydeck-2d-initial-reveal-investigation/run_probe.py",
+      "sha256": "ea21c0ebdd369d0ec9c129e754c3e40b05e9fc9e2a968d84780534aa1ac72d86",
+      "sizeBytes": 3907
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-reveal-investigation/initial_reveal_probe.gd",
+      "sha256": "a74e7817d7ee5587f59258ed0d9a7903cac005ac8e925883580b6b0fd390f437",
+      "sizeBytes": 3955
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-reveal-investigation/launch-font-2.0.json",
+      "sha256": "b9c74dad7d02b00ed3762aa3c3e1acc4a536ead4e895ae12f998692617e611f8",
+      "sizeBytes": 1152
+    },
+    {
+      "path": "/opt/partydeck-godot/godot",
+      "sha256": "8d106cbe6144c2dc7e881d61d2429c1a8a76e6b22ef48bd5e48dcf934953f71e",
+      "sizeBytes": 146414384
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-reveal-investigation/compact-surface-source/scripts/main.gd",
+      "sha256": "93658c855d32458d7fe74c8d66f3294e6c66ac496d49f2f3f76306b65a18b8e5",
+      "sizeBytes": 13411
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-reveal-investigation/compact-surface-source/presentations/two_d/table.gd",
+      "sha256": "8d8650c8b6b6c5c5052b798e540d0b618dc2d916d7fdda0c95011eac6412f993",
+      "sizeBytes": 32280
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "purpose": "Existing compact 2D source scene input/privacy check; not native qualification.",
+  "startedUtc": "2026-09-10T06:51:52.049821+00:00",
+  "command": [
+    "xvfb-run",
+    "-a",
+    "-s",
+    "-screen 0 1280x1800x24",
+    "/opt/partydeck-godot/godot",
+    "--path",
+    "/root/projects/PartyDeck/godot/renderer",
+    "--audio-driver",
+    "Dummy",
+    "--rendering-method",
+    "gl_compatibility",
+    "--rendering-driver",
+    "opengl3",
+    "--script",
+    "/root/projects/PartyDeck/godot/renderer/presentations/two_d/checks/scene_check.gd",
+    "--",
+    "--manual-bridge",
+    "--check-output=/tmp/partydeck-2d-initial-reveal-investigation/tracked-compact-scene-font-1.0/captures",
+    "--check-fixture=/tmp/partydeck-2d-initial-reveal-investigation/launch-font-1.0.json",
+    "--check-width=411",
+    "--check-height=711",
+    "--check-text-scale=1",
+    "--check-touch-drag=true",
+    "--check-lobby=true"
+  ],
+  "environmentOverrides": {
+    "LIBGL_ALWAYS_SOFTWARE": "1"
+  },
+  "inputs": [
+    {
+      "path": "/tmp/partydeck-2d-initial-reveal-investigation/run_source_scene_check.py",
+      "sha256": "8f47aa3f8935141d659f764474c92c98beee3e99c443557ee6c75d64e246216b",
+      "sizeBytes": 3663
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/renderer/presentations/two_d/checks/scene_check.gd",
+      "sha256": "aedb2ca6e459044197284062067b727a36e8d5d9facdad85aff84db8514603e4",
+      "sizeBytes": 14216
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-reveal-investigation/launch-font-1.0.json",
+      "sha256": "abbbaadc3a430c40b8d9c5004759cdb2aaebcdf898b25d9c70f62558ddd6ed22",
+      "sizeBytes": 1152
+    },
+    {
+      "path": "/opt/partydeck-godot/godot",
+      "sha256": "8d106cbe6144c2dc7e881d61d2429c1a8a76e6b22ef48bd5e48dcf934953f71e",
+      "sizeBytes": 146414384
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/renderer/scripts/main.gd",
+      "sha256": "93658c855d32458d7fe74c8d66f3294e6c66ac496d49f2f3f76306b65a18b8e5",
+      "sizeBytes": 13411
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/renderer/presentations/two_d/table.gd",
+      "sha256": "8d8650c8b6b6c5c5052b798e540d0b618dc2d916d7fdda0c95011eac6412f993",
+      "sizeBytes": 32280
+    }
+  ],
+  "exitCode": 1,
+  "finishedUtc": "2026-09-10T06:51:58.041241+00:00",
+  "errors": [
+    "ERROR: Lobby confirmation check requires a live match with native host permission."
+  ],
+  "missingEvidence": [
+    "05-lobby-confirmation.png",
+    "05-lobby-confirmation.json",
+    "report.json"
+  ],
+  "completed": false,
+  "evidence": [
+    {
+      "path": "captures/01-concealed.json",
+      "sha256": "46ac6422c4d124c7e8234fc817f06c4caebbbb9949e48eb62e65a224f7f40d42",
+      "sizeBytes": 2161
+    },
+    {
+      "path": "captures/01-concealed.png",
+      "sha256": "e8b542e7e9be0d48e2b21873eb11d0e50f4450165efba75932b977cee5fb2d04",
+      "sizeBytes": 53162
+    },
+    {
+      "path": "captures/02-revealed-selected.json",
+      "sha256": "9323e021135ba9114c1bf9388df5eaa291a34d6090f5c09656c0e94390c9e9ff",
+      "sizeBytes": 3427
+    },
+    {
+      "path": "captures/02-revealed-selected.png",
+      "sha256": "99981db181bca41cba09d3a1735afee9a47071732b4382e0fcf9e82bde084754",
+      "sizeBytes": 46831
+    },
+    {
+      "path": "captures/03-covered-again.json",
+      "sha256": "07088bdee7482086dc6abeaa5409f99c8a9578631fc03385f4e383a0d13c706c",
+      "sizeBytes": 2163
+    },
+    {
+      "path": "captures/03-covered-again.png",
+      "sha256": "90d8c1dabe6215dbaa7a1245a0bda689b1458de1707e849882128ca4bda88564",
+      "sizeBytes": 53486
+    },
+    {
+      "path": "captures/04-resumed-covered.json",
+      "sha256": "a7bc525361690918639d761948c3483b69ba1849f007aa7f1a3f64caed224d59",
+      "sizeBytes": 2163
+    },
+    {
+      "path": "captures/04-resumed-covered.png",
+      "sha256": "90d8c1dabe6215dbaa7a1245a0bda689b1458de1707e849882128ca4bda88564",
+      "sizeBytes": 53486
+    },
+    {
+      "path": "captures/failure.json",
+      "sha256": "9574b35fc1ea8a604836071816164f09f1f14b67c63e20059d89a4cd5a1b36ee",
+      "sizeBytes": 13666
+    },
+    {
+      "path": "invocation.json",
+      "sha256": "c51ad0417aaa910a219acb9453b2581ef40f379a746153e2e35d71b0d8b2312a",
+      "sizeBytes": 2226
+    },
+    {
+      "path": "stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sizeBytes": 0
+    },
+    {
+      "path": "stdout.log",
+      "sha256": "30d313ae36cc6d804cb8d1728fc8243af6de9dd2eb1c35c010728bc6a5d84b9d",
+      "sizeBytes": 1101
+    }
+  ]
+}

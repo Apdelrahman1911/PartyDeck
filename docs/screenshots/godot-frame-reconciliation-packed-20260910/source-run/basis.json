@@ -1,0 +1,28 @@
+{
+  "startedAt": "2026-09-10T06:26:22.262343+00:00",
+  "command": [
+    "flock",
+    "/tmp/partydeck-godot.lock",
+    "/opt/partydeck-godot/godot",
+    "--headless",
+    "--path",
+    "/root/projects/PartyDeck/godot/renderer",
+    "--audio-driver",
+    "Dummy",
+    "--script",
+    "res://tests/native_bridge_check.gd",
+    "--",
+    "--check-output=/tmp/partydeck-frame-reconciliation-v1/native-bridge",
+    "--check-fixtures=/root/projects/PartyDeck/godot/bridge/fixtures"
+  ],
+  "sourceSha256": {
+    "scripts/main.gd": "93658c855d32458d7fe74c8d66f3294e6c66ac496d49f2f3f76306b65a18b8e5",
+    "scripts/renderer_controller.gd": "4891269ee70a642e92e1871346ce135b2ee00c7f2b09166f96d0b1890f24de51",
+    "presentations/two_d/table.gd": "46fde47e8da4dbb8c8f91e0a4215ceabb4040a8ddfcbab54c8573d5b9cc96eef",
+    "presentations/three_d/table.gd": "287edeefae469e74750b67923e0c61c0f0da28614e960b77f83f4ea37c83f35d",
+    "tests/native_bridge_check.gd": "883b5216dbd68915ecaeb79d1a4b120e30b7cd1a00eb5cc38c109771d6bfd258",
+    "tests/three_d_scene_check.gd": "5d36c98fc638ebeb28c906350950bb6e7b7e5f111d560e2c62461db0c5e3d32e",
+    "presentations/two_d/checks/scene_check.gd": "aedb2ca6e459044197284062067b727a36e8d5d9facdad85aff84db8514603e4"
+  },
+  "scope": "Linux source frame/controller/registry regression; no Android EGL/JNI or Apple native execution"
+}
