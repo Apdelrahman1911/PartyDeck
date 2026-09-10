@@ -1,18 +1,21 @@
 # PartyDeck status report
 
-**Snapshot: 2026-09-10, 08:40 UTC.** The original Compose application passed its
+**Snapshot: 2026-09-10, 09:50 UTC.** The original Compose application passed its
 refreshed Android and iOS baseline in
 [run 34428798269](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34428798269),
 at `15ab6408d16c04941d133214b03d4e8c6c42ced9`. This includes the Rules→Practice
 navigation fix. Both real Godot presentations complete desktop matches. Android
 2D now passes native reference matches at normal and 200% text; iOS 2D and 3D
-pass at normal text. The latest Android run passes both 2D cases and 3D at 200%
-text, including corrected native Back. Normal-text 3D reaches the winner but
-fails its Close acknowledgment. Production Android integration passes 215 tests,
-lint and debug/release packaging at the preceding pack checkpoint. The first
-retained iOS engine compile found two private-method access errors; a reviewed
-access patch is now integrated. Production Swift/Xcode wiring and parallel iOS
-validation jobs are implemented, with Apple execution pending. These are active
+pass at normal text. The latest Android run passes both 2D cases; both 3D cases
+reach the winner but fail Close delivery. The separate API 36 baseline now passes
+both debug and optimized APK flows with an independent evidence audit. Production
+Android integration passes 223 tests in the latest API 35 baseline run, with
+renewed lint/debug/release packaging and both APK runtime flows. Both new iOS
+native engines now compile, and all 139 shared Simulator tests pass. Production
+iOS app staging failed under Xcode's Python 3.9; the reproduced compatibility fix
+is pushed and replacement validation is running. The retained test host found
+Swift concurrency compilation errors before XCTest; its correction is underway
+while authority-host tests continue in the same native run. These are active
 implementation and qualification tasks, alongside the external
 device/publisher gates.
 **The app is not yet cleared for public distribution.**
@@ -22,14 +25,16 @@ device/publisher gates.
 **Original Compose release scope: 81% estimated completion.** This is the
 weighted milestone calculation below: 80.5%, rounded to 81%. It is not code
 coverage, a reliability guarantee, or an estimate of time remaining. Refreshed
-baseline qualification has now passed; hardware, API 36 and publisher gates
-remain. The Rules screenshot framing follow-up also passes independent review.
+baseline qualification has now passed, including the separate API 36 baseline;
+hardware and publisher gates remain. The Rules screenshot framing follow-up also
+passes independent review. Closing API 36 does not change the rounded estimate:
+the configured baseline milestone was already fully counted.
 
 | Workstream | Weight | Completion | Meaning and remaining limit |
 | --- | ---: | ---: | --- |
 | Core features and architecture | 30% | 100% | Game, authority, protocol, transport, practice and app flows implemented |
 | UI, assets and accessibility implementation | 15% | 100% | Screens, responsive layouts, original assets, preferences and Compose accessibility semantics implemented; physical-device qualification remains separate |
-| Configured baseline automated qualification | 20% | 100% | Refreshed Android/JVM, iOS shared, Swift TLS, iOS UI and both API 35 APK flows pass; API 36 is not qualified |
+| Configured baseline automated qualification | 20% | 100% | Refreshed Android/JVM, iOS shared, Swift TLS, iOS UI and both API 35/API 36 APK flows pass; Godot integration has separate open gates |
 | Builds and unsigned packaging | 15% | 100% | Android debug/release APK and AAB, iOS Simulator and optimized unsigned device app built; renewed device-package differential review passes |
 | Physical-device release validation | 15% | 0% | Physical Android/iPhone release matrix not executed here |
 | Publisher, signing and store readiness | 5% | 10% | Configuration and instructions exist; actual identities, public policy, store setup and submission remain |
@@ -67,8 +72,10 @@ until the user chooses.
 
 The accepted Compose baseline runs independently of Godot. The new common
 controller can attach either renderer to the existing practice or LAN authority
-without creating another session. That common integration is implemented and
-reviewed; Android and iOS platform wiring is still being completed and qualified.
+without creating another session. That common integration and both platform
+adapters are implemented and reviewed; their production runtime is still being
+qualified. Both shipping availability sets are empty, so selectable native modes
+are not yet delivered in the production app.
 Compose remains the default accessible fallback, and unqualified native choices
 are not advertised. Host migration and restoring a match after host process
 death remain outside the agreed first-release scope.
@@ -117,6 +124,23 @@ receipts. The old expired Launcher3 ANR occurred before app installation in
 34421746656 and was not an app runtime failure. The refreshed run has its own
 evidence; earlier images or package hashes are not relabeled as current.
 
+### API 36 baseline qualification
+
+[Run 34457458638](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34457458638)
+at `f11f92ed4ec4f91630396bf493ba2fd984f07bb9` passes the existing debug and
+disposable-test-signed optimized APK flows: **86 recorded steps and 30 stage
+captures per APK**, with both exit codes zero. The independent audit passes all
+23 evidence checks. Actual guest API 36, the default x86_64 image revision 2,
+Emulator 37.1.11, 720 × 1600 / 280 dpi, usable KVM and the four-CPU / 15,989 MiB
+runner are recorded. Empty-AVD preparation passes on the first boot without a
+reboot. No matching ANR/fatal exception/fatal signal appears in the retained logs.
+
+This closes the baseline API 36 runner/runtime gap. The reports ZIP matches
+GitHub's published digest; optimized executed-input and disposable signing
+receipts agree. The independent audit did not redownload the separate 474 MB
+package artifact. Native Godot session smoke was explicitly disabled, so its
+gameplay/lifecycle and physical-device behavior remain outside this result.
+
 ## Godot implementation and qualification
 
 | Workstream | Completed | Still required |
@@ -124,12 +148,12 @@ evidence; earlier images or package hashes are not relabeled as current.
 | Engine/export/assets | Verified official Godot 4.7.2 executable/AAR; reproducible 136-entry PCK; original artwork, fonts/audio; frame-safe reconciliation and compact 2D Reveal correction exported; all 19 bundled notices exposed through Settings Credits | Qualify the final pack on native hosts; physical GPU/audio checks |
 | Authority bridge | Recipient-safe versioned codec, real shared rules, bounded events/revisions/lifetimes; 20 bridge cases in the latest Android producer | Complete production native adapter qualification |
 | 2D renderer | Complete desktop match and matching authority trace; Android normal/200% native matches pass; iOS normal native match passes | Correct and rerun iOS 200% input handling; remaining native visual/accessibility checks |
-| 3D renderer | Complete desktop match and matching authority trace; iOS normal native match passes; Android 200% completes all native routes, including corrected Back | Resolve and rerun normal Android Close acknowledgment; rerun iOS 200% Home observation; native visual/accessibility checks |
+| 3D renderer | Complete desktop match and matching authority trace; iOS normal native match passes; both latest Android scales reach the winner; a prior 200% run passed native Back | Resolve and rerun Android Close delivery at both scales; rerun iOS 200% Home observation; native visual/accessibility checks |
 | Common production integration | Both presentations use the existing session authority; captured revisions/generations, Ready ordering, bounded cleanup, lobby return and concealed Compose fallback; 28 focused tests pass; source review complete | Native adapter/runtime execution with real shell sessions |
-| Android runtime library | Shared official engine/plugin, bounded queues, covered-input generation rejection, PCK staging and R8 reflection rules; 17 focused tests pass with the Close correction; both hosts pass lint and debug/release packaging with the adaptive pack | Native execution of the render-barrier Close observation and lifecycle |
+| Android runtime library | Shared official engine/plugin, bounded queues, covered-input generation rejection, PCK staging and R8 reflection rules; 17 focused tests pass; both hosts pass lint and debug/release packaging with the adaptive pack | Atomic Close observation exposed missing 3D dispatch; implement and execute the renderer-side correction |
 | Android production host | Private shell-process broker and separate renderer Activity implemented; lifecycle/source reviews complete; 45 app tests pass including 22 lifecycle, 12 IPC and 7 close-handshake cases plus 4 existing QR cases; debug/optimized APK and AAB built | Real Binder/app switches, same-session return, process death and re-entry; shell sound/haptic continuity |
 | iOS diagnostic/authority host | Five diagnostic lifecycle tests pass; real Swift authority caller links; secure-default Exit and normal 2D/3D full matches pass | Both 200% cases must pass; prior CoreAudio startup abort remains an unresolved qualification concern |
-| iOS production/retained engine | Reviewed audio dormancy and main-loop access patches; Kotlin callback port with 11 portable tests; retained native owner, Swift adapter and Xcode wiring implemented and source-reviewed; separate Simulator/device CI prepared | Replacement Apple compilation after two private-access errors; harness review corrections, actual dormancy/re-entry proof, production shell packaging and qualification |
+| iOS production/retained engine | Reviewed audio dormancy and main-loop access patches; Kotlin callback port with 11 portable tests; retained native owner, Swift adapter and Xcode wiring implemented; Simulator/device native engines compile; retained harness is reviewed and dispatched | Replacement production app build after Python fix; actual dormancy/re-entry proof, shell packaging and session qualification |
 | Delivery | Both desktop previews run; actual native successes and failures preserved; original screenshots published | Both qualified selectable native previews; production LAN/accessibility/performance qualification |
 
 The current exported pack is 1,546,376 bytes with 136 entries, SHA-256
@@ -175,12 +199,22 @@ attempts fresh scene Exit or native Back. All ten attempted engine processes
 actually die; nine requested exit routes qualify. Independent audit checks 75
 native PNGs, 22 desktop PNGs and all original failure logs.
 
-The Close correction records delivery only at the existing actual render-thread
-barrier and preserves that observation across disposal. The qualifier samples it
-after bounded renderer exit. It keeps the callback, 250 ms fallback, 1,500 ms exit
-wait and strict checker. The original failure cannot distinguish an absent
-barrier from a lost or late main-thread notification; no runtime fix is claimed
-until the new run succeeds.
+The atomic Close observation was executed in
+[run 34456443339](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34456443339)
+at `dad1c11741bd4322bb8b2afb9f18f3db5f50c919`, with pack `8f24944d…`.
+Both 2D cases pass all three exit routes. Both 3D cases finish two plays, two
+challenges, thirteen advances and the round-14 winner, then fail match-return
+Close acknowledgment. Neither attempts fresh scene Exit or native Back.
+All eight attempted engine processes have observed OS death.
+
+The original 3D logs contain no Close dispatch, barrier or main callback before
+the fallback at +250 ms / +251 ms. The passing 2D match-return barriers occur at
++240 ms / +209 ms. This is a delivery failure rather than a missing telemetry
+field. The proposed correction suppresses unnecessary pending scene work after
+the terminal request; it is not yet qualified. The 250 ms fallback, 1,500 ms exit
+wait and strict checker remain unchanged. Independent automated review verifies
+44 scene crops, 151 scene-input records, 345 native input records and the original
+failure evidence. Shutdown driver errors remain preserved.
 
 The earlier cold-start timeout and resumed GL-thread
 SIGSEGV from [run 34439587132](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34439587132)
@@ -222,6 +256,18 @@ pending. These checks exercise shell/session continuity, process identity, retur
 leave and renderer death; native Ready/chrome alone does not qualify in-engine
 gameplay or pixel privacy.
 
+The Android job in
+[Validate 34456441354](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34456441354)
+at `dad1c117…` now passes **223 tests across 38 XML reports**, zero
+failures/errors/skips, and 36 separate Python checker tests. Both API 35 APK
+runtime flows pass with 30 screenshot/XML pairs each at normal and 200% text.
+Independent review verifies actual executed APK hashes, visually reviews all
+60 stage captures, and confirms all 550 optimized unsigned payloads are unchanged
+by disposable test signing. Godot session smoke was false; this result qualifies
+the Compose baseline with integrated native libraries, not production Godot
+sessions. It supersedes the earlier local test count for this checkpoint rather
+than adding those repeated tests together.
+
 ### Latest iOS native evidence
 
 [Run 34439760695](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34439760695),
@@ -259,13 +305,34 @@ engine archive or runtime execution. The integrated narrow access patch exposes
 two iOS-only wrappers around those existing methods, preserving retirement order.
 Fresh source staging passes with both maintained patches; the receipt consumer
 accepts the exact pair and rejects seven incomplete or inconsistent variants.
-Apple compilation remains required.
+The replacement Simulator and device native compiles now pass in
+[run 34456441354](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34456441354).
+Independent review verifies all 33 pinned native files, both patch receipts,
+the module digest, SDK and eight required symbols. All **139 shared native tests
+across 23 suites pass**, with zero failures/errors/skips. The artifacts omit raw
+native libraries, so that collector cannot independently rehash those libraries.
 
 The production Swift adapter, Xcode static-library/resource wiring and separate
 device Release builder pass independent source review. The new Validate workflow
 exports one checked pack on Linux, then runs Simulator/shared tests and unsigned
-device compilation in parallel. These source checks do not qualify Swift APIs,
-final Apple linkage or native lifecycle. Historical failed runs and exact evidence remain documented in
+device compilation in parallel. Both app builds in `34456441354` failed during
+pack staging: Xcode's Python 3.9 evaluated `Path | None` before import. The
+future-annotations fix passes real Python 3.9 positive and corrupted-pack
+rejection checks; re-export leaves the PCK bytes unchanged. Successful native
+compilation is now cached before later app steps can fail. These corrections and
+the accessibility route changes are pushed at `d6a974f`.
+
+[Replacement iOS validation 34461945031](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34461945031)
+is running. The three-case retained harness and corrected authority tests were
+dispatched in parallel through
+[native-host run 34460468965](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34460468965).
+The retained job fails Swift compilation before XCTest: dictionary observations
+cross a nonisolated callback/main-actor boundary without a Sendable contract.
+The original errors are preserved; a narrow boundary correction is underway.
+Authority tests continue. Neither run grants new runtime acceptance yet.
+Production Swift compilation, final Apple linkage and native lifecycle remain
+unverified until the required jobs pass.
+Historical failed runs and exact evidence remain documented in
 [CI research](research/engine-ci.md) and [the review gallery](screenshots/README.md).
 
 ## Remaining release work
@@ -279,18 +346,20 @@ final Apple linkage or native lifecycle. Historical failed runs and exact eviden
    remain available in source for the user to compare. The Android adaptive
    orientation/window policy is implemented in both manifests and the packed
    engine override; its actual landscape, rotation and split-screen tests remain.
-   Mobile TalkBack/VoiceOver
-   and complete native accessibility still require explicit qualification.
-2. **Qualify Android API 36.** Standard runner attempts have failed during empty
-   emulator preparation before installation. API 35 passes do not qualify API
-   36; physical or suitable alternative runner evidence remains necessary.
-3. **Execute physical-device release validation.** Android↔iPhone and
+   Standard table guidance, native return descriptions and stable enlarged-hand
+   identity are implemented; common/Android compilation and lint pass. Godot
+   canvas screen-reader controls remain unimplemented. The complete Compose
+   alternative requires actual TalkBack/VoiceOver gameplay, privacy, focus and
+   same-session continuity qualification. Both production availability sets are
+   still empty; test activation and actual production-session checks are being
+   prepared before shipping modes can be enabled.
+2. **Execute physical-device release validation.** Android↔iPhone and
    same-platform LAN matches/rematches with two-to-six players; camera/QR,
    permission denial/recovery, real sharing/clipboard, network loss/reconnect,
    host loss, background/lock/privacy/process death; supported minimum/current
    OS, TalkBack/VoiceOver, large text, phone/tablet/orientation; release launch,
    frame pacing, memory, battery and network use. Hardware is unavailable here.
-4. **Complete publisher/store setup.** Publisher name, public privacy URL and
+3. **Complete publisher/store setup.** Publisher name, public privacy URL and
    support contact; Android signing identity and Apple team/provisioning; Play
    Console/App Store Connect listings, disclosures and submission; signed
    testing-track/TestFlight installation. These details were already requested.
@@ -300,10 +369,11 @@ final Apple linkage or native lifecycle. Historical failed runs and exact eviden
 ## Published deliverables
 
 - Source and coherent milestones are pushed to the repository.
-- [Screenshot gallery](screenshots/README.md): **1,279 original app/renderer PNGs**,
-  **3,022 evidence files**, four linked artwork proofs and **4,306 verified
-  checksums**, published at `d36cf6b`. Run 34450246541 captures are being collected
-  in the next batch and are not included until pushed.
+- [Screenshot gallery](screenshots/README.md): **1,372 original app/renderer PNGs**,
+  **3,484 evidence files**, four linked artwork proofs and **4,861 verified
+  checksums**, published at `2871fdb`. This includes run 34450246541 and its
+  original Close failure. Run 34456443339 is being prepared for the next batch
+  and is not included until pushed.
 - [Main build instructions](../README.md), [validation scripts](../scripts/README.md),
   [iOS instructions](../iosApp/README.md), and
   [both desktop Godot preview commands](../godot/comparison/README.md).
