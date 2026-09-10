@@ -15,6 +15,9 @@ final class GodotPresentationPort: NSObject, IosGodotNativePort {
     private var sceneBackgrounded = false
     private var quarantined = false
     private var disposed = false
+    #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION
+    private var qualificationIdentityBaseline: [String: String] = [:]
+    #endif
 
     init(presenter: UIViewController, configuration: GodotPresentationConfiguration = .bundled()) {
         self.presenter = presenter
@@ -57,7 +60,7 @@ final class GodotPresentationPort: NSObject, IosGodotNativePort {
               sceneForeground, !sceneBackgrounded, isForeground, !isBackgrounded,
               let project = configuration.projectURL, let pack = configuration.packURL,
               let mode = launchMode(launchDocument, presentationID: presentationId),
-              configuration.qualifiedModes.contains(mode),
+              configuration.enabledModes.contains(mode),
               let presenter, presenter.viewIfLoaded?.window != nil,
               presenter.presentedViewController == nil,
               !presenter.isBeingPresented, !presenter.isBeingDismissed else {
@@ -72,6 +75,9 @@ final class GodotPresentationPort: NSObject, IosGodotNativePort {
             foreground: isForeground, backgrounded: isBackgrounded
         )
         active = lifetime
+        #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION
+        lifetime.qualificationMode = mode.rawValue
+        #endif
         unacquiredPresentationID = nil
         let owner = engineOwner ?? PDGodotEngineOwner()
         engineOwner = owner
@@ -397,7 +403,7 @@ final class GodotPresentationPort: NSObject, IosGodotNativePort {
     }
 
     private func publishAvailability() {
-        let modes = !disposed && !quarantined && active?.closing != true ? configuration.qualifiedModes : []
+        let modes = !disposed && !quarantined && active?.closing != true ? configuration.enabledModes : []
         registration?.setAvailability(twoD: modes.contains(.twoD), threeD: modes.contains(.threeD))
     }
 
@@ -421,6 +427,80 @@ final class GodotPresentationPort: NSObject, IosGodotNativePort {
               command["type"] as? String == "foreground" else { return nil }
         return command["isForeground"] as? Bool
     }
+
+    #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION
+    /// Reads fixed observations and requests existing diagnostics; never acquires an owner or sends an intent.
+    func sessionQualificationObservation() -> [String: Any] {
+        requireMainThread()
+        let activationValid = configuration.activationProfile == .qualification && !configuration.enabledModes.isEmpty
+        var output: [String: Any] = [
+            "activationValid": activationValid, "profile": configuration.activationProfile?.rawValue ?? "invalid",
+            "enabledModes": configuration.enabledModes.map(\.rawValue).sorted(),
+            "ownerCreated": engineOwner != nil, "active": active != nil,
+            "closing": active?.closing == true, "quarantined": quarantined, "disposed": disposed,
+            "portReadyConfirmed": active?.readyConfirmed == true,
+            "native": NSNull(), "geometry": NSNull(), "renderer": NSNull(),
+        ]
+        if let lastClosed { output["lastCloseSucceeded"] = lastClosed.success }
+        else { output["lastCloseSucceeded"] = NSNull() }
+        guard activationValid, let engineOwner else { return output }
+        let raw = engineOwner.snapshot()
+        // Explicit allowlist. Addresses, state documents, paths and raw failure text never leave here.
+        let nativeKeys = ["bootstrapCount", "processIdentifier", "presentationGeneration", "lifecycleGeneration",
+            "inputGeneration", "readyEvents", "intentEvents", "exitEvents", "rejectedEvents", "nativePresentedFrames",
+            "nativeFailedPresentations", "iterations", "drawCalls", "authorityReadyConfirmed", "nativeForeground",
+            "authorityForegroundGrant", "applicationBackgrounded", "inputViewEnabled", "privacyCoverVisible",
+            "renderLoopActive", "dormant", "emptyTree", "surfaceAttached", "surfaceAccessibilityHidden",
+            "queuedCommands", "queuedEvents", "queuedBytes", "surfaceSize", "retainedEnginePolicy", "quarantined"]
+        var native: [String: Any] = [:]
+        for key in nativeKeys { native[key] = raw[key] ?? NSNull() }
+        if let failure = raw["failure"] as? String { native["failurePresent"] = !failure.isEmpty }
+        else { native["failurePresent"] = NSNull() }
+        let identityKeys = ["engineIdentity", "controllerIdentity", "viewIdentity", "layerIdentity"]
+        var currentIdentities: [String: String] = [:]
+        for key in identityKeys {
+            if let value = raw[key] as? String, !value.isEmpty, value != "0x0", value != "(nil)" {
+                currentIdentities[key] = value
+            }
+        }
+        if qualificationIdentityBaseline.isEmpty, currentIdentities.count == identityKeys.count,
+           raw["mainStarted"] as? Bool == true, raw["surfaceAttached"] as? Bool == true {
+            qualificationIdentityBaseline = currentIdentities
+        }
+        native["retainedIdentitiesMatchFirstEntry"] = currentIdentities.count == identityKeys.count &&
+            !qualificationIdentityBaseline.isEmpty && currentIdentities == qualificationIdentityBaseline
+        output["native"] = native
+        if let geometry = active?.screen?.sessionQualificationGeometry(), !geometry.isEmpty {
+            output["geometry"] = geometry
+        }
+        if let lifetime = active, isCurrent(lifetime), let nativePresentation = lifetime.native,
+           let diagnostics = raw["rendererDiagnostics"] as? [String: Any],
+           let mode = lifetime.qualificationMode, let lifecycle = lifetime.publishedLifecycle,
+           diagnostics["presentationId"] as? String == lifetime.id,
+           diagnostics["presentationMode"] as? String == mode,
+           raw["lifecycleGeneration"] as? String == String(lifecycle.generation) {
+            // Native validates current identity/revision/foreground, complete schema and sequence.
+            // The raw presentation ID is used for correlation above and is never exported.
+            var renderer: [String: Any] = [:]
+            let keys = ["schemaVersion", "requestId", "sequence", "revision", "presentationMode", "coordinateSpace",
+                        "foreground", "viewport", "sceneStateApplied", "handConcealed", "selectedCount", "privateFaceCount", "privateLabelCount", "controls"]
+            for key in keys { renderer[key] = diagnostics[key] ?? NSNull() }
+            output["renderer"] = renderer
+            if sceneForeground && !sceneBackgrounded && lifetime.visible && lifetime.readyConfirmed {
+                _ = nativePresentation.requestRendererDiagnostics()
+            }
+        } else if let lifetime = active, isCurrent(lifetime), lifetime.visible, lifetime.readyConfirmed,
+                  sceneForeground && !sceneBackgrounded {
+            _ = lifetime.native?.requestRendererDiagnostics()
+        }
+        return output
+    }
+
+    func setSessionQualificationValue(_ document: String) {
+        requireMainThread()
+        active?.screen?.setSessionQualificationValue(document)
+    }
+    #endif
 
     private func requireMainThread() { precondition(Thread.isMainThread) }
 
@@ -474,6 +554,9 @@ final class GodotPresentationPort: NSObject, IosGodotNativePort {
         var nativeCleaned: Bool?
         var closing = false
         var finished = false
+        #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION
+        var qualificationMode: String?
+        #endif
 
         init(id: String, callbacks: any IosGodotNativeCallbacks, completion: any IosGodotNativeCompletion,
              foreground: Bool, backgrounded: Bool) {

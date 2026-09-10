@@ -169,6 +169,23 @@ final class GodotPresentationViewController: UIViewController {
         return true
     }
 
+    #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION
+    func sessionQualificationGeometry() -> [String: Any] {
+        guard let child = nativeController.viewIfLoaded, let window = child.window else { return [:] }
+        let rect = child.convert(child.bounds, to: window.screen.coordinateSpace)
+        return ["coordinateSpace": "screen", "frame": [rect.minX, rect.minY, rect.width, rect.height],
+                "bounds": [child.bounds.minX, child.bounds.minY, child.bounds.width, child.bounds.height],
+                "outerCoverVisible": !cover.isHidden,
+                "engineAccessibilityHidden": engineContainer.accessibilityElementsHidden]
+    }
+
+    func setSessionQualificationValue(_ document: String) {
+        guard isViewLoaded else { return }
+        // Reuse native chrome; no new layout, input target, or engine accessibility node.
+        status.accessibilityValue = document
+    }
+    #endif
+
     func conceal() {
         guard isViewLoaded else { return }
         engineContainer.isUserInteractionEnabled = false

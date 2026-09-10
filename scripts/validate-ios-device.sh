@@ -20,6 +20,20 @@ if [[ -z "${PARTYDECK_IOS_DEVICE_GODOT_ENGINE_ROOT:-}" ]]; then
   PARTYDECK_IOS_DEVICE_GODOT_ENGINE_ROOT="$PARTYDECK_ROOT/godot/ios-host/build/device-release"
 fi
 PARTYDECK_IOS_GODOT_LINK_MAP="$PARTYDECK_IOS_OUTPUT/PartyDeck-Release-iphoneos-LinkMap-arm64.txt"
+PARTYDECK_IOS_ACTIVATION_ARGUMENTS=("PARTYDECK_APP_INFO_PLIST=$PARTYDECK_ROOT/iosApp/PartyDeck/Info.plist")
+case "${PARTYDECK_IOS_GODOT_SESSION_SMOKE:-0}" in
+  0) ;;
+  1)
+    python3 -B scripts/prepare-ios-godot-activation.py --modes 2d,3d \
+      --output-plist "$PARTYDECK_IOS_OUTPUT/device-activation/Info.plist" \
+      --expectation "$PARTYDECK_IOS_OUTPUT/device-activation/expectation.json"
+    PARTYDECK_IOS_ACTIVATION_ARGUMENTS=(
+      "PARTYDECK_APP_INFO_PLIST=$PARTYDECK_IOS_OUTPUT/device-activation/Info.plist"
+      "PARTYDECK_GODOT_ACTIVATION_EXPECTATION=$PARTYDECK_IOS_OUTPUT/device-activation/expectation.json"
+    )
+    ;;
+  *) printf '%s\n' 'PARTYDECK_IOS_GODOT_SESSION_SMOKE must be 0 or 1.' >&2; exit 1 ;;
+esac
 
 # CI runs this in parallel with Simulator validation after the shared pack is ready.
 # Release includes optimized Kotlin/Swift and device-only scanner/native code.
@@ -34,6 +48,7 @@ xcodebuild build \
   PARTYDECK_GODOT_ENGINE_ROOT="$PARTYDECK_IOS_DEVICE_GODOT_ENGINE_ROOT" \
   PARTYDECK_GODOT_PACK="$PARTYDECK_IOS_GODOT_PACK" \
   PARTYDECK_GODOT_LINK_MAP="$PARTYDECK_IOS_GODOT_LINK_MAP" \
+  "${PARTYDECK_IOS_ACTIVATION_ARGUMENTS[@]}" \
   CODE_SIGNING_ALLOWED=NO \
   LD_GENERATE_MAP_FILE=YES \
   2>&1 | tee "$PARTYDECK_IOS_OUTPUT/xcodebuild-device.log"

@@ -54,6 +54,7 @@ class PartyDeckController(
     private var commandReservation: Any? = null
     private var feedbackJob: Job? = null
     private var sessionGeneration = 0L
+    private var qualificationObservation: SessionQualificationObservation? = null
     private var scanRequest = 0L
     private var occurrence = 0L
     private var overlayReturn = AppScreen.HOME
@@ -66,6 +67,7 @@ class PartyDeckController(
         sessionGeneration = { sessionGeneration },
         newPresentationId = services::secureToken,
         publish = { presentation, conceal ->
+            qualificationObservation?.presentationChanged(presentation)
             mutableState.update {
                 it.copy(presentation = presentation, privacyEpoch = if (conceal) it.privacyEpoch + 1 else it.privacyEpoch)
             }
@@ -128,6 +130,17 @@ class PartyDeckController(
             }
         }
     }
+
+    /** Internal, opt-in read-only telemetry; installation never starts or replaces a runtime. */
+    internal fun enableSessionQualificationObservation(): Boolean {
+        if (closed || runtime != null || state.value.session != null) return false
+        if (qualificationObservation == null) qualificationObservation = SessionQualificationObservation()
+        return true
+    }
+
+    internal fun sessionQualificationSnapshot(): String? = qualificationObservation?.snapshot(
+        state.value, sessionGeneration, presentations.currentProjectionCounters(),
+    )
 
     fun navigate(screen: AppScreen) {
         if (closed || screen == state.value.screen) return
@@ -354,6 +367,7 @@ class PartyDeckController(
         if (closed || !before.canSendSessionAction || before.leaveConfirmationRequested) return false
         val revision = expectedRevision ?: before.session?.revision ?: return false
         val generation = sessionGeneration
+        val observedOrigin = qualificationObservation?.origin(before, generation, expectedRevision != null)
         val reservation = Any()
         commandReservation = reservation
         mutableState.update { it.copy(pendingAction = action, problem = null) }
@@ -362,6 +376,7 @@ class PartyDeckController(
             try {
                 val receipt = currentRuntime.send(intent, revision)
                 if (generation == sessionGeneration && commandReservation === reservation) {
+                    observedOrigin?.let { qualificationObservation?.received(it, action, revision, receipt) }
                     receipt.error?.let { showProblem(it.toUiProblem()) }
                 }
             } catch (cancelled: CancellationException) {

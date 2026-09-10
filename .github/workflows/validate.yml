@@ -28,6 +28,11 @@ on:
         required: true
         type: boolean
         default: false
+      ios_godot_session:
+        description: Build an explicit qualification app and test both real production Godot practice sessions
+        required: true
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -272,6 +277,13 @@ jobs:
         env:
           PARTYDECK_IOS_SIMULATOR_GODOT_ENGINE_ROOT: ${{ github.workspace }}/godot/ios-host/build
         run: ./scripts/validate-ios-app.sh
+      - name: Exercise both real production Godot practice sessions
+        if: ${{ !cancelled() && inputs.ios_godot_session && steps.ios-app.outcome == 'success' }}
+        timeout-minutes: 45
+        env:
+          PARTYDECK_IOS_GODOT_SESSION_SMOKE: '1'
+          PARTYDECK_IOS_SIMULATOR_GODOT_ENGINE_ROOT: ${{ github.workspace }}/godot/ios-host/build
+        run: bash scripts/validate-ios-godot-session.sh
       - name: Upload iOS reports and simulator app
         if: always()
         uses: ./.github/actions/upload-artifact
@@ -285,6 +297,13 @@ jobs:
             build/ci/ios/PartyDeck.xcresult/**
             build/ci/ios/attachments/**
             build/ci/ios/interop/**
+            build/ci/ios/godot-session/*.log
+            build/ci/ios/godot-session/*.json
+            build/ci/ios/godot-session/*.tar.gz
+            build/ci/ios/godot-session/activation/**
+            build/ci/ios/godot-session/PartyDeckGodotSessions.xcresult/**
+            build/ci/ios/godot-session/attachments/**
+            build/ci/ios/godot-session/DerivedData/Build/Products/Debug-iphonesimulator/PartyDeckGodotInputs/inputs.json
             build/ci/ios/**/*LinkMap*.txt
             build/ci/ios/DerivedData/Build/Products/Debug-iphonesimulator/PartyDeckGodotInputs/inputs.json
             godot/ios-host/build/evidence/**
@@ -377,6 +396,7 @@ jobs:
         timeout-minutes: 40
         env:
           PARTYDECK_IOS_DEVICE_GODOT_ENGINE_ROOT: ${{ github.workspace }}/godot/ios-host/build/device-release
+          PARTYDECK_IOS_GODOT_SESSION_SMOKE: ${{ inputs.ios_godot_session && '1' || '0' }}
         run: ./scripts/validate-ios-device.sh
       - name: Upload optimized iOS device evidence
         if: always()
@@ -387,6 +407,7 @@ jobs:
             build/ci/ios/*.log
             build/ci/ios/*.json
             build/ci/ios/PartyDeck-device-unsigned.app.tar.gz
+            build/ci/ios/device-activation/**
             build/ci/ios/PartyDeck-Release-iphoneos-LinkMap-arm64.txt
             build/ci/ios/DeviceDerivedData/**/*LinkMap*.txt
             build/ci/ios/DeviceDerivedData/Build/Products/Release-iphoneos/PartyDeckGodotInputs/inputs.json

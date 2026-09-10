@@ -84,6 +84,13 @@ class IosAppHandle(
         native?.let { controller.refreshPresentationLifecycle(it.presentationId) }
     }
 
+    /** Called only by the explicitly compiled/activated Debug qualification observer. */
+    fun enableSessionQualificationObservation(): Boolean =
+        !closed && controller.enableSessionQualificationObservation()
+
+    /** Fixed allowlist of public counters and viewer receipts; never a serialized SessionView. */
+    fun sessionQualificationSnapshot(): String? = if (closed) null else controller.sessionQualificationSnapshot()
+
     fun setSystemReduceMotion(value: Boolean) {
         if (!closed) controller.setSystemReduceMotion(value)
     }

@@ -1,4 +1,7 @@
 import PartyDeckKit
+#if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION
+import Combine
+#endif
 import SwiftUI
 import UIKit
 
@@ -24,6 +27,9 @@ private final class PartyDeckOwner: ObservableObject {
     private var godotRegistration: IosGodotRegistration?
     private var reduceMotionObserver: NSObjectProtocol?
     private var contentSizeObserver: NSObjectProtocol?
+    #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION
+    private(set) var qualificationObservation: GodotSessionQualificationObservation?
+    #endif
 
     init() {
         actions = NativeActions()
@@ -32,6 +38,9 @@ private final class PartyDeckOwner: ObservableObject {
         godotRegistration = handle.installGodotPort(port: godotPort)
         godotPort.attachRegistration(godotRegistration)
         actions.presentingViewController = handle.viewController
+        #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION
+        qualificationObservation = GodotSessionQualificationObservation(handle: handle, port: godotPort)
+        #endif
         refreshAccessibility()
         reduceMotionObserver = NotificationCenter.default.addObserver(
             forName: UIAccessibility.reduceMotionStatusDidChangeNotification,
@@ -57,6 +66,10 @@ private final class PartyDeckOwner: ObservableObject {
         handle.setBackgrounded(value: phase == .background)
         if interactive { refreshAccessibility() }
     }
+
+    #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION
+    func pollSessionQualification() { qualificationObservation?.poll() }
+    #endif
 
     func refreshAccessibility() {
         handle.setSystemReduceMotion(value: UIAccessibility.isReduceMotionEnabled)
@@ -98,6 +111,9 @@ private final class PartyDeckOwner: ObservableObject {
 private struct PartyDeckRoot: View {
     @ObservedObject var owner: PartyDeckOwner
     @Environment(\.scenePhase) private var scenePhase
+    #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION
+    private let qualificationClock = Timer.publish(every: 0.2, on: .main, in: .common).autoconnect()
+    #endif
 
     var body: some View {
         ZStack {
@@ -110,7 +126,18 @@ private struct PartyDeckRoot: View {
                 PrivacyCover()
                     .accessibilityIdentifier("native-privacy-cover")
             }
+            #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION
+            if scenePhase == .active, let observation = owner.qualificationObservation {
+                SessionQualificationBadge(observation: observation)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                    .padding(.top, 2).padding(.trailing, 2)
+                    .allowsHitTesting(false)
+            }
+            #endif
         }
+        #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION
+        .onReceive(qualificationClock) { _ in owner.pollSessionQualification() }
+        #endif
         .onAppear { owner.updateScenePhase(scenePhase) }
         .onChange(of: scenePhase) { phase in
             owner.updateScenePhase(phase)
@@ -144,3 +171,15 @@ private struct PrivacyCover: View {
         .ignoresSafeArea()
     }
 }
+
+#if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION
+private struct SessionQualificationBadge: View {
+    @ObservedObject var observation: GodotSessionQualificationObservation
+    var body: some View {
+        Text("Q").font(.system(size: 10)).foregroundStyle(.gray)
+            .accessibilityLabel("Production session qualification")
+            .accessibilityValue(observation.document)
+            .accessibilityIdentifier("partydeck-session-qualification")
+    }
+}
+#endif

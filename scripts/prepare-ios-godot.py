@@ -5,7 +5,6 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
-import plistlib
 import re
 import runpy
 import shutil
@@ -22,6 +21,7 @@ VARIANTS = {
     ("Debug", "iphonesimulator"): ("template_debug", True, "7"),
     ("Release", "iphoneos"): ("template_release", False, "2"),
 }
+ACTIVATION = runpy.run_path(str(ROOT / "scripts/prepare-ios-godot-activation.py"))
 
 
 def receipt(path: Path) -> dict:
@@ -87,6 +87,9 @@ def checked_inputs(args: argparse.Namespace) -> dict:
     if key not in VARIANTS:
         raise RuntimeError("Supported native inputs are Debug/iphonesimulator and Release/iphoneos.")
     target, simulator, platform_id = VARIANTS[key]
+    activation = ACTIVATION["checked_activation"](
+        ROOT / "iosApp/PartyDeck/Info.plist", args.app_info_plist, args.activation_expectation
+    )
     engine_root = args.engine_root.resolve()
     engine_path = engine_root / "evidence/engine-artifact.json"
     engine = json.loads(engine_path.read_text())
@@ -153,13 +156,15 @@ def checked_inputs(args: argparse.Namespace) -> dict:
     if len(pins) != 1 or pins[0] != pack_info["sha256"]:
         raise RuntimeError("The shared PCK does not match the receipt-verified native retained-engine allowlist.")
     return {
-        "schema_version": 1, "stage": "production_ios_inputs_only",
+        "schema_version": 2, "stage": "production_ios_inputs_only",
         "configuration": args.configuration, "platform": args.platform,
         "engine_root": str(engine_root), "engine_receipt": engine,
         "engine_receipt_file": receipt(engine_path), "archives": verified_archives,
         "pack_path": str(pack), "pack": pack_info, "pack_receipt": receipt(pack_receipt),
         "native_pack_sha256": pins[0], "ios_runtime_executed": False,
-        "kmp_factory_qualified": False, "advertised_native_modes": [],
+        "kmp_factory_qualified": False, "activation": activation,
+        "activation_profile": activation["configuration"]["profile"],
+        "configured_enabled_native_modes": activation["configuration"]["configured_enabled_native_modes"],
     }
 
 
@@ -241,17 +246,23 @@ def stage(args: argparse.Namespace, inputs: dict) -> None:
 
 
 def verify_app(args: argparse.Namespace) -> None:
-    inputs = json.loads(args.inputs.read_text())
-    if inputs.get("schema_version") != 1 or inputs.get("stage") != "production_ios_inputs_only":
+    inputs = json.loads(args.inputs.read_text(), object_pairs_hook=ACTIVATION["unique_json_pairs"],
+                        parse_constant=ACTIVATION["reject_json_constant"])
+    if (not isinstance(inputs, dict) or type(inputs.get("schema_version")) is not int or inputs["schema_version"] != 2
+            or inputs.get("stage") != "production_ios_inputs_only"):
         raise RuntimeError("Expected the production native input receipt from this build.")
     if (inputs.get("resource_files", {}).get("partydeck-last-light.pck") != inputs.get("pack")
             or inputs.get("pack", {}).get("sha256") != inputs.get("native_pack_sha256")
             or "partydeck-last-light.receipt.json" not in inputs.get("resource_files", {})):
         raise RuntimeError("The production resource receipt must identify its native-pinned PCK and export receipt.")
     app = args.app.resolve()
-    info = plistlib.loads((app / "Info.plist").read_bytes())
-    if info.get("PartyDeckQualifiedGodotPresentations") not in (None, []):
-        raise RuntimeError("Native presentations must remain unadvertised until separately qualified.")
+    info, built_plist = ACTIVATION["read_plist"](app / "Info.plist")
+    packaged_activation = ACTIVATION["verify_packaged_activation"](info, inputs["activation"])
+    if (inputs.get("activation_profile") != packaged_activation["profile"]
+            or inputs.get("configured_enabled_native_modes") != packaged_activation["configured_enabled_native_modes"]
+            or inputs.get("ios_runtime_executed") is not False
+            or inputs.get("kmp_factory_qualified") is not False):
+        raise RuntimeError("The input receipt must describe configured activation without runtime qualification claims.")
     if (app / "PartyDeck.debug.dylib").exists() or (app / "Frameworks/PartyDeckGodotBridge.framework").exists():
         raise RuntimeError("Unexpected debug executor or qualification framework in the production app.")
     resources = app / "ProbeResources"
@@ -312,13 +323,15 @@ def verify_app(args: argparse.Namespace) -> None:
     executable = app / info["CFBundleExecutable"]
     _, _, platform_id = VARIANTS[(inputs["configuration"], inputs["platform"])]
     write_json(args.output, {
-        "schema_version": 1, "stage": "production_ios_app_link_only", "inputs": inputs,
+        "schema_version": 2, "stage": "production_ios_app_link_only", "inputs": inputs,
         "executable": receipt(executable), "macho": apple_platform(executable, platform_id),
         "link_map": receipt(args.link_map), "partydeck_kit_link_owners": sorted(kotlin_owners),
         "loaded_archive_members": loaded_archive_members,
         "linked_native_classes": list(NATIVE_CLASSES), "main_owner": main_owner,
         "ios_runtime_executed": False, "kmp_factory_qualified": False,
-        "advertised_native_modes": [],
+        "app_info_plist": built_plist, "packaged_activation": packaged_activation,
+        "activation_profile": packaged_activation["profile"],
+        "configured_enabled_native_modes": packaged_activation["configured_enabled_native_modes"],
     })
 
 
@@ -331,6 +344,8 @@ def main() -> None:
         command.add_argument("--platform", required=True)
         command.add_argument("--engine-root", type=Path, required=True)
         command.add_argument("--pack", type=Path, required=True)
+        command.add_argument("--app-info-plist", type=Path, default=ROOT / "iosApp/PartyDeck/Info.plist")
+        command.add_argument("--activation-expectation", type=Path)
         if name == "stage":
             command.add_argument("--output", type=Path, required=True)
     command = commands.add_parser("verify-app")

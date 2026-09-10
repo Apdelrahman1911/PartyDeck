@@ -25,6 +25,8 @@
 		B00000000000000000000064 /* Godot engine in Frameworks */ = {isa = PBXBuildFile; fileRef = F00000000000000000000064 /* libpartydeck_godot_ios_probe.a */; };
 		B00000000000000000000065 /* Godot camera in Frameworks */ = {isa = PBXBuildFile; fileRef = F00000000000000000000065 /* libpartydeck_godot_camera.a */; };
 		B00000000000000000000066 /* ProbeResources in Resources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000066 /* ProbeResources */; };
+		B00000000000000000000023 /* PartyDeckGodotSessionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000023 /* PartyDeckGodotSessionUITests.swift */; };
+		B00000000000000000000067 /* GodotSessionQualificationObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000067 /* GodotSessionQualificationObservation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +72,8 @@
 		F00000000000000000000064 /* libpartydeck_godot_ios_probe.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpartydeck_godot_ios_probe.a; path = PartyDeckGodotInputs/artifacts/libpartydeck_godot_ios_probe.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F00000000000000000000065 /* libpartydeck_godot_camera.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpartydeck_godot_camera.a; path = PartyDeckGodotInputs/artifacts/libpartydeck_godot_camera.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F00000000000000000000066 /* ProbeResources */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ProbeResources; path = PartyDeckGodotInputs/ProbeResources; sourceTree = BUILT_PRODUCTS_DIR; };
+		F00000000000000000000023 /* PartyDeckGodotSessionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyDeckGodotSessionUITests.swift; sourceTree = "<group>"; };
+		F00000000000000000000067 /* GodotSessionQualificationObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GodotSessionQualificationObservation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,7 +129,7 @@
 		};
 		A00000000000000000000009 /* PartyDeckUITests */ = {
 			isa = PBXGroup;
-			children = (F00000000000000000000021 /* PartyDeckUITests.swift */,);
+			children = (F00000000000000000000021 /* PartyDeckUITests.swift */, F00000000000000000000023 /* PartyDeckGodotSessionUITests.swift */,);
 			path = PartyDeckUITests;
 			sourceTree = "<group>";
 		};
@@ -137,7 +141,7 @@
 		};
 		A00000000000000000000060 /* Godot */ = {
 			isa = PBXGroup;
-			children = (F00000000000000000000060 /* GodotPresentationViewController.swift */, F00000000000000000000061 /* GodotPresentationConfiguration.swift */, F00000000000000000000062 /* GodotPresentationPort.swift */, F00000000000000000000063 /* PartyDeckGodot-Bridging-Header.h */, F00000000000000000000064 /* libpartydeck_godot_ios_probe.a */, F00000000000000000000065 /* libpartydeck_godot_camera.a */, F00000000000000000000066 /* ProbeResources */,);
+			children = (F00000000000000000000067 /* GodotSessionQualificationObservation.swift */, F00000000000000000000060 /* GodotPresentationViewController.swift */, F00000000000000000000061 /* GodotPresentationConfiguration.swift */, F00000000000000000000062 /* GodotPresentationPort.swift */, F00000000000000000000063 /* PartyDeckGodot-Bridging-Header.h */, F00000000000000000000064 /* libpartydeck_godot_ios_probe.a */, F00000000000000000000065 /* libpartydeck_godot_camera.a */, F00000000000000000000066 /* ProbeResources */,);
 			path = Godot;
 			sourceTree = "<group>";
 		};
@@ -238,7 +242,7 @@
 			inputPaths = ();
 			name = "Compile Kotlin";
 			outputFileListPaths = ();
-			outputPaths = ();
+			outputPaths = ("$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)/PartyDeckKit.framework/PartyDeckKit",);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -eu\nif [ \"${OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED:-NO}\" = \"YES\" ]; then\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n./gradlew :composeApp:embedAndSignAppleFrameworkForXcode\n";
@@ -255,7 +259,7 @@
 			outputPaths = ("$(BUILT_PRODUCTS_DIR)/PartyDeckGodotInputs/artifacts/libpartydeck_godot_ios_probe.a", "$(BUILT_PRODUCTS_DIR)/PartyDeckGodotInputs/artifacts/libpartydeck_godot_camera.a", "$(BUILT_PRODUCTS_DIR)/PartyDeckGodotInputs/ProbeResources", "$(BUILT_PRODUCTS_DIR)/PartyDeckGodotInputs/inputs.json",);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -eu\ncd \"$SRCROOT/..\"\npython3 scripts/prepare-ios-godot.py stage \\\n  --configuration \"$CONFIGURATION\" --platform \"$PLATFORM_NAME\" \\\n  --engine-root \"$PARTYDECK_GODOT_ENGINE_ROOT\" --pack \"$PARTYDECK_GODOT_PACK\" \\\n  --output \"$BUILT_PRODUCTS_DIR/PartyDeckGodotInputs\"\n";
+			shellScript = "set -eu\ncase \"$INFOPLIST_FILE\" in\n  /*) partydeck_app_info_plist=\"$INFOPLIST_FILE\" ;;\n  *) partydeck_app_info_plist=\"$SRCROOT/$INFOPLIST_FILE\" ;;\nesac\nset -- --app-info-plist \"$partydeck_app_info_plist\"\nif [ -n \"${PARTYDECK_GODOT_ACTIVATION_EXPECTATION:-}\" ]; then\n  case \"$PARTYDECK_GODOT_ACTIVATION_EXPECTATION\" in\n    /*) partydeck_activation_expectation=\"$PARTYDECK_GODOT_ACTIVATION_EXPECTATION\" ;;\n    *) partydeck_activation_expectation=\"$SRCROOT/$PARTYDECK_GODOT_ACTIVATION_EXPECTATION\" ;;\n  esac\n  set -- \"$@\" --activation-expectation \"$partydeck_activation_expectation\"\nfi\ncd \"$SRCROOT/..\"\npython3 scripts/prepare-ios-godot.py stage \\\n  --configuration \"$CONFIGURATION\" --platform \"$PLATFORM_NAME\" \\\n  --engine-root \"$PARTYDECK_GODOT_ENGINE_ROOT\" --pack \"$PARTYDECK_GODOT_PACK\" \\\n  \"$@\" --output \"$BUILT_PRODUCTS_DIR/PartyDeckGodotInputs\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -263,13 +267,13 @@
 		C00000000000000000000001 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
-			files = (B00000000000000000000010 /* PartyDeckApp.swift in Sources */, B00000000000000000000011 /* NativeActions.swift in Sources */, B00000000000000000000018 /* NativeFeedback.swift in Sources */, B00000000000000000000012 /* QRScannerViewController.swift in Sources */, B00000000000000000000031 /* IosLanTransportFactory.swift in Sources */, B00000000000000000000032 /* IosLanDriver.swift in Sources */, B00000000000000000000033 /* IosTlsIdentity.swift in Sources */, B00000000000000000000034 /* IosBonjourDiscovery.swift in Sources */, B00000000000000000000060 /* GodotPresentationViewController.swift in Sources */, B00000000000000000000061 /* GodotPresentationConfiguration.swift in Sources */, B00000000000000000000062 /* GodotPresentationPort.swift in Sources */, );
+			files = (B00000000000000000000010 /* PartyDeckApp.swift in Sources */, B00000000000000000000011 /* NativeActions.swift in Sources */, B00000000000000000000018 /* NativeFeedback.swift in Sources */, B00000000000000000000012 /* QRScannerViewController.swift in Sources */, B00000000000000000000031 /* IosLanTransportFactory.swift in Sources */, B00000000000000000000032 /* IosLanDriver.swift in Sources */, B00000000000000000000033 /* IosTlsIdentity.swift in Sources */, B00000000000000000000034 /* IosBonjourDiscovery.swift in Sources */, B00000000000000000000060 /* GodotPresentationViewController.swift in Sources */, B00000000000000000000061 /* GodotPresentationConfiguration.swift in Sources */, B00000000000000000000062 /* GodotPresentationPort.swift in Sources */, B00000000000000000000067 /* GodotSessionQualificationObservation.swift in Sources */, );
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C00000000000000000000005 /* Test Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
-			files = (B00000000000000000000021 /* PartyDeckUITests.swift in Sources */,);
+			files = (B00000000000000000000021 /* PartyDeckUITests.swift in Sources */, B00000000000000000000023 /* PartyDeckGodotSessionUITests.swift in Sources */,);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C00000000000000000000008 /* Native Test Sources */ = {
@@ -334,6 +338,8 @@
 		D00000000000000000000003 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				PARTYDECK_SESSION_QUALIFICATION_CONDITION = "";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) $(PARTYDECK_SESSION_QUALIFICATION_CONDITION)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LIBRARY = "libc++";
 				ENABLE_DEBUG_DYLIB = NO;
@@ -344,7 +350,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/PartyDeck/Godot/PartyDeckGodot-Bridging-Header.h";
 				FRAMEWORK_SEARCH_PATHS = ("$(inherited)", "$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)", "$(BUILT_PRODUCTS_DIR)",);
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = PartyDeck/Info.plist;
+				INFOPLIST_FILE = "$(PARTYDECK_APP_INFO_PLIST)";
 				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks",);
 				/* Global -ObjC also loads Godot's Swift @main; scope registration loading to Kotlin. */
 				OTHER_LDFLAGS = ("$(inherited)", "-framework", PartyDeckKit, "-Xlinker", "-force_load", "-Xlinker", "$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)/PartyDeckKit.framework/PartyDeckKit", "-lc++", "-lz", "-liconv", "-framework", Security,);
@@ -369,7 +375,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/PartyDeck/Godot/PartyDeckGodot-Bridging-Header.h";
 				FRAMEWORK_SEARCH_PATHS = ("$(inherited)", "$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)", "$(BUILT_PRODUCTS_DIR)",);
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = PartyDeck/Info.plist;
+				INFOPLIST_FILE = "$(PARTYDECK_APP_INFO_PLIST)";
 				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks",);
 				/* Global -ObjC also loads Godot's Swift @main; scope registration loading to Kotlin. */
 				OTHER_LDFLAGS = ("$(inherited)", "-framework", PartyDeckKit, "-Xlinker", "-force_load", "-Xlinker", "$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)/PartyDeckKit.framework/PartyDeckKit", "-lc++", "-lz", "-liconv", "-framework", Security,);
@@ -384,6 +390,8 @@
 		D00000000000000000000005 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				PARTYDECK_SESSION_QUALIFICATION_CONDITION = "";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) $(PARTYDECK_SESSION_QUALIFICATION_CONDITION)";
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks",);
 				PRODUCT_BUNDLE_IDENTIFIER = dev.partydeck.app.UITests;

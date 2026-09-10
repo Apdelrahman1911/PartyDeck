@@ -143,6 +143,11 @@ internal class EmbeddedPresentationCoordinator(
         return true
     }
 
+    /** Distinguish the renderer view revision from the authority session revision for observation. */
+    fun currentProjectionCounters(): Pair<Long, Long>? = active?.let {
+        it.adapter.revision to it.projection.sessionRevision
+    }
+
     fun owns(presentationId: String): Boolean = active?.adapter?.presentationId == presentationId
 
     /** Native Back may arrive before renderer Ready; it is not assigned a renderer sequence. */
