@@ -153,7 +153,10 @@ internal class EmbeddedPresentationCoordinator(
 
     private fun pendingIsCurrent(pending: PendingOpen, state: AppUiState): Boolean =
         selectionAllowed(state) && pending.binding.matches(state.session, sessionGeneration()) &&
-            pending.preferences == preferences(state) && pending.choice in factories &&
+            pending.preferences == preferences(state) &&
+            // An exclusive native host may hide its factories until our current close finishes.
+            // Once the close gate clears, the chosen factory must be available again.
+            (closing != null || pending.choice in factories) &&
             !pending.deadline.hasPassedNow()
 
     private fun cancelPendingSelection() {
