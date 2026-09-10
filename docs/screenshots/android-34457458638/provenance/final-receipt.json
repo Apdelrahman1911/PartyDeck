@@ -1,0 +1,222 @@
+{
+  "created_at": "2026-09-10T09:31:58.142590+00:00",
+  "status": "api36_baseline_runtime_evidence_pass",
+  "run_id": 34457458638,
+  "run_url": "https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34457458638",
+  "head_sha": "f11f92ed4ec4f91630396bf493ba2fd984f07bb9",
+  "job_id": 102807084425,
+  "checks_passed": 23,
+  "checks_failed": 0,
+  "checks": [
+    {
+      "name": "Exact dispatched run and revision succeeded",
+      "passed": true
+    },
+    {
+      "name": "Android job succeeded on ubuntu-24.04",
+      "passed": true
+    },
+    {
+      "name": "Reports ZIP identity and integrity were verified during collection",
+      "passed": true
+    },
+    {
+      "name": "Logged checkout and API36/session-disabled inputs match",
+      "passed": true
+    },
+    {
+      "name": "Four actual host CPUs and 16 GB class RAM are present",
+      "passed": true
+    },
+    {
+      "name": "KVM acceleration is installed and usable",
+      "passed": true
+    },
+    {
+      "name": "Expected stable emulator and swangle backend executed",
+      "passed": true
+    },
+    {
+      "name": "Official full API36 x86_64 revision 2 image is recorded",
+      "passed": true
+    },
+    {
+      "name": "Actual guest API36 and required display were verified",
+      "passed": true
+    },
+    {
+      "name": "Empty API36 AVD passed first boot without recovery",
+      "passed": true
+    },
+    {
+      "name": "Preparation diagnostics and restoration succeeded",
+      "passed": true
+    },
+    {
+      "name": "Both APK checks passed on the prepared emulator",
+      "passed": true
+    },
+    {
+      "name": "Native Godot session opt-in was not exercised",
+      "passed": true
+    },
+    {
+      "name": "debug: complete 86-step receipt passed without diagnostic/restoration errors",
+      "passed": true
+    },
+    {
+      "name": "debug: standard and 200% text with real soft-IME captures recorded",
+      "passed": true
+    },
+    {
+      "name": "debug: all 30 reported stage captures exist with matching dimensions",
+      "passed": true
+    },
+    {
+      "name": "optimized-test-signed: complete 86-step receipt passed without diagnostic/restoration errors",
+      "passed": true
+    },
+    {
+      "name": "optimized-test-signed: standard and 200% text with real soft-IME captures recorded",
+      "passed": true
+    },
+    {
+      "name": "optimized-test-signed: all 30 reported stage captures exist with matching dimensions",
+      "passed": true
+    },
+    {
+      "name": "Optimized executed-input hash matches disposable signing receipt",
+      "passed": true
+    },
+    {
+      "name": "No retained ANR/fatal exception/fatal signal markers in collected diagnostic logs",
+      "passed": true
+    },
+    {
+      "name": "Actions log reports both completed APK flows",
+      "passed": true
+    },
+    {
+      "name": "Checkpoint app targets API36",
+      "passed": true
+    }
+  ],
+  "research_receipt": {
+    "path": "/tmp/partydeck-api36-independent-_pxljpkr/research-receipt.json",
+    "sha256": "da935f8b3f1d037a9715936976f488d83ae86b327f063e07a7dce0b0fec45f66",
+    "bytes": 4703
+  },
+  "checkpoint_sources": {
+    "path": "/tmp/partydeck-api36-independent-_pxljpkr/checkpoint-source.json",
+    "sha256": "e46dbde8235f04c852844a962cc2039ca4e93af05c66f97e6b9347706a0e9196",
+    "bytes": 2114
+  },
+  "reports_archive": {
+    "path": "/tmp/partydeck-api36-independent-_pxljpkr/run-34457458638/android-jvm-reports.zip",
+    "sha256": "b92ec1d1b6f546d8b9c4d1a5cf7b1f23f901306df820a84aef2c9795868e8bea",
+    "bytes": 13345232
+  },
+  "hardware": {
+    "cpus": 4,
+    "memory_mib": 15989,
+    "cpu_model": "AMD EPYC 7763 64-Core Processor",
+    "kvm_usable": true
+  },
+  "runner_image": "20260831.293.1",
+  "image_properties": {
+    "Pkg.Desc": "Android SDK System Image",
+    "Pkg.UserSrc": "false",
+    "Pkg.Revision": "2",
+    "Pkg.Dependencies": "emulator#35.4.9",
+    "AndroidVersion.ApiLevel": "36",
+    "AndroidVersion.ExtensionLevel": "17",
+    "AndroidVersion.IsBaseSdk": "true",
+    "SystemImage.Abi": "x86_64",
+    "SystemImage.GpuSupport": "true",
+    "SystemImage.TagId": "default",
+    "SystemImage.TagDisplay": "Default Android System Image"
+  },
+  "display": {
+    "expectedPhysicalSize": [
+      720,
+      1600
+    ],
+    "expectedDensityDpi": 280,
+    "logicalSizeDp": [
+      411.42857142857144,
+      914.2857142857143
+    ],
+    "expectedAndroidApi": 36,
+    "guestApiVerified": true,
+    "displayVerified": true,
+    "actualAndroidApi": 36,
+    "actualSizeOutput": "Physical size: 720x1600",
+    "actualDensityOutput": "Physical density: 280"
+  },
+  "emulator_boot_ms": 36473,
+  "preparation": {
+    "passed": true,
+    "attempts": 1,
+    "reboot_attempted": false,
+    "app_absent": true
+  },
+  "variants": {
+    "debug": {
+      "passed": true,
+      "recorded_steps": 86,
+      "apk_sha256_from_executed_input_receipt": "017c91a09857886c1ed60030e35448b3f556ef5c4593732c62ae71f43486688a",
+      "ready_stage_captures": 30,
+      "all_png_files": 31,
+      "font_scale": 2.0,
+      "soft_ime_captures": [
+        "join-name-soft-ime",
+        "large-text-join-name-soft-ime"
+      ],
+      "played_card_observation": "round result after play"
+    },
+    "optimized-test-signed": {
+      "passed": true,
+      "recorded_steps": 86,
+      "apk_sha256_from_executed_input_receipt": "c515d8b0924d0a12e6e24ba4d6c1b8444b3ca6ba9deefc14d39c5723e11070be",
+      "ready_stage_captures": 30,
+      "all_png_files": 31,
+      "font_scale": 2.0,
+      "soft_ime_captures": [
+        "join-name-soft-ime",
+        "large-text-join-name-soft-ime"
+      ],
+      "played_card_observation": "hand decreased by one"
+    }
+  },
+  "godot_session_requested": false,
+  "diagnostics": {
+    "log_files_scanned": 44,
+    "matching_marker_count": 0,
+    "patterns": "ANR in|FATAL EXCEPTION|Fatal signal [0-9]|am_anr|am_crash",
+    "scope": "Retained collected logs only. Generic crash_dump seccomp-policy warnings are not runtime crash events; no clean-driver-log or exhaustive-history claim."
+  },
+  "evidence_manifest": {
+    "path": "/tmp/partydeck-api36-independent-_pxljpkr/run-34457458638/runtime-evidence-identities.json",
+    "sha256": "af356594f81e35bf9f1cc8c4b01326de3caecdf3a422610e0a6bbaa614d569b1",
+    "bytes": 15355
+  },
+  "screenshot_manifest": {
+    "path": "/tmp/partydeck-api36-independent-_pxljpkr/run-34457458638/screenshot-identities.json",
+    "sha256": "31b92b024657feee55d02079e91098a2b33f5f602740de87083ba6c6dc899163",
+    "bytes": 22023
+  },
+  "diagnostic_scan": {
+    "path": "/tmp/partydeck-api36-independent-_pxljpkr/run-34457458638/diagnostic-marker-scan.json",
+    "sha256": "3e1f59a07d93c427e3aeff0c0f652c62a81814e3ebfcc6997e15b919aedc2e59",
+    "bytes": 12045
+  },
+  "source_classification": "The two-CPU API36 preparation failures remain valid historical infrastructure failures. The larger public Linux allocation now has an executed passing API36 baseline at the recorded checkpoint. The current run used the same runner image version as the previous API36 failure; CPU count is not asserted as a uniquely isolated cause.",
+  "acceptance_scope": "Existing single-emulator debug and disposable-test-signed optimized application flows at standard and 200% text, including rules, settings persistence, practice privacy/background/play, local hosting/share teardown, invalid-Join recovery and soft keyboard checks.",
+  "limits": [
+    "Godot session smoke was explicitly disabled; this run does not qualify API36 native Godot presentation gameplay or renderer lifecycle.",
+    "The full 474 MB package artifact was not downloaded by this bounded audit. APK identities above are the hashes from the actual executed-input and signing receipts; the optimized hashes agree. Package-byte reinspection is separate.",
+    "Screenshot file identities and PNG dimensions were checked; this task did not independently perform a visual/accessibility review of every image.",
+    "Physical-device, mixed-device LAN, camera-frame, distribution-signing and store qualification are outside this run.",
+    "The researcher performed read-only status/artifact/source analysis. Root dispatched CI; no repository, workflow or acceptance change was made by this audit."
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "created_at": "2026-09-10T08:58:00.708473+00:00",
+  "status": "research_complete_execution_monitoring",
+  "candidate": {
+    "repository_visibility": "PUBLIC",
+    "runner": "ubuntu-24.04",
+    "host_architecture": "x86_64",
+    "documented_cpu_count": 4,
+    "documented_memory_gb": 16,
+    "vm_acceleration": "KVM with -accel on",
+    "emulator": "37.1.11 / build 15917651",
+    "system_image": "system-images;android-36;default;x86_64",
+    "system_image_revision": 2,
+    "gpu": "swangle",
+    "guest_memory_mib": 3072,
+    "guest_cores": "min(nproc, 4); expect four on the public runner",
+    "display": {
+      "pixels": [
+        720,
+        1600
+      ],
+      "density_dpi": 280
+    },
+    "cold_boot_flags": [
+      "-no-window",
+      "-no-audio",
+      "-no-snapshot",
+      "-no-boot-anim",
+      "-camera-back none",
+      "-camera-front none"
+    ],
+    "changed_capability": "Public standard-runner allocation provides four vCPUs / 16 GB, independently observed in later run 34432935952. Every retained API36 preparation failure used two vCPUs / about 8 GB.",
+    "qualification_status": "Candidate supported for one actual execution, not yet API36 acceptance."
+  },
+  "evidence_basis": {
+    "current_repository_query": "/tmp/partydeck-api36-independent-_pxljpkr/current/repository.json",
+    "fresh_official_documents": "/tmp/partydeck-api36-independent-_pxljpkr/downloads.json",
+    "fresh_official_package_metadata": "/tmp/partydeck-api36-independent-_pxljpkr/package-facts.json",
+    "original_prior_run_analysis": "/tmp/partydeck-api36-independent-_pxljpkr/prior-analysis.json",
+    "referenced_source_hashes": "/tmp/partydeck-api36-independent-_pxljpkr/source-hashes.json",
+    "previous_private_only_report": "/tmp/partydeck-api36-runner-research/findings.md",
+    "first_retained_four_cpu_run": 34432935952
+  },
+  "interpretation": [
+    "The three latest API36 failures are empty-AVD SystemUI service ANRs with PartyDeck absent before and after one bounded reboot. They are environment preparation failures, not executed PartyDeck runtime failures.",
+    "The latest two-vCPU attempt retained 99% total CPU, CPU pressure avg10 81.68, full memory pressure avg10 0.00, and a KeyguardService start taking 20,014 ms; KVM was installed and usable.",
+    "Switching SwiftShader to swangle and reducing framebuffer pixels already failed on two CPUs. These unchanged configurations should not be retried under the same two-CPU allocation.",
+    "The host CPU/RAM allocation is materially different now. The runner image also updated from 20260831.293.1 to 20260907.300.1 in the retained comparison. A future successful result would not isolate CPU count as the sole causal fix.",
+    "The current official emulator and full API36 image match the prior version family; no package upgrade, alternate tag, ANR deadline bypass, graphics suppression or app-check relaxation is needed for this candidate.",
+    "Current public allocation does not establish a new emulator or app runtime result. API35 readiness on four CPUs demonstrates resource availability only.",
+    "ARM64 macOS still lacks documented nested virtualization and current official emulator metadata has no Linux ARM64 host archive. No unsupported Mac/ARM workaround is recommended."
+  ],
+  "execution": {
+    "owner": "/root",
+    "run_id": 34457458638,
+    "url": "https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34457458638",
+    "head_sha": "f11f92ed4ec4f91630396bf493ba2fd984f07bb9",
+    "root_declared_inputs": {
+      "platform": "android",
+      "android_api": "36",
+      "android_godot_session": false
+    },
+    "root_change": "Validate concurrency group includes platform/API; root reports actionlint passed and committed f11f92e before dispatch.",
+    "observed_initial_status": "in_progress",
+    "actual_cpu_count": null,
+    "actual_guest_api": null,
+    "acceptance": "Existing bounded preparation and single debug/optimized APK runs. Godot session opt-in is false, so native presentation runtime qualification is outside this run.",
+    "monitoring": "Read-only job/artifact collection. Verify actual four-CPU allocation and guest API36 before interpreting environment readiness or checker results."
+  },
+  "actions_performed_by_researcher": [
+    "Read existing scripts/logs/reports",
+    "Read-only GitHub repository/run metadata requests",
+    "Downloaded current authoritative documentation/package metadata into /tmp",
+    "Wrote source/evidence-only research files in /tmp"
+  ],
+  "actions_not_performed_by_researcher": [
+    "Repository edits",
+    "Workflow dispatch or cancellation",
+    "Shared/native builds",
+    "Emulator/application execution",
+    "Acceptance changes"
+  ]
+}

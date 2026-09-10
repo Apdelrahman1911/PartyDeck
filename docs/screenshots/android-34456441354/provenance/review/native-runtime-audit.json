@@ -1,0 +1,1549 @@
+{
+  "result": "pass",
+  "run_id": 34456441354,
+  "job_id": 102803833812,
+  "commit": "dad1c11741bd4322bb8b2afb9f18f3db5f50c919",
+  "created_utc": "2026-09-10T09:53:28.751889+00:00",
+  "builder": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/tools/finalize-native-review.py",
+    "bytes": 14955,
+    "sha256": "7b8ccf729c63a16a7fa96d6ef9a4e7e753b2025fd81f104c1cf6e9dfa6ded35f"
+  },
+  "runtime_variants": {
+    "evidence": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/runtime-variants.json",
+      "bytes": 609,
+      "sha256": "f74bca466aa17aa24722cbcbf74ded27d68be78802d480e8f3d55d97e17b1f88"
+    },
+    "content": {
+      "sameEmulatorBoot": true,
+      "debugExitCode": 0,
+      "optimizedTestSignedExitCode": 0,
+      "godotSessionSmoke": {
+        "requested": false,
+        "debugPhaseExitCode": null,
+        "optimizedTestSignedPhaseExitCode": null,
+        "debugRendererDeathRequested": false,
+        "optimizedRendererDeathRequested": false,
+        "optimizedRendererDeathScope": "Explicitly omitted for the non-debuggable APK.",
+        "allRequestedPhasesPassed": null,
+        "fontScale": 1.0,
+        "scope": "Real selector and native session lifecycle at normal text; renderer gameplay and pixel privacy require separate evidence."
+      },
+      "passed": true
+    }
+  },
+  "display": {
+    "evidence": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/display-configuration.json",
+      "bytes": 363,
+      "sha256": "6d107b1e61b1315241aa47c90218e08fddf2c9854e0746b32854da5d16e5851d"
+    },
+    "content": {
+      "expectedPhysicalSize": [
+        720,
+        1600
+      ],
+      "expectedDensityDpi": 280,
+      "logicalSizeDp": [
+        411.42857142857144,
+        914.2857142857143
+      ],
+      "expectedAndroidApi": 35,
+      "guestApiVerified": true,
+      "displayVerified": true,
+      "actualAndroidApi": 35,
+      "actualSizeOutput": "Physical size: 720x1600",
+      "actualDensityOutput": "Physical density: 280"
+    },
+    "raw_api_evidence": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/android-api.log",
+      "bytes": 3,
+      "sha256": "90d7ec0f0acef104d8b6252794295f661a0149634868d02a1ae0c358099638f5"
+    }
+  },
+  "preparation": {
+    "evidence": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/preparation/preparation-result.json",
+      "bytes": 487,
+      "sha256": "e1eeb367d02d997d396e7c7fb7af793e24b026d98d1334d0be247937bcfa0e0c"
+    },
+    "content": {
+      "serial": "emulator-5554",
+      "passed": true,
+      "reboot_attempted": false,
+      "attempts": [
+        {
+          "attempt": 1,
+          "passed": true,
+          "app_absent": true,
+          "recovery_allowed": false,
+          "boot_id": "2b966c3c-8975-43f1-a2ae-df210c873a66",
+          "android_api": "35",
+          "steps": [
+            "Verified responsive Android launcher before app installation"
+          ]
+        }
+      ],
+      "scope": "Empty AVD preparation only; neither APK is installed or accepted by this phase."
+    }
+  },
+  "variants": {
+    "debug": {
+      "passed": true,
+      "smoke_receipt": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/smoke-result.json",
+        "bytes": 7009,
+        "sha256": "c480c1d5afcd7f72ca10db03793827d1a79da1124b978805fec67f120a31df53"
+      },
+      "actual_apk": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144577717-android-packages-and-shrinker-reports/androidApp/build/outputs/apk/debug/androidApp-debug.apk",
+        "bytes": 334770875,
+        "sha256": "1f90057342a83c6edb4c1c0e1e674faf59ffd0a13874df304193164a045e00c7"
+      },
+      "apk_hash_matches_smoke": true,
+      "input_geometry_log": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/input-geometry.log",
+        "bytes": 23331,
+        "sha256": "c338d9ab0b1b19c8a120289065991e01d294ce1ca7d83eb6387de3f151406a75"
+      },
+      "input_record_count": 67,
+      "input_actions": {
+        "tap": 48,
+        "swipe": 19
+      },
+      "all_input_geometry_valid": true,
+      "tap_steps_match_geometry_in_order": true,
+      "rules_practice_taps": [
+        {
+          "action": "tap",
+          "bounds": [
+            42,
+            1355,
+            678,
+            1453
+          ],
+          "class": "android.view.View",
+          "coordinates": {
+            "x": 360,
+            "y": 1404
+          },
+          "display_size": [
+            720,
+            1600
+          ],
+          "label": "rules-practice",
+          "package": "dev.partydeck.app",
+          "resource_id": "",
+          "rotation": 0,
+          "stage": "rules",
+          "ui_sequence": 15,
+          "viewport": [
+            0,
+            136,
+            720,
+            1516
+          ],
+          "minimum_viewport_clearance_px": 42
+        },
+        {
+          "action": "tap",
+          "bounds": [
+            42,
+            1330,
+            678,
+            1453
+          ],
+          "class": "android.view.View",
+          "coordinates": {
+            "x": 360,
+            "y": 1391
+          },
+          "display_size": [
+            720,
+            1600
+          ],
+          "label": "rules-practice",
+          "package": "dev.partydeck.app",
+          "resource_id": "",
+          "rotation": 0,
+          "stage": "large-text-rules",
+          "ui_sequence": 141,
+          "viewport": [
+            0,
+            136,
+            720,
+            1516
+          ],
+          "minimum_viewport_clearance_px": 42
+        }
+      ],
+      "route_pairs": [
+        {
+          "route": "home",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/home.png",
+            "bytes": 129561,
+            "sha256": "19fbfad8d0d5b93b9ee06d5edc246d2a3967e90bec62ed63bfd63020b0671c7c"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/home.xml",
+            "bytes": 12578,
+            "sha256": "035b6df440c5a044f9cfc89bc6626f754d004d33bc190a8323bf905a7b3cdc8e"
+          },
+          "xml_node_count": 38
+        },
+        {
+          "route": "rules-intro",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/rules-intro.png",
+            "bytes": 148019,
+            "sha256": "f653c9b7e52c935e1993adeb056a6fb613b32572d0254b3486d36245adf059b1"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/rules-intro.xml",
+            "bytes": 10503,
+            "sha256": "ec4426cab9208f499326e969e9f0649747734465a687ed6c58bece34f7474919"
+          },
+          "xml_node_count": 30
+        },
+        {
+          "route": "rules-last-step",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/rules-last-step.png",
+            "bytes": 154551,
+            "sha256": "2de971000cfef92a5fa44a00c14c6d00440789d11bfd8769b5ea8573dce6626a"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/rules-last-step.xml",
+            "bytes": 10311,
+            "sha256": "04bfd3ef640de2f7c6d90f3a494f2775700a9b015726aa4316916e7f578f1efb"
+          },
+          "xml_node_count": 29
+        },
+        {
+          "route": "rules-practice-action",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/rules-practice-action.png",
+            "bytes": 140860,
+            "sha256": "014fb3d0da6f3f8ca679ffd0f99a3d0f49bff0797fe120ccd7337ec9bca19057"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/rules-practice-action.xml",
+            "bytes": 9888,
+            "sha256": "dbc9855d98dbc4a19d728b41e4d008756fde7923af3ae327ace03b5b636276f1"
+          },
+          "xml_node_count": 28
+        },
+        {
+          "route": "rules-practice-entered",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/rules-practice-entered.png",
+            "bytes": 104000,
+            "sha256": "18727c4aaf6fd7d4d24b735d5870dd4188ddcc2806953ed7f99c683d37c80805"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/rules-practice-entered.xml",
+            "bytes": 14639,
+            "sha256": "7e8b7e0c3d0d669e386d22d284a8647ed997bbac2a0f4868e8f6b21dd3d71690"
+          },
+          "xml_node_count": 44
+        },
+        {
+          "route": "rules-returned-home",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/rules-returned-home.png",
+            "bytes": 129561,
+            "sha256": "19fbfad8d0d5b93b9ee06d5edc246d2a3967e90bec62ed63bfd63020b0671c7c"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/rules-returned-home.xml",
+            "bytes": 12578,
+            "sha256": "035b6df440c5a044f9cfc89bc6626f754d004d33bc190a8323bf905a7b3cdc8e"
+          },
+          "xml_node_count": 38
+        },
+        {
+          "route": "settings-changed",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/settings-changed.png",
+            "bytes": 116803,
+            "sha256": "312d72f0b7e2f74c2181dddfa0bdca4b2de0dc5c886248d53f07ce4de824aeb1"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/settings-changed.xml",
+            "bytes": 13214,
+            "sha256": "1fa25e44dcea814ed6788e8d2e9f6db220b37da6104146947b5c12675be1c109"
+          },
+          "xml_node_count": 39
+        },
+        {
+          "route": "settings-return-home",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/settings-return-home.png",
+            "bytes": 129561,
+            "sha256": "19fbfad8d0d5b93b9ee06d5edc246d2a3967e90bec62ed63bfd63020b0671c7c"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/settings-return-home.xml",
+            "bytes": 12578,
+            "sha256": "035b6df440c5a044f9cfc89bc6626f754d004d33bc190a8323bf905a7b3cdc8e"
+          },
+          "xml_node_count": 38
+        },
+        {
+          "route": "settings-persisted",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/settings-persisted.png",
+            "bytes": 116803,
+            "sha256": "312d72f0b7e2f74c2181dddfa0bdca4b2de0dc5c886248d53f07ce4de824aeb1"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/settings-persisted.xml",
+            "bytes": 13214,
+            "sha256": "1fa25e44dcea814ed6788e8d2e9f6db220b37da6104146947b5c12675be1c109"
+          },
+          "xml_node_count": 39
+        },
+        {
+          "route": "practice-concealed",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/practice-concealed.png",
+            "bytes": 102926,
+            "sha256": "2d291bed68621b2295e76761c9719910ccd45d1e774786ce2092b4f12cc6fe31"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/practice-concealed.xml",
+            "bytes": 14639,
+            "sha256": "25e973938ad766f0aed35da3a2c1bb64f10b1efa48e37834e5d040a0dc32d7ea"
+          },
+          "xml_node_count": 44
+        },
+        {
+          "route": "practice-selected",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/practice-selected.png",
+            "bytes": 95687,
+            "sha256": "15af91af1e4df7eb163cdbc1d6b30478f88e028fe5a1f5a6449890bbe344d680"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/practice-selected.xml",
+            "bytes": 19842,
+            "sha256": "92df333f4b9519b8b9592e3bd525b952dbb1a5b17083b0c0d89604219328111a"
+          },
+          "xml_node_count": 60
+        },
+        {
+          "route": "practice-resumed-concealed",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/practice-resumed-concealed.png",
+            "bytes": 102926,
+            "sha256": "2d291bed68621b2295e76761c9719910ccd45d1e774786ce2092b4f12cc6fe31"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/practice-resumed-concealed.xml",
+            "bytes": 14639,
+            "sha256": "25e973938ad766f0aed35da3a2c1bb64f10b1efa48e37834e5d040a0dc32d7ea"
+          },
+          "xml_node_count": 44
+        },
+        {
+          "route": "practice-after-play",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/practice-after-play.png",
+            "bytes": 88034,
+            "sha256": "78a2d7b73580aceda8137b2c731bbd24eff49d8c51d70ca97b958e149703c646"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/practice-after-play.xml",
+            "bytes": 14340,
+            "sha256": "665c4aeea24f59e5ad9e2e55d1b09e5751d6dd7d45a6fbffa770452107dd0eeb"
+          },
+          "xml_node_count": 43
+        },
+        {
+          "route": "practice-returned-home",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/practice-returned-home.png",
+            "bytes": 129561,
+            "sha256": "19fbfad8d0d5b93b9ee06d5edc246d2a3967e90bec62ed63bfd63020b0671c7c"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/practice-returned-home.xml",
+            "bytes": 12578,
+            "sha256": "035b6df440c5a044f9cfc89bc6626f754d004d33bc190a8323bf905a7b3cdc8e"
+          },
+          "xml_node_count": 38
+        },
+        {
+          "route": "host-lobby",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/host-lobby.png",
+            "bytes": 99104,
+            "sha256": "26ba3084fdb294dd94d7784e1394c842a8b8f5ca7f9d24d92c095c437b5493d2"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/host-lobby.xml",
+            "bytes": 12400,
+            "sha256": "93e361128f88d528bbe354f4751816eec0afaaa7c96cb543bfe071fb171b3cb2"
+          },
+          "xml_node_count": 37
+        },
+        {
+          "route": "host-after-share",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/host-after-share.png",
+            "bytes": 99104,
+            "sha256": "26ba3084fdb294dd94d7784e1394c842a8b8f5ca7f9d24d92c095c437b5493d2"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/host-after-share.xml",
+            "bytes": 12400,
+            "sha256": "93e361128f88d528bbe354f4751816eec0afaaa7c96cb543bfe071fb171b3cb2"
+          },
+          "xml_node_count": 37
+        },
+        {
+          "route": "host-returned-home",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/host-returned-home.png",
+            "bytes": 129561,
+            "sha256": "19fbfad8d0d5b93b9ee06d5edc246d2a3967e90bec62ed63bfd63020b0671c7c"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/host-returned-home.xml",
+            "bytes": 12578,
+            "sha256": "035b6df440c5a044f9cfc89bc6626f754d004d33bc190a8323bf905a7b3cdc8e"
+          },
+          "xml_node_count": 38
+        },
+        {
+          "route": "join-name-soft-ime",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/join-name-soft-ime.png",
+            "bytes": 98336,
+            "sha256": "21ddcba0deaee49cfa5d20df198c3fe77bc46a9bc3b436ac3a9d58be8718ee87"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/join-name-soft-ime.xml",
+            "bytes": 8725,
+            "sha256": "dc3afdf58984082ce49f48ce657236b9deb4922efd24162df81308ccdd6f8f5f"
+          },
+          "xml_node_count": 26
+        },
+        {
+          "route": "join-invalid",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/join-invalid.png",
+            "bytes": 93385,
+            "sha256": "34465ad4e7fd80c856e310b8529a0df9afcc5557bfc4de071e2704bfe8ec3a7f"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/join-invalid.xml",
+            "bytes": 10506,
+            "sha256": "c9868fd32d8ff15ff4111afba7db5a1e54c838fce4fb93f637aa2c118a48d032"
+          },
+          "xml_node_count": 31
+        },
+        {
+          "route": "large-text-home-actions",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/large-text-home-actions.png",
+            "bytes": 82667,
+            "sha256": "959070f4aecef88c3f282ce435232829e8db85113534f6e5949f55be16e5d1ad"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/large-text-home-actions.xml",
+            "bytes": 8676,
+            "sha256": "efa29a00c04019e5749aadc733c853c8435b3124937c7db89455e3d28fc28740"
+          },
+          "xml_node_count": 26
+        },
+        {
+          "route": "large-text-rules-intro",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/large-text-rules-intro.png",
+            "bytes": 136591,
+            "sha256": "08191465e77e7f6cb4e6a43274e8988c8fe5d3495d0116a14dc59d1ea9138722"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/large-text-rules-intro.xml",
+            "bytes": 7187,
+            "sha256": "31102e58d21ff56900f35bf637b7cbfbfeeda37184b76250ab4906b380e6616b"
+          },
+          "xml_node_count": 21
+        },
+        {
+          "route": "large-text-rules-last-step",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/large-text-rules-last-step.png",
+            "bytes": 150833,
+            "sha256": "643d1d4ce52f63e628e25b6f11767ed65cf616ac360c2d5e686f19d7a63ecf6f"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/large-text-rules-last-step.xml",
+            "bytes": 5699,
+            "sha256": "ace8f488c825179a562a61a27cf52f1137a8c396d12d0d18a94892be55046ea7"
+          },
+          "xml_node_count": 16
+        },
+        {
+          "route": "large-text-rules-practice-action",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/large-text-rules-practice-action.png",
+            "bytes": 124688,
+            "sha256": "aa269ab405c16587625336712b3e172b1ab3048393628789061aceb9b8dadc78"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/large-text-rules-practice-action.xml",
+            "bytes": 5597,
+            "sha256": "10fb37069bf6d38072e5e11845bdd1ee0ef1eaca9bea0f094a8c75c033863197"
+          },
+          "xml_node_count": 16
+        },
+        {
+          "route": "large-text-rules-practice-entered",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/large-text-rules-practice-entered.png",
+            "bytes": 117349,
+            "sha256": "20c899c7f1eab176ca7e8fc3512b329eef0d0d4f50c197c35c2161f69eb12b82"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/large-text-rules-practice-entered.xml",
+            "bytes": 12578,
+            "sha256": "02893c12e379b0bec2fb6f2888002d4daf86e34702f51eedfa1acf28fede906e"
+          },
+          "xml_node_count": 38
+        },
+        {
+          "route": "large-text-rules-returned-home",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/large-text-rules-returned-home.png",
+            "bytes": 80423,
+            "sha256": "dd30bca8fc0b53e01cfc15a371ef03cf3f6a411525a8b787e33c3b6aa0f3e8eb"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/large-text-rules-returned-home.xml",
+            "bytes": 8677,
+            "sha256": "68db4d663dd22c9ac8f4b2932574bcd7b513c5c8c02ed9f17e6030889d887947"
+          },
+          "xml_node_count": 26
+        },
+        {
+          "route": "large-text-settings",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/large-text-settings.png",
+            "bytes": 122163,
+            "sha256": "aceb05898dc62c1ba0824f7c275594205ec7b35fb3428ad65f811ee8c20badfc"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/large-text-settings.xml",
+            "bytes": 10787,
+            "sha256": "413cc54dc855619a6f9a7961121c6d4be4b58ffb458f346f9a971d036eeeedda"
+          },
+          "xml_node_count": 32
+        },
+        {
+          "route": "large-text-join-name-soft-ime",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/large-text-join-name-soft-ime.png",
+            "bytes": 124379,
+            "sha256": "baf24de45a3043ac0dfb08637f33be55d0c5c4fb498fe41962b6f62c5f2fd811"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/large-text-join-name-soft-ime.xml",
+            "bytes": 5130,
+            "sha256": "b5facd986c97d1fc8fe5e3255513e1e2842eaa3aafb0879e2225d3b7c14265c8"
+          },
+          "xml_node_count": 15
+        },
+        {
+          "route": "large-text-join-invalid",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/large-text-join-invalid.png",
+            "bytes": 115387,
+            "sha256": "73820916195e9be956dc80c6237b657cd8c1f94e4189d3cdcae5a877c07d37f4"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/large-text-join-invalid.xml",
+            "bytes": 8134,
+            "sha256": "961fd641b8d0e31bea82e85eb41bde1b39006aa51a2e4457640df84ee5e193bd"
+          },
+          "xml_node_count": 24
+        },
+        {
+          "route": "large-text-private-hand",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/large-text-private-hand.png",
+            "bytes": 81151,
+            "sha256": "013a7f4119231ea6f2449b50e271fb1d7100798545dd39be5034b9a96382826b"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/large-text-private-hand.xml",
+            "bytes": 16391,
+            "sha256": "9b71644f46f7d2a408cf8bd8c836d1d8c0aeba4c042484975bf3ac63b4b10ba3"
+          },
+          "xml_node_count": 50
+        },
+        {
+          "route": "large-text-play-action",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/large-text-play-action.png",
+            "bytes": 81252,
+            "sha256": "5cb7e9ae089604067daadfdd1e6f87254528745f947994cff129bd5bb096a44e"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/large-text-play-action.xml",
+            "bytes": 16078,
+            "sha256": "3eaf036cf9d3802b7abf8441e5d0d9d71fa3c07bb888345227a21a97c1e2d584"
+          },
+          "xml_node_count": 49
+        }
+      ],
+      "persisted_switches": {
+        "settings-sound": false,
+        "settings-haptics": false,
+        "settings-reduce-motion": true
+      },
+      "played_card": "hand decreased by one",
+      "large_text_font_scale": 2.0,
+      "soft_ime_logs": [
+        {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/join-name-soft-ime-input-method.log",
+          "bytes": 58640,
+          "sha256": "48ab9fd8c3b79ffb2de8d5262961efb6557ebde3d5d1b302de14a1c0b9c0389e"
+        },
+        {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/large-text-join-name-soft-ime-input-method.log",
+          "bytes": 75826,
+          "sha256": "cbe9eb94ec358b1b2c6cacc4fae19b3e12e7c24d9fc59d28f0d4142ae4924af7"
+        }
+      ],
+      "error_diagnostic_restore_failure_fields": []
+    },
+    "optimized-test-signed": {
+      "passed": true,
+      "smoke_receipt": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/smoke-result.json",
+        "bytes": 6995,
+        "sha256": "4bf3eac75660fdd95351bc6b65da40bf1ffaeeed8025f5821cbd3169a2116d2b"
+      },
+      "actual_apk": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144577717-android-packages-and-shrinker-reports/build/ci/android/packages/PartyDeck-release-ci-test-signed.apk",
+        "bytes": 316285894,
+        "sha256": "52905946b8121c5b83064818793bcb2a663389dae5de2608d5f293eba7e6141c"
+      },
+      "apk_hash_matches_smoke": true,
+      "input_geometry_log": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/input-geometry.log",
+        "bytes": 22224,
+        "sha256": "15aa3368ceea4d81d2ae48167475638b45dc0047cc6917ca9ab651300e275833"
+      },
+      "input_record_count": 64,
+      "input_actions": {
+        "tap": 47,
+        "swipe": 17
+      },
+      "all_input_geometry_valid": true,
+      "tap_steps_match_geometry_in_order": true,
+      "rules_practice_taps": [
+        {
+          "action": "tap",
+          "bounds": [
+            42,
+            1355,
+            678,
+            1453
+          ],
+          "class": "android.view.View",
+          "coordinates": {
+            "x": 360,
+            "y": 1404
+          },
+          "display_size": [
+            720,
+            1600
+          ],
+          "label": "rules-practice",
+          "package": "dev.partydeck.app",
+          "resource_id": "",
+          "rotation": 0,
+          "stage": "rules",
+          "ui_sequence": 15,
+          "viewport": [
+            0,
+            136,
+            720,
+            1516
+          ],
+          "minimum_viewport_clearance_px": 42
+        },
+        {
+          "action": "tap",
+          "bounds": [
+            42,
+            1367,
+            678,
+            1490
+          ],
+          "class": "android.view.View",
+          "coordinates": {
+            "x": 360,
+            "y": 1428
+          },
+          "display_size": [
+            720,
+            1600
+          ],
+          "label": "rules-practice",
+          "package": "dev.partydeck.app",
+          "resource_id": "",
+          "rotation": 0,
+          "stage": "large-text-rules",
+          "ui_sequence": 140,
+          "viewport": [
+            0,
+            136,
+            720,
+            1516
+          ],
+          "minimum_viewport_clearance_px": 26
+        }
+      ],
+      "route_pairs": [
+        {
+          "route": "home",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/home.png",
+            "bytes": 131970,
+            "sha256": "7d42c205f1fe1ada92e65a51057cee2fe66cefb3be1f7532b9103f08d5398d4e"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/home.xml",
+            "bytes": 12541,
+            "sha256": "55e5edcbd8e91cd50fa9b2f46ab6bd62a9988170a9f47e17b68d84bb6e3a8a3b"
+          },
+          "xml_node_count": 38
+        },
+        {
+          "route": "rules-intro",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/rules-intro.png",
+            "bytes": 150673,
+            "sha256": "2f7663e1b29134cc3c26280cf9430447a9ba461d5d52b791378c53e94c9c8e58"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/rules-intro.xml",
+            "bytes": 10466,
+            "sha256": "573f8e2d326aa986d01b5368dabb977f9d17a0a60599d6f8bbe16526802d426e"
+          },
+          "xml_node_count": 30
+        },
+        {
+          "route": "rules-last-step",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/rules-last-step.png",
+            "bytes": 150981,
+            "sha256": "f50b85e03ac5ed755be493a5b57366c7ff98a5c237f402a62d8eef078dbaab72"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/rules-last-step.xml",
+            "bytes": 9934,
+            "sha256": "15e3c07e7fe7cb5c9f90815d5a70c835dd8997073528ce586d3431ada514221b"
+          },
+          "xml_node_count": 28
+        },
+        {
+          "route": "rules-practice-action",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/rules-practice-action.png",
+            "bytes": 143330,
+            "sha256": "33c5bae27e79cc9215078f9a7dece4ea527c1b70463fb41ddb5c80a3257f0243"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/rules-practice-action.xml",
+            "bytes": 9851,
+            "sha256": "ae5b066313cc806ca10f8fc67062a8c752296fe6583317a9042c780cc3b76f3a"
+          },
+          "xml_node_count": 28
+        },
+        {
+          "route": "rules-practice-entered",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/rules-practice-entered.png",
+            "bytes": 116966,
+            "sha256": "080f142160e573c434692da5c64d3ee5184bdf917cf6d5c69f815bd198d2b954"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/rules-practice-entered.xml",
+            "bytes": 15936,
+            "sha256": "561ee0142d3c4639d18e9eed5e71a21ea7baddf6f99cd257f95c3ffc7ae28114"
+          },
+          "xml_node_count": 48
+        },
+        {
+          "route": "rules-returned-home",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/rules-returned-home.png",
+            "bytes": 131970,
+            "sha256": "7d42c205f1fe1ada92e65a51057cee2fe66cefb3be1f7532b9103f08d5398d4e"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/rules-returned-home.xml",
+            "bytes": 12541,
+            "sha256": "55e5edcbd8e91cd50fa9b2f46ab6bd62a9988170a9f47e17b68d84bb6e3a8a3b"
+          },
+          "xml_node_count": 38
+        },
+        {
+          "route": "settings-changed",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/settings-changed.png",
+            "bytes": 119438,
+            "sha256": "210abdfa5e8c9a12b59845e6d265e579e89eba4959d450b1cd135a293f343e38"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/settings-changed.xml",
+            "bytes": 13177,
+            "sha256": "686976e59566e5d9a98e9e198d5d2444800981c4d3bc9c7004ccec30d93cc264"
+          },
+          "xml_node_count": 39
+        },
+        {
+          "route": "settings-return-home",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/settings-return-home.png",
+            "bytes": 132531,
+            "sha256": "d787987437409a304663b799b5765cfbb7199e3c12356622e188a2bc26b4e7a7"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/settings-return-home.xml",
+            "bytes": 12541,
+            "sha256": "55e5edcbd8e91cd50fa9b2f46ab6bd62a9988170a9f47e17b68d84bb6e3a8a3b"
+          },
+          "xml_node_count": 38
+        },
+        {
+          "route": "settings-persisted",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/settings-persisted.png",
+            "bytes": 119999,
+            "sha256": "588a6d4f5bea92953e86f1378b2e2c07dc91a04291d5f5a77fb79c5d53de523d"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/settings-persisted.xml",
+            "bytes": 13177,
+            "sha256": "686976e59566e5d9a98e9e198d5d2444800981c4d3bc9c7004ccec30d93cc264"
+          },
+          "xml_node_count": 39
+        },
+        {
+          "route": "practice-concealed",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/practice-concealed.png",
+            "bytes": 107740,
+            "sha256": "76b3ed78d0b01137f5d0bca13bf2712f6f55cfa3614df52cec135e3708bcbe41"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/practice-concealed.xml",
+            "bytes": 14603,
+            "sha256": "b8af1c36c5b194504bf3d155ff9770823f6338a62028992a55d01a16c6225124"
+          },
+          "xml_node_count": 44
+        },
+        {
+          "route": "practice-selected",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/practice-selected.png",
+            "bytes": 101676,
+            "sha256": "d872d45445f80d8057a3896f14db81f41c67231127d773c601e8e0e31f650aed"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/practice-selected.xml",
+            "bytes": 19808,
+            "sha256": "39289051f2fc2cbc9f29f4fcdaeebf2819ff7d62b39a8cd6ff5fd7635b24b9e3"
+          },
+          "xml_node_count": 60
+        },
+        {
+          "route": "practice-resumed-concealed",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/practice-resumed-concealed.png",
+            "bytes": 107189,
+            "sha256": "68fc46a0555aa7ca4f2fa78dc1584b25387a62691294ce907b34311d55a3d22b"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/practice-resumed-concealed.xml",
+            "bytes": 14603,
+            "sha256": "b8af1c36c5b194504bf3d155ff9770823f6338a62028992a55d01a16c6225124"
+          },
+          "xml_node_count": 44
+        },
+        {
+          "route": "practice-after-play",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/practice-after-play.png",
+            "bytes": 108126,
+            "sha256": "eb31b68f1483fcd7b19898d99410d58b63012200d262681cc6ad9aae1ecb5941"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/practice-after-play.xml",
+            "bytes": 13634,
+            "sha256": "2350ed947672022055e1db555eec49c9d3559b05b619b5979cf946fa086460ac"
+          },
+          "xml_node_count": 41
+        },
+        {
+          "route": "practice-returned-home",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/practice-returned-home.png",
+            "bytes": 131884,
+            "sha256": "c25c14a95415135ceca9663386ab9985d09662f1e2d04cfe8a628449cbb14b9f"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/practice-returned-home.xml",
+            "bytes": 12541,
+            "sha256": "55e5edcbd8e91cd50fa9b2f46ab6bd62a9988170a9f47e17b68d84bb6e3a8a3b"
+          },
+          "xml_node_count": 38
+        },
+        {
+          "route": "host-lobby",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/host-lobby.png",
+            "bytes": 101567,
+            "sha256": "f2693cd0c65d586385cfd2d35c47dd49e4f3c8d311d2fe72571b35cc93587c00"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/host-lobby.xml",
+            "bytes": 12363,
+            "sha256": "5eb953a1e1a241f4d44630b0fec9a4472454cafe978bc6be1dd49515e2f2c510"
+          },
+          "xml_node_count": 37
+        },
+        {
+          "route": "host-after-share",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/host-after-share.png",
+            "bytes": 101664,
+            "sha256": "b999ef8841a727b00ee4b28397dbf24b1a645c925113d59d98841038f493e944"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/host-after-share.xml",
+            "bytes": 12363,
+            "sha256": "5eb953a1e1a241f4d44630b0fec9a4472454cafe978bc6be1dd49515e2f2c510"
+          },
+          "xml_node_count": 37
+        },
+        {
+          "route": "host-returned-home",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/host-returned-home.png",
+            "bytes": 131964,
+            "sha256": "be6ffb222b9f41fb54f621cd0ad9f5e4afdac00a8589c1a4337e7e45739e4628"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/host-returned-home.xml",
+            "bytes": 12541,
+            "sha256": "55e5edcbd8e91cd50fa9b2f46ab6bd62a9988170a9f47e17b68d84bb6e3a8a3b"
+          },
+          "xml_node_count": 38
+        },
+        {
+          "route": "join-name-soft-ime",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/join-name-soft-ime.png",
+            "bytes": 101064,
+            "sha256": "1b74115820411c7b73d600329e3a252276bd0d7d094a8c0e3dba80b80204bb9a"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/join-name-soft-ime.xml",
+            "bytes": 8688,
+            "sha256": "c73cbf8ca26999ebd0e3f40fd7b0a77ae854ade5f73a64d864ed50a24d74eb1b"
+          },
+          "xml_node_count": 26
+        },
+        {
+          "route": "join-invalid",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/join-invalid.png",
+            "bytes": 95940,
+            "sha256": "0c7ab90f1a26b801647158ce388575ac9629c0360e46db0e8fbd30b0bfa7901a"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/join-invalid.xml",
+            "bytes": 10469,
+            "sha256": "c448155331e732fbc0e4f7b3b6be4f37c18c0ad44201e642e50a8f79acda97b0"
+          },
+          "xml_node_count": 31
+        },
+        {
+          "route": "large-text-home-actions",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/large-text-home-actions.png",
+            "bytes": 82787,
+            "sha256": "c5a426e66ce020fc5de0fdcbd82cddcdc302ae5de2b4a14f348791eedeee1f28"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/large-text-home-actions.xml",
+            "bytes": 8639,
+            "sha256": "81bd969414da46001b9d2b6b64ab42d8da20a58fed644150d81766f9b405e422"
+          },
+          "xml_node_count": 26
+        },
+        {
+          "route": "large-text-rules-intro",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/large-text-rules-intro.png",
+            "bytes": 136710,
+            "sha256": "b74c4fcbe4efb64c647ec9f870c303541e657a87a487727d4a73d8704281743f"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/large-text-rules-intro.xml",
+            "bytes": 7150,
+            "sha256": "287fbd2ce4438994719769ed6834aa172c68fe1e1ee84df70326956d0e0a702f"
+          },
+          "xml_node_count": 21
+        },
+        {
+          "route": "large-text-rules-last-step",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/large-text-rules-last-step.png",
+            "bytes": 150726,
+            "sha256": "af5356e09ede558c54c559be8304e239a50fb3a8d602fec467042a39a5dc04ec"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/large-text-rules-last-step.xml",
+            "bytes": 6646,
+            "sha256": "ccf6d5452363c30a7dce7b972db493df61ddcc837c491f6f1b2dba6ffd14c3fb"
+          },
+          "xml_node_count": 19
+        },
+        {
+          "route": "large-text-rules-practice-action",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/large-text-rules-practice-action.png",
+            "bytes": 125245,
+            "sha256": "950de7db7beb2fd19e02e508ad63a39549ef5c92cd5b919004f1508a61cf0c3b"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/large-text-rules-practice-action.xml",
+            "bytes": 5560,
+            "sha256": "98c40d8288d5293f7edbe4b8db33b06bbf0a85526149c52b36bd20bd7f96a5c3"
+          },
+          "xml_node_count": 16
+        },
+        {
+          "route": "large-text-rules-practice-entered",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/large-text-rules-practice-entered.png",
+            "bytes": 126389,
+            "sha256": "7c96968e54f41be6cd1167c85372acf4eeffa1a2386b805a5c548f8cf40e46bd"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/large-text-rules-practice-entered.xml",
+            "bytes": 12879,
+            "sha256": "9859d7bad8289b26fa3bf4dd36fdcfbc51049ea212610f911785f826841d00da"
+          },
+          "xml_node_count": 39
+        },
+        {
+          "route": "large-text-rules-returned-home",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/large-text-rules-returned-home.png",
+            "bytes": 81249,
+            "sha256": "47689140526bbacdaf7faef4cc5f247c8a0faca32b38928db3e350f2f534a87f"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/large-text-rules-returned-home.xml",
+            "bytes": 8640,
+            "sha256": "5ebe67f78012ec1f0b9913aefe28e1132a46850f78992dd9ee8cf6c4163fa3a4"
+          },
+          "xml_node_count": 26
+        },
+        {
+          "route": "large-text-settings",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/large-text-settings.png",
+            "bytes": 122905,
+            "sha256": "da91c2ab56b614ac4329f1f3eba5354b48306f2b77b9504a49055c1477aa067e"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/large-text-settings.xml",
+            "bytes": 10750,
+            "sha256": "b1b35cfac5af8a3992387f96476b28b00fc518e9cc7ac1f8c555a591b65d0c57"
+          },
+          "xml_node_count": 32
+        },
+        {
+          "route": "large-text-join-name-soft-ime",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/large-text-join-name-soft-ime.png",
+            "bytes": 124195,
+            "sha256": "5855cf03d305133e0ee4d4d65b580fdf4c01dc803154fbaf33ab3924d67bdb24"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/large-text-join-name-soft-ime.xml",
+            "bytes": 5093,
+            "sha256": "786507915f34f846ef76cf3f30ad0597c29771e755e359395e789c746fa8ab19"
+          },
+          "xml_node_count": 15
+        },
+        {
+          "route": "large-text-join-invalid",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/large-text-join-invalid.png",
+            "bytes": 114680,
+            "sha256": "0490354797ac47392f5fd9d2b0a11b09babad6d874a5528c9013f22107ed3f1f"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/large-text-join-invalid.xml",
+            "bytes": 8097,
+            "sha256": "e1f82803aa9c336aabe5cfd0efd3ec8e666126dabe640344f1f24eebcd05f6b5"
+          },
+          "xml_node_count": 24
+        },
+        {
+          "route": "large-text-private-hand",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/large-text-private-hand.png",
+            "bytes": 85874,
+            "sha256": "6dade6dfe9cbe2e04165714858edced36037eccd42ceae9c72ee6c96060dd8a8"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/large-text-private-hand.xml",
+            "bytes": 15739,
+            "sha256": "8b2a4782a3e290fb9436a7f4b74b1283ef9b13c4d3cc2bd03643442b669ebbdc"
+          },
+          "xml_node_count": 48
+        },
+        {
+          "route": "large-text-play-action",
+          "png": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/large-text-play-action.png",
+            "bytes": 83142,
+            "sha256": "d223ebbd42c8ca8fa01ead6a4ed58aef2043e592eff88885012f8c86d4ea76f0"
+          },
+          "xml": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/large-text-play-action.xml",
+            "bytes": 16043,
+            "sha256": "4a40810be445b2ecf86ac910920641b269d75e5a973d7e833f333ef5daf0e69f"
+          },
+          "xml_node_count": 49
+        }
+      ],
+      "persisted_switches": {
+        "settings-sound": false,
+        "settings-haptics": false,
+        "settings-reduce-motion": true
+      },
+      "played_card": "hand decreased by one",
+      "large_text_font_scale": 2.0,
+      "soft_ime_logs": [
+        {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/join-name-soft-ime-input-method.log",
+          "bytes": 87557,
+          "sha256": "8dbce9b121df99f3e6eacce680ad02cd609cb63c689493f5dcb6e24926e132fa"
+        },
+        {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/large-text-join-name-soft-ime-input-method.log",
+          "bytes": 91460,
+          "sha256": "35fc846fff1e5d415b2d74b7ec7f4d807b4b5d0926395ee96a434b8e4fd72420"
+        }
+      ],
+      "error_diagnostic_restore_failure_fields": []
+    }
+  },
+  "route_png_xml_pair_count": 60,
+  "original_png_count": 63,
+  "input_record_count": 131,
+  "non_route_pngs": [
+    {
+      "path": "/tmp/partydeck-android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/final-screen.png",
+      "bytes": 81033,
+      "sha256": "f1362eb88130241786fc32b23e71014cbfa8f3f91630c7e7e264b6a81f1b6303",
+      "size": [
+        720,
+        1600
+      ]
+    },
+    {
+      "path": "/tmp/partydeck-android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/final-screen.png",
+      "bytes": 81114,
+      "sha256": "e2293693eb6f30e02e204339f9f205d4645f13068e2b93bdcefc4fc135941c5f",
+      "size": [
+        720,
+        1600
+      ]
+    },
+    {
+      "path": "/tmp/partydeck-android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/preparation/attempt-1/final-screen.png",
+      "bytes": 753666,
+      "sha256": "bce872854aa66a8dabf102ae58a806188884fb8be3771eed2abf070c37332bdf",
+      "size": [
+        720,
+        1600
+      ]
+    }
+  ],
+  "image_inventory": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/review/original-native-image-inventory.json",
+    "bytes": 34867,
+    "sha256": "d17286ee6cd1cae4861c015b3ca22bc6f6d63fee0a246f68dd0f61076ed0c916"
+  },
+  "visual_review": {
+    "completed_in_prior_segment_of_this_independent_review": true,
+    "route_images_inspected": 60,
+    "paired_contact_sheets_inspected": 10,
+    "blocking_findings": [],
+    "findings": [
+      "Rules practice CTA readable and fully visible at normal and 200% text in both variants.",
+      "Join focused name field and soft keyboard visible at normal and 200% text in both variants.",
+      "Large hand, selection and play action reachable by scrolling."
+    ],
+    "limits": [
+      "Intermediate scroll captures can clip viewport-edge content; simultaneous fit is not asserted.",
+      "Practice-after-play can show a subsequent bot-driven round result; native Next Round is not specifically qualified.",
+      "Live invitation/QR and Sharesheet images intentionally omitted by pinned harness; geometry and steps preserve those flows."
+    ]
+  },
+  "crash_log_scan": {
+    "pattern": "FATAL EXCEPTION|\\bFatal signal\\b|\\bANR in dev\\.partydeck\\.app\\b|\\bam_anr\\b.*dev\\.partydeck\\.app|\\bam_crash\\b.*dev\\.partydeck\\.app",
+    "files": [
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/acceleration.log",
+        "bytes": 57,
+        "sha256": "4484bdd6d5e16c817d4dfc5cda05334055c86428c861c1d22e8cf67ce42fee49"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/android-api.log",
+        "bytes": 3,
+        "sha256": "90d7ec0f0acef104d8b6252794295f661a0149634868d02a1ae0c358099638f5"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/avd-config.log",
+        "bytes": 3625,
+        "sha256": "a0ce458ea5b8dbfb081bc45c46db2b95f23870f697e1f26c4ad38b9a7b94e92c"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/display-density.log",
+        "bytes": 22,
+        "sha256": "b5bfd6a953a8c2b3c885059d88bc65ed56d93dcda07a435eaffbaa6c0f23e0be"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/display-size.log",
+        "bytes": 24,
+        "sha256": "1ad2de0dcd3731d70d8d421b9574379a8395702c4ab81c429984fde204a77f50"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/events.log",
+        "bytes": 228434,
+        "sha256": "9c50c7f3b9129b25a4d229dbd0aa5d647455654569ada7bbeccc43502c4cae65"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/home-activity.log",
+        "bytes": 128,
+        "sha256": "898d7ee1626e80ee6458ce6f33b180fba77cc33075ed22d413080498ca7964c7"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/input-geometry.log",
+        "bytes": 23331,
+        "sha256": "c338d9ab0b1b19c8a120289065991e01d294ce1ca7d83eb6387de3f151406a75"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/input-help.log",
+        "bytes": 1875,
+        "sha256": "21df8eefea3dba53ddc636fecb93ef347ad99362dee640e721496820972a52b9"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/join-name-soft-ime-input-method.log",
+        "bytes": 58640,
+        "sha256": "48ab9fd8c3b79ffb2de8d5262961efb6557ebde3d5d1b302de14a1c0b9c0389e"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/large-text-join-name-soft-ime-input-method.log",
+        "bytes": 75826,
+        "sha256": "cbe9eb94ec358b1b2c6cacc4fae19b3e12e7c24d9fc59d28f0d4142ae4924af7"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/last-anr.log",
+        "bytes": 88,
+        "sha256": "42cf4931006fd0ff42d3522af31f9346431b409aa22a793ecc16b5aedeed28a1"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/last-ui-dump.log",
+        "bytes": 52,
+        "sha256": "47028187f2b9b2bdb3f809da218f9786bb48cfbc3ab5181dd9498400fad20b3f"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/launch-1-cold.log",
+        "bytes": 168,
+        "sha256": "edbc1153e5af5ccf270cd6a020b8c8840790a8cc499817e801efc1473a1e964e"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/launch-2-saved-settings.log",
+        "bytes": 168,
+        "sha256": "1394d71f37e71017804b6e3dd90b36ac849bfd006c431410015af85d5617d8c0"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/launch-3-resume-practice.log",
+        "bytes": 243,
+        "sha256": "7dbe85ea1eec0b680deafe28be1260ac74f715b1c5a2e46c0b0e5fc1c2643a24"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/launch-4-large-text.log",
+        "bytes": 168,
+        "sha256": "734a4cc925bd76770dbdc54ca46afbc90f8d51ed2d22cd961d0603ad81c619dd"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/logcat.log",
+        "bytes": 5729889,
+        "sha256": "54f93be4ea8cb90f66eca5a7c5c5c6617090d666b62f48b53defb4d9f8d3175d"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/debug/uiautomator-help.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/display-density.log",
+        "bytes": 22,
+        "sha256": "b5bfd6a953a8c2b3c885059d88bc65ed56d93dcda07a435eaffbaa6c0f23e0be"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/display-size.log",
+        "bytes": 24,
+        "sha256": "1ad2de0dcd3731d70d8d421b9574379a8395702c4ab81c429984fde204a77f50"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/emulator.log",
+        "bytes": 9468,
+        "sha256": "9d956c29f6f1f1794250bc52c433feb1a2634ac20f89df00998cdb12b0048db4"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/graphics-apt-install.log",
+        "bytes": 2068,
+        "sha256": "10815283af0d104ba419f21a624f04fafb64971f0efb35725009992c361ab4e3"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/graphics-apt-update.log",
+        "bytes": 2004,
+        "sha256": "a63da0103e431e22ef4b045a994623b0c3847d0af7084fc90d55425f856888ae"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/graphics-options.log",
+        "bytes": 686,
+        "sha256": "2b41d0c256896c5ef239eb26346d65fce2de08275953f3c131d639aedfa69f6f"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/graphics-packages.log",
+        "bytes": 426,
+        "sha256": "12514c6b4027735dc7349c60c98b478cb3d569203f45e537a8291e8a1eb7d2b9"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/graphics-ubuntu-sources.log",
+        "bytes": 2995,
+        "sha256": "4508181e0dd5578c33d1247db48ab4847910b25da85e0789c8e7b3140d1fb289"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/host-cpu.log",
+        "bytes": 3189,
+        "sha256": "7630af067e8703adb64f6501b9ec80e82044e70f37a3df588a41eedc86b6ca24"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/host-memory-after-smoke.log",
+        "bytes": 207,
+        "sha256": "298af346dd118779eb2b85a643d5d1cb0f7ef201e180461d4df9f69b5180bde2"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/host-memory-before-emulator.log",
+        "bytes": 207,
+        "sha256": "37d6eb88c99a4a89457dc8c86d0bf50d2cff91241d48793404f57a3dbabbe008"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/host-process-memory.log",
+        "bytes": 6751,
+        "sha256": "41656f3ca58ba3dfe9cbe4d496536fb6ac7b176dda34ee2210c086126d2e2acc"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/display-density.log",
+        "bytes": 22,
+        "sha256": "b5bfd6a953a8c2b3c885059d88bc65ed56d93dcda07a435eaffbaa6c0f23e0be"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/display-size.log",
+        "bytes": 24,
+        "sha256": "1ad2de0dcd3731d70d8d421b9574379a8395702c4ab81c429984fde204a77f50"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/events.log",
+        "bytes": 341110,
+        "sha256": "2b30c69e5a273a1969102b398ad375d413407b2b792832c38e428faa6455fbec"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/home-activity.log",
+        "bytes": 128,
+        "sha256": "898d7ee1626e80ee6458ce6f33b180fba77cc33075ed22d413080498ca7964c7"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/input-geometry.log",
+        "bytes": 22224,
+        "sha256": "15aa3368ceea4d81d2ae48167475638b45dc0047cc6917ca9ab651300e275833"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/input-help.log",
+        "bytes": 1875,
+        "sha256": "21df8eefea3dba53ddc636fecb93ef347ad99362dee640e721496820972a52b9"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/join-name-soft-ime-input-method.log",
+        "bytes": 87557,
+        "sha256": "8dbce9b121df99f3e6eacce680ad02cd609cb63c689493f5dcb6e24926e132fa"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/large-text-join-name-soft-ime-input-method.log",
+        "bytes": 91460,
+        "sha256": "35fc846fff1e5d415b2d74b7ec7f4d807b4b5d0926395ee96a434b8e4fd72420"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/last-anr.log",
+        "bytes": 88,
+        "sha256": "42cf4931006fd0ff42d3522af31f9346431b409aa22a793ecc16b5aedeed28a1"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/last-ui-dump.log",
+        "bytes": 52,
+        "sha256": "47028187f2b9b2bdb3f809da218f9786bb48cfbc3ab5181dd9498400fad20b3f"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/launch-1-cold.log",
+        "bytes": 166,
+        "sha256": "cd476417b8ca5b37bd2859350d805a2ae857b2e44d6c879e23812d50fd6d2698"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/launch-2-saved-settings.log",
+        "bytes": 166,
+        "sha256": "94c874308a50da2c5e500ba9be1208a1f55ab99a4491f88c8a0f02a829791d75"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/launch-3-resume-practice.log",
+        "bytes": 243,
+        "sha256": "00f09f576c35f9ef11cee0607166693e0ce15aaaa6fe53ba31b7faba912ba970"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/launch-4-large-text.log",
+        "bytes": 166,
+        "sha256": "08f460434519cf3b5bcfdb822bc720a553e40909368cdb804e2f246f53d35439"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/logcat.log",
+        "bytes": 8297252,
+        "sha256": "055d5dff2e49367e473bdc9e4d9e8a1d4c18183465e55ed53659ca0fad4b7305"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/remove-debug.log",
+        "bytes": 8,
+        "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/optimized-test-signed/uiautomator-help.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/packages/alignment-check.log",
+        "bytes": 33686,
+        "sha256": "040e632593f82ff9d132adbd5faacb84b71b82f039767a12220ed642165ba6bb"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/packages/apk-signing.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/packages/input-signature.log",
+        "bytes": 52,
+        "sha256": "1413af210d1627fde4f14e31934eb5d9d031684e4f7a5c3371a74b3bdeb8764c"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/packages/key-generation.log",
+        "bytes": 144,
+        "sha256": "22eb801e6c15da366dbff8ae91f9224d5863c21ce9c401a838ead8d0865c0576"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/packages/signature-verification.log",
+        "bytes": 954,
+        "sha256": "bdff6c66420be34fb8c9c319ec506f319d172963644861eda9391cf1cf25d8e0"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/preparation/attempt-1/android-api.log",
+        "bytes": 3,
+        "sha256": "90d7ec0f0acef104d8b6252794295f661a0149634868d02a1ae0c358099638f5"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/preparation/attempt-1/display-density.log",
+        "bytes": 22,
+        "sha256": "b5bfd6a953a8c2b3c885059d88bc65ed56d93dcda07a435eaffbaa6c0f23e0be"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/preparation/attempt-1/display-size.log",
+        "bytes": 24,
+        "sha256": "1ad2de0dcd3731d70d8d421b9574379a8395702c4ab81c429984fde204a77f50"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/preparation/attempt-1/events.log",
+        "bytes": 124277,
+        "sha256": "00638d2cb6364d408787f09dee1af595d5292aaca9b261f8b4c220229c7e842d"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/preparation/attempt-1/home-activity.log",
+        "bytes": 128,
+        "sha256": "898d7ee1626e80ee6458ce6f33b180fba77cc33075ed22d413080498ca7964c7"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/preparation/attempt-1/input-help.log",
+        "bytes": 1875,
+        "sha256": "21df8eefea3dba53ddc636fecb93ef347ad99362dee640e721496820972a52b9"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/preparation/attempt-1/installed-app-check.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/preparation/attempt-1/last-anr.log",
+        "bytes": 88,
+        "sha256": "42cf4931006fd0ff42d3522af31f9346431b409aa22a793ecc16b5aedeed28a1"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/preparation/attempt-1/last-ui-dump.log",
+        "bytes": 52,
+        "sha256": "47028187f2b9b2bdb3f809da218f9786bb48cfbc3ab5181dd9498400fad20b3f"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/preparation/attempt-1/logcat.log",
+        "bytes": 3236562,
+        "sha256": "cca47ffff427a4ef5eeaf20d83dde86bc924a22f5c1a68d63fa292e0ae22284f"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/preparation/attempt-1/uiautomator-help.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports/build/ci/android/system-image-source.log",
+        "bytes": 320,
+        "sha256": "98d57aac1a56bdff21e948a44332774d7f2127dc28fa413a85ad96bfb81cb7cb"
+      }
+    ],
+    "matches": []
+  },
+  "failure_or_capture_error_files": [],
+  "package_audit": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/review/package-audit.json",
+    "bytes": 23844,
+    "sha256": "69266777e7037cbe15f00de98b359d8124a943e166ee8ad4cc0fd96ff1800f8a"
+  },
+  "originals_modified": false,
+  "reviewer_execution": "Read-only preserved-evidence inspection and derived receipt generation; no app, device, Godot, build or test reruns."
+}

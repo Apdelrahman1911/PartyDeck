@@ -1,0 +1,385 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: Platforms to validate for this manual run
+        required: true
+        type: choice
+        default: all
+        options:
+          - all
+          - android
+          - ios
+      android_api:
+        description: Android runtime API (API 36 remains an unresolved runner qualification)
+        required: true
+        type: choice
+        default: '35'
+        options:
+          - '35'
+          - '36'
+      android_godot_session:
+        description: Exercise qualified production Godot modes through the real presentation picker
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-${{ github.workflow }}-${{ github.ref }}-${{ inputs.platform || 'all' }}-${{ inputs.android_api || '35' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  android:
+    name: Android and shared JVM tests
+    if: ${{ github.event_name != 'workflow_dispatch' || inputs.platform == 'all' || inputs.platform == 'android' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: ${{ inputs.android_godot_session && 70 || 45 }}
+    env:
+      PARTYDECK_ANDROID_API: ${{ inputs.android_api || '35' }}
+      PARTYDECK_ANDROID_GODOT_SESSION_SMOKE: ${{ inputs.android_godot_session && '1' || '0' }}
+      PARTYDECK_SOURCE_REVISION: ${{ github.sha }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Test the Android UI qualification checker
+        timeout-minutes: 2
+        run: python3 -B -m unittest discover -s scripts/tests -p 'test_*.py' -v
+      - name: Set up Java
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@40fd30fb8d7440372e1316f5d1809ec01dcd3699 # v4.0.1
+        with:
+          packages: 'platform-tools platforms;android-37.1 build-tools;36.0.0'
+          log-accepted-android-sdk-licenses: false
+      - name: Set up Gradle and validate wrapper
+        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+        with:
+          cache-provider: basic
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+      - name: Install graphics support for Compose tests
+        run: ./scripts/setup-ubuntu-graphics.sh
+      - name: Record toolchain
+        run: |
+          java -version
+          ./gradlew --version
+          sdkmanager --list_installed
+      - name: Test, lint, and package Android
+        run: xvfb-run -a ./scripts/validate-android.sh
+      - name: Release Gradle build workers before emulator startup
+        if: ${{ !cancelled() && hashFiles('androidApp/build/outputs/apk/debug/*.apk') != '' }}
+        run: ./gradlew --stop
+      - name: Install the Android runtime test image
+        if: ${{ !cancelled() && hashFiles('androidApp/build/outputs/apk/debug/*.apk') != '' }}
+        run: |
+          case "$PARTYDECK_ANDROID_API" in
+            35|36) ;;
+            *) printf '%s\n' 'PARTYDECK_ANDROID_API must be 35 or 36.' >&2; exit 1 ;;
+          esac
+          sdkmanager 'emulator' "system-images;android-${PARTYDECK_ANDROID_API};default;x86_64"
+      - name: Enable runner KVM access
+        if: ${{ !cancelled() && hashFiles('androidApp/build/outputs/apk/debug/*.apk') != '' }}
+        run: |
+          test -e /dev/kvm
+          sudo chmod a+rw /dev/kvm
+      - name: Exercise debug and optimized Android APKs
+        if: ${{ !cancelled() && hashFiles('androidApp/build/outputs/apk/debug/*.apk') != '' }}
+        timeout-minutes: ${{ inputs.android_godot_session && 55 || 30 }}
+        run: ./scripts/smoke-android-emulator.sh
+      - name: Upload test and lint reports
+        if: always()
+        uses: ./.github/actions/upload-artifact
+        with:
+          name: android-jvm-reports
+          path: |
+            **/build/reports/**
+            **/build/test-results/**
+            composeApp/build/ui-snapshots/**
+            build/ci/android/**/*.log
+            build/ci/android/**/*.json
+            build/ci/android/**/*.xml
+            build/ci/android/**/*.png
+            build/ci/android/godot-session/**/*-invalid-screencap.bin
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Upload Android packages
+        if: always()
+        uses: ./.github/actions/upload-artifact
+        with:
+          name: android-packages-and-shrinker-reports
+          path: |
+            androidApp/build/outputs/apk/debug/*.apk
+            androidApp/build/outputs/apk/release/*.apk
+            androidApp/build/outputs/bundle/release/*.aab
+            androidApp/build/outputs/mapping/release/**
+            build/ci/android/packages/*.apk
+          retention-days: 14
+          if-no-files-found: warn
+
+  ios-renderer-pack:
+    name: Export the shared iOS renderer pack
+    if: ${{ github.event_name != 'workflow_dispatch' || inputs.platform == 'all' || inputs.platform == 'ios' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install graphics support for scene validation
+        run: ./scripts/setup-ubuntu-graphics.sh
+      - name: Install checksum-verified Godot
+        run: python3 godot/tools/renderer.py install --destination godot/qualification/build/toolchain
+      - name: Validate the scenes and export the shared PCK
+        timeout-minutes: 10
+        run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          python3 godot/tools/renderer.py pack --godot godot/qualification/build/toolchain/godot
+          printf '%s\n' "$GITHUB_SHA" > godot/qualification/build/renderer/renderer-source-commit.txt
+      - name: Preserve the exact renderer inputs for both iOS builds
+        uses: ./.github/actions/upload-artifact
+        with:
+          name: ios-renderer-pack
+          path: |
+            godot/qualification/build/renderer/partydeck-last-light.pck
+            godot/qualification/build/renderer/partydeck-last-light.receipt.json
+            godot/qualification/build/renderer/renderer-source-commit.txt
+          retention-days: 14
+          if-no-files-found: error
+      - name: Preserve renderer validation evidence
+        if: always()
+        uses: ./.github/actions/upload-artifact
+        with:
+          name: ios-renderer-pack-evidence
+          path: |
+            godot/qualification/build/renderer/pack-logs/**
+            godot/qualification/build/renderer/*.json
+            godot/qualification/build/renderer/renderer-source-commit.txt
+            godot/qualification/build/toolchain/install.receipt.json
+            build/ci/android/graphics-*.log
+          retention-days: 14
+          if-no-files-found: warn
+
+  ios:
+    name: iOS native tests and app smoke
+    needs: [ios-renderer-pack]
+    if: ${{ github.event_name != 'workflow_dispatch' || inputs.platform == 'all' || inputs.platform == 'ios' }}
+    runs-on: macos-26
+    timeout-minutes: 180
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
+      PARTYDECK_IOS_GODOT_PACK: ${{ github.workspace }}/godot/qualification/build/renderer/partydeck-last-light.pck
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Download the renderer from this run
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: ios-renderer-pack
+          path: godot/qualification/build/renderer
+      - name: Verify the renderer revision and export receipt
+        id: renderer-pack
+        shell: bash
+        run: |
+          mkdir -p build/ci/ios
+          {
+            test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+            test "$(cat godot/qualification/build/renderer/renderer-source-commit.txt)" = "$GITHUB_SHA"
+            python3 -B godot/tools/renderer.py check-pack --pack "$PARTYDECK_IOS_GODOT_PACK"
+          } 2>&1 | tee build/ci/ios/renderer-pack-check.log
+      - name: Set up Java
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Set up Android SDK for KMP project configuration
+        uses: android-actions/setup-android@40fd30fb8d7440372e1316f5d1809ec01dcd3699 # v4.0.1
+        with:
+          packages: 'platform-tools platforms;android-37.1 build-tools;36.0.0'
+          log-accepted-android-sdk-licenses: false
+      - name: Set up Gradle and validate wrapper
+        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+        with:
+          cache-provider: basic
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+      - name: Record and check Apple toolchain
+        id: apple-toolchain
+        run: |
+          test -d "$DEVELOPER_DIR"
+          test "$(uname -m)" = arm64
+          java -version
+          ./gradlew --version
+          xcodebuild -version
+          xcodebuild -showsdks
+          xcrun simctl help
+      - name: Run native shared tests and link device framework
+        timeout-minutes: 35
+        run: ./scripts/validate-ios-shared.sh
+      - name: Preserve native shared test evidence before app compilation
+        if: always()
+        uses: ./.github/actions/upload-artifact
+        with:
+          name: ios-shared-native-reports
+          path: |
+            **/build/reports/**
+            **/build/test-results/**
+            build/ci/ios/*.json
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Cache Simulator engine objects
+        if: ${{ !cancelled() && steps.apple-toolchain.outcome == 'success' && steps.renderer-pack.outcome == 'success' }}
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: godot/ios-host/build/scons-cache
+          key: godot-ios-ed1daf0bf-xcode26.4.1-arm64-sim-gl-${{ hashFiles('godot/ios-host/modules/**', 'godot/ios-host/build-probe.sh', 'godot/ios-host/source_audit.py', 'godot/ios-host/stage-engine-inputs.py', 'godot/ios-host/patches/**') }}
+          restore-keys: |
+            godot-ios-ed1daf0bf-xcode26.4.1-arm64-sim-gl-
+      - name: Compile the native Simulator Debug engine
+        id: native-engine
+        if: ${{ !cancelled() && steps.apple-toolchain.outcome == 'success' && steps.renderer-pack.outcome == 'success' }}
+        timeout-minutes: 90
+        shell: bash
+        run: |
+          mkdir -p build/ci/ios godot/ios-host/build/evidence
+          printf '%s\n' "$GITHUB_SHA" > godot/ios-host/build/evidence/engine-source-commit.txt
+          bash godot/ios-host/build-probe.sh engine simulator-debug \
+            2>&1 | tee build/ci/ios/godot-native-simulator-debug.log
+      - name: Build and test the iOS Simulator application
+        id: ios-app
+        if: ${{ !cancelled() && steps.apple-toolchain.outcome == 'success' && steps.renderer-pack.outcome == 'success' && steps.native-engine.outcome == 'success' }}
+        timeout-minutes: 40
+        env:
+          PARTYDECK_IOS_SIMULATOR_GODOT_ENGINE_ROOT: ${{ github.workspace }}/godot/ios-host/build
+        run: ./scripts/validate-ios-app.sh
+      - name: Upload iOS reports and simulator app
+        if: always()
+        uses: ./.github/actions/upload-artifact
+        with:
+          name: ios-reports-and-simulator-app
+          path: |
+            build/ci/ios/*.log
+            build/ci/ios/*.json
+            build/ci/ios/*.png
+            build/ci/ios/*.tar.gz
+            build/ci/ios/PartyDeck.xcresult/**
+            build/ci/ios/attachments/**
+            build/ci/ios/interop/**
+            build/ci/ios/**/*LinkMap*.txt
+            build/ci/ios/DerivedData/Build/Products/Debug-iphonesimulator/PartyDeckGodotInputs/inputs.json
+            godot/ios-host/build/evidence/**
+            godot/qualification/build/renderer/partydeck-last-light.receipt.json
+            godot/qualification/build/renderer/renderer-source-commit.txt
+            composeApp/build/bin/ios*/debugFramework/PartyDeckKit.framework/Headers/**
+            iosApp/PartyDeck.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+          retention-days: 14
+          if-no-files-found: warn
+
+  ios-device:
+    name: iOS optimized unsigned device app
+    needs: [ios-renderer-pack]
+    if: ${{ github.event_name != 'workflow_dispatch' || inputs.platform == 'all' || inputs.platform == 'ios' }}
+    runs-on: macos-26
+    timeout-minutes: 150
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
+      PARTYDECK_IOS_GODOT_PACK: ${{ github.workspace }}/godot/qualification/build/renderer/partydeck-last-light.pck
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Download the renderer from this run
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: ios-renderer-pack
+          path: godot/qualification/build/renderer
+      - name: Verify the renderer revision and export receipt
+        id: renderer-pack
+        shell: bash
+        run: |
+          mkdir -p build/ci/ios
+          {
+            test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+            test "$(cat godot/qualification/build/renderer/renderer-source-commit.txt)" = "$GITHUB_SHA"
+            python3 -B godot/tools/renderer.py check-pack --pack "$PARTYDECK_IOS_GODOT_PACK"
+          } 2>&1 | tee build/ci/ios/renderer-pack-check.log
+      - name: Set up Java
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Set up Android SDK for KMP project configuration
+        uses: android-actions/setup-android@40fd30fb8d7440372e1316f5d1809ec01dcd3699 # v4.0.1
+        with:
+          packages: 'platform-tools platforms;android-37.1 build-tools;36.0.0'
+          log-accepted-android-sdk-licenses: false
+      - name: Set up Gradle and validate wrapper
+        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+        with:
+          cache-provider: basic
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+      - name: Record and check Apple toolchain
+        id: apple-toolchain
+        run: |
+          test -d "$DEVELOPER_DIR"
+          test "$(uname -m)" = arm64
+          java -version
+          ./gradlew --version
+          xcodebuild -version
+          xcodebuild -showsdks
+      - name: Cache device Release engine objects
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: godot/ios-host/build/device-release/scons-cache
+          key: godot-ios-ed1daf0bf-xcode26.4.1-arm64-device-release-gl-${{ hashFiles('godot/ios-host/modules/**', 'godot/ios-host/build-probe.sh', 'godot/ios-host/source_audit.py', 'godot/ios-host/stage-engine-inputs.py', 'godot/ios-host/patches/**') }}
+          restore-keys: |
+            godot-ios-ed1daf0bf-xcode26.4.1-arm64-device-release-gl-
+      - name: Compile the native device Release engine
+        id: native-engine
+        if: ${{ !cancelled() && steps.apple-toolchain.outcome == 'success' && steps.renderer-pack.outcome == 'success' }}
+        timeout-minutes: 90
+        shell: bash
+        run: |
+          mkdir -p build/ci/ios godot/ios-host/build/device-release/evidence
+          printf '%s\n' "$GITHUB_SHA" > godot/ios-host/build/device-release/evidence/engine-source-commit.txt
+          bash godot/ios-host/build-probe.sh engine device-release \
+            2>&1 | tee build/ci/ios/godot-native-device-release.log
+      - name: Build the optimized unsigned iOS device application
+        if: ${{ !cancelled() && steps.apple-toolchain.outcome == 'success' && steps.renderer-pack.outcome == 'success' && steps.native-engine.outcome == 'success' }}
+        timeout-minutes: 40
+        env:
+          PARTYDECK_IOS_DEVICE_GODOT_ENGINE_ROOT: ${{ github.workspace }}/godot/ios-host/build/device-release
+        run: ./scripts/validate-ios-device.sh
+      - name: Upload optimized iOS device evidence
+        if: always()
+        uses: ./.github/actions/upload-artifact
+        with:
+          name: ios-unsigned-release-device-app
+          path: |
+            build/ci/ios/*.log
+            build/ci/ios/*.json
+            build/ci/ios/PartyDeck-device-unsigned.app.tar.gz
+            build/ci/ios/PartyDeck-Release-iphoneos-LinkMap-arm64.txt
+            build/ci/ios/DeviceDerivedData/**/*LinkMap*.txt
+            build/ci/ios/DeviceDerivedData/Build/Products/Release-iphoneos/PartyDeckGodotInputs/inputs.json
+            godot/ios-host/build/device-release/evidence/**
+            godot/qualification/build/renderer/partydeck-last-light.receipt.json
+            godot/qualification/build/renderer/renderer-source-commit.txt
+            composeApp/build/bin/iosArm64/releaseFramework/PartyDeckKit.framework/Headers/**
+            iosApp/PartyDeck.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+          retention-days: 14
+          if-no-files-found: warn

@@ -1,0 +1,288 @@
+{
+  "verdict": "PASS",
+  "blocking_findings": [],
+  "created_utc": "2026-09-10T09:53:28.776286+00:00",
+  "repository": "Apdelrahman1911/PartyDeck",
+  "workflow": "Validate",
+  "run_id": 34456441354,
+  "job_id": 102803833812,
+  "commit": "dad1c11741bd4322bb8b2afb9f18f3db5f50c919",
+  "job_conclusion": "success",
+  "job_url": "https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34456441354/job/102803833812",
+  "job_metadata": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/metadata/20260910T091811.314133Z-android-job.json",
+    "bytes": 4126,
+    "sha256": "a9874e6c0acf891e977a2379820bd33089f8df58630b3db2ffd1994b80265370"
+  },
+  "original_job_log": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/original-logs/android-job-102803833812.log",
+    "bytes": 160822,
+    "sha256": "2a2cef7572e53128f9ecf80ffb2ef007e2cdc37c4b070b31e5350aa85b729c42",
+    "source_job_metadata": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/metadata/20260910T091811.314133Z-android-job.json"
+  },
+  "tests": {
+    "xml_suites": 38,
+    "totals": {
+      "tests": 223,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "module_counts": {
+      "androidApp": {
+        "tests": 45,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "androidRenderer": {
+        "tests": 17,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "bridge": {
+        "tests": 20,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "composeApp": {
+        "tests": 75,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "core": {
+        "tests": 14,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "games": {
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "session": {
+        "tests": 27,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "transport": {
+        "tests": 18,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "all_38_xml_timestamps_within_this_build_step": true,
+    "renderer_17_case_ids_match_prior_independent_baseline": true,
+    "renderer_suites": [
+      {
+        "suite": "dev.partydeck.godot.android.BoundedDispatchQueueTest",
+        "cases": [
+          "closeDropsPreviouslyQueuedCallbacksAndLaterInputs",
+          "startupRetainsCommandsAndWaitsForNativeEmissionAcknowledgment",
+          "terminalCloseReplacesWaitingViewsAndFinishesAfterActualDelivery",
+          "stalledConsumerHasABoundedQueueAndOneTerminalFailure"
+        ]
+      },
+      {
+        "suite": "dev.partydeck.godot.android.NativeSignalDispatchTest",
+        "cases": [
+          "anInFlightViewBarrierDoesNotAcknowledgeTheWaitingClose",
+          "exitBeforeTheBarrierCannotInferCompletionFromAnEarlierNativeCall",
+          "nativeBarrierRemainsObservedWhileMainNotificationIsDelayed",
+          "actualBarrierAfterQueueDisposalStillRecordsDeliveryWithoutAUiCallback",
+          "duplicateBarrierDoesNotRewriteTheFirstObservationOrNotifyTwice",
+          "disposalBeforeDispatchCannotAcknowledgeAnAdmittedClose",
+          "aFreshPluginLifetimeCannotInheritAnOldCloseObservation",
+          "failedEmissionCannotScheduleAnAcknowledgmentBarrier"
+        ]
+      },
+      {
+        "suite": "dev.partydeck.godot.android.RendererExitWaitTest",
+        "cases": [
+          "interruptionStopsRetryWithoutClaimingExit",
+          "earlyMonitorWakesDoNotReplaceActualExitConfirmation",
+          "repeatedWakesShareOneDeadlineAndNeverCountAsExit"
+        ]
+      },
+      {
+        "suite": "dev.partydeck.godot.android.RendererInputGateTest",
+        "cases": [
+          "queuedInputCannotBecomeValidAgainAfterFocusReturns",
+          "initiallyCoveredEntryAcceptsOnlyItsFirstInteractiveGeneration"
+        ]
+      }
+    ],
+    "separate_python_checker_tests": 36,
+    "separate_checker_log_evidence": [
+      "2026-09-10T08:41:20.8830249Z Ran 36 tests in 0.220s"
+    ]
+  },
+  "packages": {
+    "debug": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144577717-android-packages-and-shrinker-reports/androidApp/build/outputs/apk/debug/androidApp-debug.apk",
+      "bytes": 334770875,
+      "sha256": "1f90057342a83c6edb4c1c0e1e674faf59ffd0a13874df304193164a045e00c7"
+    },
+    "unsigned-release": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144577717-android-packages-and-shrinker-reports/androidApp/build/outputs/apk/release/androidApp-release-unsigned.apk",
+      "bytes": 316234855,
+      "sha256": "e4b27b87896cf9ad5fdea50e957bb6caef6c0cda308db4229dac595d153325bd"
+    },
+    "optimized-test-signed": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144577717-android-packages-and-shrinker-reports/build/ci/android/packages/PartyDeck-release-ci-test-signed.apk",
+      "bytes": 316285894,
+      "sha256": "52905946b8121c5b83064818793bcb2a663389dae5de2608d5f293eba7e6141c"
+    },
+    "release-bundle": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144577717-android-packages-and-shrinker-reports/androidApp/build/outputs/bundle/release/androidApp-release.aab",
+      "bytes": 112599025,
+      "sha256": "1ef620257ec18c6142149f5d67d0a8a90b1b824f9ce6d1a1db9e5f79d7e61173"
+    }
+  },
+  "optimized_package_lineage": {
+    "all_550_unsigned_release_payload_entries_unchanged": true,
+    "added_signature_entries": [
+      "META-INF/MANIFEST.MF",
+      "META-INF/PARTYDEC.RSA",
+      "META-INF/PARTYDEC.SF"
+    ],
+    "disposable_certificate_sha256": "1234b4a753bddf28ba60e3726ded770ba6519d6a57180bd5f42b71680653f71d",
+    "not_debuggable": true,
+    "distribution_signed": false,
+    "signature_and_16kib_alignment_verified": true,
+    "debug_dex_class_count": 33018,
+    "release_dex_class_count": 4509,
+    "same_reviewed_pck_in_all_four_archives": true,
+    "pck": {
+      "path": "assets/partydeck-last-light.pck",
+      "sha256": "8f24944d61b0430cfec4a32bb1d03d2c7da9f55918264e9cfcded1c675d21539",
+      "bytes": 1546376,
+      "compression": 0,
+      "count": 1
+    }
+  },
+  "native_runtime": {
+    "android_api": 35,
+    "display_px": [
+      720,
+      1600
+    ],
+    "density_dpi": 280,
+    "same_emulator_boot": true,
+    "debug_passed": true,
+    "optimized_test_signed_passed": true,
+    "actual_apk_hashes_match_smoke_receipts": true,
+    "preparation_first_attempt_passed_without_reboot": true,
+    "route_png_xml_pairs": 60,
+    "original_pngs": 63,
+    "input_records": 131,
+    "normal_and_200_percent_text_reviewed": true,
+    "receipt": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/review/native-runtime-audit.json",
+      "bytes": 84195,
+      "sha256": "90689999989d6b164acbcd60208f4fb213340d7b95a57011eeb31dd99dd5d178"
+    }
+  },
+  "qualified_routes": [
+    "Home",
+    "Rules Back, readable practice CTA, direct practice entry and confirmed return Home",
+    "Three settings survive actual force-stop/relaunch",
+    "Practice reveal/select/hide, background concealment, accepted one-card play and leave",
+    "Local host creation, invitation QR/copy, Sharesheet cancellation and teardown",
+    "Invalid Join feedback, edit recovery, name preservation and Back",
+    "200% text Home, Rules, Settings, Join with soft keyboard, hand selection and play-action reachability"
+  ],
+  "qualification_limits": [
+    "Android job 102803833812 at dad1c11741bd4322bb8b2afb9f18f3db5f50c919 only; no verdict on the whole workflow, iOS or API 36.",
+    "Godot chooser remains unadvertised in pinned sources and Godot session smoke was disabled; no native Godot-session or renderer gameplay qualification.",
+    "Single-emulator shell UI and local hosting; physical LAN, camera frames and distribution signing are outside this evidence.",
+    "QR/Sharesheet flow qualified from original steps and input geometry; their live images were intentionally excluded.",
+    "Scroll reachability is qualified, not simultaneous fit of every control; native Next Round was not specifically qualified."
+  ],
+  "original_artifacts": [
+    {
+      "id": 10144559609,
+      "name": "android-jvm-reports",
+      "created_at": "2026-09-10T09:05:16Z",
+      "updated_at": "2026-09-10T09:05:16Z",
+      "archive_path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/original-artifacts/10144559609-android-jvm-reports.zip",
+      "archive_bytes": 12072854,
+      "archive_sha256": "46af5448c9ad21cd4cf11944fe835863f08c0c04586cbae4ba3d8e01d27b9a67",
+      "github_digest": "sha256:46af5448c9ad21cd4cf11944fe835863f08c0c04586cbae4ba3d8e01d27b9a67",
+      "github_size_in_bytes": 12072854,
+      "extracted_path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144559609-android-jvm-reports",
+      "file_count": 413,
+      "extracted_bytes": 30324733,
+      "inventory_path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/review/10144559609-android-jvm-reports-original-file-inventory.json",
+      "inventory_sha256": "6252e9cc896a4e4f106c12a0820a2ed66dbc167217b31497ec6ca1bf3564b0d0",
+      "downloaded_utc": "2026-09-10T09:18:18.540527+00:00",
+      "source_metadata": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/metadata/20260910T091812.737873Z-artifacts.json",
+      "every_extracted_file_rehashed": true
+    },
+    {
+      "id": 10144577717,
+      "name": "android-packages-and-shrinker-reports",
+      "created_at": "2026-09-10T09:05:45Z",
+      "updated_at": "2026-09-10T09:05:45Z",
+      "archive_path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/original-artifacts/10144577717-android-packages-and-shrinker-reports.zip",
+      "archive_bytes": 474328599,
+      "archive_sha256": "e8d295dbca03747bff03fc04987ce8b136c65298692b011a390711e795575c73",
+      "github_digest": "sha256:e8d295dbca03747bff03fc04987ce8b136c65298692b011a390711e795575c73",
+      "github_size_in_bytes": 474328599,
+      "extracted_path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/extracted/10144577717-android-packages-and-shrinker-reports",
+      "file_count": 12,
+      "extracted_bytes": 1141435535,
+      "inventory_path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/review/10144577717-android-packages-and-shrinker-reports-original-file-inventory.json",
+      "inventory_sha256": "750cdbf661a1b8c1340ba3a6daab67f93a1b6e42c903ea79184fa22b49d5c383",
+      "downloaded_utc": "2026-09-10T09:19:04.974413+00:00",
+      "source_metadata": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/metadata/20260910T091812.737873Z-artifacts.json",
+      "every_extracted_file_rehashed": true
+    }
+  ],
+  "receipt_references": [
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/artifact-download-receipt.json",
+      "bytes": 3630,
+      "sha256": "0a88b93ae662e2d77cef895ca67fffbe84a4c5ed2eb665e79f74572d3c801d91"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/review/test-xml-audit.json",
+      "bytes": 87171,
+      "sha256": "664506c168d690315e67f23b1f92c54c3595de76ede2fd36f4f8c3736a34ad1f"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/review/package-audit.json",
+      "bytes": 23844,
+      "sha256": "69266777e7037cbe15f00de98b359d8124a943e166ee8ad4cc0fd96ff1800f8a"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/review/original-native-image-inventory.json",
+      "bytes": 34867,
+      "sha256": "d17286ee6cd1cae4861c015b3ca22bc6f6d63fee0a246f68dd0f61076ed0c916"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/source/source-receipt.json",
+      "bytes": 3374,
+      "sha256": "7f6a1479946a4ffdedf7bd9d6e15ba550701d7b1090e00ff630655eee19d5d6c"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354/review/native-runtime-audit.json",
+      "bytes": 84195,
+      "sha256": "90689999989d6b164acbcd60208f4fb213340d7b95a57011eeb31dd99dd5d178"
+    }
+  ],
+  "preservation": {
+    "workspace_evidence_root": "/root/projects/PartyDeck/artifacts/evidence-storage/android-production-native-34456441354",
+    "tmp_symlink": "/tmp/partydeck-android-production-native-34456441354",
+    "original_archives_logs_screenshots_preserved": true,
+    "download_resume_was_transfer_recovery_not_ci_failure": true
+  },
+  "reviewer_execution": "Independent read-only XML, package, native-log and screenshot audit; no build/test/app/device/Godot reruns, CI dispatch, source edits or Git mutations."
+}
