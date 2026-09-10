@@ -5,6 +5,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import sys
@@ -25,6 +26,54 @@ def file_receipt(path: Path) -> dict:
         for block in iter(lambda: stream.read(1024 * 1024), b""):
             digest.update(block)
     return {"sha256": digest.hexdigest(), "bytes": path.stat().st_size}
+
+
+def verify_retained_pack_pin(runtime: Path, pack: Path, verified_pack: dict) -> str:
+    if (not isinstance(verified_pack, dict) or not pack.is_file()
+            or file_receipt(pack) != verified_pack):
+        raise SystemExit("The retained host requires the unchanged receipt-verified staged PCK.")
+    source = runtime.read_text()
+    # The maintained source uses no line splicing. Reject unsupported spelling
+    # instead of mistaking a continued comment or string for a declaration.
+    if re.search(r'\\[ \t]*\n', source):
+        raise SystemExit("The retained native pin preflight does not support escaped source newlines.")
+    # Keep comments and all quoted literals opaque, including C++ raw strings.
+    tokens = [
+        match[0] for match in re.finditer(
+            r'//[^\n]*|/\*.*?\*/|(?:u8|u|U|L)?R"(?P<delimiter>[^ ()\\\t\r\n]{0,16})\(.*?\)(?P=delimiter)"'
+            r'|@?"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'|[A-Za-z_]\w*|==|\S',
+            source, re.DOTALL,
+        ) if not match[0].startswith(("//", "/*"))
+    ]
+    declarations = []
+    for index, token in enumerate(tokens):
+        if token != "PDQualifiedRetainedPackSHA256":
+            continue
+        previous = tokens[index - 1] if index else ""
+        following = tokens[index + 1] if index + 1 < len(tokens) else ""
+        # Recognize declarators independently of assignment/direct/brace/default
+        # initialization, and reject additional assignments to this symbol.
+        if ((re.fullmatch(r'[A-Za-z_]\w*|[*&]', previous)
+             and previous not in {"return", "co_return", "throw", "case"})
+                or following in {"=", "(", "{"}):
+            declarations.append(index)
+    pin = None
+    if len(declarations) == 1:
+        index = declarations[0]
+        if (index >= 4 and tokens[index - 4:index] == ["static", "NSString", "*", "const"]
+                and tokens[index + 1:index + 2] == ["="] and tokens[index + 3:index + 4] == [";"]):
+            pin = re.fullmatch(r'@"([a-f0-9]{64})"', tokens[index + 2])
+    if pin is None:
+        raise SystemExit(
+            "The retained host requires exactly one literal PDQualifiedRetainedPackSHA256 "
+            "declaration in PDGodotRuntime.mm."
+        )
+    if pin[1] != verified_pack["sha256"]:
+        raise SystemExit(
+            f"The receipt-verified retained PCK SHA-256 {verified_pack['sha256']} does not match "
+            f"PDQualifiedRetainedPackSHA256 {pin[1]}; native execution would reject it."
+        )
+    return pin[1]
 
 
 def verify_engine_patch_receipt(engine: dict, patch_root: Path = ROOT / "patches") -> None:
@@ -58,6 +107,8 @@ def main() -> None:
     parser.add_argument("--framework", required=True, type=Path)
     parser.add_argument("--framework-receipt", required=True, type=Path)
     parser.add_argument("--pack", required=True, type=Path)
+    parser.add_argument("--retained", action="store_true",
+                        help="Require the staged PCK to match the native retained-engine literal.")
     args = parser.parse_args()
     engine = json.loads((ROOT / "build/evidence/engine-artifact.json").read_text())
     if engine.get("engine_commit") != COMMIT or engine.get("path_overrides_enabled") is not True:
@@ -123,6 +174,12 @@ def main() -> None:
         "ios_authority_runtime_executed": False,
         "kmp_factory_qualified": False,
     }
+    if args.retained:
+        result["native_pack_sha256"] = verify_retained_pack_pin(
+            ROOT / "modules/partydeck_ios_probe/PDGodotRuntime.mm",
+            ROOT / "build/host-resources/ProbeResources/partydeck-last-light.pck",
+            resources.get("optional_shared_pack"),
+        )
     (evidence / "authority-host-inputs.json").write_text(json.dumps(result, indent=2) + "\n")
     print("Staged the receipt-matched Kotlin framework and verified shared renderer pack.")
 

@@ -95,10 +95,12 @@ PY
 
 # This reuses the established receipt verification and fixed pack staging.
 # It performs no Gradle or engine build and exports no replacement PCK.
+# Retained entry also requires the exact pack pinned by the verified native module.
 python3 "$PARTYDECK_RETAINED_ROOT/prepare-authority-host.py" \
   --framework "$PARTYDECK_RETAINED_FRAMEWORK" \
   --framework-receipt "$PARTYDECK_RETAINED_FRAMEWORK_RECEIPT" \
-  --pack "$PARTYDECK_RETAINED_PACK"
+  --pack "$PARTYDECK_RETAINED_PACK" \
+  --retained
 python3 - "$PARTYDECK_RETAINED_ROOT" "$PARTYDECK_RETAINED_EVIDENCE" <<'PY'
 from pathlib import Path
 import datetime, hashlib, json, sys
