@@ -13,6 +13,25 @@ motion and sound preferences persist in this app's private preferences.
 
 ## Build and run
 
+To try the already-built Android comparison, download the artifact from
+[run 34478725424](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34478725424).
+Both 2D/3D modes passed the API 35 normal/200% comparison and all twelve exits.
+This is a local-practice preview; production sessions and physical-device
+qualification remain separate. With GitHub CLI and Android platform tools:
+
+```sh
+gh run download 34478725424 --repo Apdelrahman1911/PartyDeck \
+  --name godot-comparison-runtime-apk --dir partydeck-godot-preview
+sha256sum partydeck-godot-preview/modules/androidHost/outputs/apk/debug/androidHost-debug.apk
+adb install -r partydeck-godot-preview/modules/androidHost/outputs/apk/debug/androidHost-debug.apk
+adb shell am start -n dev.partydeck.godot.compare/.ComparisonActivity
+```
+
+Expected APK SHA-256:
+`353b09f5e0de5ee1e7b5e673ba5cb7b1d114c947f734ddfcc8a5432fb77e8e1b`.
+Choose **Play Last Light · 2D** or **Play Last Light · 3D** in the app. CI artifacts
+are retained for fourteen days; use the source build below after expiry.
+
 From the repository root, with the Android SDK configured:
 
 ```sh
