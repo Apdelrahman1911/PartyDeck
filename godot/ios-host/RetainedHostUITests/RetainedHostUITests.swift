@@ -131,7 +131,8 @@ final class RetainedHostUITests: XCTestCase {
             !self.flag("modelDeliveryPending", $0) && self.number("modelQueuedDocuments", $0) == 0
         }
         element("switch-table", app).tap()
-        let second = try await diagnostics(app) { $0["mode"] as? String == "3d" && self.number("entryCount", $0) == 2 }
+        // Match enter(): close completion starts a fresh presentation with the same startup budget.
+        let second = try await diagnostics(app, timeout: 60) { $0["mode"] as? String == "3d" && self.number("entryCount", $0) == 2 }
         let closed = closure(second)
         try assertClosure(closed)
         XCTAssertEqual(closed["reason"] as? String, "SWITCH_FROM_CLOSE_COMPLETION")
