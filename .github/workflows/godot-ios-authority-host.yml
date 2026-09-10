@@ -1,7 +1,25 @@
-name: Godot iOS playable authority host
+name: Godot iOS native hosts
 
 on:
   workflow_dispatch:
+    inputs:
+      host:
+        description: Native host suite to execute with the same build inputs
+        required: true
+        type: choice
+        default: authority
+        options:
+          - authority
+          - retained
+          - both
+      retained_stage:
+        description: Retained harness compile only, or compile and execute all three native cases
+        required: true
+        type: choice
+        default: test
+        options:
+          - build
+          - test
 
 permissions:
   contents: read
@@ -66,7 +84,7 @@ jobs:
         timeout-minutes: 90
         run: |
           test "$(uname -m)" = arm64
-          bash godot/ios-host/build-probe.sh engine
+          bash godot/ios-host/build-probe.sh engine simulator-debug
           printf '%s\n' "$GITHUB_SHA" > godot/ios-host/build/evidence/engine-source-commit.txt
       - name: Preserve engine artifacts and build evidence
         if: always()
@@ -120,6 +138,7 @@ jobs:
           if-no-files-found: warn
 
   native-gameplay:
+    if: ${{ inputs.host != 'retained' }}
     name: Link the Swift caller and exercise native gameplay
     needs: [renderer-pack, native-engine, authority-framework]
     runs-on: macos-26
@@ -201,3 +220,224 @@ jobs:
             godot/ios-host/build/artifacts/AuthorityHost-simulator.app.tar.gz
             godot/ios-host/build/artifacts/authority-attachments/**
           if-no-files-found: warn
+
+  retained-native:
+    name: Retained native engine / ${{ inputs.retained_stage || 'test' }}
+    if: ${{ inputs.host == 'retained' || inputs.host == 'both' }}
+    needs: [renderer-pack, native-engine, authority-framework]
+    runs-on: macos-26
+    timeout-minutes: 60
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
+      PARTYDECK_RETAINED_CI_STAGE: ${{ inputs.retained_stage || 'test' }}
+      PARTYDECK_GODOT_RETAINED_FRAMEWORK: ${{ github.workspace }}/godot/ios-host/build/framework-input/PartyDeckGodotBridge.framework
+      PARTYDECK_GODOT_RETAINED_FRAMEWORK_RECEIPT: ${{ github.workspace }}/godot/ios-host/build/evidence/authority-framework-result.json
+      PARTYDECK_GODOT_RETAINED_PCK: ${{ github.workspace }}/godot/ios-host/build/retained-inputs/renderer/partydeck-last-light.pck
+    steps:
+      - name: Check out the same source revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Record the retained-host invocation before downloading inputs
+        shell: bash
+        run: |
+          mkdir -p godot/ios-host/build/evidence
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          import platform
+          import subprocess
+
+          stage = os.environ['PARTYDECK_RETAINED_CI_STAGE']
+          source = subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
+          context = {
+              'source_commit': source,
+              'expected_source_commit': os.environ['GITHUB_SHA'],
+              'run_id': os.environ['GITHUB_RUN_ID'],
+              'run_attempt': os.environ['GITHUB_RUN_ATTEMPT'],
+              'workflow_ref': os.environ['GITHUB_WORKFLOW_REF'],
+              'workflow_sha': os.environ['GITHUB_WORKFLOW_SHA'],
+              'requested_stage': stage,
+              'system': platform.system(),
+              'machine': platform.machine(),
+              'input_artifacts': ['godot-ios-host-renderer', 'godot-ios-host-engine', 'godot-ios-host-framework'],
+              'input_scope': 'Named artifacts from this workflow run; no external run or repository fallback.',
+          }
+          Path('godot/ios-host/build/evidence/retained-ci-context.json').write_text(json.dumps(context, indent=2) + '\n')
+          if stage not in {'build', 'test'} or source != os.environ['GITHUB_SHA']:
+              raise SystemExit('The retained stage and checked-out source revision must match this dispatch.')
+          if (context['system'], context['machine']) != ('Darwin', 'arm64'):
+              raise SystemExit('The retained harness requires the ARM64 macOS runner.')
+          PY
+      - name: Download the shared PCK from this run
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: godot-ios-host-renderer
+          path: godot/ios-host/build/retained-inputs/renderer
+          digest-mismatch: error
+      - name: Download the Simulator engine from this run
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: godot-ios-host-engine
+          path: godot/ios-host/build/retained-inputs/engine
+          digest-mismatch: error
+      - name: Download the qualification framework from this run
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: godot-ios-host-framework
+          path: godot/ios-host/build/retained-inputs/framework
+          digest-mismatch: error
+      - name: Verify the same-revision Simulator archives before staging
+        timeout-minutes: 10
+        shell: bash
+        run: |
+          python3 - <<'PY' 2>&1 | tee godot/ios-host/build/evidence/retained-ci-input-verification.log
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+          import shutil
+
+          build = Path('godot/ios-host/build')
+          evidence = build / 'evidence'
+          inputs = build / 'retained-inputs'
+          verification = {'archive_integrity_verified': False, 'source_commit': os.environ['GITHUB_SHA'], 'files': []}
+
+          def receipt(path):
+              checksum = hashlib.sha256()
+              with path.open('rb') as stream:
+                  for block in iter(lambda: stream.read(1048576), b''):
+                      checksum.update(block)
+              return {'sha256': checksum.hexdigest(), 'bytes': path.stat().st_size}
+
+          def verify(path, expected):
+              actual = receipt(path)
+              if any(actual[key] != expected.get(key) for key in actual):
+                  raise ValueError(f'Downloaded input differs from its build receipt: {path}')
+              verification['files'].append({'path': str(path), **actual})
+
+          try:
+              for kind, name in [('engine', 'engine-source-commit.txt'), ('framework', 'authority-source-commit.txt')]:
+                  path = inputs / kind / 'evidence' / name
+                  if path.read_text().strip() != os.environ['GITHUB_SHA']:
+                      raise ValueError(f'Downloaded input uses a different source revision: {name}')
+                  verification['files'].append({'path': str(path), **receipt(path)})
+              engine_receipt = inputs / 'engine/evidence/engine-artifact.json'
+              engine = json.loads(engine_receipt.read_text())
+              expected_engine = {
+                  'engine_commit': 'ed1daf0bf001b61586d9930840f2f1394092c079',
+                  'stage': 'engine_compile_only', 'platform': 'ios', 'target': 'template_debug',
+                  'configuration': 'Debug', 'simulator': True, 'architecture': 'arm64',
+                  'sdk': 'iphonesimulator', 'xcode_version': '26.4.1',
+                  'rendering_drivers': ['opengl3'], 'path_overrides_enabled': True,
+              }
+              for key, value in expected_engine.items():
+                  if type(engine.get(key)) is not type(value) or engine.get(key) != value:
+                      raise ValueError(f'The retained harness requires the reviewed Simulator/Debug engine: {key}')
+              archives = [engine, *engine.get('auxiliary_archives', [])]
+              expected_archives = {
+                  'libpartydeck_godot_ios_probe.a': 'libgodot.ios.template_debug.arm64.simulator.a',
+                  'libpartydeck_godot_camera.a': 'libgodot_camera.ios.template_debug.arm64.simulator.a',
+              }
+              if len(archives) != 2 or {item.get('artifact') for item in archives} != set(expected_archives):
+                  raise ValueError('Both distinct Simulator native archives are required.')
+              for archive in archives:
+                  if archive.get('upstream_archive') != expected_archives[archive['artifact']]:
+                      raise ValueError('A native archive has an unexpected platform/configuration name.')
+                  verify(inputs / 'engine/artifacts' / archive['artifact'], archive)
+              framework_receipt = inputs / 'framework/evidence/authority-framework-result.json'
+              framework = json.loads(framework_receipt.read_text())
+              if (framework.get('stage') != 'authority_framework_compilation'
+                      or framework.get('target') != 'iosSimulatorArm64'
+                      or framework.get('configuration') != 'debugFramework'
+                      or not all(framework.get(key) is True for key in (
+                          'framework_compiled', 'expected_facade_declarations_present', 'swift_module_import_typechecked'))):
+                  raise ValueError('The successful ARM64 Simulator qualification framework is required.')
+              if framework['archive']['name'] != 'PartyDeckGodotBridge-simulator.framework.tar.gz':
+                  raise ValueError('The framework receipt names an unexpected archive.')
+              verify(inputs / 'framework/artifacts' / framework['archive']['name'], framework['archive'])
+              for path in (engine_receipt, framework_receipt,
+                           inputs / 'renderer/partydeck-last-light.pck',
+                           inputs / 'renderer/partydeck-last-light.receipt.json'):
+                  verification['files'].append({'path': str(path), **receipt(path)})
+              artifacts = build / 'artifacts'
+              artifacts.mkdir(exist_ok=False)
+              for archive in archives:
+                  source = inputs / 'engine/artifacts' / archive['artifact']
+                  destination = artifacts / archive['artifact']
+                  shutil.copy2(source, destination)
+                  verify(destination, archive)
+              shutil.copy2(engine_receipt, evidence / 'engine-artifact.json')
+              shutil.copy2(framework_receipt, evidence / 'authority-framework-result.json')
+              verification['archive_integrity_verified'] = True
+              verification['remaining_gate'] = 'The runner verifies current native modules/patches, framework files and exact-source PCK before any link or test.'
+          except Exception as error:
+              verification['error'] = f'{type(error).__name__}: {error}'
+              raise
+          finally:
+              (evidence / 'retained-ci-inputs.json').write_text(json.dumps(verification, indent=2) + '\n')
+          PY
+          mkdir godot/ios-host/build/framework-input
+          tar -xzf godot/ios-host/build/retained-inputs/framework/artifacts/PartyDeckGodotBridge-simulator.framework.tar.gz \
+            -C godot/ios-host/build/framework-input \
+            2>&1 | tee -a godot/ios-host/build/evidence/retained-ci-input-verification.log
+      - name: Compile and execute the requested retained-host stage
+        timeout-minutes: 40
+        shell: bash
+        run: |
+          bash godot/ios-host/test-retained-host.sh "$PARTYDECK_RETAINED_CI_STAGE" \
+            2>&1 | tee godot/ios-host/build/evidence/retained-ci-runner.log
+      - name: Archive complete retained-host inputs and available native evidence
+        if: always()
+        timeout-minutes: 10
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+          import tarfile
+
+          build = Path('godot/ios-host/build')
+          destination = build / 'retained-ci-preserved'
+          destination.mkdir(parents=True, exist_ok=False)
+          stage = os.environ['PARTYDECK_RETAINED_CI_STAGE']
+          paths = [build / 'retained-inputs', build / 'evidence', build / 'host-resources']
+          if stage in {'build', 'test'}:
+              paths += [build / f'retained-host-{stage}/evidence', build / f'retained-host-{stage}/artifacts']
+          present = [path for path in paths if path.exists()]
+          archive = destination / 'retained-host-evidence.tar.gz'
+          with tarfile.open(archive, 'x:gz') as output:
+              for path in present:
+                  output.add(path, arcname=path.relative_to(build).as_posix())
+          digest = hashlib.sha256()
+          with archive.open('rb') as stream:
+              for block in iter(lambda: stream.read(1048576), b''):
+                  digest.update(block)
+          preservation = {
+              'source_commit': os.environ['GITHUB_SHA'],
+              'run_id': os.environ['GITHUB_RUN_ID'], 'run_attempt': os.environ['GITHUB_RUN_ATTEMPT'],
+              'requested_stage': stage,
+              'included_directories': [path.relative_to(build).as_posix() for path in present],
+              'unavailable_directories': [path.relative_to(build).as_posix() for path in paths if not path.exists()],
+              'archive': {'name': archive.name, 'bytes': archive.stat().st_size, 'sha256': digest.hexdigest()},
+              'scope': 'Original downloaded inputs, staging receipts/resources, and all available harness evidence/artifacts, including complete XCResult contents and hidden files. Packaging makes no qualification claim.',
+          }
+          (destination / 'preservation.json').write_text(json.dumps(preservation, indent=2) + '\n')
+          PY
+      - name: Preserve retained-host evidence even when compilation or tests fail
+        if: always()
+        timeout-minutes: 10
+        uses: ./.github/actions/upload-artifact
+        with:
+          name: godot-ios-retained-host-${{ inputs.retained_stage || 'test' }}-attempt-${{ github.run_attempt }}
+          path: |
+            godot/ios-host/build/retained-ci-preserved/**
+            godot/ios-host/build/evidence/retained-ci-*.json
+            godot/ios-host/build/evidence/retained-ci-*.log
+            godot/ios-host/build/retained-host-*/evidence/**
+            godot/ios-host/build/retained-host-*/artifacts/**
+          retention-days: 14
+          if-no-files-found: error
