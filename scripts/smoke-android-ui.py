@@ -33,6 +33,14 @@ def node_bounds(node):
     return tuple(map(int, match.groups())) if match else None
 
 
+def intersect_bounds(first, second):
+    if first is None or second is None:
+        return None
+    left, top = max(first[0], second[0]), max(first[1], second[1])
+    right, bottom = min(first[2], second[2]), min(first[3], second[3])
+    return (left, top, right, bottom) if left < right and top < bottom else None
+
+
 def checked(node):
     if node is not None:
         for candidate in node.iter("node"):
@@ -59,6 +67,9 @@ class AndroidSmoke:
         self.saved_settings = {}
         self.sensitive_surface = False
         self.launch_count = 0
+        self.ui_root = None
+        self.ui_parents = {}
+        self.ui_sequence = 0
 
     def adb(self, *arguments, timeout=20, binary=False):
         result = subprocess.run(
@@ -119,7 +130,7 @@ class AndroidSmoke:
         self.write_text("last-ui-dump.log", output)
         xml = self.adb("shell", "cat", "/sdcard/partydeck-ci-ui.xml", timeout=timeout())
         root = ET.fromstring(xml)
-        self.rotation = int(root.get("rotation", "0"))
+        self.bind_ui(root)
         self.write_text("last-ui.xml", xml)
         return root
 
@@ -131,17 +142,39 @@ class AndroidSmoke:
             title = "; ".join(titles) or "Android crash/ANR dialog"
             raise RuntimeError(f"{self.stage}: {title}. Runtime checks cannot continue through a crash/ANR dialog.")
 
-    def visible(self, node):
-        bounds = node_bounds(node)
-        if not bounds:
-            return False
-        left, top, right, bottom = bounds
+    def bind_ui(self, root):
+        if root is not self.ui_root:
+            self.ui_root = root
+            self.ui_parents = {child: parent for parent in root.iter() for child in parent}
+            self.ui_sequence += 1
+            self.rotation = int(root.get("rotation", "0"))
+
+    def viewport(self, node, include_self=False):
+        # Nodes from an older dump have no current geometry. Compose can report
+        # bounds beyond a ScrollView even when that part is under a system bar.
+        if node is None or (node is not self.ui_root and node not in self.ui_parents):
+            return None
         width, height = self.display_size
         if self.rotation % 2:
             width, height = height, width
-        return right > left >= 0 and bottom > top >= 0 and right <= width and bottom <= height
+        viewport = (0, 0, width, height)
+        ancestor = node if include_self else self.ui_parents.get(node)
+        while ancestor is not None:
+            if (ancestor is node or ancestor.get("scrollable") == "true" or ancestor.get("class") in (
+                    "android.widget.ScrollView", "android.widget.HorizontalScrollView",
+                    "androidx.core.widget.NestedScrollView")):
+                viewport = intersect_bounds(viewport, node_bounds(ancestor))
+                if viewport is None:
+                    return None
+            ancestor = self.ui_parents.get(ancestor)
+        return viewport
+
+    def visible(self, node):
+        bounds, viewport = node_bounds(node), self.viewport(node)
+        return bounds is not None and viewport is not None and intersect_bounds(bounds, viewport) == bounds
 
     def find(self, root, tag, fallback_text=None, enabled=True):
+        self.bind_ui(root)
         for node in root.iter("node"):
             resource_id = node.get("resource-id", "")
             matches_tag = resource_id == tag or resource_id.endswith("/" + tag)
@@ -187,24 +220,48 @@ class AndroidSmoke:
         )
 
     def swipe(self, direction, root, timeout=10):
-        # Prefer the actual scroll viewport, including a dialog's inner list.
-        candidates = [node_bounds(node) for node in root.iter("node")
-                      if node.get("scrollable") == "true" and self.visible(node)]
-        candidates = [bounds for bounds in candidates if bounds[3] - bounds[1] > 100]
+        self.bind_ui(root)
+        # App scrolling must not turn a launcher/shade tree into a system gesture.
+        candidates = [(node, self.viewport(node, include_self=True)) for node in root.iter("node")
+                      if node.get("package") == PACKAGE and node.get("scrollable") == "true"
+                      and node.get("enabled") != "false"]
+        candidates = [(node, bounds) for node, bounds in candidates
+                      if bounds is not None and bounds[3] - bounds[1] > 100]
         if not candidates:
             return
-        left, top, right, bottom = max(candidates, key=lambda b: (b[2] - b[0]) * (b[3] - b[1]))
+        node, viewport = max(candidates, key=lambda candidate: (
+            (candidate[1][2] - candidate[1][0]) * (candidate[1][3] - candidate[1][1])))
+        left, top, right, bottom = viewport
         x = (left + right) // 2
         upper = top + (bottom - top) // 4
         lower = top + (bottom - top) * 3 // 4
         start, end = (lower, upper) if direction == "down" else (upper, lower)
+        self.record_input("swipe", direction, node, viewport,
+                          {"start": [x, start], "end": [x, end], "duration_ms": 250})
         self.adb("shell", "input", "swipe", str(x), str(start), str(x), str(end), "250", timeout=timeout)
+
+    def record_input(self, action, label, node, viewport, coordinates):
+        # Allowlist geometry only: never include node text, descriptions or values.
+        evidence = {
+            "stage": self.stage, "action": action, "label": label,
+            "ui_sequence": self.ui_sequence, "rotation": self.rotation,
+            "display_size": self.display_size,
+            "package": node.get("package", ""), "resource_id": node.get("resource-id", ""),
+            "class": node.get("class", ""), "bounds": node_bounds(node),
+            "viewport": viewport, "coordinates": coordinates,
+        }
+        with (self.output / "input-geometry.log").open("a") as output:
+            output.write(redacted(json.dumps(evidence, sort_keys=True)) + "\n")
 
     def tap_node(self, node, label, height_fraction=0.5):
         if not self.visible(node):
-            raise RuntimeError(f"{label!r} has no usable on-screen bounds.")
+            raise RuntimeError(f"{label!r} is not fully inside its current visible viewport.")
+        if not 0 < height_fraction < 1:
+            raise ValueError("Tap height fraction must be inside the target.")
         left, top, right, bottom = node_bounds(node)
-        self.adb("shell", "input", "tap", str((left + right) // 2), str(top + int((bottom - top) * height_fraction)))
+        x, y = (left + right) // 2, top + int((bottom - top) * height_fraction)
+        self.record_input("tap", label, node, self.viewport(node), {"x": x, "y": y})
+        self.adb("shell", "input", "tap", str(x), str(y))
         self.record(f"Tapped {label}")
 
     def tap(self, tag, fallback_text=None, scroll=None):
