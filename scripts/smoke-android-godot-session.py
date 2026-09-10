@@ -2,9 +2,10 @@
 """Observe production Android renderer switching through the real practice UI.
 
 This checker installs and clears the specified app on a dedicated test device.
-It never enables renderer choices, launches the private Activity directly, or
-uses app test hooks. A Ready label is native host evidence, not engine gameplay
-evidence. Original native/Recents pixels require a separate visual review.
+It never enables renderer choices or launches the private Activity directly.
+An explicit --engine-gameplay phase uses read-only, package-qualified geometry
+observations around real touch input in a separate fresh practice. A Ready label
+alone remains native host evidence. Original pixels require separate visual review.
 
 Platform contracts checked against Android android-16.0.0_r1 sources:
   frameworks/base/services/core/java/com/android/server/wm/Task.java
@@ -25,6 +26,7 @@ from datetime import datetime, timezone
 import hashlib
 import importlib.util
 import json
+import os
 from pathlib import Path
 import re
 import shlex
@@ -34,6 +36,7 @@ import sys
 import time
 import xml.etree.ElementTree as ET
 import zlib
+import zipfile
 
 
 HELPER_PATH = Path(__file__).with_name("smoke-android-ui.py")
@@ -41,6 +44,19 @@ _SPEC = importlib.util.spec_from_file_location("partydeck_session_ui_helpers", H
 ui = importlib.util.module_from_spec(_SPEC)
 sys.modules[_SPEC.name] = ui
 _SPEC.loader.exec_module(ui)
+
+
+def load_local_helper(filename, name):
+    spec = importlib.util.spec_from_file_location(name, Path(__file__).with_name(filename))
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+engine_observation = load_local_helper("android_godot_session_observation.py", "partydeck_engine_observation")
+platform_observation = load_local_helper("adaptive_observations.py", "partydeck_engine_platform_observation")
+activation = load_local_helper("android_godot_activation.py", "partydeck_engine_activation")
 
 PACKAGE = ui.PACKAGE
 RENDERER_PROCESS = f"{PACKAGE}:godot"
@@ -380,6 +396,61 @@ def png_dimensions(value):
     return {"width": width, "height": height}
 
 
+def verify_engine_package_inputs(smoke, apk, receipt_path, source_revision):
+    """Rebind the existing wrapper's source-pack/activation receipt to this exact APK."""
+    require(receipt_path.name == "package-inputs.json" and receipt_path.is_file() and not receipt_path.is_symlink(),
+            "Engine gameplay requires the original wrapper package-inputs.json.")
+    raw = receipt_path.read_bytes()
+    require(len(raw) <= 65536, "Oversized package-input receipt.")
+    record = engine_observation.strict_json(raw)
+    require(type(record) is dict and record.get("verified") is True and record.get("variant") == smoke.variant
+            and record.get("sourceRevision") == source_revision, "Package-input receipt is unverified or from another scope.")
+    apk_hash = sha256_file(apk)
+    require(record.get("apkSha256") == apk_hash, "Engine gameplay APK differs from its checked package input.")
+    with zipfile.ZipFile(apk) as archive:
+        name = "assets/partydeck-last-light.pck"
+        require(archive.namelist().count(name) == 1, "Engine gameplay APK must embed exactly one renderer pack.")
+        with archive.open(name) as stream:
+            pack_hash = hashlib.file_digest(stream, "sha256").hexdigest()
+    require(record.get("embeddedPackSha256") == record.get("packSha256") == pack_hash,
+            "Engine gameplay APK differs from its source-checked pack receipt.")
+    prior = record.get("activation")
+    require(type(prior) is dict and prior.get("verified") is True and prior.get("manifestCommandExitCode") == 0,
+            "Package input has no successful decoded activation evidence.")
+    expected_raw = (receipt_path.parent / "activation-build-expectation.json").read_bytes()
+    original_manifest = (receipt_path.parent / "packaged-manifest.xml").read_bytes()
+    require(len(expected_raw) <= 4096 and len(original_manifest) <= 2_097_152, "Oversized activation documents.")
+    require(hashlib.sha256(expected_raw).hexdigest() == prior.get("expectationSha256")
+            and hashlib.sha256(original_manifest).hexdigest() == prior.get("manifestSha256"),
+            "Original activation documents differ from the package receipt.")
+    expected = activation.parse_build_expectation(expected_raw)
+    original_packaged = activation.parse_packaged_manifest(original_manifest)
+    require(expected == prior.get("expected") and original_packaged == prior.get("packaged"),
+            "Activation receipt disagrees with its original documents.")
+    activation.require_qualification_match(expected, original_packaged, "2d,3d")
+    analyzer = Path(os.environ["ANDROID_HOME"]) / "cmdline-tools/latest/bin/apkanalyzer"
+    command = [str(analyzer), "manifest", "print", str(apk)]
+    # This same SDK command is used by the accepted wrapper. A supplied XML file
+    # alone is insufficient to prove what the current APK actually packages.
+    try:
+        manifest = subprocess.run(command, capture_output=True, timeout=60, check=False)
+    except subprocess.TimeoutExpired as error:
+        (smoke.output / "identity/engine-packaged-manifest.xml").write_bytes(error.stdout or b"")
+        (smoke.output / "identity/engine-manifest-error.log").write_bytes(error.stderr or b"")
+        raise
+    (smoke.output / "identity/engine-packaged-manifest.xml").write_bytes(manifest.stdout)
+    (smoke.output / "identity/engine-manifest-error.log").write_bytes(manifest.stderr)
+    require(manifest.returncode == 0, "Cannot decode the exact gameplay APK activation.")
+    packaged = activation.parse_packaged_manifest(manifest.stdout)
+    activation.require_qualification_match(expected, packaged, "2d,3d")
+    require(sha256_file(apk) == apk_hash, "APK bytes changed during gameplay preflight.")
+    (smoke.output / "identity/engine-package-inputs.json").write_bytes(raw)
+    return {"verified": True, "apk_sha256": apk_hash, "pack_sha256": pack_hash,
+            "package_receipt_sha256": hashlib.sha256(raw).hexdigest(), "packaged_activation": packaged,
+            "manifest_sha256": hashlib.sha256(manifest.stdout).hexdigest(), "manifest_command": command,
+            "limit": "Exact APK/PCK/activation binding to the existing wrapper receipt; source revision remains caller-attributed."}
+
+
 class GodotSessionSmoke(ui.AndroidSmoke):
     def __init__(self, serial, output, variant="debug", font_scale="1.0"):
         super().__init__(serial, output, variant)
@@ -396,6 +467,7 @@ class GodotSessionSmoke(ui.AndroidSmoke):
         self.home_component = None
         self.logcat_started = False
         self.process_table_sequence = 0
+        self.engine_inputs = None
         for directory in ("captures", "identity", "logs"):
             (output / directory).mkdir()
 
@@ -1213,6 +1285,129 @@ class GodotSessionSmoke(ui.AndroidSmoke):
             self.capture_evidence(f"{mode}-home-after-session-end", MAIN_COMPONENT)
             entry["session_end_observation"] = "Practice confirmation accepted; Home visible with the same shell and no renderer process."
 
+    def require_engine_play_return(self, baseline, prefix):
+        self.wait_activity(MAIN_COMPONENT, child_absent=True)
+
+        def concealed_or_result(root):
+            require(tagged_node(root, "problem-panel") is None, "Engine Play return raised a session problem.")
+            if tagged_node(root, "game-table") is None:
+                return None
+            self.assert_no_private_semantics(root)
+            for tag in ("game-round-result", "game-winner"):
+                result = tagged_node(root, tag)
+                if result is not None and any(self.visible(node) and node.get("text") for node in result.iter("node")):
+                    return {"kind": "public result", "tag": tag}
+            reveal = self.find_action(root, "game-reveal-hand")
+            return {"kind": "concealed hand"} if reveal is not None else None
+
+        concealed = self.wait_until("Expected concealed Standard hand or public result after engine Play",
+                                    concealed_or_result, seconds=45, scroll="up")
+        concealed_receipt = self.retain_standard_ui(f"{prefix}-standard-concealed", concealed)
+        if concealed["kind"] == "concealed hand":
+            self.tap_action("game-reveal-hand", scroll="up")
+
+        def outcome(root):
+            result = standard_action_outcome(root, self.visible, baseline)
+            if result is not None:
+                for node in root.iter("node"):
+                    match = CARD_TAG.fullmatch(node.get("resource-id", "").rsplit("/", 1)[-1])
+                    if node.get("package") == PACKAGE and match and self.visible(node):
+                        require(not card_toggle_sample(node, int(match[1]))["checked"],
+                                "Engine card selection survived the Standard return/fresh reveal.")
+            return result
+
+        accepted = self.wait_until("Expected an authority-derived outcome from the single engine Play",
+                                   outcome, seconds=60, scroll="up")
+        # Preserve the immediate proving XML before any later capture or bot progress.
+        receipt = self.retain_standard_ui(f"{prefix}-standard-outcome", accepted)
+        self.wait_activity(MAIN_COMPONENT, child_absent=True)
+        self.capture_evidence(f"{prefix}-standard-after-play", MAIN_COMPONENT, ui_assertion=lambda root: require(
+            tagged_node(root, "problem-panel") is None and tagged_node(root, "game-table") is not None,
+            "Standard session disappeared after the engine Play outcome."))
+        return {"outcome": accepted, "outcome_xml": receipt, "concealed_return_xml": concealed_receipt,
+                "limit": "Same surviving shell/task and changed recipient hand or same-round result; no authority receipt/session revision is exposed."}
+
+    def run_engine_gameplay(self, mode):
+        require(self.engine_inputs is not None and self.engine_inputs.get("verified") is True
+                and mode in self.engine_inputs["packaged_activation"]["modes"],
+                "Real engine input requires the bound qualification APK/pack admission.")
+        prefix = f"{mode}-engine"
+        with self.check(f"{mode}.engine-practice-baseline") as entry:
+            # All run_mode scenarios, including its Standard Play and Leave, already
+            # finished at Home. This practice owns a separate five-card baseline.
+            self.wait_activity(MAIN_COMPONENT, child_absent=True)
+            self.tap_action("home-practice")
+            self.wait_for_human_turn()
+            self.assert_concealed()
+            baseline = self.observe_match(f"{prefix}-baseline")
+            require(baseline["first_card"]["hand_count"] == 5 and baseline["public"]["turn"] == "Your turn",
+                    "Engine acceptance requires a fresh five-card human-turn baseline.")
+            self.tap_action("game-hide-hand", scroll="up")
+            self.assert_concealed()
+            anchor = self.wait_until("Expected the same stable human-turn public baseline",
+                                     lambda root: public_anchor(root, self.visible), scroll="up")
+            require(anchor == baseline["public"], "Authority progressed before the engine input scenario.")
+            entry["baseline"] = baseline
+
+        with self.check(f"{mode}.engine-reveal-selection") as entry:
+            pid, task, _ = self.enter_native(mode, f"{prefix}-entry")
+            probe = engine_observation.EngineObservationProbe(self, platform_observation, mode, pid, task)
+            concealed = lambda value: (value["handConcealed"] and value["selectedCount"] == 0
+                                       and value["privateFaceCount"] == value["privateLabelCount"] == 0)
+            first = probe.settled(concealed)
+            revision = first["value"]["projectionRevision"]
+            reveal = probe.tap("reveal", lambda value: concealed(value) and value["projectionRevision"] == revision)
+
+            def revealed(value):
+                return (not value["handConcealed"] and value["selectedCount"] == 0
+                        and value["privateFaceCount"] > 0 and value["privateLabelCount"] > 0
+                        and {item["slot"] for item in value["controls"] if item["role"] == "select"} == set(range(5))
+                        and value["projectionRevision"] == revision
+                        and engine_observation.counter(value["input"]) > engine_observation.counter(reveal["before"]["input"]))
+
+            after_reveal = probe.settled(revealed)
+            selection = probe.tap("select", revealed, slot=0)
+
+            def selected(value):
+                return (not value["handConcealed"] and value["selectedCount"] == 1
+                        and value["privateFaceCount"] > 0 and value["privateLabelCount"] > 0
+                        and {item["slot"] for item in value["controls"] if item["role"] == "select" and item["selected"]} == {0}
+                        and value["projectionRevision"] == revision
+                        and engine_observation.counter(value["input"]) > engine_observation.counter(selection["before"]["input"]))
+
+            after_selection = probe.settled(selected)
+            entry.update(concealed=first["receipt"], reveal=reveal, revealed=after_reveal["receipt"],
+                         selection=selection, selected=after_selection["receipt"],
+                         scope="Real engine Reveal/card touches and local state only; no authority progress claimed.")
+            self.capture_evidence(f"{prefix}-selected", NATIVE_COMPONENT, pid,
+                                  ui_assertion=lambda root: require(self.native_controls(root) is not None,
+                                                                    "Native owner changed after engine selection."))
+
+        with self.check(f"{mode}.engine-play-standard-outcome") as entry:
+            play = probe.tap("play", selected)
+            # Wait for evidence that renderer input was processed before returning.
+            # Local clearing/new projection alone is never an accepted-gameplay oracle.
+            processed = probe.settled(lambda value: value["selectedCount"] == 0
+                and engine_observation.counter(value["input"]) > engine_observation.counter(play["before"]["input"])
+                and engine_observation.counter(value["projectionRevision"]) >= engine_observation.counter(revision))
+            entry.update(play=play, renderer_after_input=processed["receipt"], play_attempts=1)
+            self.tap_action("native-standard-table", "Standard table", scroll=None)
+            entry["accepted_outcome"] = self.require_engine_play_return(baseline, prefix)
+            entry["scope"] = "One real engine Play plus an action-specific Standard authority-derived outcome."
+
+        with self.check(f"{mode}.engine-leave-end") as entry:
+            self.enter_native(mode, f"{prefix}-leave", ready=False)
+            self.tap_action("native-leave-table", "Leave table", scroll=None)
+            self.leave_dialog(f"{prefix}-leave")
+            self.tap_action("leave-confirm", "Leave table")
+            self.wait_for_action("home-practice", scroll="down")
+            self.wait_activity(MAIN_COMPONENT, child_absent=True)
+            root = self.dump_ui()
+            require(not any(tagged_node(root, tag) is not None for tag in ("game-table", "game-hand", "leave-confirm")),
+                    "Engine practice remains after its real Leave confirmation.")
+            self.capture_evidence(f"{prefix}-home", MAIN_COMPONENT)
+            entry["session_end_observation"] = "Isolated engine practice ended at Home with the surviving shell and no renderer child."
+
     def diagnostics(self):
         errors = []
         for name, arguments in (
@@ -1253,6 +1448,10 @@ def argument_parser():
     parser.add_argument("--font-scale", choices=("1.0", "2.0"), default="1.0")
     parser.add_argument("--skip-renderer-death", action="store_true",
                         help="Explicitly omit the guarded run-as child kill (for scoped non-debuggable runs).")
+    parser.add_argument("--engine-gameplay", action="store_true",
+                        help="After each mode completes, exercise real engine Reveal/select/Play in a separate fresh practice.")
+    parser.add_argument("--engine-package-inputs", type=Path,
+                        help="Original wrapper package-inputs.json and adjacent activation records; required by --engine-gameplay.")
     return parser
 
 
@@ -1265,6 +1464,8 @@ def main(argv=None):
         parser.error(f"APK does not exist: {arguments.apk}")
     if len(arguments.modes) != len(set(arguments.modes)):
         parser.error("--modes must not contain duplicates")
+    if arguments.engine_gameplay != (arguments.engine_package_inputs is not None):
+        parser.error("--engine-gameplay and --engine-package-inputs must be supplied together")
     try:
         fresh_output(arguments.output)
     except FileExistsError:
@@ -1275,6 +1476,7 @@ def main(argv=None):
                           checker_sha256=sha256_file(Path(__file__)), helper_sha256=sha256_file(HELPER_PATH))
     result = {"schema_version": 1, "started_utc": utc_now(), "serial": arguments.serial,
               "variant_label": arguments.variant, "requested_modes": arguments.modes,
+              "engine_gameplay_requested": arguments.engine_gameplay,
               "source_revision": {"value": arguments.source_revision.lower(), "attribution": "Caller-supplied; not embedded APK or checkout proof."},
               "identity": smoke.identity, "checks": smoke.checks, "captures": smoke.captures,
               "intentional_signals": smoke.intentional_signals, "steps": smoke.steps, "observations": smoke.observations,
@@ -1283,20 +1485,29 @@ def main(argv=None):
                          "Match continuity uses a surviving shell/task, public anchors and one indexed card/count; no internal session ID is exposed.",
                          "Standard hand checks observe XML labels/checkable states and coordinate activation, not TalkBack traversal, focus, speech, action labels or live-region delivery.",
                          "Standard Play acceptance is inferred from a changed recipient hand or same-round public result; no authority receipt or revision is exposed.",
+                         "Optional engine gameplay uses sanitized geometry and real touch; projection counters/local selection are not authority receipts.",
                          "Pre-binding cancellation is not deterministically observable through production UI.",
                          "Single-device practice only; physical LAN, real-device/store signing and iOS are outside this check."]}
     failed = False
     try:
+        if arguments.engine_gameplay:
+            with smoke.check("engine.package-inputs") as entry:
+                smoke.engine_inputs = verify_engine_package_inputs(smoke, arguments.apk, arguments.engine_package_inputs,
+                                                                   arguments.source_revision.lower())
+                smoke.identity["engine_inputs"] = smoke.engine_inputs
+                entry["inputs"] = smoke.engine_inputs
         smoke.setup_session(arguments.apk)
         for mode in arguments.modes:
             smoke.run_mode(mode, arguments.skip_renderer_death)
+            if arguments.engine_gameplay:
+                smoke.run_engine_gameplay(mode)
     except Exception as error:
         failed = True
         result.update(error=ui.redacted(str(error)), failed_stage=smoke.stage)
         print(f"FAILED {smoke.stage}: {ui.redacted(str(error))}", file=sys.stderr, flush=True)
     finally:
         try:
-            errors = smoke.diagnostics()
+            errors = [] if arguments.engine_gameplay and smoke.engine_inputs is None else smoke.diagnostics()
         except Exception as error:
             errors = [ui.redacted(str(error))]
         try:

@@ -75,14 +75,15 @@ class ActivationParsingTest(unittest.TestCase):
 
 
 class ActivationWrapperTest(unittest.TestCase):
-    def run_wrapper(self, profile, modes, *, analyzer_exit=0):
+    def run_wrapper(self, profile, modes, *, analyzer_exit=0, api=35):
         with tempfile.TemporaryDirectory(prefix="partydeck-activation-host-") as temporary:
             root = Path(temporary)
             (root / "scripts").mkdir()
             (root / "scripts/android_godot_activation.py").write_bytes((SCRIPTS / "android_godot_activation.py").read_bytes())
             # This host-only stub records invocation; it cannot launch an app or a renderer.
             (root / "scripts/smoke-android-godot-session.py").write_text(
-                "from pathlib import Path\nPath('checker-invoked').write_text('synthetic host gate check\\n')\n")
+                "from pathlib import Path\nimport json, sys\nPath('checker-invoked').write_text('synthetic host gate check\\n')\n"
+                "Path('checker-arguments.json').write_text(json.dumps(sys.argv[1:]))\n")
             pack = root / "godot/qualification/build/renderer/partydeck-last-light.pck"
             pack.parent.mkdir(parents=True); pack.write_bytes(b"synthetic host pack bytes, not a PCK")
             apk = root / "synthetic-input.apk"
@@ -100,11 +101,13 @@ class ActivationWrapperTest(unittest.TestCase):
             end = source.index("\n}\n\nPARTYDECK_DEBUG_STATUS=", start) + 3
             script = root / "wrapper.sh"
             script.write_text("set -euo pipefail\nPARTYDECK_SOURCE_REVISION=" + "a" * 40 +
-                              "\nPARTYDECK_EMULATOR_SERIAL=synthetic-host-only\n" + source[start:end] +
+                              "\nPARTYDECK_EMULATOR_SERIAL=synthetic-host-only\nPARTYDECK_ANDROID_API=" + str(api) + "\n" + source[start:end] +
                               "\nrun_godot_session_smoke debug synthetic-input.apk evidence\n")
             environment = dict(os.environ, ANDROID_HOME=str(root / "sdk"), PYTHONDONTWRITEBYTECODE="1")
             process = subprocess.run(["bash", str(script)], cwd=root, env=environment, capture_output=True, timeout=20)
             receipt = json.loads((root / "evidence/package-inputs.json").read_text())
+            arguments = root / "checker-arguments.json"
+            self.invocation_arguments = json.loads(arguments.read_text()) if arguments.exists() else None
             return process.returncode, (root / "checker-invoked").exists(), receipt, hashlib.sha256(apk.read_bytes()).hexdigest()
 
     def test_matching_apk_metadata_reaches_the_unchanged_checker_with_hashes(self):
@@ -128,6 +131,20 @@ class ActivationWrapperTest(unittest.TestCase):
                 self.assertFalse(receipt["activation"]["verified"])
                 self.assertEqual(profile, receipt["activation"]["packaged"]["profile"])
                 self.assertIn("error", receipt)
+
+    def test_api36_qualified_wrapper_invokes_engine_phase_with_its_original_receipt(self):
+        for api in (35, 36):
+            with self.subTest(api=api):
+                status, invoked, receipt, _ = self.run_wrapper("qualification", "2d,3d", api=api)
+                self.assertEqual(0, status)
+                self.assertTrue(invoked and receipt["verified"])
+                if api == 36:
+                    self.assertIn("--engine-gameplay", self.invocation_arguments)
+                    index = self.invocation_arguments.index("--engine-package-inputs")
+                    self.assertEqual("evidence/package-inputs.json", self.invocation_arguments[index + 1])
+                else:
+                    self.assertNotIn("--engine-gameplay", self.invocation_arguments)
+                    self.assertNotIn("--engine-package-inputs", self.invocation_arguments)
 
     def test_failed_manifest_extraction_stops_before_checker_invocation(self):
         status, invoked, receipt, _ = self.run_wrapper("qualification", "2d,3d", analyzer_exit=7)

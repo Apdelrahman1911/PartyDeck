@@ -28,8 +28,9 @@ from adaptive_observations import (
 )
 
 
-SESSION_SHA256 = "dd8723ec9233597790a727ec266896c9ac67ae1445d940a71b068a0d8d068b12"
+SESSION_SHA256 = "7e9e1cfeba1676ad82b621597c3d26e9e39355cfcabff563e24cdb118b70d097"
 UI_SHA256 = "fc208dfbb04356eff921f5388996afc06eecff53ceb8347e621508eba7c85741"
+SESSION_DEPENDENCIES = {'android_godot_session_observation.py': '4a9340d49e69d596d2d6ed3cfd12b69eb567ab0fb49fed0fa49a643dfc877a8f', 'android_godot_activation.py': '5f5650fbabd934f904ceaf9e5b7705f5c91bfde999fb2bb03ad28062e91e61f9', 'adaptive_observations.py': 'f7f7a40f6b539b6925ef681564ca14b62a7fda7ec59bf8c30fffcfe30ba121a2'}
 
 
 def sha256(path):
@@ -40,6 +41,8 @@ def sha256(path):
 def load_session(path):
     require(sha256(path) == SESSION_SHA256, "Session checker does not match the independently accepted bytes.")
     require(sha256(path.with_name("smoke-android-ui.py")) == UI_SHA256, "Session UI dependency changed.")
+    for name, expected in SESSION_DEPENDENCIES.items():
+        require(sha256(path.with_name(name)) == expected, "Session qualification dependency changed: " + name)
     spec = importlib.util.spec_from_file_location("partydeck_adaptive_pinned_session", path)
     module = importlib.util.module_from_spec(spec)
     sys.modules[spec.name] = module
