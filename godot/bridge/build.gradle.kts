@@ -21,8 +21,13 @@ kotlin {
                 .orElse(layout.projectDirectory.dir("fixtures").asFile.absolutePath).get())
         }
     }
-    iosArm64()
-    iosSimulatorArm64()
+    listOf(iosArm64(), iosSimulatorArm64()).forEach { target ->
+        target.binaries.framework {
+            baseName = "PartyDeckGodotBridge"
+            isStatic = true
+            binaryOption("bundleId", "dev.partydeck.godot.bridge")
+        }
+    }
     jvmToolchain(21)
     sourceSets {
         commonMain.dependencies {

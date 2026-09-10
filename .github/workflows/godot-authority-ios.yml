@@ -1,0 +1,60 @@
+name: Godot iOS authority framework
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: godot-authority-ios-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  authority-framework:
+    name: Native bridge tests and Swift framework import
+    runs-on: macos-26
+    timeout-minutes: 45
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Java
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Set up Android SDK for KMP configuration
+        uses: android-actions/setup-android@40fd30fb8d7440372e1316f5d1809ec01dcd3699 # v4.0.1
+        with:
+          packages: 'platform-tools platforms;android-37.1 build-tools;36.0.0'
+          log-accepted-android-sdk-licenses: false
+      - name: Set up Gradle and validate wrapper
+        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+        with:
+          cache-provider: basic
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+      - name: Run the bridge tests on the selected iOS Simulator
+        run: |
+          mkdir -p godot/ios-host/build/evidence
+          PARTYDECK_AUTHORITY_SIMULATOR="$(python3 scripts/select-ios-simulator.py godot/ios-host/build/evidence/authority-test-simulator.json)"
+          ./gradlew -p godot/qualification --console=plain --stacktrace --max-workers=2 \
+            :bridge:iosSimulatorArm64Test --device "$PARTYDECK_AUTHORITY_SIMULATOR"
+      - name: Compile the real framework and typecheck its Swift module
+        if: ${{ !cancelled() }}
+        run: bash godot/ios-host/build-authority.sh
+      - name: Preserve framework headers and execution evidence
+        if: always()
+        uses: ./.github/actions/upload-artifact
+        with:
+          name: godot-ios-authority-framework
+          path: |
+            godot/ios-host/build/evidence/**
+            godot/ios-host/build/artifacts/**
+            godot/qualification/build/modules/bridge/reports/**
+            godot/qualification/build/modules/bridge/test-results/**
+          retention-days: 14
+          if-no-files-found: warn
