@@ -1,0 +1,222 @@
+[
+  {
+    "case": "android-adaptive-api36-debug-font-1.0-34485033488-1",
+    "derived": "audit-v1/debug-font-1.0-original-stills-overview.png",
+    "sha256": "54f646322dadd3aaa472ed48ef96762c16c2e1dada53231c85493813bda4e9e2",
+    "sources": [
+      {
+        "file": "android-adaptive-api36-debug-font-1.0-34485033488-1/godot-adaptive/runtime/captures/home-cold.png",
+        "sha256": "e96d4777eadaa3ea3e8ec2e29024f70b095714b5965d580ae272d86456c15a94",
+        "capture": "home-cold"
+      },
+      {
+        "file": "android-adaptive-api36-debug-font-1.0-34485033488-1/godot-adaptive/runtime/captures/final-diagnostic.png",
+        "sha256": "99fe820df23a68da7923aca0da355b050541f9dceb2723c4620b9e7521060d64",
+        "capture": "final-diagnostic"
+      }
+    ],
+    "argv": [
+      "/usr/bin/ffmpeg",
+      "-hide_banner",
+      "-nostdin",
+      "-loglevel",
+      "error",
+      "-n",
+      "-i",
+      "/root/projects/PartyDeck/artifacts/evidence-storage/34485033488/android-adaptive-api36-debug-font-1.0-34485033488-1/godot-adaptive/runtime/captures/home-cold.png",
+      "-i",
+      "/root/projects/PartyDeck/artifacts/evidence-storage/34485033488/android-adaptive-api36-debug-font-1.0-34485033488-1/godot-adaptive/runtime/captures/final-diagnostic.png",
+      "-filter_complex",
+      "[0:v]scale=780:780:force_original_aspect_ratio=decrease,pad=800:820:(ow-iw)/2:(oh-ih)/2:color=0x202020,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text='home-cold':fontsize=18:fontcolor=white:x=10:y=8[v0];[1:v]scale=780:780:force_original_aspect_ratio=decrease,pad=800:820:(ow-iw)/2:(oh-ih)/2:color=0x202020,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text='final-diagnostic':fontsize=18:fontcolor=white:x=10:y=8[v1];[v0][v1]xstack=inputs=2:layout=0_0|800_0[out]",
+      "-map",
+      "[out]",
+      "-frames:v",
+      "1",
+      "-update",
+      "1",
+      "/root/projects/PartyDeck/artifacts/evidence-storage/34485033488/audit-v1/debug-font-1.0-original-stills-overview.png"
+    ],
+    "exitCode": 0,
+    "startedAtUtc": "2026-09-10T14:25:43.478415+00:00",
+    "scope": "Resized contact sheet of every original still. Originals remain unchanged; no app/native/transition execution."
+  },
+  {
+    "case": "android-adaptive-api36-debug-font-2.0-34485033488-1",
+    "derived": "audit-v1/debug-font-2.0-original-stills-overview.png",
+    "sha256": "6ce1a929cb4f7e34c3855ca589d909b2b52393ad7f34fafc5b7e508aca873a11",
+    "sources": [
+      {
+        "file": "android-adaptive-api36-debug-font-2.0-34485033488-1/godot-adaptive/runtime/captures/home-cold.png",
+        "sha256": "0da9e750c8651e8aab8bd720cd2381dbe9b90373ee234bc893967b2499f3f053",
+        "capture": "home-cold"
+      },
+      {
+        "file": "android-adaptive-api36-debug-font-2.0-34485033488-1/godot-adaptive/runtime/captures/2d-landscape-baseline-public.png",
+        "sha256": "f46db3fc43ebb7c0d608b5f4d375b46ba0f143260ae88f3497ff0582fa79e5f9",
+        "capture": "2d-landscape-baseline-public"
+      },
+      {
+        "file": "android-adaptive-api36-debug-font-2.0-34485033488-1/godot-adaptive/runtime/captures/2d-landscape-baseline-first-card.png",
+        "sha256": "01105e933d7f912a9d6b3262f345549016d669f88a7b74f8261784c72cb87395",
+        "capture": "2d-landscape-baseline-first-card"
+      },
+      {
+        "file": "android-adaptive-api36-debug-font-2.0-34485033488-1/godot-adaptive/runtime/captures/2d-landscape-baseline-selected.png",
+        "sha256": "6da4cea7d32f65131ef2fd73d79b7fa153fa98c29a2cca3456de993450b84540",
+        "capture": "2d-landscape-baseline-selected"
+      },
+      {
+        "file": "android-adaptive-api36-debug-font-2.0-34485033488-1/godot-adaptive/runtime/captures/2d-landscape-initial-selector.png",
+        "sha256": "64a44fe164e063f0bd0caa676856190cd2a1d8b196b8ce2eb40b0b7033bbdb31",
+        "capture": "2d-landscape-initial-selector"
+      },
+      {
+        "file": "android-adaptive-api36-debug-font-2.0-34485033488-1/godot-adaptive/runtime/captures/final-diagnostic.png",
+        "sha256": "527cd627c92519167b0f16ed5d051d8e8bf6f11375dc6e2da1775133fffae240",
+        "capture": "final-diagnostic"
+      }
+    ],
+    "argv": [
+      "/usr/bin/ffmpeg",
+      "-hide_banner",
+      "-nostdin",
+      "-loglevel",
+      "error",
+      "-n",
+      "-i",
+      "/root/projects/PartyDeck/artifacts/evidence-storage/34485033488/android-adaptive-api36-debug-font-2.0-34485033488-1/godot-adaptive/runtime/captures/home-cold.png",
+      "-i",
+      "/root/projects/PartyDeck/artifacts/evidence-storage/34485033488/android-adaptive-api36-debug-font-2.0-34485033488-1/godot-adaptive/runtime/captures/2d-landscape-baseline-public.png",
+      "-i",
+      "/root/projects/PartyDeck/artifacts/evidence-storage/34485033488/android-adaptive-api36-debug-font-2.0-34485033488-1/godot-adaptive/runtime/captures/2d-landscape-baseline-first-card.png",
+      "-i",
+      "/root/projects/PartyDeck/artifacts/evidence-storage/34485033488/android-adaptive-api36-debug-font-2.0-34485033488-1/godot-adaptive/runtime/captures/2d-landscape-baseline-selected.png",
+      "-i",
+      "/root/projects/PartyDeck/artifacts/evidence-storage/34485033488/android-adaptive-api36-debug-font-2.0-34485033488-1/godot-adaptive/runtime/captures/2d-landscape-initial-selector.png",
+      "-i",
+      "/root/projects/PartyDeck/artifacts/evidence-storage/34485033488/android-adaptive-api36-debug-font-2.0-34485033488-1/godot-adaptive/runtime/captures/final-diagnostic.png",
+      "-filter_complex",
+      "[0:v]scale=780:780:force_original_aspect_ratio=decrease,pad=800:820:(ow-iw)/2:(oh-ih)/2:color=0x202020,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text='home-cold':fontsize=18:fontcolor=white:x=10:y=8[v0];[1:v]scale=780:780:force_original_aspect_ratio=decrease,pad=800:820:(ow-iw)/2:(oh-ih)/2:color=0x202020,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text='2d-landscape-baseline-public':fontsize=18:fontcolor=white:x=10:y=8[v1];[2:v]scale=780:780:force_original_aspect_ratio=decrease,pad=800:820:(ow-iw)/2:(oh-ih)/2:color=0x202020,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text='2d-landscape-baseline-first-card':fontsize=18:fontcolor=white:x=10:y=8[v2];[3:v]scale=780:780:force_original_aspect_ratio=decrease,pad=800:820:(ow-iw)/2:(oh-ih)/2:color=0x202020,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text='2d-landscape-baseline-selected':fontsize=18:fontcolor=white:x=10:y=8[v3];[4:v]scale=780:780:force_original_aspect_ratio=decrease,pad=800:820:(ow-iw)/2:(oh-ih)/2:color=0x202020,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text='2d-landscape-initial-selector':fontsize=18:fontcolor=white:x=10:y=8[v4];[5:v]scale=780:780:force_original_aspect_ratio=decrease,pad=800:820:(ow-iw)/2:(oh-ih)/2:color=0x202020,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text='final-diagnostic':fontsize=18:fontcolor=white:x=10:y=8[v5];[v0][v1][v2][v3][v4][v5]xstack=inputs=6:layout=0_0|800_0|0_820|800_820|0_1640|800_1640[out]",
+      "-map",
+      "[out]",
+      "-frames:v",
+      "1",
+      "-update",
+      "1",
+      "/root/projects/PartyDeck/artifacts/evidence-storage/34485033488/audit-v1/debug-font-2.0-original-stills-overview.png"
+    ],
+    "exitCode": 0,
+    "startedAtUtc": "2026-09-10T14:25:44.014336+00:00",
+    "scope": "Resized contact sheet of every original still. Originals remain unchanged; no app/native/transition execution."
+  },
+  {
+    "case": "android-adaptive-api36-optimized-test-signed-font-1.0-34485033488-1",
+    "derived": "audit-v1/optimized-test-signed-font-1.0-original-stills-overview.png",
+    "sha256": "215dab2aec39820f2569f93bfbd41f64216ec4cf9c7aade9dbf4b8e28f110e12",
+    "sources": [
+      {
+        "file": "android-adaptive-api36-optimized-test-signed-font-1.0-34485033488-1/godot-adaptive/runtime/captures/home-cold.png",
+        "sha256": "4fa53194cd8b5dea3f6144fe7e5d4a48b7a461c0f0f0477d671af7bdf6828dcf",
+        "capture": "home-cold"
+      },
+      {
+        "file": "android-adaptive-api36-optimized-test-signed-font-1.0-34485033488-1/godot-adaptive/runtime/captures/final-diagnostic.png",
+        "sha256": "c87b6b8459bf27ac6a29b30b7801711db9a1934cc3fcf9d5971b1eea60424b21",
+        "capture": "final-diagnostic"
+      }
+    ],
+    "argv": [
+      "/usr/bin/ffmpeg",
+      "-hide_banner",
+      "-nostdin",
+      "-loglevel",
+      "error",
+      "-n",
+      "-i",
+      "/root/projects/PartyDeck/artifacts/evidence-storage/34485033488/android-adaptive-api36-optimized-test-signed-font-1.0-34485033488-1/godot-adaptive/runtime/captures/home-cold.png",
+      "-i",
+      "/root/projects/PartyDeck/artifacts/evidence-storage/34485033488/android-adaptive-api36-optimized-test-signed-font-1.0-34485033488-1/godot-adaptive/runtime/captures/final-diagnostic.png",
+      "-filter_complex",
+      "[0:v]scale=780:780:force_original_aspect_ratio=decrease,pad=800:820:(ow-iw)/2:(oh-ih)/2:color=0x202020,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text='home-cold':fontsize=18:fontcolor=white:x=10:y=8[v0];[1:v]scale=780:780:force_original_aspect_ratio=decrease,pad=800:820:(ow-iw)/2:(oh-ih)/2:color=0x202020,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text='final-diagnostic':fontsize=18:fontcolor=white:x=10:y=8[v1];[v0][v1]xstack=inputs=2:layout=0_0|800_0[out]",
+      "-map",
+      "[out]",
+      "-frames:v",
+      "1",
+      "-update",
+      "1",
+      "/root/projects/PartyDeck/artifacts/evidence-storage/34485033488/audit-v1/optimized-test-signed-font-1.0-original-stills-overview.png"
+    ],
+    "exitCode": 0,
+    "startedAtUtc": "2026-09-10T14:25:44.669747+00:00",
+    "scope": "Resized contact sheet of every original still. Originals remain unchanged; no app/native/transition execution."
+  },
+  {
+    "case": "android-adaptive-api36-optimized-test-signed-font-2.0-34485033488-1",
+    "derived": "audit-v1/optimized-test-signed-font-2.0-original-stills-overview.png",
+    "sha256": "3dd88637fae6f4abfda497f5d09fcbc6392e0845c106899ad9acbf9a6fb6fa71",
+    "sources": [
+      {
+        "file": "android-adaptive-api36-optimized-test-signed-font-2.0-34485033488-1/godot-adaptive/runtime/captures/home-cold.png",
+        "sha256": "0da9e750c8651e8aab8bd720cd2381dbe9b90373ee234bc893967b2499f3f053",
+        "capture": "home-cold"
+      },
+      {
+        "file": "android-adaptive-api36-optimized-test-signed-font-2.0-34485033488-1/godot-adaptive/runtime/captures/2d-landscape-baseline-public.png",
+        "sha256": "1e7c5b0ccc4640a82b0f85e3c96aa80d29f30badcb751f138aae4c2ebef9e0b5",
+        "capture": "2d-landscape-baseline-public"
+      },
+      {
+        "file": "android-adaptive-api36-optimized-test-signed-font-2.0-34485033488-1/godot-adaptive/runtime/captures/2d-landscape-baseline-first-card.png",
+        "sha256": "65caf50dba5e429e9febe2f14aa50194c7343deecf49ef0ec691cf5e4dd098b6",
+        "capture": "2d-landscape-baseline-first-card"
+      },
+      {
+        "file": "android-adaptive-api36-optimized-test-signed-font-2.0-34485033488-1/godot-adaptive/runtime/captures/2d-landscape-baseline-selected.png",
+        "sha256": "8cd453e1c1a2f956fe926d5d342be1ffc0d72b5ea57d224fbb2b2ec263223edc",
+        "capture": "2d-landscape-baseline-selected"
+      },
+      {
+        "file": "android-adaptive-api36-optimized-test-signed-font-2.0-34485033488-1/godot-adaptive/runtime/captures/2d-landscape-initial-selector.png",
+        "sha256": "cad3b6bad696d5175a06ba4c66f26938c0d5ee1ab9d86f4e1cf669ce149d559a",
+        "capture": "2d-landscape-initial-selector"
+      },
+      {
+        "file": "android-adaptive-api36-optimized-test-signed-font-2.0-34485033488-1/godot-adaptive/runtime/captures/final-diagnostic.png",
+        "sha256": "c5aa40065f54454ef7ae730f136613b3dbfa5a0e75d12c971f73c1d9697632a8",
+        "capture": "final-diagnostic"
+      }
+    ],
+    "argv": [
+      "/usr/bin/ffmpeg",
+      "-hide_banner",
+      "-nostdin",
+      "-loglevel",
+      "error",
+      "-n",
+      "-i",
+      "/root/projects/PartyDeck/artifacts/evidence-storage/34485033488/android-adaptive-api36-optimized-test-signed-font-2.0-34485033488-1/godot-adaptive/runtime/captures/home-cold.png",
+      "-i",
+      "/root/projects/PartyDeck/artifacts/evidence-storage/34485033488/android-adaptive-api36-optimized-test-signed-font-2.0-34485033488-1/godot-adaptive/runtime/captures/2d-landscape-baseline-public.png",
+      "-i",
+      "/root/projects/PartyDeck/artifacts/evidence-storage/34485033488/android-adaptive-api36-optimized-test-signed-font-2.0-34485033488-1/godot-adaptive/runtime/captures/2d-landscape-baseline-first-card.png",
+      "-i",
+      "/root/projects/PartyDeck/artifacts/evidence-storage/34485033488/android-adaptive-api36-optimized-test-signed-font-2.0-34485033488-1/godot-adaptive/runtime/captures/2d-landscape-baseline-selected.png",
+      "-i",
+      "/root/projects/PartyDeck/artifacts/evidence-storage/34485033488/android-adaptive-api36-optimized-test-signed-font-2.0-34485033488-1/godot-adaptive/runtime/captures/2d-landscape-initial-selector.png",
+      "-i",
+      "/root/projects/PartyDeck/artifacts/evidence-storage/34485033488/android-adaptive-api36-optimized-test-signed-font-2.0-34485033488-1/godot-adaptive/runtime/captures/final-diagnostic.png",
+      "-filter_complex",
+      "[0:v]scale=780:780:force_original_aspect_ratio=decrease,pad=800:820:(ow-iw)/2:(oh-ih)/2:color=0x202020,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text='home-cold':fontsize=18:fontcolor=white:x=10:y=8[v0];[1:v]scale=780:780:force_original_aspect_ratio=decrease,pad=800:820:(ow-iw)/2:(oh-ih)/2:color=0x202020,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text='2d-landscape-baseline-public':fontsize=18:fontcolor=white:x=10:y=8[v1];[2:v]scale=780:780:force_original_aspect_ratio=decrease,pad=800:820:(ow-iw)/2:(oh-ih)/2:color=0x202020,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text='2d-landscape-baseline-first-card':fontsize=18:fontcolor=white:x=10:y=8[v2];[3:v]scale=780:780:force_original_aspect_ratio=decrease,pad=800:820:(ow-iw)/2:(oh-ih)/2:color=0x202020,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text='2d-landscape-baseline-selected':fontsize=18:fontcolor=white:x=10:y=8[v3];[4:v]scale=780:780:force_original_aspect_ratio=decrease,pad=800:820:(ow-iw)/2:(oh-ih)/2:color=0x202020,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text='2d-landscape-initial-selector':fontsize=18:fontcolor=white:x=10:y=8[v4];[5:v]scale=780:780:force_original_aspect_ratio=decrease,pad=800:820:(ow-iw)/2:(oh-ih)/2:color=0x202020,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text='final-diagnostic':fontsize=18:fontcolor=white:x=10:y=8[v5];[v0][v1][v2][v3][v4][v5]xstack=inputs=6:layout=0_0|800_0|0_820|800_820|0_1640|800_1640[out]",
+      "-map",
+      "[out]",
+      "-frames:v",
+      "1",
+      "-update",
+      "1",
+      "/root/projects/PartyDeck/artifacts/evidence-storage/34485033488/audit-v1/optimized-test-signed-font-2.0-original-stills-overview.png"
+    ],
+    "exitCode": 0,
+    "startedAtUtc": "2026-09-10T14:25:44.960993+00:00",
+    "scope": "Resized contact sheet of every original still. Originals remain unchanged; no app/native/transition execution."
+  }
+]

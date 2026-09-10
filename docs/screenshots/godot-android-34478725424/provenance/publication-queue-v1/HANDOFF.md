@@ -1,0 +1,9 @@
+# Remaining viewed-image publication queue
+
+Ready for review_design integration; root owns Git. Copy the two new roots under `payload/docs/screenshots/`: `godot-android-34478725424` and `godot-ios-production-34480503751`. Merge the collection, screenshot and evidence records from `publication-manifest.json` plus `gallery-index-rows.md` into the existing gallery; these are fragments, not replacements for shared files.
+
+The queue contains ten originals: eight Android PNG/XML pairs, four of which also have original same-name JSON observations, and two iOS PNGs with their paired original UUID observation JSONs. No derivatives. Both source owners confirm these are their complete directly viewed sets for these runs. The remaining 40 Android scene captures were hash/geometry inspected, not directly viewed under these receipts. Identical-byte Recents originals retain separate source records. The 200% 3D resumed caption preserves the clipped hand and does not imply five fully visible backs.
+
+Android comparison run 34478725424 is tied to `c6ea1dd9f7966517fbee87a06b633d01c432c24d`; existing root acceptance is limited to four API35 comparison cases and twelve exits. iOS production run 34480503751 is tied to `7012ba031a4129c81cd118206f727a46a1c846e4`; both session tests failed with the clipped viewport, and runtime acceptance/shipping promotion remain false. Recorded viewport 402 × 26 retains its original coordinate context without adding units.
+
+Original bytes, names, exact source paths, byte lengths and SHA-256 values are in `copy-paths.tsv`; collection pages retain the failure and qualification captions. `payload-SHA256SUMS` covers every staged payload file, and `queue-freeze.json` freezes this prepared queue. Copy checks and metadata-link checks passed. No builds, tests, native runs, downloads, source/APK re-audits, shared gallery edits or Git operations were performed. The earlier 90-original/four-sheet queue remains unchanged.

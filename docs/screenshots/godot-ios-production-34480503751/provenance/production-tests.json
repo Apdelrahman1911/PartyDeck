@@ -1,0 +1,245 @@
+{
+  "scope": "Read-only interpretation of actual uploaded XCTest logs, XCResult exports and attachments.",
+  "observed_at": "2026-09-10T13:58:17.721813+00:00",
+  "run_id": 34480503751,
+  "head_sha": "7012ba031a4129c81cd118206f727a46a1c846e4",
+  "run_attempt": 1,
+  "job_id": 102882087509,
+  "ordinary_step": {
+    "name": "Build and test the iOS Simulator application",
+    "status": "completed",
+    "conclusion": "success",
+    "number": 14,
+    "started_at": "2026-09-10T13:24:00Z",
+    "completed_at": "2026-09-10T13:40:39Z"
+  },
+  "production_session_step": {
+    "name": "Exercise both real production Godot practice sessions",
+    "status": "completed",
+    "conclusion": "failure",
+    "number": 15,
+    "started_at": "2026-09-10T13:40:39Z",
+    "completed_at": "2026-09-10T13:49:10Z"
+  },
+  "native_platform_acceptance": false,
+  "shipping_promotion": false,
+  "reviewer_executed_tests_or_native_tools": false,
+  "ordinary_log": {
+    "available": true,
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/ios-validate-34480503751/extracted/artifact-10155238450/build/ci/ios/xcodebuild.log",
+    "sha256": "0fcc8c0403a4afb867a3ab46108ae1c6ae3c572b807e13575bbb5c74e727a4e6",
+    "bytes": 2204586,
+    "started": [
+      "PartyDeckTests.NativeTransportTests/testPinnedTLSExchangesOrderedFramesAndClosesBothPeers",
+      "PartyDeckTests.NativeTransportTests/testSwiftAndJavaTLSInteroperabilityInBothDirections",
+      "PartyDeckTests.NativeTransportTests/testWrongCertificatePinFailsBeforeOutgoingConnectionIsAnnounced",
+      "PartyDeckUITests.PartyDeckUITests/testNativeHostCanNavigateSharedSettings",
+      "PartyDeckUITests.PartyDeckUITests/testSharedControllerHostsANativeTableAndShowsItsInvitation",
+      "PartyDeckUITests.PartyDeckUITests/testSharedHomeOpensAPlayablePracticeTable"
+    ],
+    "finished": [
+      {
+        "case": "PartyDeckTests.NativeTransportTests/testPinnedTLSExchangesOrderedFramesAndClosesBothPeers",
+        "status": "passed",
+        "seconds": "2.546"
+      },
+      {
+        "case": "PartyDeckTests.NativeTransportTests/testSwiftAndJavaTLSInteroperabilityInBothDirections",
+        "status": "passed",
+        "seconds": "1.340"
+      },
+      {
+        "case": "PartyDeckTests.NativeTransportTests/testWrongCertificatePinFailsBeforeOutgoingConnectionIsAnnounced",
+        "status": "passed",
+        "seconds": "2.142"
+      },
+      {
+        "case": "PartyDeckUITests.PartyDeckUITests/testNativeHostCanNavigateSharedSettings",
+        "status": "passed",
+        "seconds": "22.356"
+      },
+      {
+        "case": "PartyDeckUITests.PartyDeckUITests/testSharedControllerHostsANativeTableAndShowsItsInvitation",
+        "status": "passed",
+        "seconds": "45.389"
+      },
+      {
+        "case": "PartyDeckUITests.PartyDeckUITests/testSharedHomeOpensAPlayablePracticeTable",
+        "status": "passed",
+        "seconds": "32.164"
+      }
+    ],
+    "finished_status_counts": {
+      "passed": 6
+    },
+    "test_succeeded_marker": true,
+    "test_failed_marker": false,
+    "failure_diagnostics": [
+      {
+        "line": 7134,
+        "text": "2026-09-10 13:37:57.494567+0000 PartyDeck[58743:158800] [boringssl] boringssl_context_error_print(2698) [C5:1][0x119db8560] Error: 4728835584:error:1000007d:SSL routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAILED:/Library/Caches/com.apple.xbs/1980D62E-1513-446B-B9B7-1AD693006CED/TemporaryDirectory.RkRNKZ/Sources/boringssl_Sim/ssl/handshake.cc:401:"
+      },
+      {
+        "line": 7136,
+        "text": "2026-09-10 13:37:59.077517+0000 PartyDeck[58743:158800] [boringssl] boringssl_session_handshake_error_print(47) [C5:1][0x119db8560] Error: 4728835584:error:1000007d:SSL routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAILED:/Library/Caches/com.apple.xbs/1980D62E-1513-446B-B9B7-1AD693006CED/TemporaryDirectory.RkRNKZ/Sources/boringssl_Sim/ssl/handshake.cc:401:"
+      },
+      {
+        "line": 7141,
+        "text": "2026-09-10 13:37:59.079015+0000 PartyDeck[58743:158800] [boringssl] boringssl_session_handshake_error_print(47) [C6:1][0x119db9460] Error: 4728835584:error:10000416:SSL routines:OPENSSL_internal:SSLV3_ALERT_CERTIFICATE_UNKNOWN:/Library/Caches/com.apple.xbs/1980D62E-1513-446B-B9B7-1AD693006CED/TemporaryDirectory.RkRNKZ/Sources/boringssl_Sim/ssl/tls_record.cc:579:SSL alert number 46"
+      }
+    ]
+  },
+  "production_session_log": {
+    "available": true,
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/ios-validate-34480503751/extracted/artifact-10155238450/build/ci/ios/godot-session/test.log",
+    "sha256": "0d8146dc44d1674afcb88be1f7400ad3225b6ee7de93dea8b7244fca978b909c",
+    "bytes": 2314500,
+    "started": [
+      "PartyDeckUITests.PartyDeckGodotSessionUITests/testProduction2DPracticeSession",
+      "PartyDeckUITests.PartyDeckGodotSessionUITests/testProduction3DPracticeSession"
+    ],
+    "finished": [
+      {
+        "case": "PartyDeckUITests.PartyDeckGodotSessionUITests/testProduction2DPracticeSession",
+        "status": "failed",
+        "seconds": "85.846"
+      },
+      {
+        "case": "PartyDeckUITests.PartyDeckGodotSessionUITests/testProduction3DPracticeSession",
+        "status": "failed",
+        "seconds": "80.513"
+      }
+    ],
+    "finished_status_counts": {
+      "failed": 2
+    },
+    "test_succeeded_marker": false,
+    "test_failed_marker": true,
+    "failure_diagnostics": [
+      {
+        "line": 7678,
+        "text": "/Users/runner/work/PartyDeck/PartyDeck/iosApp/PartyDeckUITests/PartyDeckGodotSessionUITests.swift:99: error: -[PartyDeckUITests.PartyDeckGodotSessionUITests testProduction2DPracticeSession] : failed - Observe fresh, current production renderer diagnostics."
+      },
+      {
+        "line": 7680,
+        "text": "Test Case '-[PartyDeckUITests.PartyDeckGodotSessionUITests testProduction2DPracticeSession]' failed (85.846 seconds)."
+      },
+      {
+        "line": 7968,
+        "text": "/Users/runner/work/PartyDeck/PartyDeck/iosApp/PartyDeckUITests/PartyDeckGodotSessionUITests.swift:99: error: -[PartyDeckUITests.PartyDeckGodotSessionUITests testProduction3DPracticeSession] : failed - Observe fresh, current production renderer diagnostics."
+      },
+      {
+        "line": 7970,
+        "text": "Test Case '-[PartyDeckUITests.PartyDeckGodotSessionUITests testProduction3DPracticeSession]' failed (80.513 seconds)."
+      },
+      {
+        "line": 7991,
+        "text": "** TEST FAILED **"
+      }
+    ]
+  },
+  "status": "production_named_case_failure_preserved",
+  "receipt": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/ios-validate-34480503751/extracted/artifact-10155238450/build/ci/ios/godot-session/result.json",
+    "sha256": "fdcda007490125c235b741e13b3c26b0692e909b5c096f3c4b42be874da3dd35",
+    "bytes": 3465
+  },
+  "exact_two_named_passes": false,
+  "xcresult_summary": {
+    "devicesAndConfigurations": [
+      {
+        "device": {
+          "architecture": "arm64",
+          "deviceId": "6762BD8F-E960-4E21-B8DB-9D43947B47AF",
+          "deviceName": "iPhone 17",
+          "modelName": "iPhone 17",
+          "osBuildNumber": "23E254a",
+          "osVersion": "26.4.1",
+          "platform": "iOS Simulator"
+        },
+        "expectedFailures": 0,
+        "failedTests": 2,
+        "passedTests": 0,
+        "skippedTests": 0,
+        "testPlanConfiguration": {
+          "configurationId": "1",
+          "configurationName": "Test Scheme Action"
+        }
+      }
+    ],
+    "environmentDescription": "PartyDeck \u00b7 Built with macOS 26.6.2",
+    "expectedFailures": 0,
+    "failedTests": 2,
+    "finishTime": 1789048129.965,
+    "passedTests": 0,
+    "result": "Failed",
+    "skippedTests": 0,
+    "startTime": 1789047676.093,
+    "statistics": [],
+    "testFailures": [
+      {
+        "failureText": "failed - Observe fresh, current production renderer diagnostics.",
+        "targetName": "PartyDeckUITests",
+        "testIdentifier": 1,
+        "testIdentifierString": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "testIdentifierURL": "test://com.apple.xcode/PartyDeck/PartyDeckUITests/PartyDeckGodotSessionUITests/testProduction2DPracticeSession",
+        "testName": "testProduction2DPracticeSession()"
+      },
+      {
+        "failureText": "failed - Observe fresh, current production renderer diagnostics.",
+        "targetName": "PartyDeckUITests",
+        "testIdentifier": 2,
+        "testIdentifierString": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "testIdentifierURL": "test://com.apple.xcode/PartyDeck/PartyDeckUITests/PartyDeckGodotSessionUITests/testProduction3DPracticeSession",
+        "testName": "testProduction3DPracticeSession()"
+      }
+    ],
+    "title": "Test - PartyDeck",
+    "topInsights": [
+      {
+        "category": "Common Failures",
+        "impact": "100% of failures",
+        "text": "2 runs of 2 tests failed with failed - Observe fresh, current production renderer diagnostics."
+      }
+    ],
+    "totalTestCount": 2
+  },
+  "xcresult_summary_identity": {
+    "sha256": "ffbfe2cb87cd088954383e8ff2b58bfdb2d60c535a580ac2f2537a76412760b7",
+    "bytes": 2094
+  },
+  "summary_reports_exact_two_passes": false,
+  "xcresult_files_preserved": 1263,
+  "attachment_files_rehashed": 13,
+  "screenshot_files": 2,
+  "sanitized_observations": [
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/ios-validate-34480503751/extracted/artifact-10155238450/build/ci/ios/godot-session/attachments/3AD5C42A-665B-4FCD-AF2D-5365FEE35E8A.json",
+      "sha256": "ae0b63370ac8dc01dac43545f317ffbace0a1cef4cd11cf148da9a67835c9292",
+      "bytes": 3151,
+      "sequence": "336",
+      "controller_screen": "SESSION",
+      "controller_mode": "GODOT_2D",
+      "activation_profile": "qualification",
+      "renderer_mode": "2d"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/ios-validate-34480503751/extracted/artifact-10155238450/build/ci/ios/godot-session/attachments/76E03857-ED6A-42AC-9BD4-9DE9FA4738A4.json",
+      "sha256": "d9470d38b452466256227c799c3b142bc4ae92aa440103bfc9ee620aee435167",
+      "bytes": 2853,
+      "sequence": "206",
+      "controller_screen": "SESSION",
+      "controller_mode": "GODOT_3D",
+      "activation_profile": "qualification",
+      "renderer_mode": "3d"
+    }
+  ],
+  "effective_app_and_test_settings_verified": true,
+  "command_exit": 65,
+  "recorded_problems": [
+    "The two exact XCTest cases must each start once and pass once; zero, missing, skipped, failed, extra or repeated cases fail.",
+    "The native test command or required evidence export did not exit successfully.",
+    "The XCResult summary must independently report exactly two passes with zero failures, skips or expected failures."
+  ],
+  "named_test_evidence_complete": false
+}

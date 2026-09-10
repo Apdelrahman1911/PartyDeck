@@ -1,0 +1,315 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-09-10T14:07:41.112276+00:00",
+  "run_id": 34480503751,
+  "head_sha": "7012ba031a4129c81cd118206f727a46a1c846e4",
+  "run_attempt": 1,
+  "classification": "device_and_simulator_packages_and_six_baseline_cases_verified_both_production_session_cases_failed",
+  "original_session_log": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/ios-validate-34480503751/extracted/artifact-10155238450/build/ci/ios/godot-session/test.log",
+    "bytes": 2314500,
+    "sha256": "0d8146dc44d1674afcb88be1f7400ad3225b6ee7de93dea8b7244fca978b909c"
+  },
+  "original_job_log": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/ios-validate-34480503751/downloads/20260910T135315.039443Z-job-102882087509-logs.log",
+    "bytes": 5509360,
+    "sha256": "230df4e8760c11a5bc234cde6155453964c7a5eac554a02c1ab04ba6862aed34"
+  },
+  "first_actual_failure": {
+    "line": 7678,
+    "text": "/Users/runner/work/PartyDeck/PartyDeck/iosApp/PartyDeckUITests/PartyDeckGodotSessionUITests.swift:99: error: -[PartyDeckUITests.PartyDeckGodotSessionUITests testProduction2DPracticeSession] : failed - Observe fresh, current production renderer diagnostics."
+  },
+  "session_assertion_failures": [
+    {
+      "line": 7678,
+      "text": "/Users/runner/work/PartyDeck/PartyDeck/iosApp/PartyDeckUITests/PartyDeckGodotSessionUITests.swift:99: error: -[PartyDeckUITests.PartyDeckGodotSessionUITests testProduction2DPracticeSession] : failed - Observe fresh, current production renderer diagnostics."
+    },
+    {
+      "line": 7968,
+      "text": "/Users/runner/work/PartyDeck/PartyDeck/iosApp/PartyDeckUITests/PartyDeckGodotSessionUITests.swift:99: error: -[PartyDeckUITests.PartyDeckGodotSessionUITests testProduction3DPracticeSession] : failed - Observe fresh, current production renderer diagnostics."
+    }
+  ],
+  "corresponding_original_job_failures": [
+    {
+      "line": 19512,
+      "text": "2026-09-10T13:46:32.0201700Z ##[error]/Users/runner/work/PartyDeck/PartyDeck/iosApp/PartyDeckUITests/PartyDeckGodotSessionUITests.swift:99: error: -[PartyDeckUITests.PartyDeckGodotSessionUITests testProduction2DPracticeSession] : failed - Observe fresh, current production renderer diagnostics."
+    },
+    {
+      "line": 19802,
+      "text": "2026-09-10T13:47:57.7671420Z ##[error]/Users/runner/work/PartyDeck/PartyDeck/iosApp/PartyDeckUITests/PartyDeckGodotSessionUITests.swift:99: error: -[PartyDeckUITests.PartyDeckGodotSessionUITests testProduction3DPracticeSession] : failed - Observe fresh, current production renderer diagnostics."
+    }
+  ],
+  "named_case_outcomes": [
+    {
+      "case": "PartyDeckUITests.PartyDeckGodotSessionUITests/testProduction2DPracticeSession",
+      "status": "failed",
+      "seconds": "85.846"
+    },
+    {
+      "case": "PartyDeckUITests.PartyDeckGodotSessionUITests/testProduction3DPracticeSession",
+      "status": "failed",
+      "seconds": "80.513"
+    }
+  ],
+  "xcresult_summary": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/ios-validate-34480503751/extracted/artifact-10155238450/build/ci/ios/godot-session/test-summary.json",
+    "bytes": 2094,
+    "sha256": "ffbfe2cb87cd088954383e8ff2b58bfdb2d60c535a580ac2f2537a76412760b7"
+  },
+  "named_case_evidence_review": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/ios-validate-34480503751/verification/production-tests.json",
+    "bytes": 10783,
+    "sha256": "7668a9069ad63093c05bdd4d5cbef5a7afa5d4ca1bab2c6977f69c4530ff877c"
+  },
+  "baseline": {
+    "six_exact_cases_passed_once": true,
+    "outcomes": [
+      {
+        "case": "PartyDeckTests.NativeTransportTests/testPinnedTLSExchangesOrderedFramesAndClosesBothPeers",
+        "status": "passed",
+        "seconds": "2.546"
+      },
+      {
+        "case": "PartyDeckTests.NativeTransportTests/testSwiftAndJavaTLSInteroperabilityInBothDirections",
+        "status": "passed",
+        "seconds": "1.340"
+      },
+      {
+        "case": "PartyDeckTests.NativeTransportTests/testWrongCertificatePinFailsBeforeOutgoingConnectionIsAnnounced",
+        "status": "passed",
+        "seconds": "2.142"
+      },
+      {
+        "case": "PartyDeckUITests.PartyDeckUITests/testNativeHostCanNavigateSharedSettings",
+        "status": "passed",
+        "seconds": "22.356"
+      },
+      {
+        "case": "PartyDeckUITests.PartyDeckUITests/testSharedControllerHostsANativeTableAndShowsItsInvitation",
+        "status": "passed",
+        "seconds": "45.389"
+      },
+      {
+        "case": "PartyDeckUITests.PartyDeckUITests/testSharedHomeOpensAPlayablePracticeTable",
+        "status": "passed",
+        "seconds": "32.164"
+      }
+    ],
+    "native_header_compiler_records": [
+      {
+        "target": "PartyDeckTests",
+        "task_line": 6799,
+        "command_line": 6801,
+        "native_header_include_present": true,
+        "direct_bridging_header_import": false
+      }
+    ],
+    "expected_certificate_rejection_diagnostics": [
+      {
+        "line": 7134,
+        "text": "2026-09-10 13:37:57.494567+0000 PartyDeck[58743:158800] [boringssl] boringssl_context_error_print(2698) [C5:1][0x119db8560] Error: 4728835584:error:1000007d:SSL routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAILED:/Library/Caches/com.apple.xbs/1980D62E-1513-446B-B9B7-1AD693006CED/TemporaryDirectory.RkRNKZ/Sources/boringssl_Sim/ssl/handshake.cc:401:"
+      },
+      {
+        "line": 7136,
+        "text": "2026-09-10 13:37:59.077517+0000 PartyDeck[58743:158800] [boringssl] boringssl_session_handshake_error_print(47) [C5:1][0x119db8560] Error: 4728835584:error:1000007d:SSL routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAILED:/Library/Caches/com.apple.xbs/1980D62E-1513-446B-B9B7-1AD693006CED/TemporaryDirectory.RkRNKZ/Sources/boringssl_Sim/ssl/handshake.cc:401:"
+      },
+      {
+        "line": 7141,
+        "text": "2026-09-10 13:37:59.079015+0000 PartyDeck[58743:158800] [boringssl] boringssl_session_handshake_error_print(47) [C6:1][0x119db9460] Error: 4728835584:error:10000416:SSL routines:OPENSSL_internal:SSLV3_ALERT_CERTIFICATE_UNKNOWN:/Library/Caches/com.apple.xbs/1980D62E-1513-446B-B9B7-1AD693006CED/TemporaryDirectory.RkRNKZ/Sources/boringssl_Sim/ssl/tls_record.cc:579:SSL alert number 46"
+      }
+    ],
+    "certificate_diagnostic_context": "All listed TLS diagnostics occur inside the wrong-certificate-pin test, which passed; they are not the workflow failure."
+  },
+  "package_checks": {
+    "device": {
+      "status": "production_receipts_and_packaged_bytes_verified",
+      "executable": {
+        "sha256": "c48833c3233c76e5c52fceda86f2064369612428373465a23b003fadbd10441d",
+        "bytes": 120814928
+      },
+      "link_map": {
+        "sha256": "0dac9806060f1af4ec162d02dc2ae6b45ae5373803fad5b0c11f800667406d81",
+        "bytes": 70131242
+      },
+      "resource_files_rehashed": 9,
+      "activation_profile": "qualification"
+    },
+    "simulator_baseline": {
+      "status": "production_receipts_and_packaged_bytes_verified",
+      "executable": {
+        "sha256": "589a0c8784398c3e6203dcc4a8098d88bc6ca9222454a78c5fb063f1782eff21",
+        "bytes": 160786104
+      },
+      "link_map": {
+        "sha256": "93a24b9067a670e676d04417c03bb0f77717d53d2c18017093aa5fd0e6f38975",
+        "bytes": 115727263
+      },
+      "resource_files_rehashed": 9,
+      "activation_profile": "shipping"
+    },
+    "simulator_qualification": {
+      "status": "production_receipts_and_packaged_bytes_verified",
+      "executable": {
+        "sha256": "2b6821c06a2c6bb0b94f3c1ee6b59b80ee392f08437f293a8711c5bdca697ab7",
+        "bytes": 160882808
+      },
+      "link_map": {
+        "sha256": "61cdd1048cfbdc1e954b4e3c17260b671f7acdf315ebab8c6b952a630a5883de",
+        "bytes": 115862321
+      },
+      "resource_files_rehashed": 9,
+      "activation_profile": "qualification"
+    }
+  },
+  "failure_observations": [
+    {
+      "test_identifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+      "observation": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/ios-validate-34480503751/extracted/artifact-10155238450/build/ci/ios/godot-session/attachments/3AD5C42A-665B-4FCD-AF2D-5365FEE35E8A.json",
+        "bytes": 3151,
+        "sha256": "ae0b63370ac8dc01dac43545f317ffbace0a1cef4cd11cf148da9a67835c9292"
+      },
+      "screenshot": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/ios-validate-34480503751/extracted/artifact-10155238450/build/ci/ios/godot-session/attachments/45478AA1-B877-4B9D-879B-B8C721AF43F1.png",
+        "bytes": 83597,
+        "sha256": "f0c55ffbebd6c8dd06de8926f2b3872f053aea674204706c0de38e88240a6dc8"
+      },
+      "observation_sequence": "336",
+      "controller_mode": "GODOT_2D",
+      "controller_lifecycle": "ACTIVE",
+      "owner_created": true,
+      "port_ready_confirmed": true,
+      "native_state": {
+        "surfaceAccessibilityHidden": false,
+        "authorityReadyConfirmed": true,
+        "bootstrapCount": 1,
+        "retainedIdentitiesMatchFirstEntry": true,
+        "failurePresent": false,
+        "quarantined": false,
+        "nativePresentedFrames": 3,
+        "iterations": 2102,
+        "drawCalls": 2102,
+        "surfaceSize": {
+          "height": 26.333333333333332,
+          "width": 402
+        }
+      },
+      "geometry": {
+        "bounds": [
+          0,
+          0,
+          402,
+          26.333333333333332
+        ],
+        "coordinateSpace": "screen",
+        "engineAccessibilityHidden": true,
+        "frame": [
+          0,
+          813.6666666666666,
+          402,
+          26.33333333333337
+        ],
+        "outerCoverVisible": false
+      },
+      "renderer_viewport": {
+        "height": 26,
+        "width": 402
+      },
+      "renderer_privacy": {
+        "handConcealed": true,
+        "privateFaceCount": 0,
+        "privateLabelCount": 0,
+        "selectedCount": 0
+      },
+      "visual_inspection": "Original PNG viewed: host message and Standard/Leave buttons occupy almost all the screen; only a clipped Godot strip appears along the bottom."
+    },
+    {
+      "test_identifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+      "observation": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/ios-validate-34480503751/extracted/artifact-10155238450/build/ci/ios/godot-session/attachments/76E03857-ED6A-42AC-9BD4-9DE9FA4738A4.json",
+        "bytes": 2853,
+        "sha256": "d9470d38b452466256227c799c3b142bc4ae92aa440103bfc9ee620aee435167"
+      },
+      "screenshot": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/ios-validate-34480503751/extracted/artifact-10155238450/build/ci/ios/godot-session/attachments/71843BE7-2F20-47C3-A626-F621D9221F3E.png",
+        "bytes": 83444,
+        "sha256": "44df809c18bd80e1885d8d19c634530e894336ae9d2e8dc3a4925f98af750127"
+      },
+      "observation_sequence": "206",
+      "controller_mode": "GODOT_3D",
+      "controller_lifecycle": "ACTIVE",
+      "owner_created": true,
+      "port_ready_confirmed": true,
+      "native_state": {
+        "surfaceAccessibilityHidden": false,
+        "authorityReadyConfirmed": true,
+        "bootstrapCount": 1,
+        "retainedIdentitiesMatchFirstEntry": true,
+        "failurePresent": false,
+        "quarantined": false,
+        "nativePresentedFrames": 4,
+        "iterations": 894,
+        "drawCalls": 894,
+        "surfaceSize": {
+          "height": 26.333333333333332,
+          "width": 402
+        }
+      },
+      "geometry": {
+        "bounds": [
+          0,
+          0,
+          402,
+          26.333333333333332
+        ],
+        "coordinateSpace": "screen",
+        "engineAccessibilityHidden": true,
+        "frame": [
+          0,
+          813.6666666666666,
+          402,
+          26.33333333333337
+        ],
+        "outerCoverVisible": false
+      },
+      "renderer_viewport": {
+        "height": 26,
+        "width": 402
+      },
+      "renderer_privacy": {
+        "handConcealed": true,
+        "privateFaceCount": 0,
+        "privateLabelCount": 0,
+        "selectedCount": 0
+      },
+      "visual_inspection": "Original PNG viewed: host message and Standard/Leave buttons occupy almost all the screen; only a clipped Godot strip appears along the bottom."
+    }
+  ],
+  "mandatory_live_guard": {
+    "source": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/ios-validate-34480503751/sources/tree/iosApp/PartyDeckUITests/PartyDeckGodotSessionUITests.swift",
+      "bytes": 37072,
+      "sha256": "08f7881188b3cc7453542d682863f20b7f4256af0ab12e070b8d92a454a50acb"
+    },
+    "records": [
+      {
+        "line": 241,
+        "text": "                  native.inputViewEnabled, native.surfaceAttached, native.surfaceAccessibilityHidden,"
+      },
+      {
+        "line": 561,
+        "text": "                !native.emptyTree && native.surfaceAttached && native.surfaceAccessibilityHidden && geometry.engineAccessibilityHidden &&"
+      }
+    ],
+    "expected_native_surface_accessibility_hidden": true
+  },
+  "interpretation": "Both latest saved observations violate the mandatory native accessibility guard and show a 26-pixel-high viewport. The screenshots corroborate the clipped layout. These observations do not prove a unique source root cause or continuous state throughout the wait.",
+  "owner_freeze_sha256": "7273afd091d9cca95396e061758635400af5705f2a10f01c0a693c6783c110a0",
+  "native_module_snapshot_sha256": "1abdfe2b0c44f3dfdd4554cbd21b78431f916745dd8b785815da36b6d57d0cbd",
+  "runtime_acceptance": false,
+  "shipping_promotion": false,
+  "reviewer_actions": {
+    "read_original_files_and_view_original_pngs": true,
+    "git_build_test_native_execution_or_source_changes": false
+  }
+}

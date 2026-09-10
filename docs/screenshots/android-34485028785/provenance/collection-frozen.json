@@ -1,0 +1,412 @@
+{
+  "schema_version": 1,
+  "collection_status": "complete and frozen",
+  "ci_conclusion": "failure",
+  "runtime_qualification": "failed before native entry after actual 2D choice taps",
+  "run_id": 34485028785,
+  "run_attempt": 1,
+  "source_revision": "fc431ee775990943dfe152f4f20fb9365db4e72d",
+  "run_url": "https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34485028785",
+  "frozen_utc": "2026-09-10T14:41:14.912293+00:00",
+  "storage": "/root/projects/PartyDeck/artifacts/evidence-storage/34485028785",
+  "alias": "/tmp/partydeck-engine-ci/34485028785",
+  "report": {
+    "file": "review/RESULT.md",
+    "bytes": 6456,
+    "sha256": "a7aeda4e2f12b0cf3520e2ae028901bc38c588cbc4eee41d7d97c160aeafeb87"
+  },
+  "file_manifest": {
+    "file": "collection-file-manifest.json",
+    "bytes": 2260254,
+    "sha256": "3c068f82b7604377d90857bcfd83cb75c633eea13e598251aec2e1de288ac742"
+  },
+  "frozen_file_count_excluding_manifest_and_receipt": 9688,
+  "audits": {
+    "source-archive-integrity.json": {
+      "file": "review/source-archive-integrity.json",
+      "bytes": 833,
+      "sha256": "93b7bda645f7bd6f603c107e9142cf81fc26f266ba410402df9c60ea9f76ead4"
+    },
+    "source-inputs-audit.json": {
+      "file": "review/source-inputs-audit.json",
+      "bytes": 24008,
+      "sha256": "754aae369e82b9da06d3317d2b186f8325e31c9d9c2361fe7c6bec8ff01ab92f"
+    },
+    "test-and-lint-audit.json": {
+      "file": "review/test-and-lint-audit.json",
+      "bytes": 287118,
+      "sha256": "178a53916c40fc53af1d53c6324356e68c14221ad269c66819017fca49ea9bb5"
+    },
+    "process-command-audit.json": {
+      "file": "review/process-command-audit.json",
+      "bytes": 699700,
+      "sha256": "04aa7dea8a73815616c06d70ffdf5c441a402f5383a6cc59ca10df1c05d58ffa"
+    },
+    "package-audit.json": {
+      "file": "review/package-audit.json",
+      "bytes": 22343,
+      "sha256": "f88db2d15b5508ec077c071d815c5fe99dde9d51ef175312084a41089d4b42c9"
+    },
+    "activation-and-source-audit.json": {
+      "file": "review/activation-and-source-audit.json",
+      "bytes": 64341,
+      "sha256": "9ac19149ad2c2084b22e820ad92dcc96fe4b12c6b6036fd323abea5fae31ca40"
+    },
+    "runtime-evidence-audit-v2.json": {
+      "file": "review/runtime-evidence-audit-v2.json",
+      "bytes": 402361,
+      "sha256": "62735d02e852d3384ae544ce6fa26bb68ff13125148244b733ca9b0d9b6e9565"
+    },
+    "picker-to-native-failure-audit.json": {
+      "file": "review/picker-to-native-failure-audit.json",
+      "bytes": 27273,
+      "sha256": "c0013b4112242c8403bb56381d65bf5892e064b4d94bf7ad7f586694e621051c"
+    },
+    "collection-integrity-audit.json": {
+      "file": "review/collection-integrity-audit.json",
+      "bytes": 4557,
+      "sha256": "cb3bea4846f4903df33fc595d91a8fba66ce978d548b3508595569566db25994"
+    },
+    "installation-and-step-log-audit.json": {
+      "file": "review/installation-and-step-log-audit.json",
+      "bytes": 12010,
+      "sha256": "3d02c81e71ca51a093676ff25319c353f80aa603e2bb7a2d49c271f9959a3b60"
+    }
+  },
+  "first_failure": {
+    "variant": "debug",
+    "check": "2d.native-entry",
+    "utc": "2026-09-10T14:06:27.317+00:00"
+  },
+  "variants": {
+    "debug": {
+      "ordinary_smoke_passed": true,
+      "ordinary_steps": 88,
+      "ordinary_named_png_xml_pairs": 30,
+      "native_session_status": "failed",
+      "failed_check": "2d.native-entry",
+      "failed_utc": "2026-09-10T14:06:27.317+00:00",
+      "actual_choice_tap": {
+        "action": "tap",
+        "bounds": [
+          193,
+          911,
+          304,
+          952
+        ],
+        "class": "android.widget.TextView",
+        "coordinates": {
+          "x": 248,
+          "y": 931
+        },
+        "display_size": [
+          720,
+          1600
+        ],
+        "label": "presentation-choice-godot_2d",
+        "package": "dev.partydeck.app",
+        "resource_id": "",
+        "rotation": 0,
+        "stage": "2d.native-entry",
+        "ui_sequence": 23,
+        "viewport": [
+          122,
+          532,
+          598,
+          1078
+        ]
+      },
+      "shell": {
+        "name": "dev.partydeck.app",
+        "pid": 7548,
+        "uid": 10148
+      },
+      "shell_task_id": 11,
+      "process_samples": 136,
+      "sampled_renderer_count": 0,
+      "original_session_png_xml_pairs": 6,
+      "verified_declared_runtime_artifacts": 470,
+      "missing_pulled_apk_bytes": true,
+      "recorded_installed_apk_sha256": "0ca787aab0091cf122369779b7ca0153b9c1013de6c7a87f01adf10716d6fca3",
+      "intentional_signals": [],
+      "checks": {
+        "2d.native-entry": {
+          "ended_utc": "2026-09-10T14:06:27.317+00:00",
+          "error": "Expected foreground dev.partydeck.app/dev.partydeck.app.godot.SessionGodotActivity and requested process lifetime within 45s; last state: {'started_utc': '2026-09-10T14:06:26.950+00:00', 'ended_utc': '2026-09-10T14:06:27.016+00:00', 'foreground': {'user_id': 0, 'component': 'dev.partydeck.app/dev.partydeck.app.MainActivity', 'task_id': 11, 'display_id': 0}, 'processes': [{'pid': 7548, 'uid': 10148, 'name': 'dev.partydeck.app'}], 'shell_pids': [7548], 'renderer_pids': []}",
+          "started_utc": "2026-09-10T14:05:31.396+00:00",
+          "status": "failed"
+        },
+        "2d.practice-baseline": {
+          "baseline": {
+            "first_card": {
+              "hand_count": 5,
+              "index": 0,
+              "rank": "Star"
+            },
+            "public": {
+              "round": 1,
+              "table_rank": "Star",
+              "turn": "Your turn"
+            }
+          },
+          "ended_utc": "2026-09-10T14:05:31.396+00:00",
+          "scope": "UI/lifecycle observation only",
+          "started_utc": "2026-09-10T14:05:03.572+00:00",
+          "status": "passed"
+        },
+        "installation": {
+          "ended_utc": "2026-09-10T14:05:03.572+00:00",
+          "installed_apk_sha256": "0ca787aab0091cf122369779b7ca0153b9c1013de6c7a87f01adf10716d6fca3",
+          "scope": "UI/lifecycle observation only",
+          "started_utc": "2026-09-10T14:04:46.276+00:00",
+          "status": "passed"
+        }
+      }
+    },
+    "optimized-test-signed": {
+      "ordinary_smoke_passed": true,
+      "ordinary_steps": 86,
+      "ordinary_named_png_xml_pairs": 30,
+      "native_session_status": "failed",
+      "failed_check": "2d.native-entry",
+      "failed_utc": "2026-09-10T14:15:30.738+00:00",
+      "actual_choice_tap": {
+        "action": "tap",
+        "bounds": [
+          193,
+          911,
+          304,
+          952
+        ],
+        "class": "android.widget.TextView",
+        "coordinates": {
+          "x": 248,
+          "y": 931
+        },
+        "display_size": [
+          720,
+          1600
+        ],
+        "label": "presentation-choice-godot_2d",
+        "package": "dev.partydeck.app",
+        "resource_id": "",
+        "rotation": 0,
+        "stage": "2d.native-entry",
+        "ui_sequence": 24,
+        "viewport": [
+          122,
+          532,
+          598,
+          1078
+        ]
+      },
+      "shell": {
+        "name": "dev.partydeck.app",
+        "pid": 14310,
+        "uid": 10149
+      },
+      "shell_task_id": 15,
+      "process_samples": 136,
+      "sampled_renderer_count": 0,
+      "original_session_png_xml_pairs": 6,
+      "verified_declared_runtime_artifacts": 470,
+      "missing_pulled_apk_bytes": true,
+      "recorded_installed_apk_sha256": "3617cf2a1dae9a0d8b243b71420060899ac51e4a39c5b7feece90cdd394c6ca4",
+      "intentional_signals": [],
+      "checks": {
+        "2d.native-entry": {
+          "ended_utc": "2026-09-10T14:15:30.738+00:00",
+          "error": "Expected foreground dev.partydeck.app/dev.partydeck.app.godot.SessionGodotActivity and requested process lifetime within 45s; last state: {'started_utc': '2026-09-10T14:15:30.369+00:00', 'ended_utc': '2026-09-10T14:15:30.438+00:00', 'foreground': {'user_id': 0, 'component': 'dev.partydeck.app/dev.partydeck.app.MainActivity', 'task_id': 15, 'display_id': 0}, 'processes': [{'pid': 14310, 'uid': 10149, 'name': 'dev.partydeck.app'}], 'shell_pids': [14310], 'renderer_pids': []}",
+          "started_utc": "2026-09-10T14:14:34.871+00:00",
+          "status": "failed"
+        },
+        "2d.practice-baseline": {
+          "baseline": {
+            "first_card": {
+              "hand_count": 5,
+              "index": 0,
+              "rank": "Moon"
+            },
+            "public": {
+              "round": 1,
+              "table_rank": "Moon",
+              "turn": "Your turn"
+            }
+          },
+          "ended_utc": "2026-09-10T14:14:34.871+00:00",
+          "scope": "UI/lifecycle observation only",
+          "started_utc": "2026-09-10T14:14:04.712+00:00",
+          "status": "passed"
+        },
+        "installation": {
+          "ended_utc": "2026-09-10T14:14:04.712+00:00",
+          "installed_apk_sha256": "3617cf2a1dae9a0d8b243b71420060899ac51e4a39c5b7feece90cdd394c6ca4",
+          "scope": "UI/lifecycle observation only",
+          "started_utc": "2026-09-10T14:13:47.852+00:00",
+          "status": "passed"
+        }
+      }
+    }
+  },
+  "current_test_results": {
+    "junit_cases": 228,
+    "canonical_suites": 39,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "python_checker_cases": 98,
+    "all_python_cases_ok": true,
+    "lint_warnings": 11,
+    "historical_suites_excluded": 76,
+    "historical_case_occurrences_excluded": 446
+  },
+  "activation": {
+    "profile": "qualification",
+    "modes": "2d,3d",
+    "package_count": 4,
+    "source_shipping_modes": []
+  },
+  "pck": {
+    "sha256": "d6adbba1b5cbd6a1ac3a5754e4294363eae70ae9540af4ba12040cd4cfff44e0",
+    "bytes": 1549656,
+    "entries": 136,
+    "source_input_files": 132,
+    "source_tools": 4,
+    "source_fingerprint": "125a5e807b1fff2132e837d173ce5df59fad4f08dc1a26204d73f1e64fddcac4"
+  },
+  "packages": {
+    "debug": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34485028785/android-packages-and-shrinker-reports/androidApp/build/outputs/apk/debug/androidApp-debug.apk",
+      "bytes": 334774799,
+      "sha256": "0ca787aab0091cf122369779b7ca0153b9c1013de6c7a87f01adf10716d6fca3"
+    },
+    "unsigned-release": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34485028785/android-packages-and-shrinker-reports/androidApp/build/outputs/apk/release/androidApp-release-unsigned.apk",
+      "bytes": 316238783,
+      "sha256": "7c26040400b572f2919ad4e199f3b04d5ac998979023d0d637a89818341ff1f8"
+    },
+    "optimized-test-signed": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34485028785/android-packages-and-shrinker-reports/build/ci/android/packages/PartyDeck-release-ci-test-signed.apk",
+      "bytes": 316289990,
+      "sha256": "3617cf2a1dae9a0d8b243b71420060899ac51e4a39c5b7feece90cdd394c6ca4"
+    },
+    "release-bundle": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34485028785/android-packages-and-shrinker-reports/androidApp/build/outputs/bundle/release/androidApp-release.aab",
+      "bytes": 112604247,
+      "sha256": "483ffac25b2031bcd3a2d6099f05a335fb71a570dd6cf1f97fee1307a8742525"
+    }
+  },
+  "archive_integrity": {
+    "artifacts": [
+      {
+        "id": 10156430132,
+        "name": "android-packages-and-shrinker-reports",
+        "archive": {
+          "file": "artifact-zips/10156430132-android-packages-and-shrinker-reports.zip",
+          "bytes": 474349874,
+          "sha256": "5b47bedd577fcea116795f742178022ec5bfc096d7081a3a5ae43c7a91bd97d9"
+        },
+        "published_api_digest": "sha256:5b47bedd577fcea116795f742178022ec5bfc096d7081a3a5ae43c7a91bd97d9",
+        "published_api_size": 474349874,
+        "file_manifest": {
+          "file": "android-packages-and-shrinker-reports.files.json",
+          "bytes": 2223,
+          "sha256": "fc44d1700875ffd36379618ebb6285e1583b80846a719229c79803f3e9e366c0"
+        },
+        "collector_integrity_receipt": {
+          "file": "android-packages-and-shrinker-reports.integrity.json",
+          "bytes": 777,
+          "sha256": "6ff05a57e56ab9aacdeefb4bbd09af52c246140c8eab14cf159d47966463144f"
+        },
+        "independently_verified_file_count": 12,
+        "all_zip_entry_crcs_and_sha256_match_manifest_and_extracted_bytes": true,
+        "all_extracted_paths_match_original_zip": true
+      },
+      {
+        "id": 10156410743,
+        "name": "android-jvm-reports",
+        "archive": {
+          "file": "artifact-zips/10156410743-android-jvm-reports.zip",
+          "bytes": 14341356,
+          "sha256": "51f94d6ac2f1c62c46a0107482cf75a93cd38729d2a0e268b0469f50db95b451"
+        },
+        "published_api_digest": "sha256:51f94d6ac2f1c62c46a0107482cf75a93cd38729d2a0e268b0469f50db95b451",
+        "published_api_size": 14341356,
+        "file_manifest": {
+          "file": "android-jvm-reports.files.json",
+          "bytes": 298523,
+          "sha256": "0fed8f6f7a1e69424b0028b73c93ab3af660484d1526ddda862e013693ab2895"
+        },
+        "collector_integrity_receipt": {
+          "file": "android-jvm-reports.integrity.json",
+          "bytes": 739,
+          "sha256": "7611ee81ac88766f08aa0925d621cbb4b34a2d670f335e5c4c40d3a944f536b6"
+        },
+        "independently_verified_file_count": 1445,
+        "all_zip_entry_crcs_and_sha256_match_manifest_and_extracted_bytes": true,
+        "all_extracted_paths_match_original_zip": true
+      }
+    ],
+    "source": {
+      "archive": {
+        "file": "source-fc431ee.tar.gz",
+        "bytes": 388123089,
+        "sha256": "9d852a2848d630a07c8b41d217b6ffcb0dd11f23a392e0db9ce15388a72b2179"
+      },
+      "receipt": {
+        "file": "source-archive.json",
+        "bytes": 926,
+        "sha256": "422a22e212584d18afc8ae0634575335f4f2d37145d7e5facc402efee42584c1"
+      },
+      "member_count": 9393,
+      "file_count": 7986,
+      "file_manifest": {
+        "file": "review/source-reverified-files.json",
+        "bytes": 1670842,
+        "sha256": "9e215c1c0913209780c8c20a06b9ba4cf7c3a143a19a98b271e52072c5ade26f"
+      },
+      "all_source_bytes_independently_compared_to_original_tar": true
+    },
+    "full_run_logs": {
+      "file": "run-logs-34485028785.zip",
+      "bytes": 78937,
+      "sha256": "82cb32bbe31e82aec93ba8db5b8d08db16853c20142f6aa0fd5f7f1e8c431d12"
+    },
+    "artifact_file_count": 1457,
+    "source_file_count": 7986,
+    "collection_errors": []
+  },
+  "authoritative_runtime_audit": "review/runtime-evidence-audit-v2.json",
+  "preserved_reviewer_corrections": [
+    {
+      "file": "runtime-audit-v2-correction.json",
+      "bytes": 1920,
+      "sha256": "2315891dbd5a5373c215104e2137a1519bd33e738f4c5d0cd0ad50c624ddd0cc"
+    },
+    {
+      "file": "installation-audit-parser-correction.json",
+      "bytes": 875,
+      "sha256": "29cb86d2e124f6ac1a2b1329a459ca68a45200567b84a5bc3ba91fa0a4d2a4f6"
+    }
+  ],
+  "not_executed": [
+    "2D native Ready",
+    "all 3D checks",
+    "native Home interruption",
+    "native Recents interruption",
+    "native Standard return",
+    "native Leave cancel/end",
+    "debug renderer death",
+    "native pixel privacy"
+  ],
+  "limits": [
+    "No native session acceptance: no renderer Ready or native lifecycle phase was reached.",
+    "Optimized renderer death was an explicit invocation omission; debug death was requested but never reached.",
+    "Pulled installed APK bytes are absent from uploaded artifacts; only their recorded matching identities are available.",
+    "Sequential PNG/XML captures; initial boot ID lacks an independently retained final counterpart.",
+    "No internal session ID or complete private-hand identity is exposed; no native round-trip continuity was observed.",
+    "The modal-focus selection rejection is a source-grounded lead without app branch telemetry.",
+    "Earlier comparison evidence is used only for pack/source provenance, not current-run tests or behavior.",
+    "No reviewer builds, tests, native retries, Git, workflow dispatch, shared-source edits, or new agents."
+  ]
+}

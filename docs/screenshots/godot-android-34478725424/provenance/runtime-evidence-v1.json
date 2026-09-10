@@ -1,0 +1,3318 @@
+{
+  "status": "All four original Android consumer evidence sets passed this offline inspection; independent acceptance remains with root/review_release.",
+  "sourceCommit": "c6ea1dd9f7966517fbee87a06b633d01c432c24d",
+  "packSha256": "d6adbba1b5cbd6a1ac3a5754e4294363eae70ae9540af4ba12040cd4cfff44e0",
+  "apkSha256": "353b09f5e0de5ee1e7b5e673ba5cb7b1d114c947f734ddfcc8a5432fb77e8e1b",
+  "completedAt": "2026-09-10T13:10:35.508771+00:00",
+  "seconds": 59.09770306800783,
+  "script": {
+    "path": "analysis/inspect-runtime-v1.py",
+    "sha256": "12170b68fece98129ff76ca811755de2b9357be408a5a415a08c3195fb0511b3"
+  },
+  "externalProcessAttempts": [],
+  "totals": {
+    "cases": 4,
+    "exits": 12,
+    "hostObservations": 445,
+    "appliedTrueDiagnostics": 430,
+    "appliedFalseDiagnostics": 0,
+    "matchedPendingResponses": 0,
+    "sceneTaps": 112,
+    "sceneSwipes": 42,
+    "sceneCaptures": 48
+  },
+  "cases": [
+    {
+      "artifact": "godot-android-2d-font-1.0-debug",
+      "artifactId": 10153284518,
+      "archiveSha256": "2f538d2ee02a9077f3a5d929e48a9950598491935bf59a7919982a781affdc65",
+      "inventory": {
+        "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/inventory.json",
+        "sha256": "43fb2b241a967bb4e7100334bb30390cd4d29b3bdddb59089ace6f0c893d0e5f"
+      },
+      "result": {
+        "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/result.json",
+        "sha256": "44d2c337e4e0b6cb4fddd43bbb64902065a133e4bac8af7b7e641b83d6278718"
+      },
+      "packageInputs": {
+        "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/package-inputs.json",
+        "sha256": "f47f7688783ae6b53db14e9fb18d52f2c0c35be22ffdc7475293f2b80dfafcbe"
+      },
+      "mode": "2d",
+      "fontScale": "1.0",
+      "device": {
+        "sdk": 35,
+        "installed_apk_sha256": "353b09f5e0de5ee1e7b5e673ba5cb7b1d114c947f734ddfcc8a5432fb77e8e1b",
+        "evidence_access": {
+          "method": "debug_run_as",
+          "uid": 10148
+        },
+        "chooser_pid": 2814,
+        "font_scale": "1.0",
+        "preferences": {
+          "reference_scenario": true,
+          "reduce_motion": true,
+          "sound_enabled": false
+        }
+      },
+      "display": [
+        720,
+        1600
+      ],
+      "intentCounts": {
+        "play": 2,
+        "challenge": 2,
+        "advance_round": 13
+      },
+      "outcomes": {
+        "1": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "2": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "3": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "4": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "5": {
+          "truthful": true,
+          "burnedOut": false
+        },
+        "6": {
+          "truthful": true,
+          "burnedOut": false
+        },
+        "7": {
+          "truthful": true,
+          "burnedOut": false
+        },
+        "8": {
+          "truthful": true,
+          "burnedOut": true
+        },
+        "9": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "10": {
+          "truthful": false,
+          "burnedOut": true
+        },
+        "11": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "12": {
+          "truthful": true,
+          "burnedOut": false
+        },
+        "13": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "14": {
+          "truthful": false,
+          "burnedOut": true
+        }
+      },
+      "winnerRound": 14,
+      "winnerRevision": "41",
+      "nativeInputFile": {
+        "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/input-geometry.log",
+        "sha256": "729e6c18ef571a4faf71e02d0e084e54734c57beab4c4c1c6096ed835773c5c0"
+      },
+      "nativeInputLabels": {
+        "reference_scenario": 1,
+        "sound_enabled": 1,
+        "launch_2d": 3,
+        "refresh_diagnostics": 72,
+        "exit_game": 1
+      },
+      "entries": [
+        {
+          "entry": {
+            "name": "match",
+            "presentation_id": "a655df62-dc13-4d65-a0a6-a32547735a7f",
+            "engine_pid": 3046,
+            "task_id": 8
+          },
+          "observations": {
+            "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/match/host-observations.log",
+            "sha256": "09c770e8277fbf1150eb802864179e03175d8a22c8b5573c1799e566bec8f6e7"
+          },
+          "hostObservationCount": 93,
+          "diagnosticApplicationCounts": {
+            "appliedTrue": 92
+          },
+          "matchedPendingResponses": [],
+          "sceneInputFile": {
+            "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/match/scene-input-geometry.log",
+            "sha256": "9050f2dd8e58fbd1a5a8a1a4e2441e8283dc2a0fae3bc0616d1d3cfa32b22e9f"
+          },
+          "sceneInputCounts": {
+            "tap": 27
+          },
+          "sceneInputs": [
+            {
+              "line": 1,
+              "kind": "tap",
+              "group": "partydeck_action_reveal",
+              "revision": "0",
+              "requestId": "3",
+              "sequence": "2",
+              "matchedHostEvidenceRevision": "15"
+            },
+            {
+              "line": 2,
+              "kind": "tap",
+              "group": "partydeck_hand_card",
+              "revision": "0",
+              "requestId": "5",
+              "sequence": "4",
+              "matchedHostEvidenceRevision": "19"
+            },
+            {
+              "line": 3,
+              "kind": "tap",
+              "group": "partydeck_action_hide",
+              "revision": "0",
+              "requestId": "7",
+              "sequence": "6",
+              "matchedHostEvidenceRevision": "23"
+            },
+            {
+              "line": 4,
+              "kind": "tap",
+              "group": "partydeck_action_reveal",
+              "revision": "0",
+              "requestId": "9",
+              "sequence": "8",
+              "matchedHostEvidenceRevision": "27"
+            },
+            {
+              "line": 5,
+              "kind": "tap",
+              "group": "partydeck_hand_card",
+              "revision": "0",
+              "requestId": "11",
+              "sequence": "10",
+              "matchedHostEvidenceRevision": "31"
+            },
+            {
+              "line": 6,
+              "kind": "tap",
+              "group": "partydeck_action_reveal",
+              "revision": "0",
+              "requestId": "16",
+              "sequence": "15",
+              "matchedHostEvidenceRevision": "47"
+            },
+            {
+              "line": 7,
+              "kind": "tap",
+              "group": "partydeck_hand_card",
+              "revision": "0",
+              "requestId": "18",
+              "sequence": "17",
+              "matchedHostEvidenceRevision": "51"
+            },
+            {
+              "line": 8,
+              "kind": "tap",
+              "group": "partydeck_action_play",
+              "revision": "0",
+              "requestId": "20",
+              "sequence": "19",
+              "matchedHostEvidenceRevision": "55"
+            },
+            {
+              "line": 9,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "2",
+              "requestId": "25",
+              "sequence": "24",
+              "matchedHostEvidenceRevision": "67"
+            },
+            {
+              "line": 10,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "5",
+              "requestId": "30",
+              "sequence": "29",
+              "matchedHostEvidenceRevision": "79"
+            },
+            {
+              "line": 11,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "8",
+              "requestId": "35",
+              "sequence": "34",
+              "matchedHostEvidenceRevision": "91"
+            },
+            {
+              "line": 12,
+              "kind": "tap",
+              "group": "partydeck_action_challenge",
+              "revision": "10",
+              "requestId": "40",
+              "sequence": "39",
+              "matchedHostEvidenceRevision": "103"
+            },
+            {
+              "line": 13,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "11",
+              "requestId": "45",
+              "sequence": "44",
+              "matchedHostEvidenceRevision": "115"
+            },
+            {
+              "line": 14,
+              "kind": "tap",
+              "group": "partydeck_action_reveal",
+              "revision": "12",
+              "requestId": "50",
+              "sequence": "49",
+              "matchedHostEvidenceRevision": "127"
+            },
+            {
+              "line": 15,
+              "kind": "tap",
+              "group": "partydeck_hand_card",
+              "revision": "12",
+              "requestId": "52",
+              "sequence": "51",
+              "matchedHostEvidenceRevision": "131"
+            },
+            {
+              "line": 16,
+              "kind": "tap",
+              "group": "partydeck_action_play",
+              "revision": "12",
+              "requestId": "54",
+              "sequence": "53",
+              "matchedHostEvidenceRevision": "135"
+            },
+            {
+              "line": 17,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "14",
+              "requestId": "59",
+              "sequence": "58",
+              "matchedHostEvidenceRevision": "147"
+            },
+            {
+              "line": 18,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "17",
+              "requestId": "64",
+              "sequence": "63",
+              "matchedHostEvidenceRevision": "159"
+            },
+            {
+              "line": 19,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "20",
+              "requestId": "69",
+              "sequence": "68",
+              "matchedHostEvidenceRevision": "171"
+            },
+            {
+              "line": 20,
+              "kind": "tap",
+              "group": "partydeck_action_challenge",
+              "revision": "22",
+              "requestId": "74",
+              "sequence": "73",
+              "matchedHostEvidenceRevision": "183"
+            },
+            {
+              "line": 21,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "23",
+              "requestId": "79",
+              "sequence": "78",
+              "matchedHostEvidenceRevision": "195"
+            },
+            {
+              "line": 22,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "26",
+              "requestId": "84",
+              "sequence": "83",
+              "matchedHostEvidenceRevision": "207"
+            },
+            {
+              "line": 23,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "29",
+              "requestId": "89",
+              "sequence": "88",
+              "matchedHostEvidenceRevision": "219"
+            },
+            {
+              "line": 24,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "32",
+              "requestId": "94",
+              "sequence": "93",
+              "matchedHostEvidenceRevision": "231"
+            },
+            {
+              "line": 25,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "35",
+              "requestId": "99",
+              "sequence": "98",
+              "matchedHostEvidenceRevision": "243"
+            },
+            {
+              "line": 26,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "38",
+              "requestId": "104",
+              "sequence": "103",
+              "matchedHostEvidenceRevision": "255"
+            },
+            {
+              "line": 27,
+              "kind": "tap",
+              "group": "partydeck_action_lobby",
+              "revision": "41",
+              "requestId": "109",
+              "sequence": "108",
+              "matchedHostEvidenceRevision": "267"
+            }
+          ],
+          "captures": [
+            {
+              "name": "01-concealed",
+              "host": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/match/01-concealed.json",
+                "sha256": "fabfbc8e3a5073f9fe496164081b1a1b069d59254db7b8c62eee2af00c7b59fe"
+              },
+              "png": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/match/01-concealed.png",
+                "sha256": "9c15c1b559307ce8ef31d7e3ed8115380b8fe4eea38f6800015096df352f369d"
+              },
+              "engineRgbSha256": "e5cbe8c9e02e0a07f268aae1eb9b6df6eb7812147cad743bbb67f9d7f2559cf1",
+              "revision": "0",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "02-revealed",
+              "host": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/match/02-revealed.json",
+                "sha256": "c61e7d5a26656dd3ee2ddcd770153963d8a7520e53fbf40c91e65465688f4d37"
+              },
+              "png": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/match/02-revealed.png",
+                "sha256": "a2c886ec63149594df537b0d767fdf17f71347ab557abcaece1a6310fa1fc0ad"
+              },
+              "engineRgbSha256": "a22e1a3a3e747109aaadc34dff08df395fc08b3b73c8acc030cef83fec258998",
+              "revision": "0",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "03-selected",
+              "host": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/match/03-selected.json",
+                "sha256": "91cb1a2d711b4a53d204c144a94125a1c9027fb28143cf2792606f42a6ea3871"
+              },
+              "png": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/match/03-selected.png",
+                "sha256": "02e04d9ac7635bd364ce0bec1d0c34a4fa2819b17a2dcec03fd6bdfabfce94fd"
+              },
+              "engineRgbSha256": "4f53246118abbb73935b5af37def19398df3da165c646d7df1e50e0f8ab0eaa9",
+              "revision": "0",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "04-covered",
+              "host": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/match/04-covered.json",
+                "sha256": "b6723276cfc9908378a0d0f1acfa9874b57ba0ddb97534413815a6009981f8c6"
+              },
+              "png": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/match/04-covered.png",
+                "sha256": "62fb75400de40fb0bf7184019682edad224b59fa4f8214859bd9c61041ac22e6"
+              },
+              "engineRgbSha256": "07c485bd398ebfaf238d2edecedaf78ec2b3a839dd61d353fb1f0451cddd8afe",
+              "revision": "0",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "07-resumed-concealed",
+              "host": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/match/07-resumed-concealed.json",
+                "sha256": "c482c0e5ea07bb9c9baff388c7be9cd42c310dfab19c970b32afc1bd0a27201b"
+              },
+              "png": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/match/07-resumed-concealed.png",
+                "sha256": "62fb75400de40fb0bf7184019682edad224b59fa4f8214859bd9c61041ac22e6"
+              },
+              "engineRgbSha256": "07c485bd398ebfaf238d2edecedaf78ec2b3a839dd61d353fb1f0451cddd8afe",
+              "revision": "0",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "08-after-play",
+              "host": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/match/08-after-play.json",
+                "sha256": "90e5bd9ed7a4956891ab71460a17bafd44146c9766bdd7a3a872f5794892779c"
+              },
+              "png": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/match/08-after-play.png",
+                "sha256": "a6c656b104f4c6fab8277a540aff606c3e28fdb7efb7007c49b22dd8e2b3b706"
+              },
+              "engineRgbSha256": "10a4925adf6afa630df267110ce5a018671245c0137116174c4ea135825a1afe",
+              "revision": "2",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "09-public-outcome",
+              "host": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/match/09-public-outcome.json",
+                "sha256": "90e5bd9ed7a4956891ab71460a17bafd44146c9766bdd7a3a872f5794892779c"
+              },
+              "png": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/match/09-public-outcome.png",
+                "sha256": "a6c656b104f4c6fab8277a540aff606c3e28fdb7efb7007c49b22dd8e2b3b706"
+              },
+              "engineRgbSha256": "10a4925adf6afa630df267110ce5a018671245c0137116174c4ea135825a1afe",
+              "revision": "2",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "10-next-round",
+              "host": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/match/10-next-round.json",
+                "sha256": "e3c4db1d222e5b2dbbef121de7b154e7cd0ffe5655747471cfb9dba3074b0ce6"
+              },
+              "png": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/match/10-next-round.png",
+                "sha256": "03a7db1235529cd56a39d5acc3bb8fcb246d67caa6e2ed026b750b958a9cb17d"
+              },
+              "engineRgbSha256": "04aa42a78866246fddca49e8abc470e6054a453d1a9a11785feb605dc8c24dd3",
+              "revision": "5",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "11-after-challenge",
+              "host": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/match/11-after-challenge.json",
+                "sha256": "32caab59301aed76eee576ad4b7f324c5952d1eb7b5c85e2330f94e181ded59f"
+              },
+              "png": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/match/11-after-challenge.png",
+                "sha256": "37a96b415688cbdb8d9c1028fa9bb96cd386e51ecb584dd9d5f7eb0147e374e9"
+              },
+              "engineRgbSha256": "672191f8ee9e82d8d7b940158f09b5cecd3aa25e3be4e19e36d8de70b0905c55",
+              "revision": "11",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "12-winner",
+              "host": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/match/12-winner.json",
+                "sha256": "58e9a6fc2606a3a8e97a4c7e4b4048b30a92129707e336eb8778089b482fdb8b"
+              },
+              "png": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/match/12-winner.png",
+                "sha256": "e74cbb701eb5150fdbb59b4f6bfca6434ada79fcb0c912432413159180faa867"
+              },
+              "engineRgbSha256": "746027c273de854f0a53e6e5e9fb0a387ea9013fa1b6a0f61e680674f8e81c67",
+              "revision": "41",
+              "sceneStateApplied": true
+            }
+          ],
+          "processLogs": [
+            {
+              "file": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/match/runtime-logcat.log",
+                "sha256": "54c21da730d814609b2e39d0cdf4dd21c927612c9dc0dd5badfaaaaaf571867c"
+              },
+              "strictInspectionPassed": true,
+              "androidErrorPriorityGodotLines": 0,
+              "pairedShaderCacheWarnings": 0
+            },
+            {
+              "file": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/match/final-process-logcat.log",
+                "sha256": "54c21da730d814609b2e39d0cdf4dd21c927612c9dc0dd5badfaaaaaf571867c"
+              },
+              "strictInspectionPassed": true,
+              "androidErrorPriorityGodotLines": 0,
+              "pairedShaderCacheWarnings": 0
+            }
+          ],
+          "teardown": {
+            "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/match/teardown.json",
+            "sha256": "afa9cf389d0ba3ef642ab715fe5c803c90218848a47b482cfcdfcf2c4013c940"
+          },
+          "reason": "return_to_chooser",
+          "nativeDestroyElapsedMs": 162,
+          "chooserXml": {
+            "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/match/14-chooser-after-exit.xml",
+            "sha256": "d8c2ab153abc538b821f06cc51794a0e24b9e1a6e62314b3068cfa7e525e4cb9"
+          },
+          "teardownChecksPassed": true
+        },
+        {
+          "entry": {
+            "name": "scene-exit",
+            "presentation_id": "0efe6494-11a5-44a0-8c45-8515ffc7767c",
+            "engine_pid": 8763,
+            "task_id": 8
+          },
+          "observations": {
+            "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/scene-exit/host-observations.log",
+            "sha256": "4c28ab6cd9ecf4d1e8671f8c482efd1631d828e523898e586d1c800efe2ba729"
+          },
+          "hostObservationCount": 4,
+          "diagnosticApplicationCounts": {
+            "appliedTrue": 3
+          },
+          "matchedPendingResponses": [],
+          "sceneInputFile": {
+            "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/scene-exit/scene-input-geometry.log",
+            "sha256": "cc6f9273ccddec74163308aaac6de4391f1b48f2c702ca6e26a02988ac5247d0"
+          },
+          "sceneInputCounts": {
+            "tap": 1
+          },
+          "sceneInputs": [
+            {
+              "line": 1,
+              "kind": "tap",
+              "group": "partydeck_action_exit",
+              "revision": "0",
+              "requestId": "3",
+              "sequence": "2",
+              "matchedHostEvidenceRevision": "15"
+            }
+          ],
+          "captures": [
+            {
+              "name": "01-fresh-concealed",
+              "host": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/scene-exit/01-fresh-concealed.json",
+                "sha256": "1c1cf352be03060b90370ce8c48c46b1e8a27a6778384615f4b9d061ec00e15f"
+              },
+              "png": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/scene-exit/01-fresh-concealed.png",
+                "sha256": "9c15c1b559307ce8ef31d7e3ed8115380b8fe4eea38f6800015096df352f369d"
+              },
+              "engineRgbSha256": "e5cbe8c9e02e0a07f268aae1eb9b6df6eb7812147cad743bbb67f9d7f2559cf1",
+              "revision": "0",
+              "sceneStateApplied": true
+            }
+          ],
+          "processLogs": [
+            {
+              "file": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/scene-exit/runtime-logcat.log",
+                "sha256": "ac5a28fd5e7d46298b3b6eeecbff8e2322fe477172c2c6d13844344e139bbab3"
+              },
+              "strictInspectionPassed": true,
+              "androidErrorPriorityGodotLines": 2,
+              "pairedShaderCacheWarnings": 1
+            },
+            {
+              "file": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/scene-exit/final-process-logcat.log",
+                "sha256": "ac5a28fd5e7d46298b3b6eeecbff8e2322fe477172c2c6d13844344e139bbab3"
+              },
+              "strictInspectionPassed": true,
+              "androidErrorPriorityGodotLines": 2,
+              "pairedShaderCacheWarnings": 1
+            }
+          ],
+          "teardown": {
+            "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/scene-exit/teardown.json",
+            "sha256": "4ca4f907e9962256b0979b50af62e0a393dd69f1f80adcc7c2519943747a89cb"
+          },
+          "reason": "renderer_exit",
+          "nativeDestroyElapsedMs": 116,
+          "chooserXml": {
+            "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/scene-exit/14-chooser-after-exit.xml",
+            "sha256": "d8c2ab153abc538b821f06cc51794a0e24b9e1a6e62314b3068cfa7e525e4cb9"
+          },
+          "teardownChecksPassed": true
+        },
+        {
+          "entry": {
+            "name": "native-exit",
+            "presentation_id": "5260382b-cc03-46cb-aca2-01943ac00204",
+            "engine_pid": 9087,
+            "task_id": 8
+          },
+          "observations": {
+            "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/native-exit/host-observations.log",
+            "sha256": "0abe3577f57ced64ccb2d6a61b701263162ba1fb12ced8c27ebf8200b90ef8ef"
+          },
+          "hostObservationCount": 3,
+          "diagnosticApplicationCounts": {
+            "appliedTrue": 2
+          },
+          "matchedPendingResponses": [],
+          "sceneInputFile": null,
+          "sceneInputCounts": {},
+          "sceneInputs": [],
+          "captures": [
+            {
+              "name": "01-fresh-concealed",
+              "host": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/native-exit/01-fresh-concealed.json",
+                "sha256": "f5d160465fe873ca3f3a667acf40a53dbdd0fb728cb2f8ffb28bbeedc35d624a"
+              },
+              "png": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/native-exit/01-fresh-concealed.png",
+                "sha256": "9c15c1b559307ce8ef31d7e3ed8115380b8fe4eea38f6800015096df352f369d"
+              },
+              "engineRgbSha256": "e5cbe8c9e02e0a07f268aae1eb9b6df6eb7812147cad743bbb67f9d7f2559cf1",
+              "revision": "0",
+              "sceneStateApplied": true
+            }
+          ],
+          "processLogs": [
+            {
+              "file": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/native-exit/runtime-logcat.log",
+                "sha256": "38c0f7ccdaf165d4a68ed4387ebf40abf68720a4c1c219dda9170871b692fb1c"
+              },
+              "strictInspectionPassed": true,
+              "androidErrorPriorityGodotLines": 2,
+              "pairedShaderCacheWarnings": 1
+            },
+            {
+              "file": {
+                "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/native-exit/final-process-logcat.log",
+                "sha256": "38c0f7ccdaf165d4a68ed4387ebf40abf68720a4c1c219dda9170871b692fb1c"
+              },
+              "strictInspectionPassed": true,
+              "androidErrorPriorityGodotLines": 2,
+              "pairedShaderCacheWarnings": 1
+            }
+          ],
+          "teardown": {
+            "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/native-exit/teardown.json",
+            "sha256": "9987c4174e32c4c44129ad2461eb7304c539ac40d5fca99cfdb6183bbb27bf65"
+          },
+          "reason": "native_close",
+          "nativeDestroyElapsedMs": 152,
+          "chooserXml": {
+            "path": "archives/10153284518-godot-android-2d-font-1.0-debug/attempt-01/extracted/android/runtime/2d/native-exit/14-chooser-after-exit.xml",
+            "sha256": "d8c2ab153abc538b821f06cc51794a0e24b9e1a6e62314b3068cfa7e525e4cb9"
+          },
+          "teardownChecksPassed": true
+        }
+      ],
+      "preparation": {
+        "serial": "emulator-5554",
+        "passed": true,
+        "reboot_attempted": false,
+        "attempts": [
+          {
+            "attempt": 1,
+            "passed": true,
+            "app_absent": true,
+            "recovery_allowed": false,
+            "boot_id": "c77d4ce4-43c0-4f9b-a2d8-4bba90c6ec97",
+            "android_api": "35",
+            "steps": [
+              "Verified responsive Android launcher before app installation"
+            ]
+          }
+        ],
+        "scope": "Empty AVD preparation only; neither APK is installed or accepted by this phase."
+      },
+      "inspectionPassed": true
+    },
+    {
+      "artifact": "godot-android-3d-font-1.0-debug",
+      "artifactId": 10153293546,
+      "archiveSha256": "e6ea170d74594cd1efb988f5036be7d42669910048458fe7cb3e179e8f1d20be",
+      "inventory": {
+        "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/inventory.json",
+        "sha256": "50e7e883458da5c076507d24cbc06f8feb8cdda3172e4eba983b50b69a3c6fe6"
+      },
+      "result": {
+        "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/result.json",
+        "sha256": "badc5d7d88dc75099819e8824ad115d5326add6bc3e4633352c6db128d139b18"
+      },
+      "packageInputs": {
+        "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/package-inputs.json",
+        "sha256": "f47f7688783ae6b53db14e9fb18d52f2c0c35be22ffdc7475293f2b80dfafcbe"
+      },
+      "mode": "3d",
+      "fontScale": "1.0",
+      "device": {
+        "sdk": 35,
+        "installed_apk_sha256": "353b09f5e0de5ee1e7b5e673ba5cb7b1d114c947f734ddfcc8a5432fb77e8e1b",
+        "evidence_access": {
+          "method": "debug_run_as",
+          "uid": 10148
+        },
+        "chooser_pid": 2813,
+        "font_scale": "1.0",
+        "preferences": {
+          "reference_scenario": true,
+          "reduce_motion": true,
+          "sound_enabled": false
+        }
+      },
+      "display": [
+        720,
+        1600
+      ],
+      "intentCounts": {
+        "play": 2,
+        "challenge": 2,
+        "advance_round": 13
+      },
+      "outcomes": {
+        "1": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "2": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "3": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "4": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "5": {
+          "truthful": true,
+          "burnedOut": false
+        },
+        "6": {
+          "truthful": true,
+          "burnedOut": false
+        },
+        "7": {
+          "truthful": true,
+          "burnedOut": false
+        },
+        "8": {
+          "truthful": true,
+          "burnedOut": true
+        },
+        "9": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "10": {
+          "truthful": false,
+          "burnedOut": true
+        },
+        "11": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "12": {
+          "truthful": true,
+          "burnedOut": false
+        },
+        "13": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "14": {
+          "truthful": false,
+          "burnedOut": true
+        }
+      },
+      "winnerRound": 14,
+      "winnerRevision": "41",
+      "nativeInputFile": {
+        "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/input-geometry.log",
+        "sha256": "075412451bcf358b7457d36258e00279d69330476514b73bdb862c4330ef2578"
+      },
+      "nativeInputLabels": {
+        "reference_scenario": 1,
+        "sound_enabled": 1,
+        "launch_3d": 3,
+        "refresh_diagnostics": 72
+      },
+      "entries": [
+        {
+          "entry": {
+            "name": "match",
+            "presentation_id": "564f0ca5-a5f1-477a-a21c-a5977a1084d9",
+            "engine_pid": 3047,
+            "task_id": 8
+          },
+          "observations": {
+            "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/match/host-observations.log",
+            "sha256": "237925f33e74e9980a31a061eb6fb8962c18c6ac00543e53fe51788f94d7410e"
+          },
+          "hostObservationCount": 94,
+          "diagnosticApplicationCounts": {
+            "appliedTrue": 92
+          },
+          "matchedPendingResponses": [],
+          "sceneInputFile": {
+            "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/match/scene-input-geometry.log",
+            "sha256": "8e2a582a5b667cc8ae6206dcc3767dbcfa18b45fd2b455cbf1cb1c9c87a9c45a"
+          },
+          "sceneInputCounts": {
+            "tap": 27
+          },
+          "sceneInputs": [
+            {
+              "line": 1,
+              "kind": "tap",
+              "group": "partydeck_action_reveal",
+              "revision": "0",
+              "requestId": "2",
+              "sequence": "1",
+              "matchedHostEvidenceRevision": "13"
+            },
+            {
+              "line": 2,
+              "kind": "tap",
+              "group": "partydeck_hand_card",
+              "revision": "0",
+              "requestId": "4",
+              "sequence": "3",
+              "matchedHostEvidenceRevision": "17"
+            },
+            {
+              "line": 3,
+              "kind": "tap",
+              "group": "partydeck_action_hide",
+              "revision": "0",
+              "requestId": "6",
+              "sequence": "5",
+              "matchedHostEvidenceRevision": "21"
+            },
+            {
+              "line": 4,
+              "kind": "tap",
+              "group": "partydeck_action_reveal",
+              "revision": "0",
+              "requestId": "8",
+              "sequence": "7",
+              "matchedHostEvidenceRevision": "25"
+            },
+            {
+              "line": 5,
+              "kind": "tap",
+              "group": "partydeck_hand_card",
+              "revision": "0",
+              "requestId": "10",
+              "sequence": "9",
+              "matchedHostEvidenceRevision": "29"
+            },
+            {
+              "line": 6,
+              "kind": "tap",
+              "group": "partydeck_action_reveal",
+              "revision": "0",
+              "requestId": "15",
+              "sequence": "14",
+              "matchedHostEvidenceRevision": "45"
+            },
+            {
+              "line": 7,
+              "kind": "tap",
+              "group": "partydeck_hand_card",
+              "revision": "0",
+              "requestId": "17",
+              "sequence": "16",
+              "matchedHostEvidenceRevision": "49"
+            },
+            {
+              "line": 8,
+              "kind": "tap",
+              "group": "partydeck_action_play",
+              "revision": "0",
+              "requestId": "19",
+              "sequence": "18",
+              "matchedHostEvidenceRevision": "53"
+            },
+            {
+              "line": 9,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "2",
+              "requestId": "24",
+              "sequence": "23",
+              "matchedHostEvidenceRevision": "65"
+            },
+            {
+              "line": 10,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "5",
+              "requestId": "29",
+              "sequence": "28",
+              "matchedHostEvidenceRevision": "77"
+            },
+            {
+              "line": 11,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "8",
+              "requestId": "34",
+              "sequence": "33",
+              "matchedHostEvidenceRevision": "89"
+            },
+            {
+              "line": 12,
+              "kind": "tap",
+              "group": "partydeck_action_challenge",
+              "revision": "10",
+              "requestId": "39",
+              "sequence": "38",
+              "matchedHostEvidenceRevision": "101"
+            },
+            {
+              "line": 13,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "11",
+              "requestId": "44",
+              "sequence": "43",
+              "matchedHostEvidenceRevision": "113"
+            },
+            {
+              "line": 14,
+              "kind": "tap",
+              "group": "partydeck_action_reveal",
+              "revision": "12",
+              "requestId": "49",
+              "sequence": "48",
+              "matchedHostEvidenceRevision": "125"
+            },
+            {
+              "line": 15,
+              "kind": "tap",
+              "group": "partydeck_hand_card",
+              "revision": "12",
+              "requestId": "51",
+              "sequence": "50",
+              "matchedHostEvidenceRevision": "129"
+            },
+            {
+              "line": 16,
+              "kind": "tap",
+              "group": "partydeck_action_play",
+              "revision": "12",
+              "requestId": "53",
+              "sequence": "52",
+              "matchedHostEvidenceRevision": "133"
+            },
+            {
+              "line": 17,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "14",
+              "requestId": "58",
+              "sequence": "57",
+              "matchedHostEvidenceRevision": "145"
+            },
+            {
+              "line": 18,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "17",
+              "requestId": "63",
+              "sequence": "62",
+              "matchedHostEvidenceRevision": "157"
+            },
+            {
+              "line": 19,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "20",
+              "requestId": "68",
+              "sequence": "67",
+              "matchedHostEvidenceRevision": "169"
+            },
+            {
+              "line": 20,
+              "kind": "tap",
+              "group": "partydeck_action_challenge",
+              "revision": "22",
+              "requestId": "73",
+              "sequence": "72",
+              "matchedHostEvidenceRevision": "181"
+            },
+            {
+              "line": 21,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "23",
+              "requestId": "78",
+              "sequence": "77",
+              "matchedHostEvidenceRevision": "193"
+            },
+            {
+              "line": 22,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "26",
+              "requestId": "83",
+              "sequence": "82",
+              "matchedHostEvidenceRevision": "205"
+            },
+            {
+              "line": 23,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "29",
+              "requestId": "88",
+              "sequence": "87",
+              "matchedHostEvidenceRevision": "217"
+            },
+            {
+              "line": 24,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "32",
+              "requestId": "93",
+              "sequence": "92",
+              "matchedHostEvidenceRevision": "229"
+            },
+            {
+              "line": 25,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "35",
+              "requestId": "98",
+              "sequence": "97",
+              "matchedHostEvidenceRevision": "241"
+            },
+            {
+              "line": 26,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "38",
+              "requestId": "103",
+              "sequence": "102",
+              "matchedHostEvidenceRevision": "253"
+            },
+            {
+              "line": 27,
+              "kind": "tap",
+              "group": "partydeck_action_lobby",
+              "revision": "41",
+              "requestId": "108",
+              "sequence": "107",
+              "matchedHostEvidenceRevision": "265"
+            }
+          ],
+          "captures": [
+            {
+              "name": "01-concealed",
+              "host": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/match/01-concealed.json",
+                "sha256": "3dac1d0415da9ec2fb9655b3caf733906e2eaa6b8ad1fae64c613f77c10db76a"
+              },
+              "png": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/match/01-concealed.png",
+                "sha256": "65057e0353a02e5e2bd19b44f3bcd0ff2d42c9e76b00c4e065ef9a8a403627d3"
+              },
+              "engineRgbSha256": "a0aa22fcd81c6c5327a87d4a7524c7e5b2ee679ae1f0e348c558798d3b8b759a",
+              "revision": "0",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "02-revealed",
+              "host": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/match/02-revealed.json",
+                "sha256": "b7400928b06dec0c1dca4d306ab7544aa5e1099db399c873999e1595ff1060b5"
+              },
+              "png": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/match/02-revealed.png",
+                "sha256": "a1d671fab132750072bef87181bee125ccc35de0b819edc95182cbab7a1dd3b8"
+              },
+              "engineRgbSha256": "4d885842e22bf9f323ab70d61183a8bb0bc2481218d08bafe0ba4f6266671451",
+              "revision": "0",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "03-selected",
+              "host": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/match/03-selected.json",
+                "sha256": "e802d2d4c851f390393eb6de0cbc28d69fd781cd0ddbc4b60d28b5c232f3a841"
+              },
+              "png": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/match/03-selected.png",
+                "sha256": "b24d50483d6a4d39302fd0b402b91c0768300515bf4edc24e4257b790b26b7a0"
+              },
+              "engineRgbSha256": "ba677b46af74453b0d92c39e33c6d371bc7cfcbad6b673ea9c0bc7be8709f585",
+              "revision": "0",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "04-covered",
+              "host": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/match/04-covered.json",
+                "sha256": "a2f15678c318c8ae2a1743d5ba3b6c6c05726b66990c4bccd7a4e61ecddf1d87"
+              },
+              "png": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/match/04-covered.png",
+                "sha256": "28da282a1b591f62ae4009d0d0f33ccfee47d5cb3c5a745f9e5947e41da37985"
+              },
+              "engineRgbSha256": "6deacb09596cdc725b93b7e2a7740da985fc219d06065b6f10df860ed6552267",
+              "revision": "0",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "07-resumed-concealed",
+              "host": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/match/07-resumed-concealed.json",
+                "sha256": "7ca6d0482fa0af95397e0c172e343bf0557d504bd21ff5db5f027d43aace050d"
+              },
+              "png": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/match/07-resumed-concealed.png",
+                "sha256": "65057e0353a02e5e2bd19b44f3bcd0ff2d42c9e76b00c4e065ef9a8a403627d3"
+              },
+              "engineRgbSha256": "a0aa22fcd81c6c5327a87d4a7524c7e5b2ee679ae1f0e348c558798d3b8b759a",
+              "revision": "0",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "08-after-play",
+              "host": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/match/08-after-play.json",
+                "sha256": "df99e01003a2d15969f116a40330e8c7bf9b326aed024f5e8405f61e74caf4b0"
+              },
+              "png": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/match/08-after-play.png",
+                "sha256": "180d4554715dd249147fe41ce9607d6d6f10c2dda5a5fbd59b2995de65a58951"
+              },
+              "engineRgbSha256": "33b4a737befd1a821f741bfeb7883a9d4d5c794be334c9429b51b0cce310664e",
+              "revision": "2",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "09-public-outcome",
+              "host": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/match/09-public-outcome.json",
+                "sha256": "df99e01003a2d15969f116a40330e8c7bf9b326aed024f5e8405f61e74caf4b0"
+              },
+              "png": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/match/09-public-outcome.png",
+                "sha256": "180d4554715dd249147fe41ce9607d6d6f10c2dda5a5fbd59b2995de65a58951"
+              },
+              "engineRgbSha256": "33b4a737befd1a821f741bfeb7883a9d4d5c794be334c9429b51b0cce310664e",
+              "revision": "2",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "10-next-round",
+              "host": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/match/10-next-round.json",
+                "sha256": "6c3ee95b726f2d77c94ee32694cce3bcbbdb16aacd34495d476e6fbfd6c1cd50"
+              },
+              "png": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/match/10-next-round.png",
+                "sha256": "cdb8095d9aca7024308999c8c532e396a7b1ffde89301d6f7f867682f1621368"
+              },
+              "engineRgbSha256": "468435c39da7f1ebc41f0bb551e92fed4f35300ed9033a56e25f6742faa3331d",
+              "revision": "5",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "11-after-challenge",
+              "host": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/match/11-after-challenge.json",
+                "sha256": "e6dace60b6d985ae024e64432571439c013b36e4afe940b1d7c549e6d0beedaa"
+              },
+              "png": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/match/11-after-challenge.png",
+                "sha256": "238768d46b77de987df2a31d6618f58fb7d877fe3b5a10879f357316277a8c1c"
+              },
+              "engineRgbSha256": "5f229b4ac8dde269326c899633e690c72d360f6b5e01b51cc9b6047bb0c76815",
+              "revision": "11",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "12-winner",
+              "host": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/match/12-winner.json",
+                "sha256": "c87ee79b1bca359431a95217443c499a0da687f0795e9ef9f0dc0387afca7836"
+              },
+              "png": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/match/12-winner.png",
+                "sha256": "bc5f8c106fa37ee4bddb3dc2c225c9a5adf376ffe61b52072f88ce0c4070175d"
+              },
+              "engineRgbSha256": "c05ccc8954ada6e5cd56e6600b015dbd5cc4a157178db2893c020e6d6fc2b681",
+              "revision": "41",
+              "sceneStateApplied": true
+            }
+          ],
+          "processLogs": [
+            {
+              "file": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/match/runtime-logcat.log",
+                "sha256": "eb7a0144b71c2859baf50c59d86a40844bbbfea38ea4c7c1d45813984cb4027c"
+              },
+              "strictInspectionPassed": true,
+              "androidErrorPriorityGodotLines": 2,
+              "pairedShaderCacheWarnings": 1
+            },
+            {
+              "file": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/match/final-process-logcat.log",
+                "sha256": "eb7a0144b71c2859baf50c59d86a40844bbbfea38ea4c7c1d45813984cb4027c"
+              },
+              "strictInspectionPassed": true,
+              "androidErrorPriorityGodotLines": 2,
+              "pairedShaderCacheWarnings": 1
+            }
+          ],
+          "teardown": {
+            "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/match/teardown.json",
+            "sha256": "b8adbd90f064e936f9c247c8f0e0e92ad2fd67dc9755e05561786f7bc6066beb"
+          },
+          "reason": "return_to_chooser",
+          "nativeDestroyElapsedMs": 237,
+          "chooserXml": {
+            "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/match/14-chooser-after-exit.xml",
+            "sha256": "d8c2ab153abc538b821f06cc51794a0e24b9e1a6e62314b3068cfa7e525e4cb9"
+          },
+          "teardownChecksPassed": true
+        },
+        {
+          "entry": {
+            "name": "scene-exit",
+            "presentation_id": "34cec34b-11d7-403a-9655-c89c5bb0950b",
+            "engine_pid": 8797,
+            "task_id": 8
+          },
+          "observations": {
+            "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/scene-exit/host-observations.log",
+            "sha256": "4bb7b9b1d2c3c7faa268a547c45c509e8850d8bd1668223cf330908e6e660daf"
+          },
+          "hostObservationCount": 5,
+          "diagnosticApplicationCounts": {
+            "appliedTrue": 3
+          },
+          "matchedPendingResponses": [],
+          "sceneInputFile": {
+            "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/scene-exit/scene-input-geometry.log",
+            "sha256": "7d0822f210c0e1f53c2cbf999988515f37400ed91570cfc405c8cf49ecf08856"
+          },
+          "sceneInputCounts": {
+            "tap": 1
+          },
+          "sceneInputs": [
+            {
+              "line": 1,
+              "kind": "tap",
+              "group": "partydeck_action_exit",
+              "revision": "0",
+              "requestId": "2",
+              "sequence": "1",
+              "matchedHostEvidenceRevision": "13"
+            }
+          ],
+          "captures": [
+            {
+              "name": "01-fresh-concealed",
+              "host": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/scene-exit/01-fresh-concealed.json",
+                "sha256": "a25262a9fc09174f221397e3606c59739fa070399ee269317ec41bfa0bfa1666"
+              },
+              "png": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/scene-exit/01-fresh-concealed.png",
+                "sha256": "65057e0353a02e5e2bd19b44f3bcd0ff2d42c9e76b00c4e065ef9a8a403627d3"
+              },
+              "engineRgbSha256": "a0aa22fcd81c6c5327a87d4a7524c7e5b2ee679ae1f0e348c558798d3b8b759a",
+              "revision": "0",
+              "sceneStateApplied": true
+            }
+          ],
+          "processLogs": [
+            {
+              "file": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/scene-exit/runtime-logcat.log",
+                "sha256": "11c5eb62f829553f5f10dd48c2de8835130af23e02aa15619ffbe7ca81947e4a"
+              },
+              "strictInspectionPassed": true,
+              "androidErrorPriorityGodotLines": 2,
+              "pairedShaderCacheWarnings": 1
+            },
+            {
+              "file": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/scene-exit/final-process-logcat.log",
+                "sha256": "11c5eb62f829553f5f10dd48c2de8835130af23e02aa15619ffbe7ca81947e4a"
+              },
+              "strictInspectionPassed": true,
+              "androidErrorPriorityGodotLines": 2,
+              "pairedShaderCacheWarnings": 1
+            }
+          ],
+          "teardown": {
+            "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/scene-exit/teardown.json",
+            "sha256": "77a15e97fe94764f5df4f9acd56c5044ee5d3eb372645f192107fa0f9d70d7cc"
+          },
+          "reason": "renderer_exit",
+          "nativeDestroyElapsedMs": 105,
+          "chooserXml": {
+            "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/scene-exit/14-chooser-after-exit.xml",
+            "sha256": "d8c2ab153abc538b821f06cc51794a0e24b9e1a6e62314b3068cfa7e525e4cb9"
+          },
+          "teardownChecksPassed": true
+        },
+        {
+          "entry": {
+            "name": "native-exit",
+            "presentation_id": "8ef6955b-006e-4a69-845b-cf630d1ef2d4",
+            "engine_pid": 9140,
+            "task_id": 8
+          },
+          "observations": {
+            "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/native-exit/host-observations.log",
+            "sha256": "f72f303e00dd75cd40196a24975b692af4425c5d6b76b797662239acfd4b4d0b"
+          },
+          "hostObservationCount": 4,
+          "diagnosticApplicationCounts": {
+            "appliedTrue": 2
+          },
+          "matchedPendingResponses": [],
+          "sceneInputFile": null,
+          "sceneInputCounts": {},
+          "sceneInputs": [],
+          "captures": [
+            {
+              "name": "01-fresh-concealed",
+              "host": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/native-exit/01-fresh-concealed.json",
+                "sha256": "50ff4d75ba311613c4b76cad4ce7d054e02daeeead842155f9b529922f4f5a27"
+              },
+              "png": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/native-exit/01-fresh-concealed.png",
+                "sha256": "65057e0353a02e5e2bd19b44f3bcd0ff2d42c9e76b00c4e065ef9a8a403627d3"
+              },
+              "engineRgbSha256": "a0aa22fcd81c6c5327a87d4a7524c7e5b2ee679ae1f0e348c558798d3b8b759a",
+              "revision": "0",
+              "sceneStateApplied": true
+            }
+          ],
+          "processLogs": [
+            {
+              "file": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/native-exit/runtime-logcat.log",
+                "sha256": "f7f0eaac2ef7c954e39fa108df612bf954b49fc293a98ba7eace961dd6f3c2f2"
+              },
+              "strictInspectionPassed": true,
+              "androidErrorPriorityGodotLines": 2,
+              "pairedShaderCacheWarnings": 1
+            },
+            {
+              "file": {
+                "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/native-exit/final-process-logcat.log",
+                "sha256": "f7f0eaac2ef7c954e39fa108df612bf954b49fc293a98ba7eace961dd6f3c2f2"
+              },
+              "strictInspectionPassed": true,
+              "androidErrorPriorityGodotLines": 2,
+              "pairedShaderCacheWarnings": 1
+            }
+          ],
+          "teardown": {
+            "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/native-exit/teardown.json",
+            "sha256": "ff09c964caf2a8dfca28315420e2f1c05aaba7c5fb698fe6ac7b5988a6334d0d"
+          },
+          "reason": "native_back",
+          "nativeDestroyElapsedMs": 189,
+          "chooserXml": {
+            "path": "archives/10153293546-godot-android-3d-font-1.0-debug/attempt-01/extracted/android/runtime/3d/native-exit/14-chooser-after-exit.xml",
+            "sha256": "d8c2ab153abc538b821f06cc51794a0e24b9e1a6e62314b3068cfa7e525e4cb9"
+          },
+          "teardownChecksPassed": true
+        }
+      ],
+      "preparation": {
+        "serial": "emulator-5554",
+        "passed": true,
+        "reboot_attempted": false,
+        "attempts": [
+          {
+            "attempt": 1,
+            "passed": true,
+            "app_absent": true,
+            "recovery_allowed": false,
+            "boot_id": "9c130aa3-6450-4360-b148-6b9fa781f33a",
+            "android_api": "35",
+            "steps": [
+              "Verified responsive Android launcher before app installation"
+            ]
+          }
+        ],
+        "scope": "Empty AVD preparation only; neither APK is installed or accepted by this phase."
+      },
+      "inspectionPassed": true
+    },
+    {
+      "artifact": "godot-android-3d-font-2.0-debug",
+      "artifactId": 10153396756,
+      "archiveSha256": "2954b14f09f0d7899a61c92ff02c35109fcc01e55f8c8c625deaba4db9ed30da",
+      "inventory": {
+        "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/inventory.json",
+        "sha256": "753b73f0f72ea9287c26c253bc8242ea5a0a44f2678bef4ddbbee1fd9f7d2182"
+      },
+      "result": {
+        "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/result.json",
+        "sha256": "a7e03b96da6c4ccf45d10ba9a6c098546cc2d37c48dd11034ae62913f1c2b25b"
+      },
+      "packageInputs": {
+        "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/package-inputs.json",
+        "sha256": "f47f7688783ae6b53db14e9fb18d52f2c0c35be22ffdc7475293f2b80dfafcbe"
+      },
+      "mode": "3d",
+      "fontScale": "2.0",
+      "device": {
+        "sdk": 35,
+        "installed_apk_sha256": "353b09f5e0de5ee1e7b5e673ba5cb7b1d114c947f734ddfcc8a5432fb77e8e1b",
+        "evidence_access": {
+          "method": "debug_run_as",
+          "uid": 10148
+        },
+        "chooser_pid": 2825,
+        "font_scale": "2.0",
+        "preferences": {
+          "reference_scenario": true,
+          "reduce_motion": true,
+          "sound_enabled": false
+        }
+      },
+      "display": [
+        720,
+        1600
+      ],
+      "intentCounts": {
+        "play": 2,
+        "challenge": 2,
+        "advance_round": 13
+      },
+      "outcomes": {
+        "1": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "2": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "3": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "4": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "5": {
+          "truthful": true,
+          "burnedOut": false
+        },
+        "6": {
+          "truthful": true,
+          "burnedOut": false
+        },
+        "7": {
+          "truthful": true,
+          "burnedOut": false
+        },
+        "8": {
+          "truthful": true,
+          "burnedOut": true
+        },
+        "9": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "10": {
+          "truthful": false,
+          "burnedOut": true
+        },
+        "11": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "12": {
+          "truthful": true,
+          "burnedOut": false
+        },
+        "13": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "14": {
+          "truthful": false,
+          "burnedOut": true
+        }
+      },
+      "winnerRound": 14,
+      "winnerRevision": "41",
+      "nativeInputFile": {
+        "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/input-geometry.log",
+        "sha256": "bbed3602d98556b6706f4a6213bd1f1a1364b0c592fe4ac9252a5dc2e1f5d40b"
+      },
+      "nativeInputLabels": {
+        "reference_scenario": 1,
+        "sound_enabled": 1,
+        "launch_3d": 3,
+        "refresh_diagnostics": 92
+      },
+      "entries": [
+        {
+          "entry": {
+            "name": "match",
+            "presentation_id": "f97ee17f-13fa-43de-b3a7-757bbbaae1eb",
+            "engine_pid": 3071,
+            "task_id": 8
+          },
+          "observations": {
+            "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/match/host-observations.log",
+            "sha256": "dd862b9e5c004258122d4412283cac887c226b29514e069f280d13c69bfac1c1"
+          },
+          "hostObservationCount": 113,
+          "diagnosticApplicationCounts": {
+            "appliedTrue": 112
+          },
+          "matchedPendingResponses": [],
+          "sceneInputFile": {
+            "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/match/scene-input-geometry.log",
+            "sha256": "99a0f61b356c4fbc7bb96f797037b563704f736267c41c2c40d09ba5ae85a2ab"
+          },
+          "sceneInputCounts": {
+            "tap": 27,
+            "swipe": 20
+          },
+          "sceneInputs": [
+            {
+              "line": 1,
+              "kind": "tap",
+              "group": "partydeck_action_reveal",
+              "revision": "0",
+              "requestId": "2",
+              "sequence": "1",
+              "matchedHostEvidenceRevision": "13"
+            },
+            {
+              "line": 2,
+              "kind": "tap",
+              "group": "partydeck_hand_card",
+              "revision": "0",
+              "requestId": "4",
+              "sequence": "3",
+              "matchedHostEvidenceRevision": "17"
+            },
+            {
+              "line": 3,
+              "kind": "tap",
+              "group": "partydeck_action_hide",
+              "revision": "0",
+              "requestId": "6",
+              "sequence": "5",
+              "matchedHostEvidenceRevision": "21"
+            },
+            {
+              "line": 4,
+              "kind": "tap",
+              "group": "partydeck_action_reveal",
+              "revision": "0",
+              "requestId": "8",
+              "sequence": "7",
+              "matchedHostEvidenceRevision": "25"
+            },
+            {
+              "line": 5,
+              "kind": "tap",
+              "group": "partydeck_hand_card",
+              "revision": "0",
+              "requestId": "10",
+              "sequence": "9",
+              "matchedHostEvidenceRevision": "29"
+            },
+            {
+              "line": 6,
+              "kind": "tap",
+              "group": "partydeck_action_reveal",
+              "revision": "0",
+              "requestId": "15",
+              "sequence": "14",
+              "matchedHostEvidenceRevision": "45"
+            },
+            {
+              "line": 7,
+              "kind": "tap",
+              "group": "partydeck_hand_card",
+              "revision": "0",
+              "requestId": "17",
+              "sequence": "16",
+              "matchedHostEvidenceRevision": "49"
+            },
+            {
+              "line": 8,
+              "kind": "swipe",
+              "group": "partydeck_action_play",
+              "revision": "0",
+              "requestId": "19",
+              "sequence": "18",
+              "matchedHostEvidenceRevision": "53"
+            },
+            {
+              "line": 9,
+              "kind": "tap",
+              "group": "partydeck_action_play",
+              "revision": "0",
+              "requestId": "20",
+              "sequence": "19",
+              "matchedHostEvidenceRevision": "55"
+            },
+            {
+              "line": 10,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "2",
+              "requestId": "25",
+              "sequence": "24",
+              "matchedHostEvidenceRevision": "67"
+            },
+            {
+              "line": 11,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "2",
+              "requestId": "26",
+              "sequence": "25",
+              "matchedHostEvidenceRevision": "69"
+            },
+            {
+              "line": 12,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "5",
+              "requestId": "31",
+              "sequence": "30",
+              "matchedHostEvidenceRevision": "81"
+            },
+            {
+              "line": 13,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "5",
+              "requestId": "32",
+              "sequence": "31",
+              "matchedHostEvidenceRevision": "83"
+            },
+            {
+              "line": 14,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "8",
+              "requestId": "37",
+              "sequence": "36",
+              "matchedHostEvidenceRevision": "95"
+            },
+            {
+              "line": 15,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "8",
+              "requestId": "38",
+              "sequence": "37",
+              "matchedHostEvidenceRevision": "97"
+            },
+            {
+              "line": 16,
+              "kind": "swipe",
+              "group": "partydeck_action_challenge",
+              "revision": "10",
+              "requestId": "43",
+              "sequence": "42",
+              "matchedHostEvidenceRevision": "109"
+            },
+            {
+              "line": 17,
+              "kind": "swipe",
+              "group": "partydeck_action_challenge",
+              "revision": "10",
+              "requestId": "44",
+              "sequence": "43",
+              "matchedHostEvidenceRevision": "111"
+            },
+            {
+              "line": 18,
+              "kind": "tap",
+              "group": "partydeck_action_challenge",
+              "revision": "10",
+              "requestId": "45",
+              "sequence": "44",
+              "matchedHostEvidenceRevision": "113"
+            },
+            {
+              "line": 19,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "11",
+              "requestId": "50",
+              "sequence": "49",
+              "matchedHostEvidenceRevision": "125"
+            },
+            {
+              "line": 20,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "11",
+              "requestId": "51",
+              "sequence": "50",
+              "matchedHostEvidenceRevision": "127"
+            },
+            {
+              "line": 21,
+              "kind": "tap",
+              "group": "partydeck_action_reveal",
+              "revision": "12",
+              "requestId": "56",
+              "sequence": "55",
+              "matchedHostEvidenceRevision": "139"
+            },
+            {
+              "line": 22,
+              "kind": "tap",
+              "group": "partydeck_hand_card",
+              "revision": "12",
+              "requestId": "58",
+              "sequence": "57",
+              "matchedHostEvidenceRevision": "143"
+            },
+            {
+              "line": 23,
+              "kind": "swipe",
+              "group": "partydeck_action_play",
+              "revision": "12",
+              "requestId": "60",
+              "sequence": "59",
+              "matchedHostEvidenceRevision": "147"
+            },
+            {
+              "line": 24,
+              "kind": "tap",
+              "group": "partydeck_action_play",
+              "revision": "12",
+              "requestId": "61",
+              "sequence": "60",
+              "matchedHostEvidenceRevision": "149"
+            },
+            {
+              "line": 25,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "14",
+              "requestId": "66",
+              "sequence": "65",
+              "matchedHostEvidenceRevision": "161"
+            },
+            {
+              "line": 26,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "14",
+              "requestId": "67",
+              "sequence": "66",
+              "matchedHostEvidenceRevision": "163"
+            },
+            {
+              "line": 27,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "17",
+              "requestId": "72",
+              "sequence": "71",
+              "matchedHostEvidenceRevision": "175"
+            },
+            {
+              "line": 28,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "17",
+              "requestId": "73",
+              "sequence": "72",
+              "matchedHostEvidenceRevision": "177"
+            },
+            {
+              "line": 29,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "20",
+              "requestId": "78",
+              "sequence": "77",
+              "matchedHostEvidenceRevision": "189"
+            },
+            {
+              "line": 30,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "20",
+              "requestId": "79",
+              "sequence": "78",
+              "matchedHostEvidenceRevision": "191"
+            },
+            {
+              "line": 31,
+              "kind": "swipe",
+              "group": "partydeck_action_challenge",
+              "revision": "22",
+              "requestId": "84",
+              "sequence": "83",
+              "matchedHostEvidenceRevision": "203"
+            },
+            {
+              "line": 32,
+              "kind": "swipe",
+              "group": "partydeck_action_challenge",
+              "revision": "22",
+              "requestId": "85",
+              "sequence": "84",
+              "matchedHostEvidenceRevision": "205"
+            },
+            {
+              "line": 33,
+              "kind": "tap",
+              "group": "partydeck_action_challenge",
+              "revision": "22",
+              "requestId": "86",
+              "sequence": "85",
+              "matchedHostEvidenceRevision": "207"
+            },
+            {
+              "line": 34,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "23",
+              "requestId": "91",
+              "sequence": "90",
+              "matchedHostEvidenceRevision": "219"
+            },
+            {
+              "line": 35,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "23",
+              "requestId": "92",
+              "sequence": "91",
+              "matchedHostEvidenceRevision": "221"
+            },
+            {
+              "line": 36,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "26",
+              "requestId": "97",
+              "sequence": "96",
+              "matchedHostEvidenceRevision": "233"
+            },
+            {
+              "line": 37,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "26",
+              "requestId": "98",
+              "sequence": "97",
+              "matchedHostEvidenceRevision": "235"
+            },
+            {
+              "line": 38,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "29",
+              "requestId": "103",
+              "sequence": "102",
+              "matchedHostEvidenceRevision": "247"
+            },
+            {
+              "line": 39,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "29",
+              "requestId": "104",
+              "sequence": "103",
+              "matchedHostEvidenceRevision": "249"
+            },
+            {
+              "line": 40,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "32",
+              "requestId": "109",
+              "sequence": "108",
+              "matchedHostEvidenceRevision": "261"
+            },
+            {
+              "line": 41,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "32",
+              "requestId": "110",
+              "sequence": "109",
+              "matchedHostEvidenceRevision": "263"
+            },
+            {
+              "line": 42,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "35",
+              "requestId": "115",
+              "sequence": "114",
+              "matchedHostEvidenceRevision": "275"
+            },
+            {
+              "line": 43,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "35",
+              "requestId": "116",
+              "sequence": "115",
+              "matchedHostEvidenceRevision": "277"
+            },
+            {
+              "line": 44,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "38",
+              "requestId": "121",
+              "sequence": "120",
+              "matchedHostEvidenceRevision": "289"
+            },
+            {
+              "line": 45,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "38",
+              "requestId": "122",
+              "sequence": "121",
+              "matchedHostEvidenceRevision": "291"
+            },
+            {
+              "line": 46,
+              "kind": "swipe",
+              "group": "partydeck_action_lobby",
+              "revision": "41",
+              "requestId": "127",
+              "sequence": "126",
+              "matchedHostEvidenceRevision": "303"
+            },
+            {
+              "line": 47,
+              "kind": "tap",
+              "group": "partydeck_action_lobby",
+              "revision": "41",
+              "requestId": "128",
+              "sequence": "127",
+              "matchedHostEvidenceRevision": "305"
+            }
+          ],
+          "captures": [
+            {
+              "name": "01-concealed",
+              "host": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/match/01-concealed.json",
+                "sha256": "d05da61c9710179cf65fadf40aacb3a759bfcea071acd9b239bf58d278ea5be0"
+              },
+              "png": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/match/01-concealed.png",
+                "sha256": "9a4db3754b35de7758d210701f4049805cde7e30b14d62d748f95a93548600d6"
+              },
+              "engineRgbSha256": "1e4bd1d7977c19b01e331b139fb3c6f0184e5906c7aa3a77f27739fbf0bb1b2e",
+              "revision": "0",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "02-revealed",
+              "host": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/match/02-revealed.json",
+                "sha256": "fdd46812ba2b0e6a0bf77a2d33479a126b76087defa95c26c7f8e324bd8cff7a"
+              },
+              "png": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/match/02-revealed.png",
+                "sha256": "e822ad5c9bece664578743fc473a0bdc017b9c3e8e69230d6c35450353d1af0b"
+              },
+              "engineRgbSha256": "3a805393b31badead9fd96ed529504ff71a58d86fdc621751a99469bf00bdaaf",
+              "revision": "0",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "03-selected",
+              "host": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/match/03-selected.json",
+                "sha256": "421af9cee4c29649414cc36b63a658c919c1f42043489d32f4132e3f57838f2a"
+              },
+              "png": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/match/03-selected.png",
+                "sha256": "3d106b42dffb2b5908596d9568494199911d8b293170c31c5910487229238307"
+              },
+              "engineRgbSha256": "12555626cb404589942656ef54b9cfbf808b3bd57fdb4ff0b8cacc9ae9c13415",
+              "revision": "0",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "04-covered",
+              "host": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/match/04-covered.json",
+                "sha256": "7e3a136f399d271dfd41928ce038605950242ee225bb8f94bb4573142b8548ec"
+              },
+              "png": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/match/04-covered.png",
+                "sha256": "7b36163551cdcfc76c65213411b366ce3b72610abc3c536158b7fb06344d338f"
+              },
+              "engineRgbSha256": "0cb9d2cb841a29707357a1ded604178eee26553c9a2b9d94ddf1732832007e41",
+              "revision": "0",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "07-resumed-concealed",
+              "host": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/match/07-resumed-concealed.json",
+                "sha256": "2b51df465cb50bf2652e8737e47d6f7a810412921fe76ae341c12b06042fa212"
+              },
+              "png": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/match/07-resumed-concealed.png",
+                "sha256": "74fa73430db0fa15dc2c4531faab0d6b098edaae3c08998fd6c81f5faf87ebbc"
+              },
+              "engineRgbSha256": "1e4bd1d7977c19b01e331b139fb3c6f0184e5906c7aa3a77f27739fbf0bb1b2e",
+              "revision": "0",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "08-after-play",
+              "host": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/match/08-after-play.json",
+                "sha256": "6049c4edb05b72e0ee11a42d2aa77623dbe6e5594bb975e5c9d8b2159c1b230d"
+              },
+              "png": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/match/08-after-play.png",
+                "sha256": "ea1643482ecc96e669912c88c077a662f52c4cea63cd4402ad1ccada7396b843"
+              },
+              "engineRgbSha256": "7c651095a7f3fedce111d601c1c319c11c0ccd2044e57946baef327dcf3e7198",
+              "revision": "2",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "09-public-outcome",
+              "host": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/match/09-public-outcome.json",
+                "sha256": "6049c4edb05b72e0ee11a42d2aa77623dbe6e5594bb975e5c9d8b2159c1b230d"
+              },
+              "png": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/match/09-public-outcome.png",
+                "sha256": "ea1643482ecc96e669912c88c077a662f52c4cea63cd4402ad1ccada7396b843"
+              },
+              "engineRgbSha256": "7c651095a7f3fedce111d601c1c319c11c0ccd2044e57946baef327dcf3e7198",
+              "revision": "2",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "10-next-round",
+              "host": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/match/10-next-round.json",
+                "sha256": "504162e8ba3ebae8c01f09dc965f9fa9009b2daeeb07542a20234b103559b150"
+              },
+              "png": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/match/10-next-round.png",
+                "sha256": "ec41fc976bebfc72f5aedec73414596a92a6473a037651df85c0bf89969c9b2f"
+              },
+              "engineRgbSha256": "0b320b55442f669c8586c40a1961613e3a61e30291a78d0d76a16dc2ebd1efee",
+              "revision": "5",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "11-after-challenge",
+              "host": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/match/11-after-challenge.json",
+                "sha256": "72a3981770650201153d3dd7206280237c96b3c611218a3490cf90c5e0979cb9"
+              },
+              "png": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/match/11-after-challenge.png",
+                "sha256": "8962dce9993da6598c7868ed52c40b1dfaf36580fc2acd74d205d2bf8edf37a4"
+              },
+              "engineRgbSha256": "793cc37689865773294c420c40ee4d09d65efbc66fd8995dc23cb7728973ad31",
+              "revision": "11",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "12-winner",
+              "host": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/match/12-winner.json",
+                "sha256": "90b110cf2933ea18d96dc34b6a78592e4c3fd2650ecd3434e1ef92fefc8a90ea"
+              },
+              "png": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/match/12-winner.png",
+                "sha256": "f845ee111eec76d8c4dc912f164ed69fca4d679a25d0a57bc790c9341a0917d3"
+              },
+              "engineRgbSha256": "0fb2e228b8d3bc1e42889ee7a92bcc1ff195365a1789a5b90338fa9a91a53238",
+              "revision": "41",
+              "sceneStateApplied": true
+            }
+          ],
+          "processLogs": [
+            {
+              "file": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/match/runtime-logcat.log",
+                "sha256": "fbb6d9ad29b58381988e74977ba34381276fed50225b6ec89ac74f7e10f1a92f"
+              },
+              "strictInspectionPassed": true,
+              "androidErrorPriorityGodotLines": 2,
+              "pairedShaderCacheWarnings": 1
+            },
+            {
+              "file": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/match/final-process-logcat.log",
+                "sha256": "fbb6d9ad29b58381988e74977ba34381276fed50225b6ec89ac74f7e10f1a92f"
+              },
+              "strictInspectionPassed": true,
+              "androidErrorPriorityGodotLines": 2,
+              "pairedShaderCacheWarnings": 1
+            }
+          ],
+          "teardown": {
+            "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/match/teardown.json",
+            "sha256": "73d3cc8ba1826e8d91caaef88cf146373f43d10bec22af6e75b1c0cb138c625c"
+          },
+          "reason": "return_to_chooser",
+          "nativeDestroyElapsedMs": 152,
+          "chooserXml": {
+            "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/match/14-chooser-after-exit.xml",
+            "sha256": "c16cbb01b48e6da4c2241ff667edeb198b06ce845b736ddf8e4bbc935299646c"
+          },
+          "teardownChecksPassed": true
+        },
+        {
+          "entry": {
+            "name": "scene-exit",
+            "presentation_id": "99da8532-c7b9-4437-aaea-5eadf6bebb81",
+            "engine_pid": 10584,
+            "task_id": 8
+          },
+          "observations": {
+            "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/scene-exit/host-observations.log",
+            "sha256": "2c55466bf3f5a7d33f5390ce4ce4bdd3acdf4dd4497f23d04fc5efe91a238e5e"
+          },
+          "hostObservationCount": 4,
+          "diagnosticApplicationCounts": {
+            "appliedTrue": 3
+          },
+          "matchedPendingResponses": [],
+          "sceneInputFile": {
+            "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/scene-exit/scene-input-geometry.log",
+            "sha256": "661c1b937ca86e6ae96686afc76426f3ebf8fd299c86ddff7a73e73e2c8a301d"
+          },
+          "sceneInputCounts": {
+            "tap": 1
+          },
+          "sceneInputs": [
+            {
+              "line": 1,
+              "kind": "tap",
+              "group": "partydeck_action_exit",
+              "revision": "0",
+              "requestId": "2",
+              "sequence": "1",
+              "matchedHostEvidenceRevision": "13"
+            }
+          ],
+          "captures": [
+            {
+              "name": "01-fresh-concealed",
+              "host": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/scene-exit/01-fresh-concealed.json",
+                "sha256": "d7e3167053eb436425bc2b87f691c89a1ab267d6f9d4b4501a6358a6681168b5"
+              },
+              "png": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/scene-exit/01-fresh-concealed.png",
+                "sha256": "ae20b04de403db64fa2521fb2c5f2dc9792e5b84ccf1a7ede46dc187a9ffc712"
+              },
+              "engineRgbSha256": "1e4bd1d7977c19b01e331b139fb3c6f0184e5906c7aa3a77f27739fbf0bb1b2e",
+              "revision": "0",
+              "sceneStateApplied": true
+            }
+          ],
+          "processLogs": [
+            {
+              "file": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/scene-exit/runtime-logcat.log",
+                "sha256": "bcb962977496a4113570d1c6c03893c5c96b0ada647bce000ca292413a747050"
+              },
+              "strictInspectionPassed": true,
+              "androidErrorPriorityGodotLines": 2,
+              "pairedShaderCacheWarnings": 1
+            },
+            {
+              "file": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/scene-exit/final-process-logcat.log",
+                "sha256": "bcb962977496a4113570d1c6c03893c5c96b0ada647bce000ca292413a747050"
+              },
+              "strictInspectionPassed": true,
+              "androidErrorPriorityGodotLines": 2,
+              "pairedShaderCacheWarnings": 1
+            }
+          ],
+          "teardown": {
+            "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/scene-exit/teardown.json",
+            "sha256": "8072c664d035c7da96be0214033201b81bb306a19716bf235e0006ed65e6480f"
+          },
+          "reason": "renderer_exit",
+          "nativeDestroyElapsedMs": 127,
+          "chooserXml": {
+            "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/scene-exit/14-chooser-after-exit.xml",
+            "sha256": "c16cbb01b48e6da4c2241ff667edeb198b06ce845b736ddf8e4bbc935299646c"
+          },
+          "teardownChecksPassed": true
+        },
+        {
+          "entry": {
+            "name": "native-exit",
+            "presentation_id": "c986173e-129f-4a9d-9f0b-c0711fc85a3f",
+            "engine_pid": 10913,
+            "task_id": 8
+          },
+          "observations": {
+            "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/native-exit/host-observations.log",
+            "sha256": "d980dbe95b0f3db603a477f3b6209d22a6fda84ae71d7b2f0b9c686542c00a9a"
+          },
+          "hostObservationCount": 3,
+          "diagnosticApplicationCounts": {
+            "appliedTrue": 2
+          },
+          "matchedPendingResponses": [],
+          "sceneInputFile": null,
+          "sceneInputCounts": {},
+          "sceneInputs": [],
+          "captures": [
+            {
+              "name": "01-fresh-concealed",
+              "host": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/native-exit/01-fresh-concealed.json",
+                "sha256": "e072138b8f4ccbe5169d54a7b2b42390622f7628422d116a8b3b24d99927e1a6"
+              },
+              "png": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/native-exit/01-fresh-concealed.png",
+                "sha256": "e1808eccdce90c8f8c6a24e0906400baee696fff845789299e05d605045e54f1"
+              },
+              "engineRgbSha256": "1e4bd1d7977c19b01e331b139fb3c6f0184e5906c7aa3a77f27739fbf0bb1b2e",
+              "revision": "0",
+              "sceneStateApplied": true
+            }
+          ],
+          "processLogs": [
+            {
+              "file": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/native-exit/runtime-logcat.log",
+                "sha256": "5fdd5a50b9896f1c932d3861113a287aeaa5252801b6dc152fe49af53c7ee404"
+              },
+              "strictInspectionPassed": true,
+              "androidErrorPriorityGodotLines": 2,
+              "pairedShaderCacheWarnings": 1
+            },
+            {
+              "file": {
+                "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/native-exit/final-process-logcat.log",
+                "sha256": "5fdd5a50b9896f1c932d3861113a287aeaa5252801b6dc152fe49af53c7ee404"
+              },
+              "strictInspectionPassed": true,
+              "androidErrorPriorityGodotLines": 2,
+              "pairedShaderCacheWarnings": 1
+            }
+          ],
+          "teardown": {
+            "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/native-exit/teardown.json",
+            "sha256": "348cf2d90150ab805765b745035298d0edebf9f61a2feba61fb0f3dd7f44b01d"
+          },
+          "reason": "native_back",
+          "nativeDestroyElapsedMs": 141,
+          "chooserXml": {
+            "path": "archives/10153396756-godot-android-3d-font-2.0-debug/attempt-01/extracted/android/runtime/3d/native-exit/14-chooser-after-exit.xml",
+            "sha256": "c16cbb01b48e6da4c2241ff667edeb198b06ce845b736ddf8e4bbc935299646c"
+          },
+          "teardownChecksPassed": true
+        }
+      ],
+      "preparation": {
+        "serial": "emulator-5554",
+        "passed": true,
+        "reboot_attempted": false,
+        "attempts": [
+          {
+            "attempt": 1,
+            "passed": true,
+            "app_absent": true,
+            "recovery_allowed": false,
+            "boot_id": "969171ae-0952-48bf-bfbe-40c47ad02d54",
+            "android_api": "35",
+            "steps": [
+              "Verified responsive Android launcher before app installation"
+            ]
+          }
+        ],
+        "scope": "Empty AVD preparation only; neither APK is installed or accepted by this phase."
+      },
+      "inspectionPassed": true
+    },
+    {
+      "artifact": "godot-android-2d-font-2.0-debug",
+      "artifactId": 10153428080,
+      "archiveSha256": "095cd9b21a0b83b9c8b4ffdb520d1eff5da2e84de9b8934597978fc33915b160",
+      "inventory": {
+        "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/inventory.json",
+        "sha256": "d8e9213d08c6c037aa046dc6cf59579d3d355589c885851908a2191e07be0e46"
+      },
+      "result": {
+        "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/result.json",
+        "sha256": "542ff95db58c44af086d2145d0c1fcf9866b375cdccbf31b5b494f855200615f"
+      },
+      "packageInputs": {
+        "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/package-inputs.json",
+        "sha256": "f47f7688783ae6b53db14e9fb18d52f2c0c35be22ffdc7475293f2b80dfafcbe"
+      },
+      "mode": "2d",
+      "fontScale": "2.0",
+      "device": {
+        "sdk": 35,
+        "installed_apk_sha256": "353b09f5e0de5ee1e7b5e673ba5cb7b1d114c947f734ddfcc8a5432fb77e8e1b",
+        "evidence_access": {
+          "method": "debug_run_as",
+          "uid": 10148
+        },
+        "chooser_pid": 2804,
+        "font_scale": "2.0",
+        "preferences": {
+          "reference_scenario": true,
+          "reduce_motion": true,
+          "sound_enabled": false
+        }
+      },
+      "display": [
+        720,
+        1600
+      ],
+      "intentCounts": {
+        "play": 2,
+        "challenge": 2,
+        "advance_round": 13
+      },
+      "outcomes": {
+        "1": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "2": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "3": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "4": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "5": {
+          "truthful": true,
+          "burnedOut": false
+        },
+        "6": {
+          "truthful": true,
+          "burnedOut": false
+        },
+        "7": {
+          "truthful": true,
+          "burnedOut": false
+        },
+        "8": {
+          "truthful": true,
+          "burnedOut": true
+        },
+        "9": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "10": {
+          "truthful": false,
+          "burnedOut": true
+        },
+        "11": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "12": {
+          "truthful": true,
+          "burnedOut": false
+        },
+        "13": {
+          "truthful": false,
+          "burnedOut": false
+        },
+        "14": {
+          "truthful": false,
+          "burnedOut": true
+        }
+      },
+      "winnerRound": 14,
+      "winnerRevision": "41",
+      "nativeInputFile": {
+        "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/input-geometry.log",
+        "sha256": "50ea6325c4d60ff8b9fefec0b4d7d991f7963f696d716368ed2f9cc3d1a81a8c"
+      },
+      "nativeInputLabels": {
+        "reference_scenario": 1,
+        "sound_enabled": 1,
+        "launch_2d": 3,
+        "refresh_diagnostics": 94,
+        "exit_game": 1
+      },
+      "entries": [
+        {
+          "entry": {
+            "name": "match",
+            "presentation_id": "f561d290-267d-4eda-bebb-ba3c5b240f43",
+            "engine_pid": 3051,
+            "task_id": 8
+          },
+          "observations": {
+            "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/match/host-observations.log",
+            "sha256": "f31dae0ddc20decaad0da99ca98bcb5b3bcf1277d3ec54d4b264ecb0e8264089"
+          },
+          "hostObservationCount": 115,
+          "diagnosticApplicationCounts": {
+            "appliedTrue": 114
+          },
+          "matchedPendingResponses": [],
+          "sceneInputFile": {
+            "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/match/scene-input-geometry.log",
+            "sha256": "e8855d63bf468a3432fa5b782be70da055b672cd77ca0e97eadd611b00e24a7f"
+          },
+          "sceneInputCounts": {
+            "tap": 27,
+            "swipe": 22
+          },
+          "sceneInputs": [
+            {
+              "line": 1,
+              "kind": "tap",
+              "group": "partydeck_action_reveal",
+              "revision": "0",
+              "requestId": "3",
+              "sequence": "2",
+              "matchedHostEvidenceRevision": "15"
+            },
+            {
+              "line": 2,
+              "kind": "tap",
+              "group": "partydeck_hand_card",
+              "revision": "0",
+              "requestId": "5",
+              "sequence": "4",
+              "matchedHostEvidenceRevision": "19"
+            },
+            {
+              "line": 3,
+              "kind": "tap",
+              "group": "partydeck_action_hide",
+              "revision": "0",
+              "requestId": "7",
+              "sequence": "6",
+              "matchedHostEvidenceRevision": "23"
+            },
+            {
+              "line": 4,
+              "kind": "tap",
+              "group": "partydeck_action_reveal",
+              "revision": "0",
+              "requestId": "9",
+              "sequence": "8",
+              "matchedHostEvidenceRevision": "27"
+            },
+            {
+              "line": 5,
+              "kind": "tap",
+              "group": "partydeck_hand_card",
+              "revision": "0",
+              "requestId": "11",
+              "sequence": "10",
+              "matchedHostEvidenceRevision": "31"
+            },
+            {
+              "line": 6,
+              "kind": "tap",
+              "group": "partydeck_action_reveal",
+              "revision": "0",
+              "requestId": "16",
+              "sequence": "15",
+              "matchedHostEvidenceRevision": "47"
+            },
+            {
+              "line": 7,
+              "kind": "tap",
+              "group": "partydeck_hand_card",
+              "revision": "0",
+              "requestId": "18",
+              "sequence": "17",
+              "matchedHostEvidenceRevision": "51"
+            },
+            {
+              "line": 8,
+              "kind": "swipe",
+              "group": "partydeck_action_play",
+              "revision": "0",
+              "requestId": "20",
+              "sequence": "19",
+              "matchedHostEvidenceRevision": "55"
+            },
+            {
+              "line": 9,
+              "kind": "tap",
+              "group": "partydeck_action_play",
+              "revision": "0",
+              "requestId": "21",
+              "sequence": "20",
+              "matchedHostEvidenceRevision": "57"
+            },
+            {
+              "line": 10,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "2",
+              "requestId": "26",
+              "sequence": "25",
+              "matchedHostEvidenceRevision": "69"
+            },
+            {
+              "line": 11,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "2",
+              "requestId": "27",
+              "sequence": "26",
+              "matchedHostEvidenceRevision": "71"
+            },
+            {
+              "line": 12,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "5",
+              "requestId": "32",
+              "sequence": "31",
+              "matchedHostEvidenceRevision": "83"
+            },
+            {
+              "line": 13,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "5",
+              "requestId": "33",
+              "sequence": "32",
+              "matchedHostEvidenceRevision": "85"
+            },
+            {
+              "line": 14,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "8",
+              "requestId": "38",
+              "sequence": "37",
+              "matchedHostEvidenceRevision": "97"
+            },
+            {
+              "line": 15,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "8",
+              "requestId": "39",
+              "sequence": "38",
+              "matchedHostEvidenceRevision": "99"
+            },
+            {
+              "line": 16,
+              "kind": "swipe",
+              "group": "partydeck_action_challenge",
+              "revision": "10",
+              "requestId": "44",
+              "sequence": "43",
+              "matchedHostEvidenceRevision": "111"
+            },
+            {
+              "line": 17,
+              "kind": "tap",
+              "group": "partydeck_action_challenge",
+              "revision": "10",
+              "requestId": "45",
+              "sequence": "44",
+              "matchedHostEvidenceRevision": "113"
+            },
+            {
+              "line": 18,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "11",
+              "requestId": "50",
+              "sequence": "49",
+              "matchedHostEvidenceRevision": "125"
+            },
+            {
+              "line": 19,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "11",
+              "requestId": "51",
+              "sequence": "50",
+              "matchedHostEvidenceRevision": "127"
+            },
+            {
+              "line": 20,
+              "kind": "tap",
+              "group": "partydeck_action_reveal",
+              "revision": "12",
+              "requestId": "56",
+              "sequence": "55",
+              "matchedHostEvidenceRevision": "139"
+            },
+            {
+              "line": 21,
+              "kind": "tap",
+              "group": "partydeck_hand_card",
+              "revision": "12",
+              "requestId": "58",
+              "sequence": "57",
+              "matchedHostEvidenceRevision": "143"
+            },
+            {
+              "line": 22,
+              "kind": "swipe",
+              "group": "partydeck_action_play",
+              "revision": "12",
+              "requestId": "60",
+              "sequence": "59",
+              "matchedHostEvidenceRevision": "147"
+            },
+            {
+              "line": 23,
+              "kind": "tap",
+              "group": "partydeck_action_play",
+              "revision": "12",
+              "requestId": "61",
+              "sequence": "60",
+              "matchedHostEvidenceRevision": "149"
+            },
+            {
+              "line": 24,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "14",
+              "requestId": "66",
+              "sequence": "65",
+              "matchedHostEvidenceRevision": "161"
+            },
+            {
+              "line": 25,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "14",
+              "requestId": "67",
+              "sequence": "66",
+              "matchedHostEvidenceRevision": "163"
+            },
+            {
+              "line": 26,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "17",
+              "requestId": "72",
+              "sequence": "71",
+              "matchedHostEvidenceRevision": "175"
+            },
+            {
+              "line": 27,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "17",
+              "requestId": "73",
+              "sequence": "72",
+              "matchedHostEvidenceRevision": "177"
+            },
+            {
+              "line": 28,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "17",
+              "requestId": "74",
+              "sequence": "73",
+              "matchedHostEvidenceRevision": "179"
+            },
+            {
+              "line": 29,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "20",
+              "requestId": "79",
+              "sequence": "78",
+              "matchedHostEvidenceRevision": "191"
+            },
+            {
+              "line": 30,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "20",
+              "requestId": "80",
+              "sequence": "79",
+              "matchedHostEvidenceRevision": "193"
+            },
+            {
+              "line": 31,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "20",
+              "requestId": "81",
+              "sequence": "80",
+              "matchedHostEvidenceRevision": "195"
+            },
+            {
+              "line": 32,
+              "kind": "swipe",
+              "group": "partydeck_action_challenge",
+              "revision": "22",
+              "requestId": "86",
+              "sequence": "85",
+              "matchedHostEvidenceRevision": "207"
+            },
+            {
+              "line": 33,
+              "kind": "tap",
+              "group": "partydeck_action_challenge",
+              "revision": "22",
+              "requestId": "87",
+              "sequence": "86",
+              "matchedHostEvidenceRevision": "209"
+            },
+            {
+              "line": 34,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "23",
+              "requestId": "92",
+              "sequence": "91",
+              "matchedHostEvidenceRevision": "221"
+            },
+            {
+              "line": 35,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "23",
+              "requestId": "93",
+              "sequence": "92",
+              "matchedHostEvidenceRevision": "223"
+            },
+            {
+              "line": 36,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "23",
+              "requestId": "94",
+              "sequence": "93",
+              "matchedHostEvidenceRevision": "225"
+            },
+            {
+              "line": 37,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "26",
+              "requestId": "99",
+              "sequence": "98",
+              "matchedHostEvidenceRevision": "237"
+            },
+            {
+              "line": 38,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "26",
+              "requestId": "100",
+              "sequence": "99",
+              "matchedHostEvidenceRevision": "239"
+            },
+            {
+              "line": 39,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "29",
+              "requestId": "105",
+              "sequence": "104",
+              "matchedHostEvidenceRevision": "251"
+            },
+            {
+              "line": 40,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "29",
+              "requestId": "106",
+              "sequence": "105",
+              "matchedHostEvidenceRevision": "253"
+            },
+            {
+              "line": 41,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "32",
+              "requestId": "111",
+              "sequence": "110",
+              "matchedHostEvidenceRevision": "265"
+            },
+            {
+              "line": 42,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "32",
+              "requestId": "112",
+              "sequence": "111",
+              "matchedHostEvidenceRevision": "267"
+            },
+            {
+              "line": 43,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "35",
+              "requestId": "117",
+              "sequence": "116",
+              "matchedHostEvidenceRevision": "279"
+            },
+            {
+              "line": 44,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "35",
+              "requestId": "118",
+              "sequence": "117",
+              "matchedHostEvidenceRevision": "281"
+            },
+            {
+              "line": 45,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "35",
+              "requestId": "119",
+              "sequence": "118",
+              "matchedHostEvidenceRevision": "283"
+            },
+            {
+              "line": 46,
+              "kind": "swipe",
+              "group": "partydeck_action_next_round",
+              "revision": "38",
+              "requestId": "124",
+              "sequence": "123",
+              "matchedHostEvidenceRevision": "295"
+            },
+            {
+              "line": 47,
+              "kind": "tap",
+              "group": "partydeck_action_next_round",
+              "revision": "38",
+              "requestId": "125",
+              "sequence": "124",
+              "matchedHostEvidenceRevision": "297"
+            },
+            {
+              "line": 48,
+              "kind": "swipe",
+              "group": "partydeck_action_lobby",
+              "revision": "41",
+              "requestId": "130",
+              "sequence": "129",
+              "matchedHostEvidenceRevision": "309"
+            },
+            {
+              "line": 49,
+              "kind": "tap",
+              "group": "partydeck_action_lobby",
+              "revision": "41",
+              "requestId": "131",
+              "sequence": "130",
+              "matchedHostEvidenceRevision": "311"
+            }
+          ],
+          "captures": [
+            {
+              "name": "01-concealed",
+              "host": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/match/01-concealed.json",
+                "sha256": "8d548e00a8c757429fcffdcf8d9103043482b0f0ef573031c1370104fe78f623"
+              },
+              "png": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/match/01-concealed.png",
+                "sha256": "03c890e08229f61e0e82e1e11aa8b06d2d12cad16f6f8ac0969d642a52f336df"
+              },
+              "engineRgbSha256": "cb858f1307e03269e36a9a6f69976a2a2bf357b26e46d0f55aa58f011b39ab50",
+              "revision": "0",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "02-revealed",
+              "host": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/match/02-revealed.json",
+                "sha256": "02a2409d9a010e4b2dd0ef80a9e41cb88a8bcd3f7e0a670c9954ca7a9440330e"
+              },
+              "png": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/match/02-revealed.png",
+                "sha256": "dd982fb313398542e7a5c41b5d0004a1361e06679c4748105dc8979fcecdfd62"
+              },
+              "engineRgbSha256": "6230347b6a73ba90323093c060d5c2067faf336f3b1b04c7aa453fea1094a784",
+              "revision": "0",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "03-selected",
+              "host": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/match/03-selected.json",
+                "sha256": "bc97c09eaea29652940d138e552e9dadbab624a94997970651394e83cb8a9c00"
+              },
+              "png": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/match/03-selected.png",
+                "sha256": "101b3d950c0e4d5be71cb7c86529411c2905384cee385aae8d07aa67d9f5fff2"
+              },
+              "engineRgbSha256": "398966da7b8995445b2df52061c42970fa5abbd80b9801a79e50bed29dd66e5b",
+              "revision": "0",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "04-covered",
+              "host": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/match/04-covered.json",
+                "sha256": "bf387309c6ed6d639c04cb424d9a10a69a492b910668949e696c7a069e8d5c02"
+              },
+              "png": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/match/04-covered.png",
+                "sha256": "45ade9f35da344aca6f45dea3a7f2a6d85cb0153b1973bd0fbf38b00f6c42a19"
+              },
+              "engineRgbSha256": "cb858f1307e03269e36a9a6f69976a2a2bf357b26e46d0f55aa58f011b39ab50",
+              "revision": "0",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "07-resumed-concealed",
+              "host": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/match/07-resumed-concealed.json",
+                "sha256": "e3b762c1da0f7cc1c7b2dc233b35b9094143ee6d546aa2490941cfe0913a39c3"
+              },
+              "png": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/match/07-resumed-concealed.png",
+                "sha256": "c4265689d061ded35d2912c198814e6bd7fd99ac6636cda01225e2234ae5b881"
+              },
+              "engineRgbSha256": "cb858f1307e03269e36a9a6f69976a2a2bf357b26e46d0f55aa58f011b39ab50",
+              "revision": "0",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "08-after-play",
+              "host": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/match/08-after-play.json",
+                "sha256": "678eac070e23879569147122d800d88e20ada65ea19a37fc1a37b4f63f61f221"
+              },
+              "png": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/match/08-after-play.png",
+                "sha256": "8df0080b842c3848c127279a3e0fb37610ea488901eb218673ce3f39753baa17"
+              },
+              "engineRgbSha256": "8e139acd528f833bf34234589fd2e896b9fc7c8ca880b9c547ae30ca08956f4f",
+              "revision": "2",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "09-public-outcome",
+              "host": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/match/09-public-outcome.json",
+                "sha256": "678eac070e23879569147122d800d88e20ada65ea19a37fc1a37b4f63f61f221"
+              },
+              "png": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/match/09-public-outcome.png",
+                "sha256": "8df0080b842c3848c127279a3e0fb37610ea488901eb218673ce3f39753baa17"
+              },
+              "engineRgbSha256": "8e139acd528f833bf34234589fd2e896b9fc7c8ca880b9c547ae30ca08956f4f",
+              "revision": "2",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "10-next-round",
+              "host": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/match/10-next-round.json",
+                "sha256": "5b4f45e3a360b71d0ad61853c3c1c1ad3e0112639bed12f4e12345161d8bdec4"
+              },
+              "png": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/match/10-next-round.png",
+                "sha256": "d35b1da90fc6b3eca90f376f85a22c1c377aba784114a36739ea93da7b665c0d"
+              },
+              "engineRgbSha256": "1f9d79df1b8360b8c00fe33666cd897bc025d88f3cce6b392246ba099490da86",
+              "revision": "5",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "11-after-challenge",
+              "host": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/match/11-after-challenge.json",
+                "sha256": "e43cadb0b0f34347b6fe6ed6757d0511d405f5c8fd9b0e3632c9ad0a3fc385a4"
+              },
+              "png": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/match/11-after-challenge.png",
+                "sha256": "8055026e60e9c774fe0c00236e9c604190330ccbc224a89765bc65907894b9ba"
+              },
+              "engineRgbSha256": "655babb16d2722a0433aa63de4cb36f7505583369485ce8a81ab5ca80b4a65ee",
+              "revision": "11",
+              "sceneStateApplied": true
+            },
+            {
+              "name": "12-winner",
+              "host": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/match/12-winner.json",
+                "sha256": "54448d6458d8e571365fdd94acc5b4bb588a9f4a433fbb1f7580ebeb983c6356"
+              },
+              "png": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/match/12-winner.png",
+                "sha256": "61fdefd13ed6802f88db13919c5efa4d125936dda594ac949d10775cd8c506b5"
+              },
+              "engineRgbSha256": "60b2da37071e7529b840103d6315e30ab82f86908486df74a21a9525bdc0d18f",
+              "revision": "41",
+              "sceneStateApplied": true
+            }
+          ],
+          "processLogs": [
+            {
+              "file": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/match/runtime-logcat.log",
+                "sha256": "7eef2b4de2a03fc49e27754ca8148c975fe4fcf69fce6fdf8502af0d2cf4fa7e"
+              },
+              "strictInspectionPassed": true,
+              "androidErrorPriorityGodotLines": 0,
+              "pairedShaderCacheWarnings": 0
+            },
+            {
+              "file": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/match/final-process-logcat.log",
+                "sha256": "7eef2b4de2a03fc49e27754ca8148c975fe4fcf69fce6fdf8502af0d2cf4fa7e"
+              },
+              "strictInspectionPassed": true,
+              "androidErrorPriorityGodotLines": 0,
+              "pairedShaderCacheWarnings": 0
+            }
+          ],
+          "teardown": {
+            "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/match/teardown.json",
+            "sha256": "3d9be276915fd8f8785391193bdd89daeb9bca4553511f6d0601fd9979f47a4a"
+          },
+          "reason": "return_to_chooser",
+          "nativeDestroyElapsedMs": 113,
+          "chooserXml": {
+            "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/match/14-chooser-after-exit.xml",
+            "sha256": "c16cbb01b48e6da4c2241ff667edeb198b06ce845b736ddf8e4bbc935299646c"
+          },
+          "teardownChecksPassed": true
+        },
+        {
+          "entry": {
+            "name": "scene-exit",
+            "presentation_id": "f1755056-b7b7-433b-b238-9917e7507267",
+            "engine_pid": 10735,
+            "task_id": 8
+          },
+          "observations": {
+            "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/scene-exit/host-observations.log",
+            "sha256": "314cbf99d37bafe4f2122b758b766c08e6a1739fecc2c1e021a8ed09d3419549"
+          },
+          "hostObservationCount": 4,
+          "diagnosticApplicationCounts": {
+            "appliedTrue": 3
+          },
+          "matchedPendingResponses": [],
+          "sceneInputFile": {
+            "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/scene-exit/scene-input-geometry.log",
+            "sha256": "160daf363e79455b41ec5532a2ac3d74e4b3a9aaf57e53f2acef6f9ca51a9347"
+          },
+          "sceneInputCounts": {
+            "tap": 1
+          },
+          "sceneInputs": [
+            {
+              "line": 1,
+              "kind": "tap",
+              "group": "partydeck_action_exit",
+              "revision": "0",
+              "requestId": "3",
+              "sequence": "2",
+              "matchedHostEvidenceRevision": "15"
+            }
+          ],
+          "captures": [
+            {
+              "name": "01-fresh-concealed",
+              "host": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/scene-exit/01-fresh-concealed.json",
+                "sha256": "27832108e141d1212b54143c2d4e274af047a31b844d9f32e598102b9b7c5d32"
+              },
+              "png": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/scene-exit/01-fresh-concealed.png",
+                "sha256": "7a05ce06eba4498c1562fc4adf930a1b06bd59351243ceb56fb1a76915db66a2"
+              },
+              "engineRgbSha256": "cb858f1307e03269e36a9a6f69976a2a2bf357b26e46d0f55aa58f011b39ab50",
+              "revision": "0",
+              "sceneStateApplied": true
+            }
+          ],
+          "processLogs": [
+            {
+              "file": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/scene-exit/runtime-logcat.log",
+                "sha256": "70e6ddd7c43fd197f7ab4996839eb19ab1cdc770915b109ad37d87733ee2073f"
+              },
+              "strictInspectionPassed": true,
+              "androidErrorPriorityGodotLines": 2,
+              "pairedShaderCacheWarnings": 1
+            },
+            {
+              "file": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/scene-exit/final-process-logcat.log",
+                "sha256": "70e6ddd7c43fd197f7ab4996839eb19ab1cdc770915b109ad37d87733ee2073f"
+              },
+              "strictInspectionPassed": true,
+              "androidErrorPriorityGodotLines": 2,
+              "pairedShaderCacheWarnings": 1
+            }
+          ],
+          "teardown": {
+            "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/scene-exit/teardown.json",
+            "sha256": "320c8295171572aa9b19ed63d46e57e309d9b74b1506da07f02d176d4748a440"
+          },
+          "reason": "renderer_exit",
+          "nativeDestroyElapsedMs": 106,
+          "chooserXml": {
+            "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/scene-exit/14-chooser-after-exit.xml",
+            "sha256": "c16cbb01b48e6da4c2241ff667edeb198b06ce845b736ddf8e4bbc935299646c"
+          },
+          "teardownChecksPassed": true
+        },
+        {
+          "entry": {
+            "name": "native-exit",
+            "presentation_id": "c7d92e3e-b3af-4e89-888b-00e84ecdf4ff",
+            "engine_pid": 11056,
+            "task_id": 8
+          },
+          "observations": {
+            "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/native-exit/host-observations.log",
+            "sha256": "749bb406b12f604f375b972ef92cc6433024ea32cefd318e67eec2b2c38f7b7a"
+          },
+          "hostObservationCount": 3,
+          "diagnosticApplicationCounts": {
+            "appliedTrue": 2
+          },
+          "matchedPendingResponses": [],
+          "sceneInputFile": null,
+          "sceneInputCounts": {},
+          "sceneInputs": [],
+          "captures": [
+            {
+              "name": "01-fresh-concealed",
+              "host": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/native-exit/01-fresh-concealed.json",
+                "sha256": "d2adce4a114282a663e1c602c571cca0115745d7440059c4b6672500584f696b"
+              },
+              "png": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/native-exit/01-fresh-concealed.png",
+                "sha256": "5ac1dd555a051e2febe19555a62a737a76d203b50777e976c8f13c9e86bc6907"
+              },
+              "engineRgbSha256": "cb858f1307e03269e36a9a6f69976a2a2bf357b26e46d0f55aa58f011b39ab50",
+              "revision": "0",
+              "sceneStateApplied": true
+            }
+          ],
+          "processLogs": [
+            {
+              "file": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/native-exit/runtime-logcat.log",
+                "sha256": "286c706c6ee57beb22966347ad2fe7f6f2de1f7b7cd4be8f784a55b50e8d90f8"
+              },
+              "strictInspectionPassed": true,
+              "androidErrorPriorityGodotLines": 2,
+              "pairedShaderCacheWarnings": 1
+            },
+            {
+              "file": {
+                "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/native-exit/final-process-logcat.log",
+                "sha256": "286c706c6ee57beb22966347ad2fe7f6f2de1f7b7cd4be8f784a55b50e8d90f8"
+              },
+              "strictInspectionPassed": true,
+              "androidErrorPriorityGodotLines": 2,
+              "pairedShaderCacheWarnings": 1
+            }
+          ],
+          "teardown": {
+            "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/native-exit/teardown.json",
+            "sha256": "4a498603a27471077cd96ae60ff4d0828111dd8f86f209c0f2f266dca2a81574"
+          },
+          "reason": "native_close",
+          "nativeDestroyElapsedMs": 147,
+          "chooserXml": {
+            "path": "archives/10153428080-godot-android-2d-font-2.0-debug/attempt-01/extracted/android/runtime/2d/native-exit/14-chooser-after-exit.xml",
+            "sha256": "c16cbb01b48e6da4c2241ff667edeb198b06ce845b736ddf8e4bbc935299646c"
+          },
+          "teardownChecksPassed": true
+        }
+      ],
+      "preparation": {
+        "serial": "emulator-5554",
+        "passed": true,
+        "reboot_attempted": false,
+        "attempts": [
+          {
+            "attempt": 1,
+            "passed": true,
+            "app_absent": true,
+            "recovery_allowed": false,
+            "boot_id": "1e9d28e7-d7c9-46b0-81a9-410f7aabe927",
+            "android_api": "35",
+            "steps": [
+              "Verified responsive Android launcher before app installation"
+            ]
+          }
+        ],
+        "scope": "Empty AVD preparation only; neither APK is installed or accepted by this phase."
+      },
+      "inspectionPassed": true
+    }
+  ],
+  "limits": [
+    "No saved diagnostic had sceneStateApplied=false; the native pending-response follow-up branch was not observed.",
+    "The source keeps the 45-second entry, 30-second response and four-follow-up limits. Individual response start/end times are not timestamped in the saved journals.",
+    "Original images are retained. Binding/crop/geometry checks do not replace independent visual/Recents review.",
+    "These are API 35 debug emulator comparison runs of the PCK with on-demand 3D redraw; no production session, physical device, LAN or store qualification follows."
+  ]
+}

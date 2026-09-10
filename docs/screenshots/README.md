@@ -1,8 +1,8 @@
 # Screenshot review gallery
 
-This collection preserves **1,913 original app and renderer captures**, including failed attempts, and links to **four existing asset proofs**. Click a collection, then any thumbnail to open the full PNG. Every record includes its original filename, scenario, platform, pixel dimensions and full SHA-256; [manifest.json](manifest.json) also records source locations, exact revisions where known, CI runs, receipts and duplicate-source aliases.
+This collection preserves **2,013 original app and renderer captures**, including failed attempts, and links to **four existing asset proofs**. Click a collection, then any thumbnail to open the full PNG. Every record includes its original filename, scenario, platform, pixel dimensions and full SHA-256; [manifest.json](manifest.json) also records source locations, exact revisions where known, CI runs, receipts and duplicate-source aliases.
 
-An additional [nine decoded launch-video frames](supplemental/ios-34478720554-launch-video/README.md) are preserved in a labeled supplement, separate from the original PNG total.
+An additional **13 supplemental images** comprise [nine decoded launch-video frames](supplemental/ios-34478720554-launch-video/README.md) and [four existing adaptive review sheets](supplemental/android-adaptive-34485033488-review-sheets/README.md). They are separate from the original PNG total.
 
 [Open the published first batch](first-batch/README.md) for the 125 initially published native, shared-UI and first desktop 2D views. The collection pages below add complete source records and original-filename mappings without duplicating those images.
 
@@ -10,6 +10,8 @@ Use the latest native and shared-UI collections for current review. Earlier capt
 
 | Current reviewed collection | Images | Evidence scope |
 | --- | ---: | --- |
+| [Android API 35 debug — CI 34485028785](android-34485028785/debug/README.md) | 31 | Ordinary smoke passes 88 steps. Home, Rules, hand and Play are reviewed at normal/200% text; scroll and edge clipping remain. Separate native entry fails. |
+| [Android API 35 optimized, test signed — CI 34485028785](android-34485028785/optimized-test-signed/README.md) | 31 | Ordinary smoke passes 86 steps. The final 200% Home is directly reviewed; the enlarged invalid-Join button is partly clipped. Separate native entry fails. |
 | [Compose named winner — stable announcement, four layouts](compose-winner-semantics-20260910/README.md) | 4 | Seven JVM tests pass. Named winner and both actions fit at phone, 200% text, short landscape and tablet sizes; stable heading/one polite live region remains JVM-only evidence. |
 | [Android API 36 debug — CI 34457458638](android-34457458638/debug/README.md) | 31 | Both text-scale Rules routes pass with complete dedicated Practice actions. Enlarged Play is reachability only; result and intermediate scroll clipping remain. Final Home is 200% text. |
 | [Android API 36 optimized, test signed — CI 34457458638](android-34457458638/optimized-test-signed/README.md) | 31 | Both text-scale Rules routes pass with complete dedicated Practice actions. Enlarged Play is reachability only; result and intermediate scroll clipping remain. Final Home is 200% text. |
@@ -25,6 +27,10 @@ Use the latest native and shared-UI collections for current review. Earlier capt
 
 | Collection | Images | Evidence scope |
 | --- | ---: | --- |
+| [Android adaptive — CI 34485033488](godot-android-adaptive-34485033488/README.md) | 16 | Four installations pass; all four initial landscape checks fail. Normal text stops in Standard preparation; 200% stops after the logged 2D choice. No sampled renderer, video or native transition; 92 scopes unexecuted. |
+| [Android production entry — CI 34485028785](android-34485028785/godot-session/README.md) | 12 | Both 2D Activity waits fail after the recorded picker choice. Final frames retain the concealed Compose table; no native Ready, 3D, lifecycle or renderer-death check. |
+| [iOS production — CI 34480503751](godot-ios-production-34480503751/README.md) | 2 | Both 2D/3D smokes fail. A stretched host area leaves a reported 402 × 26 renderer viewport; the native accessibility guard is unsatisfied. Six baseline cases are separate evidence. |
+| [Android comparison — reviewed subset, CI 34478725424](godot-android-34478725424/README.md) | 8 | Existing acceptance covers four API35 comparison cases and twelve exits. Four blank Recents thumbnails and four 3D reveal/resume originals are published; the enlarged resumed hand remains clipped. No native idle timing claim. |
 | [Godot iOS authority host — CI 34478720554](godot-ios-authority-34478720554/README.md) | 16 | Normal 2D and secure Exit pass. 2D/200% fails launch with no original PNG; both 3D diagnostic waits fail. Later captures remain separate from rejected observations. |
 | [Godot iOS retained host — CI 34478720554](godot-ios-retained-34478720554/README.md) | 27 | Four repeated entries pass. Dormant Home/activate passes before a separate second-3D entry wait fails; stale reentry also fails while warming. Later concealed frames do not satisfy the deadlines. |
 | [Godot iOS authority host — preceding success, CI 34473325295](godot-ios-authority-34473325295/README.md) | 45 | All four reference matches at normal/200% text and secure Exit pass. This exact pack predates demand redraw; layout clipping and broader native limits remain. |
@@ -45,10 +51,11 @@ Use the latest native and shared-UI collections for current review. Earlier capt
 | [Godot Android host — CI 34427418175](godot-android-34427418175/README.md) | 8 | All four 2D/3D × 100%/200% cases fail at match entry. Native chooser and covered final host originals are retained; no rendered game or accepted gameplay intent is established. |
 | [Godot iOS probe — CI 34428221586](godot-ios-probe-34428221586/README.md) | 2 | One cancellation before engine construction passes; four tests fail. The native host shows Closed or Failed, with zero draw/Ready/iterations. Original metrics and four supplemental source recordings are retained. |
 
-## Supplemental recording evidence
+## Supplemental image evidence
 
-| Supplement | Decoded frames | Evidence scope |
+| Supplement | Images | Evidence scope |
 | --- | ---: | --- |
+| [Android adaptive review sheets — CI 34485033488](supplemental/android-adaptive-34485033488-review-sheets/README.md) | 4 | Existing resized/labeled sheets cover all 16 preserved failed-run originals. Zero original-PNG contribution; native entry remains unqualified. |
 | [iOS launch recording — CI 34478720554](supplemental/ios-34478720554-launch-video/README.md) | 9 | Original MP4 and unchanged decoded frames retained with exact relative PTS. Home → blank opening view → late Idle chooser; launch remains failed, tap delivery/native scene entry unproven. These are excluded from original PNG totals. |
 
 ## Godot gameplay through the real authority
@@ -157,6 +164,8 @@ The [Godot import report](../../godot/renderer/assets/proofs/import_verification
 - The three newly archived iOS runs preserve 179 distinct originals: 65 from 34464316979, 71 from 34473325295 and 43 from 34478720554. All original ZIP members and payloads were independently verified; compact measurements, failed predicates, results and source provenance are published. The preceding run passes all five authority cases, while the latest run passes only normal 2D and secure Exit. Both newer retained suites pass only their four-entry case. Later screenshots do not replace rejected observations or missing assertion dictionaries.
 - The latest launch case has no original CI PNG or initial measurement. Nine supplemental decoded frames and their original MP4 show late Idle chooser visibility, with a 3.501667-second sample gap and unresolved absolute PTS origin. A logged tap attempt does not prove delivery or native entry. The 2D/200% label identifies the failed test, not a demonstrated enlarged chooser.
 - Thirteen local demand-redraw originals retain their source fingerprint and desktop-only scope. The first import log reports a parse failure despite exit 0; the second attempt exits 1 with three failed assertions. Four winner originals retain their seven-test JVM receipt, exact two-file source hashes and stable named-winner semantics scope. Native assistive technology is not executed by these fixtures.
+- This publication adds 100 distinct originals and four existing review sheets from two frozen copy queues. Sixty-five originals were directly viewed, 16 were reviewed through the sheets, 14 exactly match published bytes and five match direct views in this batch. Both final ordinary Android PNGs were reviewed later without changing the source owner’s earlier history. All capture names, dimensions, exact revisions and source paths remain separate.
+- Android production 34485028785 retains passing ordinary smokes and two failed native-entry waits; adaptive 34485033488 retains four failed initial landscape checks. iOS production 34480503751 retains both clipped-viewport failures. The eight Android comparison originals from 34478725424 are the complete directly viewed subset, not all 48 scene captures. Prior runtime/archive audits are reused; publication checks cover the selected originals, paired evidence and frozen copies.
 - Failed runtime stages, historical layout defects and missing native qualification are recorded in the relevant collection. No retained candidate required credential redaction or omission.
 
 For accepted findings and remaining native limits, see [the shared UI design review](../design-review.md), [the Godot design review](../../godot/reviews/design-review.md), and [the Godot asset documentation](../../godot/renderer/assets/README.md).
