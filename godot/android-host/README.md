@@ -64,6 +64,10 @@ manifest plugin auto-discovery entry. Exact Godot singleton surface:
 | `diagnostics_requested(request_id: String)` | Optional read-only qualification signal |
 | `renderer_diagnostics(document: String)` | Correlated geometry/privacy evidence; never an authority input |
 
+Android exposes these annotated Java methods through `JNISingleton.has_java_method`;
+ordinary Godot `has_method` does not query that singleton's Java method map. The
+renderer uses the Java lookup for both display scale and diagnostic callbacks.
+
 The scene connects signals before reading the launch document. Native code keeps
 outgoing delivery paused until native setup **and** an accepted renderer Ready.
 Events are capped at 4,096 UTF-8 bytes, diagnostics at 16,384, and launch/commands
@@ -96,7 +100,11 @@ reveal/selection and stops feedback when backgrounded.
 
 Close invalidates the authority and incoming bridge immediately, replaces waiting
 commands with a terminal Close, and allows at most 250 ms for native delivery.
-It then calls upstream `Godot.destroyAndKillProcess()`. The final app-private
+It then requests exit through the public `GodotRenderView.blockingExitRenderer`
+API before calling upstream `Godot.destroyAndKillProcess()`. False returns are
+retried against one monotonic 1,500 ms wait budget; only a true result confirms
+renderer exit. An unconfirmed exit records a failure without replacing an earlier
+failure cause. The final app-private
 evidence write precedes killing **only** `:godot`; the chooser remains alive.
 No engine restart in an existing process is claimed. Activity recreation ends
 the transient comparison instead of restoring a stale Fragment/session.
@@ -112,11 +120,18 @@ preferences with the Android 12 extraction rules, alongside the older backup
 flags. Qualification evidence and a previous practice choice are not restored
 onto another installation.
 
-The upstream renderer-exit wait is 1,500 ms and may force-quit on timeout. Both
-ordinary termination and that fallback can invoke the same public callbacks.
+Godot 4.7.2's timed GL wait returns after a single shared-monitor wake. EGL cleanup
+can notify that monitor before `mExited` is set, producing the upstream
+1,500 ms timeout warning even when less time elapsed. The retry handles this
+early wake. It is not a strict wall-clock guarantee: Godot holds that monitor
+during native cleanup, and surface detach has an untimed exit wait. The original
+upstream destruction fallback remains in place. Both ordinary termination and
+that fallback can invoke the same public callbacks.
 `nativeTerminating`, `nativeForceQuitCallback` and elapsed-time evidence therefore
 do **not** prove graceful cleanup by themselves. Runtime checks also reject
 the upstream log `Unable to exit the renderer within ... Force quitting the process`.
+The plugin's native-termination observation remains necessary because exit can
+complete before `destroyAndKillProcess` installs its optional callback.
 
 ## Evidence and native controls
 
@@ -180,6 +195,10 @@ by `proguard-rules.pro` for the independently built optimized variant.
 - [Godot teardown and render dispatch](https://github.com/godotengine/godot/blob/4.7.2-stable/platform/android/java/lib/src/main/java/org/godotengine/godot/Godot.kt)
 - [Upstream Activity explains process restart](https://github.com/godotengine/godot/blob/4.7.2-stable/platform/android/java/lib/src/main/java/org/godotengine/godot/GodotActivity.kt)
 - [Plugin reflection, emitSignal and draw hooks](https://github.com/godotengine/godot/blob/4.7.2-stable/platform/android/java/lib/src/main/java/org/godotengine/godot/plugin/GodotPlugin.java)
+- [Android singleton Java method lookup](https://github.com/godotengine/godot/blob/4.7.2-stable/platform/android/api/jni_singleton.cpp#L35-L77)
+- [Public renderer-exit API](https://github.com/godotengine/godot/blob/4.7.2-stable/platform/android/java/lib/src/main/java/org/godotengine/godot/GodotRenderView.java#L39-L63)
+- [Timed GL exit wait and shared-monitor exit marker](https://github.com/godotengine/godot/blob/4.7.2-stable/platform/android/java/lib/src/main/java/org/godotengine/godot/gl/GLSurfaceView.java#L1795-L1825)
+- [EGL cleanup notification before the final exit marker](https://github.com/godotengine/godot/blob/4.7.2-stable/platform/android/java/lib/src/main/java/org/godotengine/godot/gl/GLSurfaceView.java#L1298-L1335)
 - [Android renderer selection and XR lookup](https://github.com/godotengine/godot/blob/4.7.2-stable/platform/android/java_godot_lib_jni.cpp#L539-L550)
 - [Supported XR mode launch option](https://github.com/godotengine/godot/blob/4.7.2-stable/main/main.cpp#L1991-L2008)
 - [XR shader setting default](https://github.com/godotengine/godot/blob/4.7.2-stable/servers/rendering/rendering_server.cpp#L3812-L3814)
@@ -197,10 +216,12 @@ hash provenance is in `docs/runtime-notices-provenance.json`.
 
 Owner `compileDebugKotlin` and `testDebugUnitTest` passed against the actual AAR;
 four focused tests cover retained startup messages, stalled-consumer bounds,
-closed-lifetime callback rejection and terminal delivery acknowledgment. Those
+closed-lifetime callback rejection and terminal delivery acknowledgment. Three
+exit-wait tests cover early notifications, deadline exhaustion and interruption.
+Compilation and all seven tests passed together in five seconds. Those
 tests do not substitute for the independently owned native input, rendering,
 background, close/re-entry, process-death and optimized-package qualification.
-The corrected `lintDebug` and current four unit tests passed together in 11 seconds
+The corrected `lintDebug` and original four queue tests passed together in 11 seconds
 on 2026-09-10, with zero lint errors and eight classified warnings.
 
 The first full lint pass identified an API-27 navigation-bar style in the

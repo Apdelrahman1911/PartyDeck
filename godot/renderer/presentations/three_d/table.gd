@@ -678,8 +678,10 @@ func _restore_scrolls() -> void:
 		return
 	var requested_layout := _layout
 	await get_tree().process_frame
+	if not is_inside_tree():
+		return
 	await get_tree().process_frame
-	if not is_instance_valid(requested_layout) or requested_layout != _layout:
+	if not is_inside_tree() or not is_instance_valid(requested_layout) or requested_layout != _layout:
 		return
 	_restore_scroll_node(_layout)
 	var focused_control: Control
@@ -692,7 +694,7 @@ func _restore_scrolls() -> void:
 				break
 	if focused_control != null:
 		await get_tree().process_frame
-		if is_instance_valid(focused_control) and requested_layout == _layout:
+		if is_inside_tree() and is_instance_valid(focused_control) and requested_layout == _layout:
 			_keep_control_inside_scroll(focused_control)
 
 
@@ -837,6 +839,8 @@ func _bring_hand_into_view() -> void:
 		return
 	var requested_layout := _layout
 	await get_tree().process_frame
+	if not is_inside_tree():
+		return
 	await get_tree().process_frame
 	if not is_inside_tree() or not is_instance_valid(requested_layout) or requested_layout != _layout or not _state.get("handVisible", false):
 		return

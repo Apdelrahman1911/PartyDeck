@@ -42,7 +42,7 @@ func _ready() -> void:
 		_plugin.connect("command_received", receive_document)
 		if _plugin.has_signal("diagnostics_requested"):
 			_plugin.connect("diagnostics_requested", _send_diagnostics)
-		if _plugin.has_method("get_display_scale"):
+		if _plugin_has_method("get_display_scale"):
 			_native_display_scale_valid = _configure_native_display_scale(_plugin.call("get_display_scale"))
 		elif OS.has_feature("android"):
 			push_error("PartyDeck Android bridge did not provide its display density.")
@@ -61,6 +61,17 @@ func _ready() -> void:
 
 func receive_document(document: String) -> bool:
 	return controller != null and controller.receive_document(document)
+
+
+func _plugin_has_method(method_name: StringName) -> bool:
+	if _plugin == null:
+		return false
+	if _plugin.has_method(method_name):
+		return true
+	# Android @UsedByGodot methods live outside Object's method table. JNISingleton
+	# binds has_java_method and dispatches Object methods before its Java registry:
+	# https://github.com/godotengine/godot/blob/4.7.2-stable/platform/android/api/jni_singleton.cpp
+	return _plugin.has_method("has_java_method") and bool(_plugin.call("has_java_method", method_name))
 
 
 func _configure_native_display_scale(value: Variant) -> bool:
@@ -258,5 +269,5 @@ func _control_clip_rect(control: Control, viewport: Rect2) -> Rect2:
 func _send_diagnostics(request_id: String) -> void:
 	if not Controller.Validator.counter(request_id):
 		return
-	if _plugin != null and _plugin.has_method("renderer_diagnostics"):
+	if _plugin_has_method("renderer_diagnostics"):
 		_plugin.call("renderer_diagnostics", diagnostics_document(request_id))

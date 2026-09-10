@@ -56,6 +56,34 @@ jobs:
       - name: Validate both real scenes and export their PCK
         id: renderer-pack
         run: python3 godot/tools/renderer.py pack --godot godot/qualification/build/toolchain/godot
+      - name: Check packed bridge discovery and rapid scene teardown
+        timeout-minutes: 2
+        shell: bash
+        run: |
+          mkdir -p godot/qualification/build/ci/native-boundary/empty
+          godot/qualification/build/toolchain/godot --headless \
+            --path "$GITHUB_WORKSPACE/godot/qualification/build/ci/native-boundary/empty" \
+            --main-pack "$GITHUB_WORKSPACE/godot/qualification/build/renderer/partydeck-last-light.pck" \
+            --audio-driver Dummy \
+            --script "$GITHUB_WORKSPACE/godot/renderer/tests/native_bridge_check.gd" -- \
+            --check-output="$GITHUB_WORKSPACE/godot/qualification/build/ci/native-boundary/results" \
+            --check-fixtures="$GITHUB_WORKSPACE/godot/bridge/fixtures" \
+            2>&1 | tee godot/qualification/build/ci/native-boundary/runtime.log
+          python3 - <<'PY'
+          import json
+          import re
+          from pathlib import Path
+
+          output = Path('godot/qualification/build/ci/native-boundary')
+          report = json.loads((output / 'results/report.json').read_text())
+          if report.get('result') != 'passed' or not report.get('checks'):
+              raise SystemExit('The packed native bridge boundary check did not pass.')
+          if any(check.get('passed') is not True for check in report['checks']):
+              raise SystemExit('The boundary report contains a failed assertion.')
+          if re.search(r'(?m)^(?:SCRIPT ERROR|ERROR|Parse Error):', (output / 'runtime.log').read_text()):
+              raise SystemExit('The engine reported an error despite its process exit status.')
+          print(f"{len(report['checks'])} packed boundary assertions passed without engine errors.")
+          PY
       - name: Exercise matched 2D and 3D gameplay from the exported PCK
         timeout-minutes: 10
         env:
@@ -100,6 +128,7 @@ jobs:
             godot/qualification/build/renderer/**
             godot/qualification/build/toolchain/install.receipt.json
             godot/qualification/build/ci/android-checker-tests.log
+            godot/qualification/build/ci/native-boundary/**
             godot/qualification/build/ci/desktop/**
             build/ci/android/graphics-*.log
           retention-days: 14

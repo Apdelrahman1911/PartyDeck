@@ -525,6 +525,19 @@ class GodotGameActivity : FragmentActivity(), GodotHost, PartyDeckBridgePlugin.L
         facts.put("nativeDestroyRequested", engine != null)
         recordEvidence()
         val start = SystemClock.elapsedRealtime()
+        val renderer = engine?.renderView
+        // The upstream timed GL wait may wake before its mExited flag is set. Confirm
+        // exit with the public API before onDestroy's single-wait fallback can misfire.
+        val rendererExited = renderer != null && waitForRendererExit(
+            timeoutMillis = 1_500,
+            nowMillis = SystemClock::elapsedRealtime,
+            requestExitAndWait = renderer::blockingExitRenderer,
+        )
+        if (engine != null && !rendererExited) {
+            if (!facts.has("failureCode")) facts.put("failureCode", "native_renderer_exit_unconfirmed")
+            Log.e(EvidenceRecorder.TAG, "Renderer exit was not confirmed before native host cleanup")
+            recordEvidence()
+        }
         engine?.destroyAndKillProcess { terminatingObserved.set(true) }
         facts.put("nativeDestroyReturned", engine != null)
             .put("nativeDestroyElapsedMs", (SystemClock.elapsedRealtime() - start).toString())
