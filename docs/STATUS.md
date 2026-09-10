@@ -1,11 +1,13 @@
 # PartyDeck status report
 
-**Snapshot: 2026-09-10, 04:24 UTC.** The original Compose application passed its
+**Snapshot: 2026-09-10, 06:10 UTC.** The original Compose application passed its
 refreshed Android and iOS baseline in
 [run 34428798269](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34428798269),
 at `15ab6408d16c04941d133214b03d4e8c6c42ced9`. This includes the Rules→Practice
-navigation fix. Both real Godot presentations work in the desktop comparison;
-the native Godot hosts still have implementation and runtime qualification work.
+navigation fix. Both real Godot presentations complete desktop matches. Android
+2D now passes native reference matches at normal and 200% text; iOS 2D and 3D
+pass at normal text. Remaining native failures and production shell integration
+are active implementation work, alongside the external device/publisher gates.
 **The app is not yet cleared for public distribution.**
 
 ## Completion percentages
@@ -56,10 +58,13 @@ until the user chooses.
   transport, catalog and UI with native Android/iOS services and an optional
   shared desktop launcher.
 
-The existing Compose application does not depend on Godot. Godot comparison
-hosts currently use real local practice; their production LAN-shell integration
-is unfinished. Host migration and restoring a match after host process death
-are outside the agreed first-release scope.
+The accepted Compose baseline runs independently of Godot. The new common
+controller can attach either renderer to the existing practice or LAN authority
+without creating another session. That common integration is implemented and
+reviewed; Android and iOS platform wiring is still being completed and qualified.
+Compose remains the default accessible fallback, and unqualified native choices
+are not advertised. Host migration and restoring a match after host process
+death remain outside the agreed first-release scope.
 
 ## Refreshed Compose validation
 
@@ -109,75 +114,88 @@ evidence; earlier images or package hashes are not relabeled as current.
 
 | Workstream | Completed | Still required |
 | --- | --- | --- |
-| Engine and export | Official Godot 4.7.2 executable/AAR verified; isolated builds; deterministic 136-entry PCK independently reproduced byte-for-byte; replacement native-fix pack passes import/export and 41 packed boundary assertions | Native package/runtime checks for the replacement |
-| Shared assets | Original artwork/fonts/audio and all 47 runtime resources loaded; all 19 Android notices verified in actual packages | Native filtering/playback and notice-screen execution |
-| Authority bridge | Recipient-safe versioned codec, real rules authority, bounded events/revisions/lifetimes; common tests and all 20 iOS bridge tests pass | Native host event round trips and actual Swift factory/gameplay execution |
-| 2D renderer | Final packed desktop match passes: 42 authority snapshots, 21 renderer events, two player plays, two challenges, thirteen continuations, winner/lobby/fresh entry and clean exit | Native input, lifecycle, text scaling and accessibility |
-| 3D renderer | Same complete desktop match and identical authority trace; corrected winner rank, narrow/large-text layout and touch handling; deferred-scroll teardown race fixed and boundary-tested | Native input and lifecycle checks |
-| Android host | Real official AAR, chooser, owned engine process, bounded bridge and privacy cover; all four cases reach native Ready; 2D/100% reaches a real winner and positively confirmed engine teardown | Full gate failed on test timing, post-winner confirmation expectations, 200% scroll overshoot and shader-warning classification; corrections and package audit underway |
-| iOS diagnostic host | All five actual diagnostic lifecycle tests pass in 34431377938: rendering, foreground loss/resume, touch exit, deferred cleanup and initialization boundaries | Actual Last Light gameplay, repeat entry/dormancy and physical-device qualification remain separate |
-| iOS authority host | Actual Swift caller links against the verified framework and engine; secure-default launch and real renderer Exit pass in 34434392993 | Four reference match cases fail at app/diagnostic/geometry/background checks and are being diagnosed; repeated entry/dormancy implementation remains open |
-| Delivery | Both desktop previews run; matched screenshots and original failures published; Android packages retain exact notices and alignment | Playable native previews for both modes, production shell/LAN integration and mobile accessibility |
+| Engine/export/assets | Verified official Godot 4.7.2 executable/AAR; reproducible 136-entry PCK; original artwork, fonts/audio; 47 resources loaded; 19 notices verified in Android packages | Export and qualify the pending frame-reconciliation change; physical GPU/audio checks |
+| Authority bridge | Recipient-safe versioned codec, real shared rules, bounded events/revisions/lifetimes; 20 bridge cases in the latest Android producer | Complete production native adapter qualification |
+| 2D renderer | Complete desktop match and matching authority trace; Android normal/200% native matches pass; iOS normal native match passes | Correct and rerun iOS 200% input handling; remaining native visual/accessibility checks |
+| 3D renderer | Complete desktop match and matching authority trace; iOS normal native match passes | Fix Android diagnostic startup and resume crash; rerun iOS 200% Home observation; native visual/accessibility checks |
+| Common production integration | Both presentations use the existing session authority; captured revisions/generations, Ready ordering, bounded cleanup, lobby return and concealed Compose fallback; 28 focused tests pass; source review complete | Native adapter/runtime execution with real shell sessions |
+| Android runtime library | Shared official engine/plugin, bounded queues, covered-input generation rejection, PCK staging and R8 reflection rules; 9 tests pass; debug/optimized qualifier packages audited | Production app packaging and lifecycle runtime gate |
+| Android production host | Private shell-process broker and separate renderer Activity written; first production Kotlin compile and 12 independent IPC helper tests pass; native return/leave controls, cover/input/teardown logic implemented | Complete lifecycle wiring and independent IPC review; real Binder/app switches, process death and re-entry |
+| iOS diagnostic/authority host | Five diagnostic lifecycle tests pass; real Swift authority caller links; secure-default Exit and normal 2D/3D full matches pass | Both 200% cases must pass; prior CoreAudio startup abort remains an unresolved qualification concern |
+| iOS production/retained engine | Reviewed iOS-conditional audio dormancy patch committed; native retained owner, disposable generation-bound presentations and Kotlin callback port under implementation | Apple compilation, actual dormancy/re-entry proof, shell registration/integration and qualification |
+| Delivery | Both desktop previews run; actual native successes and failures preserved; original screenshots published | Both qualified selectable native previews; production LAN/accessibility/performance qualification |
 
-The previously accepted deterministic pack is 1,542,328 bytes, SHA-256
-`26bfbb72efa55b63bef2e0ab989c82356c75b3bb3ca40bcf1c5e70e931bff890`.
-Its independent export, all 136 mounted entries, 19 Android notices, package
-alignment and both complete desktop matches passed. The native-fix replacement
-is 1,542,296 bytes, SHA-256
+The last accepted native pack is 1,542,296 bytes, SHA-256
 `6599f825a418f9d2a7049b3ba9325e8e0dcb474685262899079231b7ec955938`.
-Only the two intended compiled scripts change; all four import/export/check
-stages and 41 packed boundary assertions pass. Its complete 2D/3D comparison
-also passes: both 42-view traces and all 22 image bytes match the earlier run,
-with clean exits. Native package/runtime checks are running; desktop results
-do not establish mobile qualification.
+Its source/import/export checks, all 136 mounted entries, 41 packed native-boundary
+assertions, both complete desktop matches and 22 capture hashes pass. The next
+renderer source change is not covered by those old pack receipts.
 
-[Android Godot run 34430556814](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34430556814)
-at `83874c1` passed build/package/desktop checks, **24 JUnit tests and 54 checker
-tests**. All four native cases failed before Ready with the actual message
-“PartyDeck Android bridge did not provide its display density.” The host
-recorded density 1.75; pinned-source review found that Android Java methods use
-`has_java_method`, while the renderer checked only `Object.has_method`. The
-3D/200% case additionally emitted the upstream renderer-exit timeout; native
-destroy-return flags do not override that failure. Both fixes are pushed at `bf77ea7`. The next run,
-[34433457249](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34433457249),
-passes 27 JUnit cases, 54 checker tests and 41 packed boundary assertions. All
-four native cases reach Ready. 2D/100% completes the real match and returns to
-the chooser with positive render-thread/engine termination logs, but its mode
-gate hits the deadline while incorrectly expecting a post-winner confirmation.
-2D/200% repeatedly overshoots a scrolled action. Both 3D checks fail on a verified
-shader-cache fallback warning logged at Android error priority. The narrow
-warning classifier fix is pushed at `2334382` with 60 passing host tests; the
-other checker corrections are underway. These partial results do not qualify
-the full native suite.
+### Latest Android native evidence
 
-[iOS diagnostic run 34428221586](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34428221586)
-at `a04f22b` linked and ran five tests: **one passed, four failed**. Actual stderr
-shows `Main::setup` rejected the host's `--path` because path overrides were
-disabled. There were zero Ready events, draws and iterations. The corrected
-`disable_path_overrides=no` build and explicit startup-stage diagnostics are
-pushed at `4f7776a` and **all five diagnostic tests pass** in
-[34431377938](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34431377938).
-Nine paired images/measurements show actual OpenGL rendering, pause/resume,
-touch-generated Exit and checked cleanup. Closed initialized cases release
-the view/controller and OS singleton, stop the loop, and restore the prior
-idle-timer policy. The reopen assertion confirms refusal after full cleanup;
-it does not qualify another game entry. This diagnostic gate remains separate
-from the new real-authority gameplay host. That host and parallel input builds
-are pushed at `a8dbb19`. In
-[34434392993](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34434392993),
-the Swift caller links and the secure-default renderer-exit test passes. Four
-reference match tests fail at distinct app-running, diagnostics, geometry and
-background assertions. Actual process logs and measurements are being audited
-before classifying their causes; no full native iOS match is accepted yet.
+[Run 34439587132](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34439587132),
+exact source `ff6e0ac04f917c2830c98cf25cee2b3220b151e4`, passes **29 JUnit cases,
+69 checker tests, 41 packed boundary assertions and both desktop matches**.
+Both complete 2D native cases pass at normal and 200% text: two player plays,
+two challenges, thirteen round advances, round-14/revision-41 winner and accepted
+lobby return. Both also pass same-process background/Recents/concealed resume,
+then separate fresh renderer Exit and native Close entries. Six teardown receipts
+correlate host observations, positive engine/thread termination logs, process
+absence and a usable surviving chooser. Driver logs still contain
+`eglCodecCommon removeVertexArrayObject` errors after destruction starts; these
+are preserved rather than described as clean graphics-driver logs.
+
+Both 3D cases fail. Normal text reaches Ready but the second diagnostic request
+times out during cold startup. A correction now schedules diagnostics after the
+current foreground command has actually delivered and drawn; native rerun is
+pending. At 200% text, Home/Recents resume triggers a real GL-thread SIGSEGV in the
+emulator GLES encoder. Pinned source shows that queued bridge/focus callbacks can
+run before EGL restores its context, while synchronous scene updates allocate
+rendering resources. The exact crashing callback is not identified by the
+available symbols. The implementation now being reviewed moves scene updates to
+the actual processing frame, coalesces state changes and keeps native concealment
+and input rejection immediate. No crash-fix acceptance is claimed before rerun.
+
+### Latest iOS native evidence
+
+[Run 34439760695](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34439760695),
+exact source `f85f8158054ab70cc3f981c23a6854bb7b0630b6`, executed **five cases:
+three passed, two failed**, with none skipped. Normal 2D and 3D each reach the
+round-14/revision-41 winner with two plays, two challenges and thirteen advances,
+then complete native cleanup and leave a responsive shell. Secure-default
+renderer Exit also passes. The two-test subtotal after the test-runner relaunch
+is not the full run count.
+
+At 200% text, 2D exhausts a shared input/layout retry limit after only three
+actual drags. The final diagnostic places Next round fully inside the viewport,
+but there is no subsequent confirmed stable observation or tap. This is an input
+checker failure; it does not prove an unreachable app control. The correction
+separates bounded layout observations from bounded scroll gestures and uses the
+measured target gap, explicit slower velocity and an end hold.
+
+The 3D/200% test fails its background assertion: XCTest reports foreground even
+though retained system logs show Home appeared within the deadline, the screenshot
+shows Home, and later native metrics show paused rendering, a privacy cover and
+zero private bindings. The test must independently verify actual Home visibility
+and native lifecycle without relabeling that contradictory application-state
+receipt as a pass. Both failed cases require new native execution. All 285 exported
+attachments, including 36 PNGs, match the original xcresult payloads.
+
+The earlier iOS run `34434392993` includes a genuine CoreAudio startup RPC abort.
+It did not recur in the newer run; that does not establish a root-cause fix.
+Retained-engine support and its audio patch have not yet passed an Apple build or
+runtime gate. Historical failed runs and exact evidence remain documented in
+[CI research](research/engine-ci.md) and [the review gallery](screenshots/README.md).
 
 ## Remaining release work
 
-1. **Complete unblocked Godot implementation and native checks.** Verify the
-   corrected Android failures; finish the real iOS caller/gameplay gate and
-   lifecycle/re-entry behavior. Qualify both selectable native previews.
-   Production integration still needs the existing LAN shell and accessible
-   native controls: Godot desktop accessibility does not supply mobile
-   TalkBack/VoiceOver support.
+1. **Finish Godot implementation and native checks.** Complete Android shell/IPC/
+   lifecycle integration, the frame-safe renderer update and startup diagnostics;
+   correct the iOS input/Home checks; finish retained iOS engine and callback-port
+   integration. Build and run both native modes, verify same-session return,
+   process loss and re-entry, then repeat the affected app baseline. Both modes
+   remain available in source for the user to compare. Mobile TalkBack/VoiceOver
+   and complete native accessibility still require explicit qualification.
 2. **Qualify Android API 36.** Standard runner attempts have failed during empty
    emulator preparation before installation. API 35 passes do not qualify API
    36; physical or suitable alternative runner evidence remains necessary.
@@ -197,9 +215,9 @@ before classifying their causes; no full native iOS match is accepted yet.
 ## Published deliverables
 
 - Source and coherent milestones are pushed to the repository.
-- [Screenshot gallery](screenshots/README.md): **837 original app/renderer PNGs**,
-  **1,155 evidence files**, four linked artwork proofs and **1,997 verified
-  checksums**, published at `0c0f0e2`. Newer batches are not included until pushed.
+- [Screenshot gallery](screenshots/README.md): **1,019 original app/renderer PNGs**,
+  **1,767 evidence files**, four linked artwork proofs and **2,791 verified
+  checksums**, published at `97b7de7`. Newer batches are not included until pushed.
 - [Main build instructions](../README.md), [validation scripts](../scripts/README.md),
   [iOS instructions](../iosApp/README.md), and
   [both desktop Godot preview commands](../godot/comparison/README.md).

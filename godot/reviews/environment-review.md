@@ -8,7 +8,9 @@ are byte-identical. The later reflection/lifetime replacement also passes its
 source/content audit and matched desktop comparison. The separate release
 review accepts ordered-v5 Android integration with all 19 notices. Refreshed
 Compose Android/iOS baseline evidence and the corrected Rules capture are
-qualified below; native Godot execution and KMP embedding remain incomplete.
+qualified below. The extracted Android library and corrected checker pass the
+bounded source/package and host checks below; native Godot execution and KMP
+embedding remain incomplete.
 
 ## Independent checks and artifact inspection
 
@@ -385,8 +387,8 @@ older AAB; they are not a new split build for these packages. Dependency/ELF/
 license interpretation remains in the separate release review. No Android
 runtime success is inferred from packaging or JVM unit tests.
 
-The new Android runtime checker also has independent source-only acceptance for
-its first scheduled execution. Its native lifetime, request/sequence, real
+The initial Android runtime checker received independent source-only acceptance
+for its first scheduled execution. Its native lifetime, request/sequence, real
 authority round-trip, full-rectangle/density, HOME/Overview/resume, PID absence,
 chooser survival and failure-preserving cleanup contracts were checked against
 the actual host and pinned upstream source. Two independently reproduced gaps
@@ -405,6 +407,74 @@ and Godot images. Reviewed `run.py` SHA-256 is
 These are host-only checks. Actual native execution and independent inspection
 of the Recents thumbnail remain required; the checker does not claim a generic
 pixel classifier proves thumbnail privacy.
+
+## Android checker gesture and lobby follow-up
+
+The frozen follow-up passes 69 independently executed Python host cases.
+`run.py` hashes to
+`037536435de365752a1863c5128bbfb9254d0cb9d53f2bb7c585e100928ce89d`;
+`evidence.py` hashes to
+`7581f00bea3021f6718429757d3f86d6c847be81e01ff5553f22822cce285eed`.
+An independent AST comparison confines the functional change to the gesture
+helper/import, control scrolling, phase-aware Lobby return and mode budget.
+The previously corrected log/crash collection, teardown and reentry paths are
+unchanged. A finished 2D match returns directly, matching the actual scene;
+an unfinished match still requires confirmation. Both paths retain the exact
+accepted return intent and complete native teardown requirements.
+
+Retained run `34433457249` reached a winner in 574.427702 seconds after its
+launch-tap record. The final revision-41 FINISHED observation records the
+accepted Lobby return and 253 ms native destruction; both failure observations
+have empty engine PID sets. The old checker then waited for an inapplicable
+confirmation. Its missing teardown receipt and two reentries keep that run
+failed. Independently matched VM start/main/shutdown records identify 261
+completed UI-automation processes within launch-to-winner, totaling 302.114
+seconds. The estimated remaining stages and large-text allowance bring planned
+completion to about 822.4 seconds. The new 900-second mode budget fits the
+existing 38-minute CI wrapper: one mode plus setup/cleanup totals 28 minutes.
+The 45/30/25-second entry/action/teardown bounds, 16-scroll limit, stationary
+guard and 300-action limit remain. These estimates do not establish completion.
+
+At 200% text, the retained Next target oscillates through y coordinates
+`809, 81, 797, 191, 809, 100` inside a clip spanning y211–676. The replacement
+uses measured geometry and physical rounding to limit speed to 250 logical
+units/second, with fresh full-control visibility required before tapping.
+All 28 adaptive desktop artifacts and 12 renderer source hashes were checked
+against the actual native-run source. The exact new strokes map y809 to y560
+at 885 ms requested/900.785 ms measured, and y191 to y226 at 350/350.970 ms.
+Both settled PNGs show the full Next button. Their raw Ready/Next events are
+accepted by a fresh real adapter and authority, reaching round 5/revision 12,
+whose safe view is rendered. The helper uses actual touch events; the above-clip
+setup uses three strokes and no scroll setter. Pinned `ScrollContainer` source
+confirms inertial motion after release. This accepts the correction for a fresh
+native qualification; desktop delivery does not establish Android touch timing.
+
+## Shared Android renderer extraction
+
+The reusable `:androidRenderer` source and retained debug artifacts pass this
+review. The owning host explicitly constructs the relocated plugin through
+`getHostPlugins()`; `PartyDeckBridge` remains its native/GDScript singleton
+name. The exact published Godot source archive and checksum confirm runtime
+plugin registration and annotation-based method discovery. The four reflected
+methods have matching consumer rules in both merged variants, exported release
+rules and the library's local lint AAR. Optimized DEX inspection belongs to the
+separate release review.
+
+Generated assets depend on `StageGodotAssets`, which forces `check-pack` before
+sync on each build. That verifier checks current source/tool fingerprints,
+exact PCK contents, scene-check receipts and the explicit export plan. Sync
+leaves only the canonical PCK in the generated directory. Both actual library
+lint AARs contain that PCK and all 19 source notices. Debug APK
+`6fd3e9ce…3c889` contains one uncompressed `6599f825…55938` PCK, the same 19
+notices and one relocated plugin definition, with no old plugin definition.
+
+The retained compile/test and lint/package logs succeed. All nine actual XML
+test cases pass without failure, error or skip children. Library lint has no
+errors and three retained warnings: `GradleDependency` and two `UseTomlInstead`.
+No successful build was repeated. The optional input-generation gate preserves
+Ready/failure/exit delivery while rejecting obsolete queued player input; the
+comparison host retains its default enabled behavior. Production owner use and
+native lifecycle/session qualification are not established by this extraction.
 
 ## Existing Android baseline follow-up
 
@@ -599,6 +669,12 @@ packages, lint, tests and signing evidence are in
 `android-initial-package-inspection/inspection.json` and adjacent logs/XML.
 Preview follow-up evidence is `preview-followup/inspection.json`; Android
 checker source/test evidence is `android-checker-review/inspection.json`.
+The gesture/Lobby follow-up is `android-checker-followup/inspection.json`, with
+the independent host-test log, frozen source, `audit-retained.py`, exact upstream
+scroll source and hashed adaptive snapshots. Shared Android library evidence is
+`android-renderer-extraction/inspection.json`, with frozen sources, test XML,
+lint/build logs, consumer-rule outputs and the verified Maven source archive
+provenance. These receipts distinguish retained execution from planning bounds.
 The v5 export comparison and ordering diagnosis are retained under
 `final-fixed-v5/inspection.json` and `final-fixed-v5/archive-difference.json`;
 `final-fixed-v5/archive-order-inspection.json` proves the complete difference
@@ -635,6 +711,8 @@ adjacent `differential-review.json`.
 - [Versioned command-line reference](https://docs.godotengine.org/en/4.7/tutorials/editor/command_line_tutorial.html)
 - [Exact Android module metadata](https://repo.maven.apache.org/maven2/org/godotengine/godot/4.7.2.stable/godot-4.7.2.stable.module)
 - [Exact Android POM](https://repo.maven.apache.org/maven2/org/godotengine/godot/4.7.2.stable/godot-4.7.2.stable.pom)
+- [Exact Android source archive](https://repo.maven.apache.org/maven2/org/godotengine/godot/4.7.2.stable/godot-4.7.2.stable-sources.jar)
+- [Pinned scroll inertia implementation](https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/scene/gui/scroll_container.cpp)
 - [Pinned upstream iOS source](https://github.com/godotengine/godot/tree/ed1daf0bf001b61586d9930840f2f1394092c079/platform/ios)
 - [Pinned upstream controller declaration](https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/drivers/apple_embedded/godot_view_controller.h)
 - [SCons wheel metadata](https://pypi.org/pypi/scons/4.11.1/json)

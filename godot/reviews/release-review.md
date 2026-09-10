@@ -2,7 +2,7 @@
 
 Independent review by `review_release`, 2026-09-09; updated 2026-09-10. Both Last Light presentations are reviewed as renderers of the same authority bridge. Neither renderer is selected for shipping by this review.
 
-**Status:** engine/AAR provenance, shared assets, resolved runtime notices, the deterministic PCK, and the latest Android artifacts named below pass independent static inspection. The PCK is byte-identical across independent exports with identical recorded inputs. All 19 notices survive exactly in both APKs and the unsigned AAB; direct APK alignment passes. The refreshed AAB's native payloads and output policy equal those used in the earlier successful 15-split audit. Native runtime qualification remains separate. Existing Compose/KMP Android and iOS qualification does not qualify the new Godot host.
+**Status:** engine/AAR provenance, shared assets, resolved runtime notices, the deterministic PCK, and the exact CI 34433457249 Android artifacts below pass independent static inspection. The CI replacement PCK equals the local export byte for byte. All 19 notices survive exactly in both APKs and the unsigned AAB; direct APK alignment passes. The refreshed AAB's native payloads and output policy equal those used in the earlier successful 15-split audit. **The full native suite in that CI run failed.** Static package acceptance and existing Compose/KMP qualification do not qualify the Godot host's native runtime.
 
 ## Verified inputs
 
@@ -151,6 +151,124 @@ Payload differences are limited to the PCK, one DEX per package, and correspondi
 
 Separate evidence is retained under `ordered-xr/android/`: the three complete inventories, exact manifest/signature/alignment/validation outputs, `summary.json`, and `differential-review.json`. The earlier `final-v5/` evidence was not overwritten.
 
+## CI replacement package differential
+
+[Run 34433457249](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34433457249)
+built these exact artifacts from **`bf77ea73e8b3b2f3f4115fda3a95f598c8de1148`**.
+The package-build job **102733605318** completed successfully at
+**2026-09-10 03:33:00 UTC**; the overall run and native suite failed. The debug
+APK came from CI artifact **10135407640**, `godot-comparison-runtime-apk`;
+the release APK, AAB, and PCK came from **10135412361**,
+`godot-comparison-builds`.
+
+| Artifact | Bytes | SHA-256 |
+| --- | ---: | --- |
+| Replacement PCK | 1,542,296 | `6599f825a418f9d2a7049b3ba9325e8e0dcb474685262899079231b7ec955938` |
+| Debug APK | 314,309,880 | `2957db8d5bff4fa7c02b9a4bedbab9a2ee474bfc289c47380e9ac94499c96fa0` |
+| Unsigned release APK | 311,443,325 | `2735b98ede773eba7f035b54398c460b7fd01ebc71548dd72321d6df52e031ef` |
+| Unsigned release AAB | 104,819,497 | `864469cfc912fa1a681a3494646e8e1c3fb7621c243e480a003ffe5347770f40` |
+
+Independent binary parsing against the pinned Godot pack-reader contract checks
+all **136 PCK entries**, including their bounds, checksums, lengths, and SHA-256
+values. Every entry matches the CI receipt, whose SHA-256 is
+`517bf63b7fea902a69505238c9e786f7cfdace2336a87a658044028e300981c3`.
+All **132 renderer source files and four tools** match the retained CI source
+archive; the recomputed source/tool fingerprint is
+`a50c9521194011e7f83d30efe9df2d0f761ede952e6eebf4269ae21cab0fe94f`.
+Compared with the accepted ordered PCK, **134 payloads are unchanged**; only
+`scripts/main.gdc` and `presentations/three_d/table.gdc` changed. The ten
+renderer notice/provenance files and asset manifest remain exact. No forbidden
+fixture, test, proof, tool, or editable-source entry was found. The actual CI
+PCK equals the local replacement PCK byte for byte; this review did not rerun
+the engine export or native application.
+
+Every archive member was read and hashed. The debug APK, release APK, and AAB
+retain their respective **146, 83, and 90 entry paths**, with no additions,
+removals, duplicates, or encrypted entries. All **19 notices / 537,959 bytes**,
+all **eight native libraries**, and all three manifests are unchanged from the
+accepted `ordered-xr` packages. Member compression policies are unchanged;
+both APKs retain the PCK and native libraries uncompressed and pass Build Tools
+36 `zipalign -c -P 16 -v 4`. Every native ZIP offset is 16 KB aligned. The
+unchanged native hashes preserve the earlier ELF findings.
+
+The debug APK's changed `classes6.dex` contains the renderer-exit wait update:
+normalized disassembly isolates the existing-class change to
+`GodotGameActivity.destroyEngine`, with three added wait/helper classes. Its
+other six DEX payloads are unchanged. Release APK and AAB contain identical
+optimized DEX bytes; disassembly and the packaged R8 map confirm retention of
+the **1,500 ms** exit wait and unconfirmed-exit failure path. These are static
+code-inclusion findings. The other changed payloads are the PCK, optimization
+profiles/R8 metadata, and AAB resource metadata. Parsing `base/resources.pb`
+finds only **ten source-line annotations** changed; the complete decoded
+resource names, configurations, and values are identical.
+
+Debug remains debuggable and verifies with APK Signature Scheme v2 under an
+Android Debug certificate, SHA-256
+`6d37f6c77cf880c7de162180db14904b099f48d4bd59f8cf1252ee17da095ae8`.
+This CI development signer differs from the earlier local debug signer.
+Release remains non-debuggable and unsigned; the AAB is unsigned, has only the
+base module, and passes bundletool validation. Both raw `BundleConfig.pb` and
+`base/native.pb`, the decoded bundle policy, and native payloads are unchanged,
+including `PAGE_ALIGNMENT_16K` and the uncompressed-PCK output glob. No split
+regeneration was warranted by this differential. The earlier 15-split result
+continues to apply only to AAB `4d27609a…`; it is not a new split-build result
+for the CI AAB.
+
+All **20 audit checks pass** in
+`/tmp/partydeck-godot-release-review/ci-34433457249/audit-summary.json`.
+That directory retains the exact package files, run/head and CI artifact
+metadata, build log, complete inventories, disassembly, and separate PCK,
+DEX, resource, manifest, signature, and alignment records. Service ZIP digests
+are retained as GitHub metadata; this review independently hashed the extracted
+package files. Acceptance covers these exact static artifacts. No runtime or
+split tests were repeated, and native-suite, publisher-signing, store, and
+physical-device qualification remain open. Native runtime evidence is recorded
+separately in the [environment review](environment-review.md).
+
+## Reusable Android plugin extraction
+
+The frozen local comparison build after extraction into `godot/android-renderer`
+passed a bounded reflection and resource review on **2026-09-10**:
+
+| Artifact | Bytes | SHA-256 |
+| --- | ---: | --- |
+| Optimized release APK | 311,443,325 | `f5ae9db9b00574672811ed0288be06291919d582c25f8d2d34f726bfe0197b82` |
+| Debug APK | 314,309,938 | `6fd3e9ce0d761bd675f301c791d47589f0fa5ba0423ef39fc9db37dc0633c889` |
+
+The independently rechecked, pinned Godot 4.7.2 sources establish that registration
+uses `getDeclaredMethods()`, runtime `UsedByGodot` annotations, and each Java
+method's name and types. The optimized APK's R8 map identifies the relocated
+`dev.partydeck.godot.android.PartyDeckBridgePlugin` as `jg` and the annotation
+type as `wl`. Actual DEX inspection confirms that all four methods remain public,
+with unchanged names/prototypes and runtime annotations:
+
+- `get_launch_document(): String`
+- `get_display_scale(): double`
+- `renderer_event(String): void`
+- `renderer_diagnostics(String): void`
+
+The annotation type retains runtime retention. Optimized registration code still
+reflects that same type and calls `nativeRegisterMethod`; the singleton name
+remains `PartyDeckBridge`. The merged R8 configuration identifies
+`androidRenderer` as the source of the relocated consumer rules. This verifies
+the packaged reflection contract without executing native registration.
+
+Both APKs contain exactly one uncompressed PCK, with the unchanged SHA-256
+`6599f825a418f9d2a7049b3ba9325e8e0dcb474685262899079231b7ec955938`.
+All **19 notices / 537,959 bytes** match the accepted CI package set. Neither
+APK has duplicate ZIP entry names. The debug APK now has 147 entries, including
+the added `classes8.dex` partition; the release APK has 83.
+
+The receipt, source snapshots, actual DEX annotations/disassembly, R8 map and
+consumer configuration are retained under
+`/tmp/partydeck-godot-release-review/android-renderer-extraction-20260910/`.
+Exact APK copies are under
+`artifacts/evidence-storage/release-review/android-renderer-extraction-20260910/`.
+This addendum verifies relocation, reflection, and resource retention for the
+named local APKs. The earlier 20-check CI audit retains its exact artifact scope;
+native runtime, input-gate behavior, generated splits, and distribution signing
+were not qualified by this bounded review.
+
 ## Remaining artifact gates
 
 - Retain the exact checked artifact identities and unsigned/debug labels. Any further replacement requires checking changed inputs and package contents against the accepted evidence.
@@ -165,3 +283,4 @@ Separate evidence is retained under `ordered-xr/android/`: the three complete in
 - Pinned [certificate generation](https://github.com/godotengine/godot/blob/4.7.2-stable/core/core_builders.py), [compression helper](https://github.com/godotengine/godot/blob/4.7.2-stable/methods.py), [certificate loading](https://github.com/godotengine/godot/blob/4.7.2-stable/modules/mbedtls/crypto_mbedtls.cpp), and [Android toolchain configuration](https://github.com/godotengine/godot/blob/4.7.2-stable/platform/android/detect.py).
 - [Official Android NDK r29 Linux archive](https://dl.google.com/android/repository/android-ndk-r29-linux.zip) and [Google SDK repository metadata](https://dl.google.com/android/repository/repository2-3.xml); archive and metadata records retained under `upstream/android-ndk/`. The archive's LLVM notice also exactly matches the Android prebuilts [pinned r29 toolchain notice](https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+/568b941cf0c249b9c2a1f853e94a29f0e6291c59/clang-r563880c/NOTICE).
 - [Official bundletool 1.18.3 release](https://github.com/google/bundletool/releases/tag/1.18.3), with the actual JAR checked against the release API digest. Installed `help build-apks` documents APK-set generation and explicit local signing inputs; generated output and signature/alignment tool results are retained separately from the unsigned source AAB.
+- Pinned Godot [PCK flags and format constants](https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/core/io/file_access_pack.h) and [pack reader](https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/core/io/file_access_pack.cpp), independently fetched for the CI differential's binary parser. The verified bundletool JAR's actual `help dump` contract and `Resources.ResourceTable` parser were used for the resource/configuration comparison.
