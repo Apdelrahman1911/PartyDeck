@@ -1,5 +1,6 @@
 package dev.partydeck.godot.compare
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityManager
 import android.content.Intent
@@ -12,6 +13,7 @@ import android.os.Process
 import android.os.SystemClock
 import android.util.Log
 import android.view.Gravity
+import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
@@ -71,6 +73,7 @@ class GodotGameActivity : FragmentActivity(), GodotHost, PartyDeckBridgePlugin.L
     private var foreground = false
     private var foregroundDelivered = false
     private var foregroundEpoch = 0L
+    private var backDownTime: Long? = null
     private var ready = false
     private var closing = false
     private var destroying = false
@@ -377,6 +380,27 @@ class GodotGameActivity : FragmentActivity(), GodotHost, PartyDeckBridgePlugin.L
         }
     }
 
+    // This public Activity hook is inherited through a restricted AndroidX core class.
+    // The registered OnBackPressedCallback remains the system/predictive Back handler.
+    @SuppressLint("RestrictedApi", "GestureBackNavigation")
+    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+        // Godot's focused view consumes Back DOWN and emits renderer Exit. Intercept the
+        // key before window dispatch, then use the native callback on a valid release.
+        if (event.keyCode != KeyEvent.KEYCODE_BACK) return super.dispatchKeyEvent(event)
+        val interactive = resumed && focused && !closing
+        when (event.action) {
+            KeyEvent.ACTION_DOWN -> if (event.repeatCount == 0) {
+                backDownTime = event.downTime.takeIf { interactive }
+            }
+            KeyEvent.ACTION_UP -> {
+                val owned = backDownTime == event.downTime
+                backDownTime = null
+                if (owned && interactive && !event.isCanceled) onBackPressedDispatcher.onBackPressed()
+            }
+        }
+        return true
+    }
+
     override fun onConfigurationChanged(newConfig: Configuration) {
         if (::initialConfiguration.isInitialized &&
             (newConfig.orientation != initialConfiguration.orientation ||
@@ -410,6 +434,7 @@ class GodotGameActivity : FragmentActivity(), GodotHost, PartyDeckBridgePlugin.L
     private fun updatePrivacy() {
         if (!::cover.isInitialized) return
         val next = resumed && focused && !closing
+        if (!next) backDownTime = null
         if (next != foreground || !next) foregroundDelivered = false
         val conceal = !next || !ready || !foregroundDelivered
         cover.visibility = if (conceal) View.VISIBLE else View.GONE

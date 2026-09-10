@@ -135,6 +135,15 @@ complete before `destroyAndKillProcess` installs its optional callback.
 
 ## Evidence and native controls
 
+The host intercepts `KEYCODE_BACK` in `Activity.dispatchKeyEvent`, before the
+focused Godot view can consume its key-down and emit a renderer Exit. A matching,
+uncanceled key-up while resumed and focused invokes the existing native Back
+callback; pause, focus loss and Close clear the pending key. Other keys follow
+normal dispatch. The registered `OnBackPressedCallback` also remains available
+for system Back callbacks. The method-local lint exceptions cover this required
+key compatibility path and AndroidX core's inherited restriction on the public
+Activity hook. Scene Exit and native Back retain distinct evidence routes.
+
 Debug `run-as dev.partydeck.godot.compare cat files/godot-qualification.json`
 reads a single atomic, app-private snapshot. Writes run off the main thread;
 only the latest unwritten snapshot is retained. Nothing is exported by a provider
@@ -194,6 +203,11 @@ by `proguard-rules.pro` for the independently built optimized variant.
 - [GodotFragment lifecycle](https://github.com/godotengine/godot/blob/4.7.2-stable/platform/android/java/lib/src/main/java/org/godotengine/godot/GodotFragment.java)
 - [Godot teardown and render dispatch](https://github.com/godotengine/godot/blob/4.7.2-stable/platform/android/java/lib/src/main/java/org/godotengine/godot/Godot.kt)
 - [Upstream Activity explains process restart](https://github.com/godotengine/godot/blob/4.7.2-stable/platform/android/java/lib/src/main/java/org/godotengine/godot/GodotActivity.kt)
+- [Godot consumes focused-view key events](https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/platform/android/java/lib/src/main/java/org/godotengine/godot/input/GodotInputHandler.java#L206-L257)
+- [Godot Back key-down emits a go-back request](https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/platform/android/android_input_handler.cpp#L135-L139)
+- [Android Activity key interception before window dispatch](https://android.googlesource.com/platform/frameworks/base/+/99b01a65cc4c104933788b3143285ab6bae65827/core/java/android/app/Activity.java#4541)
+- [Android key sequences and cancellation](https://android.googlesource.com/platform/frameworks/base/+/99b01a65cc4c104933788b3143285ab6bae65827/core/java/android/view/KeyEvent.java#45)
+- [AndroidX core source and inherited Activity restriction](https://dl.google.com/dl/android/maven2/androidx/core/core/1.9.0/core-1.9.0-sources.jar)
 - [Plugin reflection, emitSignal and draw hooks](https://github.com/godotengine/godot/blob/4.7.2-stable/platform/android/java/lib/src/main/java/org/godotengine/godot/plugin/GodotPlugin.java)
 - [Android singleton Java method lookup](https://github.com/godotengine/godot/blob/4.7.2-stable/platform/android/api/jni_singleton.cpp#L35-L77)
 - [Public renderer-exit API](https://github.com/godotengine/godot/blob/4.7.2-stable/platform/android/java/lib/src/main/java/org/godotengine/godot/GodotRenderView.java#L39-L63)
