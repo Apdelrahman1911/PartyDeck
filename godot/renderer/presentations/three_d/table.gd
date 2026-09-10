@@ -24,7 +24,10 @@ var _ornament: Node3D
 var _hits: Control
 var _card_bindings: Array = []
 var _feedback: AudioStreamPlayer
-var _motion_frames := 0
+var _viewport_dirty := true
+var _viewport_draw_pending := false
+var _viewport_requested_signature: Array = []
+var _viewport_drawn_signature: Array = []
 var _scroll_offsets: Dictionary = {}
 var _history_visible := false
 var _lobby_dialog: PanelContainer
@@ -38,6 +41,14 @@ var _lobby_requested := false
 var _pending_sound := ""
 var _bring_hand_requested := false
 var _applied_revision := ""
+
+
+func _enter_tree() -> void:
+	_viewport_dirty = true
+	_viewport_draw_pending = false
+	_viewport_requested_signature.clear()
+	_viewport_drawn_signature.clear()
+	RenderingServer.frame_pre_draw.connect(_prepare_viewport_frame)
 
 
 func _ready() -> void:
@@ -89,6 +100,7 @@ func _controls_current() -> bool:
 
 
 func _render(state: Dictionary) -> bool:
+	_viewport_dirty = true
 	var same_page: bool = not state.game.is_empty() and _last_page_phase == state.game.phase \
 		and _last_page_round == int(state.game.roundNumber)
 	if not same_page:
@@ -100,6 +112,7 @@ func _render(state: Dictionary) -> bool:
 		_feedback.stop()
 		_clear(_cards)
 		_clear(_hits)
+		_card_bindings.clear()
 		return false
 	if state.game.is_empty():
 		return false
@@ -118,8 +131,6 @@ func _render(state: Dictionary) -> bool:
 	if _bring_hand_requested:
 		_bring_hand_requested = false
 		_bring_hand_into_view()
-	_viewport.render_target_update_mode = SubViewport.UPDATE_WHEN_VISIBLE if state.foreground else SubViewport.UPDATE_ONCE
-	_motion_frames = 12 if not state.reduceMotion and state.foreground else 1
 	set_process(true)
 	_last_page_phase = state.game.phase
 	_last_page_round = int(state.game.roundNumber)
@@ -143,7 +154,7 @@ func _make_stage() -> void:
 	_viewport.size = Vector2i(640, 360)
 	_viewport.own_world_3d = true
 	_viewport.msaa_3d = Viewport.MSAA_2X
-	_viewport.render_target_update_mode = SubViewport.UPDATE_WHEN_VISIBLE
+	_viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
 	_viewport_container.add_child(_viewport)
 	_world = Node3D.new()
 	_viewport.add_child(_world)
@@ -584,14 +595,56 @@ func _position_targets() -> void:
 
 
 func _process(_delta: float) -> void:
+	# Lay out fresh overlays before queued CanvasItem draws are flushed. The draw
+	# callback also aligns their transforms with the current Tween pose.
+	set_process(false)
 	_position_targets()
-	_motion_frames -= 1
-	if _motion_frames <= 0:
-		set_process(false)
+
+
+func _prepare_viewport_frame() -> void:
+	if not is_inside_tree() or is_queued_for_deletion() or not is_instance_valid(_viewport) \
+		or not _viewport.is_inside_tree() or not is_instance_valid(_camera) or not is_instance_valid(_cards):
+		return
+	# UPDATE_ONCE cannot draw an unusable target. Resizing can also discard its texture.
+	if _viewport.size.x <= 1 or _viewport.size.y <= 1 or _viewport.view_count <= 0 \
+		or _stage.size.x < 1 or _stage.size.y < 1:
+		_viewport_dirty = true
+		_viewport_draw_pending = false
+		_viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
+		return
+	# The node caches ONCE after the server consumes it. A container hide/show can
+	# instead set the node and server to DISABLED/ALWAYS; that is not draw completion.
+	if _viewport_draw_pending and _viewport.render_target_update_mode == SubViewport.UPDATE_ONCE \
+		and RenderingServer.viewport_get_update_mode(_viewport.get_viewport_rid()) == RenderingServer.VIEWPORT_UPDATE_DISABLED:
+		_viewport_drawn_signature = _viewport_requested_signature
+		_viewport_draw_pending = false
+	var signature := _viewport_frame_signature()
+	if _viewport_dirty or _viewport_draw_pending or signature != _viewport_drawn_signature:
+		_viewport_dirty = false
+		_position_targets()
+		_viewport_requested_signature = _viewport_frame_signature()
+		_viewport_draw_pending = true
+		_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
+	else:
+		# SubViewportContainer re-enables ALWAYS on visibility changes and reparenting.
+		# Normalize at the actual draw boundary without suppressing the root frame.
+		_viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
+
+
+func _viewport_frame_signature() -> Array:
+	var signature: Array = [_viewport.size, _viewport.view_count, _stage.size,
+		_camera.get_camera_transform(), _camera.get_camera_projection()]
+	# Sample every card through the final Tween pose, including covered cards that
+	# have no hit binding. State changes separately invalidate materials and ornaments.
+	for card in _cards.get_children():
+		signature.append(card.get_instance_id())
+		signature.append(card.global_transform)
+		signature.append(card.is_visible_in_tree())
+	return signature
 
 
 func _request_target_update() -> void:
-	_motion_frames = maxi(_motion_frames, 1)
+	_viewport_dirty = true
 	set_process(true)
 
 
@@ -893,6 +946,7 @@ func _public_sound() -> void:
 
 
 func _exit_tree() -> void:
+	RenderingServer.frame_pre_draw.disconnect(_prepare_viewport_frame)
 	if is_instance_valid(_feedback):
 		_feedback.stop()
 	_state = {}

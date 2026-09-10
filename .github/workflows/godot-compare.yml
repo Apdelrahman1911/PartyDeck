@@ -115,6 +115,37 @@ jobs:
               raise SystemExit('The engine reported an error despite its process exit status.')
           print(f"{len(report['checks'])} packed terminal-return assertions passed without engine errors.")
           PY
+      - name: Check 3D redraw scheduling and actual pixels from the exported PCK
+        timeout-minutes: 2
+        shell: bash
+        env:
+          LIBGL_ALWAYS_SOFTWARE: 'true'
+        run: |
+          mkdir -p godot/qualification/build/ci/three-d-redraw/empty
+          xvfb-run -a godot/qualification/build/toolchain/godot \
+            --path "$GITHUB_WORKSPACE/godot/qualification/build/ci/three-d-redraw/empty" \
+            --main-pack "$GITHUB_WORKSPACE/godot/qualification/build/renderer/partydeck-last-light.pck" \
+            --rendering-method gl_compatibility --rendering-driver opengl3 --audio-driver Dummy \
+            --script "$GITHUB_WORKSPACE/godot/renderer/tests/three_d_redraw_check.gd" -- \
+            --manual-bridge \
+            --check-output="$GITHUB_WORKSPACE/godot/qualification/build/ci/three-d-redraw/results" \
+            --check-fixture="$GITHUB_WORKSPACE/godot/bridge/fixtures/launch-3d.json" \
+            2>&1 | tee godot/qualification/build/ci/three-d-redraw/runtime.log
+          python3 - <<'PY'
+          import json
+          import re
+          from pathlib import Path
+
+          output = Path('godot/qualification/build/ci/three-d-redraw')
+          report = json.loads((output / 'results/report.json').read_text())
+          if report.get('result') != 'passed' or not report.get('checks'):
+              raise SystemExit('The packed 3D redraw check did not pass.')
+          if any(check.get('passed') is not True for check in report['checks']):
+              raise SystemExit('The 3D redraw report contains a failed assertion.')
+          if re.search(r'(?m)^(?:SCRIPT ERROR|ERROR|Parse Error):', (output / 'runtime.log').read_text()):
+              raise SystemExit('The engine reported an error despite its process exit status.')
+          print(f"{len(report['checks'])} packed 3D redraw assertions passed without engine errors.")
+          PY
       - name: Exercise matched 2D and 3D gameplay from the exported PCK
         timeout-minutes: 10
         env:
@@ -161,6 +192,7 @@ jobs:
             godot/qualification/build/ci/android-checker-tests.log
             godot/qualification/build/ci/native-boundary/**
             godot/qualification/build/ci/terminal-return/**
+            godot/qualification/build/ci/three-d-redraw/**
             godot/qualification/build/ci/desktop/**
             build/ci/android/graphics-*.log
           retention-days: 14
