@@ -35,7 +35,7 @@ final class GodotPresentationViewControllerTests: XCTestCase {
         XCTAssertEqual(fixture.host.sessionQualificationGeometry()["surfaceAccessibilityHiddenByContainer"] as? Bool, true)
         // An unrelated hidden container must not certify a child reparented into the same window.
         fixture.native.view.removeFromSuperview()
-        fixture.root.view.addSubview(fixture.native.view)
+        fixture.host.view.addSubview(fixture.native.view)
         XCTAssertTrue(container.accessibilityElementsHidden)
         XCTAssertEqual(fixture.host.sessionQualificationGeometry()["surfaceAccessibilityHiddenByContainer"] as? Bool, false)
         #endif
