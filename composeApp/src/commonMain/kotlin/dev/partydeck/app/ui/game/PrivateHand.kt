@@ -136,6 +136,7 @@ internal fun PrivateHand(
             ConcealedHand(
                 canReveal = canReveal,
                 onShow = onShow,
+                largeText = largeText,
                 modifier = Modifier.padding(horizontal = 20.dp, vertical = 12.dp),
             )
         } else if (largeText) {
@@ -217,6 +218,7 @@ internal fun PrivateHand(
 private fun ConcealedHand(
     canReveal: Boolean,
     onShow: () -> Unit,
+    largeText: Boolean,
     modifier: Modifier = Modifier,
 ) {
     Surface(
@@ -226,6 +228,16 @@ private fun ConcealedHand(
         border = BorderStroke(1.dp, PartyDeckColors.Divider),
     ) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
+            val revealControl: @Composable () -> Unit = {
+                DeckButton(
+                    text = stringResource(Res.string.game_show_hand),
+                    onClick = onShow,
+                    enabled = canReveal,
+                    secondary = true,
+                    modifier = Modifier.fillMaxWidth().testTag("game-reveal-hand"),
+                )
+            }
+            if (largeText) revealControl()
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
                 Box(Modifier.size(width = 46.dp, height = 62.dp), contentAlignment = Alignment.Center) {
                     CardBack(Modifier.size(width = 36.dp, height = 54.dp).rotate(-9f))
@@ -243,13 +255,7 @@ private fun ConcealedHand(
                     )
                 }
             }
-            DeckButton(
-                text = stringResource(Res.string.game_show_hand),
-                onClick = onShow,
-                enabled = canReveal,
-                secondary = true,
-                modifier = Modifier.fillMaxWidth().testTag("game-reveal-hand"),
-            )
+            if (!largeText) revealControl()
         }
     }
 }

@@ -134,6 +134,22 @@ class GameplayLayoutTest {
         onNodeWithTag("game-card-4").performScrollTo().assertIsDisplayed().performClick()
         onNodeWithTag("game-card-4").assertIsOn()
         capture("selected")
+        if (scale > 1f) {
+            // Public seats must remain reachable below a shown hand without losing its selection.
+            onNodeWithText("See all 6 players").performScrollTo().assertIsDisplayed().performClick()
+            val publicSeats = hasContentDescription("5 cards", substring = true) and
+                hasContentDescription("Fuse tested 0 of 6.", substring = true)
+            onAllNodes(publicSeats).assertCountEquals(6)
+            for (name in listOf("Guest · seat 1", "Guest · seat 2", "Mina", "Ibrahim", "Alexandria Longname", "Noor")) {
+                onNode(publicSeats and hasContentDescription(name, substring = true))
+                    .performScrollTo().assertIsDisplayed()
+            }
+            onAllNodes(publicSeats and hasContentDescription("(you). 5 cards · to play.", substring = true))
+                .assertCountEquals(1)
+            onNodeWithText("Hide player list").performScrollTo().performClick()
+            onAllNodes(publicSeats).assertCountEquals(0)
+            onNodeWithTag("game-card-4").bringIntoView().assertIsOn()
+        }
         onNodeWithTag("game-play").bringIntoView().assertIsEnabled().performClick()
         assertEquals(listOf(view.yourHand[4].id), playedCards)
         assertEquals(1, plays)

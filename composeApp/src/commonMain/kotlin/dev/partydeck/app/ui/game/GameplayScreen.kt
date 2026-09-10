@@ -223,10 +223,22 @@ private fun PlayingLayout(
                 }
             }
             scrollEverything -> Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
-                PublicGameTable(view, largeText, Modifier.padding(top = 12.dp), compact = !largeText)
-                Spacer(Modifier.height(24.dp))
-                hand()
-                actions()
+                if (largeText) {
+                    PublicGameTable(
+                        view,
+                        largeText = true,
+                        modifier = Modifier.padding(top = 12.dp),
+                        primaryContent = {
+                            hand()
+                            actions()
+                        },
+                    )
+                } else {
+                    PublicGameTable(view, largeText, Modifier.padding(top = 12.dp), compact = !largeText)
+                    Spacer(Modifier.height(24.dp))
+                    hand()
+                    actions()
+                }
             }
             else -> Column(Modifier.fillMaxSize()) {
                 BoxWithConstraints(Modifier.weight(1f).fillMaxWidth()) {

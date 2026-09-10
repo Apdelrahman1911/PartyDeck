@@ -96,12 +96,17 @@ internal fun PublicGameTable(
     compact: Boolean = false,
     showCompactRoster: Boolean = false,
     decorateClaim: Boolean = false,
+    primaryContent: (@Composable () -> Unit)? = null,
 ) {
     val claimForDecoration = view.latestClaim.takeIf { decorateClaim }
     Column(modifier) {
         TurnHeading(view, Modifier.padding(horizontal = 20.dp), compact)
         Spacer(Modifier.height(if (compact) 10.dp else 16.dp))
         LatestClaim(view, largeText, Modifier.padding(horizontal = 20.dp), compact)
+        if (primaryContent != null) {
+            Spacer(Modifier.height(24.dp))
+            primaryContent()
+        }
         Spacer(Modifier.height(if (compact) 6.dp else 16.dp))
         PlayerRail(view, largeText, collapse = compact && !showCompactRoster)
         if (claimForDecoration != null) {
