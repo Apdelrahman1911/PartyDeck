@@ -1,0 +1,566 @@
+{
+  "purpose": "Independently validate the Android checker owner\u2019s exact proposed adaptive gestures against the real round-4 2D/200% safe authority view, then accept actual captured UI input in the real adapter and authority.",
+  "nativeFailureRunId": "34433457249",
+  "priorInvestigationProvenanceSha256": "ecac10c6b775f22e694c447a59ee1085c1812cc3aba80b98a7d007b247101094",
+  "rendererSourceUnchanged": true,
+  "sourceSha256": {
+    "godot/renderer/presentations/two_d/table.gd": "b32c27d9f03418bc9dd0ddc6926b2e504e5d796a9b80cebde730aeea78db969c",
+    "godot/renderer/presentations/two_d/table_surface.gd": "f90f764b8e5789c92f9ec8685c64f45ba0941fb89b5a4e50377ba388a6f995b2",
+    "godot/renderer/presentations/two_d/seat_view.gd": "21fece61a8c171e1bd7665ef0ab3751c156ff780d11f7cf7eac8135d8c6d6dae",
+    "godot/renderer/presentations/two_d/deck_style.gd": "0ca38f06b16c0b1f829131c6fd88f7defc5541a0145ed8f86fdf21f3e69e8823",
+    "godot/renderer/presentations/two_d/hand_card.gd": "db697ead3a631b6c838ee5f2f53d4f601b9e6060a1d59a44486c4f19ee2a119b",
+    "godot/renderer/presentations/two_d/checks/scene_check.gd": "ef8f7c7fc107af03b515cabcb4328e5448b6b9c0f26991d6680e02c59642000c",
+    "godot/renderer/presentations/two_d/table.tscn": "036e401b2d1b92b15b5bdf118759d150e9a5c40b4a63d1acdb77379fdd38998a",
+    "godot/renderer/scripts/strict_json.gd": "0696e5741c915c42c5b386dd27b6ed3611f3b7a3780d8fb8e0fabd88d6f2f4b3",
+    "godot/renderer/scripts/renderer_controller.gd": "4891269ee70a642e92e1871346ce135b2ee00c7f2b09166f96d0b1890f24de51",
+    "godot/renderer/scripts/main.gd": "2a9798e54e31b98b992eb0abf4f282dcdadccc22f9a79d14066aacb706c6e9e5",
+    "godot/renderer/scripts/view_validator.gd": "0ea110b7851614644c36ab97536433d19fadfd026a92e2f156cdaf1aa4e206ba",
+    "godot/renderer/project.godot": "14e8414e3bd9349559c31a204dc5f845cb98c21f5feb3726cb6c0bbd3f9d78a2"
+  },
+  "environment": {
+    "godot": "4.7.2.stable.official.ed1daf0bf",
+    "backend": "X11/Xvfb OpenGL4.5 Compatibility Mesa25.2.8 llvmpipe LLVM20.1.2",
+    "physicalWindow": [
+      720,
+      1204
+    ],
+    "displayScale": 1.75,
+    "logicalViewport": [
+      411.428558349609,
+      688
+    ]
+  },
+  "input": "Actual InputEventScreenTouch and InputEventScreenDrag; exact requested surface-local physical endpoints and durations. Desktop event delivery occurs on rendered frames; reports preserve actual measured durations.",
+  "setup": "The above-clip case reaches exactly Next y191 with three real touch strokes, including a held touch position correction and a stationary hold before release. No scene scroll setter, control reparenting or renderer edit.",
+  "authority": "A fresh LastLightEngine(Random(2)) performs the real reference actions to revision11/round4. Its encoded recipient-safe launch equals the original fixture byte-for-byte. A fresh LastLightBridgeAdapter accepts the unmodified raw Ready/Next; real authority advances to round5/PLAYING; adapter advances to revision12; actual renderer receives and renders that safe command. Replayed Next is rejected. No GameState serialization.",
+  "results": {
+    "below": {
+      "acceptedAuthorityViewAppliedToScene": true,
+      "afterRelease": {
+        "clipRect": [
+          16.0,
+          211.0,
+          379.0,
+          465.0
+        ],
+        "fullyVisible": true,
+        "nextRect": [
+          16.0,
+          560.0,
+          371.0,
+          72.0
+        ],
+        "scrollOffset": 249,
+        "viewport": [
+          411.428558349609,
+          688.0
+        ]
+      },
+      "androidDisplayEnd": [
+        359.0,
+        894.0
+      ],
+      "androidDisplayStart": [
+        359.0,
+        1281.0
+      ],
+      "authorityExit": 0,
+      "before": {
+        "clipRect": [
+          16.0,
+          211.0,
+          379.0,
+          465.0
+        ],
+        "fullyVisible": false,
+        "nextRect": [
+          16.0,
+          809.0,
+          371.0,
+          72.0
+        ],
+        "scrollOffset": 0,
+        "viewport": [
+          411.428558349609,
+          688.0
+        ]
+      },
+      "case": "below",
+      "displayScale": 1.75,
+      "durationRequestedSeconds": 0.885,
+      "expectedLogicalDrag": [
+        0.0,
+        -221.142857142857
+      ],
+      "held": {
+        "actualDurationSeconds": 0.900785,
+        "clipRect": [
+          16.0,
+          211.0,
+          379.0,
+          465.0
+        ],
+        "fullyVisible": true,
+        "nextRect": [
+          16.0,
+          593.0,
+          371.0,
+          72.0
+        ],
+        "scrollOffset": 216,
+        "setupCorrections": [],
+        "stationaryHoldSeconds": 0.0,
+        "viewport": [
+          411.428558349609,
+          688.0
+        ]
+      },
+      "initial": {
+        "clipRect": [
+          16.0,
+          211.0,
+          379.0,
+          465.0
+        ],
+        "fullyVisible": false,
+        "nextRect": [
+          16.0,
+          809.0,
+          371.0,
+          72.0
+        ],
+        "scrollOffset": 0,
+        "viewport": [
+          411.428558349609,
+          688.0
+        ]
+      },
+      "injectedDrags": 56,
+      "kind": "2d-native-geometry-adaptive-scroll-validation",
+      "limitations": "Real Godot X11/Mesa rendering and touch input with the exact native logical viewport, density and authority view. Captured raw Next accepted by a fresh real adapter and actual Kotlin authority. This does not reproduce Android OS touch delivery or timing. Renderer source is unchanged.",
+      "mouseMotionsAtScroll": 56,
+      "nextRequestedByActualTap": true,
+      "physicalEnd": [
+        359.0,
+        582.0
+      ],
+      "physicalStart": [
+        359.0,
+        969.0
+      ],
+      "rawBridgeEvents": "bridge-events.jsonl",
+      "screenDragsAtScroll": 56,
+      "setupStrokes": [],
+      "summedMouseRelative": [
+        0.0,
+        -221.142852783203
+      ],
+      "summedScreenRelative": [
+        0.0,
+        -221.142852783203
+      ],
+      "tapPhysicalPosition": [
+        352.625,
+        1043.0
+      ],
+      "touchscreenAvailable": true
+    },
+    "above": {
+      "acceptedAuthorityViewAppliedToScene": true,
+      "afterRelease": {
+        "clipRect": [
+          16.0,
+          211.0,
+          379.0,
+          465.0
+        ],
+        "fullyVisible": true,
+        "nextRect": [
+          16.0,
+          226.0,
+          371.0,
+          72.0
+        ],
+        "scrollOffset": 583,
+        "viewport": [
+          411.428558349609,
+          688.0
+        ]
+      },
+      "androidDisplayEnd": [
+        359.0,
+        1119.0
+      ],
+      "androidDisplayStart": [
+        359.0,
+        1056.0
+      ],
+      "authorityExit": 0,
+      "before": {
+        "clipRect": [
+          16.0,
+          211.0,
+          379.0,
+          465.0
+        ],
+        "fullyVisible": false,
+        "nextRect": [
+          16.0,
+          191.0,
+          371.0,
+          72.0
+        ],
+        "scrollOffset": 618,
+        "viewport": [
+          411.428558349609,
+          688.0
+        ]
+      },
+      "case": "above",
+      "displayScale": 1.75,
+      "durationRequestedSeconds": 0.35,
+      "expectedLogicalDrag": [
+        0.0,
+        36.0
+      ],
+      "held": {
+        "actualDurationSeconds": 0.35097,
+        "clipRect": [
+          16.0,
+          211.0,
+          379.0,
+          465.0
+        ],
+        "fullyVisible": true,
+        "nextRect": [
+          16.0,
+          218.0,
+          371.0,
+          72.0
+        ],
+        "scrollOffset": 589,
+        "setupCorrections": [],
+        "stationaryHoldSeconds": 0.0,
+        "viewport": [
+          411.428558349609,
+          688.0
+        ]
+      },
+      "initial": {
+        "clipRect": [
+          16.0,
+          211.0,
+          379.0,
+          465.0
+        ],
+        "fullyVisible": false,
+        "nextRect": [
+          16.0,
+          809.0,
+          371.0,
+          72.0
+        ],
+        "scrollOffset": 0,
+        "viewport": [
+          411.428558349609,
+          688.0
+        ]
+      },
+      "injectedDrags": 23,
+      "kind": "2d-native-geometry-adaptive-scroll-validation",
+      "limitations": "Real Godot X11/Mesa rendering and touch input with the exact native logical viewport, density and authority view. Captured raw Next accepted by a fresh real adapter and actual Kotlin authority. This does not reproduce Android OS touch delivery or timing. Renderer source is unchanged.",
+      "mouseMotionsAtScroll": 23,
+      "nextRequestedByActualTap": true,
+      "physicalEnd": [
+        359.0,
+        807.0
+      ],
+      "physicalStart": [
+        359.0,
+        744.0
+      ],
+      "rawBridgeEvents": "bridge-events.jsonl",
+      "screenDragsAtScroll": 23,
+      "setupStrokes": [
+        {
+          "after": {
+            "clipRect": [
+              16.0,
+              211.0,
+              379.0,
+              465.0
+            ],
+            "fullyVisible": true,
+            "nextRect": [
+              16.0,
+              597.0,
+              371.0,
+              72.0
+            ],
+            "scrollOffset": 212,
+            "viewport": [
+              411.428558349609,
+              688.0
+            ]
+          },
+          "before": {
+            "clipRect": [
+              16.0,
+              211.0,
+              379.0,
+              465.0
+            ],
+            "fullyVisible": false,
+            "nextRect": [
+              16.0,
+              809.0,
+              371.0,
+              72.0
+            ],
+            "scrollOffset": 0,
+            "viewport": [
+              411.428558349609,
+              688.0
+            ]
+          },
+          "held": {
+            "actualDurationSeconds": 1.0009,
+            "clipRect": [
+              16.0,
+              211.0,
+              379.0,
+              465.0
+            ],
+            "fullyVisible": true,
+            "nextRect": [
+              16.0,
+              597.0,
+              371.0,
+              72.0
+            ],
+            "scrollOffset": 212,
+            "setupCorrections": [],
+            "stationaryHoldSeconds": 0.25,
+            "viewport": [
+              411.428558349609,
+              688.0
+            ]
+          },
+          "index": 0,
+          "physicalEnd": [
+            359.0,
+            583.625
+          ],
+          "physicalStart": [
+            359.0,
+            968.625
+          ]
+        },
+        {
+          "after": {
+            "clipRect": [
+              16.0,
+              211.0,
+              379.0,
+              465.0
+            ],
+            "fullyVisible": true,
+            "nextRect": [
+              16.0,
+              384.0,
+              371.0,
+              72.0
+            ],
+            "scrollOffset": 425,
+            "viewport": [
+              411.428558349609,
+              688.0
+            ]
+          },
+          "before": {
+            "clipRect": [
+              16.0,
+              211.0,
+              379.0,
+              465.0
+            ],
+            "fullyVisible": true,
+            "nextRect": [
+              16.0,
+              597.0,
+              371.0,
+              72.0
+            ],
+            "scrollOffset": 212,
+            "viewport": [
+              411.428558349609,
+              688.0
+            ]
+          },
+          "held": {
+            "actualDurationSeconds": 1.01653,
+            "clipRect": [
+              16.0,
+              211.0,
+              379.0,
+              465.0
+            ],
+            "fullyVisible": true,
+            "nextRect": [
+              16.0,
+              384.0,
+              371.0,
+              72.0
+            ],
+            "scrollOffset": 425,
+            "setupCorrections": [],
+            "stationaryHoldSeconds": 0.25,
+            "viewport": [
+              411.428558349609,
+              688.0
+            ]
+          },
+          "index": 1,
+          "physicalEnd": [
+            359.0,
+            583.625
+          ],
+          "physicalStart": [
+            359.0,
+            968.625
+          ]
+        },
+        {
+          "after": {
+            "clipRect": [
+              16.0,
+              211.0,
+              379.0,
+              465.0
+            ],
+            "fullyVisible": false,
+            "nextRect": [
+              16.0,
+              191.0,
+              371.0,
+              72.0
+            ],
+            "scrollOffset": 618,
+            "viewport": [
+              411.428558349609,
+              688.0
+            ]
+          },
+          "before": {
+            "clipRect": [
+              16.0,
+              211.0,
+              379.0,
+              465.0
+            ],
+            "fullyVisible": true,
+            "nextRect": [
+              16.0,
+              384.0,
+              371.0,
+              72.0
+            ],
+            "scrollOffset": 425,
+            "viewport": [
+              411.428558349609,
+              688.0
+            ]
+          },
+          "held": {
+            "actualDurationSeconds": 0.883124,
+            "clipRect": [
+              16.0,
+              211.0,
+              379.0,
+              465.0
+            ],
+            "fullyVisible": false,
+            "nextRect": [
+              16.0,
+              191.0,
+              371.0,
+              72.0
+            ],
+            "scrollOffset": 618,
+            "setupCorrections": [
+              {
+                "beforeY": 199.0,
+                "physicalEnd": [
+                  359.0,
+                  593.25
+                ],
+                "physicalStart": [
+                  359.0,
+                  607.25
+                ]
+              }
+            ],
+            "stationaryHoldSeconds": 0.25,
+            "viewport": [
+              411.428558349609,
+              688.0
+            ]
+          },
+          "index": 2,
+          "physicalEnd": [
+            359.0,
+            607.25
+          ],
+          "physicalStart": [
+            359.0,
+            945.0
+          ]
+        }
+      ],
+      "summedMouseRelative": [
+        0.0,
+        35.9999961853027
+      ],
+      "summedScreenRelative": [
+        0.0,
+        35.9999961853027
+      ],
+      "tapPhysicalPosition": [
+        352.625,
+        458.5
+      ],
+      "touchscreenAvailable": true
+    }
+  },
+  "filesSha256": {
+    "AcceptNext.java": "4ea497c6863ec3461de9e51dfe7f2bf70a645e5d774dc5edb862ba5e93d182bc",
+    "above/01-initial.json": "39006706e0ab05d5400028a1ddcf96eaefead598d3a2b1a2f85e74f5feea2f0a",
+    "above/01-initial.png": "fe89a612862477c28fc1083cd388777745a64626702659514e0293ebafe1bdff",
+    "above/02-prepared.json": "115f16d08a92a852bb8a447bc0a463d34d3a3c3a71679175fc265fa40f82d2bb",
+    "above/02-prepared.png": "1a49b4d51cb6d394c55964cd81f6870e301d5571fd7757f87675652cb25c5fec",
+    "above/03-after-release.json": "7ef121106f77f378453bf5ace9555f10fa15696cda7cab7803806ad5992ae8f7",
+    "above/03-after-release.png": "90849ae31fb51c0be462ec40a13361bf81cf5889b55241834642e987755fca73",
+    "above/04-after-authority-acceptance.json": "3ae593a3ef91b92c00848aae787d39cdcd0f0a106474426cbed92648dc15e445",
+    "above/04-after-authority-acceptance.png": "e1556857e1438d21c3ddbf0d392a59186bbd1f2d7eff11312863e7bd92a7a774",
+    "above/accepted-authority-view.json": "d220d719f4d1ad6bd39b7de46d062f313c01d0094cf23a04c7b505d703a1fc57",
+    "above/authority-output.log": "947ab5f9b1e1c2db35da7c329ecba05c7caeccddb1a089cb4e432a178ab8718d",
+    "above/authority-receipt.json": "bcefa52dfe0a755214c30686b895b218a877fe74a68682b5986c746b061921d7",
+    "above/bridge-events.jsonl": "2878cad12f9b6b7dcbe89bd8f8613b271f05244f08880899acaef3898f589e6b",
+    "above/report.json": "1cc9f2e34bb4e619dd5ce93571d0026282e3f252aa7606307c9d9d7c1b3282a4",
+    "above-run.log": "4ad524fc249189e2f69e12e37a1120cd1d30368f0a6c7ddafb21243c3555ffae",
+    "adaptive_probe.gd": "c4d759e50719eb01eab2d83b37c4f25ebc9424031fdddca573a1ef9a5bed873a",
+    "below/01-initial.json": "39006706e0ab05d5400028a1ddcf96eaefead598d3a2b1a2f85e74f5feea2f0a",
+    "below/01-initial.png": "fe89a612862477c28fc1083cd388777745a64626702659514e0293ebafe1bdff",
+    "below/03-after-release.json": "6f57dc3d41130ffcbd95a165f86d96f46d7d170db735712ae7148a2a2fb6c5b6",
+    "below/03-after-release.png": "c844676d20130f89b940d3b747d249dbab2230ae48a3d26fa92e5e872d4a2dce",
+    "below/04-after-authority-acceptance.json": "3936f4ac0f14fc3720251e57e921ef7823910e6c918c1a0f97cdb1f5a4ab5a62",
+    "below/04-after-authority-acceptance.png": "e1556857e1438d21c3ddbf0d392a59186bbd1f2d7eff11312863e7bd92a7a774",
+    "below/accepted-authority-view.json": "d220d719f4d1ad6bd39b7de46d062f313c01d0094cf23a04c7b505d703a1fc57",
+    "below/authority-output.log": "947ab5f9b1e1c2db35da7c329ecba05c7caeccddb1a089cb4e432a178ab8718d",
+    "below/authority-receipt.json": "bcefa52dfe0a755214c30686b895b218a877fe74a68682b5986c746b061921d7",
+    "below/bridge-events.jsonl": "2878cad12f9b6b7dcbe89bd8f8613b271f05244f08880899acaef3898f589e6b",
+    "below/report.json": "0ae20e60499ef5c0cf3df325a43a306b23927aff0b5c96ba0304887d9bbd9e66",
+    "below-run.log": "7b5020cf6944e47ebffef13ab6bee67cba182d116a04a0993909566468b6699a"
+  },
+  "limitations": "Local desktop rendering/input with exact native geometry and actual Kotlin authority acceptance. Not an Android execution; native OS delivery and the full native checker rerun remain to be qualified. Does not establish any iOS failure cause."
+}

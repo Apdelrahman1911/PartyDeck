@@ -1,0 +1,320 @@
+{
+  "purpose": "Investigate Android run34433457249 2D/font2.0 Next round reachability without changing renderer source or directly setting scroll offsets.",
+  "conclusion": "The fixed407physical-px/250ms swipe reaches the button while held, then ScrollContainer inertia moves it above the clip. Correct physical-to-logical conversion and one mouse motion per injected drag were measured. A900ms stroke over the same distance leaves the button fully visible and an actual touch emits exactly one advance_round intent.",
+  "nativeEvidence": {
+    "runId": "34433457249",
+    "directory": "/tmp/partydeck-engine-ci/34433457249/godot-android-2d-font-2.0-debug/android/runtime",
+    "apkSha256": "2957db8d5bff4fa7c02b9a4bedbab9a2ee474bfc289c47380e9ac94499c96fa0",
+    "embeddedPckSha256": "6599f825a418f9d2a7049b3ba9325e8e0dcb474685262899079231b7ec955938",
+    "nativeNextYByRequest": {
+      "76": 809,
+      "77": 81,
+      "78": 797,
+      "79": 191,
+      "80": 809,
+      "81": 100
+    },
+    "originalSha256": {
+      "result.json": "0ff8c5ab28f17b042ac1aff9a9467a346ee72743d8cd5b952d0e78cfc56f005b",
+      "final-screen.png": "767b338e82ae20e7ea2ddd3a202dc458e4175b58afd12ff7020dcf8e59ef529b",
+      "2d/match/scene-input-geometry.log": "fc2c4ed5f0992cfdd639a580a3d00bcd4f33eea13898cf1b3b616610f692ea57",
+      "2d/match/host-observations.log": "9169d68d4d8a66fb7bcf102f58e54dd60b0291ef3ca41414727676f12cbdb19f"
+    }
+  },
+  "fixture": {
+    "authority": "Existing compiled QualificationAuthorityDriver + LastLightEngine, seed2, real reference policy through revision11/round4. The exact resulting safe view matches native CROWN claim/MOON proof and initial control geometry. No authoritative state is serialized.",
+    "document": "round-four-launch-2d.json",
+    "sha256": "de0c4379c28b36da7506d81a3c1ef028f1584d57a61fde4963c13ff34709506f",
+    "generator": "RoundFourFixture.java",
+    "operationTrace": "authority-trace.txt"
+  },
+  "rendererSourceUnchanged": true,
+  "sourceSha256": {
+    "godot/renderer/presentations/two_d/table.gd": "b32c27d9f03418bc9dd0ddc6926b2e504e5d796a9b80cebde730aeea78db969c",
+    "godot/renderer/presentations/two_d/table_surface.gd": "f90f764b8e5789c92f9ec8685c64f45ba0941fb89b5a4e50377ba388a6f995b2",
+    "godot/renderer/presentations/two_d/seat_view.gd": "21fece61a8c171e1bd7665ef0ab3751c156ff780d11f7cf7eac8135d8c6d6dae",
+    "godot/renderer/presentations/two_d/deck_style.gd": "0ca38f06b16c0b1f829131c6fd88f7defc5541a0145ed8f86fdf21f3e69e8823",
+    "godot/renderer/presentations/two_d/hand_card.gd": "db697ead3a631b6c838ee5f2f53d4f601b9e6060a1d59a44486c4f19ee2a119b",
+    "godot/renderer/presentations/two_d/checks/scene_check.gd": "ef8f7c7fc107af03b515cabcb4328e5448b6b9c0f26991d6680e02c59642000c",
+    "godot/renderer/presentations/two_d/table.tscn": "036e401b2d1b92b15b5bdf118759d150e9a5c40b4a63d1acdb77379fdd38998a",
+    "godot/renderer/scripts/strict_json.gd": "0696e5741c915c42c5b386dd27b6ed3611f3b7a3780d8fb8e0fabd88d6f2f4b3",
+    "godot/renderer/scripts/renderer_controller.gd": "4891269ee70a642e92e1871346ce135b2ee00c7f2b09166f96d0b1890f24de51",
+    "godot/renderer/scripts/main.gd": "2a9798e54e31b98b992eb0abf4f282dcdadccc22f9a79d14066aacb706c6e9e5",
+    "godot/renderer/scripts/view_validator.gd": "0ea110b7851614644c36ab97536433d19fadfd026a92e2f156cdaf1aa4e206ba",
+    "godot/renderer/project.godot": "14e8414e3bd9349559c31a204dc5f845cb98c21f5feb3726cb6c0bbd3f9d78a2"
+  },
+  "probeSha256": "974029aecb19555dbf47522e7cd3fe62bfc10a9cd3f3dc03a5d21626f1ee70fe",
+  "godot": "4.7.2.stable.official.ed1daf0bf",
+  "backend": "Actual OpenGL4.5 Compatibility/Mesa25.2.8 llvmpipe LLVM20.1.2 under Xvfb",
+  "physicalWindow": [
+    720,
+    1204
+  ],
+  "displayDensity": 1.75,
+  "logicalViewport": [
+    411.428558349609,
+    688
+  ],
+  "textScale": 2,
+  "research": [
+    {
+      "url": "https://github.com/godotengine/godot/blob/4.7.2-stable/scene/gui/scroll_container.cpp",
+      "lines": "237\u2013307 and570\u2013637",
+      "fact": "ScrollContainer starts on left mouse input and applies relative motion once. Release retains drag speed, then subtracts1000units/s\u00b2 during internal processing."
+    },
+    {
+      "url": "https://github.com/godotengine/godot/blob/4.7.2-stable/core/input/input.cpp",
+      "lines": "849\u2013891 and908\u2013975",
+      "sha256": "932d50b4682057f2c56fa060b160cf39d7b17306d2a76cf85aba3fa801b7f28f",
+      "fact": "A screen drag produces one emulated mouse motion. p_is_emulated prevents recursion back to touch."
+    },
+    {
+      "url": "https://github.com/godotengine/godot/blob/4.7.2-stable/scene/main/window.cpp",
+      "lines": "1328\u20131331",
+      "sha256": "1e94ba6ccef7fea34b00aab4e40d06730e796471f232d21ced7255d06d45f9fb",
+      "fact": "Disabled content scaling retains physical rendering size and computes logical viewport as size/content_scale_factor."
+    }
+  ],
+  "probes": {
+    "fast-touch": {
+      "durationRequestedSeconds": 0.25,
+      "inputKind": "touch",
+      "before": {
+        "clipRect": [
+          16.0,
+          211.0,
+          379.0,
+          465.0
+        ],
+        "fullyVisible": false,
+        "nextRect": [
+          16.0,
+          809.0,
+          371.0,
+          72.0
+        ],
+        "scrollOffset": 0,
+        "viewport": [
+          411.428558349609,
+          688.0
+        ]
+      },
+      "held": {
+        "actualDurationSeconds": 0.250716,
+        "clipRect": [
+          16.0,
+          211.0,
+          379.0,
+          465.0
+        ],
+        "fullyVisible": true,
+        "nextRect": [
+          16.0,
+          593.0,
+          371.0,
+          72.0
+        ],
+        "scrollOffset": 231,
+        "viewport": [
+          411.428558349609,
+          688.0
+        ]
+      },
+      "afterRelease": {
+        "clipRect": [
+          16.0,
+          211.0,
+          379.0,
+          465.0
+        ],
+        "fullyVisible": false,
+        "nextRect": [
+          16.0,
+          138.0,
+          371.0,
+          72.0
+        ],
+        "scrollOffset": 671,
+        "viewport": [
+          411.428558349609,
+          688.0
+        ]
+      },
+      "injectedDrags": 17,
+      "mouseMotionsAtScroll": 17,
+      "screenDragsAtScroll": 17,
+      "summedMouseRelative": [
+        0.0,
+        -232.571411132812
+      ],
+      "summedScreenRelative": [
+        0.0,
+        -232.571411132812
+      ],
+      "nextRequestedByActualTap": false
+    },
+    "fast-mouse": {
+      "durationRequestedSeconds": 0.25,
+      "inputKind": "mouse",
+      "before": {
+        "clipRect": [
+          16.0,
+          211.0,
+          379.0,
+          465.0
+        ],
+        "fullyVisible": false,
+        "nextRect": [
+          16.0,
+          809.0,
+          371.0,
+          72.0
+        ],
+        "scrollOffset": 0,
+        "viewport": [
+          411.428558349609,
+          688.0
+        ]
+      },
+      "held": {
+        "actualDurationSeconds": 0.250604,
+        "clipRect": [
+          16.0,
+          211.0,
+          379.0,
+          465.0
+        ],
+        "fullyVisible": true,
+        "nextRect": [
+          16.0,
+          593.0,
+          371.0,
+          72.0
+        ],
+        "scrollOffset": 231,
+        "viewport": [
+          411.428558349609,
+          688.0
+        ]
+      },
+      "afterRelease": {
+        "clipRect": [
+          16.0,
+          211.0,
+          379.0,
+          465.0
+        ],
+        "fullyVisible": false,
+        "nextRect": [
+          16.0,
+          136.0,
+          371.0,
+          72.0
+        ],
+        "scrollOffset": 673,
+        "viewport": [
+          411.428558349609,
+          688.0
+        ]
+      },
+      "injectedDrags": 17,
+      "mouseMotionsAtScroll": 17,
+      "screenDragsAtScroll": 17,
+      "summedMouseRelative": [
+        0.0,
+        -232.571426391602
+      ],
+      "summedScreenRelative": [
+        0.0,
+        -232.571426391602
+      ],
+      "nextRequestedByActualTap": false
+    },
+    "slow-touch": {
+      "durationRequestedSeconds": 0.9,
+      "inputKind": "touch",
+      "before": {
+        "clipRect": [
+          16.0,
+          211.0,
+          379.0,
+          465.0
+        ],
+        "fullyVisible": false,
+        "nextRect": [
+          16.0,
+          809.0,
+          371.0,
+          72.0
+        ],
+        "scrollOffset": 0,
+        "viewport": [
+          411.428558349609,
+          688.0
+        ]
+      },
+      "held": {
+        "actualDurationSeconds": 0.900504,
+        "clipRect": [
+          16.0,
+          211.0,
+          379.0,
+          465.0
+        ],
+        "fullyVisible": true,
+        "nextRect": [
+          16.0,
+          586.0,
+          371.0,
+          72.0
+        ],
+        "scrollOffset": 228,
+        "viewport": [
+          411.428558349609,
+          688.0
+        ]
+      },
+      "afterRelease": {
+        "clipRect": [
+          16.0,
+          211.0,
+          379.0,
+          465.0
+        ],
+        "fullyVisible": true,
+        "nextRect": [
+          16.0,
+          546.0,
+          371.0,
+          72.0
+        ],
+        "scrollOffset": 263,
+        "viewport": [
+          411.428558349609,
+          688.0
+        ]
+      },
+      "injectedDrags": 56,
+      "mouseMotionsAtScroll": 56,
+      "screenDragsAtScroll": 56,
+      "summedMouseRelative": [
+        0.0,
+        -232.571472167969
+      ],
+      "summedScreenRelative": [
+        0.0,
+        -232.571472167969
+      ],
+      "nextRequestedByActualTap": true
+    }
+  },
+  "pngSha256": {
+    "fast-mouse/02-after-release.png": "d7a2aa32463ef5e0f2446924b715cb47d6236acfcd085dcf4fe4127646b13ed8",
+    "fast-mouse/01-before.png": "fe89a612862477c28fc1083cd388777745a64626702659514e0293ebafe1bdff",
+    "slow-touch/02-after-release.png": "55c4fc338533dfb6fb39c179842ff712964cef31b521dc43a6f928acb1c158ed",
+    "slow-touch/01-before.png": "fe89a612862477c28fc1083cd388777745a64626702659514e0293ebafe1bdff",
+    "fast-touch/02-after-release.png": "1e3df145c5fef17c7925720167841f177ec9ddbfca88ecc0ffbc08c99251ab65",
+    "fast-touch/01-before.png": "fe89a612862477c28fc1083cd388777745a64626702659514e0293ebafe1bdff"
+  },
+  "limitations": "Local measurements exercise real Godot input with exact native geometry and authority fixture. They do not execute Android OS touch delivery or establish any iOS failure cause. The slow gesture emits a legitimate renderer intent but this fixture probe does not accept it in authority. A native checker rerun is still required."
+}

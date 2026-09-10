@@ -1,0 +1,314 @@
+{
+  "runId": 34434392993,
+  "headSha": "a8dbb199024ed7de395a9d1c1a857c5cdbc7e340",
+  "runUrl": "https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34434392993",
+  "ciConclusion": "failure",
+  "collectionComplete": true,
+  "artifactsDownloaded": [
+    "godot-ios-authority-gameplay",
+    "godot-ios-host-engine",
+    "godot-ios-host-framework",
+    "godot-ios-host-renderer",
+    "godot-ios-host-renderer-evidence"
+  ],
+  "jobs": [
+    {
+      "id": 102736352944,
+      "name": "Compile the real Kotlin authority framework",
+      "conclusion": "success"
+    },
+    {
+      "id": 102736353051,
+      "name": "Compile the native embedded engine",
+      "conclusion": "success"
+    },
+    {
+      "id": 102736353065,
+      "name": "Export both real presentations",
+      "conclusion": "success"
+    },
+    {
+      "id": 102736632618,
+      "name": "Link the Swift caller and exercise native gameplay",
+      "conclusion": "failure"
+    }
+  ],
+  "rawJobLogs": [
+    {
+      "path": "/tmp/partydeck-engine-ci/34434392993/job-102736352944.log",
+      "sha256": "eb5a94bc21284f8cfeb4b4821d9257bdd0eeaf5059f28f5ca7684f21a71b57cd"
+    },
+    {
+      "path": "/tmp/partydeck-engine-ci/34434392993/job-102736353051.log",
+      "sha256": "135a256a1a58d5ea847038c3da541c000f3e160c55144628a04baa5ea61460e3"
+    },
+    {
+      "path": "/tmp/partydeck-engine-ci/34434392993/job-102736353065.log",
+      "sha256": "f7b626dba0943a50951bf8bee9cf2a0a09d9fb7e6b8aa86c9bcc6c153bb08fa6"
+    },
+    {
+      "path": "/tmp/partydeck-engine-ci/34434392993/job-102736632618.log",
+      "sha256": "b841cdd0264d7b8f33399126b29659b00abbfa98bda6eaae4219f8fb696fb32b"
+    }
+  ],
+  "tests": {
+    "executed": 5,
+    "passed": 1,
+    "failed": 4,
+    "cases": [
+      {
+        "name": "testReferenceMatchIn2DAt200Percent",
+        "result": "failed",
+        "durationSeconds": 23.19,
+        "observation": {
+          "pid": 9079,
+          "result": "failed",
+          "stage": "startup before Ready",
+          "directEvidence": "EXC_CRASH/SIGABRT through _ReportRPCTimeout, AURemoteIO::Start, AudioDriverCoreAudio::start, AudioServer::init, Main::setup2, PDGodotRuntime startInContainer.",
+          "crash": "/root/projects/PartyDeck/artifacts/evidence-storage/34434392993-xcresult-decoded/crash-02-AuthorityHost.ips",
+          "stderrLine": 871,
+          "limits": "Underlying cause of the audio RPC timeout is not established; concurrent backboardd and SimRenderServer crashes do not establish their causal relationship."
+        }
+      },
+      {
+        "name": "testReferenceMatchIn2D",
+        "result": "failed",
+        "durationSeconds": 167.412,
+        "observation": {
+          "pid": 11306,
+          "result": "failed",
+          "lastRound": 8,
+          "lastRevision": "23",
+          "acceptedViewerPlays": 2,
+          "acceptedViewerChallenges": 2,
+          "acceptedRoundAdvances": 7,
+          "acceptedOpponentActions": 12,
+          "stage": "waiting for eighth continuation acceptance",
+          "directEvidence": "Failure measurement remains READY/running and foreground with current revision-23 diagnostics through sequence 190 and no outstanding diagnostics. Eighth next_round touch attachment uses rect [16,557,346,56] at sequence 164; later same-revision diagnostics and original failure capture show [16,623,346,56].",
+          "lastMetrics": "/root/projects/PartyDeck/artifacts/evidence-storage/34434392993-xcresult-decoded/last-app-metrics-pid-11306.json",
+          "limits": "No winner or close observed. Geometry changed; a terminal runtime/diagnostic failure was not reported. Native hit-testing cause is not directly recorded."
+        }
+      },
+      {
+        "name": "testReferenceMatchIn3DAt200Percent",
+        "result": "failed",
+        "durationSeconds": 341.812,
+        "observation": {
+          "pid": 15771,
+          "result": "failed",
+          "lastRound": 2,
+          "lastRevision": "5",
+          "acceptedViewerPlays": 1,
+          "acceptedViewerChallenges": 0,
+          "acceptedRoundAdvances": 1,
+          "acceptedOpponentActions": 3,
+          "stage": "preparing second continuation before input",
+          "directEvidence": "Final full metrics at sequence 203 contain enabled next_round with rect [0,0,32,68], clip [0,0,0,0], visible false. The fit assertion failed on that record.",
+          "lastMetrics": "/root/projects/PartyDeck/artifacts/evidence-storage/34434392993-xcresult-decoded/last-app-metrics-pid-15771.json",
+          "limits": "Zero clip is not evidence of a settled oversized control. No full match or close observed."
+        }
+      },
+      {
+        "name": "testReferenceMatchIn3D",
+        "result": "failed",
+        "durationSeconds": 256.057,
+        "observation": {
+          "pid": 26821,
+          "result": "failed",
+          "lastRound": 1,
+          "lastRevision": "0",
+          "acceptedViewerPlays": 0,
+          "acceptedViewerChallenges": 0,
+          "acceptedRoundAdvances": 0,
+          "stage": "Home/background check",
+          "directEvidence": "XCTest session 04 line 13864 explicitly reports Running Foreground at 04:04:07.340 after a 10.013-second wait. SBRootFolderController ViewDidAppear at 04:04:09.223; PID 26821 remains alive at 04:04:09.969. Exact video frame at 243.846667 seconds has opaque privacy cover, followed by an 11.345-second recording gap and Home frames.",
+          "testSession": "/root/projects/PartyDeck/artifacts/evidence-storage/34434392993-xcresult-decoded/xcode-test-session-04.log",
+          "limits": "Neither suspended nor not-running state was observed at the waiter deadline. No completed resume or full gameplay qualification."
+        }
+      },
+      {
+        "name": "testSecureTableRendererExit",
+        "result": "passed",
+        "durationSeconds": 15.214,
+        "observation": {
+          "pid": 34979,
+          "result": "passed",
+          "referenceSeed2": false,
+          "acceptedViewerPlays": 0,
+          "acceptedViewerChallenges": 0,
+          "acceptedRoundAdvances": 0,
+          "directEvidence": "Actual renderer Exit event accepted; CLOSED/EXIT_REQUESTED; authority/controller/view released, one cleanup, depth zero, no singleton/bridge/render loop, no quarantine or pending commands/events, idle timer restored, and Host +1 remained responsive.",
+          "lastMetrics": "/root/projects/PartyDeck/artifacts/evidence-storage/34434392993-xcresult-decoded/last-app-metrics-pid-34979.json",
+          "limits": "Secure launch-and-exit only. No secure full-match, same-process re-entry, audio dormancy, KMP app-factory integration, device Metal, signing or physical-device qualification."
+        }
+      }
+    ]
+  },
+  "appArchive": {
+    "path": "/tmp/partydeck-engine-ci/34434392993/godot-ios-authority-gameplay/artifacts/AuthorityHost-simulator.app.tar.gz",
+    "bytes": 24539151,
+    "sha256": "37e90a49de086c9656716db6100dedf944deebaf6195012778b4e04707738b17"
+  },
+  "executable": {
+    "bytes": 84390912,
+    "sha256": "12bd8a8c1e5798e06a257236a80186e36cefda9a7bb9f3b6d132b1cfb0e8762a",
+    "machOUuid": "b0a30c0d6b603033991e07ca7f7ad0cd",
+    "cputype": 16777228,
+    "filetype": 2,
+    "commands": [
+      {
+        "cmd": "LC_BUILD_VERSION",
+        "platform": 7,
+        "minos": 983040,
+        "sdk": 1704960
+      }
+    ]
+  },
+  "pack": {
+    "sha256": "6599f825a418f9d2a7049b3ba9325e8e0dcb474685262899079231b7ec955938",
+    "bytes": 1542296,
+    "exactSourceChecked": true
+  },
+  "identityChecksPassed": true,
+  "attachments": {
+    "attachmentCount": 211,
+    "pngCount": 23,
+    "jsonMeasurementCount": 21,
+    "jsonTouchGeometryCount": 42,
+    "xcresultHashMatchedAttachments": 211
+  },
+  "decodedEvidence": {
+    "originalXcresult": "/tmp/partydeck-engine-ci/34434392993/godot-ios-authority-gameplay/artifacts/AuthorityHost.xcresult",
+    "objects": 884,
+    "zstdObjects": 758,
+    "appLaunchStreams": 5,
+    "xcodeTestSessionLogs": 5,
+    "crashReports": 3,
+    "fullMetricRecords": 315,
+    "metricParseErrors": 0
+  },
+  "nativeSeverityLines": [
+    {
+      "line": 871,
+      "text": "2026-09-10 03:49:43.311824+0000 AuthorityHost[9079:32390] [default] Start: RPC timeout. Apparently deadlocked. Aborting now."
+    },
+    {
+      "line": 1743,
+      "text": "2026-09-10 03:51:13.765241+0000 AuthorityHost[11306:40287] [ERROR] servers/display/display_server.cpp:536:mouse_get_position(): Mouse is not supported by this display server. Method/function failed. Returning: Point2i()"
+    },
+    {
+      "line": 163189,
+      "text": "2026-09-10 03:54:07.017726+0000 AuthorityHost[15771:51563] [ERROR] servers/display/display_server.cpp:536:mouse_get_position(): Mouse is not supported by this display server. Method/function failed. Returning: Point2i()"
+    },
+    {
+      "line": 163548,
+      "text": "2026-09-10 03:54:08.653589+0000 AuthorityHost[15771:51563] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf."
+    },
+    {
+      "line": 163549,
+      "text": "2026-09-10 03:54:08.653789+0000 AuthorityHost[15771:51563] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf."
+    },
+    {
+      "line": 163550,
+      "text": "2026-09-10 03:54:08.654168+0000 AuthorityHost[15771:51563] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf."
+    },
+    {
+      "line": 163551,
+      "text": "2026-09-10 03:54:08.654271+0000 AuthorityHost[15771:51563] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf."
+    },
+    {
+      "line": 253609,
+      "text": "2026-09-10 04:00:07.210224+0000 AuthorityHost[26821:78862] [ERROR] servers/display/display_server.cpp:536:mouse_get_position(): Mouse is not supported by this display server. Method/function failed. Returning: Point2i()"
+    },
+    {
+      "line": 253968,
+      "text": "2026-09-10 04:00:12.469307+0000 AuthorityHost[26821:78862] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf."
+    },
+    {
+      "line": 253969,
+      "text": "2026-09-10 04:00:12.469653+0000 AuthorityHost[26821:78862] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf."
+    },
+    {
+      "line": 253970,
+      "text": "2026-09-10 04:00:12.537253+0000 AuthorityHost[26821:78862] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf."
+    },
+    {
+      "line": 253971,
+      "text": "2026-09-10 04:00:12.537558+0000 AuthorityHost[26821:78862] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf."
+    },
+    {
+      "line": 293379,
+      "text": "2026-09-10 04:04:26.405155+0000 AuthorityHost[34979:98499] [ERROR] servers/display/display_server.cpp:536:mouse_get_position(): Mouse is not supported by this display server. Method/function failed. Returning: Point2i()"
+    }
+  ],
+  "privacyScope": "Successful reveal/select/hide and explicit native pause at 2D normal and both 3D scales; completed Home/resume at 2D normal and 3D 200 percent; delayed Home at 3D normal has cover-before-transition evidence but no completed resume.",
+  "qualification": {
+    "nativeReferenceFullMatch": false,
+    "nativeAllModesPass": false,
+    "secureLaunchAndRendererExit": true,
+    "secureFullMatch": false,
+    "sameProcessReentry": false,
+    "kmpFactory": false,
+    "deviceMetal": false,
+    "audioDormancy": false
+  },
+  "evidenceReceipts": [
+    {
+      "path": "/tmp/partydeck-engine-ci/34434392993/input-evidence-summary.json",
+      "sha256": "7e917fe79135569978dc328642047878ff675d666cf42eb9a2ffec4691fc3fdf"
+    },
+    {
+      "path": "/tmp/partydeck-engine-ci/34434392993/authority-package-evidence-summary.json",
+      "sha256": "3efd67dc9aeecaae7ff8c5ee094bc5f0db8daff3ece09121c768beaf6d323415"
+    },
+    {
+      "path": "/tmp/partydeck-engine-ci/34434392993/authority-attachment-evidence-summary.json",
+      "sha256": "e5e13a0369890d8bab21cced942457c9874a5e7a02ed11f9f42a2e0e27d12d68"
+    },
+    {
+      "path": "/tmp/partydeck-engine-ci/34434392993/authority-visual-review.json",
+      "sha256": "a35d5ca7ecfa0f994148eebfee3396248cf16f809986e7d68ba8dbf573bcb513"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34434392993-xcresult-decoded/decoded-object-index.json",
+      "sha256": "54195ac6263c72a63a4d95d4c187a4af34ee00239efdf8d6982adef21374c5cc"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34434392993-xcresult-decoded/crash-summary.json",
+      "sha256": "9a030588d1a57a5d06e0d5ba800dfc676435acb0e699cae2b230cc7d400ff2a8"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34434392993-xcresult-decoded/xcode-test-session-index.json",
+      "sha256": "610602dd6b1428d39ba6445f0a0c4f930ab7e35b7e290e33427019dad1a3c919"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34434392993-xcresult-decoded/app-metrics-timeline.json",
+      "sha256": "65dd322c8e8fa94a9ae370f5b724665c78ec1b1e6f49f71abef8e097c18e9c0c"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34434392993-xcresult-decoded/3d-normal-recording-review/frame-provenance.json",
+      "sha256": "5caa7119925df24b994780d8cd092d856258a107a7c0589a42c0c16b1cc18ab0"
+    },
+    {
+      "path": "/tmp/partydeck-ios-authority-host-review/native-34434392993/final-diagnosis.json",
+      "sha256": "95dfcafa8bd70abbfef0f6983f8fec703909ef835b1e4eb13e92e2c923ccd97a"
+    }
+  ],
+  "storageRecoveryReceipt": "/tmp/partydeck-engine-ci/34434392993/collection-recovery.json",
+  "collectionLimits": "Interrupted partial extraction was preserved and hash-verified before relocating to workspace disk. Complete gh extraction succeeded. No independent raw ZIP digest receipt was produced; exported attachments independently match original xcresult object hashes.",
+  "reviewedAtUtc": "2026-09-10T05:15:06.262060+00:00",
+  "independentDiagnosis": {
+    "path": "/tmp/partydeck-ios-authority-host-review/native-34434392993/final-diagnosis.json",
+    "sha256": "95dfcafa8bd70abbfef0f6983f8fec703909ef835b1e4eb13e92e2c923ccd97a",
+    "reviewer": "/root/review_game",
+    "scope": "Independent raw-source failure diagnosis and source review of test-only candidate; no new native execution."
+  },
+  "researchPatch": {
+    "path": "/tmp/partydeck-engine-ci/34434392993/engine-ci-authority-update.patch",
+    "sha256": "8358430d925dcce87d4aa9f3b7096fdf3600945c68d4679d1a41f9bde021d60c",
+    "gitApplyCheckPassed": true,
+    "applied": false,
+    "baseDocumentSha256": "5e2355636b6031dca2c9bf7138e0c4c266d88b88e4f4222b0ffb1d3857858054"
+  },
+  "frozenAtUtc": "2026-09-10T05:18:33.673786+00:00"
+}
