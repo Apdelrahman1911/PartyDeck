@@ -1,0 +1,163 @@
+{
+  "run": 34421746656,
+  "head": "d3418f150e908667560767e4b825f8968b337df3",
+  "tests": {
+    "transport": {
+      "tests": 18,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "session": {
+      "tests": 27,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "games": {
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "core": {
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "composeApp": {
+      "tests": 47,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "androidApp": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "artifacts": [
+    {
+      "path": "android-packages-and-shrinker-reports/androidApp/build/outputs/apk/debug/androidApp-debug.apk",
+      "bytes": 22645979,
+      "sha256": "69c168aaec7c5bf3900515d1c12e6d99f379d596046a78be41047b3d5f911598"
+    },
+    {
+      "path": "android-packages-and-shrinker-reports/androidApp/build/outputs/apk/release/androidApp-release-unsigned.apk",
+      "bytes": 4522956,
+      "sha256": "144759aaf9880c6768e8a8f691732af609145cba8fbed317fc82fc6473bae7d8"
+    },
+    {
+      "path": "android-packages-and-shrinker-reports/androidApp/build/outputs/bundle/release/androidApp-release.aab",
+      "bytes": 7655558,
+      "sha256": "9d9ca7960ffd36cb9a9fe5e4a1335275274140e98aebd655295a60473c281837"
+    },
+    {
+      "path": "android-packages-and-shrinker-reports/build/ci/android/packages/PartyDeck-release-ci-test-signed.apk",
+      "bytes": 4570535,
+      "sha256": "a3c7f01fc586dc76d868bce781951048def30d69cda662521e29a4ba447e7a60"
+    }
+  ],
+  "variants": {
+    "debug": {
+      "passed": true,
+      "stage": null,
+      "error": null,
+      "apk_sha256": "69c168aaec7c5bf3900515d1c12e6d99f379d596046a78be41047b3d5f911598",
+      "downloadedPackageMatchesExecuted": true,
+      "stageCaptures": 26,
+      "softImeCaptures": [
+        "join-name-soft-ime",
+        "large-text-join-name-soft-ime"
+      ],
+      "largeTextFontScale": 2.0,
+      "retainedLogcatAnrOrFatalMatches": [
+        "09-10 00:45:38.082   548   666 I WindowManager: ANR in ActivityRecord{7383da8 u0 com.android.launcher3/.uioverrides.QuickstepLauncher t7}.  Reason: Input dispatching timed out (Application does not have a focused window).",
+        "09-10 00:45:39.434   548  1880 E ActivityManager: ANR in com.android.launcher3 (com.android.launcher3/.uioverrides.QuickstepLauncher)"
+      ],
+      "diagnosticErrors": [],
+      "environmentRestoreErrors": []
+    },
+    "optimized-test-signed": {
+      "passed": true,
+      "stage": null,
+      "error": null,
+      "apk_sha256": "a3c7f01fc586dc76d868bce781951048def30d69cda662521e29a4ba447e7a60",
+      "downloadedPackageMatchesExecuted": true,
+      "stageCaptures": 26,
+      "softImeCaptures": [
+        "join-name-soft-ime",
+        "large-text-join-name-soft-ime"
+      ],
+      "largeTextFontScale": 2.0,
+      "retainedLogcatAnrOrFatalMatches": [
+        "09-10 00:45:38.082   548   666 I WindowManager: ANR in ActivityRecord{7383da8 u0 com.android.launcher3/.uioverrides.QuickstepLauncher t7}.  Reason: Input dispatching timed out (Application does not have a focused window).",
+        "09-10 00:45:39.434   548  1880 E ActivityManager: ANR in com.android.launcher3 (com.android.launcher3/.uioverrides.QuickstepLauncher)"
+      ],
+      "diagnosticErrors": [],
+      "environmentRestoreErrors": []
+    }
+  },
+  "testTotals": {
+    "tests": 117,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "preparation": {
+    "serial": "emulator-5554",
+    "passed": true,
+    "reboot_attempted": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "passed": true,
+        "app_absent": true,
+        "recovery_allowed": false,
+        "boot_id": "2c58c0fc-88c4-421d-b126-75ceba142ab2",
+        "android_api": "35",
+        "steps": [
+          "Verified responsive Android launcher before app installation"
+        ]
+      }
+    ],
+    "scope": "Empty AVD preparation only; neither APK is installed or accepted by this phase."
+  },
+  "display": {
+    "expectedPhysicalSize": [
+      720,
+      1600
+    ],
+    "expectedDensityDpi": 280,
+    "logicalSizeDp": [
+      411.42857142857144,
+      914.2857142857143
+    ],
+    "expectedAndroidApi": 35,
+    "guestApiVerified": true,
+    "displayVerified": true,
+    "actualAndroidApi": 35,
+    "actualSizeOutput": "Physical size: 720x1600",
+    "actualDensityOutput": "Physical density: 280"
+  },
+  "runtimeVariants": {
+    "sameEmulatorBoot": true,
+    "debugExitCode": 0,
+    "optimizedTestSignedExitCode": 0,
+    "passed": true
+  },
+  "preInstallInfrastructureEvent": {
+    "package": "com.android.launcher3",
+    "anrTimeUtc": "2026-09-10T00:45:38Z",
+    "platformDisposition": "expired, only dump ANR app",
+    "emptyAvdLauncherReadinessUtc": "2026-09-10T00:45:54.565Z",
+    "debugLauncherReadinessUtc": "2026-09-10T00:46:06.058Z",
+    "firstPartyDeckInstallationUtc": "2026-09-10T00:46:06.31Z",
+    "rebootAttempted": false,
+    "crashDialogDismissed": false,
+    "classification": "Retained pre-install Launcher infrastructure event; both APK acceptance passes occur afterward."
+  }
+}

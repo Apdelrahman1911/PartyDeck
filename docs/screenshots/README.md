@@ -1,6 +1,6 @@
 # Screenshot review gallery
 
-This collection preserves **380 original app and renderer captures** and links to **four existing asset proofs**. Click a collection, then any thumbnail to open the full PNG. Every record includes its original filename, scenario, platform, pixel dimensions and full SHA-256; [manifest.json](manifest.json) also records source locations, exact revisions where known, CI runs, receipts and duplicate-source aliases.
+This collection preserves **477 original app and renderer captures** and links to **four existing asset proofs**. Click a collection, then any thumbnail to open the full PNG. Every record includes its original filename, scenario, platform, pixel dimensions and full SHA-256; [manifest.json](manifest.json) also records source locations, exact revisions where known, CI runs, receipts and duplicate-source aliases.
 
 [Open the published first batch](first-batch/README.md) for the 125 initially published native, shared-UI and first desktop 2D views. The collection pages below add complete source records and original-filename mappings without duplicating those images.
 
@@ -8,8 +8,8 @@ Use the latest native and shared-UI collections for current review. Earlier capt
 
 | Current reviewed collection | Images | Evidence scope |
 | --- | ---: | --- |
-| [Android optimized, test signed — CI 34417204089](android-34417204089/optimized-test-signed/README.md) | 27 | Latest optimized variant passed the full exercised smoke flow, including 200% Join/hand/Play reachability. |
-| [Android debug — CI 34417204089](android-34417204089/debug/README.md) | 23 | Latest debug variant stopped at 200% Join validation while the notification shade covered the app. |
+| [Android optimized, test signed — CI 34421746656](android-34421746656/optimized-test-signed/README.md) | 27 | Full exercised smoke flow passed, including 200% Join/hand/Play reachability. Original Rules and Next round captures retain clipped labels; the Rules Practice button was located and captured, without a tap. |
+| [Android debug — CI 34421746656](android-34421746656/debug/README.md) | 27 | Full exercised smoke flow passed. Final Home at 200% text and all paired UI dumps are retained. |
 | [iOS — CI 34398824935](ios-34398824935/README.md) | 8 | 3 UI tests passed; native qualification remains bounded to this run. |
 | [Compose shared UI — reviewed layout fixtures](compose-shared/README.md) | 65 | JVM layout fixtures; exact working-tree capture revision not recorded. |
 
@@ -22,10 +22,13 @@ Use the latest native and shared-UI collections for current review. Earlier capt
 
 ## Godot prototype iterations
 
-These are actual Godot-rendered images. Iteration 01 uses synthetic structural data; later 2D iterations mostly use frozen Kotlin-authority projections, with an explicitly synthetic lobby-permission input where labeled. The 3D v1–v5 captures use authority-derived static data and retain both visual failures and later corrections. Desktop emulated-touch traces are labeled separately from native input. Static checks do not establish authority-accepted gameplay or native mobile accessibility. Every original in these reviewed batches is retained.
+These are actual Godot-rendered images. Iteration 01 uses synthetic structural data; later 2D iterations mostly use frozen Kotlin-authority projections, with an explicitly synthetic lobby-permission input where labeled. Iterations 09–10 use the real six-seat authority input for lobby confirmation. The 3D v1–v5 captures use authority-derived static data and retain both visual failures and later corrections. Desktop emulated-touch traces are labeled separately from native input. Static checks do not establish authority-accepted gameplay or native mobile accessibility. Every original in these reviewed batches is retained.
 
 | Collection | Images | Stage |
 | --- | ---: | --- |
+| [Godot 2D — iteration 10, final compact Reveal and confirmation checks](godot-2d-iteration-10/README.md) | 14 | Complete initial Reveal at 900 × 740; both confirmation choices visible at 200%; repeat emulated drag/tap/privacy checks pass. |
+| [Godot 2D — iteration 09, corrected gestures and authority edge cases](godot-2d-iteration-09/README.md) | 26 | Nine static reports pass; one/zero-card, truthful rank/Wild, burnout and six-seat confirmation. Case-specific seeds and frozen fixture tools retained. |
+| [Godot 2D — iteration 08, action-drag failures](godot-2d-iteration-08/README.md) | 3 | All three failed attempts retained; ancestor probe identifies the cover panel stopping drag propagation. |
 | [Godot 2D — iteration 07, six-seat layout and emulated hand drag](godot-2d-iteration-07/README.md) | 14 | Corrected 1280 × 800 layout and successful emulated hand drag; 900 × 740 Reveal clipping and failed 200% action drag retained. |
 | [Godot 2D — iteration 06, header-width correction](godot-2d-iteration-06/README.md) | 5 | Header fixed; Reveal still below the initial viewport and diagnostic hand drag fails. |
 | [Godot 2D — iteration 05, proof reflow and edge states](godot-2d-iteration-05/README.md) | 12 | Proof labels, forced challenge, observer and winner; failed desktop header and incomplete gesture probe retained. |
@@ -44,6 +47,8 @@ These are actual Godot-rendered images. Iteration 01 uses synthetic structural d
 
 | Historical collection | Images | Reason retained |
 | --- | ---: | --- |
+| [Android optimized, test signed — CI 34417204089](android-34417204089/optimized-test-signed/README.md) | 27 | Earlier optimized variant completed the exercised smoke flow while the overall workflow failed in debug. |
+| [Android debug — CI 34417204089](android-34417204089/debug/README.md) | 23 | Earlier debug stopped at 200% Join validation while the notification shade covered the app. |
 | [Android debug — CI 34413839964](android-34413839964/debug/README.md) | 24 | Earlier API 35 run, failed at 200% Join invitation focus; original failure frames retained. |
 | [Android optimized, test signed — CI 34413839964](android-34413839964/optimized-test-signed/README.md) | 24 | Earlier API 35 run, failed at 200% Join invitation focus; original failure frames retained. |
 | [Earlier Android optimized review — c73a659](history/android-c73a659/README.md) | 21 | Earlier API 36 run; incomplete large-text Join flow and final-rule coverage. |
@@ -67,7 +72,7 @@ The [Godot import report](../../godot/renderer/assets/proofs/import_verification
 - Original PNG bytes are preserved. Original capture filenames are retained in each record; the first-batch iOS gallery uses readable repository filenames mapped back to the original UUID filenames. Inline thumbnails display the same files at a smaller width; no image is redrawn, redacted or recompressed. Distinct scenario records remain separate even when their image bytes match.
 - Native captures were screened against their reviewed capture guards and Android UI dumps. Live invitation and share surfaces were not captured; the host lobby images precede invitation opening or follow its dismissal. Infrastructure/SystemUI preparation images and app-bundle icons are excluded. Run 34417204089 debug/final-screen.png is also excluded because it shows the notification shade; its source/hash/reason are recorded in the manifest.
 - Four Compose invitation/QR/Join captures contain explicitly labeled synthetic fixture values. `ShellLayoutTest.syntheticInvitation()` uses the documentation-only endpoint `192.0.2.44:42424` and deterministic fixture credentials. These are not live admission material.
-- Godot iteration 01 contains synthetic recipient-safe structural data. Later static captures use frozen Kotlin-authority projections plus the explicitly synthetic 2D lobby-permission fixture. The first-2D and matched packed collections record actual authority-accepted desktop gameplay; only the latter verifies matching 2D/3D traces and clean exits. Original reports, diagnostics and available fixture/source provenance are retained. No LAN or admission credentials are involved.
+- Godot iteration 01 contains synthetic recipient-safe structural data. Later static captures use frozen Kotlin-authority projections plus the explicitly synthetic 2D lobby-permission fixture where labeled; iterations 09–10 use a real authority-derived six-seat lobby input. Truthful-rank, truthful-Wild and burnout edge fixtures in iteration 09 use seed 1; its other inputs use seed 2. The first-2D and matched packed collections record actual authority-accepted desktop gameplay; only the latter verifies matching 2D/3D traces and clean exits. Original reports, diagnostics and available fixture/source provenance are retained. No LAN or admission credentials are involved.
 - Failed runtime stages, historical layout defects and missing native qualification are recorded in the relevant collection. No retained candidate required credential redaction or omission.
 
 For accepted findings and remaining native limits, see [the shared UI design review](../design-review.md), [the Godot design review](../../godot/reviews/design-review.md), and [the Godot asset documentation](../../godot/renderer/assets/README.md).
