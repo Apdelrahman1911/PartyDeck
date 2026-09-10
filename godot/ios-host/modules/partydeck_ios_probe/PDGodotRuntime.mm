@@ -53,6 +53,79 @@ static const NSUInteger PDSceneNodeLimit = 4096;
 static const NSUInteger PDEmptyFrameLimit = 3;
 static const NSUInteger PDConcealedSampleLimit = 8;
 static const NSTimeInterval PDDormantObservationInterval = 0.6;
+
+// Fixed numeric diagnostics owned by the native main thread. These inclusive
+// scopes overlap (drawView contains renderOnView, which contains iterate); their
+// durations must not be added. No scope stores scene, input or bridge data.
+struct PDNativeStageTiming {
+	uint64_t completed_count = 0;
+	uint64_t current_depth = 0;
+	uint64_t max_depth = 0;
+	double active_started_uptime = 0;
+	double last_seconds = 0;
+	double max_seconds = 0;
+	double last_completed_uptime = 0;
+	double max_completed_uptime = 0;
+
+	void begin(double now) {
+		if (current_depth == 0) { active_started_uptime = now; }
+		++current_depth;
+		if (current_depth > max_depth) { max_depth = current_depth; }
+	}
+
+	void finish(double started, double now) {
+		--current_depth;
+		if (current_depth == 0) { active_started_uptime = 0; }
+		last_seconds = now >= started ? now - started : 0;
+		last_completed_uptime = now;
+		if (completed_count == 0 || last_seconds > max_seconds) {
+			max_seconds = last_seconds;
+			max_completed_uptime = now;
+		}
+		if (completed_count != UINT64_MAX) { ++completed_count; }
+	}
+};
+
+struct PDNativeTimings {
+	PDNativeStageTiming draw_view;
+	PDNativeStageTiming uikit_pump;
+	PDNativeStageTiming setup_view;
+	PDNativeStageTiming render_on_view;
+	PDNativeStageTiming iterate;
+	PDNativeStageTiming present_renderbuffer;
+	PDNativeStageTiming drain;
+};
+
+static double PDNativeTimingUptime() {
+	return NSProcessInfo.processInfo.systemUptime;
+}
+
+class PDNativeTimingScope {
+	PDNativeStageTiming &stage;
+	const double started;
+
+public:
+	explicit PDNativeTimingScope(PDNativeStageTiming &p_stage) : stage(p_stage), started(PDNativeTimingUptime()) {
+		stage.begin(started);
+	}
+	~PDNativeTimingScope() {
+		stage.finish(started, PDNativeTimingUptime());
+	}
+	PDNativeTimingScope(const PDNativeTimingScope &) = delete;
+	PDNativeTimingScope &operator=(const PDNativeTimingScope &) = delete;
+};
+
+// Dictionary allocation stays in the existing snapshot path, outside the timed
+// hot path. Uptime marks completion/publication, not a renderer freshness grant.
+static NSDictionary *PDNativeStageTimingSnapshot(const PDNativeStageTiming &stage) {
+	return @{
+		@"completedCount": @(stage.completed_count), @"currentDepth": @(stage.current_depth), @"maxDepth": @(stage.max_depth),
+		@"activeStartedUptime": @(stage.active_started_uptime),
+		@"lastSeconds": @(stage.last_seconds), @"maxSeconds": @(stage.max_seconds),
+		@"lastCompletedUptime": @(stage.last_completed_uptime), @"maxCompletedUptime": @(stage.max_completed_uptime)
+	};
+}
+
 static BOOL processConsumed = NO;
 static NSUInteger processBootstrapCount = 0;
 static PDGodotRuntime *activeRuntime = nil;
@@ -374,6 +447,7 @@ static NSDictionary *PDSanitizedDiagnostics(NSDictionary *value, NSString *prese
 	NSMutableArray<PDNativeDelivery *> *_cancelledDeliveries;
 	NSMutableArray<NSDictionary<NSString *, id> *> *_events;
 	NSUInteger _queuedBytes, _drawDepth, _engineDepth, _deliveryDepth, _drawCalls, _iterations;
+	PDNativeTimings _nativeTimings;
 	NSUInteger _cleanupCount, _cleanupDepth, _readyEvents, _exitEvents, _intentEvents, _rejectedEvents;
 	NSUInteger _backgroundTransitions, _closeDuringDraw, _closeDuringInitialization, _coverUntilIteration, _privacyCoverCount;
 	NSUInteger _foregroundGeneration;
@@ -419,6 +493,7 @@ static NSDictionary *PDSanitizedDiagnostics(NSDictionary *value, NSString *prese
 - (void)startFromContainer:(PDGodotContainerViewController *)container;
 - (BOOL)canDraw;
 - (BOOL)canReceiveInput;
+- (PDNativeTimings *)nativeTimings;
 - (void)beginDraw;
 - (void)endDrawPresented:(BOOL)presented;
 - (void)requestSurfaceLayout;
@@ -501,11 +576,14 @@ static NSDictionary *PDSanitizedDiagnostics(NSDictionary *value, NSString *prese
 	if (!self.isActive || ![runtime canDraw]) {
 		return;
 	}
+	PDNativeTimings *timings = [runtime nativeTimings];
+	PDNativeTimingScope drawTiming(timings->draw_view);
 	[runtime beginDraw];
 	// Upstream pumps UIKit before touching its layer, but never rechecks app
 	// activity afterward. Own that exact boundary so a Home/close handled in
 	// the nested loop cannot reach an FBO bind or buffer presentation.
 	if (self.useCADisplayLink) {
+		PDNativeTimingScope pumpTiming(timings->uikit_pump);
 		[self.displayLink setPaused:YES];
 		while (CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.0, TRUE) == kCFRunLoopRunHandledSource) {}
 		[self.displayLink setPaused:NO];
@@ -523,7 +601,12 @@ static NSDictionary *PDSanitizedDiagnostics(NSDictionary *value, NSString *prese
 		BOOL validDrawable = attachmentType == GL_RENDERBUFFER && colorRenderbuffer > 0 &&
 				glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE && glGetError() == GL_NO_ERROR;
 		if (!validDrawable) { [runtime failNativePresentation]; }
-		if (validDrawable && ![self.renderer setupView:self]) {
+		BOOL setupPending = YES;
+		if (validDrawable) {
+			PDNativeTimingScope setupTiming(timings->setup_view);
+			setupPending = [self.renderer setupView:self];
+		}
+		if (validDrawable && !setupPending) {
 			if (self.delegate && !self.nativeDelegateFinishedSetup) {
 				[self layoutRenderingLayer];
 				self.nativeDelegateFinishedSetup = [self.delegate godotViewFinishedSetup:self];
@@ -540,14 +623,20 @@ static NSDictionary *PDSanitizedDiagnostics(NSDictionary *value, NSString *prese
 					}
 				}
 				uint64_t framesBefore = Engine::get_singleton()->get_frames_drawn();
-				[self.renderer renderOnView:self];
+				{
+					PDNativeTimingScope renderTiming(timings->render_on_view);
+					[self.renderer renderOnView:self];
+				}
 				if (self.isActive && [runtime canDraw]) {
 					// Upstream discards presentRenderbuffer's BOOL. Present this
 					// actual layer attachment once, and observe its result directly.
 					BOOL drew = Engine::get_singleton()->get_frames_drawn() > framesBefore;
 					if (drew && [runtime hasCurrentRenderContext]) {
 						glBindRenderbuffer(GL_RENDERBUFFER, static_cast<GLuint>(colorRenderbuffer));
-						presented = [EAGLContext.currentContext presentRenderbuffer:GL_RENDERBUFFER] && glGetError() == GL_NO_ERROR;
+						{
+							PDNativeTimingScope presentTiming(timings->present_renderbuffer);
+							presented = [EAGLContext.currentContext presentRenderbuffer:GL_RENDERBUFFER] && glGetError() == GL_NO_ERROR;
+						}
 					}
 					if ((drew || [runtime requiresFreshFrame]) && !presented) { [runtime failNativePresentation]; }
 				}
@@ -777,6 +866,8 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 }
 
 @implementation PDGodotRuntime
+- (PDNativeTimings *)nativeTimings { return &_nativeTimings; }
+
 - (instancetype)init {
 	self = [super init];
 	if (self) {
@@ -1128,7 +1219,11 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 	}
 	++_engineDepth;
 	if ([self requiresFreshFrame]) { Main::force_redraw(); }
-	BOOL requestedQuit = OS_AppleEmbedded::get_singleton()->iterate();
+	BOOL requestedQuit;
+	{
+		PDNativeTimingScope iterateTiming(_nativeTimings.iterate);
+		requestedQuit = OS_AppleEmbedded::get_singleton()->iterate();
+	}
 	++_iterations;
 	--_engineDepth;
 	if (requestedQuit) {
@@ -1486,6 +1581,7 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 			(MessageQueue::get_singleton() && MessageQueue::get_singleton()->is_flushing())) {
 		return;
 	}
+	PDNativeTimingScope drainTiming(_nativeTimings.drain);
 	[self completeCancelledDeliveries];
 	// UIKit can change its actual state before the shell's scene callback. Move
 	// the native epoch/cover first, so queued work cannot complete in old facts.
@@ -1984,6 +2080,7 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 
 - (NSDictionary<NSString *, id> *)snapshot {
 	NSAssert(NSThread.isMainThread, @"Probe observations belong to the native main thread.");
+	const double timingSnapshotUptime = PDNativeTimingUptime();
 	NSMutableDictionary *snapshot = [@{
 		@"state": _state, @"failure": _failure ?: @"", @"bootstrapCount": @(processBootstrapCount),
 		@"setup2Succeeded": @(_setup2Succeeded), @"mainStarted": @(_started),
@@ -1995,6 +2092,16 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 		@"diagnosticsRequests": @(_diagnosticsRequests), @"acceptedDiagnostics": @(_acceptedDiagnostics),
 		@"rejectedDiagnostics": @(_rejectedDiagnostics), @"unansweredDiagnostics": @(_unansweredDiagnostics),
 		@"iterations": @(_iterations), @"drawCalls": @(_drawCalls), @"drawDepth": @(_drawDepth),
+		@"timings": @{
+			@"schemaVersion": @1, @"snapshotUptime": @(timingSnapshotUptime),
+			@"drawView": PDNativeStageTimingSnapshot(_nativeTimings.draw_view),
+			@"uikitPump": PDNativeStageTimingSnapshot(_nativeTimings.uikit_pump),
+			@"setupView": PDNativeStageTimingSnapshot(_nativeTimings.setup_view),
+			@"renderOnView": PDNativeStageTimingSnapshot(_nativeTimings.render_on_view),
+			@"iterate": PDNativeStageTimingSnapshot(_nativeTimings.iterate),
+			@"presentRenderbuffer": PDNativeStageTimingSnapshot(_nativeTimings.present_renderbuffer),
+			@"drain": PDNativeStageTimingSnapshot(_nativeTimings.drain)
+		},
 		@"cleanupCount": @(_cleanupCount), @"cleanupDepth": @(_cleanupDepth),
 		@"closeRequestedDuringDraw": @(_closeDuringDraw), @"renderLoopActive": @(_observedView.isActive),
 		@"closeRequestedDuringInitialization": @(_closeDuringInitialization),
