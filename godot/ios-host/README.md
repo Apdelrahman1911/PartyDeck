@@ -1,11 +1,14 @@
-# iOS native Godot probe
+# iOS native Godot qualification
 
 This isolated experiment hosts an actual Godot view inside a SwiftUI application.
 It does not modify `iosApp`, register an `EmbeddedGameFactory`, or qualify KMP
 integration. The pinned engine compilation passed in
 [run 34415851126](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34415851126).
-The executable host and five lifecycle tests are implemented; their native
-execution remains a separate gate until a successful test receipt exists.
+The executable diagnostic and all five lifecycle tests passed in
+[run 34431377938](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34431377938)
+at `4f7776aba5809330fdd0197623a03f7a45cba3a1`. The separate authority host is
+implemented below; its compilation and gameplay execution need their own
+receipts. Diagnostic success does not qualify Last Light gameplay or re-entry.
 
 ## Verified source boundary
 
@@ -164,8 +167,10 @@ passed. Retained app stderr identifies the initial engine failure exactly:
 `Main::setup` refused `--path` because the template's default configuration
 disables path overrides. The failed runtime snapshot reports one bootstrap,
 zero setup2/Ready/iterations, and a quarantined OS; it also confirms the shell's
-idle-timer policy was restored. Enabling the supported option fixes that
-configuration mismatch; the lifecycle gate still requires a successful rerun.
+idle-timer policy was restored. Enabling the supported option fixed that
+configuration mismatch. The five-test rerun above passed, including real
+touch-to-Exit, full cleanup, draw-time deferred close, pre-start cancellation,
+checked initialization cancellation, and actual missing-main-scene failure.
 Actual bootstrap/setup2/start return codes are now retained (`-1` means that
 stage was not attempted), and failed waits preserve measurements before ending
 the test. No native scene-rendering or cleanup success is inferred from this
@@ -183,8 +188,7 @@ engine reinitialization.
 ## Kotlin authority framework handoff
 
 The real qualification authority exposes its Swift-facing contract in
-[`IOS_FACADE.md`](../bridge/IOS_FACADE.md). The standalone host does not yet
-consume that framework. After setting up JDK 21 and the Android SDK needed to
+[`IOS_FACADE.md`](../bridge/IOS_FACADE.md). After setting up JDK 21 and the Android SDK needed to
 configure the isolated KMP build, the selected ARM64 macOS/Xcode runner can
 produce the framework and its actual export header independently of Godot:
 
@@ -199,10 +203,91 @@ It requires all nine facade/mode declarations in that actual header and
 typechecks an import-only Swift source against the Simulator framework. The
 receipt records binary/header hashes, the requested ARM64 architecture, and
 module-import success separately from host/runtime qualification.
-Framework compilation, Swift host compilation, and an actual authority-driven
-gameplay run remain distinct gates. This step is implemented but has not yet
-executed on macOS; its exported Swift names must be checked against the retained
-header before wiring the native event owner.
+Framework compilation passed in
+[run 34427976260](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34427976260)
+at `cf6434df2fd32909f70feee68bfcb82e527e2b70`, alongside all twenty actual
+Simulator bridge/facade tests. Independent review matched the framework/header
+hashes and exact `PDGB` exports. Swift names include
+`IosQualificationFactory.shared.create(presentationId:mode:randomness:reduceMotion:soundEnabled:textScale:)`,
+`handleRendererEvent(document:)`, and `setForeground(isForeground:)`.
+The import-only check does not qualify a Swift gameplay caller or native event
+delivery; those remain separate gates.
+
+## Separate authority host
+
+`AuthorityHost.xcodeproj` owns a separate SwiftUI application and XCTest suite.
+It reuses the real engine archive and verified shared PCK, and links the actual
+static Kotlin framework. It leaves `ProbeHost` and its five diagnostic cases
+separate. No shipping source or KMP factory is changed.
+
+`AuthorityModel` serializes synchronous facade calls on the native main thread.
+Each attempt creates a fresh UUID and the existing real qualification authority.
+It supplies the facade's exact launch document, passes actual renderer events
+to `handleRendererEvent`, delivers the returned documents in order, and invokes
+the existing bounded opponent policy after acceptance and foreground recovery.
+Ordinary rejection requests the facade's explicit newer-view refresh. The Swift
+owner contains no game-rule implementation and does not construct renderer
+intents or safe views. Command batches are limited to 16 documents, 65,536 UTF-8
+bytes each and 262,144 bytes total; delivery failure closes the lifetime.
+
+Foreground loss immediately covers UIKit before entering the facade, then
+forwards the transition through the authority and renderer. Terminal outcomes,
+unexpected facade errors, and native failures clear the callback, discard the
+facade, and close the runtime. Receipts retain only coarse status/counters and
+fixed error codes. Full engine cleanup remains terminal for this process;
+another table currently requires relaunching the standalone comparison.
+
+Normal launches use the facade's iOS Security-backed randomness. Only the
+explicit `--reference-seed=2` argument selects the repeatable comparison.
+Text scale follows the native body-text preference, bounded to the supported
+`1...2` range; `--text-scale=1` and `--text-scale=2` are explicit qualification
+inputs. They do not bypass authority or renderer validation.
+
+The bridge's `get_display_scale()` uses the same pinned display-server scale
+that converts the UIKit view bounds to Godot window pixels. The shared renderer
+then presents in logical UIKit points. A separate read-only diagnostics signal
+reports actual control/clip rectangles, local selection and private-binding
+counts. It permits one outstanding request and at most 16,384 UTF-8 bytes, uses
+the same strict JSON preflight, and requires exact fields, fixed groups, finite
+bounded geometry, the bound presentation/mode, matching request/revision and
+foreground, and an increasing canonical sequence. Diagnostics run only after
+queued view commands drain. Old observations clear on view/foreground changes
+and close; they never enter the authority or decide privacy-cover visibility.
+The standalone host samples this channel at most twice per second for native
+qualification. This is not a shipping per-frame bridge.
+
+With the native engine/framework built and a current verified PCK available at
+`../qualification/build/renderer/partydeck-last-light.pck`, run:
+
+```sh
+bash godot/ios-host/test-authority-host.sh build
+bash godot/ios-host/test-authority-host.sh test
+```
+
+Prerequisites are `build-probe.sh engine` and `build-authority.sh`. Optional
+`PARTYDECK_GODOT_AUTHORITY_FRAMEWORK`, `PARTYDECK_GODOT_AUTHORITY_RECEIPT`, and
+`PARTYDECK_GODOT_AUTHORITY_PCK` select preserved build artifacts. The stager
+checks both native archive hashes, the pinned engine/path option, the exact
+current native module source inventory, all four framework receipt entries,
+and the PCK's independent `check-pack` receipt before copying inputs. An older
+archive cannot silently supply a different Objective-C runtime interface.
+
+The authority gate has five independent cases: full seed-2 matches in 2D and
+3D at both 100% and 200% text, plus secure-default launch and actual renderer
+Exit. Tests use native taps/drags at the renderer's validated rectangles,
+check UIKit/viewport agreement and complete clipping, and retain input geometry
+and screenshots. Each reference match checks local reveal/select/hide without
+authority changes, pause/background concealment, real play/challenge and
+thirteen continuation inputs, round fourteen/revision forty-one/winner, then
+authority-driven return and released native ownership. Secure-default testing
+does not claim a complete random match.
+
+`authority-host-build-result.json` records actual Swift linking separately from
+`authority-host-test-result.json`, which requires all five named XCTest cases
+to start once and pass. The app, `AuthorityHost.xcresult`, screenshots and
+measurements are retained even after failure. The implementation is awaiting
+its first native authority-host execution; no gameplay or dormant-engine pass
+is currently claimed here.
 
 ## Sources
 

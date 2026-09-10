@@ -23,6 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)close;
 - (NSDictionary<NSString *, id> *)snapshot;
 
+// Read-only qualification channel for the shared renderer's actual control
+// geometry/private-binding counts. One outstanding request, 16 KiB maximum;
+// accepted sanitized observations appear in snapshot, never as authority input.
+- (BOOL)requestRendererDiagnostics;
+
 // Deliberately schedules a close into the real drawView nested run loop so the
 // executable probe can verify deferred cleanup. Never used by a game renderer.
 - (void)requestCloseDuringNextDrawForProbe;

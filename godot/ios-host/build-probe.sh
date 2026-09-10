@@ -75,7 +75,7 @@ PARTYDECK_PROBE_PYTHON="$PARTYDECK_PROBE_BUILD/venv/bin/python"
     -j2
 ) 2>&1 | tee "$PARTYDECK_PROBE_EVIDENCE/engine-build.log"
 
-"$PARTYDECK_PROBE_PYTHON" - "$PARTYDECK_PROBE_SOURCE" "$PARTYDECK_PROBE_ARTIFACTS" "$PARTYDECK_PROBE_EVIDENCE" "$PARTYDECK_GODOT_COMMIT" <<'PY'
+"$PARTYDECK_PROBE_PYTHON" - "$PARTYDECK_PROBE_SOURCE" "$PARTYDECK_PROBE_ARTIFACTS" "$PARTYDECK_PROBE_EVIDENCE" "$PARTYDECK_GODOT_COMMIT" "$PARTYDECK_PROBE_ROOT/modules" <<'PY'
 import hashlib
 import json
 from pathlib import Path
@@ -109,6 +109,11 @@ result = {
     "stage": "engine_compile_only",
     "path_overrides_enabled": True,
     "bootstrap_arguments": "native_owned_bundle_paths",
+    "native_module_sources": {
+        path.relative_to(Path(sys.argv[5])).as_posix(): receipt(path)["sha256"]
+        for path in sorted(Path(sys.argv[5]).rglob("*"))
+        if path.is_file() and (path.suffix in {".h", ".mm", ".py"} or path.name == "SCsub")
+    },
     "ios_runtime_executed": False,
     "kmp_factory_qualified": False,
 }

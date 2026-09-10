@@ -1,0 +1,203 @@
+name: Godot iOS playable authority host
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: godot-ios-authority-host-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  renderer-pack:
+    name: Export both real presentations
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install checksum-verified Godot
+        run: python3 godot/tools/renderer.py install --destination godot/qualification/build/toolchain
+      - name: Validate the scenes and export the shared PCK
+        timeout-minutes: 10
+        run: python3 godot/tools/renderer.py pack --godot godot/qualification/build/toolchain/godot
+      - name: Preserve the exact renderer inputs
+        uses: ./.github/actions/upload-artifact
+        with:
+          name: godot-ios-host-renderer
+          path: |
+            godot/qualification/build/renderer/partydeck-last-light.pck
+            godot/qualification/build/renderer/partydeck-last-light.receipt.json
+          if-no-files-found: error
+      - name: Preserve renderer validation evidence
+        if: always()
+        uses: ./.github/actions/upload-artifact
+        with:
+          name: godot-ios-host-renderer-evidence
+          path: |
+            godot/qualification/build/renderer/pack-logs/**
+            godot/qualification/build/renderer/*.json
+            godot/qualification/build/toolchain/install.receipt.json
+          if-no-files-found: warn
+
+  native-engine:
+    name: Compile the native embedded engine
+    runs-on: macos-26
+    timeout-minutes: 100
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Cache content-addressed engine objects
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: godot/ios-host/build/scons-cache
+          key: godot-ios-ed1daf0bf-xcode26.4.1-arm64-sim-gl-${{ hashFiles('godot/ios-host/modules/**', 'godot/ios-host/build-probe.sh') }}
+          restore-keys: |
+            godot-ios-ed1daf0bf-xcode26.4.1-arm64-sim-gl-
+      - name: Compile and record native archive identities
+        timeout-minutes: 90
+        run: |
+          test "$(uname -m)" = arm64
+          bash godot/ios-host/build-probe.sh engine
+          printf '%s\n' "$GITHUB_SHA" > godot/ios-host/build/evidence/engine-source-commit.txt
+      - name: Preserve engine artifacts and build evidence
+        if: always()
+        uses: ./.github/actions/upload-artifact
+        with:
+          name: godot-ios-host-engine
+          path: |
+            godot/ios-host/build/evidence/**
+            godot/ios-host/build/artifacts/**
+          if-no-files-found: warn
+
+  authority-framework:
+    name: Compile the real Kotlin authority framework
+    runs-on: macos-26
+    timeout-minutes: 35
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Java
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Set up Android SDK for KMP configuration
+        uses: android-actions/setup-android@40fd30fb8d7440372e1316f5d1809ec01dcd3699 # v4.0.1
+        with:
+          packages: 'platform-tools platforms;android-37.1 build-tools;36.0.0'
+          log-accepted-android-sdk-licenses: false
+      - name: Set up Gradle and validate wrapper
+        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+        with:
+          cache-provider: basic
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+      - name: Compile the framework and check its exported Swift module
+        timeout-minutes: 30
+        run: |
+          bash godot/ios-host/build-authority.sh
+          printf '%s\n' "$GITHUB_SHA" > godot/ios-host/build/evidence/authority-source-commit.txt
+      - name: Preserve the framework and build evidence
+        if: always()
+        uses: ./.github/actions/upload-artifact
+        with:
+          name: godot-ios-host-framework
+          path: |
+            godot/ios-host/build/evidence/**
+            godot/ios-host/build/artifacts/**
+          if-no-files-found: warn
+
+  native-gameplay:
+    name: Link the Swift caller and exercise native gameplay
+    needs: [renderer-pack, native-engine, authority-framework]
+    runs-on: macos-26
+    timeout-minutes: 50
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
+      PARTYDECK_GODOT_AUTHORITY_FRAMEWORK: ${{ github.workspace }}/godot/ios-host/build/framework-input/PartyDeckGodotBridge.framework
+    steps:
+      - name: Check out the same source revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Download the renderer from this run
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: godot-ios-host-renderer
+          path: godot/qualification/build/renderer
+      - name: Download the native engine from this run
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: godot-ios-host-engine
+          path: godot/ios-host/build
+      - name: Download the authority framework from this run
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: godot-ios-host-framework
+          path: godot/ios-host/build
+      - name: Verify downloaded build inputs before linking
+        run: |
+          python3 -B godot/tools/renderer.py check-pack \
+            --pack godot/qualification/build/renderer/partydeck-last-light.pck
+          python3 - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          build = Path('godot/ios-host/build')
+          evidence = build / 'evidence'
+          artifacts = build / 'artifacts'
+          for name in ('engine-source-commit.txt', 'authority-source-commit.txt'):
+              if (evidence / name).read_text().strip() != os.environ['GITHUB_SHA']:
+                  raise SystemExit(f'Downloaded input uses a different source revision: {name}')
+
+          def verify(path, receipt):
+              digest = hashlib.sha256()
+              with path.open('rb') as stream:
+                  for block in iter(lambda: stream.read(1048576), b''):
+                      digest.update(block)
+              if path.stat().st_size != receipt['bytes'] or digest.hexdigest() != receipt['sha256']:
+                  raise SystemExit(f'Downloaded input does not match its build receipt: {path}')
+
+          engine = json.loads((evidence / 'engine-artifact.json').read_text())
+          if engine['engine_commit'] != 'ed1daf0bf001b61586d9930840f2f1394092c079':
+              raise SystemExit('The engine source differs from the verified pin.')
+          if engine.get('path_overrides_enabled') is not True:
+              raise SystemExit('The native engine must accept the host-owned resource path.')
+          verify(artifacts / engine['artifact'], engine)
+          for archive in engine['auxiliary_archives']:
+              verify(artifacts / archive['artifact'], archive)
+          framework = json.loads((evidence / 'authority-framework-result.json').read_text())
+          verify(artifacts / framework['archive']['name'], framework['archive'])
+          print('Downloaded engine and framework match their source revision and build receipts.')
+          PY
+          mkdir -p godot/ios-host/build/framework-input
+          tar -xzf godot/ios-host/build/artifacts/PartyDeckGodotBridge-simulator.framework.tar.gz \
+            -C godot/ios-host/build/framework-input
+      - name: Compile the Swift authority caller and execute gameplay tests
+        timeout-minutes: 40
+        run: bash godot/ios-host/test-authority-host.sh test
+      - name: Preserve actual host, test and screenshot evidence
+        if: always()
+        uses: ./.github/actions/upload-artifact
+        with:
+          name: godot-ios-authority-gameplay
+          path: |
+            godot/ios-host/build/evidence/**
+            godot/ios-host/build/artifacts/AuthorityHost.xcresult/**
+            godot/ios-host/build/artifacts/AuthorityHost-simulator.app.tar.gz
+            godot/ios-host/build/artifacts/authority-attachments/**
+          if-no-files-found: warn

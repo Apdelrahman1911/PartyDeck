@@ -18,6 +18,7 @@
 #import "platform/ios/godot_view_ios.h"
 
 #include <cmath>
+#include <cstdint>
 #include <string>
 #include <vector>
 
@@ -26,6 +27,7 @@ extern void apple_embedded_finish();
 
 static const NSUInteger PDCommandLimit = 65536;
 static const NSUInteger PDEventLimit = 4096;
+static const NSUInteger PDDiagnosticsLimit = 16384;
 static const NSUInteger PDQueueCountLimit = 16;
 static const NSUInteger PDQueueByteLimit = 262144;
 static BOOL processConsumed = NO;
@@ -152,6 +154,72 @@ static BOOL PDIntent(NSDictionary *object) {
 	return YES;
 }
 
+static BOOL PDNumberInRange(id value, double minimum, double maximum, BOOL integer) {
+	if (![value isKindOfClass:NSNumber.class] || PDBoolean(value)) {
+		return NO;
+	}
+	double number = [value doubleValue];
+	return std::isfinite(number) && number >= minimum && number <= maximum && (!integer || number == std::floor(number));
+}
+
+static NSArray<NSNumber *> *PDDiagnosticRect(id value) {
+	if (![value isKindOfClass:NSArray.class] || [value count] != 4) {
+		return nil;
+	}
+	NSMutableArray<NSNumber *> *result = [NSMutableArray arrayWithCapacity:4];
+	for (NSUInteger index = 0; index < 4; ++index) {
+		if (!PDNumberInRange(value[index], index < 2 ? -32768 : 0, 32768, NO)) {
+			return nil;
+		}
+		[result addObject:@([value[index] doubleValue])];
+	}
+	return result;
+}
+
+static NSDictionary *PDSanitizedDiagnostics(NSDictionary *value, NSString *presentationID, NSString *mode) {
+	if (!PDKeys(value, @[ @"schemaVersion", @"requestId", @"sequence", @"presentationId", @"revision", @"presentationMode",
+			@"coordinateSpace", @"foreground", @"viewport", @"handConcealed", @"selectedCount", @"privateFaceCount", @"privateLabelCount", @"controls" ]) ||
+			!PDVersion(value[@"schemaVersion"]) || ![value[@"presentationId"] isEqual:presentationID] || ![value[@"presentationMode"] isEqual:mode] ||
+			![value[@"coordinateSpace"] isEqual:@"root_viewport"] || !PDCounter(value[@"requestId"]) || !PDCounter(value[@"sequence"]) || !PDCounter(value[@"revision"]) ||
+			!PDBoolean(value[@"foreground"]) || !PDBoolean(value[@"handConcealed"]) ||
+			!PDNumberInRange(value[@"selectedCount"], 0, 3, YES) || !PDNumberInRange(value[@"privateFaceCount"], 0, 30, YES) ||
+			!PDNumberInRange(value[@"privateLabelCount"], 0, 60, YES)) {
+		return nil;
+	}
+	NSDictionary *viewport = value[@"viewport"];
+	NSArray *controls = value[@"controls"];
+	if (!PDKeys(viewport, @[ @"width", @"height" ]) || !PDNumberInRange(viewport[@"width"], 1, 32768, NO) ||
+			!PDNumberInRange(viewport[@"height"], 1, 32768, NO) || ![controls isKindOfClass:NSArray.class] || controls.count > 32) {
+		return nil;
+	}
+	NSArray<NSString *> *groups = @[ @"partydeck_action_reveal", @"partydeck_action_hide", @"partydeck_action_play",
+		@"partydeck_action_challenge", @"partydeck_action_next_round", @"partydeck_action_lobby", @"partydeck_action_exit",
+		@"partydeck_action_lobby_confirm", @"partydeck_action_lobby_cancel", @"partydeck_hand_card" ];
+	NSMutableArray *safeControls = [NSMutableArray arrayWithCapacity:controls.count];
+	for (NSDictionary *control in controls) {
+		if (!PDKeys(control, @[ @"group", @"cardIndex", @"rect", @"clipRect", @"visible", @"enabled", @"selected" ]) ||
+				![groups containsObject:control[@"group"]] || !PDNumberInRange(control[@"cardIndex"], -1, 4, YES) ||
+				!PDBoolean(control[@"visible"]) || !PDBoolean(control[@"enabled"]) || !PDBoolean(control[@"selected"])) {
+			return nil;
+		}
+		NSArray *rect = PDDiagnosticRect(control[@"rect"]);
+		NSArray *clip = PDDiagnosticRect(control[@"clipRect"]);
+		if (!rect || !clip) {
+			return nil;
+		}
+		[safeControls addObject:@{ @"group": control[@"group"], @"cardIndex": @([control[@"cardIndex"] intValue]),
+			@"rect": rect, @"clipRect": clip, @"visible": control[@"visible"], @"enabled": control[@"enabled"], @"selected": control[@"selected"] }];
+	}
+	// Copy only the fixed diagnostic schema. No arbitrary renderer string, card
+	// value, or state document can enter the native receipt through this channel.
+	return @{ @"schemaVersion": @1, @"requestId": value[@"requestId"], @"sequence": value[@"sequence"],
+		@"presentationId": presentationID, @"revision": value[@"revision"], @"presentationMode": mode,
+		@"coordinateSpace": @"root_viewport", @"foreground": value[@"foreground"], @"handConcealed": value[@"handConcealed"],
+		@"viewport": @{ @"width": @([viewport[@"width"] doubleValue]), @"height": @([viewport[@"height"] doubleValue]) },
+		@"selectedCount": @([value[@"selectedCount"] intValue]), @"privateFaceCount": @([value[@"privateFaceCount"] intValue]),
+		@"privateLabelCount": @([value[@"privateLabelCount"] intValue]), @"controls": safeControls };
+}
+
 @class PDGodotHostViewController;
 @class PDGodotContainerViewController;
 @class PDGuardedGodotView;
@@ -162,7 +230,9 @@ static BOOL PDIntent(NSDictionary *object) {
 	UIView *_privacyCover;
 	__weak PDGuardedGodotView *_observedView;
 	__weak PDGodotHostViewController *_observedController;
-	NSString *_projectPath, *_packPath, *_launchDocument, *_presentationID, *_revision, *_lastSequence;
+	NSString *_projectPath, *_packPath, *_launchDocument, *_presentationID, *_presentationMode, *_revision, *_lastSequence;
+	NSString *_diagnosticsRequest, *_lastDiagnosticsSequence;
+	NSDictionary *_rendererDiagnostics;
 	NSString *_state, *_failure, *_renderingLayerClass;
 	NSMutableArray<NSString *> *_commands;
 	NSMutableArray<NSDictionary<NSString *, id> *> *_events;
@@ -170,6 +240,9 @@ static BOOL PDIntent(NSDictionary *object) {
 	NSUInteger _cleanupCount, _cleanupDepth, _readyEvents, _exitEvents, _intentEvents, _rejectedEvents;
 	NSUInteger _backgroundTransitions, _closeDuringDraw, _closeDuringInitialization, _coverUntilIteration, _privacyCoverCount;
 	NSUInteger _foregroundGeneration;
+	int64_t _diagnosticsRequests;
+	NSUInteger _acceptedDiagnostics, _rejectedDiagnostics, _unansweredDiagnostics;
+	double _displayScale;
 	int _bootstrapExitCode, _setup2ErrorCode, _mainStartExitCode;
 	BOOL _prepared, _bootstrapAttempted, _bootstrapSucceeded, _setup2Succeeded, _started;
 	BOOL _foreground, _appliedForeground, _lifecycleApplied, _closeRequested, _closed, _quarantined;
@@ -184,6 +257,7 @@ static BOOL PDIntent(NSDictionary *object) {
 - (void)iterate;
 - (NSString *)launchDocument;
 - (BOOL)receiveRendererDocument:(NSString *)document;
+- (BOOL)receiveRendererDiagnostics:(NSString *)document;
 - (void)scheduleDrain;
 - (void)drain;
 - (void)coverPrivateSurface;
@@ -302,7 +376,10 @@ protected:
 	static void _bind_methods() {
 		ClassDB::bind_method(D_METHOD("get_launch_document"), &PartyDeckBridge::get_launch_document);
 		ClassDB::bind_method(D_METHOD("renderer_event", "document"), &PartyDeckBridge::renderer_event);
+		ClassDB::bind_method(D_METHOD("get_display_scale"), &PartyDeckBridge::get_display_scale);
+		ClassDB::bind_method(D_METHOD("renderer_diagnostics", "document"), &PartyDeckBridge::renderer_diagnostics);
 		ADD_SIGNAL(MethodInfo("command_received", PropertyInfo(Variant::STRING, "document")));
+		ADD_SIGNAL(MethodInfo("diagnostics_requested", PropertyInfo(Variant::STRING, "request_id")));
 	}
 
 public:
@@ -323,6 +400,23 @@ public:
 		}
 		NSString *native = [[NSString alloc] initWithBytes:bytes.get_data() length:bytes.length() encoding:NSUTF8StringEncoding];
 		return native && [activeRuntime receiveRendererDocument:native];
+	}
+	double get_display_scale() const {
+		if (!NSThread.isMainThread || !activeRuntime || !DisplayServer::get_singleton()) {
+			return 0;
+		}
+		return DisplayServer::get_singleton()->screen_get_max_scale();
+	}
+	bool renderer_diagnostics(const String &document) {
+		if (!NSThread.isMainThread || !activeRuntime || document.length() > PDDiagnosticsLimit) {
+			return false;
+		}
+		CharString bytes = document.utf8();
+		if (bytes.length() > PDDiagnosticsLimit) {
+			return false;
+		}
+		NSString *native = [[NSString alloc] initWithBytes:bytes.get_data() length:bytes.length() encoding:NSUTF8StringEncoding];
+		return native && [activeRuntime receiveRendererDiagnostics:native];
 	}
 };
 
@@ -385,6 +479,7 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 	_packPath = [packPath copy];
 	_launchDocument = [launchDocument copy];
 	_presentationID = [launch[@"presentationId"] copy];
+	_presentationMode = [launch[@"presentationMode"] copy];
 	_revision = [launch[@"revision"] copy];
 	_container = [PDGodotContainerViewController new];
 	_container.runtime = self;
@@ -446,6 +541,7 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 		// The attached native surface exists before any display-server setup.
 		_setup2ErrorCode = Main::setup2(false);
 		_setup2Succeeded = _setup2ErrorCode == OK;
+		_displayScale = _setup2Succeeded && DisplayServer::get_singleton() ? DisplayServer::get_singleton()->screen_get_max_scale() : 0;
 		_idleTimerDisabledAfterSetup = UIApplication.sharedApplication.idleTimerDisabled;
 		if (_closeAfterSetup) {
 			[self close];
@@ -500,7 +596,7 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 		_privacyCover = nil;
 		_observedView.accessibilityElementsHidden = NO;
 	}
-	if (_closeRequested || _events.count || _commands.count || _pendingForegroundLoss || !_lifecycleApplied || _appliedForeground != _foreground) {
+	if (_closeRequested || _events.count || _commands.count || _diagnosticsRequest || _pendingForegroundLoss || !_lifecycleApplied || _appliedForeground != _foreground) {
 		[self scheduleDrain];
 	}
 }
@@ -582,6 +678,7 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 		return PDReject(error, @"The bounded command queue is full.");
 	}
 	_revision = command[@"revision"];
+	_rendererDiagnostics = nil;
 	_queuedBytes += bytes;
 	[_commands addObject:[document copy]];
 	[self scheduleDrain];
@@ -593,6 +690,7 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 		return;
 	}
 	_foreground = foreground;
+	_rendererDiagnostics = nil;
 	if (!foreground) {
 		++_foregroundGeneration;
 		_pendingForegroundLoss = YES;
@@ -650,6 +748,33 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 	}
 }
 
+- (BOOL)requestRendererDiagnostics {
+	if (!NSThread.isMainThread || !_started || !_readySeen || _closeRequested || _closed || _diagnosticsRequest || _diagnosticsRequests == INT64_MAX) {
+		return NO;
+	}
+	_diagnosticsRequest = @(++_diagnosticsRequests).stringValue;
+	[self scheduleDrain];
+	return YES;
+}
+
+- (BOOL)receiveRendererDiagnostics:(NSString *)document {
+	if (!_diagnosticsRequest || _closeRequested || _closed) {
+		return NO;
+	}
+	NSDictionary *value = PDSanitizedDiagnostics(PDObject(document, PDDiagnosticsLimit), _presentationID, _presentationMode);
+	if (!value || ![value[@"requestId"] isEqual:_diagnosticsRequest] || ![value[@"revision"] isEqual:_revision] ||
+			[value[@"foreground"] boolValue] != _foreground || _pendingForegroundLoss ||
+			(_lastDiagnosticsSequence && PDCompareCounter(value[@"sequence"], _lastDiagnosticsSequence) != NSOrderedDescending)) {
+		++_rejectedDiagnostics;
+		return NO;
+	}
+	_rendererDiagnostics = value;
+	_lastDiagnosticsSequence = value[@"sequence"];
+	_diagnosticsRequest = nil;
+	++_acceptedDiagnostics;
+	return YES;
+}
+
 - (void)scheduleDrain {
 	if (_drainScheduled || _closed) {
 		return;
@@ -681,6 +806,8 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 	if (_closeRequested) {
 		[_commands removeAllObjects];
 		[_events removeAllObjects];
+		_diagnosticsRequest = nil;
+		_rendererDiagnostics = nil;
 		_queuedBytes = 0;
 		if (_started) {
 			[self emitCommand:@{ @"protocolVersion": @1, @"type": @"close", @"presentationId": _presentationID }];
@@ -797,7 +924,19 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 			[self close];
 		}
 	}
-	if (_closeRequested || _events.count || _commands.count || _pendingForegroundLoss || !_lifecycleApplied || _appliedForeground != _foreground) {
+	if (_diagnosticsRequest && !_commands.count && !_events.count && !_closeRequested && !_pendingForegroundLoss && _appliedForeground == _foreground) {
+		// The shared renderer answers this read-only request synchronously. Do
+		// not query between an accepted event and its queued replacement view.
+		NSString *request = _diagnosticsRequest;
+		++_engineDepth;
+		bridge->emit_signal("diagnostics_requested", String::utf8(request.UTF8String));
+		--_engineDepth;
+		if (_diagnosticsRequest) {
+			++_unansweredDiagnostics;
+			_diagnosticsRequest = nil;
+		}
+	}
+	if (_closeRequested || _events.count || _commands.count || _diagnosticsRequest || _pendingForegroundLoss || !_lifecycleApplied || _appliedForeground != _foreground) {
 		[self scheduleDrain];
 	}
 }
@@ -809,6 +948,11 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 		@"setup2Succeeded": @(_setup2Succeeded), @"mainStarted": @(_started),
 		@"bootstrapExitCode": @(_bootstrapExitCode), @"setup2ErrorCode": @(_setup2ErrorCode),
 		@"mainStartExitCode": @(_mainStartExitCode),
+		@"displayScale": @(_displayScale),
+		@"surfaceSize": @{ @"width": @(_observedView.bounds.size.width), @"height": @(_observedView.bounds.size.height) },
+		@"rendererDiagnostics": _rendererDiagnostics ?: @{},
+		@"diagnosticsRequests": @(_diagnosticsRequests), @"acceptedDiagnostics": @(_acceptedDiagnostics),
+		@"rejectedDiagnostics": @(_rejectedDiagnostics), @"unansweredDiagnostics": @(_unansweredDiagnostics),
 		@"iterations": @(_iterations), @"drawCalls": @(_drawCalls), @"drawDepth": @(_drawDepth),
 		@"cleanupCount": @(_cleanupCount), @"cleanupDepth": @(_cleanupDepth),
 		@"closeRequestedDuringDraw": @(_closeDuringDraw), @"renderLoopActive": @(_observedView.isActive),
