@@ -1,0 +1,101 @@
+--- a/godot/renderer/scripts/main.gd
++++ b/godot/renderer/scripts/main.gd
+@@ -299,6 +299,9 @@
+ 		"schemaVersion": 1, "requestId": request_id, "sequence": str(_diagnostic_sequence), "presentationId": controller.presentation_id,
+ 		"revision": controller.revision, "presentationMode": state.presentationMode,
+ 		"coordinateSpace": "root_viewport", "foreground": state.foreground,
++		# Controller revisions can advance before the next frame applies scene bindings.
++		# Preserve pending observations without presenting their controls as current.
++		"sceneStateApplied": is_instance_valid(_presentation) and not _state_pending,
+ 		"viewport": {"width": viewport.size.x, "height": viewport.size.y},
+ 		"handConcealed": not state.handVisible, "selectedCount": selected_count,
+ 		"privateFaceCount": private_faces, "privateLabelCount": private_labels, "controls": controls,
+--- a/godot/ios-host/modules/partydeck_ios_probe/PDGodotRuntime.mm
++++ b/godot/ios-host/modules/partydeck_ios_probe/PDGodotRuntime.mm
+@@ -285,10 +285,10 @@
+ 
+ static NSDictionary *PDSanitizedDiagnostics(NSDictionary *value, NSString *presentationID, NSString *mode) {
+ 	if (!PDKeys(value, @[ @"schemaVersion", @"requestId", @"sequence", @"presentationId", @"revision", @"presentationMode",
+-			@"coordinateSpace", @"foreground", @"viewport", @"handConcealed", @"selectedCount", @"privateFaceCount", @"privateLabelCount", @"controls" ]) ||
++			@"coordinateSpace", @"foreground", @"sceneStateApplied", @"viewport", @"handConcealed", @"selectedCount", @"privateFaceCount", @"privateLabelCount", @"controls" ]) ||
+ 			!PDVersion(value[@"schemaVersion"]) || ![value[@"presentationId"] isEqual:presentationID] || ![value[@"presentationMode"] isEqual:mode] ||
+ 			![value[@"coordinateSpace"] isEqual:@"root_viewport"] || !PDCounter(value[@"requestId"]) || !PDCounter(value[@"sequence"]) || !PDCounter(value[@"revision"]) ||
+-			!PDBoolean(value[@"foreground"]) || !PDBoolean(value[@"handConcealed"]) ||
++			!PDBoolean(value[@"foreground"]) || !PDBoolean(value[@"sceneStateApplied"]) || !PDBoolean(value[@"handConcealed"]) ||
+ 			!PDNumberInRange(value[@"selectedCount"], 0, 3, YES) || !PDNumberInRange(value[@"privateFaceCount"], 0, 30, YES) ||
+ 			!PDNumberInRange(value[@"privateLabelCount"], 0, 60, YES)) {
+ 		return nil;
+@@ -321,7 +321,8 @@
+ 	// value, or state document can enter the native receipt through this channel.
+ 	return @{ @"schemaVersion": @1, @"requestId": value[@"requestId"], @"sequence": value[@"sequence"],
+ 		@"presentationId": presentationID, @"revision": value[@"revision"], @"presentationMode": mode,
+-		@"coordinateSpace": @"root_viewport", @"foreground": value[@"foreground"], @"handConcealed": value[@"handConcealed"],
++		@"coordinateSpace": @"root_viewport", @"foreground": value[@"foreground"], @"sceneStateApplied": value[@"sceneStateApplied"],
++		@"handConcealed": value[@"handConcealed"],
+ 		@"viewport": @{ @"width": @([viewport[@"width"] doubleValue]), @"height": @([viewport[@"height"] doubleValue]) },
+ 		@"selectedCount": @([value[@"selectedCount"] intValue]), @"privateFaceCount": @([value[@"privateFaceCount"] intValue]),
+ 		@"privateLabelCount": @([value[@"privateLabelCount"] intValue]), @"controls": safeControls };
+--- a/godot/android-host/src/main/kotlin/dev/partydeck/godot/compare/RendererDiagnostics.kt
++++ b/godot/android-host/src/main/kotlin/dev/partydeck/godot/compare/RendererDiagnostics.kt
+@@ -25,7 +25,7 @@
+         validateBoundedJson(document, PartyDeckBridgePlugin.MAX_DIAGNOSTICS_BYTES)
+         val value = JSONObject(document)
+         value.requireKeys("schemaVersion", "requestId", "sequence", "presentationId", "revision",
+-            "presentationMode", "coordinateSpace", "foreground", "viewport", "handConcealed",
++            "presentationMode", "coordinateSpace", "foreground", "sceneStateApplied", "viewport", "handConcealed",
+             "selectedCount", "privateFaceCount", "privateLabelCount", "controls")
+         require(value.integer("schemaVersion", 1..1) == 1)
+         require(value.get("presentationId") == presentationId)
+@@ -60,6 +60,7 @@
+             .put("presentationMode", mode)
+             .put("coordinateSpace", "root_viewport")
+             .put("foreground", value.boolean("foreground"))
++            .put("sceneStateApplied", value.boolean("sceneStateApplied"))
+             .put("viewport", JSONObject()
+                 .put("width", viewport.dimension("width"))
+                 .put("height", viewport.dimension("height")))
+--- a/godot/ios-host/AuthorityHostUITests/AuthorityHostUITests.swift
++++ b/godot/ios-host/AuthorityHostUITests/AuthorityHostUITests.swift
+@@ -316,14 +316,13 @@
+             }
+             try validateGeometry(value, app)
+             guard let target = control(action, in: value, cardIndex: cardIndex) else { throw Failure.controlMissing }
++            // Preserve the target and state before any enabled or geometry assertion.
++            attachJSON(["action": action, "control": target, "measurements": value], name: "Observed control before input: \(action)")
+             try require(flag("enabled", target), "The actual Godot control must be enabled.")
+             let rect = try rectangle(target["rect"])
+             let clip = try rectangle(target["clipRect"])
+             let viewport = viewportSize(value)
+             let bounds = CGRect(origin: .zero, size: viewport)
+-            // Preserve the rejected geometry too. A fit assertion must not
+-            // leave only the preceding successful tap in the native evidence.
+-            attachJSON(["action": action, "control": target, "measurements": value], name: "Observed control before input: \(action)")
+             try require(bounds.insetBy(dx: -0.5, dy: -0.5).contains(clip), "The reported clip must stay inside the root viewport.")
+             let surface = element("godot-surface", app)
+             if flag("visible", target), clip.insetBy(dx: -0.5, dy: -0.5).contains(rect) {
+@@ -410,6 +409,7 @@
+             let diagnostic = self.diagnostics(value)
+             let newer = after == nil || self.counter("sequence", diagnostic) > self.counter("sequence", self.diagnostics(after!))
+             return value["lifecycle"] as? String == "READY" && !diagnostic.isEmpty && newer &&
++                self.flag("sceneStateApplied", diagnostic) &&
+                 diagnostic["revision"] as? String == value["revision"] as? String &&
+                 self.flag("foreground", diagnostic) == foreground && self.flag("foreground", value) == foreground &&
+                 (!foreground || (self.flag("renderLoopActive", self.native(value)) && !self.flag("privacyCoverVisible", self.native(value)) &&
+--- a/godot/renderer/tests/native_bridge_check.gd
++++ b/godot/renderer/tests/native_bridge_check.gd
+@@ -124,12 +124,14 @@
+ 	bridge.diagnostics_requested.emit("19")
+ 	if _check(bridge.diagnostics.size() == 3, mode + ": diagnostics remain callable while backgrounded"):
+ 		var concealed: Dictionary = bridge.diagnostics.back()
++		_check(not concealed.sceneStateApplied, mode + ": pending controller state is distinguished from applied scene bindings")
+ 		_check(not concealed.foreground and concealed.handConcealed and not controller.presentation_state().controls.canSendAction,
+ 			mode + ": background commands synchronously conceal controller state and reject input")
+ 	await process_frame
+ 	await process_frame
+ 	bridge.diagnostics_requested.emit("20")
+-	_check(bridge.diagnostics.size() == 4 and bridge.diagnostics.back().privateFaceCount == 0 \
++	_check(bridge.diagnostics.size() == 4 and bridge.diagnostics.back().sceneStateApplied \
++		and bridge.diagnostics.back().privateFaceCount == 0 \
+ 		and bridge.diagnostics.back().privateLabelCount == 0,
+ 		mode + ": the next engine frame removes private scene bindings")
+ 	_check(bridge.events.size() == 1, mode + ": local changes and diagnostics emit no authority intent")

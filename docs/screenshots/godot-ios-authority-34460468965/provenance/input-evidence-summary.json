@@ -1,0 +1,1197 @@
+{
+  "runId": 34460468965,
+  "headSha": "31d148f9b6bbfa15d1746e1029858b86714362a3",
+  "attempt": 1,
+  "auditedAtUtc": "2026-09-10T09:55:27.074444+00:00",
+  "scope": "Independent source/input/preservation audit only. Retained Swift build failed; no retained runtime qualification.",
+  "sourceArchive": {
+    "runId": 34460468965,
+    "headSha": "31d148f9b6bbfa15d1746e1029858b86714362a3",
+    "sourceEndpoint": "repos/Apdelrahman1911/PartyDeck/tarball/31d148f9b6bbfa15d1746e1029858b86714362a3",
+    "archivePath": "/tmp/partydeck-engine-ci/34460468965/source-31d148f.tar.gz",
+    "bytes": 245485890,
+    "sha256": "54b16318ee4f225f9891b73a499ae7a54c3fe2bbf0f5b2c581f721d7725536b5",
+    "memberCount": 6028,
+    "sourceDirectory": "/tmp/partydeck-engine-ci/34460468965/source-31d148f",
+    "extractedAtUtc": "2026-09-10T09:47:18.512070+00:00",
+    "scope": "Immutable-commit source archive only; no native, Gradle or engine execution."
+  },
+  "workflowInputs": {
+    "host": "both",
+    "hostEvidence": "Both jobs executed under the archived mutually exclusive host conditions.",
+    "retained_stage": "test",
+    "retainedStageEvidence": {
+      "path": "/tmp/partydeck-engine-ci/34460468965/godot-ios-retained-host-test-attempt-1/evidence/retained-ci-context.json",
+      "sha256": "59d46f55a35f1ed37147e5505a386214a60510dfc0dd50116708414aec34abe0",
+      "bytes": 651
+    }
+  },
+  "consumerRunners": [
+    {
+      "id": 102822443867,
+      "runnerId": 1000005420,
+      "name": "Link the Swift caller and exercise native gameplay"
+    },
+    {
+      "id": 102822443978,
+      "runnerId": 1000005421,
+      "name": "Retained native engine / test"
+    }
+  ],
+  "engineArchives": [
+    {
+      "artifact": "libpartydeck_godot_ios_probe.a",
+      "bytes": 191055744,
+      "sha256": "94b99c7268071683c08db88bd513dbc6ba3e3a066234c1af5434bfc89d59ca2d"
+    },
+    {
+      "artifact": "libpartydeck_godot_camera.a",
+      "bytes": 82392,
+      "sha256": "084f63a6529f1c050390bc9c41a32b1ea0850ffd28574118de6a61f7e15f3765"
+    }
+  ],
+  "nativeModuleCount": 9,
+  "moduleSnapshotSha256": "f62482039220018f6e686787d9b88570dc3bb819261ae710d021144429e341b9",
+  "upstreamAuditedSourceCount": 33,
+  "patches": [
+    "coreaudio-dormancy",
+    "main-loop-access"
+  ],
+  "frameworkArchive": {
+    "path": "/tmp/partydeck-engine-ci/34460468965/godot-ios-host-framework/artifacts/PartyDeckGodotBridge-simulator.framework.tar.gz",
+    "sha256": "c324d6971e029be3bcad7ab37e2a17c974d73297e7a5d3f475dee7907efcc16b",
+    "bytes": 8148398
+  },
+  "frameworkMembers": [
+    {
+      "path": "PartyDeckGodotBridge.framework/PartyDeckGodotBridge",
+      "sha256": "580b45b44dc59289a65178fa8187f3512563a918294eb1c5262398b1a240ff95",
+      "bytes": 40739216
+    },
+    {
+      "path": "PartyDeckGodotBridge.framework/Headers/PartyDeckGodotBridge.h",
+      "sha256": "dddbb2ae23d1e87ebab18fa7c4f77326c3e370422b96f1e723c3e2f2cdde14fd",
+      "bytes": 179497
+    },
+    {
+      "path": "PartyDeckGodotBridge.framework/Modules/module.modulemap",
+      "sha256": "566a10ca59319c5510d030cc2418d21900d0cc724abd7627cfd65972aeec3a04",
+      "bytes": 149
+    },
+    {
+      "path": "PartyDeckGodotBridge.framework/Info.plist",
+      "sha256": "7873447ece8f8dab0760511eed41646ef12e940a3c7f70ec16acf7a394b6eb7a",
+      "bytes": 953
+    }
+  ],
+  "pack": {
+    "sha256": "8f24944d61b0430cfec4a32bb1d03d2c7da9f55918264e9cfcded1c675d21539",
+    "bytes": 1546376,
+    "entries": 136,
+    "sourceFiles": 132,
+    "toolFiles": 4,
+    "sourceFingerprint": "0b7658ee30b1cdfc34ac11d441a2b3003c25eb4d044089cfef5d086c3f6ed0ed",
+    "validationCommand": [
+      "/usr/bin/python3",
+      "-B",
+      "/tmp/partydeck-engine-ci/34460468965/source-31d148f/godot/tools/renderer.py",
+      "check-pack",
+      "--pack",
+      "/tmp/partydeck-engine-ci/34460468965/godot-ios-host-renderer/partydeck-last-light.pck"
+    ],
+    "validationLog": {
+      "path": "/tmp/partydeck-engine-ci/34460468965/archived-source-pack-check.log",
+      "sha256": "19fb9d6a0aeb9526d7af21fcfde637a241513f288692fdf89d7e1aeaaad8eac8",
+      "bytes": 105
+    }
+  },
+  "preservationAudit": {
+    "path": "/tmp/partydeck-engine-ci/34460468965/retained-preservation-audit.json",
+    "sha256": "e5972429430a7c50803570428975b6ece246313fcc024395775a03c8c148e7b2",
+    "bytes": 12028
+  },
+  "originalProducerFilesInPreservationVerified": [
+    "engine/artifacts/libpartydeck_godot_camera.a",
+    "engine/artifacts/libpartydeck_godot_ios_probe.a",
+    "engine/evidence/clang-version.log",
+    "engine/evidence/engine-artifact.json",
+    "engine/evidence/engine-build.log",
+    "engine/evidence/engine-source-commit.txt",
+    "engine/evidence/engine-symbols.log",
+    "engine/evidence/native-module-inputs.json",
+    "engine/evidence/scons-version.log",
+    "engine/evidence/sdk-version.log",
+    "engine/evidence/source-download.log",
+    "engine/evidence/upstream-audit.json",
+    "engine/evidence/upstream-postbuild-audit.json",
+    "engine/evidence/upstream-reference-audit.json",
+    "engine/evidence/xcode-sdks.log",
+    "engine/evidence/xcode-version.log",
+    "framework/artifacts/PartyDeckGodotBridge-simulator.framework.tar.gz",
+    "framework/evidence/PartyDeckGodotBridge.h",
+    "framework/evidence/PartyDeckGodotBridge.modulemap",
+    "framework/evidence/authority-framework-architectures.log",
+    "framework/evidence/authority-framework-build.log",
+    "framework/evidence/authority-framework-result.json",
+    "framework/evidence/authority-framework-symbols.log",
+    "framework/evidence/authority-header-check.log",
+    "framework/evidence/authority-java-version.log",
+    "framework/evidence/authority-module-import.log",
+    "framework/evidence/authority-module-import.swift",
+    "framework/evidence/authority-source-commit.txt",
+    "framework/evidence/authority-xcode-version.log",
+    "renderer/partydeck-last-light.pck",
+    "renderer/partydeck-last-light.receipt.json"
+  ],
+  "ciReceiptFilesDirectlyVerifiedFromPreservation": [
+    "retained-inputs/engine/evidence/engine-source-commit.txt",
+    "retained-inputs/framework/evidence/authority-source-commit.txt",
+    "retained-inputs/engine/artifacts/libpartydeck_godot_ios_probe.a",
+    "retained-inputs/engine/artifacts/libpartydeck_godot_camera.a",
+    "retained-inputs/framework/artifacts/PartyDeckGodotBridge-simulator.framework.tar.gz",
+    "retained-inputs/engine/evidence/engine-artifact.json",
+    "retained-inputs/framework/evidence/authority-framework-result.json",
+    "retained-inputs/renderer/partydeck-last-light.pck",
+    "retained-inputs/renderer/partydeck-last-light.receipt.json"
+  ],
+  "ciStagedArchiveReceiptsCorrelatedWithProducer": [
+    "artifacts/libpartydeck_godot_ios_probe.a",
+    "artifacts/libpartydeck_godot_camera.a"
+  ],
+  "stagedArchiveLimit": "Top-level staged native archives were not included in the preservation tar. Their CI receipt values match the original retained producer archives; no independent local re-read of those absent staged files is claimed.",
+  "retainedSourceHashes": {
+    "RetainedHost/Host.xcconfig": "3651cd7294b88ad2a9e8cc0e1324fcc534e3588232d14008733528cd3cf46cf3",
+    "RetainedHost/Info.plist": "2a839863df5784b890c7a51efdd695bedaec5461cb5c5191e80ca1f439ef307c",
+    "RetainedHost/README.md": "9d3308634b82b03aa69639db8f14e1223fdd0d80272b7469ed3505c9150f342a",
+    "RetainedHost/RetainedHostApp.swift": "4e50fa627cf1ee74455aee9cf64c9fda34d71e51991ae83175f4f5a0b5418a1c",
+    "RetainedHost/RetainedModel.swift": "a9607c735f322fab6653167ea91ab7c0cef5c7b4b7ebb7b5340a675cf1a39b5f",
+    "RetainedHostUITests/RetainedHostUITests.swift": "bbf98888eea4e6c680b2535e0de64b86c369cbe52cec3e48a775d68594755f55",
+    "RetainedHost.xcodeproj/project.pbxproj": "5a88e42d278871df1545751c4d4d69841cc3b7997e420dbf39d58b90ef318c7f",
+    "RetainedHost.xcodeproj/xcshareddata/xcschemes/RetainedHost.xcscheme": "26a3e28aeaa1b0a39af391e669f3b5ed1b2b221eb02486fcd707a6fb4a3474f2",
+    "test-retained-host.sh": "4975153bc94793087f7a6fbf43026bd00927853c95f4ac3d03d0f76c28f441ed",
+    "record-retained-result.py": "4387cd8cb78a3ef9f393f19e433df4238e4697fd67388975ab999b1e0ffdac49",
+    "modules/partydeck_ios_probe/PDGodotEngineOwner.h": "f55aed92a3c0987ce2f2e5ba544738d5a7dcd53a3f19581c6056dc1de642f1c0"
+  },
+  "checks": [
+    {
+      "check": "exact run/head/event/attempt",
+      "passed": true
+    },
+    {
+      "check": "retained CI exact revision, workflow revision, stage, run and architecture",
+      "passed": true
+    },
+    {
+      "check": "exclusive consumer conditions identify host=both when both execute",
+      "passed": true
+    },
+    {
+      "check": "consumers use distinct hosted runners",
+      "passed": true
+    },
+    {
+      "check": "engine configuration: engine_commit",
+      "passed": true
+    },
+    {
+      "check": "engine configuration: upstream_archive",
+      "passed": true
+    },
+    {
+      "check": "engine configuration: stage",
+      "passed": true
+    },
+    {
+      "check": "engine configuration: platform",
+      "passed": true
+    },
+    {
+      "check": "engine configuration: target",
+      "passed": true
+    },
+    {
+      "check": "engine configuration: configuration",
+      "passed": true
+    },
+    {
+      "check": "engine configuration: simulator",
+      "passed": true
+    },
+    {
+      "check": "engine configuration: architecture",
+      "passed": true
+    },
+    {
+      "check": "engine configuration: sdk",
+      "passed": true
+    },
+    {
+      "check": "engine configuration: sdk_version",
+      "passed": true
+    },
+    {
+      "check": "engine configuration: lto",
+      "passed": true
+    },
+    {
+      "check": "engine configuration: xcode_version",
+      "passed": true
+    },
+    {
+      "check": "engine configuration: path_overrides_enabled",
+      "passed": true
+    },
+    {
+      "check": "engine configuration: sdl_enabled",
+      "passed": true
+    },
+    {
+      "check": "engine configuration: native_input_scope",
+      "passed": true
+    },
+    {
+      "check": "engine configuration: native_module_capture_phase",
+      "passed": true
+    },
+    {
+      "check": "engine configuration: engine_checkout_policy",
+      "passed": true
+    },
+    {
+      "check": "engine revision marker",
+      "passed": true
+    },
+    {
+      "check": "exactly two distinct native archives",
+      "passed": true
+    },
+    {
+      "check": "native archive bytes: libpartydeck_godot_ios_probe.a",
+      "passed": true
+    },
+    {
+      "check": "native archive bytes: libpartydeck_godot_camera.a",
+      "passed": true
+    },
+    {
+      "check": "native module source set and hashes match archived run source",
+      "passed": true
+    },
+    {
+      "check": "native module snapshot aggregate",
+      "passed": true
+    },
+    {
+      "check": "pre-SCons module capture receipt",
+      "passed": true
+    },
+    {
+      "check": "reviewed patch provenance: coreaudio-dormancy",
+      "passed": true
+    },
+    {
+      "check": "reviewed patch provenance: main-loop-access",
+      "passed": true
+    },
+    {
+      "check": "both maintained patches represented",
+      "passed": true
+    },
+    {
+      "check": "upstream source and patch hashes unchanged after compilation",
+      "passed": true
+    },
+    {
+      "check": "fresh-checkout gate rejects untracked inputs before compilation",
+      "passed": true
+    },
+    {
+      "check": "all three upstream audits reference exact pinned commit",
+      "passed": true
+    },
+    {
+      "check": "framework revision marker",
+      "passed": true
+    },
+    {
+      "check": "ARM64 Simulator debug framework build/import gate",
+      "passed": true
+    },
+    {
+      "check": "framework archive bytes and digest",
+      "passed": true
+    },
+    {
+      "check": "framework member identity: PartyDeckGodotBridge",
+      "passed": true
+    },
+    {
+      "check": "framework member identity: Headers/PartyDeckGodotBridge.h",
+      "passed": true
+    },
+    {
+      "check": "framework member identity: Modules/module.modulemap",
+      "passed": true
+    },
+    {
+      "check": "framework member identity: Info.plist",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/audio/card_place.wav",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/audio/card_place.wav.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/audio/challenge.wav",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/audio/challenge.wav.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/audio/light_out.wav",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/audio/light_out.wav.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/audio/safe.wav",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/audio/safe.wav.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/audio/ui_tap.wav",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/audio/ui_tap.wav.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/audio/victory.wav",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/audio/victory.wav.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/fonts/fraunces_semibold.ttf",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/fonts/fraunces_semibold.ttf.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/fonts/manrope_medium.ttf",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/fonts/manrope_medium.ttf.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/fonts/manrope_regular.ttf",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/fonts/manrope_regular.ttf.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/fonts/manrope_semibold.ttf",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/fonts/manrope_semibold.ttf.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/licenses/font_notices.txt",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/licenses/fraunces_ofl.txt",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/licenses/manrope_ofl.txt",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/manifest.json",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/textures/cards/back.png",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/textures/cards/back.png.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/textures/cards/face_crown.png",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/textures/cards/face_crown.png.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/textures/cards/face_moon.png",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/textures/cards/face_moon.png.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/textures/cards/face_star.png",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/textures/cards/face_star.png.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/textures/cards/face_wild.png",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/textures/cards/face_wild.png.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/textures/ranks/crown.png",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/textures/ranks/crown.png.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/textures/ranks/crown_mask.png",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/textures/ranks/crown_mask.png.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/textures/ranks/moon.png",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/textures/ranks/moon.png.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/textures/ranks/moon_mask.png",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/textures/ranks/moon_mask.png.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/textures/ranks/star.png",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/textures/ranks/star.png.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/textures/ranks/star_mask.png",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/textures/ranks/star_mask.png.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/textures/ranks/wild.png",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/textures/ranks/wild.png.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/textures/ranks/wild_mask.png",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/textures/ranks/wild_mask.png.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/card_back.svg",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/card_back.svg.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_arrow_back.svg",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_arrow_back.svg.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_arrow_forward.svg",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_arrow_forward.svg.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_check.svg",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_check.svg.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_close.svg",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_close.svg.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_copy.svg",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_copy.svg.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_exit.svg",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_exit.svg.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_haptics.svg",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_haptics.svg.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_info.svg",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_info.svg.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_lock.svg",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_lock.svg.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_motion.svg",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_motion.svg.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_nearby.svg",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_nearby.svg.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_people.svg",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_people.svg.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_plus.svg",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_plus.svg.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_qr_scan.svg",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_qr_scan.svg.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_settings.svg",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_settings.svg.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_share.svg",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_share.svg.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_sound.svg",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_sound.svg.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_sound_off.svg",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/icon_sound_off.svg.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/partydeck_mark.svg",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/partydeck_mark.svg.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/rank_crown.svg",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/rank_crown.svg.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/rank_moon.svg",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/rank_moon.svg.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/rank_star.svg",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/rank_star.svg.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/rank_wild.svg",
+      "passed": true
+    },
+    {
+      "check": "renderer source: assets/vectors/rank_wild.svg.import",
+      "passed": true
+    },
+    {
+      "check": "renderer source: export_presets.cfg",
+      "passed": true
+    },
+    {
+      "check": "renderer source: licenses/ANDROID_NDK_LLVM_NOTICE.txt",
+      "passed": true
+    },
+    {
+      "check": "renderer source: licenses/GODOT_CA_BUNDLE_SOURCE.txt",
+      "passed": true
+    },
+    {
+      "check": "renderer source: licenses/GODOT_CA_CERTIFICATES_SOURCE.txt",
+      "passed": true
+    },
+    {
+      "check": "renderer source: licenses/GODOT_COPYRIGHT.txt",
+      "passed": true
+    },
+    {
+      "check": "renderer source: licenses/GODOT_LICENSE.txt",
+      "passed": true
+    },
+    {
+      "check": "renderer source: licenses/NOTICE_PROVENANCE.json",
+      "passed": true
+    },
+    {
+      "check": "renderer source: licenses/README.txt",
+      "passed": true
+    },
+    {
+      "check": "renderer source: main.tscn",
+      "passed": true
+    },
+    {
+      "check": "renderer source: presentations/three_d/card_3d.gd",
+      "passed": true
+    },
+    {
+      "check": "renderer source: presentations/three_d/card_3d.gd.uid",
+      "passed": true
+    },
+    {
+      "check": "renderer source: presentations/three_d/table.gd",
+      "passed": true
+    },
+    {
+      "check": "renderer source: presentations/three_d/table.gd.uid",
+      "passed": true
+    },
+    {
+      "check": "renderer source: presentations/three_d/table.tscn",
+      "passed": true
+    },
+    {
+      "check": "renderer source: presentations/two_d/deck_style.gd",
+      "passed": true
+    },
+    {
+      "check": "renderer source: presentations/two_d/deck_style.gd.uid",
+      "passed": true
+    },
+    {
+      "check": "renderer source: presentations/two_d/hand_card.gd",
+      "passed": true
+    },
+    {
+      "check": "renderer source: presentations/two_d/hand_card.gd.uid",
+      "passed": true
+    },
+    {
+      "check": "renderer source: presentations/two_d/seat_view.gd",
+      "passed": true
+    },
+    {
+      "check": "renderer source: presentations/two_d/seat_view.gd.uid",
+      "passed": true
+    },
+    {
+      "check": "renderer source: presentations/two_d/table.gd",
+      "passed": true
+    },
+    {
+      "check": "renderer source: presentations/two_d/table.gd.uid",
+      "passed": true
+    },
+    {
+      "check": "renderer source: presentations/two_d/table.tscn",
+      "passed": true
+    },
+    {
+      "check": "renderer source: presentations/two_d/table_surface.gd",
+      "passed": true
+    },
+    {
+      "check": "renderer source: presentations/two_d/table_surface.gd.uid",
+      "passed": true
+    },
+    {
+      "check": "renderer source: project.godot",
+      "passed": true
+    },
+    {
+      "check": "renderer source: scripts/main.gd",
+      "passed": true
+    },
+    {
+      "check": "renderer source: scripts/main.gd.uid",
+      "passed": true
+    },
+    {
+      "check": "renderer source: scripts/renderer_controller.gd",
+      "passed": true
+    },
+    {
+      "check": "renderer source: scripts/renderer_controller.gd.uid",
+      "passed": true
+    },
+    {
+      "check": "renderer source: scripts/strict_json.gd",
+      "passed": true
+    },
+    {
+      "check": "renderer source: scripts/strict_json.gd.uid",
+      "passed": true
+    },
+    {
+      "check": "renderer source: scripts/view_validator.gd",
+      "passed": true
+    },
+    {
+      "check": "renderer source: scripts/view_validator.gd.uid",
+      "passed": true
+    },
+    {
+      "check": "renderer tool source: renderer.py",
+      "passed": true
+    },
+    {
+      "check": "renderer tool source: partydeck_pck.py",
+      "passed": true
+    },
+    {
+      "check": "renderer tool source: scene_check.gd",
+      "passed": true
+    },
+    {
+      "check": "renderer tool source: godot-pins.json",
+      "passed": true
+    },
+    {
+      "check": "PCK bytes and digest",
+      "passed": true
+    },
+    {
+      "check": "archived-source PCK checker succeeds without engine execution",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/artifacts/libpartydeck_godot_camera.a",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/artifacts/libpartydeck_godot_ios_probe.a",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/clang-version.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/engine-artifact.json",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/engine-build.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/engine-source-commit.txt",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/engine-symbols.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/native-module-inputs.json",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/scons-version.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/sdk-version.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/source-download.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/upstream-audit.json",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/upstream-postbuild-audit.json",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/upstream-reference-audit.json",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/xcode-sdks.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/xcode-version.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: framework/artifacts/PartyDeckGodotBridge-simulator.framework.tar.gz",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: framework/evidence/PartyDeckGodotBridge.h",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: framework/evidence/PartyDeckGodotBridge.modulemap",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: framework/evidence/authority-framework-architectures.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: framework/evidence/authority-framework-build.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: framework/evidence/authority-framework-result.json",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: framework/evidence/authority-framework-symbols.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: framework/evidence/authority-header-check.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: framework/evidence/authority-java-version.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: framework/evidence/authority-module-import.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: framework/evidence/authority-module-import.swift",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: framework/evidence/authority-source-commit.txt",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: framework/evidence/authority-xcode-version.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: renderer/partydeck-last-light.pck",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: renderer/partydeck-last-light.receipt.json",
+      "passed": true
+    },
+    {
+      "check": "retained source hashes unchanged during failed invocation",
+      "passed": true
+    },
+    {
+      "check": "retained harness matches exact archived source: RetainedHost/Host.xcconfig",
+      "passed": true
+    },
+    {
+      "check": "retained harness matches exact archived source: RetainedHost/Info.plist",
+      "passed": true
+    },
+    {
+      "check": "retained harness matches exact archived source: RetainedHost/README.md",
+      "passed": true
+    },
+    {
+      "check": "retained harness matches exact archived source: RetainedHost/RetainedHostApp.swift",
+      "passed": true
+    },
+    {
+      "check": "retained harness matches exact archived source: RetainedHost/RetainedModel.swift",
+      "passed": true
+    },
+    {
+      "check": "retained harness matches exact archived source: RetainedHostUITests/RetainedHostUITests.swift",
+      "passed": true
+    },
+    {
+      "check": "retained harness matches exact archived source: RetainedHost.xcodeproj/project.pbxproj",
+      "passed": true
+    },
+    {
+      "check": "retained harness matches exact archived source: RetainedHost.xcodeproj/xcshareddata/xcschemes/RetainedHost.xcscheme",
+      "passed": true
+    },
+    {
+      "check": "retained harness matches exact archived source: test-retained-host.sh",
+      "passed": true
+    },
+    {
+      "check": "retained harness matches exact archived source: record-retained-result.py",
+      "passed": true
+    },
+    {
+      "check": "retained harness matches exact archived source: modules/partydeck_ios_probe/PDGodotEngineOwner.h",
+      "passed": true
+    },
+    {
+      "check": "retained nested engine/framework inputs match independent producer bytes",
+      "passed": true
+    },
+    {
+      "check": "retained staged input receipt equals runner input",
+      "passed": true
+    },
+    {
+      "check": "retained framework receipt bytes match producer",
+      "passed": true
+    },
+    {
+      "check": "retained resources nested receipt",
+      "passed": true
+    },
+    {
+      "check": "retained bundled PCK bytes match audited producer",
+      "passed": true
+    },
+    {
+      "check": "retained bundled PCK companion receipt matches producer",
+      "passed": true
+    },
+    {
+      "check": "retained diagnostic resource: ProbeScene/project.godot",
+      "passed": true
+    },
+    {
+      "check": "retained diagnostic resource: ProbeScene/main.tscn",
+      "passed": true
+    },
+    {
+      "check": "retained diagnostic resource: ProbeScene/main.gd",
+      "passed": true
+    },
+    {
+      "check": "retained diagnostic resource: ProbeResources/MissingMainScene/project.godot",
+      "passed": true
+    },
+    {
+      "check": "retained license: ANDROID_NDK_LLVM_NOTICE.txt",
+      "passed": true
+    },
+    {
+      "check": "retained license: GODOT_CA_BUNDLE_SOURCE.txt",
+      "passed": true
+    },
+    {
+      "check": "retained license: GODOT_CA_CERTIFICATES_SOURCE.txt",
+      "passed": true
+    },
+    {
+      "check": "retained license: GODOT_COPYRIGHT.txt",
+      "passed": true
+    },
+    {
+      "check": "retained license: GODOT_LICENSE.txt",
+      "passed": true
+    },
+    {
+      "check": "retained license: NOTICE_PROVENANCE.json",
+      "passed": true
+    },
+    {
+      "check": "retained license: README.txt",
+      "passed": true
+    },
+    {
+      "check": "retained fixture and manifest bytes",
+      "passed": true
+    },
+    {
+      "check": "CI input file receipt: retained-inputs/engine/evidence/engine-source-commit.txt",
+      "passed": true
+    },
+    {
+      "check": "CI input file receipt: retained-inputs/framework/evidence/authority-source-commit.txt",
+      "passed": true
+    },
+    {
+      "check": "CI input file receipt: retained-inputs/engine/artifacts/libpartydeck_godot_ios_probe.a",
+      "passed": true
+    },
+    {
+      "check": "CI input file receipt: retained-inputs/engine/artifacts/libpartydeck_godot_camera.a",
+      "passed": true
+    },
+    {
+      "check": "CI input file receipt: retained-inputs/framework/artifacts/PartyDeckGodotBridge-simulator.framework.tar.gz",
+      "passed": true
+    },
+    {
+      "check": "CI input file receipt: retained-inputs/engine/evidence/engine-artifact.json",
+      "passed": true
+    },
+    {
+      "check": "CI input file receipt: retained-inputs/framework/evidence/authority-framework-result.json",
+      "passed": true
+    },
+    {
+      "check": "CI input file receipt: retained-inputs/renderer/partydeck-last-light.pck",
+      "passed": true
+    },
+    {
+      "check": "CI input file receipt: retained-inputs/renderer/partydeck-last-light.receipt.json",
+      "passed": true
+    },
+    {
+      "check": "CI input file receipt: artifacts/libpartydeck_godot_ios_probe.a",
+      "passed": true
+    },
+    {
+      "check": "CI input file receipt: artifacts/libpartydeck_godot_camera.a",
+      "passed": true
+    },
+    {
+      "check": "original retained build failed with three actor isolation errors",
+      "passed": true
+    },
+    {
+      "check": "retained result is unqualified with zero test starts",
+      "passed": true
+    },
+    {
+      "check": "retained result input digest",
+      "passed": true
+    },
+    {
+      "check": "retained preserved app archive is partial and has no executable",
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "engine_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+  "upstream_archive": "libgodot.ios.template_debug.arm64.simulator.a",
+  "artifact": "libpartydeck_godot_ios_probe.a",
+  "sha256": "94b99c7268071683c08db88bd513dbc6ba3e3a066234c1af5434bfc89d59ca2d",
+  "bytes": 191055744,
+  "auxiliary_archives": [
+    {
+      "artifact": "libpartydeck_godot_camera.a",
+      "sha256": "084f63a6529f1c050390bc9c41a32b1ea0850ffd28574118de6a61f7e15f3765",
+      "bytes": 82392,
+      "upstream_archive": "libgodot_camera.ios.template_debug.arm64.simulator.a"
+    }
+  ],
+  "stage": "engine_compile_only",
+  "platform": "ios",
+  "target": "template_debug",
+  "configuration": "Debug",
+  "simulator": true,
+  "architecture": "arm64",
+  "sdk": "iphonesimulator",
+  "sdk_version": "26.4",
+  "lto": "none",
+  "xcode_version": "26.4.1",
+  "rendering_drivers": [
+    "opengl3"
+  ],
+  "path_overrides_enabled": true,
+  "bootstrap_arguments": "native_owned_bundle_paths",
+  "sdl_enabled": false,
+  "native_input_scope": "touch_and_hardware_keyboard",
+  "upstream_patches": [
+    {
+      "name": "coreaudio-dormancy",
+      "base_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+      "patch_sha256": "d5aad26c18f79c830c660cbd4f2debf401fb796381d4742706eb233afff4701c",
+      "manifest_sha256": "7d02c1a1a20c9f941f3b94119a3a7dd4dc0f19972a1744d16acc08ad80b62724",
+      "applied": true,
+      "files": [
+        {
+          "path": "drivers/coreaudio/audio_driver_coreaudio.h",
+          "originalSha256": "6fd7e8ce99b61d6922259e8d806bc5e6de85c99b8d7033ac72d508ff0a419f0c",
+          "patchedSha256": "12b24d810c8b95a0cb40e3dd41ca8999048571bda9474bcc86ef624915f0ff3f",
+          "originalGitBlob": "08c4ec475f9835cc5ecce3f50a6b4b043be3ec88",
+          "patchedGitBlob": "52e2708f3f95a970750375f15bc4ffd6da1cb07d"
+        },
+        {
+          "path": "drivers/coreaudio/audio_driver_coreaudio.mm",
+          "originalSha256": "656bef8d243670b902c8a9f203f301dc10c23ea9f2ee38f7583e541fe1c5b959",
+          "patchedSha256": "f0d5a678385492c38e83698a7c1884d625d8b52deb49535ffd2309e2ddf54531",
+          "originalGitBlob": "fbd73c8d73d712bfb03c94c9c02357db5a3b2813",
+          "patchedGitBlob": "9b1eefab413502b65fdf05b622808f307000e101"
+        },
+        {
+          "path": "servers/audio/audio_server.cpp",
+          "originalSha256": "d7641ef5852aa86f75c4d506759de2838a2c3886c29f7eb25fd9e9310d87c102",
+          "patchedSha256": "7b32e9c83867692147581b7ac551ee2ea34fda3505ee1cb0dc3d9ad4fc1accec",
+          "originalGitBlob": "98bb2cebd94299cd2d87bc1ca5fd4d5c73ab1807",
+          "patchedGitBlob": "d9f2f8b4d529af3bbe4583f431e0eefd2dff23f4"
+        },
+        {
+          "path": "servers/audio/audio_server.h",
+          "originalSha256": "fb97202eb2148536c06f193f1ccd838ce121b8cfddbb9f1bcd30e7fdbe74647c",
+          "patchedSha256": "6f9bf751e81e51fc490102b1990c0280fa1272884d0821e9dce8e8d2b679f7bd",
+          "originalGitBlob": "efb0a58e1cc4cab257fa1bbf4be0184303f2e234",
+          "patchedGitBlob": "c169e9c4308541a5ee1ae25e1f08c12b15c7dd07"
+        }
+      ]
+    },
+    {
+      "name": "main-loop-access",
+      "base_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+      "patch_sha256": "896fe2da52c8d3e4f9d436c4d41808e5fbc567c268294baf898843c28dbbb3c6",
+      "manifest_sha256": "456c08911c1aa8c4c4efd5d7a372cdf12f2da6380f699b295fe3aeab8e7828ab",
+      "applied": true,
+      "files": [
+        {
+          "path": "drivers/apple_embedded/os_apple_embedded.h",
+          "originalSha256": "c78457c745e3596edd355aaf2e23611a1f51c782ed25a701fb0d3e06dd3cd9e3",
+          "patchedSha256": "5b331a2008f22581320ec2301a269dcc6344814a3d985ffbb63df2107ba64dee",
+          "originalGitBlob": "d801a8652d63b31b2a24e037735314d7ad7a5117",
+          "patchedGitBlob": "b3e14db14a3a8d056948f3396227e1fc7a0a39cc"
+        }
+      ]
+    }
+  ],
+  "native_module_sources": {
+    "partydeck_ios_probe/AppleExportPlugins.mm": "4fd8706afd3616e59221e12969d2a16380f3f8984077b0ff2a59dba0a74f30fc",
+    "partydeck_ios_probe/PDGodotEngineOwner.h": "f55aed92a3c0987ce2f2e5ba544738d5a7dcd53a3f19581c6056dc1de642f1c0",
+    "partydeck_ios_probe/PDGodotRuntime.h": "781d0ea7d206d91a49316f30eeb905caec4b5715f5222fc363ed1b03127a647e",
+    "partydeck_ios_probe/PDGodotRuntime.mm": "21e0495a356975b7a954811ecfcce7dc31015bc57e36cf73e19ba2abad93284e",
+    "partydeck_ios_probe/SCsub": "781f9abdcb30c34d0271bcc21372c6b2ca59545594b8f59625bf05cd9c52f564",
+    "partydeck_ios_probe/config.py": "a7d49c9d253183baf38500b6427d3dde8465df1c176d14ddae240ea086e67d3f",
+    "partydeck_ios_probe/engine_surface_probe.mm": "d86ee6e956ba38843c4d359ff140fe1635d9537775787722d66d7caaac7206f2",
+    "partydeck_ios_probe/register_types.h": "f4550220fcfb8bbd2bb42118823987254b40d6f9293cee61bb972acaa82e4c9c",
+    "partydeck_ios_probe/strict_json.h": "c3bff31433102904886a4fb1adcee109c912b7532f21a46f7e1b1ae629c9d074"
+  },
+  "module_snapshot_sha256": "f62482039220018f6e686787d9b88570dc3bb819261ae710d021144429e341b9",
+  "native_module_capture_phase": "before_scons",
+  "engine_checkout_policy": "fresh_isolated_checkout",
+  "ios_runtime_executed": false,
+  "kmp_factory_qualified": false
+}

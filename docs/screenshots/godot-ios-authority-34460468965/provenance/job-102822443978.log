@@ -1,0 +1,1089 @@
+﻿2026-09-10T09:43:37.0920090Z Current runner version: '2.337.0'
+2026-09-10T09:43:37.0938410Z ##[group]Runner Image Provisioner
+2026-09-10T09:43:37.0939060Z Hosted Compute Agent
+2026-09-10T09:43:37.0939490Z Version: 20260828.587
+2026-09-10T09:43:37.0939940Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-10T09:43:37.0940470Z Build Date: 2026-08-28T16:44:25Z
+2026-09-10T09:43:37.0940920Z Worker ID: {a9abaa95-e30a-4e7d-b6f5-c1a800d6ca44}
+2026-09-10T09:43:37.0941410Z Azure Region: westus
+2026-09-10T09:43:37.0941790Z ##[endgroup]
+2026-09-10T09:43:37.0942800Z ##[group]Operating System
+2026-09-10T09:43:37.0943240Z macOS
+2026-09-10T09:43:37.0943560Z 26.6.2
+2026-09-10T09:43:37.0943900Z 25G83
+2026-09-10T09:43:37.0944230Z ##[endgroup]
+2026-09-10T09:43:37.0944610Z ##[group]Runner Image
+2026-09-10T09:43:37.0945050Z Image: macos-26-arm64
+2026-09-10T09:43:37.0945520Z Version: 20260831.0337.3
+2026-09-10T09:43:37.0946580Z Included Software: https://github.com/actions/runner-images/blob/macos-26-arm64/20260831.0337/images/macos/macos-26-arm64-Readme.md
+2026-09-10T09:43:37.0948040Z Image Release: https://github.com/actions/runner-images/releases/tag/macos-26-arm64%2F20260831.0337
+2026-09-10T09:43:37.0948880Z ##[endgroup]
+2026-09-10T09:43:37.0949880Z ##[group]GITHUB_TOKEN Permissions
+2026-09-10T09:43:37.0951340Z Contents: read
+2026-09-10T09:43:37.0951970Z Metadata: read
+2026-09-10T09:43:37.0952340Z ##[endgroup]
+2026-09-10T09:43:37.0953840Z Secret source: Actions
+2026-09-10T09:43:37.0954420Z Cache mode: write
+2026-09-10T09:43:37.0954960Z Prepare workflow directory
+2026-09-10T09:43:37.1445470Z Prepare all required actions
+2026-09-10T09:43:37.1486800Z Getting action download info
+2026-09-10T09:43:37.3033240Z Download action repository 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-09-10T09:43:37.7151870Z Download action repository 'actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c' (SHA:3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c)
+2026-09-10T09:43:38.6195100Z Complete job name: Retained native engine / test
+2026-09-10T09:43:38.6701790Z ##[group]Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+2026-09-10T09:43:38.6702580Z with:
+2026-09-10T09:43:38.6702920Z   persist-credentials: false
+2026-09-10T09:43:38.6703300Z   repository: Apdelrahman1911/PartyDeck
+2026-09-10T09:43:38.6706140Z   token: ***
+2026-09-10T09:43:38.6706440Z   ssh-strict: true
+2026-09-10T09:43:38.6706740Z   ssh-user: git
+2026-09-10T09:43:38.6707030Z   clean: true
+2026-09-10T09:43:38.6707340Z   sparse-checkout-cone-mode: true
+2026-09-10T09:43:38.6707690Z   fetch-depth: 1
+2026-09-10T09:43:38.6707990Z   fetch-tags: false
+2026-09-10T09:43:38.6708290Z   show-progress: true
+2026-09-10T09:43:38.6708590Z   lfs: false
+2026-09-10T09:43:38.6708890Z   submodules: false
+2026-09-10T09:43:38.6709210Z   set-safe-directory: true
+2026-09-10T09:43:38.6709560Z   allow-unsafe-pr-checkout: false
+2026-09-10T09:43:38.6710010Z env:
+2026-09-10T09:43:38.6710390Z   DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
+2026-09-10T09:43:38.6710920Z   PARTYDECK_RETAINED_CI_STAGE: test
+2026-09-10T09:43:38.6711670Z   PARTYDECK_GODOT_RETAINED_FRAMEWORK: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/framework-input/PartyDeckGodotBridge.framework
+2026-09-10T09:43:38.6712830Z   PARTYDECK_GODOT_RETAINED_FRAMEWORK_RECEIPT: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/evidence/authority-framework-result.json
+2026-09-10T09:43:38.6713970Z   PARTYDECK_GODOT_RETAINED_PCK: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-inputs/renderer/partydeck-last-light.pck
+2026-09-10T09:43:38.6714720Z ##[endgroup]
+2026-09-10T09:43:39.1423720Z Syncing repository: Apdelrahman1911/PartyDeck
+2026-09-10T09:43:39.1425230Z ##[group]Getting Git version info
+2026-09-10T09:43:39.1425860Z Working directory is '/Users/runner/work/PartyDeck/PartyDeck'
+2026-09-10T09:43:39.1426780Z [command]/opt/homebrew/bin/git version
+2026-09-10T09:43:39.1696030Z git version 2.55.0
+2026-09-10T09:43:39.1708920Z ##[endgroup]
+2026-09-10T09:43:39.1714950Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/f28ee6e8-8b34-4055-9e2d-8a847c6c6d1d/.gitconfig'
+2026-09-10T09:43:39.1722770Z Temporarily overriding HOME='/Users/runner/work/_temp/f28ee6e8-8b34-4055-9e2d-8a847c6c6d1d' before making global git config changes
+2026-09-10T09:43:39.1725530Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-10T09:43:39.1728030Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/PartyDeck/PartyDeck
+2026-09-10T09:43:39.1870340Z Deleting the contents of '/Users/runner/work/PartyDeck/PartyDeck'
+2026-09-10T09:43:39.1871500Z ##[group]Determining repository object format
+2026-09-10T09:43:39.1872490Z ##[endgroup]
+2026-09-10T09:43:39.1873240Z ##[group]Initializing the repository
+2026-09-10T09:43:39.1874080Z [command]/opt/homebrew/bin/git init /Users/runner/work/PartyDeck/PartyDeck
+2026-09-10T09:43:39.2029640Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-09-10T09:43:39.2030840Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-09-10T09:43:39.2031630Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-09-10T09:43:39.2032400Z hint: call:
+2026-09-10T09:43:39.2033140Z hint:
+2026-09-10T09:43:39.2034320Z hint: 	git config --global init.defaultBranch <name>
+2026-09-10T09:43:39.2035050Z hint:
+2026-09-10T09:43:39.2035740Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-09-10T09:43:39.2036610Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-09-10T09:43:39.2037410Z hint:
+2026-09-10T09:43:39.2037850Z hint: 	git branch -m <name>
+2026-09-10T09:43:39.2038520Z hint:
+2026-09-10T09:43:39.2039260Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-09-10T09:43:39.2040280Z Initialized empty Git repository in /Users/runner/work/PartyDeck/PartyDeck/.git/
+2026-09-10T09:43:39.2042710Z [command]/opt/homebrew/bin/git remote add origin https://github.com/Apdelrahman1911/PartyDeck
+2026-09-10T09:43:39.2146750Z ##[endgroup]
+2026-09-10T09:43:39.2148070Z ##[group]Disabling automatic garbage collection
+2026-09-10T09:43:39.2148790Z [command]/opt/homebrew/bin/git config --local gc.auto 0
+2026-09-10T09:43:39.2226870Z ##[endgroup]
+2026-09-10T09:43:39.2230180Z ##[group]Setting up auth
+2026-09-10T09:43:39.2231110Z Removing SSH command configuration
+2026-09-10T09:43:39.2232370Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-10T09:43:39.2299730Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-10T09:43:39.3191070Z Removing HTTP extra header
+2026-09-10T09:43:39.3197190Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-10T09:43:39.3265150Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-10T09:43:39.4028960Z Removing includeIf entries pointing to credentials config files
+2026-09-10T09:43:39.4030750Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-10T09:43:39.4129330Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-10T09:43:39.5666410Z [command]/opt/homebrew/bin/git config --file /Users/runner/work/_temp/git-credentials-e24ed939-86f8-4cb1-bab2-29f16e4b9db2.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-09-10T09:43:39.5669430Z [command]/opt/homebrew/bin/git config --local includeIf.gitdir:/Users/runner/work/PartyDeck/PartyDeck/.git.path /Users/runner/work/_temp/git-credentials-e24ed939-86f8-4cb1-bab2-29f16e4b9db2.config
+2026-09-10T09:43:39.5674050Z [command]/opt/homebrew/bin/git config --local includeIf.gitdir:/Users/runner/work/PartyDeck/PartyDeck/.git/worktrees/*.path /Users/runner/work/_temp/git-credentials-e24ed939-86f8-4cb1-bab2-29f16e4b9db2.config
+2026-09-10T09:43:39.5712730Z [command]/opt/homebrew/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-e24ed939-86f8-4cb1-bab2-29f16e4b9db2.config
+2026-09-10T09:43:39.5777620Z [command]/opt/homebrew/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-e24ed939-86f8-4cb1-bab2-29f16e4b9db2.config
+2026-09-10T09:43:39.5842330Z ##[endgroup]
+2026-09-10T09:43:39.5843340Z ##[group]Fetching the repository
+2026-09-10T09:43:39.5847530Z [command]/opt/homebrew/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +31d148f9b6bbfa15d1746e1029858b86714362a3:refs/remotes/origin/main
+2026-09-10T09:43:48.1368860Z From https://github.com/Apdelrahman1911/PartyDeck
+2026-09-10T09:43:48.1371210Z  * [new ref]         31d148f9b6bbfa15d1746e1029858b86714362a3 -> origin/main
+2026-09-10T09:43:48.1375360Z [command]/opt/homebrew/bin/git branch --list --remote origin/main
+2026-09-10T09:43:48.1466230Z   origin/main
+2026-09-10T09:43:48.1473030Z [command]/opt/homebrew/bin/git rev-parse refs/remotes/origin/main
+2026-09-10T09:43:48.1540630Z 31d148f9b6bbfa15d1746e1029858b86714362a3
+2026-09-10T09:43:48.1545460Z ##[endgroup]
+2026-09-10T09:43:48.1546660Z ##[group]Determining the checkout info
+2026-09-10T09:43:48.1548480Z ##[endgroup]
+2026-09-10T09:43:48.1551120Z [command]/opt/homebrew/bin/git sparse-checkout disable
+2026-09-10T09:43:48.1673230Z [command]/opt/homebrew/bin/git config --local --unset-all extensions.worktreeConfig
+2026-09-10T09:43:48.1780540Z ##[group]Checking out the ref
+2026-09-10T09:43:48.1782200Z [command]/opt/homebrew/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-09-10T09:43:49.3278080Z Updating files:  66% (3415/5159)
+2026-09-10T09:43:49.3394320Z Updating files:  67% (3457/5159)
+2026-09-10T09:43:49.4713510Z Updating files:  68% (3509/5159)
+2026-09-10T09:43:49.5385130Z Updating files:  69% (3560/5159)
+2026-09-10T09:43:49.6803640Z Updating files:  70% (3612/5159)
+2026-09-10T09:43:49.6911070Z Updating files:  71% (3663/5159)
+2026-09-10T09:43:49.7203360Z Updating files:  72% (3715/5159)
+2026-09-10T09:43:49.7309150Z Updating files:  73% (3767/5159)
+2026-09-10T09:43:49.7533250Z Updating files:  74% (3818/5159)
+2026-09-10T09:43:49.9252290Z Updating files:  75% (3870/5159)
+2026-09-10T09:43:49.9571940Z Updating files:  76% (3921/5159)
+2026-09-10T09:43:49.9667490Z Updating files:  77% (3973/5159)
+2026-09-10T09:43:49.9774170Z Updating files:  78% (4025/5159)
+2026-09-10T09:43:49.9861950Z Updating files:  79% (4076/5159)
+2026-09-10T09:43:49.9957720Z Updating files:  80% (4128/5159)
+2026-09-10T09:43:50.0224280Z Updating files:  81% (4179/5159)
+2026-09-10T09:43:50.0333730Z Updating files:  82% (4231/5159)
+2026-09-10T09:43:50.0445470Z Updating files:  83% (4282/5159)
+2026-09-10T09:43:50.0526930Z Updating files:  84% (4334/5159)
+2026-09-10T09:43:50.0613530Z Updating files:  85% (4386/5159)
+2026-09-10T09:43:50.0748230Z Updating files:  86% (4437/5159)
+2026-09-10T09:43:50.0818330Z Updating files:  87% (4489/5159)
+2026-09-10T09:43:50.0943830Z Updating files:  88% (4540/5159)
+2026-09-10T09:43:50.1029700Z Updating files:  89% (4592/5159)
+2026-09-10T09:43:50.1120930Z Updating files:  90% (4644/5159)
+2026-09-10T09:43:50.1376280Z Updating files:  91% (4695/5159)
+2026-09-10T09:43:50.1471440Z Updating files:  92% (4747/5159)
+2026-09-10T09:43:50.1870100Z Updating files:  93% (4798/5159)
+2026-09-10T09:43:50.1938360Z Updating files:  94% (4850/5159)
+2026-09-10T09:43:50.1939630Z Updating files:  94% (4900/5159)
+2026-09-10T09:43:50.2041360Z Updating files:  95% (4902/5159)
+2026-09-10T09:43:50.2109860Z Updating files:  96% (4953/5159)
+2026-09-10T09:43:50.2169220Z Updating files:  97% (5005/5159)
+2026-09-10T09:43:50.2241160Z Updating files:  98% (5056/5159)
+2026-09-10T09:43:50.2341640Z Updating files:  99% (5108/5159)
+2026-09-10T09:43:50.2342480Z Updating files: 100% (5159/5159)
+2026-09-10T09:43:50.2342760Z Updating files: 100% (5159/5159), done.
+2026-09-10T09:43:50.2438860Z Switched to a new branch 'main'
+2026-09-10T09:43:50.2447570Z branch 'main' set up to track 'origin/main'.
+2026-09-10T09:43:50.2552520Z ##[endgroup]
+2026-09-10T09:43:50.2698520Z [command]/opt/homebrew/bin/git log -1 --format=%H
+2026-09-10T09:43:50.2794460Z 31d148f9b6bbfa15d1746e1029858b86714362a3
+2026-09-10T09:43:50.2805060Z ##[group]Removing auth
+2026-09-10T09:43:50.2805540Z Removing SSH command configuration
+2026-09-10T09:43:50.2809890Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-10T09:43:50.2885180Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-10T09:43:50.4347480Z Removing HTTP extra header
+2026-09-10T09:43:50.4350490Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-10T09:43:50.4679990Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-10T09:43:50.6479770Z Removing includeIf entries pointing to credentials config files
+2026-09-10T09:43:50.6480370Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-10T09:43:50.6480980Z includeif.gitdir:/Users/runner/work/PartyDeck/PartyDeck/.git.path
+2026-09-10T09:43:50.6481590Z includeif.gitdir:/Users/runner/work/PartyDeck/PartyDeck/.git/worktrees/*.path
+2026-09-10T09:43:50.6482320Z includeif.gitdir:/github/workspace/.git.path
+2026-09-10T09:43:50.6483870Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-09-10T09:43:50.6486080Z [command]/opt/homebrew/bin/git config --local --get-all includeif.gitdir:/Users/runner/work/PartyDeck/PartyDeck/.git.path
+2026-09-10T09:43:50.6503230Z /Users/runner/work/_temp/git-credentials-e24ed939-86f8-4cb1-bab2-29f16e4b9db2.config
+2026-09-10T09:43:50.6535930Z [command]/opt/homebrew/bin/git config --local --unset includeif.gitdir:/Users/runner/work/PartyDeck/PartyDeck/.git.path \/Users\/runner\/work\/_temp\/git\-credentials\-e24ed939\-86f8\-4cb1\-bab2\-29f16e4b9db2\.config
+2026-09-10T09:43:50.6643510Z [command]/opt/homebrew/bin/git config --local --get-all includeif.gitdir:/Users/runner/work/PartyDeck/PartyDeck/.git/worktrees/*.path
+2026-09-10T09:43:50.6714510Z /Users/runner/work/_temp/git-credentials-e24ed939-86f8-4cb1-bab2-29f16e4b9db2.config
+2026-09-10T09:43:50.6726370Z [command]/opt/homebrew/bin/git config --local --unset includeif.gitdir:/Users/runner/work/PartyDeck/PartyDeck/.git/worktrees/*.path \/Users\/runner\/work\/_temp\/git\-credentials\-e24ed939\-86f8\-4cb1\-bab2\-29f16e4b9db2\.config
+2026-09-10T09:43:50.6811410Z [command]/opt/homebrew/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-09-10T09:43:50.6882730Z /github/runner_temp/git-credentials-e24ed939-86f8-4cb1-bab2-29f16e4b9db2.config
+2026-09-10T09:43:50.6893460Z [command]/opt/homebrew/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-e24ed939\-86f8\-4cb1\-bab2\-29f16e4b9db2\.config
+2026-09-10T09:43:50.6982150Z [command]/opt/homebrew/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-09-10T09:43:50.7042310Z /github/runner_temp/git-credentials-e24ed939-86f8-4cb1-bab2-29f16e4b9db2.config
+2026-09-10T09:43:50.7049620Z [command]/opt/homebrew/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-e24ed939\-86f8\-4cb1\-bab2\-29f16e4b9db2\.config
+2026-09-10T09:43:50.7188880Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-10T09:43:50.8375430Z Removing credentials config '/Users/runner/work/_temp/git-credentials-e24ed939-86f8-4cb1-bab2-29f16e4b9db2.config'
+2026-09-10T09:43:50.8386010Z ##[endgroup]
+2026-09-10T09:43:50.8766970Z ##[group]Run mkdir -p godot/ios-host/build/evidence
+2026-09-10T09:43:50.8767710Z [36;1mmkdir -p godot/ios-host/build/evidence[0m
+2026-09-10T09:43:50.8769080Z [36;1mpython3 - <<'PY'[0m
+2026-09-10T09:43:50.8770430Z [36;1mimport json[0m
+2026-09-10T09:43:50.8770790Z [36;1mimport os[0m
+2026-09-10T09:43:50.8771590Z [36;1mfrom pathlib import Path[0m
+2026-09-10T09:43:50.8772350Z [36;1mimport platform[0m
+2026-09-10T09:43:50.8773850Z [36;1mimport subprocess[0m
+2026-09-10T09:43:50.8775760Z [36;1m[0m
+2026-09-10T09:43:50.8776360Z [36;1mstage = os.environ['PARTYDECK_RETAINED_CI_STAGE'][0m
+2026-09-10T09:43:50.8777190Z [36;1msource = subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()[0m
+2026-09-10T09:43:50.8778180Z [36;1mcontext = {[0m
+2026-09-10T09:43:50.8778460Z [36;1m    'source_commit': source,[0m
+2026-09-10T09:43:50.8778890Z [36;1m    'expected_source_commit': os.environ['GITHUB_SHA'],[0m
+2026-09-10T09:43:50.8779310Z [36;1m    'run_id': os.environ['GITHUB_RUN_ID'],[0m
+2026-09-10T09:43:50.8780680Z [36;1m    'run_attempt': os.environ['GITHUB_RUN_ATTEMPT'],[0m
+2026-09-10T09:43:50.8781910Z [36;1m    'workflow_ref': os.environ['GITHUB_WORKFLOW_REF'],[0m
+2026-09-10T09:43:50.8782750Z [36;1m    'workflow_sha': os.environ['GITHUB_WORKFLOW_SHA'],[0m
+2026-09-10T09:43:50.8783920Z [36;1m    'requested_stage': stage,[0m
+2026-09-10T09:43:50.8784360Z [36;1m    'system': platform.system(),[0m
+2026-09-10T09:43:50.8785900Z [36;1m    'machine': platform.machine(),[0m
+2026-09-10T09:43:50.8786410Z [36;1m    'input_artifacts': ['godot-ios-host-renderer', 'godot-ios-host-engine', 'godot-ios-host-framework'],[0m
+2026-09-10T09:43:50.8787180Z [36;1m    'input_scope': 'Named artifacts from this workflow run; no external run or repository fallback.',[0m
+2026-09-10T09:43:50.8788440Z [36;1m}[0m
+2026-09-10T09:43:50.8789670Z [36;1mPath('godot/ios-host/build/evidence/retained-ci-context.json').write_text(json.dumps(context, indent=2) + '\n')[0m
+2026-09-10T09:43:50.8790350Z [36;1mif stage not in {'build', 'test'} or source != os.environ['GITHUB_SHA']:[0m
+2026-09-10T09:43:50.8790980Z [36;1m    raise SystemExit('The retained stage and checked-out source revision must match this dispatch.')[0m
+2026-09-10T09:43:50.8791580Z [36;1mif (context['system'], context['machine']) != ('Darwin', 'arm64'):[0m
+2026-09-10T09:43:50.8792110Z [36;1m    raise SystemExit('The retained harness requires the ARM64 macOS runner.')[0m
+2026-09-10T09:43:50.8792510Z [36;1mPY[0m
+2026-09-10T09:43:50.8858530Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-09-10T09:43:50.8858900Z env:
+2026-09-10T09:43:50.8859190Z   DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
+2026-09-10T09:43:50.8859550Z   PARTYDECK_RETAINED_CI_STAGE: test
+2026-09-10T09:43:50.8860140Z   PARTYDECK_GODOT_RETAINED_FRAMEWORK: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/framework-input/PartyDeckGodotBridge.framework
+2026-09-10T09:43:50.8861040Z   PARTYDECK_GODOT_RETAINED_FRAMEWORK_RECEIPT: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/evidence/authority-framework-result.json
+2026-09-10T09:43:50.8861930Z   PARTYDECK_GODOT_RETAINED_PCK: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-inputs/renderer/partydeck-last-light.pck
+2026-09-10T09:43:50.8862480Z ##[endgroup]
+2026-09-10T09:43:51.1372080Z ##[group]Run actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+2026-09-10T09:43:51.1372530Z with:
+2026-09-10T09:43:51.1372720Z   name: godot-ios-host-renderer
+2026-09-10T09:43:51.1372990Z   path: godot/ios-host/build/retained-inputs/renderer
+2026-09-10T09:43:51.1373240Z   digest-mismatch: error
+2026-09-10T09:43:51.1373450Z   merge-multiple: false
+2026-09-10T09:43:51.1373730Z   repository: Apdelrahman1911/PartyDeck
+2026-09-10T09:43:51.1374330Z   run-id: 34460468965
+2026-09-10T09:43:51.1374510Z   skip-decompress: false
+2026-09-10T09:43:51.1374670Z env:
+2026-09-10T09:43:51.1374900Z   DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
+2026-09-10T09:43:51.1375210Z   PARTYDECK_RETAINED_CI_STAGE: test
+2026-09-10T09:43:51.1375850Z   PARTYDECK_GODOT_RETAINED_FRAMEWORK: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/framework-input/PartyDeckGodotBridge.framework
+2026-09-10T09:43:51.1376790Z   PARTYDECK_GODOT_RETAINED_FRAMEWORK_RECEIPT: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/evidence/authority-framework-result.json
+2026-09-10T09:43:51.1377710Z   PARTYDECK_GODOT_RETAINED_PCK: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-inputs/renderer/partydeck-last-light.pck
+2026-09-10T09:43:51.1378260Z ##[endgroup]
+2026-09-10T09:43:51.2808990Z Downloading single artifact
+2026-09-10T09:43:51.4022500Z Preparing to download the following artifacts:
+2026-09-10T09:43:51.4023210Z - godot-ios-host-renderer (ID: 10145305486, Size: 1106035, Expected Digest: sha256:def72ad053470ff158157d549a57e48512ad7a16d4f1c932c90297abb8136273)
+2026-09-10T09:43:51.5947730Z Redirecting to blob download url: https://productionresultssa14.blob.core.windows.net/actions-results/08d1e7ee-87a5-4c19-bd3a-158396da3328/workflow-job-run-0c6e4c76-d735-59b2-9ab1-b47907ebbf2b/artifacts/abe4e4fed53669ad30eb4aad50b1db02c253f23fd16ccb6511ff1de3d43890fc.zip
+2026-09-10T09:43:51.6050560Z (node:1803) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+2026-09-10T09:43:51.6051630Z Starting download of artifact to: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-inputs/renderer
+2026-09-10T09:43:51.6152980Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-10T09:43:51.6395530Z SHA256 digest of downloaded artifact is def72ad053470ff158157d549a57e48512ad7a16d4f1c932c90297abb8136273
+2026-09-10T09:43:51.6497270Z Artifact download completed successfully.
+2026-09-10T09:43:51.6567600Z Total of 1 artifact(s) downloaded
+2026-09-10T09:43:51.6600610Z Download artifact has finished successfully
+2026-09-10T09:43:51.6694710Z ##[group]Run actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+2026-09-10T09:43:51.6695110Z with:
+2026-09-10T09:43:51.6695270Z   name: godot-ios-host-engine
+2026-09-10T09:43:51.6695520Z   path: godot/ios-host/build/retained-inputs/engine
+2026-09-10T09:43:51.6695820Z   digest-mismatch: error
+2026-09-10T09:43:51.6696020Z   merge-multiple: false
+2026-09-10T09:43:51.6696220Z   repository: Apdelrahman1911/PartyDeck
+2026-09-10T09:43:51.6696430Z   run-id: 34460468965
+2026-09-10T09:43:51.6696610Z   skip-decompress: false
+2026-09-10T09:43:51.6696790Z env:
+2026-09-10T09:43:51.6697010Z   DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
+2026-09-10T09:43:51.6697330Z   PARTYDECK_RETAINED_CI_STAGE: test
+2026-09-10T09:43:51.6697910Z   PARTYDECK_GODOT_RETAINED_FRAMEWORK: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/framework-input/PartyDeckGodotBridge.framework
+2026-09-10T09:43:51.6698810Z   PARTYDECK_GODOT_RETAINED_FRAMEWORK_RECEIPT: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/evidence/authority-framework-result.json
+2026-09-10T09:43:51.6699650Z   PARTYDECK_GODOT_RETAINED_PCK: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-inputs/renderer/partydeck-last-light.pck
+2026-09-10T09:43:51.6700160Z ##[endgroup]
+2026-09-10T09:43:51.8199440Z Downloading single artifact
+2026-09-10T09:43:51.9101880Z Preparing to download the following artifacts:
+2026-09-10T09:43:51.9102710Z - godot-ios-host-engine (ID: 10145991743, Size: 54534914, Expected Digest: sha256:372fc7e052ac6396682318266e7be02a1eed979cecfe9fc667ff7779564819bb)
+2026-09-10T09:43:52.0867040Z Redirecting to blob download url: https://productionresultssa14.blob.core.windows.net/actions-results/08d1e7ee-87a5-4c19-bd3a-158396da3328/workflow-job-run-b60b8eb0-514b-5578-a68c-69c212104331/artifacts/a522ade447722fe30fd7cf7a8ce99130f42ea723166f8d2ed5440f0e4b43c62f.zip
+2026-09-10T09:43:52.0967630Z Starting download of artifact to: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-inputs/engine
+2026-09-10T09:43:52.1371890Z (node:1820) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+2026-09-10T09:43:52.1471500Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-10T09:43:53.2883810Z SHA256 digest of downloaded artifact is 372fc7e052ac6396682318266e7be02a1eed979cecfe9fc667ff7779564819bb
+2026-09-10T09:43:53.2982170Z Artifact download completed successfully.
+2026-09-10T09:43:53.2988680Z Total of 1 artifact(s) downloaded
+2026-09-10T09:43:53.2989090Z Download artifact has finished successfully
+2026-09-10T09:43:53.3049350Z ##[group]Run actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+2026-09-10T09:43:53.3049710Z with:
+2026-09-10T09:43:53.3049880Z   name: godot-ios-host-framework
+2026-09-10T09:43:53.3050130Z   path: godot/ios-host/build/retained-inputs/framework
+2026-09-10T09:43:53.3050380Z   digest-mismatch: error
+2026-09-10T09:43:53.3050580Z   merge-multiple: false
+2026-09-10T09:43:53.3050810Z   repository: Apdelrahman1911/PartyDeck
+2026-09-10T09:43:53.3051060Z   run-id: 34460468965
+2026-09-10T09:43:53.3051230Z   skip-decompress: false
+2026-09-10T09:43:53.3051410Z env:
+2026-09-10T09:43:53.3051650Z   DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
+2026-09-10T09:43:53.3051970Z   PARTYDECK_RETAINED_CI_STAGE: test
+2026-09-10T09:43:53.3052530Z   PARTYDECK_GODOT_RETAINED_FRAMEWORK: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/framework-input/PartyDeckGodotBridge.framework
+2026-09-10T09:43:53.3053420Z   PARTYDECK_GODOT_RETAINED_FRAMEWORK_RECEIPT: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/evidence/authority-framework-result.json
+2026-09-10T09:43:53.3054330Z   PARTYDECK_GODOT_RETAINED_PCK: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-inputs/renderer/partydeck-last-light.pck
+2026-09-10T09:43:53.3054860Z ##[endgroup]
+2026-09-10T09:43:53.4287530Z Downloading single artifact
+2026-09-10T09:43:53.5549840Z Preparing to download the following artifacts:
+2026-09-10T09:43:53.5650910Z - godot-ios-host-framework (ID: 10145432122, Size: 8511604, Expected Digest: sha256:74ec1efce1ebb8c364c0c894f4b47c9a06231d2f06b24d1482a1541140132fa0)
+2026-09-10T09:43:53.7376070Z Redirecting to blob download url: https://productionresultssa14.blob.core.windows.net/actions-results/08d1e7ee-87a5-4c19-bd3a-158396da3328/workflow-job-run-af2ccc6d-af1f-588c-b69d-75d82c26750a/artifacts/98f01df6d1c7dfef617850326596839e8be4758e3b7ca6582b49664ced5ddf6d.zip
+2026-09-10T09:43:53.7467950Z Starting download of artifact to: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-inputs/framework
+2026-09-10T09:43:53.7613180Z (node:1895) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+2026-09-10T09:43:53.7700380Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-10T09:43:53.8786600Z SHA256 digest of downloaded artifact is 74ec1efce1ebb8c364c0c894f4b47c9a06231d2f06b24d1482a1541140132fa0
+2026-09-10T09:43:53.8787160Z Artifact download completed successfully.
+2026-09-10T09:43:53.8787440Z Total of 1 artifact(s) downloaded
+2026-09-10T09:43:53.8794640Z Download artifact has finished successfully
+2026-09-10T09:43:53.8860620Z ##[group]Run python3 - <<'PY' 2>&1 | tee godot/ios-host/build/evidence/retained-ci-input-verification.log
+2026-09-10T09:43:53.8861350Z [36;1mpython3 - <<'PY' 2>&1 | tee godot/ios-host/build/evidence/retained-ci-input-verification.log[0m
+2026-09-10T09:43:53.8861750Z [36;1mimport hashlib[0m
+2026-09-10T09:43:53.8874050Z [36;1mimport json[0m
+2026-09-10T09:43:53.8874860Z [36;1mimport os[0m
+2026-09-10T09:43:53.8875100Z [36;1mfrom pathlib import Path[0m
+2026-09-10T09:43:53.8875340Z [36;1mimport shutil[0m
+2026-09-10T09:43:53.8875560Z [36;1m[0m
+2026-09-10T09:43:53.8875780Z [36;1mbuild = Path('godot/ios-host/build')[0m
+2026-09-10T09:43:53.8876060Z [36;1mevidence = build / 'evidence'[0m
+2026-09-10T09:43:53.8876310Z [36;1minputs = build / 'retained-inputs'[0m
+2026-09-10T09:43:53.8876760Z [36;1mverification = {'archive_integrity_verified': False, 'source_commit': os.environ['GITHUB_SHA'], 'files': []}[0m
+2026-09-10T09:43:53.8877190Z [36;1m[0m
+2026-09-10T09:43:53.8877390Z [36;1mdef receipt(path):[0m
+2026-09-10T09:43:53.8877610Z [36;1m    checksum = hashlib.sha256()[0m
+2026-09-10T09:43:53.8877860Z [36;1m    with path.open('rb') as stream:[0m
+2026-09-10T09:43:53.8878150Z [36;1m        for block in iter(lambda: stream.read(1048576), b''):[0m
+2026-09-10T09:43:53.8878450Z [36;1m            checksum.update(block)[0m
+2026-09-10T09:43:53.8878800Z [36;1m    return {'sha256': checksum.hexdigest(), 'bytes': path.stat().st_size}[0m
+2026-09-10T09:43:53.8879140Z [36;1m[0m
+2026-09-10T09:43:53.8879290Z [36;1mdef verify(path, expected):[0m
+2026-09-10T09:43:53.8879500Z [36;1m    actual = receipt(path)[0m
+2026-09-10T09:43:53.8879780Z [36;1m    if any(actual[key] != expected.get(key) for key in actual):[0m
+2026-09-10T09:43:53.8880220Z [36;1m        raise ValueError(f'Downloaded input differs from its build receipt: {path}')[0m
+2026-09-10T09:43:53.8880660Z [36;1m    verification['files'].append({'path': str(path), **actual})[0m
+2026-09-10T09:43:53.8880940Z [36;1m[0m
+2026-09-10T09:43:53.8881090Z [36;1mtry:[0m
+2026-09-10T09:43:53.8881470Z [36;1m    for kind, name in [('engine', 'engine-source-commit.txt'), ('framework', 'authority-source-commit.txt')]:[0m
+2026-09-10T09:43:53.8881930Z [36;1m        path = inputs / kind / 'evidence' / name[0m
+2026-09-10T09:43:53.8882270Z [36;1m        if path.read_text().strip() != os.environ['GITHUB_SHA']:[0m
+2026-09-10T09:43:53.8882770Z [36;1m            raise ValueError(f'Downloaded input uses a different source revision: {name}')[0m
+2026-09-10T09:43:53.8883240Z [36;1m        verification['files'].append({'path': str(path), **receipt(path)})[0m
+2026-09-10T09:43:53.8883680Z [36;1m    engine_receipt = inputs / 'engine/evidence/engine-artifact.json'[0m
+2026-09-10T09:43:53.8884060Z [36;1m    engine = json.loads(engine_receipt.read_text())[0m
+2026-09-10T09:43:53.8884380Z [36;1m    expected_engine = {[0m
+2026-09-10T09:43:53.8884670Z [36;1m        'engine_commit': 'ed1daf0bf001b61586d9930840f2f1394092c079',[0m
+2026-09-10T09:43:53.8885090Z [36;1m        'stage': 'engine_compile_only', 'platform': 'ios', 'target': 'template_debug',[0m
+2026-09-10T09:43:53.8885550Z [36;1m        'configuration': 'Debug', 'simulator': True, 'architecture': 'arm64',[0m
+2026-09-10T09:43:53.8885950Z [36;1m        'sdk': 'iphonesimulator', 'xcode_version': '26.4.1',[0m
+2026-09-10T09:43:53.8886320Z [36;1m        'rendering_drivers': ['opengl3'], 'path_overrides_enabled': True,[0m
+2026-09-10T09:43:53.8886610Z [36;1m    }[0m
+2026-09-10T09:43:53.8886810Z [36;1m    for key, value in expected_engine.items():[0m
+2026-09-10T09:43:53.8887190Z [36;1m        if type(engine.get(key)) is not type(value) or engine.get(key) != value:[0m
+2026-09-10T09:43:53.8887710Z [36;1m            raise ValueError(f'The retained harness requires the reviewed Simulator/Debug engine: {key}')[0m
+2026-09-10T09:43:53.8888280Z [36;1m    archives = [engine, *engine.get('auxiliary_archives', [])][0m
+2026-09-10T09:43:53.8888610Z [36;1m    expected_archives = {[0m
+2026-09-10T09:43:53.8889340Z [36;1m        'libpartydeck_godot_ios_probe.a': 'libgodot.ios.template_debug.arm64.simulator.a',[0m
+2026-09-10T09:43:53.8889920Z [36;1m        'libpartydeck_godot_camera.a': 'libgodot_camera.ios.template_debug.arm64.simulator.a',[0m
+2026-09-10T09:43:53.8890550Z [36;1m    }[0m
+2026-09-10T09:43:53.8890900Z [36;1m    if len(archives) != 2 or {item.get('artifact') for item in archives} != set(expected_archives):[0m
+2026-09-10T09:43:53.8891660Z [36;1m        raise ValueError('Both distinct Simulator native archives are required.')[0m
+2026-09-10T09:43:53.8892110Z [36;1m    for archive in archives:[0m
+2026-09-10T09:43:53.8892460Z [36;1m        if archive.get('upstream_archive') != expected_archives[archive['artifact']]:[0m
+2026-09-10T09:43:53.8892990Z [36;1m            raise ValueError('A native archive has an unexpected platform/configuration name.')[0m
+2026-09-10T09:43:53.8893480Z [36;1m        verify(inputs / 'engine/artifacts' / archive['artifact'], archive)[0m
+2026-09-10T09:43:53.8893970Z [36;1m    framework_receipt = inputs / 'framework/evidence/authority-framework-result.json'[0m
+2026-09-10T09:43:53.8894410Z [36;1m    framework = json.loads(framework_receipt.read_text())[0m
+2026-09-10T09:43:53.8894910Z [36;1m    if (framework.get('stage') != 'authority_framework_compilation'[0m
+2026-09-10T09:43:53.8895290Z [36;1m            or framework.get('target') != 'iosSimulatorArm64'[0m
+2026-09-10T09:43:53.8895640Z [36;1m            or framework.get('configuration') != 'debugFramework'[0m
+2026-09-10T09:43:53.8895970Z [36;1m            or not all(framework.get(key) is True for key in ([0m
+2026-09-10T09:43:53.8896450Z [36;1m                'framework_compiled', 'expected_facade_declarations_present', 'swift_module_import_typechecked'))):[0m
+2026-09-10T09:43:53.8897050Z [36;1m        raise ValueError('The successful ARM64 Simulator qualification framework is required.')[0m
+2026-09-10T09:43:53.8897590Z [36;1m    if framework['archive']['name'] != 'PartyDeckGodotBridge-simulator.framework.tar.gz':[0m
+2026-09-10T09:43:53.8898100Z [36;1m        raise ValueError('The framework receipt names an unexpected archive.')[0m
+2026-09-10T09:43:53.8898590Z [36;1m    verify(inputs / 'framework/artifacts' / framework['archive']['name'], framework['archive'])[0m
+2026-09-10T09:43:53.8899020Z [36;1m    for path in (engine_receipt, framework_receipt,[0m
+2026-09-10T09:43:53.8899370Z [36;1m                 inputs / 'renderer/partydeck-last-light.pck',[0m
+2026-09-10T09:43:53.8899760Z [36;1m                 inputs / 'renderer/partydeck-last-light.receipt.json'):[0m
+2026-09-10T09:43:53.8900180Z [36;1m        verification['files'].append({'path': str(path), **receipt(path)})[0m
+2026-09-10T09:43:53.8900540Z [36;1m    artifacts = build / 'artifacts'[0m
+2026-09-10T09:43:53.8900810Z [36;1m    artifacts.mkdir(exist_ok=False)[0m
+2026-09-10T09:43:53.8901090Z [36;1m    for archive in archives:[0m
+2026-09-10T09:43:53.8901440Z [36;1m        source = inputs / 'engine/artifacts' / archive['artifact'][0m
+2026-09-10T09:43:53.8901820Z [36;1m        destination = artifacts / archive['artifact'][0m
+2026-09-10T09:43:53.8902200Z [36;1m        shutil.copy2(source, destination)[0m
+2026-09-10T09:43:53.8902510Z [36;1m        verify(destination, archive)[0m
+2026-09-10T09:43:53.8902930Z [36;1m    shutil.copy2(engine_receipt, evidence / 'engine-artifact.json')[0m
+2026-09-10T09:43:53.8903400Z [36;1m    shutil.copy2(framework_receipt, evidence / 'authority-framework-result.json')[0m
+2026-09-10T09:43:53.8903910Z [36;1m    verification['archive_integrity_verified'] = True[0m
+2026-09-10T09:43:53.8904630Z [36;1m    verification['remaining_gate'] = 'The runner verifies current native modules/patches, framework files and exact-source PCK before any link or test.'[0m
+2026-09-10T09:43:53.8905210Z [36;1mexcept Exception as error:[0m
+2026-09-10T09:43:53.8905570Z [36;1m    verification['error'] = f'{type(error).__name__}: {error}'[0m
+2026-09-10T09:43:53.8905890Z [36;1m    raise[0m
+2026-09-10T09:43:53.8906230Z [36;1mfinally:[0m
+2026-09-10T09:43:53.8906630Z [36;1m    (evidence / 'retained-ci-inputs.json').write_text(json.dumps(verification, indent=2) + '\n')[0m
+2026-09-10T09:43:53.8907080Z [36;1mPY[0m
+2026-09-10T09:43:53.8907300Z [36;1mmkdir godot/ios-host/build/framework-input[0m
+2026-09-10T09:43:53.8907880Z [36;1mtar -xzf godot/ios-host/build/retained-inputs/framework/artifacts/PartyDeckGodotBridge-simulator.framework.tar.gz \[0m
+2026-09-10T09:43:53.8908700Z [36;1m  -C godot/ios-host/build/framework-input \[0m
+2026-09-10T09:43:53.8909170Z [36;1m  2>&1 | tee -a godot/ios-host/build/evidence/retained-ci-input-verification.log[0m
+2026-09-10T09:43:53.8940340Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-09-10T09:43:53.8940610Z env:
+2026-09-10T09:43:53.8940880Z   DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
+2026-09-10T09:43:53.8941200Z   PARTYDECK_RETAINED_CI_STAGE: test
+2026-09-10T09:43:53.8941750Z   PARTYDECK_GODOT_RETAINED_FRAMEWORK: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/framework-input/PartyDeckGodotBridge.framework
+2026-09-10T09:43:53.8942610Z   PARTYDECK_GODOT_RETAINED_FRAMEWORK_RECEIPT: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/evidence/authority-framework-result.json
+2026-09-10T09:43:53.8943450Z   PARTYDECK_GODOT_RETAINED_PCK: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-inputs/renderer/partydeck-last-light.pck
+2026-09-10T09:43:53.8944000Z ##[endgroup]
+2026-09-10T09:43:54.3848250Z ##[group]Run bash godot/ios-host/test-retained-host.sh "$PARTYDECK_RETAINED_CI_STAGE" \
+2026-09-10T09:43:54.3848790Z [36;1mbash godot/ios-host/test-retained-host.sh "$PARTYDECK_RETAINED_CI_STAGE" \[0m
+2026-09-10T09:43:54.3849230Z [36;1m  2>&1 | tee godot/ios-host/build/evidence/retained-ci-runner.log[0m
+2026-09-10T09:43:54.3877380Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-09-10T09:43:54.3877750Z env:
+2026-09-10T09:43:54.3878080Z   DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
+2026-09-10T09:43:54.3878430Z   PARTYDECK_RETAINED_CI_STAGE: test
+2026-09-10T09:43:54.3879050Z   PARTYDECK_GODOT_RETAINED_FRAMEWORK: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/framework-input/PartyDeckGodotBridge.framework
+2026-09-10T09:43:54.3879980Z   PARTYDECK_GODOT_RETAINED_FRAMEWORK_RECEIPT: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/evidence/authority-framework-result.json
+2026-09-10T09:43:54.3880890Z   PARTYDECK_GODOT_RETAINED_PCK: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-inputs/renderer/partydeck-last-light.pck
+2026-09-10T09:43:54.3881440Z ##[endgroup]
+2026-09-10T09:43:57.1274190Z PCK checks passed: 136 entries; SHA-256 8f24944d61b0430cfec4a32bb1d03d2c7da9f55918264e9cfcded1c675d21539
+2026-09-10T09:43:57.1380990Z Prepared the real diagnostic scene and verified authority fixture.
+2026-09-10T09:43:57.1443570Z Staged the receipt-matched Kotlin framework and verified shared renderer pack.
+2026-09-10T09:43:57.1977880Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/Info.plist: OK
+2026-09-10T09:43:57.1982190Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost.xcodeproj/project.pbxproj: OK
+2026-09-10T09:43:58.5922030Z Command line invocation:
+2026-09-10T09:43:58.5924960Z     /Applications/Xcode_26.4.1.app/Contents/Developer/usr/bin/xcodebuild build -project /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost.xcodeproj -scheme RetainedHost -configuration Debug -destination "generic/platform=iOS Simulator" -derivedDataPath /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData CODE_SIGNING_ALLOWED=NO LD_MAP_FILE_PATH=/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/evidence/RetainedHost-LinkMap.txt
+2026-09-10T09:43:58.5927320Z 
+2026-09-10T09:43:58.5927470Z Build settings from command line:
+2026-09-10T09:43:58.5927780Z     CODE_SIGNING_ALLOWED = NO
+2026-09-10T09:43:58.5928310Z     LD_MAP_FILE_PATH = /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/evidence/RetainedHost-LinkMap.txt
+2026-09-10T09:43:58.5928760Z 
+2026-09-10T09:44:04.5969310Z ComputePackagePrebuildTargetDependencyGraph
+2026-09-10T09:44:04.6993420Z 
+2026-09-10T09:44:04.7095340Z Prepare packages
+2026-09-10T09:44:04.7195560Z 
+2026-09-10T09:44:04.7296470Z CreateBuildRequest
+2026-09-10T09:44:04.7396990Z 
+2026-09-10T09:44:04.7498010Z SendProjectDescription
+2026-09-10T09:44:04.7599440Z 
+2026-09-10T09:44:04.7700340Z CreateBuildOperation
+2026-09-10T09:44:04.7800840Z 
+2026-09-10T09:44:04.7901830Z ComputeTargetDependencyGraph
+2026-09-10T09:44:04.8006060Z note: Building targets in dependency order
+2026-09-10T09:44:04.8107160Z note: Target dependency graph (1 target)
+2026-09-10T09:44:04.8208330Z     Target 'RetainedHost' in project 'RetainedHost' (no dependencies)
+2026-09-10T09:44:04.8309270Z 
+2026-09-10T09:44:04.8411030Z GatherProvisioningInputs
+2026-09-10T09:44:04.8523860Z 
+2026-09-10T09:44:04.8627200Z CreateBuildDescription
+2026-09-10T09:44:04.8728140Z 
+2026-09-10T09:44:04.8833620Z ExecuteExternalTool /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+2026-09-10T09:44:05.7284190Z 
+2026-09-10T09:44:05.7286010Z ExecuteExternalTool /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk -x c -c /dev/null
+2026-09-10T09:44:05.7287210Z 
+2026-09-10T09:44:05.7363250Z ExecuteExternalTool /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+2026-09-10T09:44:05.9411320Z 
+2026-09-10T09:44:05.9543700Z Build description signature: d032838ef098530cdb5897bc3feed82b
+2026-09-10T09:44:05.9554420Z Build description path: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/XCBuildData/d032838ef098530cdb5897bc3feed82b.xcbuilddata
+2026-09-10T09:44:05.9843800Z ClangStatCache /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/SDKStatCaches.noindex/iphonesimulator26.4-23E252-688ef53f1462e2c8f657fdc38a81448f893e4a944e4cdd9af1f5077e1341bc52.sdkstatcache
+2026-09-10T09:44:05.9948410Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost.xcodeproj
+2026-09-10T09:44:06.0053700Z     /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk -o /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/SDKStatCaches.noindex/iphonesimulator26.4-23E252-688ef53f1462e2c8f657fdc38a81448f893e4a944e4cdd9af1f5077e1341bc52.sdkstatcache
+2026-09-10T09:44:07.9432290Z 
+2026-09-10T09:44:07.9433260Z CreateBuildDirectory /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products
+2026-09-10T09:44:07.9434330Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost.xcodeproj
+2026-09-10T09:44:07.9435220Z     builtin-create-build-directory /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products
+2026-09-10T09:44:07.9435810Z 
+2026-09-10T09:44:07.9436280Z CreateBuildDirectory /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex
+2026-09-10T09:44:07.9437130Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost.xcodeproj
+2026-09-10T09:44:07.9441340Z     builtin-create-build-directory /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex
+2026-09-10T09:44:07.9442170Z 
+2026-09-10T09:44:07.9443470Z WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost-18bce220dfdb8dd8aa390b59ff9a8853-VFS-iphonesimulator/all-product-headers.yaml
+2026-09-10T09:44:07.9446290Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost.xcodeproj
+2026-09-10T09:44:07.9450830Z     write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost-18bce220dfdb8dd8aa390b59ff9a8853-VFS-iphonesimulator/all-product-headers.yaml
+2026-09-10T09:44:07.9451820Z 
+2026-09-10T09:44:07.9452270Z CreateBuildDirectory /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator
+2026-09-10T09:44:07.9453010Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost.xcodeproj
+2026-09-10T09:44:07.9454000Z     builtin-create-build-directory /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator
+2026-09-10T09:44:07.9454770Z 
+2026-09-10T09:44:07.9455580Z CreateBuildDirectory /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+2026-09-10T09:44:07.9456640Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost.xcodeproj
+2026-09-10T09:44:07.9457740Z     builtin-create-build-directory /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+2026-09-10T09:44:07.9458360Z 
+2026-09-10T09:44:07.9458930Z CreateBuildDirectory /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/ExplicitPrecompiledModules
+2026-09-10T09:44:07.9459810Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost.xcodeproj
+2026-09-10T09:44:07.9460780Z     builtin-create-build-directory /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/ExplicitPrecompiledModules
+2026-09-10T09:44:07.9461400Z 
+2026-09-10T09:44:07.9461940Z CreateBuildDirectory /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator
+2026-09-10T09:44:07.9462830Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost.xcodeproj
+2026-09-10T09:44:07.9463710Z     builtin-create-build-directory /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator
+2026-09-10T09:44:07.9464550Z 
+2026-09-10T09:44:07.9465790Z WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost.hmap (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:07.9466940Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+2026-09-10T09:44:07.9468000Z     write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost.hmap
+2026-09-10T09:44:07.9468720Z 
+2026-09-10T09:44:07.9469620Z WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost.DependencyStaticMetadataFileList (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:07.9470780Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+2026-09-10T09:44:07.9471770Z     write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost.DependencyStaticMetadataFileList
+2026-09-10T09:44:07.9472570Z 
+2026-09-10T09:44:07.9473450Z WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost.DependencyMetadataFileList (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:07.9474830Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+2026-09-10T09:44:07.9475850Z     write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost.DependencyMetadataFileList
+2026-09-10T09:44:07.9476660Z 
+2026-09-10T09:44:07.9477490Z WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost-project-headers.hmap (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:07.9478630Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+2026-09-10T09:44:07.9479740Z     write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost-project-headers.hmap
+2026-09-10T09:44:07.9480510Z 
+2026-09-10T09:44:07.9481370Z WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost-own-target-headers.hmap (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:07.9482690Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+2026-09-10T09:44:07.9483730Z     write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost-own-target-headers.hmap
+2026-09-10T09:44:07.9484700Z 
+2026-09-10T09:44:07.9485520Z WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost-generated-files.hmap (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:07.9486660Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+2026-09-10T09:44:07.9487680Z     write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost-generated-files.hmap
+2026-09-10T09:44:07.9488490Z 
+2026-09-10T09:44:07.9489420Z WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost-all-target-headers.hmap (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:07.9491830Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+2026-09-10T09:44:07.9492800Z     write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost-all-target-headers.hmap
+2026-09-10T09:44:07.9493660Z 
+2026-09-10T09:44:07.9494690Z WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost-all-non-framework-target-headers.hmap (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:07.9495810Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+2026-09-10T09:44:07.9497890Z     write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost-all-non-framework-target-headers.hmap
+2026-09-10T09:44:07.9498750Z 
+2026-09-10T09:44:07.9500000Z WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost_const_extract_protocols.json (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:07.9501180Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+2026-09-10T09:44:07.9502190Z     write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost_const_extract_protocols.json
+2026-09-10T09:44:07.9503390Z 
+2026-09-10T09:44:07.9504260Z WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost.SwiftFileList (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:07.9505530Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+2026-09-10T09:44:07.9506500Z     write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost.SwiftFileList
+2026-09-10T09:44:07.9507590Z 
+2026-09-10T09:44:07.9508530Z WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost.SwiftConstValuesFileList (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:07.9509700Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+2026-09-10T09:44:07.9510710Z     write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost.SwiftConstValuesFileList
+2026-09-10T09:44:07.9511520Z 
+2026-09-10T09:44:07.9512410Z WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost.LinkFileList (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:07.9513490Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+2026-09-10T09:44:07.9514430Z     write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost.LinkFileList
+2026-09-10T09:44:07.9515230Z 
+2026-09-10T09:44:07.9516160Z WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost-OutputFileMap.json (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:07.9517320Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+2026-09-10T09:44:07.9518320Z     write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost-OutputFileMap.json
+2026-09-10T09:44:07.9521010Z 
+2026-09-10T09:44:07.9521570Z MkDir /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHost.app (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:07.9522840Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+2026-09-10T09:44:07.9523550Z     /bin/mkdir -p /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHost.app
+2026-09-10T09:44:07.9525380Z 
+2026-09-10T09:44:07.9526440Z ProcessInfoPlistFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHost.app/Info.plist /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/Info.plist (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:07.9527610Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+2026-09-10T09:44:07.9530070Z     builtin-infoPlistUtility /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/Info.plist -producttype com.apple.product-type.application -genpkginfo /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHost.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -o /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHost.app/Info.plist
+2026-09-10T09:44:07.9531860Z 
+2026-09-10T09:44:07.9532950Z CpResource /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHost.app/ProbeResources /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/host-resources/ProbeResources (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:07.9534120Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+2026-09-10T09:44:07.9535940Z     builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -strip-unsigned-binaries -strip-deterministic -strip-tool /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -resolve-src-symlinks /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/host-resources/ProbeResources /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHost.app
+2026-09-10T09:44:07.9537480Z 
+2026-09-10T09:44:07.9537870Z SwiftDriver RetainedHost normal arm64 com.apple.xcode.tools.swift.compiler (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:07.9538530Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+2026-09-10T09:44:07.9557390Z     builtin-SwiftDriver -- /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name RetainedHost -Onone @/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost.SwiftFileList -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk -target arm64-apple-ios15.0-simulator -g -module-cache-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Index.noindex/DataStore -swift-version 6 -I /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator -F /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator -F /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/artifacts -c -j3 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/SDKStatCaches.noindex/iphonesimulator26.4-23E252-688ef53f1462e2c8f657fdc38a81448f893e4a944e4cdd9af1f5077e1341bc52.sdkstatcache -output-file-map /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost_const_extract_protocols.json -Xcc -iquote -Xcc /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost-generated-files.hmap -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost-own-target-headers.hmap -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost-all-target-headers.hmap -Xcc -iquote -Xcc /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost-project-headers.hmap -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/DerivedSources-normal/arm64 -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/DerivedSources/arm64 -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/DerivedSources -emit-objc-header -emit-objc-header-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost-Swift.h -import-objc-header /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/modules/partydeck_ios_probe/PDGodotEngineOwner.h -working-directory /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host -experimental-emit-module-separately -disable-cmo
+2026-09-10T09:44:10.7240390Z 
+2026-09-10T09:44:10.8197520Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/ptrauth-DZKRSUBNQ7RRRNQQGGNTK0M68.pcm
+2026-09-10T09:44:10.9596680Z 
+2026-09-10T09:44:10.9703270Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/_Builtin_float-5NQTS1UDRJKV01JKZXLCB3MJM.pcm
+2026-09-10T09:44:10.9704800Z 
+2026-09-10T09:44:10.9834260Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/_Builtin_stdarg-CTZ2JU4MPZCB5YTJ7HRK2JMPA.pcm
+2026-09-10T09:44:10.9939030Z 
+2026-09-10T09:44:11.0040470Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/_Builtin_stddef-EFEH2I5LJTAJGFULFEWYT0DV7.pcm
+2026-09-10T09:44:11.0146510Z 
+2026-09-10T09:44:11.0249230Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/_SwiftConcurrencyShims-26NYI26AZ1FZINMPTJSR8462E.pcm
+2026-09-10T09:44:11.0353910Z 
+2026-09-10T09:44:11.0455400Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/SwiftShims-14Q5IAQOZY0I9PN019LOWC8LG.pcm
+2026-09-10T09:44:11.0556510Z 
+2026-09-10T09:44:11.0658100Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/_Builtin_stdbool-6MEMLN4HR5W1W773BC573438Q.pcm
+2026-09-10T09:44:11.0757880Z 
+2026-09-10T09:44:11.0859070Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/_AvailabilityInternal-F1TKWQLCDNVDMG72L6Y38JYGS.pcm
+2026-09-10T09:44:11.0960440Z 
+2026-09-10T09:44:11.1061550Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/ptrcheck-BCFU3MJC9E73OAELF6UC16QJM.pcm
+2026-09-10T09:44:11.1161100Z 
+2026-09-10T09:44:11.1262440Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/DeveloperToolsSupport-D4OFX2X7SCBTZNXD41N9ZKFJ3.pcm
+2026-09-10T09:44:11.1364040Z 
+2026-09-10T09:44:11.1465240Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/_DarwinFoundation1-F273SSNI0WWYUWTYL2PDXJW21.pcm
+2026-09-10T09:44:11.1566370Z 
+2026-09-10T09:44:11.1667630Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/_DarwinFoundation2-ARTLXSU4HRYXJEHBXHMQGWS4E.pcm
+2026-09-10T09:44:11.2254260Z 
+2026-09-10T09:44:11.2355470Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/_Builtin_limits-2T2UIJSVQZSX7TYWD262WGCG5.pcm
+2026-09-10T09:44:11.2459360Z 
+2026-09-10T09:44:11.2560950Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/sys_types-B4XBPJP32F43IUOFM91IQH13K.pcm
+2026-09-10T09:44:11.2696320Z 
+2026-09-10T09:44:11.2811890Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/_Builtin_tgmath-F34VZBOKUK6P2OCCSB0HKFSUY.pcm
+2026-09-10T09:44:11.2916330Z 
+2026-09-10T09:44:11.3017470Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/_Builtin_stdint-9Z66TOCPT1Y1AIMMLWPUR1B5I.pcm
+2026-09-10T09:44:11.3151380Z 
+2026-09-10T09:44:11.3265460Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/_Builtin_intrinsics-APAEY5CLDSDZQNSJHTZVVCAUK.pcm
+2026-09-10T09:44:11.4619880Z 
+2026-09-10T09:44:11.4721360Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/_Builtin_stdatomic-5U6TU8RB9QRD8NIY1APK1B7ZO.pcm
+2026-09-10T09:44:11.4822870Z 
+2026-09-10T09:44:11.4924210Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/_DarwinFoundation3-6A4UW5Z8CGG1A40JCMJ0VOU2W.pcm
+2026-09-10T09:44:11.5026230Z 
+2026-09-10T09:44:11.5127850Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/_Builtin_inttypes-5Y9HKM65ISKD0XJRUWDL3T7AG.pcm
+2026-09-10T09:44:11.5231970Z 
+2026-09-10T09:44:11.5333570Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/Darwin-4P7SDGYUREHEUC7P5X91X7AL3.pcm
+2026-09-10T09:44:11.6201390Z 
+2026-09-10T09:44:11.6303700Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/simd-3OUNO8M4GD6XSJ3RQDIWLDYKQ.pcm
+2026-09-10T09:44:11.8112590Z 
+2026-09-10T09:44:11.8213990Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/MachO-2LGQCZP7PU25NNULOHXOR55SF.pcm
+2026-09-10T09:44:11.8315440Z 
+2026-09-10T09:44:11.8416940Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/ObjectiveC-A7VRMP7FD55SD20G3EB08NB9B.pcm
+2026-09-10T09:44:11.8518440Z 
+2026-09-10T09:44:11.8623030Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/os_object-DUY43URKGT94VKE0XL56IZ87D.pcm
+2026-09-10T09:44:11.8732200Z 
+2026-09-10T09:44:11.8835720Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/os_workgroup-4PYXTAQIIVM27BBPLU9OGTRUS.pcm
+2026-09-10T09:44:11.8957930Z 
+2026-09-10T09:44:11.9059420Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/Dispatch-6C88GRSZL6G6OVHG328RV9PAH.pcm
+2026-09-10T09:44:11.9160890Z 
+2026-09-10T09:44:11.9263560Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/Spatial-3CRJIHV9FJW59E1K6090FY7JQ.pcm
+2026-09-10T09:44:11.9878150Z 
+2026-09-10T09:44:11.9981970Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/CoreFoundation-1CQSEP39QR6RYIWZGDYUYV07S.pcm
+2026-09-10T09:44:12.0083500Z 
+2026-09-10T09:44:12.0184900Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/XPC-UTEEK14VDJ1YKCW03GGIVMVI.pcm
+2026-09-10T09:44:12.0286180Z 
+2026-09-10T09:44:12.0388230Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/os-EBF43XR01Z2XJYT42GBO5F1T1.pcm
+2026-09-10T09:44:12.0490350Z 
+2026-09-10T09:44:12.0593660Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/CFNetwork-AUATM2OOWJFVLDD5KN4FJORRK.pcm
+2026-09-10T09:44:12.0700310Z 
+2026-09-10T09:44:12.0802330Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/Security-44PLCHP5PS4N6GX16EWJ02CCM.pcm
+2026-09-10T09:44:12.0938970Z 
+2026-09-10T09:44:12.1042860Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/CoreGraphics-7AICPEUPS442WH3E46J7DJDLZ.pcm
+2026-09-10T09:44:12.1145160Z 
+2026-09-10T09:44:12.1250490Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/Foundation-1YOTCB5UY4UV0TY58VQEYCRYY.pcm
+2026-09-10T09:44:12.4581550Z 
+2026-09-10T09:44:12.4583690Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/CoreText-C1QS9Z8MYETTP9L3TLNX35XT8.pcm
+2026-09-10T09:44:12.4584940Z 
+2026-09-10T09:44:12.4585980Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/ImageIO-9S1KZTBH30DJVFKA60C0I65TT.pcm
+2026-09-10T09:44:12.4586670Z 
+2026-09-10T09:44:12.4587640Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/CoreTransferable-6X00O088KD1PIY2UD8Y2FQZXY.pcm
+2026-09-10T09:44:12.5099500Z 
+2026-09-10T09:44:12.5168010Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/OpenGLES-7PJN97N7Q2FWMEZLXQ8A6H8DQ.pcm
+2026-09-10T09:44:12.5424780Z 
+2026-09-10T09:44:12.5527550Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/Symbols-PPBXRT3BRP1383DZF8F4KMXI.pcm
+2026-09-10T09:44:12.5650480Z 
+2026-09-10T09:44:12.5749280Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/Accessibility-DO7GWBMEX4YLO8UTHR6FOZNCH.pcm
+2026-09-10T09:44:12.5852110Z 
+2026-09-10T09:44:12.5887090Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/FileProvider-1UGPI6SBERRTHKMG8UX7BQYZO.pcm
+2026-09-10T09:44:12.5957020Z 
+2026-09-10T09:44:12.6058630Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/DataDetection-AA8WYRYF04MCPFQ7G8V1CLJU7.pcm
+2026-09-10T09:44:12.6158450Z 
+2026-09-10T09:44:12.6260120Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/CoreData-6BNQCY3YYP2M6814FCC1IM0SW.pcm
+2026-09-10T09:44:12.6618160Z 
+2026-09-10T09:44:12.6731870Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/UniformTypeIdentifiers-A30XJENQMWFLAP98JT5VLSTPG.pcm
+2026-09-10T09:44:12.6841970Z 
+2026-09-10T09:44:12.6930170Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/UserNotifications-4DBKSADYT1C6EJYV9BQWBX8HB.pcm
+2026-09-10T09:44:12.6958050Z 
+2026-09-10T09:44:12.7076150Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/UIUtilities-AGSHB15219HLPXEQW3WWNY58Z.pcm
+2026-09-10T09:44:12.7178630Z 
+2026-09-10T09:44:12.7197110Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules/PartyDeckGodotBridge-BMV6MDP1LNADXDM6PUR3JOOJE.pcm
+2026-09-10T09:44:12.7244060Z 
+2026-09-10T09:44:12.7249670Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/IOSurface-395PW6P09QPB371EHRDD1U3CE.pcm
+2026-09-10T09:44:12.7250460Z 
+2026-09-10T09:44:12.7251270Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/OSLog-CTAQS9PZ0RH59GLY4CGCTVFVN.pcm
+2026-09-10T09:44:12.7526330Z 
+2026-09-10T09:44:12.7527210Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/Metal-8AS2UR4OU6IZBMV88014WLZXY.pcm
+2026-09-10T09:44:12.8566570Z 
+2026-09-10T09:44:12.8569650Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/CoreVideo-31XK4JHRXLFYYPKAL3I0Q159Z.pcm
+2026-09-10T09:44:12.9286770Z 
+2026-09-10T09:44:12.9290350Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/QuartzCore-ALXQV5CA0UNS4996HX0G15CFW.pcm
+2026-09-10T09:44:13.0182410Z 
+2026-09-10T09:44:13.0187990Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/CoreImage-5KPJ7IO3ZZ9NS7NT9QMRLKQYB.pcm
+2026-09-10T09:44:13.0376070Z 
+2026-09-10T09:44:13.0380530Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/SwiftUICore-1KGAEEJV845JC8F4NSG7MWDHV.pcm
+2026-09-10T09:44:13.0739690Z 
+2026-09-10T09:44:13.0740760Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/UIKit-7V12WK6XKW0H7DBQVWQQWR73V.pcm
+2026-09-10T09:44:13.5969130Z 
+2026-09-10T09:44:13.5970030Z SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/SwiftUI-4008M678JWNWLYK0VFUL61DX5.pcm
+2026-09-10T09:44:13.6574700Z 
+2026-09-10T09:44:13.6575800Z SwiftGeneratePch normal arm64 Compiling\ bridging\ header (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:13.7591790Z 1 warning generated.
+2026-09-10T09:44:13.7592730Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/modules/partydeck_ios_probe/PDGodotEngineOwner.h:1:9: warning: #pragma once in main file
+2026-09-10T09:44:13.7594450Z  1 | #pragma once
+2026-09-10T09:44:13.7595060Z    |         `- warning: #pragma once in main file
+2026-09-10T09:44:13.7596320Z  2 | 
+2026-09-10T09:44:13.7596890Z  3 | #import <Foundation/Foundation.h>
+2026-09-10T09:44:13.7598050Z 
+2026-09-10T09:44:13.7598770Z SwiftDriverJobDiscovery normal arm64 Compiling bridging header (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:13.7599170Z 
+2026-09-10T09:44:13.7599670Z SwiftEmitModule normal arm64 Emitting\ module\ for\ RetainedHost (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:13.7951400Z 
+2026-09-10T09:44:13.7952190Z EmitSwiftModule normal arm64 (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:13.7952760Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+2026-09-10T09:44:13.7954870Z     
+2026-09-10T09:44:14.1284580Z 
+2026-09-10T09:44:14.1403070Z SwiftCompile normal arm64 Compiling\ RetainedModel.swift /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:14.1416870Z SwiftCompile normal arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:14.1417820Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+2026-09-10T09:44:14.1418260Z     
+2026-09-10T09:44:15.8881280Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:169:37: warning: capture of 'entry' with non-Sendable type 'RetainedModel.Entry?' in a '@Sendable' closure
+2026-09-10T09:44:15.8984130Z                 guard let self, let entry else { return }
+2026-09-10T09:44:15.9074070Z                                     ^
+2026-09-10T09:44:15.9075900Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:513:25: note: class 'Entry' does not conform to the 'Sendable' protocol
+2026-09-10T09:44:15.9076830Z     private final class Entry {
+2026-09-10T09:44:15.9077310Z                         ^
+2026-09-10T09:44:15.9078290Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:174:22: warning: call to main actor-isolated instance method 'poll()' in a synchronous nonisolated context
+2026-09-10T09:44:15.9203200Z                 self.poll()
+2026-09-10T09:44:15.9204320Z                      ^
+2026-09-10T09:44:15.9204960Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:220:10: note: calls to instance method 'poll()' from outside of its actor context are implicitly asynchronous
+2026-09-10T09:44:15.9205630Z     func poll() {
+2026-09-10T09:44:15.9205840Z          ^
+2026-09-10T09:44:15.9212370Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:206:19: warning: main actor-isolated property 'staleProbe' can not be mutated from a Sendable closure
+2026-09-10T09:44:15.9213240Z             self?.staleProbe["deliveryCompleted"] = true
+2026-09-10T09:44:15.9213520Z                   ^
+2026-09-10T09:44:15.9214360Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:33:17: note: mutation of this property is only permitted within the actor
+2026-09-10T09:44:15.9214990Z     private var staleProbe: [String: Any] = [:]
+2026-09-10T09:44:15.9215360Z                 ^
+2026-09-10T09:44:15.9215990Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:207:19: warning: main actor-isolated property 'staleProbe' can not be mutated from a Sendable closure
+2026-09-10T09:44:15.9216720Z             self?.staleProbe["deliveryAccepted"] = delivered
+2026-09-10T09:44:15.9216980Z                   ^
+2026-09-10T09:44:15.9217670Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:33:17: note: mutation of this property is only permitted within the actor
+2026-09-10T09:44:15.9218410Z     private var staleProbe: [String: Any] = [:]
+2026-09-10T09:44:15.9218760Z                 ^
+2026-09-10T09:44:15.9219390Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:208:19: warning: call to main actor-isolated instance method 'poll()' in a synchronous nonisolated context
+2026-09-10T09:44:15.9220050Z             self?.poll()
+2026-09-10T09:44:15.9220230Z                   ^
+2026-09-10T09:44:15.9220890Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:220:10: note: calls to instance method 'poll()' from outside of its actor context are implicitly asynchronous
+2026-09-10T09:44:15.9221570Z     func poll() {
+2026-09-10T09:44:15.9221760Z          ^
+2026-09-10T09:44:15.9222470Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:211:19: warning: main actor-isolated property 'staleProbe' can not be mutated from a Sendable closure
+2026-09-10T09:44:15.9223220Z             self?.staleProbe["closeCompleted"] = true
+2026-09-10T09:44:15.9223460Z                   ^
+2026-09-10T09:44:15.9224000Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:33:17: note: mutation of this property is only permitted within the actor
+2026-09-10T09:44:15.9224610Z     private var staleProbe: [String: Any] = [:]
+2026-09-10T09:44:15.9224840Z                 ^
+2026-09-10T09:44:15.9225450Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:212:19: warning: main actor-isolated property 'staleProbe' can not be mutated from a Sendable closure
+2026-09-10T09:44:15.9226130Z             self?.staleProbe["oldCloseDormant"] = dormant
+2026-09-10T09:44:15.9226360Z                   ^
+2026-09-10T09:44:15.9226880Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:33:17: note: mutation of this property is only permitted within the actor
+2026-09-10T09:44:15.9227850Z     private var staleProbe: [String: Any] = [:]
+2026-09-10T09:44:15.9228080Z                 ^
+2026-09-10T09:44:15.9228680Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:213:19: warning: call to main actor-isolated instance method 'poll()' in a synchronous nonisolated context
+2026-09-10T09:44:15.9229340Z             self?.poll()
+2026-09-10T09:44:15.9229890Z                   ^
+2026-09-10T09:44:15.9230520Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:220:10: note: calls to instance method 'poll()' from outside of its actor context are implicitly asynchronous
+2026-09-10T09:44:15.9231190Z     func poll() {
+2026-09-10T09:44:15.9231340Z          ^
+2026-09-10T09:44:15.9232480Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:329:33: warning: capture of 'entry' with non-Sendable type 'RetainedModel.Entry?' in a '@Sendable' closure
+2026-09-10T09:44:15.9234240Z             guard let self, let entry else { return }
+2026-09-10T09:44:15.9308060Z                                 ^
+2026-09-10T09:44:15.9409730Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:513:25: note: class 'Entry' does not conform to the 'Sendable' protocol
+2026-09-10T09:44:15.9512180Z     private final class Entry {
+2026-09-10T09:44:15.9551960Z                         ^
+2026-09-10T09:44:15.9565090Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:332:77: warning: call to main actor-isolated instance method 'flag' in a synchronous nonisolated context
+2026-09-10T09:44:15.9628650Z             entry.firstReadyProbe["nativeReadyConfirmedAtRejection"] = self.flag("authorityReadyConfirmed", entry.native.snapshot())
+2026-09-10T09:44:15.9677560Z                                                                             ^
+2026-09-10T09:44:15.9736330Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:509:18: note: calls to instance method 'flag' from outside of its actor context are implicitly asynchronous
+2026-09-10T09:44:15.9775520Z     private func flag(_ name: String, _ value: [String: Any]) -> Bool { (value[name] as? NSNumber)?.boolValue ?? false }
+2026-09-10T09:44:15.9791660Z                  ^
+2026-09-10T09:44:15.9819140Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:334:33: warning: call to main actor-isolated instance method 'fail(_:entry:)' in a synchronous nonisolated context
+2026-09-10T09:44:15.9849910Z             if delivered { self.fail("STALE_FIRST_READY_ACCEPTED", entry: entry) }
+2026-09-10T09:44:15.9865900Z                                 ^
+2026-09-10T09:44:15.9912840Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:469:18: note: calls to instance method 'fail(_:entry:)' from outside of its actor context are implicitly asynchronous
+2026-09-10T09:44:15.9928920Z     private func fail(_ code: String, entry: Entry) {
+2026-09-10T09:44:15.9952720Z                  ^
+2026-09-10T09:44:15.9983960Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:361:33: warning: capture of 'entry' with non-Sendable type 'RetainedModel.Entry?' in a '@Sendable' closure
+2026-09-10T09:44:16.0028280Z             guard let self, let entry else { return }
+2026-09-10T09:44:16.0067650Z                                 ^
+2026-09-10T09:44:16.0089320Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:513:25: note: class 'Entry' does not conform to the 'Sendable' protocol
+2026-09-10T09:44:16.0114020Z     private final class Entry {
+2026-09-10T09:44:16.0145870Z                         ^
+2026-09-10T09:44:16.0173290Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:362:24: warning: main actor-isolated property 'active' can not be referenced from a Sendable closure
+2026-09-10T09:44:16.0178760Z             guard self.active === entry, !entry.closing, entry.inFlight == serial else { return }
+2026-09-10T09:44:16.0185070Z                        ^
+2026-09-10T09:44:16.0229640Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:20:17: note: property declared here
+2026-09-10T09:44:16.0251250Z     private var active: Entry?
+2026-09-10T09:44:16.0268410Z                 ^
+2026-09-10T09:44:16.0275090Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:367:22: warning: call to main actor-isolated instance method 'fail(_:entry:)' in a synchronous nonisolated context
+2026-09-10T09:44:16.0299350Z                 self.fail("CURRENT_NATIVE_DELIVERY_REJECTED", entry: entry)
+2026-09-10T09:44:16.0305060Z                      ^
+2026-09-10T09:44:16.0305910Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:469:18: note: calls to instance method 'fail(_:entry:)' from outside of its actor context are implicitly asynchronous
+2026-09-10T09:44:16.0307620Z     private func fail(_ code: String, entry: Entry) {
+2026-09-10T09:44:16.0308160Z                  ^
+2026-09-10T09:44:16.0309250Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:370:18: warning: call to main actor-isolated instance method 'pump' in a synchronous nonisolated context
+2026-09-10T09:44:16.0310270Z             self.pump(entry)
+2026-09-10T09:44:16.0310710Z                  ^
+2026-09-10T09:44:16.0311430Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:348:18: note: calls to instance method 'pump' from outside of its actor context are implicitly asynchronous
+2026-09-10T09:44:16.0313990Z     private func pump(_ entry: Entry) {
+2026-09-10T09:44:16.0314360Z                  ^
+2026-09-10T09:44:16.0315060Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:371:18: warning: call to main actor-isolated instance method 'poll()' in a synchronous nonisolated context
+2026-09-10T09:44:16.0318710Z             self.poll()
+2026-09-10T09:44:16.0318980Z                  ^
+2026-09-10T09:44:16.0320450Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:220:10: note: calls to instance method 'poll()' from outside of its actor context are implicitly asynchronous
+2026-09-10T09:44:16.0321680Z     func poll() {
+2026-09-10T09:44:16.0323160Z          ^
+2026-09-10T09:44:16.0324910Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:397:33: warning: capture of 'entry' with non-Sendable type 'RetainedModel.Entry?' in a '@Sendable' closure
+2026-09-10T09:44:16.0326800Z             guard let self, let entry else { return }
+2026-09-10T09:44:16.0327220Z                                 ^
+2026-09-10T09:44:16.0328410Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:513:25: note: class 'Entry' does not conform to the 'Sendable' protocol
+2026-09-10T09:44:16.0329300Z     private final class Entry {
+2026-09-10T09:44:16.0329580Z                         ^
+2026-09-10T09:44:16.0331750Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:400:48: warning: main actor-isolated property 'owner' can not be referenced from a Sendable closure
+2026-09-10T09:44:16.0332940Z             entry.closeCompletionNative = self.owner.snapshot()
+2026-09-10T09:44:16.0333330Z                                                ^
+2026-09-10T09:44:16.0333850Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:10:9: note: property declared here
+2026-09-10T09:44:16.0334470Z     let owner = PDGodotEngineOwner()
+2026-09-10T09:44:16.0334690Z         ^
+2026-09-10T09:44:16.0335890Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:402:18: warning: main actor-isolated property 'lastClosure' can not be mutated from a Sendable closure
+2026-09-10T09:44:16.0336600Z             self.lastClosure = self.closureObservation(entry)
+2026-09-10T09:44:16.0337230Z                  ^
+2026-09-10T09:44:16.0337920Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:32:17: note: mutation of this property is only permitted within the actor
+2026-09-10T09:44:16.0338610Z     private var lastClosure: [String: Any] = [:]
+2026-09-10T09:44:16.0338930Z                 ^
+2026-09-10T09:44:16.0339670Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:402:37: warning: call to main actor-isolated instance method 'closureObservation' in a synchronous nonisolated context
+2026-09-10T09:44:16.0340420Z             self.lastClosure = self.closureObservation(entry)
+2026-09-10T09:44:16.0340690Z                                     ^
+2026-09-10T09:44:16.0341950Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:447:18: note: calls to instance method 'closureObservation' from outside of its actor context are implicitly asynchronous
+2026-09-10T09:44:16.0343180Z     private func closureObservation(_ entry: Entry) -> [String: Any] {
+2026-09-10T09:44:16.0343490Z                  ^
+2026-09-10T09:44:16.0344100Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:403:24: warning: main actor-isolated property 'active' can not be referenced from a Sendable closure
+2026-09-10T09:44:16.0345320Z             guard self.active === entry else { return }
+2026-09-10T09:44:16.0345570Z                        ^
+2026-09-10T09:44:16.0345990Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:20:17: note: property declared here
+2026-09-10T09:44:16.0346460Z     private var active: Entry?
+2026-09-10T09:44:16.0346650Z                 ^
+2026-09-10T09:44:16.0347550Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:404:18: warning: main actor-isolated property 'active' can not be mutated from a Sendable closure
+2026-09-10T09:44:16.0348300Z             self.active = nil
+2026-09-10T09:44:16.0348490Z                  ^
+2026-09-10T09:44:16.0349070Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:20:17: note: mutation of this property is only permitted within the actor
+2026-09-10T09:44:16.0350150Z     private var active: Entry?
+2026-09-10T09:44:16.0350390Z                 ^
+2026-09-10T09:44:16.0351030Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:405:18: warning: main actor-isolated property 'showEngine' can not be mutated from a Sendable closure
+2026-09-10T09:44:16.0351660Z             self.showEngine = false
+2026-09-10T09:44:16.0351860Z                  ^
+2026-09-10T09:44:16.0352360Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:17:33: note: mutation of this property is only permitted within the actor
+2026-09-10T09:44:16.0353120Z     @Published private(set) var showEngine = false
+2026-09-10T09:44:16.0353410Z                                 ^
+2026-09-10T09:44:16.0354080Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:406:18: warning: main actor-isolated property 'retired' can not be mutated from a Sendable closure
+2026-09-10T09:44:16.0354810Z             self.retired.append(entry)
+2026-09-10T09:44:16.0355020Z                  ^
+2026-09-10T09:44:16.0356180Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:21:17: note: mutation of this property is only permitted within the actor
+2026-09-10T09:44:16.0356790Z     private var retired: [Entry] = []
+2026-09-10T09:44:16.0357000Z                 ^
+2026-09-10T09:44:16.0357610Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:407:21: warning: main actor-isolated property 'retired' can not be referenced from a Sendable closure
+2026-09-10T09:44:16.0358540Z             if self.retired.count > 4 { self.retired.removeFirst() }
+2026-09-10T09:44:16.0358860Z                     ^
+2026-09-10T09:44:16.0359660Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:21:17: note: property declared here
+2026-09-10T09:44:16.0360170Z     private var retired: [Entry] = []
+2026-09-10T09:44:16.0360370Z                 ^
+2026-09-10T09:44:16.0360940Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:407:46: warning: main actor-isolated property 'retired' can not be mutated from a Sendable closure
+2026-09-10T09:44:16.0361720Z             if self.retired.count > 4 { self.retired.removeFirst() }
+2026-09-10T09:44:16.0362080Z                                              ^
+2026-09-10T09:44:16.0363310Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:21:17: note: mutation of this property is only permitted within the actor
+2026-09-10T09:44:16.0363910Z     private var retired: [Entry] = []
+2026-09-10T09:44:16.0364120Z                 ^
+2026-09-10T09:44:16.0365000Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:408:32: warning: main actor-isolated property 'errorMessage' can not be mutated from a Sendable closure
+2026-09-10T09:44:16.0365850Z             if !dormant { self.errorMessage = "The native owner did not observe dormant cleanup." }
+2026-09-10T09:44:16.0366230Z                                ^
+2026-09-10T09:44:16.0366790Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:13:33: note: mutation of this property is only permitted within the actor
+2026-09-10T09:44:16.0367420Z     @Published private(set) var errorMessage = ""
+2026-09-10T09:44:16.0367730Z                                 ^
+2026-09-10T09:44:16.0368460Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:409:18: warning: call to main actor-isolated instance method 'poll()' in a synchronous nonisolated context
+2026-09-10T09:44:16.0369160Z             self.poll()
+2026-09-10T09:44:16.0369330Z                  ^
+2026-09-10T09:44:16.0369930Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:220:10: note: calls to instance method 'poll()' from outside of its actor context are implicitly asynchronous
+2026-09-10T09:44:16.0370580Z     func poll() {
+2026-09-10T09:44:16.0370730Z          ^
+2026-09-10T09:44:16.0371310Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:410:18: warning: call to main actor-isolated instance method 'persist' in a synchronous nonisolated context
+2026-09-10T09:44:16.0372790Z             self.persist("close-completed")
+2026-09-10T09:44:16.0373120Z                  ^
+2026-09-10T09:44:16.0373750Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:496:18: note: calls to instance method 'persist' from outside of its actor context are implicitly asynchronous
+2026-09-10T09:44:16.0374420Z     private func persist(_ event: String) {
+2026-09-10T09:44:16.0374640Z                  ^
+2026-09-10T09:44:16.0375240Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:411:41: warning: main actor-isolated property 'pendingMode' can not be referenced from a Sendable closure
+2026-09-10T09:44:16.0375920Z             if dormant, let next = self.pendingMode {
+2026-09-10T09:44:16.0376250Z                                         ^
+2026-09-10T09:44:16.0376770Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:22:17: note: property declared here
+2026-09-10T09:44:16.0377320Z     private var pendingMode: String?
+2026-09-10T09:44:16.0377550Z                 ^
+2026-09-10T09:44:16.0378350Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:412:22: warning: main actor-isolated property 'pendingMode' can not be mutated from a Sendable closure
+2026-09-10T09:44:16.0379050Z                 self.pendingMode = nil
+2026-09-10T09:44:16.0379250Z                      ^
+2026-09-10T09:44:16.0379770Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:22:17: note: mutation of this property is only permitted within the actor
+2026-09-10T09:44:16.0380580Z     private var pendingMode: String?
+2026-09-10T09:44:16.0380780Z                 ^
+2026-09-10T09:44:16.0381400Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:415:22: warning: call to main actor-isolated instance method 'start(mode:)' in a synchronous nonisolated context
+2026-09-10T09:44:16.0382160Z                 self.start(mode: next)
+2026-09-10T09:44:16.0382420Z                      ^
+2026-09-10T09:44:16.0383090Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:50:10: note: calls to instance method 'start(mode:)' from outside of its actor context are implicitly asynchronous
+2026-09-10T09:44:16.0384810Z     func start(mode selectedMode: String) {
+2026-09-10T09:44:16.0385620Z          ^
+2026-09-10T09:44:16.0386550Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:332:77: error: sending value of non-Sendable type '[String : Any]' risks causing data races
+2026-09-10T09:44:16.0387490Z             entry.firstReadyProbe["nativeReadyConfirmedAtRejection"] = self.flag("authorityReadyConfirmed", entry.native.snapshot())
+2026-09-10T09:44:16.0388070Z                                                                        ~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2026-09-10T09:44:16.0389070Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:332:77: note: sending task-isolated value of non-Sendable type '[String : Any]' to main actor-isolated instance method 'flag' risks causing races in between task-isolated and main actor-isolated uses
+2026-09-10T09:44:16.0390440Z             entry.firstReadyProbe["nativeReadyConfirmedAtRejection"] = self.flag("authorityReadyConfirmed", entry.native.snapshot())
+2026-09-10T09:44:16.0390980Z                                                                             ^
+2026-09-10T09:44:16.0391550Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:334:33: error: sending 'entry' risks causing data races
+2026-09-10T09:44:16.0392150Z             if delivered { self.fail("STALE_FIRST_READY_ACCEPTED", entry: entry) }
+2026-09-10T09:44:16.0392520Z                            ~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2026-09-10T09:44:16.0393700Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:334:33: note: sending task-isolated 'entry' to main actor-isolated instance method 'fail(_:entry:)' risks causing data races between main actor-isolated and task-isolated uses
+2026-09-10T09:44:16.0394830Z             if delivered { self.fail("STALE_FIRST_READY_ACCEPTED", entry: entry) }
+2026-09-10T09:44:16.0395190Z                                 ^
+2026-09-10T09:44:16.0396310Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift:402:37: error: non-Sendable '[String : Any]'-typed result can not be returned from main actor-isolated instance method 'closureObservation' to nonisolated context
+2026-09-10T09:44:16.0405510Z             self.lastClosure = self.closureObservation(entry)
+2026-09-10T09:44:16.0405810Z                                     ^
+2026-09-10T09:44:16.0406190Z Swift.Dictionary:1:23: note: generic struct 'Dictionary' does not conform to the 'Sendable' protocol
+2026-09-10T09:44:16.0406690Z @frozen public struct Dictionary<Key, Value> where Key : Hashable {
+2026-09-10T09:44:16.0407140Z                       ^
+2026-09-10T09:44:16.0407280Z 
+2026-09-10T09:44:16.0407370Z Failed frontend command:
+2026-09-10T09:44:16.0438090Z /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -frontend -c /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedHostApp.swift -primary-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift -emit-dependencies-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedModel.d -emit-const-values-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedModel.swiftconstvalues -emit-reference-dependencies-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedModel.swiftdeps -serialize-diagnostics-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedModel.dia -target arm64-apple-ios15.0-simulator -load-resolved-plugin /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libFoundationMacros.dylib\#/Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#FoundationMacros -load-resolved-plugin /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libObservationMacros.dylib\#/Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#ObservationMacros -load-resolved-plugin /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libPreviewsMacros.dylib\#/Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#PreviewsMacros -load-resolved-plugin /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libSwiftMacros.dylib\#/Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#SwiftMacros -load-resolved-plugin /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libSwiftUIMacros.dylib\#/Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#SwiftUIMacros -disable-implicit-swift-modules -Xcc -fno-implicit-modules -Xcc -fno-implicit-module-maps -explicit-swift-module-map-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost-dependencies-1.json -debug-module-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost.swiftmodule -Xllvm -aarch64-use-tbi -enable-objc-interop -sdk /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk -I /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator -F /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator -F /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/artifacts -no-color-diagnostics -Xcc -fno-color-diagnostics -enable-testing -g -debug-info-format\=dwarf -dwarf-version\=4 -module-cache-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -swift-version 6 -Onone -serialize-debugging-options -const-gather-protocols-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost_const_extract_protocols.json -enable-experimental-feature DebugDescriptionMacro -empty-abi-descriptor -validate-clang-modules-once -clang-build-session-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -working-directory -Xcc /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host -enable-anonymous-context-mangled-names -file-compilation-dir /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host -Xcc -ivfsstatcache -Xcc /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/SDKStatCaches.noindex/iphonesimulator26.4-23E252-688ef53f1462e2c8f657fdc38a81448f893e4a944e4cdd9af1f5077e1341bc52.sdkstatcache -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/swift-overrides.hmap -Xcc -iquote -Xcc /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost-generated-files.hmap -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost-own-target-headers.hmap -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost-all-target-headers.hmap -Xcc -iquote -Xcc /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost-project-headers.hmap -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/DerivedSources-normal/arm64 -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/DerivedSources/arm64 -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/DerivedSources -import-objc-header /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost-primary-Bridging-header.pch -no-auto-bridging-header-chaining -module-name RetainedHost -frontend-parseable-output -disable-clang-spi -clang-target arm64-apple-ios26.4-simulator -target-sdk-version 26.4 -target-sdk-name iphonesimulator26.4 -in-process-plugin-server-path /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/libSwiftInProcPluginServer.dylib -o /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedModel.o -index-unit-output-path /RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedModel.o -index-store-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Index.noindex/DataStore -index-system-modules
+2026-09-10T09:44:16.0466700Z SwiftCompile normal arm64 Compiling\ RetainedHostApp.swift /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedHostApp.swift (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:16.0468350Z SwiftCompile normal arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedHostApp.swift (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:16.0469320Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+2026-09-10T09:44:16.0469590Z     
+2026-09-10T09:44:16.0469670Z 
+2026-09-10T09:44:16.0470000Z SwiftDriverJobDiscovery normal arm64 Emitting module for RetainedHost (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:16.0470400Z 
+2026-09-10T09:44:16.0470830Z SwiftDriver\ Compilation\ Requirements RetainedHost normal arm64 com.apple.xcode.tools.swift.compiler (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:16.0471470Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+2026-09-10T09:44:16.0491170Z     builtin-Swift-Compilation-Requirements -- /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name RetainedHost -Onone @/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost.SwiftFileList -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk -target arm64-apple-ios15.0-simulator -g -module-cache-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Index.noindex/DataStore -swift-version 6 -I /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator -F /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator -F /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/artifacts -c -j3 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/SDKStatCaches.noindex/iphonesimulator26.4-23E252-688ef53f1462e2c8f657fdc38a81448f893e4a944e4cdd9af1f5077e1341bc52.sdkstatcache -output-file-map /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost_const_extract_protocols.json -Xcc -iquote -Xcc /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost-generated-files.hmap -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost-own-target-headers.hmap -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost-all-target-headers.hmap -Xcc -iquote -Xcc /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/RetainedHost-project-headers.hmap -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/DerivedSources-normal/arm64 -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/DerivedSources/arm64 -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/DerivedSources -emit-objc-header -emit-objc-header-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost-Swift.h -import-objc-header /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/modules/partydeck_ios_probe/PDGodotEngineOwner.h -working-directory /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host -experimental-emit-module-separately -disable-cmo
+2026-09-10T09:44:16.0512920Z 
+2026-09-10T09:44:16.0514600Z SwiftMergeGeneratedHeaders /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/DerivedSources/RetainedHost-Swift.h /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost-Swift.h (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:16.0516370Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+2026-09-10T09:44:16.0517960Z     builtin-swiftHeaderTool -arch arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost-Swift.h -o /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/DerivedSources/RetainedHost-Swift.h
+2026-09-10T09:44:16.0519420Z 
+2026-09-10T09:44:16.0520780Z Copy /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHost.swiftmodule/arm64-apple-ios-simulator.swiftmodule /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost.swiftmodule (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:16.0522810Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+2026-09-10T09:44:16.0525290Z     builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -strip-unsigned-binaries -strip-deterministic -strip-tool /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -resolve-src-symlinks -rename /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost.swiftmodule /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHost.swiftmodule/arm64-apple-ios-simulator.swiftmodule
+2026-09-10T09:44:16.0527930Z 
+2026-09-10T09:44:16.0529550Z Copy /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHost.swiftmodule/arm64-apple-ios-simulator.swiftdoc /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost.swiftdoc (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:16.0531890Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+2026-09-10T09:44:16.0534390Z     builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -strip-unsigned-binaries -strip-deterministic -strip-tool /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -resolve-src-symlinks -rename /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost.swiftdoc /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHost.swiftmodule/arm64-apple-ios-simulator.swiftdoc
+2026-09-10T09:44:16.0537150Z 
+2026-09-10T09:44:16.0538640Z Copy /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHost.swiftmodule/arm64-apple-ios-simulator.abi.json /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost.abi.json (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:16.0540470Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+2026-09-10T09:44:16.0542670Z     builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -strip-unsigned-binaries -strip-deterministic -strip-tool /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -resolve-src-symlinks -rename /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost.abi.json /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHost.swiftmodule/arm64-apple-ios-simulator.abi.json
+2026-09-10T09:44:16.0545550Z 
+2026-09-10T09:44:16.0548430Z Copy /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHost.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost.swiftsourceinfo (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:16.0550290Z     cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+2026-09-10T09:44:16.0552860Z     builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -strip-unsigned-binaries -strip-deterministic -strip-tool /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -resolve-src-symlinks -rename /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/Objects-normal/arm64/RetainedHost.swiftsourceinfo /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHost.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo
+2026-09-10T09:44:16.0555290Z 
+2026-09-10T09:44:16.0555350Z ** BUILD FAILED **
+2026-09-10T09:44:16.0555460Z 
+2026-09-10T09:44:16.0555460Z 
+2026-09-10T09:44:16.0555540Z The following build commands failed:
+2026-09-10T09:44:16.0556150Z 	SwiftCompile normal arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:16.0557430Z 	SwiftCompile normal arm64 Compiling\ RetainedModel.swift /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift (in target 'RetainedHost' from project 'RetainedHost')
+2026-09-10T09:44:16.0558240Z 	Building project RetainedHost with scheme RetainedHost and configuration Debug
+2026-09-10T09:44:16.0558570Z (3 failures)
+2026-09-10T09:44:16.2250650Z {
+2026-09-10T09:44:16.2251040Z   "stage": "retained_engine_lifecycle_execution",
+2026-09-10T09:44:16.2251570Z   "qualified": false,
+2026-09-10T09:44:16.2252330Z   "problems": [
+2026-09-10T09:44:16.2252680Z     "The linked Swift harness and actual native/Kotlin owners were not all verified.",
+2026-09-10T09:44:16.2253250Z     "The three actual retained-engine XCTest cases did not each finish with a pass.",
+2026-09-10T09:44:16.2254060Z     "XCResult test summary could not be read as JSON: [Errno 2] No such file or directory: '/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/evidence/test-summary.json'",
+2026-09-10T09:44:16.2254930Z     "The native test XCResult bundle was not retained.",
+2026-09-10T09:44:16.2255230Z     "The native test attachment export was not retained.",
+2026-09-10T09:44:16.2255600Z     "Native test evidence export did not succeed: attachments_export_exit_code.",
+2026-09-10T09:44:16.2256020Z     "Native test evidence export did not succeed: summary_export_exit_code.",
+2026-09-10T09:44:16.2256400Z     "The native runner or evidence export returned exit code 1."
+2026-09-10T09:44:16.2256660Z   ]
+2026-09-10T09:44:16.2256790Z }
+2026-09-10T09:44:16.2328820Z ##[error]Process completed with exit code 1.
+2026-09-10T09:44:16.2398930Z ##[group]Run python3 - <<'PY'
+2026-09-10T09:44:16.2399440Z [36;1mpython3 - <<'PY'[0m
+2026-09-10T09:44:16.2399640Z [36;1mimport hashlib[0m
+2026-09-10T09:44:16.2399830Z [36;1mimport json[0m
+2026-09-10T09:44:16.2399990Z [36;1mimport os[0m
+2026-09-10T09:44:16.2400180Z [36;1mfrom pathlib import Path[0m
+2026-09-10T09:44:16.2400390Z [36;1mimport tarfile[0m
+2026-09-10T09:44:16.2400580Z [36;1m[0m
+2026-09-10T09:44:16.2400760Z [36;1mbuild = Path('godot/ios-host/build')[0m
+2026-09-10T09:44:16.2401060Z [36;1mdestination = build / 'retained-ci-preserved'[0m
+2026-09-10T09:44:16.2401380Z [36;1mdestination.mkdir(parents=True, exist_ok=False)[0m
+2026-09-10T09:44:16.2401710Z [36;1mstage = os.environ['PARTYDECK_RETAINED_CI_STAGE'][0m
+2026-09-10T09:44:16.2402120Z [36;1mpaths = [build / 'retained-inputs', build / 'evidence', build / 'host-resources'][0m
+2026-09-10T09:44:16.2402480Z [36;1mif stage in {'build', 'test'}:[0m
+2026-09-10T09:44:16.2402930Z [36;1m    paths += [build / f'retained-host-{stage}/evidence', build / f'retained-host-{stage}/artifacts'][0m
+2026-09-10T09:44:16.2403400Z [36;1mpresent = [path for path in paths if path.exists()][0m
+2026-09-10T09:44:16.2403780Z [36;1marchive = destination / 'retained-host-evidence.tar.gz'[0m
+2026-09-10T09:44:16.2404120Z [36;1mwith tarfile.open(archive, 'x:gz') as output:[0m
+2026-09-10T09:44:16.2404390Z [36;1m    for path in present:[0m
+2026-09-10T09:44:16.2404850Z [36;1m        output.add(path, arcname=path.relative_to(build).as_posix())[0m
+2026-09-10T09:44:16.2405160Z [36;1mdigest = hashlib.sha256()[0m
+2026-09-10T09:44:16.2405400Z [36;1mwith archive.open('rb') as stream:[0m
+2026-09-10T09:44:16.2405690Z [36;1m    for block in iter(lambda: stream.read(1048576), b''):[0m
+2026-09-10T09:44:16.2405970Z [36;1m        digest.update(block)[0m
+2026-09-10T09:44:16.2406190Z [36;1mpreservation = {[0m
+2026-09-10T09:44:16.2406420Z [36;1m    'source_commit': os.environ['GITHUB_SHA'],[0m
+2026-09-10T09:44:16.2406820Z [36;1m    'run_id': os.environ['GITHUB_RUN_ID'], 'run_attempt': os.environ['GITHUB_RUN_ATTEMPT'],[0m
+2026-09-10T09:44:16.2407190Z [36;1m    'requested_stage': stage,[0m
+2026-09-10T09:44:16.2407540Z [36;1m    'included_directories': [path.relative_to(build).as_posix() for path in present],[0m
+2026-09-10T09:44:16.2408100Z [36;1m    'unavailable_directories': [path.relative_to(build).as_posix() for path in paths if not path.exists()],[0m
+2026-09-10T09:44:16.2408690Z [36;1m    'archive': {'name': archive.name, 'bytes': archive.stat().st_size, 'sha256': digest.hexdigest()},[0m
+2026-09-10T09:44:16.2409630Z [36;1m    'scope': 'Original downloaded inputs, staging receipts/resources, and all available harness evidence/artifacts, including complete XCResult contents and hidden files. Packaging makes no qualification claim.',[0m
+2026-09-10T09:44:16.2410330Z [36;1m}[0m
+2026-09-10T09:44:16.2410640Z [36;1m(destination / 'preservation.json').write_text(json.dumps(preservation, indent=2) + '\n')[0m
+2026-09-10T09:44:16.2411020Z [36;1mPY[0m
+2026-09-10T09:44:16.3463880Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-09-10T09:44:16.3464180Z env:
+2026-09-10T09:44:16.3464430Z   DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
+2026-09-10T09:44:16.3464810Z   PARTYDECK_RETAINED_CI_STAGE: test
+2026-09-10T09:44:16.3465430Z   PARTYDECK_GODOT_RETAINED_FRAMEWORK: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/framework-input/PartyDeckGodotBridge.framework
+2026-09-10T09:44:16.3466350Z   PARTYDECK_GODOT_RETAINED_FRAMEWORK_RECEIPT: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/evidence/authority-framework-result.json
+2026-09-10T09:44:16.3467200Z   PARTYDECK_GODOT_RETAINED_PCK: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-inputs/renderer/partydeck-last-light.pck
+2026-09-10T09:44:16.3467770Z ##[endgroup]
+2026-09-10T09:44:32.2092490Z Prepare all required actions
+2026-09-10T09:44:32.2092970Z Getting action download info
+2026-09-10T09:44:32.2919130Z Download action repository 'actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a' (SHA:043fb46d1a93c77aae656e7c1c64a875d1fc6a0a)
+2026-09-10T09:44:32.3698980Z ##[group]Run ./.github/actions/upload-artifact
+2026-09-10T09:44:32.3699310Z with:
+2026-09-10T09:44:32.3699550Z   name: godot-ios-retained-host-test-attempt-1
+2026-09-10T09:44:32.3700440Z   path: godot/ios-host/build/retained-ci-preserved/**
+godot/ios-host/build/evidence/retained-ci-*.json
+godot/ios-host/build/evidence/retained-ci-*.log
+godot/ios-host/build/retained-host-*/evidence/**
+godot/ios-host/build/retained-host-*/artifacts/**
+
+2026-09-10T09:44:32.3701350Z   retention-days: 14
+2026-09-10T09:44:32.3701590Z   if-no-files-found: error
+2026-09-10T09:44:32.3701810Z env:
+2026-09-10T09:44:32.3702060Z   DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
+2026-09-10T09:44:32.3702410Z   PARTYDECK_RETAINED_CI_STAGE: test
+2026-09-10T09:44:32.3702970Z   PARTYDECK_GODOT_RETAINED_FRAMEWORK: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/framework-input/PartyDeckGodotBridge.framework
+2026-09-10T09:44:32.3703870Z   PARTYDECK_GODOT_RETAINED_FRAMEWORK_RECEIPT: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/evidence/authority-framework-result.json
+2026-09-10T09:44:32.3704940Z   PARTYDECK_GODOT_RETAINED_PCK: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-inputs/renderer/partydeck-last-light.pck
+2026-09-10T09:44:32.3706060Z ##[endgroup]
+2026-09-10T09:44:32.3760320Z ##[start-action display=Upload artifact;id=__self.first]
+2026-09-10T09:44:32.3819110Z ##[group]Run actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+2026-09-10T09:44:32.3819430Z with:
+2026-09-10T09:44:32.3819610Z   name: godot-ios-retained-host-test-attempt-1
+2026-09-10T09:44:32.3820470Z   path: godot/ios-host/build/retained-ci-preserved/**
+godot/ios-host/build/evidence/retained-ci-*.json
+godot/ios-host/build/evidence/retained-ci-*.log
+godot/ios-host/build/retained-host-*/evidence/**
+godot/ios-host/build/retained-host-*/artifacts/**
+
+2026-09-10T09:44:32.3821280Z   retention-days: 14
+2026-09-10T09:44:32.3821470Z   if-no-files-found: error
+2026-09-10T09:44:32.3821670Z   compression-level: 6
+2026-09-10T09:44:32.3821840Z   overwrite: false
+2026-09-10T09:44:32.3822010Z   include-hidden-files: false
+2026-09-10T09:44:32.3822220Z   archive: true
+2026-09-10T09:44:32.3822390Z env:
+2026-09-10T09:44:32.3822630Z   DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
+2026-09-10T09:44:32.3822950Z   PARTYDECK_RETAINED_CI_STAGE: test
+2026-09-10T09:44:32.3823550Z   PARTYDECK_GODOT_RETAINED_FRAMEWORK: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/framework-input/PartyDeckGodotBridge.framework
+2026-09-10T09:44:32.3824400Z   PARTYDECK_GODOT_RETAINED_FRAMEWORK_RECEIPT: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/evidence/authority-framework-result.json
+2026-09-10T09:44:32.3825240Z   PARTYDECK_GODOT_RETAINED_PCK: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-inputs/renderer/partydeck-last-light.pck
+2026-09-10T09:44:32.3825760Z ##[endgroup]
+2026-09-10T09:44:32.7539410Z With the provided path, there will be 12 files uploaded
+2026-09-10T09:44:32.7540200Z Artifact name is valid!
+2026-09-10T09:44:32.7541170Z Root directory input is valid!
+2026-09-10T09:44:32.9665710Z Uploading artifact: godot-ios-retained-host-test-attempt-1.zip
+2026-09-10T09:44:32.9695230Z Beginning upload of artifact content to blob storage
+2026-09-10T09:44:33.4321390Z Uploaded bytes 8388608
+2026-09-10T09:44:33.6372070Z Uploaded bytes 16777216
+2026-09-10T09:44:33.9001280Z Uploaded bytes 25165824
+2026-09-10T09:44:34.1319390Z Uploaded bytes 33554432
+2026-09-10T09:44:34.3784320Z Uploaded bytes 41943040
+2026-09-10T09:44:34.6765130Z Uploaded bytes 50331648
+2026-09-10T09:44:34.8348020Z Uploaded bytes 58720256
+2026-09-10T09:44:35.0187400Z Uploaded bytes 65288038
+2026-09-10T09:44:35.0310510Z Finished uploading artifact content to blob storage!
+2026-09-10T09:44:35.0355620Z SHA256 digest of uploaded artifact is 8771b959579f38348cc2e3e83b690224bf630622daf1a87448539ba8d3bc602a
+2026-09-10T09:44:35.0364360Z Finalizing artifact upload
+2026-09-10T09:44:35.2793300Z Artifact godot-ios-retained-host-test-attempt-1 successfully finalized. Artifact ID 10146038802
+2026-09-10T09:44:35.2794200Z Artifact godot-ios-retained-host-test-attempt-1 has been successfully uploaded! Final size is 65288038 bytes. Artifact ID is 10146038802
+2026-09-10T09:44:35.2798940Z Artifact download URL: https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34460468965/artifacts/10146038802
+2026-09-10T09:44:35.2866980Z ##[end-action id=__self.first;outcome=success;conclusion=success;duration_ms=2909]
+2026-09-10T09:44:35.2870660Z ##[start-action display=Wait before the single upload retry;id=__self.__run]
+2026-09-10T09:44:35.2882810Z ##[end-action id=__self.__run;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-09-10T09:44:35.2884550Z ##[start-action display=Retry artifact upload;id=__self.retry]
+2026-09-10T09:44:35.2888160Z ##[end-action id=__self.retry;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-09-10T09:44:35.2889820Z ##[start-action display=Require a successful upload attempt;id=__self.__run_2]
+2026-09-10T09:44:35.2906170Z ##[end-action id=__self.__run_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-09-10T09:44:35.3017180Z Post job cleanup.
+2026-09-10T09:44:35.3987680Z [command]/opt/homebrew/bin/git version
+2026-09-10T09:44:35.4247250Z git version 2.55.0
+2026-09-10T09:44:35.4268250Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/04cbacc9-932e-47c9-a4ef-8bc00927cc05/.gitconfig'
+2026-09-10T09:44:35.4276240Z Temporarily overriding HOME='/Users/runner/work/_temp/04cbacc9-932e-47c9-a4ef-8bc00927cc05' before making global git config changes
+2026-09-10T09:44:35.4277090Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-10T09:44:35.4279140Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/PartyDeck/PartyDeck
+2026-09-10T09:44:35.4394460Z Removing SSH command configuration
+2026-09-10T09:44:35.4399220Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-10T09:44:35.4461170Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-10T09:44:35.5368570Z Removing HTTP extra header
+2026-09-10T09:44:35.5401800Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-10T09:44:35.5468160Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-10T09:44:35.6565160Z Removing includeIf entries pointing to credentials config files
+2026-09-10T09:44:35.6573950Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-10T09:44:35.6583410Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-10T09:44:35.7430630Z Cleaning up orphan processes

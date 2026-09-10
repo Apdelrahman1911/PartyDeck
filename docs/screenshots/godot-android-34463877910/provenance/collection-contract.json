@@ -1,0 +1,50 @@
+{
+  "created_utc": "2026-09-10T10:07:26.675756+00:00",
+  "repository": "Apdelrahman1911/PartyDeck",
+  "run_id": 34463877910,
+  "head_sha": "bbfde024d95f5e4d62a26b57495a6a90447d6033",
+  "expected_candidate_pck_sha256": "a47392b4ca50e0433e1f42043b9473b08e9641d24117e251a4ab88e11027e3db",
+  "storage": "/root/projects/PartyDeck/artifacts/evidence-storage/34463877910",
+  "tmp_alias": "/tmp/partydeck-engine-ci/34463877910",
+  "collector_helpers": [
+    {
+      "source": "/tmp/partydeck-engine-ci/monitor-godot-comparison-independent.py",
+      "retained_copy": "/root/projects/PartyDeck/artifacts/evidence-storage/34463877910/audit-scripts/monitor-godot-comparison-independent.py",
+      "sha256": "9a1939b1cecf30148cbe18f38f66208ad9635a7094b6f6358555b149ab14d71b"
+    },
+    {
+      "source": "/tmp/partydeck-engine-ci/fetch-godot-comparison-source.py",
+      "retained_copy": "/root/projects/PartyDeck/artifacts/evidence-storage/34463877910/audit-scripts/fetch-godot-comparison-source.py",
+      "sha256": "feb8447e16ce1b26296d3a98971ce51ae8ba52ecdd56975c94ce16e6d558dcc0"
+    },
+    {
+      "source": "/tmp/partydeck-engine-ci/summarize-godot-producer.py",
+      "retained_copy": "/root/projects/PartyDeck/artifacts/evidence-storage/34463877910/audit-scripts/summarize-godot-producer.py",
+      "sha256": "e727567b2f31aef5548c1f42d40dd35b391ea48cccf2f3bad81b41f505c1d8ed"
+    }
+  ],
+  "scope": "Read-only remote monitoring and retained-source/artifact/log analysis; no builds, workflow dispatches, shared-source changes, or Git.",
+  "required_native_cases": [
+    {
+      "presentation": "2d",
+      "font_scale": "1.0"
+    },
+    {
+      "presentation": "2d",
+      "font_scale": "2.0"
+    },
+    {
+      "presentation": "3d",
+      "font_scale": "1.0"
+    },
+    {
+      "presentation": "3d",
+      "font_scale": "2.0"
+    }
+  ],
+  "required_close_bounds_ms": {
+    "close_fallback": 250,
+    "native_destroy": 1500
+  },
+  "acceptance": "Classify actual native results independently of producer success; preserve first failures and originals for independent review."
+}

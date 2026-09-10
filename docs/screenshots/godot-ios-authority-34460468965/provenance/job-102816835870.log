@@ -1,0 +1,292 @@
+﻿2026-09-10T09:24:36.3989165Z Current runner version: '2.337.0'
+2026-09-10T09:24:36.4018449Z ##[group]Runner Image Provisioner
+2026-09-10T09:24:36.4019488Z Hosted Compute Agent
+2026-09-10T09:24:36.4020204Z Version: 20260828.587
+2026-09-10T09:24:36.4021323Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-10T09:24:36.4022224Z Build Date: 2026-08-28T16:44:25Z
+2026-09-10T09:24:36.4023120Z Worker ID: {01265f1f-b5d1-4871-9561-6766244a5ee9}
+2026-09-10T09:24:36.4023970Z Azure Region: eastus
+2026-09-10T09:24:36.4024650Z ##[endgroup]
+2026-09-10T09:24:36.4026956Z ##[group]Operating System
+2026-09-10T09:24:36.4027690Z Ubuntu
+2026-09-10T09:24:36.4028422Z 24.04.4
+2026-09-10T09:24:36.4029027Z LTS
+2026-09-10T09:24:36.4029688Z ##[endgroup]
+2026-09-10T09:24:36.4031077Z ##[group]Runner Image
+2026-09-10T09:24:36.4031849Z Image: ubuntu-24.04
+2026-09-10T09:24:36.4032519Z Version: 20260831.293.1
+2026-09-10T09:24:36.4034058Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260831.293/images/ubuntu/Ubuntu2404-Readme.md
+2026-09-10T09:24:36.4036103Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260831.293
+2026-09-10T09:24:36.4037346Z ##[endgroup]
+2026-09-10T09:24:36.4038705Z ##[group]GITHUB_TOKEN Permissions
+2026-09-10T09:24:36.4041167Z Contents: read
+2026-09-10T09:24:36.4041966Z Metadata: read
+2026-09-10T09:24:36.4042643Z ##[endgroup]
+2026-09-10T09:24:36.4044975Z Secret source: Actions
+2026-09-10T09:24:36.4046230Z Cache mode: write
+2026-09-10T09:24:36.4047461Z Prepare workflow directory
+2026-09-10T09:24:36.4421960Z Prepare all required actions
+2026-09-10T09:24:36.4478222Z Getting action download info
+2026-09-10T09:24:36.6075132Z Download action repository 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-09-10T09:24:37.0956529Z Complete job name: Export both real presentations
+2026-09-10T09:24:37.1603203Z ##[group]Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+2026-09-10T09:24:37.1604110Z with:
+2026-09-10T09:24:37.1604541Z   persist-credentials: false
+2026-09-10T09:24:37.1605017Z   repository: Apdelrahman1911/PartyDeck
+2026-09-10T09:24:37.1608547Z   token: ***
+2026-09-10T09:24:37.1608930Z   ssh-strict: true
+2026-09-10T09:24:37.1609340Z   ssh-user: git
+2026-09-10T09:24:37.1609717Z   clean: true
+2026-09-10T09:24:37.1610112Z   sparse-checkout-cone-mode: true
+2026-09-10T09:24:37.1610789Z   fetch-depth: 1
+2026-09-10T09:24:37.1611168Z   fetch-tags: false
+2026-09-10T09:24:37.1611550Z   show-progress: true
+2026-09-10T09:24:37.1611946Z   lfs: false
+2026-09-10T09:24:37.1612322Z   submodules: false
+2026-09-10T09:24:37.1612728Z   set-safe-directory: true
+2026-09-10T09:24:37.1613166Z   allow-unsafe-pr-checkout: false
+2026-09-10T09:24:37.1613801Z ##[endgroup]
+2026-09-10T09:24:37.2439222Z Syncing repository: Apdelrahman1911/PartyDeck
+2026-09-10T09:24:37.2441990Z ##[group]Getting Git version info
+2026-09-10T09:24:37.2443013Z Working directory is '/home/runner/work/PartyDeck/PartyDeck'
+2026-09-10T09:24:37.2444560Z [command]/usr/bin/git version
+2026-09-10T09:24:37.2472054Z git version 2.55.0
+2026-09-10T09:24:37.2519869Z ##[endgroup]
+2026-09-10T09:24:37.2532249Z Temporarily overriding HOME='/home/runner/work/_temp/142dfd70-3d90-42dc-b645-4eb7b763e943' before making global git config changes
+2026-09-10T09:24:37.2534737Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-10T09:24:37.2543184Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/PartyDeck/PartyDeck
+2026-09-10T09:24:37.2593919Z Deleting the contents of '/home/runner/work/PartyDeck/PartyDeck'
+2026-09-10T09:24:37.2597899Z ##[group]Determining repository object format
+2026-09-10T09:24:37.2599426Z ##[endgroup]
+2026-09-10T09:24:37.2600540Z ##[group]Initializing the repository
+2026-09-10T09:24:37.2603674Z [command]/usr/bin/git init /home/runner/work/PartyDeck/PartyDeck
+2026-09-10T09:24:37.2671924Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-09-10T09:24:37.2672913Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-09-10T09:24:37.2674171Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-09-10T09:24:37.2674802Z hint: call:
+2026-09-10T09:24:37.2675161Z hint:
+2026-09-10T09:24:37.2675645Z hint: 	git config --global init.defaultBranch <name>
+2026-09-10T09:24:37.2676196Z hint:
+2026-09-10T09:24:37.2676700Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-09-10T09:24:37.2677493Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-09-10T09:24:37.2678125Z hint:
+2026-09-10T09:24:37.2678493Z hint: 	git branch -m <name>
+2026-09-10T09:24:37.2678914Z hint:
+2026-09-10T09:24:37.2679453Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-09-10T09:24:37.2685214Z Initialized empty Git repository in /home/runner/work/PartyDeck/PartyDeck/.git/
+2026-09-10T09:24:37.2694311Z [command]/usr/bin/git remote add origin https://github.com/Apdelrahman1911/PartyDeck
+2026-09-10T09:24:37.2737589Z ##[endgroup]
+2026-09-10T09:24:37.2738652Z ##[group]Disabling automatic garbage collection
+2026-09-10T09:24:37.2740081Z [command]/usr/bin/git config --local gc.auto 0
+2026-09-10T09:24:37.2767841Z ##[endgroup]
+2026-09-10T09:24:37.2768874Z ##[group]Setting up auth
+2026-09-10T09:24:37.2769648Z Removing SSH command configuration
+2026-09-10T09:24:37.2773374Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-10T09:24:37.2805420Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-10T09:24:37.3088251Z Removing HTTP extra header
+2026-09-10T09:24:37.3094531Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-10T09:24:37.3130660Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-10T09:24:37.3327214Z Removing includeIf entries pointing to credentials config files
+2026-09-10T09:24:37.3331111Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-10T09:24:37.3368953Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-10T09:24:37.3563210Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-0c9745c1-6f45-43cd-9999-53ce035a582b.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-09-10T09:24:37.3597614Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/PartyDeck/PartyDeck/.git.path /home/runner/work/_temp/git-credentials-0c9745c1-6f45-43cd-9999-53ce035a582b.config
+2026-09-10T09:24:37.3628444Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/PartyDeck/PartyDeck/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-0c9745c1-6f45-43cd-9999-53ce035a582b.config
+2026-09-10T09:24:37.3664659Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-0c9745c1-6f45-43cd-9999-53ce035a582b.config
+2026-09-10T09:24:37.3694764Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-0c9745c1-6f45-43cd-9999-53ce035a582b.config
+2026-09-10T09:24:37.3721953Z ##[endgroup]
+2026-09-10T09:24:37.3722608Z ##[group]Fetching the repository
+2026-09-10T09:24:37.3727596Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +31d148f9b6bbfa15d1746e1029858b86714362a3:refs/remotes/origin/main
+2026-09-10T09:24:43.6029943Z From https://github.com/Apdelrahman1911/PartyDeck
+2026-09-10T09:24:43.6031849Z  * [new ref]         31d148f9b6bbfa15d1746e1029858b86714362a3 -> origin/main
+2026-09-10T09:24:43.6037482Z [command]/usr/bin/git branch --list --remote origin/main
+2026-09-10T09:24:43.6063881Z   origin/main
+2026-09-10T09:24:43.6070898Z [command]/usr/bin/git rev-parse refs/remotes/origin/main
+2026-09-10T09:24:43.6093623Z 31d148f9b6bbfa15d1746e1029858b86714362a3
+2026-09-10T09:24:43.6097268Z ##[endgroup]
+2026-09-10T09:24:43.6098576Z ##[group]Determining the checkout info
+2026-09-10T09:24:43.6100012Z ##[endgroup]
+2026-09-10T09:24:43.6101806Z [command]/usr/bin/git sparse-checkout disable
+2026-09-10T09:24:43.6201276Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-09-10T09:24:43.6240101Z ##[group]Checking out the ref
+2026-09-10T09:24:43.6242916Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-09-10T09:24:44.6320563Z Updating files:  82% (4281/5159)
+2026-09-10T09:24:44.6382573Z Updating files:  83% (4282/5159)
+2026-09-10T09:24:44.6437290Z Updating files:  84% (4334/5159)
+2026-09-10T09:24:44.6484145Z Updating files:  85% (4386/5159)
+2026-09-10T09:24:44.6538119Z Updating files:  86% (4437/5159)
+2026-09-10T09:24:44.6573000Z Updating files:  87% (4489/5159)
+2026-09-10T09:24:44.6625947Z Updating files:  88% (4540/5159)
+2026-09-10T09:24:44.6669479Z Updating files:  89% (4592/5159)
+2026-09-10T09:24:44.6711081Z Updating files:  90% (4644/5159)
+2026-09-10T09:24:44.6878149Z Updating files:  91% (4695/5159)
+2026-09-10T09:24:44.6935061Z Updating files:  92% (4747/5159)
+2026-09-10T09:24:44.6970554Z Updating files:  93% (4798/5159)
+2026-09-10T09:24:44.7004428Z Updating files:  94% (4850/5159)
+2026-09-10T09:24:44.7085779Z Updating files:  95% (4902/5159)
+2026-09-10T09:24:44.7109404Z Updating files:  96% (4953/5159)
+2026-09-10T09:24:44.7145230Z Updating files:  97% (5005/5159)
+2026-09-10T09:24:44.7192791Z Updating files:  98% (5056/5159)
+2026-09-10T09:24:44.7233742Z Updating files:  99% (5108/5159)
+2026-09-10T09:24:44.7234586Z Updating files: 100% (5159/5159)
+2026-09-10T09:24:44.7235005Z Updating files: 100% (5159/5159), done.
+2026-09-10T09:24:44.7572246Z Switched to a new branch 'main'
+2026-09-10T09:24:44.7591405Z branch 'main' set up to track 'origin/main'.
+2026-09-10T09:24:44.7624692Z ##[endgroup]
+2026-09-10T09:24:44.7798810Z [command]/usr/bin/git log -1 --format=%H
+2026-09-10T09:24:44.7830298Z 31d148f9b6bbfa15d1746e1029858b86714362a3
+2026-09-10T09:24:44.7842792Z ##[group]Removing auth
+2026-09-10T09:24:44.7843060Z Removing SSH command configuration
+2026-09-10T09:24:44.7844692Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-10T09:24:44.7877034Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-10T09:24:44.8081972Z Removing HTTP extra header
+2026-09-10T09:24:44.8085022Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-10T09:24:44.8117081Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-10T09:24:44.8312836Z Removing includeIf entries pointing to credentials config files
+2026-09-10T09:24:44.8315093Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-10T09:24:44.8368660Z includeif.gitdir:/home/runner/work/PartyDeck/PartyDeck/.git.path
+2026-09-10T09:24:44.8369283Z includeif.gitdir:/home/runner/work/PartyDeck/PartyDeck/.git/worktrees/*.path
+2026-09-10T09:24:44.8369680Z includeif.gitdir:/github/workspace/.git.path
+2026-09-10T09:24:44.8370066Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-09-10T09:24:44.8375965Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/PartyDeck/PartyDeck/.git.path
+2026-09-10T09:24:44.8399224Z /home/runner/work/_temp/git-credentials-0c9745c1-6f45-43cd-9999-53ce035a582b.config
+2026-09-10T09:24:44.8407255Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/PartyDeck/PartyDeck/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-0c9745c1\-6f45\-43cd\-9999\-53ce035a582b\.config
+2026-09-10T09:24:44.8449859Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/PartyDeck/PartyDeck/.git/worktrees/*.path
+2026-09-10T09:24:44.8471659Z /home/runner/work/_temp/git-credentials-0c9745c1-6f45-43cd-9999-53ce035a582b.config
+2026-09-10T09:24:44.8480253Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/PartyDeck/PartyDeck/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-0c9745c1\-6f45\-43cd\-9999\-53ce035a582b\.config
+2026-09-10T09:24:44.9075283Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-09-10T09:24:44.9106345Z /github/runner_temp/git-credentials-0c9745c1-6f45-43cd-9999-53ce035a582b.config
+2026-09-10T09:24:44.9113382Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-0c9745c1\-6f45\-43cd\-9999\-53ce035a582b\.config
+2026-09-10T09:24:44.9167716Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-09-10T09:24:44.9190660Z /github/runner_temp/git-credentials-0c9745c1-6f45-43cd-9999-53ce035a582b.config
+2026-09-10T09:24:44.9196551Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-0c9745c1\-6f45\-43cd\-9999\-53ce035a582b\.config
+2026-09-10T09:24:44.9249795Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-10T09:24:44.9449819Z Removing credentials config '/home/runner/work/_temp/git-credentials-0c9745c1-6f45-43cd-9999-53ce035a582b.config'
+2026-09-10T09:24:44.9457873Z ##[endgroup]
+2026-09-10T09:24:44.9704406Z ##[group]Run python3 godot/tools/renderer.py install --destination godot/qualification/build/toolchain
+2026-09-10T09:24:44.9705069Z [36;1mpython3 godot/tools/renderer.py install --destination godot/qualification/build/toolchain[0m
+2026-09-10T09:24:44.9740298Z shell: /usr/bin/bash -e {0}
+2026-09-10T09:24:44.9740539Z ##[endgroup]
+2026-09-10T09:24:46.1976826Z /home/runner/work/PartyDeck/PartyDeck/godot/qualification/build/toolchain/godot
+2026-09-10T09:24:46.2106033Z ##[group]Run python3 godot/tools/renderer.py pack --godot godot/qualification/build/toolchain/godot
+2026-09-10T09:24:46.2106606Z [36;1mpython3 godot/tools/renderer.py pack --godot godot/qualification/build/toolchain/godot[0m
+2026-09-10T09:24:46.2138288Z shell: /usr/bin/bash -e {0}
+2026-09-10T09:24:46.2138514Z ##[endgroup]
+2026-09-10T09:24:54.0767059Z import: passed; log: /home/runner/work/PartyDeck/PartyDeck/godot/qualification/build/renderer/pack-logs/import.log
+2026-09-10T09:24:54.0768164Z source-scene-check: passed; log: /home/runner/work/PartyDeck/PartyDeck/godot/qualification/build/renderer/pack-logs/source-scene-check.log
+2026-09-10T09:24:54.0769430Z export-pack: passed; log: /home/runner/work/PartyDeck/PartyDeck/godot/qualification/build/renderer/pack-logs/export-pack.log
+2026-09-10T09:24:54.0770607Z packed-scene-check: passed; log: /home/runner/work/PartyDeck/PartyDeck/godot/qualification/build/renderer/pack-logs/packed-scene-check.log
+2026-09-10T09:24:54.0771914Z PCK: /home/runner/work/PartyDeck/PartyDeck/godot/qualification/build/renderer/partydeck-last-light.pck
+2026-09-10T09:24:54.0772679Z SHA-256: 8f24944d61b0430cfec4a32bb1d03d2c7da9f55918264e9cfcded1c675d21539
+2026-09-10T09:24:54.0773197Z Entries: 136; bytes: 1546376
+2026-09-10T09:24:54.1108768Z Prepare all required actions
+2026-09-10T09:24:54.1109214Z Getting action download info
+2026-09-10T09:24:54.1974197Z Download action repository 'actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a' (SHA:043fb46d1a93c77aae656e7c1c64a875d1fc6a0a)
+2026-09-10T09:24:54.3488930Z ##[group]Run ./.github/actions/upload-artifact
+2026-09-10T09:24:54.3489179Z with:
+2026-09-10T09:24:54.3489363Z   name: godot-ios-host-renderer
+2026-09-10T09:24:54.3490033Z   path: godot/qualification/build/renderer/partydeck-last-light.pck
+godot/qualification/build/renderer/partydeck-last-light.receipt.json
+
+2026-09-10T09:24:54.3490542Z   if-no-files-found: error
+2026-09-10T09:24:54.3490958Z   retention-days: 14
+2026-09-10T09:24:54.3491147Z ##[endgroup]
+2026-09-10T09:24:54.3537799Z ##[start-action display=Upload artifact;id=__self.first]
+2026-09-10T09:24:54.3585422Z ##[group]Run actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+2026-09-10T09:24:54.3585739Z with:
+2026-09-10T09:24:54.3585974Z   name: godot-ios-host-renderer
+2026-09-10T09:24:54.3586471Z   path: godot/qualification/build/renderer/partydeck-last-light.pck
+godot/qualification/build/renderer/partydeck-last-light.receipt.json
+
+2026-09-10T09:24:54.3586976Z   retention-days: 14
+2026-09-10T09:24:54.3587174Z   if-no-files-found: error
+2026-09-10T09:24:54.3587379Z   compression-level: 6
+2026-09-10T09:24:54.3587567Z   overwrite: false
+2026-09-10T09:24:54.3587757Z   include-hidden-files: false
+2026-09-10T09:24:54.3587972Z   archive: true
+2026-09-10T09:24:54.3588150Z ##[endgroup]
+2026-09-10T09:24:54.4734441Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-09-10T09:24:54.4736429Z The least common ancestor is /home/runner/work/PartyDeck/PartyDeck/godot/qualification/build/renderer. This will be the root directory of the artifact
+2026-09-10T09:24:54.4737565Z With the provided path, there will be 2 files uploaded
+2026-09-10T09:24:54.4739324Z Artifact name is valid!
+2026-09-10T09:24:54.4740807Z Root directory input is valid!
+2026-09-10T09:24:54.6813253Z Uploading artifact: godot-ios-host-renderer.zip
+2026-09-10T09:24:54.6868676Z Beginning upload of artifact content to blob storage
+2026-09-10T09:24:54.8644051Z Uploaded bytes 1106035
+2026-09-10T09:24:54.8767349Z Finished uploading artifact content to blob storage!
+2026-09-10T09:24:54.8768086Z SHA256 digest of uploaded artifact is def72ad053470ff158157d549a57e48512ad7a16d4f1c932c90297abb8136273
+2026-09-10T09:24:54.8768758Z Finalizing artifact upload
+2026-09-10T09:24:55.0735721Z Artifact godot-ios-host-renderer successfully finalized. Artifact ID 10145305486
+2026-09-10T09:24:55.0736746Z Artifact godot-ios-host-renderer has been successfully uploaded! Final size is 1106035 bytes. Artifact ID is 10145305486
+2026-09-10T09:24:55.0761532Z Artifact download URL: https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34460468965/artifacts/10145305486
+2026-09-10T09:24:55.0865129Z ##[end-action id=__self.first;outcome=success;conclusion=success;duration_ms=732]
+2026-09-10T09:24:55.0869027Z ##[start-action display=Wait before the single upload retry;id=__self.__run]
+2026-09-10T09:24:55.0884740Z ##[end-action id=__self.__run;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-09-10T09:24:55.0886418Z ##[start-action display=Retry artifact upload;id=__self.retry]
+2026-09-10T09:24:55.0890359Z ##[end-action id=__self.retry;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-09-10T09:24:55.0892211Z ##[start-action display=Require a successful upload attempt;id=__self.__run_2]
+2026-09-10T09:24:55.0898160Z ##[end-action id=__self.__run_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-09-10T09:24:55.0976778Z Prepare all required actions
+2026-09-10T09:24:55.0977326Z Getting action download info
+2026-09-10T09:24:55.2452771Z ##[group]Run ./.github/actions/upload-artifact
+2026-09-10T09:24:55.2453150Z with:
+2026-09-10T09:24:55.2453452Z   name: godot-ios-host-renderer-evidence
+2026-09-10T09:24:55.2454269Z   path: godot/qualification/build/renderer/pack-logs/**
+godot/qualification/build/renderer/*.json
+godot/qualification/build/toolchain/install.receipt.json
+
+2026-09-10T09:24:55.2455097Z   if-no-files-found: warn
+2026-09-10T09:24:55.2455398Z   retention-days: 14
+2026-09-10T09:24:55.2455678Z ##[endgroup]
+2026-09-10T09:24:55.2461123Z ##[start-action display=Upload artifact;id=__self_2.first]
+2026-09-10T09:24:55.3353459Z ##[group]Run actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+2026-09-10T09:24:55.3353921Z with:
+2026-09-10T09:24:55.3354120Z   name: godot-ios-host-renderer-evidence
+2026-09-10T09:24:55.3354723Z   path: godot/qualification/build/renderer/pack-logs/**
+godot/qualification/build/renderer/*.json
+godot/qualification/build/toolchain/install.receipt.json
+
+2026-09-10T09:24:55.3355251Z   retention-days: 14
+2026-09-10T09:24:55.3355445Z   if-no-files-found: warn
+2026-09-10T09:24:55.3355649Z   compression-level: 6
+2026-09-10T09:24:55.3355845Z   overwrite: false
+2026-09-10T09:24:55.3356043Z   include-hidden-files: false
+2026-09-10T09:24:55.3356256Z   archive: true
+2026-09-10T09:24:55.3356440Z ##[endgroup]
+2026-09-10T09:24:55.4761257Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-09-10T09:24:55.4841750Z The least common ancestor is /home/runner/work/PartyDeck/PartyDeck/godot/qualification/build. This will be the root directory of the artifact
+2026-09-10T09:24:55.4851491Z With the provided path, there will be 8 files uploaded
+2026-09-10T09:24:55.4852536Z Artifact name is valid!
+2026-09-10T09:24:55.4853312Z Root directory input is valid!
+2026-09-10T09:24:55.6808979Z Uploading artifact: godot-ios-host-renderer-evidence.zip
+2026-09-10T09:24:55.6842338Z Beginning upload of artifact content to blob storage
+2026-09-10T09:24:55.7489405Z Uploaded bytes 24096
+2026-09-10T09:24:55.7604022Z Finished uploading artifact content to blob storage!
+2026-09-10T09:24:55.7605034Z SHA256 digest of uploaded artifact is 7ae2c25e8446361113fdebd355bd6378f161b0c0099344511a29df421fe2f5a6
+2026-09-10T09:24:55.7605709Z Finalizing artifact upload
+2026-09-10T09:24:55.9487994Z Artifact godot-ios-host-renderer-evidence successfully finalized. Artifact ID 10145306031
+2026-09-10T09:24:55.9489100Z Artifact godot-ios-host-renderer-evidence has been successfully uploaded! Final size is 24096 bytes. Artifact ID is 10145306031
+2026-09-10T09:24:55.9491740Z Artifact download URL: https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34460468965/artifacts/10145306031
+2026-09-10T09:24:55.9586364Z ##[end-action id=__self_2.first;outcome=success;conclusion=success;duration_ms=712]
+2026-09-10T09:24:55.9588691Z ##[start-action display=Wait before the single upload retry;id=__self_2.__run]
+2026-09-10T09:24:55.9593934Z ##[end-action id=__self_2.__run;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-09-10T09:24:55.9595425Z ##[start-action display=Retry artifact upload;id=__self_2.retry]
+2026-09-10T09:24:55.9598738Z ##[end-action id=__self_2.retry;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-09-10T09:24:55.9600163Z ##[start-action display=Require a successful upload attempt;id=__self_2.__run_2]
+2026-09-10T09:24:55.9604277Z ##[end-action id=__self_2.__run_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-09-10T09:24:56.0557518Z Post job cleanup.
+2026-09-10T09:24:56.3643307Z [command]/usr/bin/git version
+2026-09-10T09:24:56.3663332Z git version 2.55.0
+2026-09-10T09:24:56.3713352Z Temporarily overriding HOME='/home/runner/work/_temp/b94f9e8a-ff6e-4b45-9efb-cc99d88de795' before making global git config changes
+2026-09-10T09:24:56.3714600Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-10T09:24:56.3718181Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/PartyDeck/PartyDeck
+2026-09-10T09:24:56.4251308Z Removing SSH command configuration
+2026-09-10T09:24:56.4252239Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-10T09:24:56.4270398Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-10T09:24:56.4532065Z Removing HTTP extra header
+2026-09-10T09:24:56.4545308Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-10T09:24:56.4579002Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-10T09:24:56.4784040Z Removing includeIf entries pointing to credentials config files
+2026-09-10T09:24:56.4788968Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-10T09:24:56.4828175Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-10T09:24:56.5163099Z Cleaning up orphan processes

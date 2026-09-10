@@ -1,0 +1,200 @@
+{
+  "result": "DIAGNOSED; ORIGINAL TWO TEST FAILURES RETAINED; PROPOSAL NOT EXECUTED",
+  "run_id": 34460468965,
+  "job_id": 102822443867,
+  "run_attempt": 1,
+  "commit": "31d148f9b6bbfa15d1746e1029858b86714362a3",
+  "scope": "AuthorityHost normal-text 2D and 3D cases only",
+  "cases": [
+    {
+      "identifier": "AuthorityHostUITests/testReferenceMatchIn2D()",
+      "result": "Failure",
+      "duration": 112.89630794525146,
+      "issues": [
+        {
+          "testCaseRun_fk": 2,
+          "compactDescription": "XCTAssertEqual failed: (\"Optional(\"42\")\") is not equal to (\"Optional(\"41\")\")",
+          "detailedDescription": null,
+          "issueType": "Assertion Failure"
+        }
+      ],
+      "attachmentCount": 139,
+      "measurementCount": 8,
+      "geometryCount": 27,
+      "observedControlCount": 29
+    },
+    {
+      "identifier": "AuthorityHostUITests/testReferenceMatchIn3D()",
+      "result": "Failure",
+      "duration": 285.2032939195633,
+      "issues": [
+        {
+          "testCaseRun_fk": 4,
+          "compactDescription": "failed - The actual Godot control must be enabled.",
+          "detailedDescription": null,
+          "issueType": "Assertion Failure"
+        }
+      ],
+      "attachmentCount": 67,
+      "measurementCount": 7,
+      "geometryCount": 11,
+      "observedControlCount": 11
+    }
+  ],
+  "normal_2d": {
+    "failure": "AuthorityHostUITests.swift:78 expected revision 41, observed 42.",
+    "decisive_source_lines": [
+      213334,
+      213689,
+      214044,
+      214399,
+      215819,
+      302139
+    ],
+    "divergence": "At revision 10 / round 4 / PLAYING, diagnostic 81 still lists the prior outcome controls with Challenge disabled. Diagnostic 82 at the same revision lists Challenge enabled. The checker chooses reveal/play from the earlier snapshot before tapControl waits for the chosen target to settle.",
+    "final_observed": {
+      "phase": "FINISHED",
+      "revision": "42",
+      "round": 14,
+      "plays": 2,
+      "challenges": 0,
+      "rounds_advanced": 13,
+      "opponent_actions": 27,
+      "accepted_renderer_events": 16
+    },
+    "required_reference_assertions_preserved": {
+      "revision": "41",
+      "round": 14,
+      "plays": 2,
+      "challenges": 2,
+      "rounds_advanced": 13
+    },
+    "revision_accounting": "Every recorded normal-text revision equals plays + challenges + roundsAdvanced + acceptedOpponentActions. There is no unexplained extra revision in the recorded trace.",
+    "lifecycle_evidence": "Initial, pause and Home/resume observations all remain revision 0 with domain counters unchanged before the first play.",
+    "qualification": "No reference-match pass or completed return-to-lobby qualification; the original test failed."
+  },
+  "normal_3d": {
+    "failure": "AuthorityHostUITests.swift:519, called by tapControl enabled guard at line 319.",
+    "decisive_source_lines": [
+      470215,
+      472154,
+      472509,
+      472864
+    ],
+    "last_successful_input": "Actual next_round touch at revision 2; the authority then records revision 5, round 2, roundsAdvanced 1 and acceptedOpponentActions 3.",
+    "failing_target": "next_round",
+    "diagnostic_sequences": [
+      "159",
+      "160"
+    ],
+    "native_iterations": [
+      387,
+      388
+    ],
+    "observed_control": "Next Round remains visible but disabled while current authority and diagnostic revision both equal 5. No second Next Round touch is sent.",
+    "cause": "The checker accepts a diagnostic revision without proof that scene bindings have applied that state; the captured disabled control matches the pending prior outcome node. A later native iteration by itself is not a sufficient currentness predicate.",
+    "limit": "The failing enabled guard precedes the original explicit target attachment. Raw AX values supply the state; this normal-text trace ends before a later enabled sample, so recovery is not qualified."
+  },
+  "common_source_cause": [
+    "AuthorityModel.receive delivers current authority commands and opponent advancement without changing domain state for local reveal/hide/lifecycle operations.",
+    "PDGodotRuntime.mm:1602-1607 sends view commands in drain; lines1650-1655 may immediately request diagnostics without an intervening scene reconciliation.",
+    "main.gd:99-127 stores controller state and schedules _process; scene apply_state occurs at line168.",
+    "main.gd:260-304 combines controller revision/foreground/hand flags with currently attached button nodes. It reports no pending/applied marker.",
+    "AuthorityHost currentDiagnostics:407-417 checks revision equality and sequence but cannot distinguish those mixed snapshots; referenceMatch:98 branches before tapControl does its layout checks."
+  ],
+  "proposal": {
+    "patch": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/ios-normal-text-diagnosis-34460468965-v1/scene-state-currentness.patch",
+      "bytes": 7875,
+      "sha256": "5a58d3f9171c99d6ddfba4c0015d249f5a27078978cd1617783ed2af70f992ae"
+    },
+    "provenance": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/ios-normal-text-diagnosis-34460468965-v1/proposal-provenance.json",
+      "bytes": 1657,
+      "sha256": "3004d18f5d7d3f38fca45e52e9a54852b7e6cc7422e3bcd0cf675441782c2441"
+    },
+    "semantics": "Add a strictly validated sceneStateApplied Boolean; require it for current scene assertions while retaining immediate pending/background diagnostics and all exact match assertions. Keep geometry settling as a separate requirement.",
+    "integration": "The shared diagnostic producer and both exact-key native decoders must update together. Rebuild the PCK/native inputs and rerun meaningful qualification before any success claim.",
+    "retained_host_scope": "RetainedHost checker changes are outside this proposal and require its separate exact-run diagnosis.",
+    "status": "Only a /tmp proposal plus static patch applicability; no correction applied to shared source and no native/build/test execution."
+  },
+  "evidence": [
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34460468965/godot-ios-authority-gameplay/evidence/authority-source-commit.txt",
+      "bytes": 41,
+      "sha256": "9a824db8396eba128d0895cce5c19bc004ce0d2e3d2c158e1d6c59e61c467d7b"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34460468965/godot-ios-authority-gameplay/evidence/authority-host-test.log",
+      "bytes": 212354,
+      "sha256": "23b941ddee0cb843ab76842c8ed30e54c4ff80a2865284005027da969ad49926"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34460468965/godot-ios-authority-gameplay/evidence/authority-host-inputs.json",
+      "bytes": 8608,
+      "sha256": "cca1864a0bd2d958f644afc20f61d49bced234867d72cdac53ae96492d1e6864"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34460468965/job-102822443867.log",
+      "bytes": 507817,
+      "sha256": "4520a9e008d5ba8fdadf9c48cb9004643d98a968e1b5050378f67e2f1b1f257d"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34460468965/authority-attachment-evidence-summary.json",
+      "bytes": 1329262,
+      "sha256": "f320420a83a84243a3125090769d6661bee8c09fbd6fe968f5ce39f97cd84cc8"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34460468965/authority-package-evidence-summary.json",
+      "bytes": 6891,
+      "sha256": "da0dfce3b66e638e2887d9ef4bd8a55b934b6ead19ea306735358348fdc30fa9"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34460468965-xcresult-decoded/decoded-object-index.json",
+      "bytes": 726580,
+      "sha256": "270aaeee6171146b8e5ae126b8b2802678c84cdfdee9bfae07f1a2913ba44cf2"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34460468965-xcresult-decoded/app-stdout-stderr.log",
+      "bytes": 62617517,
+      "sha256": "fc3456d75d3366a24c2a09f438d04e5f37905d8937364d8a45f32d9b8b795a82"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/ios-normal-text-diagnosis-34460468965-v1/normal-text-ax-metrics.json",
+      "bytes": 2208140,
+      "sha256": "422e2e470c76b3fffdcc04b1983ce640564b6a5ec4764c151e513e3226cac023"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/ios-normal-text-diagnosis-34460468965-v1/source-and-proposal-validation.json",
+      "bytes": 3676,
+      "sha256": "84afe17e50972941d0de0534c9baa66dbdc0af9a9c255934c5dee15131b51774"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/ios-normal-text-diagnosis-34460468965-v1/decisive-original-ax-lines.log",
+      "bytes": 43923,
+      "sha256": "5c53c3cb994856d4a10333f93f30fb8459438d9173f44196b8e919da646bdcf8"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34460468965/godot-ios-authority-gameplay/artifacts/authority-attachments/BC7CD14E-0600-4584-8A9D-BD565E769E46.json",
+      "bytes": 5298,
+      "sha256": "934dd134e195d38f788d14240439df859ba2303e3859ee19ae19b4e295f52377"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34460468965/godot-ios-authority-gameplay/artifacts/authority-attachments/10C14244-9B9E-4F1F-82F3-A400B35B5094.json",
+      "bytes": 6010,
+      "sha256": "c05145d55e80af6a282f9634893183c84495c6dd5a124f12e59d49a790a51818"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34460468965/godot-ios-authority-gameplay/artifacts/authority-attachments/38B770BB-325C-4F49-B609-BC108E358BB8.json",
+      "bytes": 3977,
+      "sha256": "5fff7e4f5569c3926339ba44390b67ec2dd19d3c63252a707a17d0ed2a6de98a"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34460468965/godot-ios-authority-gameplay/artifacts/authority-attachments/CA941E0C-FF1A-4037-90F1-5895B3288460.json",
+      "bytes": 489,
+      "sha256": "eebfa6505600722ebad49476b09bf2f05f176e386385e9ac827a634b89383cfb"
+    }
+  ],
+  "artifact_identity_limit": "Packed scripts are transformed .gdc entries. Source provenance uses the exact archived source/export fingerprint and actual bundled PCK hash, not reverse compilation.",
+  "preservation": "Original CI ZIP, app archive, XCResult, failures, screenshots, exported input/measurement attachments and logs are unchanged. No duplicate download."
+}

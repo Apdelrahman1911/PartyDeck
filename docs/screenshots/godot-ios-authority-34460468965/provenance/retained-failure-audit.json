@@ -1,0 +1,116 @@
+{
+  "runId": 34460468965,
+  "headSha": "31d148f9b6bbfa15d1746e1029858b86714362a3",
+  "attempt": 1,
+  "jobId": 102822443978,
+  "classification": "Swift compile failure before XCTest or native runtime execution",
+  "failedWorkflowStep": "Compile and execute the requested retained-host stage",
+  "firstActionableErrors": [
+    {
+      "file": "/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift",
+      "line": 332,
+      "column": 77,
+      "message": "sending value of non-Sendable type '[String : Any]' risks causing data races"
+    },
+    {
+      "file": "/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift",
+      "line": 334,
+      "column": 33,
+      "message": "sending 'entry' risks causing data races"
+    },
+    {
+      "file": "/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/RetainedModel.swift",
+      "line": 402,
+      "column": 37,
+      "message": "non-Sendable '[String : Any]'-typed result can not be returned from main actor-isolated instance method 'closureObservation' to nonisolated context"
+    }
+  ],
+  "originalJobLog": {
+    "path": "/tmp/partydeck-engine-ci/34460468965/job-102822443978.log",
+    "sha256": "899415ef8859cc8fb3da22559e8426d2cc817ca7ced8efa6d2d3f0451197450b",
+    "bytes": 141158
+  },
+  "originalBuildLog": {
+    "path": "/tmp/partydeck-engine-ci/34460468965/godot-ios-retained-host-test-attempt-1/retained-host-test/evidence/build.log",
+    "sha256": "d974d3be084f5ba072c8e7e688105882c484a96116758998852a4e5d337e535d",
+    "bytes": 73564
+  },
+  "originalResult": {
+    "path": "/tmp/partydeck-engine-ci/34460468965/godot-ios-retained-host-test-attempt-1/retained-host-test/evidence/result.json",
+    "sha256": "790e52b3329b10f6b484066fda99c20c9c33113cbfc3469ef73b944cfaaf9fa3",
+    "bytes": 13968
+  },
+  "result": {
+    "command_exit_code": 1,
+    "problems": [
+      "The linked Swift harness and actual native/Kotlin owners were not all verified.",
+      "The three actual retained-engine XCTest cases did not each finish with a pass.",
+      "XCResult test summary could not be read as JSON: [Errno 2] No such file or directory: '/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/evidence/test-summary.json'",
+      "The native test XCResult bundle was not retained.",
+      "The native test attachment export was not retained.",
+      "Native test evidence export did not succeed: attachments_export_exit_code.",
+      "Native test evidence export did not succeed: summary_export_exit_code.",
+      "The native runner or evidence export returned exit code 1."
+    ],
+    "swift_harness_compiled": false,
+    "native_and_kotlin_owners_linked": false,
+    "native_tests_started": [],
+    "native_tests": [],
+    "retained_engine_lifecycle_qualified": false,
+    "same_process_reentry_qualified": false,
+    "application_observation_files": []
+  },
+  "nativeTestsStarted": 0,
+  "xcresultPresent": false,
+  "runtimeAttachmentsPresent": false,
+  "partialAppArchive": {
+    "path": "/tmp/partydeck-engine-ci/34460468965/godot-ios-retained-host-test-attempt-1/retained-host-test/artifacts/RetainedHost-simulator.app.tar.gz",
+    "sha256": "4f7b375538165ac4646f078e2caaaeaf4804560079528ba4bed3a44c3f630163",
+    "bytes": 1278016,
+    "fileMembers": [
+      "RetainedHost.app/Info.plist",
+      "RetainedHost.app/PkgInfo",
+      "RetainedHost.app/ProbeResources/partydeck-last-light.pck",
+      "RetainedHost.app/ProbeResources/Launch.json",
+      "RetainedHost.app/ProbeResources/fixture-manifest.json",
+      "RetainedHost.app/ProbeResources/partydeck-last-light.receipt.json",
+      "RetainedHost.app/ProbeResources/Licenses/NOTICE_PROVENANCE.json",
+      "RetainedHost.app/ProbeResources/Licenses/GODOT_LICENSE.txt",
+      "RetainedHost.app/ProbeResources/Licenses/GODOT_CA_CERTIFICATES_SOURCE.txt",
+      "RetainedHost.app/ProbeResources/Licenses/README.txt",
+      "RetainedHost.app/ProbeResources/Licenses/GODOT_COPYRIGHT.txt",
+      "RetainedHost.app/ProbeResources/Licenses/GODOT_CA_BUNDLE_SOURCE.txt",
+      "RetainedHost.app/ProbeResources/Licenses/ANDROID_NDK_LLVM_NOTICE.txt",
+      "RetainedHost.app/ProbeResources/MissingMainScene/project.godot"
+    ],
+    "linkedExecutablePresent": false
+  },
+  "inputAudit": {
+    "path": "/tmp/partydeck-engine-ci/34460468965/input-evidence-summary.json",
+    "sha256": "c7e251871527fefe06d4b7a52c0f0b91cf0a376942bef454fcde16cbc14937f6",
+    "bytes": 35423
+  },
+  "originalZipIntegrity": {
+    "artifactId": 10146038802,
+    "name": "godot-ios-retained-host-test-attempt-1",
+    "runId": 34460468965,
+    "headSha": "31d148f9b6bbfa15d1746e1029858b86714362a3",
+    "apiDigest": "sha256:8771b959579f38348cc2e3e83b690224bf630622daf1a87448539ba8d3bc602a",
+    "archiveDigest": "sha256:8771b959579f38348cc2e3e83b690224bf630622daf1a87448539ba8d3bc602a",
+    "archiveBytes": 65288038,
+    "apiBytes": 65288038,
+    "zipDigestMatchesApi": true,
+    "zipSizeMatchesApi": true,
+    "archivePath": "/tmp/partydeck-engine-ci/34460468965/artifact-zips/10146038802-godot-ios-retained-host-test-attempt-1.zip",
+    "collectionStartedAtUtc": "2026-09-10T09:45:20.635389+00:00",
+    "extractedFileCount": 12,
+    "extractedBytes": 65968070,
+    "collectionCompletedAtUtc": "2026-09-10T09:45:54.211954+00:00"
+  },
+  "preservationAudit": {
+    "path": "/tmp/partydeck-engine-ci/34460468965/retained-preservation-audit.json",
+    "sha256": "e5972429430a7c50803570428975b6ece246313fcc024395775a03c8c148e7b2",
+    "bytes": 12028
+  },
+  "runtimeQualification": false
+}
