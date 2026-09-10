@@ -72,13 +72,34 @@ sdkmanager 'emulator' 'system-images;android-35;default;x86_64'
 ./scripts/smoke-android-emulator.sh
 ```
 
-The manual Validate workflow also has `android_godot_session`, defaulting to
-false. Root enables this check after qualifying the real native prerequisites
-and enabling the production presentation choices in source. The option only
-requests checks; it cannot enable a renderer or bypass a missing picker.
-The equivalent local invocation sets `PARTYDECK_ANDROID_GODOT_SESSION_SMOKE=1`
-and `PARTYDECK_SOURCE_REVISION` to the full commit used to build the APKs.
-That revision is caller provenance, not an embedded binary attestation.
+The manual Validate input `android_godot_session=true` builds an explicit
+qualification profile and then requests the production session checks:
+
+```sh
+gh workflow run validate.yml --ref main -f platform=android -f android_api=35 -f android_godot_session=true
+```
+
+The input sets `PARTYDECK_ANDROID_GODOT_SESSION_SMOKE=1` for
+`validate-android.sh`, which passes `-PpartydeckGodotQualificationModes=2d,3d`
+to Gradle before packaging and records `build/ci/android/godot-activation-build.json`.
+The APKs contain the `qualification` profile and `2d,3d` mode metadata. Default
+shipping builds retain empty native mode lists. Explicit qualification makes the
+real picker choices available for testing; it does not grant shipping acceptance.
+
+For the equivalent local flow, use the same source checkout for both calls and
+set the flag during the build as well as during execution:
+
+```sh
+PARTYDECK_ANDROID_GODOT_SESSION_SMOKE=1 xvfb-run -a ./scripts/validate-android.sh
+PARTYDECK_ANDROID_GODOT_SESSION_SMOKE=1 PARTYDECK_SOURCE_REVISION="$(git rev-parse HEAD)" ./scripts/smoke-android-emulator.sh
+```
+
+`PARTYDECK_SOURCE_REVISION` must identify the full commit used to build the APKs;
+it is caller provenance, not an embedded binary attestation. The wrapper compares
+the build expectation with the decoded APK profile/modes before each Godot check,
+and rejects a shipping or mismatched package. Use `-f android_api=36` in Validate,
+or `PARTYDECK_ANDROID_API=36` for the local wrapper, with the API 36 image described
+below when that separate runtime target is intended.
 
 The optional check reuses both APKs and the same prepared emulator boot. It
 verifies each packaged PCK against the source-checked export, ties the optimized
@@ -97,10 +118,18 @@ The pulled `installed-base.apk` remains in the runner directory; its matching
 input APK is retained by the existing package upload, while the report retains
 the pull log and both hashes. The checker writes to a fresh `runtime`
 subdirectory within each variant and refuses to overwrite previous evidence.
-`runtime-variants.json` includes both optional
-phase statuses, and any requested failure fails the workflow. Native chrome
-and Ready establish session lifecycle behavior only; rendered gameplay and
-pixel privacy remain separate review requirements.
+Its process-list reads request `ps -A -n -w -o PID,UID,NAME`. Each read preserves
+exact stdout/stderr bytes as `runtime/logs/process-table-<sequence>.stdout.log`
+and `.stderr.log`, with a matching JSON receipt for argv, timestamps, stream
+availability, hashes and the observed exit code, before decoding or parsing.
+Timeouts retain available partial bytes without inventing an exit code. These
+files are covered by the existing report upload. Header padding is tolerated;
+unknown schemas, nonnumeric IDs and inconsistent process identities still fail.
+
+`build/ci/android/runtime-variants.json` includes both ordinary and requested
+Godot phase statuses; any requested failure fails the workflow. Inspect the
+recorded assertions for session/process continuity. Native chrome and Ready alone
+do not establish rendered gameplay or pixel privacy, which need separate review.
 
 Set `PARTYDECK_ANDROID_API=36` and install
 `system-images;android-36;default;x86_64` to select Android 16 instead. Both the
@@ -136,25 +165,105 @@ The emulator uses an isolated AVD under
 `build/ci/android/avd`, resets the test app's data, and is stopped on exit. The
 default serial is `emulator-5554`; choose another unused even port with
 `PARTYDECK_EMULATOR_PORT`. Boot has a 180-second deadline, UI states have
-45-second deadlines, ADB commands are bounded, and the CI step has a 30-minute
-limit. This is a single-device application smoke, not LAN interoperability proof.
+45-second deadlines, and ADB commands are bounded. The ordinary APK CI step has
+a 30-minute limit; requesting the Godot session checks raises it to 55 minutes.
+This is a single-device application smoke, not LAN interoperability proof.
+
+### API 36 adaptive Godot execution
+
+The separate [Android adaptive workflow](../.github/workflows/android-godot-adaptive.yml)
+has no dispatch inputs:
+
+```sh
+gh workflow run android-godot-adaptive.yml --ref main
+```
+
+One producer prepares the source-checked renderer pack and builds debug and
+optimized unsigned APKs with `-PpartydeckGodotQualificationModes=2d,3d` and
+`:androidApp:recordGodotPresentationActivation`. It uses
+`prepare-android-runtime-apk.sh` to create one optimized copy with a disposable
+CI identity. `android_godot_adaptive_inputs.py record` checks the APK metadata,
+PCK, signing receipts and pinned checker files, then records the bundle at
+`build/ci/android/adaptive-inputs` and evidence at
+`build/ci/android/adaptive-producer`.
+
+Four consumers cover **debug / optimized-test-signed × 1.0 / 2.0 text**, each
+running **both 2D and 3D** on a fresh API 36 AVD. They download the producer's
+exact artifact ID and verify its manifest SHA-256, same-run/source context and
+APK/PCK/checker inputs before starting the emulator. The workflow selects
+`PARTYDECK_ANDROID_GODOT_ADAPTIVE_SMOKE=1`,
+`PARTYDECK_ANDROID_GODOT_SESSION_SMOKE=0` and `PARTYDECK_ANDROID_API=36`, and
+supplies the selected variant, font scale and producer identifiers. This branch
+uses the already packaged qualification APKs and exits before the ordinary baseline
+flows; it runs `smoke_android_godot_adaptive.py` with the accepted session checker.
+
+The scenarios cover both landscape directions, a held touch on the native `Standard table`
+control during return to portrait, re-entry, and observed split-screen
+entry/exit. Actual configuration, paired-window geometry, process/task continuity
+and input observations are required. Unsupported exit **2** remains a failed CI
+job and unqualified evidence. Success is labeled `passed-automated-scope`;
+original transition pixels still require privacy review. Back-key/card dragging,
+changes while opening, half-turns and divider dragging are outside these scenarios.
+API 35 adaptive behavior, engine gameplay, physical-device/LAN and store acceptance
+remain separate.
+
+Producer uploads are named `android-adaptive-inputs-<run>-<attempt>` and
+`android-adaptive-build-<run>-<attempt>`. Each consumer uploads
+`android-adaptive-api36-<variant>-font-<scale>-<run>-<attempt>` even after failure.
+Under `build/ci/android`, retain `godot-adaptive/package-inputs`,
+`godot-adaptive/runtime` (original videos, screenshots, XML, state/input logs and
+`godot-adaptive-result.json`), `godot-adaptive/execution.json`,
+`godot-adaptive/device-provenance.json`, `preparation`, and the wrapper/display
+logs. `device-provenance.json` binds the installed SDK image files and observed
+guest identity. These artifacts and status labels preserve the actual attempted
+scope; they do not turn an unsupported or failed case into a pass.
 
 ## iOS on macOS or GitHub Actions
 
-The workflow uses the ARM64 `macos-26` image and explicitly selects Xcode 26.4.1.
-To run the same validation on a compatible Mac:
+Use an ARM64 Mac with Xcode 26.4.1, JDK 21, Python 3 with `venv`, Git, and the
+Android SDK listed above for KMP configuration. The native build helper fetches
+the pinned Godot source and installs the hash-pinned SCons dependency in its own
+virtual environment.
+
+Export the renderer PCK before either app wrapper. On macOS, set
+`PARTYDECK_GODOT_EXECUTABLE` to a verified official Godot 4.7.2 executable;
+the automatic installer supports Linux x86_64. `prepare-godot-renderer.sh`
+can also reuse the PCK and export receipt already present at the default path
+when they match the current sources. From the repository root:
 
 ```sh
 export DEVELOPER_DIR=/Applications/Xcode_26.4.1.app/Contents/Developer
+./scripts/prepare-godot-renderer.sh
 ./scripts/validate-ios-shared.sh
 ./scripts/validate-ios-app.sh
 ./scripts/validate-ios-device.sh
 ```
 
+The default PCK is
+`godot/qualification/build/renderer/partydeck-last-light.pck`; set
+`PARTYDECK_IOS_GODOT_PACK` to select another PCK with a receipt matching the current sources.
+Both shipping and qualification app builds require the native engine and camera
+archives. Each app wrapper builds its native variant unless the corresponding
+environment variable supplies a prepared engine root:
+
+| App configuration | Explicit native preparation | Default engine root / reuse variable |
+| --- | --- | --- |
+| Debug Simulator | `bash godot/ios-host/build-probe.sh engine simulator-debug` | `godot/ios-host/build` / `PARTYDECK_IOS_SIMULATOR_GODOT_ENGINE_ROOT` |
+| Release device | `bash godot/ios-host/build-probe.sh engine device-release` | `godot/ios-host/build/device-release` / `PARTYDECK_IOS_DEVICE_GODOT_ENGINE_ROOT` |
+
+Run these native preparations sequentially in one checkout; the helper locks its
+shared upstream path. Supplied roots must contain both archives under `artifacts/`
+and their matching `evidence/engine-artifact.json`. Xcode's staging phase verifies
+the native source and archive hashes, pinned PCK, architecture, SDK and
+configuration. Rebuild the native inputs after their sources change.
+A direct `xcodebuild` invocation needs these inputs prepared first; see
+[the iOS project instructions](../iosApp/README.md).
+
 The shared script runs the common suites on `iosSimulatorArm64` and links the
-device framework. The app script chooses an installed iPhone runtime matching
-the selected Xcode's simulator SDK, builds the actual SwiftUI/Compose application,
-and runs app-hosted `PartyDeckTests` plus `PartyDeckUITests`. A test-only JVM TLS
+Debug device framework. The baseline app script chooses an installed iPhone
+runtime matching the selected Xcode's simulator SDK, builds the actual
+SwiftUI/Compose application with the shipping profile, and runs app-hosted
+`PartyDeckTests` plus the existing `PartyDeckUITests` flows. A test-only JVM TLS
 peer runs alongside XCTest, with its real port and certificate pin passed through
 Xcode's documented `TEST_RUNNER_` environment forwarding. CI requires the named
 Java–Swift interoperability test to pass, Java to exit successfully, and its result
@@ -163,32 +272,94 @@ cannot make this step pass. Manifest, process logs and results are retained in
 `build/ci/ios/interop`. This checks native TLS interoperability over simulator
 loopback; physical-device LAN behavior remains a separate gate.
 
-After Debug XCTest passes, `validate-ios-device.sh` compiles the actual Swift/Kotlin app in
-**Release** for a generic iOS device with signing disabled. This covers optimized
-device-only scanner/bridge code and retains linker maps for symbol/license review.
-The build must report `:composeApp:linkReleaseFrameworkIosArm64`. Both Xcode test
-and device-build failure statuses are preserved.
+`validate-ios-device.sh` compiles the actual Swift/Kotlin app in **Release** for a
+generic iOS device with signing disabled. This covers optimized device-only
+scanner/bridge code and retains linker maps for symbol/license review. The build
+must report `:composeApp:linkReleaseFrameworkIosArm64`. Both app wrappers verify
+the packaged resources, selected activation profile and production link, including
+one static `PartyDeckKit` owner and the required native definitions.
 The Xcode project drives `:composeApp:embedAndSignAppleFrameworkForXcode`; do not
 invoke that task from a generic shell without its Xcode environment.
 
-The simulator result, logs, runtime/device metadata, XCTest screenshot attachments and app tarballs
-are retained under `build/ci/ios` and uploaded by CI. Move or remove a prior
-`PartyDeck.xcresult` before repeating an app test. The app tarball preserves
-executable permissions; it is a simulator artifact, not a device or App Store
-package. The separate Release device `.app` is unsigned. Neither artifact qualifies local-network privacy prompts or
-physical Android/iOS interoperability.
+To request the separate production Godot qualification in GitHub Actions:
 
-CI uploads shared native test reports before app compilation, then simulator/XCTest
-evidence before starting the separate optimized device build. A long Release link
-therefore cannot hide completed test results. The iOS job has a 90-minute ceiling;
-simulator and device steps each have 40-minute limits, and the test supervisor's
-Xcode command has its own 30-minute deadline.
-Artifact uploads retry once after ten seconds for transient service failures;
-if both attempts fail, the workflow fails and the missing evidence stays explicit.
+```sh
+gh workflow run validate.yml --ref main -f platform=ios -f ios_godot_session=true
+```
 
-Linux contributors can run the **Validate** workflow from GitHub Actions or
-`gh workflow run validate.yml`. A successful framework link alone does not count
-as an application smoke test; inspect the native suites and XCTest result too.
+The input defaults to false; omit it for the baseline. When true, the Simulator
+job first completes the baseline suite, then runs
+`validate-ios-godot-session.sh` in a separate build/result directory. It selects
+exactly these two cases in `PartyDeckUITests/PartyDeckGodotSessionUITests`:
+
+- `testProduction2DPracticeSession`
+- `testProduction3DPracticeSession`
+
+Each enters the real practice session through the actual presentation picker,
+uses measured coordinates for Reveal/card/Hide/Play input on the native surface, checks the real
+accepted viewer receipt, returns to Standard, cancels and confirms Leave, and
+re-enters with the retained engine. The checker requires both named cases to
+start and pass exactly once, an independent XCResult summary with exactly two
+passes, and original screenshots plus sanitized observation attachments.
+
+For the default local paths, after the baseline Simulator validation succeeds:
+
+```sh
+PARTYDECK_IOS_GODOT_SESSION_SMOKE=1 \
+PARTYDECK_IOS_SIMULATOR_GODOT_ENGINE_ROOT="$PWD/godot/ios-host/build" \
+bash scripts/validate-ios-godot-session.sh
+```
+
+The session wrapper requires the supplied Simulator engine root. It generates
+`build/ci/ios/godot-session/activation/Info.plist` and `expectation.json` using
+`scripts/prepare-ios-godot-activation.py` with `--modes 2d,3d`. The app-only
+`PARTYDECK_APP_INFO_PLIST` setting selects that plist, while
+`PARTYDECK_GODOT_ACTIVATION_EXPECTATION` binds it to the explicit request; test
+bundles keep their own generated plists. The wrapper also supplies
+`PARTYDECK_SESSION_QUALIFICATION_CONDITION=PARTYDECK_GODOT_SESSION_QUALIFICATION`
+and verifies that both app and UI-test Debug targets retain `DEBUG` plus the
+observation condition. The tests launch with `--partydeck-observe-godot-session`,
+which enables observation only. Mode availability comes from the generated
+bundled qualification profile and the existing native/pack checks.
+
+The checked-in shipping profile still has an empty
+`PartyDeckQualifiedGodotPresentations` array. Qualification requests populate
+`PartyDeckQualificationGodotPresentations` in the generated plist. The same
+workflow input makes the separate device job generate a qualification profile
+under `build/ci/ios/device-activation` for its unsigned Release package. Locally,
+set `PARTYDECK_IOS_GODOT_SESSION_SMOKE=1` when invoking
+`validate-ios-device.sh` to request that profile. Release contains no Debug
+observation code, and the device job performs no runtime tests. Production native
+runtime is not yet accepted; build/link receipts retain
+`ios_runtime_executed: false` and `kmp_factory_qualified: false`.
+
+CI exports the PCK once in the Linux `ios-renderer-pack` job. Both ARM64
+`macos-26` jobs verify its source revision/receipt, select Xcode 26.4.1, and then
+run independently on separate runners: `ios` has a **180-minute** ceiling and
+`ios-device` has a **150-minute** ceiling. The device job does not wait for
+Simulator XCTest. Native engine compilation has a 90-minute step limit per
+variant; shared tests have 35 minutes, baseline Simulator and Release app steps
+have 40 minutes each, and the optional production session step has 45 minutes.
+The baseline Java/Xcode test supervisor retains its own 30-minute Xcode deadline.
+
+Evidence is uploaded with a 14-day retention period:
+
+| CI artifact | Main evidence paths |
+| --- | --- |
+| `ios-renderer-pack` and `ios-renderer-pack-evidence` | `godot/qualification/build/renderer/`: shared PCK, export receipt, source revision and validation logs |
+| `ios-shared-native-reports` | Module `build/reports` and `build/test-results`, plus `build/ci/ios/*.json`; uploaded before app compilation |
+| `ios-reports-and-simulator-app` | `build/ci/ios/`: baseline `PartyDeck.xcresult`, `interop/`, `attachments/`, logs, link/input receipts and `PartyDeck-simulator.app.tar.gz`; native receipts in `godot/ios-host/build/evidence/` |
+| `ios-reports-and-simulator-app` (requested session check) | `build/ci/ios/godot-session/`: activation files, `PartyDeckGodotSessions.xcresult`, `attachments/`, `result.json`, logs, link/input receipts and `PartyDeck-session-simulator.app.tar.gz` |
+| `ios-unsigned-release-device-app` | `build/ci/ios/`: Release logs/link receipts/maps, `device-activation/` when requested, and `PartyDeck-device-unsigned.app.tar.gz`; native receipts in `godot/ios-host/build/device-release/evidence/` |
+
+Preserve or move a prior `build/ci/ios/PartyDeck.xcresult` before repeating the
+baseline app test; the session wrapper refuses an existing
+`build/ci/ios/godot-session` directory. App tarballs preserve executable
+permissions. Simulator and unsigned device artifacts still need the appropriate
+runtime, signing and release qualification. Neither package alone qualifies
+local-network privacy prompts or physical Android/iOS interoperability. Artifact
+uploads retry once after ten seconds; if both attempts fail, the workflow fails
+and the missing evidence stays explicit.
 
 For a smaller native toolchain/rules/protocol check, manually dispatch
 `gh workflow run toolchain-smoke.yml`. This runs only the `:core` and `:session`
