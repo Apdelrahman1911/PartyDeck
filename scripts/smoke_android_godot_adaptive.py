@@ -528,6 +528,7 @@ class AdaptiveScenarios:
         self.videos, self.adaptive_observations, self.cleanup_errors = [], [], []
         self.saved_rotation, self.split_owned = None, False
         self.input_incomplete = False
+        self.split_recorder_unjoined = False
         self.companion_task = None
         for name in ("states", "observations", "videos"):
             (output / name).mkdir()
@@ -870,6 +871,134 @@ class AdaptiveScenarios:
                 time.sleep(0.2)
         raise ObservationFailure("Advertised split request did not establish actual paired geometry: " + last_error)
 
+    def dismiss_split_picker(self, recording_name):
+        require(not self.input_incomplete and not getattr(self, "split_recorder_unjoined", False),
+                "Unfinished input or recorder observation forbids picker cleanup.")
+        state = self.state()
+        self.require_shell(state)
+        if not self.matches_activity(state, self.session.MAIN_COMPONENT) or state["renderer_pids"]:
+            return
+        require(state["foreground"]["task_id"] == self.shell_task,
+                "Aborted split setup found Compose in a different task.")
+        deadline = time.monotonic() + 15
+        root = self.dump_ui(deadline=deadline)
+        self.reject_crash_dialog(root)
+        picker = self.presentation_picker(root)
+        if picker is None:
+            return
+        done = self.find_action(root, "presentation-picker-done", "Done")
+        require(done is not None and done in picker[0].iter("node"),
+                "Aborted split setup has no current Done action in its real picker.")
+        self.save_observation("split-picker-dismiss-request", recording=recording_name,
+                              scope="Dismisses the aborted selector only; no concealed-return or split qualification.")
+        current = self.state()
+        self.require_shell(current)
+        require(stable_key(current) == stable_key(state) and not current["renderer_pids"]
+                and time.monotonic() < deadline,
+                "Aborted split setup changed before the current picker could be dismissed.")
+        self.tap_node(done, "presentation-picker-done")
+        while time.monotonic() < deadline:
+            state = self.state()
+            self.require_shell(state)
+            require(self.matches_activity(state, self.session.MAIN_COMPONENT)
+                    and state["foreground"]["task_id"] == self.shell_task and not state["renderer_pids"],
+                    "Picker dismissal did not retain Compose with its renderer absent.")
+            root = self.dump_ui(deadline=deadline)
+            self.reject_crash_dialog(root)
+            current = self.state()
+            self.require_shell(current)
+            require(stable_key(current) == stable_key(state) and not current["renderer_pids"],
+                    "Picker dismissal observation changed the retained shell.")
+            if time.monotonic() < deadline and self.presentation_picker(root) is None:
+                self.save_observation("split-picker-dismissed", recording=recording_name,
+                                      scope="Original setup failure is retained; hand concealment is not established.")
+                return
+            time.sleep(min(0.2, max(0, deadline - time.monotonic())))
+        raise ObservationFailure("Aborted split setup did not observe its picker dismissed.")
+
+    @contextmanager
+    def recorded_split_entry(self, mode, prefix, recording_name):
+        require(not self.input_incomplete, "Incomplete input forbids split recorder setup.")
+        require(not getattr(self, "split_recorder_unjoined", False), "An earlier split recorder observer remains unjoined.")
+        recording = None
+        try:
+            with ExitStack() as lifetime:
+                recording = lifetime.enter_context(self.recording(recording_name, self.state(), defer_start=True))
+                native = self.enter_native(mode, prefix, before_choice=recording.start_before_choice)
+                # The sole owner covers entry failures and receives the original
+                # transition exception, then finishes before any recovery UI.
+                with lifetime.pop_all():
+                    yield recording, native
+        except BaseException:
+            if recording is not None:
+                if not recording.finished:
+                    self.split_recorder_unjoined = True
+                elif not self.input_incomplete:
+                    try:
+                        self.dismiss_split_picker(recording_name)
+                    except BaseException as error:
+                        self.cleanup_errors.append(f"{recording_name} picker cleanup: {self.session.ui.redacted(str(error))}")
+            raise
+
+    def restore_split_window(self):
+        require(not self.input_incomplete, "Incomplete input forbids split recovery UI mutations.")
+        require(not getattr(self, "split_recorder_unjoined", False), "Unjoined recorder observation forbids split recovery UI mutations.")
+        if self.split_owned:
+            self.save_observation("split-cleanup-exit-request", requested_task=self.shell_task,
+                                  scope="Recovery only; no split transition qualification.")
+            self.adb("shell", "wm", "shell", "splitscreen", "exitSplitScreen", str(self.shell_task))
+        # Android's dismissSplitScreen is a no-op when split is inactive. A
+        # startup failure or an uncompleted split request can leave native on top.
+        deadline, standard_requested = time.monotonic() + 35, False
+        while time.monotonic() < deadline:
+            state = self.state()
+            self.require_shell(state)
+            focus = state["foreground"]
+            if focus and focus["component"] in (self.session.MAIN_COMPONENT, self.session.NATIVE_COMPONENT):
+                require(focus["task_id"] == self.shell_task,
+                        "Split recovery found an app Activity in a different task.")
+            if self.matches_activity(state, self.session.MAIN_COMPONENT) and not state["renderer_pids"]:
+                break
+            if self.matches_activity(state, self.session.NATIVE_COMPONENT) and not standard_requested:
+                require(state["renderer_pids"] == [focus["app_pid"]],
+                        "Split recovery cannot attribute the native renderer process.")
+                root = self.dump_ui(deadline=deadline)
+                self.reject_crash_dialog(root)
+                current = self.state()
+                self.require_shell(current)
+                # Split exit may retire native while UI is sampled. Do not wait
+                # for or tap a vanished control; observe the actual return.
+                if (stable_key(current) == stable_key(state)
+                        and current["renderer_pids"] == state["renderer_pids"]
+                        and time.monotonic() < deadline):
+                    self.assert_no_private_semantics(root)
+                    control = self.find_action(root, "native-standard-table", "Standard table")
+                    if control is not None:
+                        require(control.get("class") == "android.widget.Button",
+                                "Split recovery Standard control is not a native Button.")
+                        self.tap_node(control, "native-standard-table")
+                        standard_requested = True
+            time.sleep(min(0.2, max(0, deadline - time.monotonic())))
+        else:
+            raise ObservationFailure("Split recovery did not observe a current Standard control or a retired Main Activity.")
+        restored = self.stable_activity(self.session.MAIN_COMPONENT, mode="fullscreen",
+                                        seconds=max(0, deadline - time.monotonic()))
+        require(restored["foreground"]["task_id"] == self.shell_task and not restored["renderer_pids"],
+                "Split recovery did not retain the shell task with its renderer retired.")
+        self.split_owned = False
+        return restored
+
+
+    def recover_split_practice(self, mode, baseline, prefix):
+        self.save_observation("split-unsupported-recovery-start", capture_prefix=prefix,
+                              scope="Ordinary UI recovery; the unsupported split check is unchanged.")
+        self.restore_split_window()
+        self.require_concealed_return(baseline, prefix + "-return")
+        self.finish_practice(mode, baseline, prefix)
+        self.save_observation("split-unsupported-recovery-complete", capture_prefix=prefix,
+                              scope="Ordinary UI recovery; no split or adaptive success.")
+
+
     def split_scenario(self, mode):
         prefix = mode + "-split"
         with self.check(prefix + ".support") as entry:
@@ -885,6 +1014,7 @@ class AdaptiveScenarios:
             entry.update(split_capability(queries["multiwindow"]["stdout"], queries["split_screen"]["stdout"], queries["help"]["stdout"]))
         if self.checks[prefix + ".support"]["status"] != "passed":
             return
+        baseline = None
         with self.check(prefix + ".entry-after-ready") as entry:
             display = self.state()["display"]
             self.set_rotation(display["landscape"], self.session.MAIN_COMPONENT, "land")
@@ -902,11 +1032,16 @@ class AdaptiveScenarios:
             entry["companion"] = companion
             self.focus_shell_task()
             baseline = self.begin_practice(prefix + "-baseline")
-            pid, _, _ = self.enter_native(mode, prefix + "-full")
-            before = self.stable_activity(self.session.NATIVE_COMPONENT, mode="fullscreen")
-            self.split_owned = True
-            with self.recording(prefix + "-entry", before) as recording:
+            with self.recorded_split_entry(mode, prefix + "-full", prefix + "-entry") as (recording, native):
+                pid, _, _ = native
+                before = self.stable_activity(self.session.NATIVE_COMPONENT, mode="fullscreen")
+                require([recording.width, recording.height] == before["display"]["size"],
+                        "Split entry recorder canvas differs from the observed full display.")
+                recording.await_started()
                 self.save_observation("split-entry-request", companion_task=self.companion_task, native_pid=pid)
+                recording.checkpoint("before-split-entry-request")
+                # Own a possibly applied command only after recorder admission.
+                self.split_owned = True
                 self.adb("shell", "wm", "shell", "splitscreen", "moveToSideStage", str(self.companion_task), "1")
                 actual, panes = self.wait_split()
                 require(panes[0]["component"] == self.session.MAIN_COMPONENT, "Native split entry did not return to Compose.")
@@ -920,15 +1055,21 @@ class AdaptiveScenarios:
                 entry.update(actual=actual, tracked_changes=changes)
             entry["observable_continuity"] = self.require_concealed_return(baseline, prefix + "-entry-return")
         if self.checks[prefix + ".entry-after-ready"]["status"] != "passed":
+            if baseline is not None:
+                self.recover_split_practice(mode, baseline, prefix + "-entry-unsupported")
             return
         with self.check(prefix + ".stable-split-launch-exit") as entry:
             self.select_first_card(prefix + "-reentry")
-            self.enter_native(mode, prefix + "-pane")
-            before = self.stable_activity(self.session.NATIVE_COMPONENT, mode="multi-window")
-            actual, panes = self.wait_split(child_absent=False)
-            require(panes[0]["component"] == self.session.NATIVE_COMPONENT, "Native renderer was not actually visible in the stable split pane.")
-            entry["native_split"] = actual
-            with self.recording(prefix + "-exit", before) as recording:
+            with self.recorded_split_entry(mode, prefix + "-pane", prefix + "-exit") as (recording, _):
+                before = self.stable_activity(self.session.NATIVE_COMPONENT, mode="multi-window")
+                actual, panes = self.wait_split(child_absent=False)
+                require(panes[0]["component"] == self.session.NATIVE_COMPONENT, "Native renderer was not actually visible in the stable split pane.")
+                entry["native_split"] = actual
+                require([recording.width, recording.height] == before["display"]["size"],
+                        "Split exit recorder canvas differs from the observed full display.")
+                recording.await_started()
+                self.save_observation("split-exit-request", requested_task=self.shell_task)
+                recording.checkpoint("before-split-exit-request")
                 self.adb("shell", "wm", "shell", "splitscreen", "exitSplitScreen", str(self.shell_task))
                 self.wait_activity(self.session.MAIN_COMPONENT, child_absent=True)
                 after = self.stable_activity(self.session.MAIN_COMPONENT, mode="fullscreen")
@@ -940,19 +1081,23 @@ class AdaptiveScenarios:
                 recording.checkpoint("split-exit-and-concealed-return-observed")
                 entry.update(fullscreen_return=after, tracked_changes=changes)
             entry["observable_continuity"] = self.require_concealed_return(baseline, prefix + "-exit-return")
+        if self.checks[prefix + ".stable-split-launch-exit"]["status"] != "passed":
+            self.recover_split_practice(mode, baseline, prefix + "-exit-unsupported")
+            return
         with self.check(prefix + ".fullscreen-reentry-leave-home"):
             self.finish_practice(mode, baseline, prefix)
 
     def restore_adaptive(self):
         errors = list(self.cleanup_errors)
+        if getattr(self, "split_recorder_unjoined", False):
+            errors.append("A split recorder observer did not join; no further UI mutations or environment restoration were attempted.")
+            return errors
         if self.input_incomplete:
             errors.append("Input transport did not complete; no further UI mutations or environment restoration were attempted.")
             return errors
         if self.split_owned:
             try:
-                self.adb("shell", "wm", "shell", "splitscreen", "exitSplitScreen", str(self.shell_task))
-                self.stable_activity(self.session.MAIN_COMPONENT, mode="fullscreen")
-                self.split_owned = False
+                self.restore_split_window()
             except Exception as error:
                 errors.append("Owned split cleanup: " + str(error))
         if self.saved_rotation is not None:
