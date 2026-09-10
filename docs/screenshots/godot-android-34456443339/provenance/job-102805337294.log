@@ -1,0 +1,801 @@
+﻿2026-09-10T08:45:46.7303449Z Current runner version: '2.337.0'
+2026-09-10T08:45:46.7327154Z ##[group]Runner Image Provisioner
+2026-09-10T08:45:46.7327912Z Hosted Compute Agent
+2026-09-10T08:45:46.7328474Z Version: 20260828.587
+2026-09-10T08:45:46.7329061Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-10T08:45:46.7329716Z Build Date: 2026-08-28T16:44:25Z
+2026-09-10T08:45:46.7330448Z Worker ID: {8b9f480c-037b-4e82-a636-980308ba9ccf}
+2026-09-10T08:45:46.7331095Z Azure Region: centralus
+2026-09-10T08:45:46.7331657Z ##[endgroup]
+2026-09-10T08:45:46.7333240Z ##[group]Operating System
+2026-09-10T08:45:46.7333795Z Ubuntu
+2026-09-10T08:45:46.7334668Z 24.04.5
+2026-09-10T08:45:46.7335144Z LTS
+2026-09-10T08:45:46.7335592Z ##[endgroup]
+2026-09-10T08:45:46.7336114Z ##[group]Runner Image
+2026-09-10T08:45:46.7336661Z Image: ubuntu-24.04
+2026-09-10T08:45:46.7337466Z Version: 20260907.300.1
+2026-09-10T08:45:46.7338625Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260907.300/images/ubuntu/Ubuntu2404-Readme.md
+2026-09-10T08:45:46.7340005Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260907.300
+2026-09-10T08:45:46.7340856Z ##[endgroup]
+2026-09-10T08:45:46.7341932Z ##[group]GITHUB_TOKEN Permissions
+2026-09-10T08:45:46.7344174Z Contents: read
+2026-09-10T08:45:46.7344808Z Metadata: read
+2026-09-10T08:45:46.7345316Z ##[endgroup]
+2026-09-10T08:45:46.7347324Z Secret source: Actions
+2026-09-10T08:45:46.7348217Z Cache mode: write
+2026-09-10T08:45:46.7349014Z Prepare workflow directory
+2026-09-10T08:45:46.7657685Z Prepare all required actions
+2026-09-10T08:45:46.7706388Z Getting action download info
+2026-09-10T08:45:47.0379612Z Download action repository 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-09-10T08:45:47.1638327Z Download action repository 'actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6' (SHA:de7274f081f381c8f8158605e0321c36c376e2e6)
+2026-09-10T08:45:47.8745099Z Download action repository 'android-actions/setup-android@40fd30fb8d7440372e1316f5d1809ec01dcd3699' (SHA:40fd30fb8d7440372e1316f5d1809ec01dcd3699)
+2026-09-10T08:45:48.1787442Z Download action repository 'actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c' (SHA:3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c)
+2026-09-10T08:45:48.7497858Z Complete job name: Android 2d / 1.0x text / debug
+2026-09-10T08:45:48.8320183Z ##[group]Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+2026-09-10T08:45:48.8321888Z with:
+2026-09-10T08:45:48.8322796Z   persist-credentials: false
+2026-09-10T08:45:48.8323850Z   repository: Apdelrahman1911/PartyDeck
+2026-09-10T08:45:48.8332660Z   token: ***
+2026-09-10T08:45:48.8333576Z   ssh-strict: true
+2026-09-10T08:45:48.8334526Z   ssh-user: git
+2026-09-10T08:45:48.8335368Z   clean: true
+2026-09-10T08:45:48.8336262Z   sparse-checkout-cone-mode: true
+2026-09-10T08:45:48.8337275Z   fetch-depth: 1
+2026-09-10T08:45:48.8338189Z   fetch-tags: false
+2026-09-10T08:45:48.8339100Z   show-progress: true
+2026-09-10T08:45:48.8340025Z   lfs: false
+2026-09-10T08:45:48.8340839Z   submodules: false
+2026-09-10T08:45:48.8341736Z   set-safe-directory: true
+2026-09-10T08:45:48.8342783Z   allow-unsafe-pr-checkout: false
+2026-09-10T08:45:48.8344217Z ##[endgroup]
+2026-09-10T08:45:48.9396938Z Syncing repository: Apdelrahman1911/PartyDeck
+2026-09-10T08:45:48.9400622Z ##[group]Getting Git version info
+2026-09-10T08:45:48.9401942Z Working directory is '/home/runner/work/PartyDeck/PartyDeck'
+2026-09-10T08:45:48.9404622Z [command]/usr/bin/git version
+2026-09-10T08:45:48.9454765Z git version 2.55.0
+2026-09-10T08:45:48.9478428Z ##[endgroup]
+2026-09-10T08:45:48.9487344Z Temporarily overriding HOME='/home/runner/work/_temp/c16b2f0e-97b3-460b-8acf-fff54bc53eff' before making global git config changes
+2026-09-10T08:45:48.9490542Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-10T08:45:48.9493442Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/PartyDeck/PartyDeck
+2026-09-10T08:45:48.9554307Z Deleting the contents of '/home/runner/work/PartyDeck/PartyDeck'
+2026-09-10T08:45:48.9558054Z ##[group]Determining repository object format
+2026-09-10T08:45:48.9560751Z ##[endgroup]
+2026-09-10T08:45:48.9563148Z ##[group]Initializing the repository
+2026-09-10T08:45:48.9565481Z [command]/usr/bin/git init /home/runner/work/PartyDeck/PartyDeck
+2026-09-10T08:45:48.9639406Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-09-10T08:45:48.9643105Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-09-10T08:45:48.9646601Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-09-10T08:45:48.9649255Z hint: call:
+2026-09-10T08:45:48.9650668Z hint:
+2026-09-10T08:45:48.9652410Z hint: 	git config --global init.defaultBranch <name>
+2026-09-10T08:45:48.9654775Z hint:
+2026-09-10T08:45:48.9656835Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-09-10T08:45:48.9660113Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-09-10T08:45:48.9662858Z hint:
+2026-09-10T08:45:48.9667981Z hint: 	git branch -m <name>
+2026-09-10T08:45:48.9669825Z hint:
+2026-09-10T08:45:48.9672051Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-09-10T08:45:48.9677036Z Initialized empty Git repository in /home/runner/work/PartyDeck/PartyDeck/.git/
+2026-09-10T08:45:48.9681846Z [command]/usr/bin/git remote add origin https://github.com/Apdelrahman1911/PartyDeck
+2026-09-10T08:45:48.9715700Z ##[endgroup]
+2026-09-10T08:45:48.9717384Z ##[group]Disabling automatic garbage collection
+2026-09-10T08:45:48.9719092Z [command]/usr/bin/git config --local gc.auto 0
+2026-09-10T08:45:48.9745578Z ##[endgroup]
+2026-09-10T08:45:48.9747484Z ##[group]Setting up auth
+2026-09-10T08:45:48.9748520Z Removing SSH command configuration
+2026-09-10T08:45:48.9751492Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-10T08:45:48.9779452Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-10T08:45:49.0064698Z Removing HTTP extra header
+2026-09-10T08:45:49.0069208Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-10T08:45:49.0103635Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-10T08:45:49.0293418Z Removing includeIf entries pointing to credentials config files
+2026-09-10T08:45:49.0297670Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-10T08:45:49.0324904Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-10T08:45:49.0494325Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-6c15a3eb-a859-45ff-92c5-3b2e119702b1.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-09-10T08:45:49.0526809Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/PartyDeck/PartyDeck/.git.path /home/runner/work/_temp/git-credentials-6c15a3eb-a859-45ff-92c5-3b2e119702b1.config
+2026-09-10T08:45:49.0554733Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/PartyDeck/PartyDeck/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-6c15a3eb-a859-45ff-92c5-3b2e119702b1.config
+2026-09-10T08:45:49.0586586Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-6c15a3eb-a859-45ff-92c5-3b2e119702b1.config
+2026-09-10T08:45:49.0612150Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-6c15a3eb-a859-45ff-92c5-3b2e119702b1.config
+2026-09-10T08:45:49.0634199Z ##[endgroup]
+2026-09-10T08:45:49.0635925Z ##[group]Fetching the repository
+2026-09-10T08:45:49.0640068Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +dad1c11741bd4322bb8b2afb9f18f3db5f50c919:refs/remotes/origin/main
+2026-09-10T08:45:54.3111280Z From https://github.com/Apdelrahman1911/PartyDeck
+2026-09-10T08:45:54.3112347Z  * [new ref]         dad1c11741bd4322bb8b2afb9f18f3db5f50c919 -> origin/main
+2026-09-10T08:45:54.3120980Z [command]/usr/bin/git branch --list --remote origin/main
+2026-09-10T08:45:54.3143589Z   origin/main
+2026-09-10T08:45:54.3151731Z [command]/usr/bin/git rev-parse refs/remotes/origin/main
+2026-09-10T08:45:54.3174654Z dad1c11741bd4322bb8b2afb9f18f3db5f50c919
+2026-09-10T08:45:54.3178613Z ##[endgroup]
+2026-09-10T08:45:54.3179705Z ##[group]Determining the checkout info
+2026-09-10T08:45:54.3180828Z ##[endgroup]
+2026-09-10T08:45:54.3184203Z [command]/usr/bin/git sparse-checkout disable
+2026-09-10T08:45:54.3228552Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-09-10T08:45:54.3255199Z ##[group]Checking out the ref
+2026-09-10T08:45:54.3260211Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-09-10T08:45:55.3369845Z Updating files:  75% (3895/5149)
+2026-09-10T08:45:55.4267957Z Updating files:  76% (3914/5149)
+2026-09-10T08:45:55.4321334Z Updating files:  77% (3965/5149)
+2026-09-10T08:45:55.4376385Z Updating files:  78% (4017/5149)
+2026-09-10T08:45:55.4441277Z Updating files:  79% (4068/5149)
+2026-09-10T08:45:55.4505484Z Updating files:  80% (4120/5149)
+2026-09-10T08:45:55.4742890Z Updating files:  81% (4171/5149)
+2026-09-10T08:45:55.4794092Z Updating files:  82% (4223/5149)
+2026-09-10T08:45:55.4859716Z Updating files:  83% (4274/5149)
+2026-09-10T08:45:55.4900809Z Updating files:  84% (4326/5149)
+2026-09-10T08:45:55.4957237Z Updating files:  85% (4377/5149)
+2026-09-10T08:45:55.5012056Z Updating files:  86% (4429/5149)
+2026-09-10T08:45:55.5056139Z Updating files:  87% (4480/5149)
+2026-09-10T08:45:55.5108128Z Updating files:  88% (4532/5149)
+2026-09-10T08:45:55.5159113Z Updating files:  89% (4583/5149)
+2026-09-10T08:45:55.5200612Z Updating files:  90% (4635/5149)
+2026-09-10T08:45:55.5303332Z Updating files:  91% (4686/5149)
+2026-09-10T08:45:55.5455794Z Updating files:  92% (4738/5149)
+2026-09-10T08:45:55.5476123Z Updating files:  93% (4789/5149)
+2026-09-10T08:45:55.5507221Z Updating files:  94% (4841/5149)
+2026-09-10T08:45:55.5577050Z Updating files:  95% (4892/5149)
+2026-09-10T08:45:55.5590107Z Updating files:  96% (4944/5149)
+2026-09-10T08:45:55.5616409Z Updating files:  97% (4995/5149)
+2026-09-10T08:45:55.5651109Z Updating files:  98% (5047/5149)
+2026-09-10T08:45:55.5686408Z Updating files:  99% (5098/5149)
+2026-09-10T08:45:55.5687295Z Updating files: 100% (5149/5149)
+2026-09-10T08:45:55.5687909Z Updating files: 100% (5149/5149), done.
+2026-09-10T08:45:55.5756537Z Switched to a new branch 'main'
+2026-09-10T08:45:55.5760718Z branch 'main' set up to track 'origin/main'.
+2026-09-10T08:45:55.5795998Z ##[endgroup]
+2026-09-10T08:45:55.5839693Z [command]/usr/bin/git log -1 --format=%H
+2026-09-10T08:45:55.5861326Z dad1c11741bd4322bb8b2afb9f18f3db5f50c919
+2026-09-10T08:45:55.5868921Z ##[group]Removing auth
+2026-09-10T08:45:55.5869324Z Removing SSH command configuration
+2026-09-10T08:45:55.5872249Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-10T08:45:55.5896781Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-10T08:45:55.6068187Z Removing HTTP extra header
+2026-09-10T08:45:55.6071068Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-10T08:45:55.6097505Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-10T08:45:55.6267440Z Removing includeIf entries pointing to credentials config files
+2026-09-10T08:45:55.6270183Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-10T08:45:55.6293400Z includeif.gitdir:/home/runner/work/PartyDeck/PartyDeck/.git.path
+2026-09-10T08:45:55.6294466Z includeif.gitdir:/home/runner/work/PartyDeck/PartyDeck/.git/worktrees/*.path
+2026-09-10T08:45:55.6295019Z includeif.gitdir:/github/workspace/.git.path
+2026-09-10T08:45:55.6295762Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-09-10T08:45:55.6300226Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/PartyDeck/PartyDeck/.git.path
+2026-09-10T08:45:55.6318024Z /home/runner/work/_temp/git-credentials-6c15a3eb-a859-45ff-92c5-3b2e119702b1.config
+2026-09-10T08:45:55.6326704Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/PartyDeck/PartyDeck/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-6c15a3eb\-a859\-45ff\-92c5\-3b2e119702b1\.config
+2026-09-10T08:45:55.6352026Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/PartyDeck/PartyDeck/.git/worktrees/*.path
+2026-09-10T08:45:55.6377445Z /home/runner/work/_temp/git-credentials-6c15a3eb-a859-45ff-92c5-3b2e119702b1.config
+2026-09-10T08:45:55.6388803Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/PartyDeck/PartyDeck/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-6c15a3eb\-a859\-45ff\-92c5\-3b2e119702b1\.config
+2026-09-10T08:45:55.6417950Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-09-10T08:45:55.6440088Z /github/runner_temp/git-credentials-6c15a3eb-a859-45ff-92c5-3b2e119702b1.config
+2026-09-10T08:45:55.6443243Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-6c15a3eb\-a859\-45ff\-92c5\-3b2e119702b1\.config
+2026-09-10T08:45:55.6468997Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-09-10T08:45:55.6486510Z /github/runner_temp/git-credentials-6c15a3eb-a859-45ff-92c5-3b2e119702b1.config
+2026-09-10T08:45:55.6493061Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-6c15a3eb\-a859\-45ff\-92c5\-3b2e119702b1\.config
+2026-09-10T08:45:55.6519264Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-10T08:45:55.6685700Z Removing credentials config '/home/runner/work/_temp/git-credentials-6c15a3eb-a859-45ff-92c5-3b2e119702b1.config'
+2026-09-10T08:45:55.6693258Z ##[endgroup]
+2026-09-10T08:45:55.6967295Z ##[group]Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6
+2026-09-10T08:45:55.6967784Z with:
+2026-09-10T08:45:55.6968065Z   distribution: temurin
+2026-09-10T08:45:55.6968358Z   java-version: 21
+2026-09-10T08:45:55.6968704Z   java-package: jdk
+2026-09-10T08:45:55.6968987Z   check-latest: false
+2026-09-10T08:45:55.6969296Z   force-download: false
+2026-09-10T08:45:55.6969589Z   set-default: true
+2026-09-10T08:45:55.6969863Z   server-id: github
+2026-09-10T08:45:55.6970185Z   mvn-repositories-include-central: true
+2026-09-10T08:45:55.6970566Z   mvn-repositories-prioritize-central: true
+2026-09-10T08:45:55.6971011Z   overwrite-settings: true
+2026-09-10T08:45:55.6971369Z   cache-read-only: false
+2026-09-10T08:45:55.6971663Z   job-status: success
+2026-09-10T08:45:55.6974661Z   token: ***
+2026-09-10T08:45:55.6974949Z   show-download-progress: false
+2026-09-10T08:45:55.6975339Z   problem-matcher: true
+2026-09-10T08:45:55.6975651Z ##[endgroup]
+2026-09-10T08:45:55.7732673Z ##[group]Installed distributions
+2026-09-10T08:45:55.7975987Z Resolved Java 21.0.12+1 from tool-cache
+2026-09-10T08:45:55.7976322Z Setting Java 21.0.12+1 as the default
+2026-09-10T08:45:55.7983090Z 
+2026-09-10T08:45:55.7983499Z Java configuration:
+2026-09-10T08:45:55.7984330Z   Distribution: temurin
+2026-09-10T08:45:55.7984719Z   Version: 21.0.12+1
+2026-09-10T08:45:55.7985221Z   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T08:45:55.7985639Z 
+2026-09-10T08:45:55.7986131Z ##[endgroup]
+2026-09-10T08:45:55.8023860Z Creating settings.xml with server-id: github
+2026-09-10T08:45:55.8024724Z Creating toolchains.xml for JDK version 21 from temurin
+2026-09-10T08:45:55.8025296Z Writing to /home/runner/.m2/settings.xml
+2026-09-10T08:45:55.8031632Z Writing to /home/runner/.m2/toolchains.xml
+2026-09-10T08:45:55.8039519Z Configured MAVEN_ARGS to include -ntp to suppress Maven transfer progress logs. Set 'show-download-progress: true' to keep the download progress output.
+2026-09-10T08:45:55.8158027Z ##[group]Run android-actions/setup-android@40fd30fb8d7440372e1316f5d1809ec01dcd3699
+2026-09-10T08:45:55.8158428Z with:
+2026-09-10T08:45:55.8158737Z   packages: platform-tools emulator system-images;android-35;default;x86_64
+2026-09-10T08:45:55.8159157Z   log-accepted-android-sdk-licenses: false
+2026-09-10T08:45:55.8159446Z   cmdline-tools-version: 14742923
+2026-09-10T08:45:55.8159708Z   accept-android-sdk-licenses: true
+2026-09-10T08:45:55.8159946Z env:
+2026-09-10T08:45:55.8160220Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T08:45:55.8160681Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T08:45:55.8161055Z   MAVEN_ARGS: -ntp
+2026-09-10T08:45:55.8161256Z ##[endgroup]
+2026-09-10T08:45:55.9071014Z Found preinstalled sdkmanager in /usr/local/lib/android/sdk/cmdline-tools/latest with following source.properties:
+2026-09-10T08:45:55.9072700Z Pkg.Revision=12.0
+2026-09-10T08:45:55.9073186Z Pkg.Path=cmdline-tools;12.0
+2026-09-10T08:45:55.9073637Z Pkg.Desc=Android SDK Command-line Tools
+2026-09-10T08:45:55.9074161Z 
+2026-09-10T08:45:55.9074370Z Wrong version in preinstalled sdkmanager
+2026-09-10T08:45:55.9075356Z Downloading commandline tools from https://dl.google.com/android/repository/commandlinetools-linux-14742923_latest.zip
+2026-09-10T08:45:56.9074991Z [command]/usr/bin/unzip -o -q /home/runner/work/_temp/bcb4876a-9c7f-4448-a58f-a86805c1336d
+2026-09-10T08:45:57.8758017Z Accepting Android SDK licenses
+2026-09-10T08:46:06.5051945Z [command]/usr/local/lib/android/sdk/cmdline-tools/20.0/bin/sdkmanager platform-tools
+2026-09-10T08:46:07.2565675Z Loading package information...                                                  
+2026-09-10T08:46:07.3398707Z Loading local repository...                                                     
+2026-09-10T08:46:07.3399501Z [                                       ] 3% Loading local repository...        
+2026-09-10T08:46:07.3427603Z [                                       ] 3% Fetch remote repository...         
+2026-09-10T08:46:07.6197558Z [=                                      ] 3% Fetch remote repository...         
+2026-09-10T08:46:07.6877047Z [=                                      ] 4% Fetch remote repository...         
+2026-09-10T08:46:07.7261903Z [=                                      ] 5% Fetch remote repository...         
+2026-09-10T08:46:07.7971770Z [==                                     ] 5% Fetch remote repository...         
+2026-09-10T08:46:07.8956909Z [==                                     ] 6% Fetch remote repository...         
+2026-09-10T08:46:08.0215100Z [==                                     ] 7% Fetch remote repository...         
+2026-09-10T08:46:08.0234877Z [==                                     ] 7% Computing updates...               
+2026-09-10T08:46:08.0334696Z [===                                    ] 8% Computing updates...               
+2026-09-10T08:46:08.0407183Z [===                                    ] 10% Computing updates...              
+2026-09-10T08:46:08.0411015Z [=======================================] 100% Computing updates...             
+2026-09-10T08:46:08.0411483Z 
+2026-09-10T08:46:08.0685363Z [command]/usr/local/lib/android/sdk/cmdline-tools/20.0/bin/sdkmanager emulator
+2026-09-10T08:46:08.8195279Z Loading package information...                                                  
+2026-09-10T08:46:08.8990906Z Loading local repository...                                                     
+2026-09-10T08:46:08.8991687Z [                                       ] 3% Loading local repository...        
+2026-09-10T08:46:08.9019320Z [                                       ] 3% Fetch remote repository...         
+2026-09-10T08:46:09.0934762Z [=                                      ] 3% Fetch remote repository...         
+2026-09-10T08:46:09.3169773Z [=                                      ] 4% Fetch remote repository...         
+2026-09-10T08:46:09.3676903Z [=                                      ] 5% Fetch remote repository...         
+2026-09-10T08:46:09.4199827Z [==                                     ] 5% Fetch remote repository...         
+2026-09-10T08:46:09.5075137Z [==                                     ] 6% Fetch remote repository...         
+2026-09-10T08:46:09.5922657Z [==                                     ] 7% Fetch remote repository...         
+2026-09-10T08:46:09.5951270Z [==                                     ] 7% Computing updates...               
+2026-09-10T08:46:09.6054796Z [===                                    ] 8% Computing updates...               
+2026-09-10T08:46:09.6169917Z [===                                    ] 10% Computing updates...              
+2026-09-10T08:46:10.0535198Z [===                                    ] 10% Installing Android Emulator       
+2026-09-10T08:46:10.3963205Z [===                                    ] 10% Downloading emulator-linux_x64-159
+2026-09-10T08:46:10.4946012Z [====                                   ] 10% Downloading emulator-linux_x64-159
+2026-09-10T08:46:10.5744348Z [====                                   ] 11% Downloading emulator-linux_x64-159
+2026-09-10T08:46:10.6235966Z [====                                   ] 12% Downloading emulator-linux_x64-159
+2026-09-10T08:46:10.6542658Z [=====                                  ] 13% Downloading emulator-linux_x64-159
+2026-09-10T08:46:10.6793360Z [=====                                  ] 14% Downloading emulator-linux_x64-159
+2026-09-10T08:46:10.6983321Z [=====                                  ] 15% Downloading emulator-linux_x64-159
+2026-09-10T08:46:10.7108448Z [======                                 ] 15% Downloading emulator-linux_x64-159
+2026-09-10T08:46:10.7357470Z [======                                 ] 16% Downloading emulator-linux_x64-159
+2026-09-10T08:46:10.7663491Z [======                                 ] 17% Downloading emulator-linux_x64-159
+2026-09-10T08:46:10.7897128Z [=======                                ] 18% Downloading emulator-linux_x64-159
+2026-09-10T08:46:10.8191947Z [=======                                ] 19% Downloading emulator-linux_x64-159
+2026-09-10T08:46:10.8303127Z [=======                                ] 20% Downloading emulator-linux_x64-159
+2026-09-10T08:46:10.8412852Z [========                               ] 20% Downloading emulator-linux_x64-159
+2026-09-10T08:46:10.8687249Z [========                               ] 21% Downloading emulator-linux_x64-159
+2026-09-10T08:46:10.8901099Z [========                               ] 22% Downloading emulator-linux_x64-159
+2026-09-10T08:46:10.9125413Z [=========                              ] 23% Downloading emulator-linux_x64-159
+2026-09-10T08:46:10.9391600Z [=========                              ] 24% Downloading emulator-linux_x64-159
+2026-09-10T08:46:10.9462377Z [=========                              ] 25% Downloading emulator-linux_x64-159
+2026-09-10T08:46:10.9557559Z [==========                             ] 25% Downloading emulator-linux_x64-159
+2026-09-10T08:46:10.9816916Z [==========                             ] 26% Downloading emulator-linux_x64-159
+2026-09-10T08:46:11.0007572Z [==========                             ] 27% Downloading emulator-linux_x64-159
+2026-09-10T08:46:11.0246114Z [===========                            ] 28% Downloading emulator-linux_x64-159
+2026-09-10T08:46:11.0439702Z [===========                            ] 29% Downloading emulator-linux_x64-159
+2026-09-10T08:46:11.0530870Z [===========                            ] 30% Downloading emulator-linux_x64-159
+2026-09-10T08:46:11.0677022Z [============                           ] 30% Downloading emulator-linux_x64-159
+2026-09-10T08:46:11.0865246Z [============                           ] 31% Downloading emulator-linux_x64-159
+2026-09-10T08:46:11.2657151Z [============                           ] 32% Downloading emulator-linux_x64-159
+2026-09-10T08:46:11.2666746Z [============                           ] 33% Downloading emulator-linux_x64-159
+2026-09-10T08:46:11.3480949Z [============                           ] 33% Unzipping...                      
+2026-09-10T08:46:11.3482016Z [============                           ] 33% Unzipping... emulator/            
+2026-09-10T08:46:11.3482649Z [============                           ] 33% Unzipping... emulator/resources/  
+2026-09-10T08:46:11.3496432Z [============                           ] 33% Unzipping... emulator/qsn         
+2026-09-10T08:46:11.3866858Z [=============                          ] 33% Unzipping... emulator/qsn         
+2026-09-10T08:46:11.4602862Z [=============                          ] 33% Unzipping... emulator/emulator    
+2026-09-10T08:46:11.5677908Z [=============                          ] 33% Unzipping... emulator/netsimd     
+2026-09-10T08:46:11.5678560Z [=============                          ] 33% Unzipping... emulator/bin64/      
+2026-09-10T08:46:11.5678927Z [=============                          ] 33% Unzipping... emulator/qemu/       
+2026-09-10T08:46:11.5698048Z [=============                          ] 33% Unzipping... emulator/NOTICE.txt  
+2026-09-10T08:46:11.5887759Z [=============                          ] 33% Unzipping... emulator/crashpad_han
+2026-09-10T08:46:11.5888775Z [=============                          ] 33% Unzipping... emulator/source.prope
+2026-09-10T08:46:11.5926201Z [=============                          ] 33% Unzipping... emulator/nimble_bridg
+2026-09-10T08:46:11.6525196Z [=============                          ] 34% Unzipping... emulator/nimble_bridg
+2026-09-10T08:46:11.6525948Z [=============                          ] 34% Unzipping... emulator/LICENSE     
+2026-09-10T08:46:11.6526626Z [=============                          ] 34% Unzipping... emulator/lib/        
+2026-09-10T08:46:11.6610611Z [=============                          ] 34% Unzipping... emulator/qemu-img    
+2026-09-10T08:46:11.6611688Z [=============                          ] 34% Unzipping... emulator/include/    
+2026-09-10T08:46:11.6618531Z [=============                          ] 34% Unzipping... emulator/NOTICE.csv  
+2026-09-10T08:46:11.6619478Z [=============                          ] 34% Unzipping... emulator/lib64/      
+2026-09-10T08:46:11.6804892Z [=============                          ] 34% Unzipping... emulator/emulator-che
+2026-09-10T08:46:11.7002864Z [=============                          ] 34% Unzipping... emulator/crashreport 
+2026-09-10T08:46:11.7015484Z [=============                          ] 34% Unzipping... emulator/mksdcard    
+2026-09-10T08:46:11.7172219Z [=============                          ] 34% Unzipping... emulator/resources/To
+2026-09-10T08:46:11.7183268Z [=============                          ] 35% Unzipping... emulator/resources/To
+2026-09-10T08:46:11.7195212Z [=============                          ] 35% Unzipping... emulator/resources/de
+2026-09-10T08:46:11.7324299Z [=============                          ] 35% Unzipping... emulator/resources/To
+2026-09-10T08:46:11.7325125Z [=============                          ] 35% Unzipping... emulator/resources/ma
+2026-09-10T08:46:11.7365149Z [=============                          ] 35% Unzipping... emulator/resources/de
+2026-09-10T08:46:11.7375266Z [=============                          ] 35% Unzipping... emulator/resources/sk
+2026-09-10T08:46:11.7398563Z [=============                          ] 35% Unzipping... emulator/resources/de
+2026-09-10T08:46:11.7400634Z [=============                          ] 35% Unzipping... emulator/resources/ma
+2026-09-10T08:46:11.7414241Z [=============                          ] 35% Unzipping... emulator/resources/po
+2026-09-10T08:46:11.7506105Z [=============                          ] 35% Unzipping... emulator/resources/ma
+2026-09-10T08:46:11.7577843Z [=============                          ] 35% Unzipping... emulator/resources/sk
+2026-09-10T08:46:11.7596889Z [=============                          ] 35% Unzipping... emulator/resources/ma
+2026-09-10T08:46:11.7641993Z [=============                          ] 35% Unzipping... emulator/bin64/e2fsck
+2026-09-10T08:46:11.7687165Z [=============                          ] 35% Unzipping... emulator/bin64/fsck.e
+2026-09-10T08:46:11.7709706Z [=============                          ] 35% Unzipping... emulator/bin64/tune2f
+2026-09-10T08:46:11.7724102Z [=============                          ] 35% Unzipping... emulator/bin64/resize
+2026-09-10T08:46:11.7746379Z [=============                          ] 35% Unzipping... emulator/bin64/mkfs.e
+2026-09-10T08:46:11.7844380Z [=============                          ] 35% Unzipping... emulator/qemu/linux-x
+2026-09-10T08:46:11.8924526Z [==============                         ] 35% Unzipping... emulator/qemu/linux-x
+2026-09-10T08:46:12.0538943Z [==============                         ] 36% Unzipping... emulator/qemu/linux-x
+2026-09-10T08:46:12.2632204Z [==============                         ] 37% Unzipping... emulator/qemu/linux-x
+2026-09-10T08:46:12.4287699Z [===============                        ] 38% Unzipping... emulator/qemu/linux-x
+2026-09-10T08:46:12.5868639Z [===============                        ] 39% Unzipping... emulator/qemu/linux-x
+2026-09-10T08:46:12.6710119Z [===============                        ] 40% Unzipping... emulator/qemu/linux-x
+2026-09-10T08:46:12.7526171Z [================                       ] 40% Unzipping... emulator/qemu/linux-x
+2026-09-10T08:46:12.8460156Z [================                       ] 41% Unzipping... emulator/qemu/linux-x
+2026-09-10T08:46:12.8461293Z [================                       ] 41% Unzipping... emulator/lib/emulator
+2026-09-10T08:46:12.8464862Z [================                       ] 41% Unzipping... emulator/lib/rtc_serv
+2026-09-10T08:46:12.8468360Z [================                       ] 41% Unzipping... emulator/lib/advanced
+2026-09-10T08:46:12.8469286Z [================                       ] 41% Unzipping... emulator/lib/cmake/  
+2026-09-10T08:46:12.8473542Z [================                       ] 41% Unzipping... emulator/lib/emulator
+2026-09-10T08:46:12.8476979Z [================                       ] 41% Unzipping... emulator/lib/control_
+2026-09-10T08:46:12.8479929Z [================                       ] 41% Unzipping... emulator/lib/emulated
+2026-09-10T08:46:12.8482173Z [================                       ] 41% Unzipping... emulator/lib/rtc_serv
+2026-09-10T08:46:12.8485331Z [================                       ] 41% Unzipping... emulator/lib/emu-orig
+2026-09-10T08:46:12.8489490Z [================                       ] 41% Unzipping... emulator/lib/hardware
+2026-09-10T08:46:12.8490345Z [================                       ] 41% Unzipping... emulator/lib/pkgconfi
+2026-09-10T08:46:12.8491608Z [================                       ] 41% Unzipping... emulator/lib/pc-bios/
+2026-09-10T08:46:12.8492980Z [================                       ] 41% Unzipping... emulator/lib/snapshot
+2026-09-10T08:46:12.8495743Z [================                       ] 41% Unzipping... emulator/lib/adb_serv
+2026-09-10T08:46:12.8502612Z [================                       ] 41% Unzipping... emulator/lib/hostapd.
+2026-09-10T08:46:12.8505230Z [================                       ] 41% Unzipping... emulator/lib/grpc_end
+2026-09-10T08:46:12.8522764Z [================                       ] 41% Unzipping... emulator/lib/ca-bundl
+2026-09-10T08:46:12.8525432Z [================                       ] 41% Unzipping... emulator/lib/ui_contr
+2026-09-10T08:46:12.8528096Z [================                       ] 41% Unzipping... emulator/lib/snapshot
+2026-09-10T08:46:12.8530853Z [================                       ] 41% Unzipping... emulator/lib/ice_conf
+2026-09-10T08:46:12.8840338Z [================                       ] 41% Unzipping... emulator/lib/libflatb
+2026-09-10T08:46:12.8846942Z [================                       ] 41% Unzipping... emulator/lib/emulator
+2026-09-10T08:46:12.8849408Z [================                       ] 41% Unzipping... emulator/lib/waterfal
+2026-09-10T08:46:12.8852589Z [================                       ] 41% Unzipping... emulator/lib/emulated
+2026-09-10T08:46:12.8866166Z [================                       ] 41% Unzipping... emulator/lib/cmake/fl
+2026-09-10T08:46:12.8867428Z [================                       ] 41% Unzipping... emulator/lib/pkgconfi
+2026-09-10T08:46:12.9024950Z [================                       ] 41% Unzipping... emulator/lib/pc-bios/
+2026-09-10T08:46:12.9088035Z [================                       ] 41% Unzipping... emulator/include/flat
+2026-09-10T08:46:12.9160454Z [================                       ] 41% Unzipping... emulator/lib64/libgli
+2026-09-10T08:46:12.9286567Z [================                       ] 41% Unzipping... emulator/lib64/libpro
+2026-09-10T08:46:12.9287210Z [================                       ] 41% Unzipping... emulator/lib64/qt/   
+2026-09-10T08:46:12.9699720Z [================                       ] 41% Unzipping... emulator/lib64/liband
+2026-09-10T08:46:12.9724331Z [================                       ] 41% Unzipping... emulator/lib64/libgfx
+2026-09-10T08:46:13.0416848Z [================                       ] 42% Unzipping... emulator/lib64/libgfx
+2026-09-10T08:46:13.0418033Z [================                       ] 42% Unzipping... emulator/lib64/gles_l
+2026-09-10T08:46:13.0426112Z [================                       ] 42% Unzipping... emulator/lib64/liband
+2026-09-10T08:46:13.0426832Z [================                       ] 42% Unzipping... emulator/lib64/vulkan
+2026-09-10T08:46:13.0427461Z [================                       ] 42% Unzipping... emulator/lib64/gles_s
+2026-09-10T08:46:13.0431014Z [================                       ] 42% Unzipping... emulator/lib64/libemu
+2026-09-10T08:46:13.0559453Z [================                       ] 42% Unzipping... emulator/lib64/libpro
+2026-09-10T08:46:13.1648452Z [================                       ] 42% Unzipping... emulator/lib64/liband
+2026-09-10T08:46:13.2156009Z [=================                      ] 43% Unzipping... emulator/lib64/liband
+2026-09-10T08:46:13.2184995Z [=================                      ] 43% Unzipping... emulator/lib64/libtcm
+2026-09-10T08:46:13.2188570Z [=================                      ] 43% Unzipping... emulator/lib64/libima
+2026-09-10T08:46:13.2269241Z [=================                      ] 43% Unzipping... emulator/lib64/libc++
+2026-09-10T08:46:13.2542509Z [=================                      ] 43% Unzipping... emulator/lib64/liband
+2026-09-10T08:46:13.2596061Z [=================                      ] 43% Unzipping... emulator/lib64/libabs
+2026-09-10T08:46:13.2596744Z [=================                      ] 43% Unzipping... emulator/lib64/gles_a
+2026-09-10T08:46:13.2693506Z [=================                      ] 43% Unzipping... emulator/lib64/libsha
+2026-09-10T08:46:13.2784662Z [=================                      ] 43% Unzipping... emulator/lib64/libc++
+2026-09-10T08:46:13.2787047Z [=================                      ] 43% Unzipping... emulator/lib64/qt/res
+2026-09-10T08:46:13.2788275Z [=================                      ] 43% Unzipping... emulator/lib64/qt/lib
+2026-09-10T08:46:13.2789821Z [=================                      ] 43% Unzipping... emulator/lib64/qt/tra
+2026-09-10T08:46:13.2790478Z [=================                      ] 43% Unzipping... emulator/lib64/qt/plu
+2026-09-10T08:46:13.2916177Z [=================                      ] 43% Unzipping... emulator/lib64/qt/res
+2026-09-10T08:46:13.3551017Z [=================                      ] 44% Unzipping... emulator/lib64/qt/res
+2026-09-10T08:46:13.3660463Z [=================                      ] 44% Unzipping... emulator/lib64/qt/lib
+2026-09-10T08:46:13.4290472Z [=================                      ] 45% Unzipping... emulator/lib64/qt/lib
+2026-09-10T08:46:13.5538012Z [==================                     ] 45% Unzipping... emulator/lib64/qt/lib
+2026-09-10T08:46:13.7211666Z [==================                     ] 46% Unzipping... emulator/lib64/qt/lib
+2026-09-10T08:46:13.9301024Z [==================                     ] 47% Unzipping... emulator/lib64/qt/lib
+2026-09-10T08:46:14.1423846Z [===================                    ] 48% Unzipping... emulator/lib64/qt/lib
+2026-09-10T08:46:14.3379226Z [===================                    ] 49% Unzipping... emulator/lib64/qt/lib
+2026-09-10T08:46:14.4204385Z [===================                    ] 50% Unzipping... emulator/lib64/qt/lib
+2026-09-10T08:46:14.5250302Z [====================                   ] 50% Unzipping... emulator/lib64/qt/lib
+2026-09-10T08:46:14.5829796Z [====================                   ] 51% Unzipping... emulator/lib64/qt/lib
+2026-09-10T08:46:14.6926521Z [====================                   ] 51% Unzipping... emulator/lib64/qt/tra
+2026-09-10T08:46:14.7041029Z [====================                   ] 51% Unzipping... emulator/lib64/qt/plu
+2026-09-10T08:46:14.7438561Z [====================                   ] 51% Unzipping... emulator/lib64/gles_l
+2026-09-10T08:46:14.7898605Z [====================                   ] 52% Unzipping... emulator/lib64/gles_l
+2026-09-10T08:46:14.9523553Z [====================                   ] 52% Unzipping... emulator/lib64/vulkan
+2026-09-10T08:46:15.1505804Z [=====================                  ] 53% Unzipping... emulator/lib64/vulkan
+2026-09-10T08:46:15.3639980Z [=====================                  ] 54% Unzipping... emulator/lib64/vulkan
+2026-09-10T08:46:15.3970823Z [=====================                  ] 54% Unzipping... emulator/lib64/gles_s
+2026-09-10T08:46:15.4362426Z [=====================                  ] 55% Unzipping... emulator/lib64/gles_s
+2026-09-10T08:46:15.5314331Z [=====================                  ] 55% Unzipping... emulator/lib64/gles_a
+2026-09-10T08:46:15.5315560Z [=======================================] 100% Unzipping... emulator/lib64/gles_
+2026-09-10T08:46:15.9605988Z 
+2026-09-10T08:46:15.9778066Z [command]/usr/local/lib/android/sdk/cmdline-tools/20.0/bin/sdkmanager system-images;android-35;default;x86_64
+2026-09-10T08:46:16.7546704Z Loading package information...                                                  
+2026-09-10T08:46:16.8436479Z Loading local repository...                                                     
+2026-09-10T08:46:16.8437676Z [                                       ] 3% Loading local repository...        
+2026-09-10T08:46:16.8466614Z [                                       ] 3% Fetch remote repository...         
+2026-09-10T08:46:17.1246738Z [=                                      ] 3% Fetch remote repository...         
+2026-09-10T08:46:17.1749441Z [=                                      ] 4% Fetch remote repository...         
+2026-09-10T08:46:17.1995562Z [=                                      ] 5% Fetch remote repository...         
+2026-09-10T08:46:17.2439344Z [==                                     ] 5% Fetch remote repository...         
+2026-09-10T08:46:17.2935380Z [==                                     ] 6% Fetch remote repository...         
+2026-09-10T08:46:17.3693210Z [==                                     ] 7% Fetch remote repository...         
+2026-09-10T08:46:17.3715172Z [==                                     ] 7% Computing updates...               
+2026-09-10T08:46:17.3834214Z [===                                    ] 8% Computing updates...               
+2026-09-10T08:46:17.3933445Z [===                                    ] 10% Computing updates...              
+2026-09-10T08:46:17.8060813Z [===                                    ] 10% Installing Intel x86_64 Atom Syste
+2026-09-10T08:46:18.1841929Z [===                                    ] 10% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:18.2760667Z [====                                   ] 10% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:18.3569141Z [====                                   ] 11% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:18.4301022Z [====                                   ] 12% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:18.4886102Z [=====                                  ] 13% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:18.5426918Z [=====                                  ] 14% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:18.5857818Z [=====                                  ] 15% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:18.6132305Z [======                                 ] 15% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:18.6625049Z [======                                 ] 16% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:18.7196827Z [======                                 ] 17% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:18.7616422Z [=======                                ] 18% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:18.8151724Z [=======                                ] 19% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:18.8366885Z [=======                                ] 20% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:18.8580143Z [========                               ] 20% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:18.9118452Z [========                               ] 21% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:18.9546819Z [========                               ] 22% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:18.9973802Z [=========                              ] 23% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:19.0509542Z [=========                              ] 24% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:19.0722584Z [=========                              ] 25% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:19.0938409Z [==========                             ] 25% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:19.1475595Z [==========                             ] 26% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:19.1905650Z [==========                             ] 27% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:19.2440932Z [===========                            ] 28% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:19.2868937Z [===========                            ] 29% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:19.3082179Z [===========                            ] 30% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:19.3407666Z [============                           ] 30% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:19.3833742Z [============                           ] 31% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:19.4272984Z [============                           ] 32% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:19.4285237Z [============                           ] 33% Downloading x86_64-35_r02.zip...  
+2026-09-10T08:46:19.4748324Z [============                           ] 33% Unzipping...                      
+2026-09-10T08:46:19.4767057Z [============                           ] 33% Unzipping... x86_64/NOTICE.txt    
+2026-09-10T08:46:19.4972058Z [=============                          ] 33% Unzipping... x86_64/NOTICE.txt    
+2026-09-10T08:46:19.5001051Z [=============                          ] 33% Unzipping... x86_64/VerifiedBootPa
+2026-09-10T08:46:19.5001753Z [=============                          ] 33% Unzipping... x86_64/advancedFeatur
+2026-09-10T08:46:19.5002127Z [=============                          ] 33% Unzipping... x86_64/build.prop    
+2026-09-10T08:46:19.5536424Z [=============                          ] 33% Unzipping... x86_64/encryptionkey.
+2026-09-10T08:46:19.6814400Z [=============                          ] 33% Unzipping... x86_64/kernel-ranchu 
+2026-09-10T08:46:19.6821915Z [=============                          ] 33% Unzipping... x86_64/kernel_cmdline
+2026-09-10T08:46:19.6997373Z [=============                          ] 33% Unzipping... x86_64/ramdisk.img   
+2026-09-10T08:46:19.6999930Z [=============                          ] 33% Unzipping... x86_64/source.propert
+2026-09-10T08:46:19.8646184Z [=============                          ] 33% Unzipping... x86_64/system.img    
+2026-09-10T08:46:20.1141071Z [=============                          ] 34% Unzipping... x86_64/system.img    
+2026-09-10T08:46:20.2823078Z [=============                          ] 35% Unzipping... x86_64/system.img    
+2026-09-10T08:46:20.3831275Z [==============                         ] 35% Unzipping... x86_64/system.img    
+2026-09-10T08:46:20.7750918Z [==============                         ] 36% Unzipping... x86_64/system.img    
+2026-09-10T08:46:21.1947733Z [==============                         ] 37% Unzipping... x86_64/system.img    
+2026-09-10T08:46:21.5527617Z [===============                        ] 38% Unzipping... x86_64/system.img    
+2026-09-10T08:46:21.8609693Z [===============                        ] 39% Unzipping... x86_64/system.img    
+2026-09-10T08:46:22.1258356Z [===============                        ] 40% Unzipping... x86_64/system.img    
+2026-09-10T08:46:22.2399929Z [================                       ] 40% Unzipping... x86_64/system.img    
+2026-09-10T08:46:22.6123399Z [================                       ] 41% Unzipping... x86_64/system.img    
+2026-09-10T08:46:23.0114830Z [================                       ] 42% Unzipping... x86_64/system.img    
+2026-09-10T08:46:23.4001372Z [=================                      ] 43% Unzipping... x86_64/system.img    
+2026-09-10T08:46:23.5515507Z [=================                      ] 44% Unzipping... x86_64/system.img    
+2026-09-10T08:46:23.6838205Z [=================                      ] 45% Unzipping... x86_64/system.img    
+2026-09-10T08:46:23.8293477Z [==================                     ] 45% Unzipping... x86_64/system.img    
+2026-09-10T08:46:24.1701856Z [==================                     ] 46% Unzipping... x86_64/system.img    
+2026-09-10T08:46:24.5185369Z [==================                     ] 47% Unzipping... x86_64/system.img    
+2026-09-10T08:46:24.8821638Z [===================                    ] 48% Unzipping... x86_64/system.img    
+2026-09-10T08:46:25.2545652Z [===================                    ] 49% Unzipping... x86_64/system.img    
+2026-09-10T08:46:25.4843262Z [===================                    ] 50% Unzipping... x86_64/system.img    
+2026-09-10T08:46:25.6731826Z [====================                   ] 50% Unzipping... x86_64/system.img    
+2026-09-10T08:46:26.0792830Z [====================                   ] 51% Unzipping... x86_64/system.img    
+2026-09-10T08:46:26.4083675Z [====================                   ] 52% Unzipping... x86_64/system.img    
+2026-09-10T08:46:26.6505176Z [=====================                  ] 53% Unzipping... x86_64/system.img    
+2026-09-10T08:46:28.7936797Z [=====================                  ] 54% Unzipping... x86_64/system.img    
+2026-09-10T08:46:29.0378024Z [=====================                  ] 54% Unzipping... x86_64/vendor.img    
+2026-09-10T08:46:29.2540492Z [=====================                  ] 55% Unzipping... x86_64/vendor.img    
+2026-09-10T08:46:29.2544651Z [=====================                  ] 55% Unzipping... x86_64/data/empty_dat
+2026-09-10T08:46:29.2546847Z [=====================                  ] 55% Unzipping... x86_64/data/local.pro
+2026-09-10T08:46:29.2550605Z [=====================                  ] 55% Unzipping... x86_64/data/misc/apns
+2026-09-10T08:46:29.2555782Z [=====================                  ] 55% Unzipping... x86_64/data/misc/emul
+2026-09-10T08:46:29.2567338Z [=====================                  ] 55% Unzipping... x86_64/data/misc/mode
+2026-09-10T08:46:29.3313334Z [=====================                  ] 55% Unzipping... x86_64/data/misc/pixe
+2026-09-10T08:46:29.3314403Z [=======================================] 100% Unzipping... x86_64/data/misc/pix
+2026-09-10T08:46:29.4411063Z 
+2026-09-10T08:46:29.4750684Z ##[group]Run actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+2026-09-10T08:46:29.4751086Z with:
+2026-09-10T08:46:29.4751302Z   name: godot-comparison-runtime-apk
+2026-09-10T08:46:29.4751593Z   path: godot/qualification/build
+2026-09-10T08:46:29.4751852Z   merge-multiple: false
+2026-09-10T08:46:29.4752094Z   repository: Apdelrahman1911/PartyDeck
+2026-09-10T08:46:29.4752356Z   run-id: 34456443339
+2026-09-10T08:46:29.4752569Z   skip-decompress: false
+2026-09-10T08:46:29.4752795Z   digest-mismatch: error
+2026-09-10T08:46:29.4753010Z env:
+2026-09-10T08:46:29.4753289Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T08:46:29.4753755Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T08:46:29.4754804Z   MAVEN_ARGS: -ntp
+2026-09-10T08:46:29.4755046Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-10T08:46:29.4755339Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-10T08:46:29.4755664Z ##[endgroup]
+2026-09-10T08:46:29.6056037Z Downloading single artifact
+2026-09-10T08:46:29.7531841Z Preparing to download the following artifacts:
+2026-09-10T08:46:29.7533879Z - godot-comparison-runtime-apk (ID: 10143831638, Size: 111371719, Expected Digest: sha256:dc0ccad8d06dc65cca8bc47c22c707b29302125bbdd0427a245b8bd5e42f7cd2)
+2026-09-10T08:46:30.0635532Z Redirecting to blob download url: https://productionresultssa5.blob.core.windows.net/actions-results/9223b142-9576-4328-8a4b-ac5a56a664da/workflow-job-run-6f56fdd5-a6b5-5a58-bdda-95c6ce990a9b/artifacts/3a971a15ee91fdbdcae2dc4b733964c29443690d68ec726f24df2621b5096a1c.zip
+2026-09-10T08:46:30.0637350Z Starting download of artifact to: /home/runner/work/PartyDeck/PartyDeck/godot/qualification/build
+2026-09-10T08:46:30.2718619Z (node:2599) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+2026-09-10T08:46:30.2720711Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-10T08:46:33.0831023Z SHA256 digest of downloaded artifact is dc0ccad8d06dc65cca8bc47c22c707b29302125bbdd0427a245b8bd5e42f7cd2
+2026-09-10T08:46:33.0831625Z Artifact download completed successfully.
+2026-09-10T08:46:33.0832002Z Total of 1 artifact(s) downloaded
+2026-09-10T08:46:33.0836673Z Download artifact has finished successfully
+2026-09-10T08:46:33.0929906Z ##[group]Run python3 -B godot/tools/renderer.py check-pack \
+2026-09-10T08:46:33.0930486Z [36;1mpython3 -B godot/tools/renderer.py check-pack \[0m
+2026-09-10T08:46:33.0931038Z [36;1m  --pack godot/qualification/build/renderer/partydeck-last-light.pck[0m
+2026-09-10T08:46:33.0931485Z [36;1mpython3 - <<'PY'[0m
+2026-09-10T08:46:33.0931728Z [36;1mimport hashlib[0m
+2026-09-10T08:46:33.0931955Z [36;1mimport json[0m
+2026-09-10T08:46:33.0932176Z [36;1mimport os[0m
+2026-09-10T08:46:33.0932400Z [36;1mfrom pathlib import Path[0m
+2026-09-10T08:46:33.0932656Z [36;1mimport zipfile[0m
+2026-09-10T08:46:33.0932889Z [36;1m[0m
+2026-09-10T08:46:33.0933133Z [36;1mbuild = Path('godot/qualification/build')[0m
+2026-09-10T08:46:33.0933561Z [36;1mapk = build / 'modules/androidHost/outputs/apk/debug/androidHost-debug.apk'[0m
+2026-09-10T08:46:33.0934275Z [36;1mpack = build / 'renderer/partydeck-last-light.pck'[0m
+2026-09-10T08:46:33.0934676Z [36;1mdigest = hashlib.sha256()[0m
+2026-09-10T08:46:33.0934995Z [36;1mwith apk.open('rb') as stream:[0m
+2026-09-10T08:46:33.0935337Z [36;1m    for block in iter(lambda: stream.read(1048576), b''):[0m
+2026-09-10T08:46:33.0935666Z [36;1m        digest.update(block)[0m
+2026-09-10T08:46:33.0935933Z [36;1mapk_hash = digest.hexdigest()[0m
+2026-09-10T08:46:33.0936227Z [36;1mwith zipfile.ZipFile(apk) as archive:[0m
+2026-09-10T08:46:33.0936566Z [36;1m    entry = 'assets/partydeck-last-light.pck'[0m
+2026-09-10T08:46:33.0936911Z [36;1m    if archive.namelist().count(entry) != 1:[0m
+2026-09-10T08:46:33.0937339Z [36;1m        raise SystemExit('The debug APK must contain exactly one renderer PCK.')[0m
+2026-09-10T08:46:33.0938027Z [36;1m    embedded_hash = hashlib.sha256(archive.read(entry)).hexdigest()[0m
+2026-09-10T08:46:33.0938474Z [36;1mpack_hash = hashlib.sha256(pack.read_bytes()).hexdigest()[0m
+2026-09-10T08:46:33.0938864Z [36;1mreport = build / 'ci/package-inputs.json'[0m
+2026-09-10T08:46:33.0939231Z [36;1mreport.parent.mkdir(parents=True, exist_ok=True)[0m
+2026-09-10T08:46:33.0939582Z [36;1mreport.write_text(json.dumps({[0m
+2026-09-10T08:46:33.0939948Z [36;1m    'sourceCommit': os.environ['GITHUB_SHA'], 'apkSha256': apk_hash,[0m
+2026-09-10T08:46:33.0940391Z [36;1m    'packSha256': pack_hash, 'embeddedPackSha256': embedded_hash,[0m
+2026-09-10T08:46:33.0940775Z [36;1m    'samePack': embedded_hash == pack_hash,[0m
+2026-09-10T08:46:33.0941074Z [36;1m}, indent=2) + '\n')[0m
+2026-09-10T08:46:33.0941325Z [36;1mif embedded_hash != pack_hash:[0m
+2026-09-10T08:46:33.0941744Z [36;1m    raise SystemExit('The APK renderer PCK differs from the exported comparison PCK.')[0m
+2026-09-10T08:46:33.0942156Z [36;1mPY[0m
+2026-09-10T08:46:33.0966915Z shell: /usr/bin/bash -e {0}
+2026-09-10T08:46:33.0967182Z env:
+2026-09-10T08:46:33.0967506Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T08:46:33.0967979Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T08:46:33.0968359Z   MAVEN_ARGS: -ntp
+2026-09-10T08:46:33.0968592Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-10T08:46:33.0968888Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-10T08:46:33.0969154Z ##[endgroup]
+2026-09-10T08:46:33.1827311Z PCK checks passed: 136 entries; SHA-256 8f24944d61b0430cfec4a32bb1d03d2c7da9f55918264e9cfcded1c675d21539
+2026-09-10T08:46:33.5120437Z ##[group]Run test -e /dev/kvm
+2026-09-10T08:46:33.5120745Z [36;1mtest -e /dev/kvm[0m
+2026-09-10T08:46:33.5120990Z [36;1msudo chmod a+rw /dev/kvm[0m
+2026-09-10T08:46:33.5142192Z shell: /usr/bin/bash -e {0}
+2026-09-10T08:46:33.5142474Z env:
+2026-09-10T08:46:33.5142776Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T08:46:33.5143260Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T08:46:33.5143625Z   MAVEN_ARGS: -ntp
+2026-09-10T08:46:33.5143855Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-10T08:46:33.5144321Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-10T08:46:33.5144597Z ##[endgroup]
+2026-09-10T08:46:33.5276490Z ##[group]Run timeout --signal=TERM --kill-after=30s 38m bash godot/android-checks/emulator.sh \
+2026-09-10T08:46:33.5277134Z [36;1mtimeout --signal=TERM --kill-after=30s 38m bash godot/android-checks/emulator.sh \[0m
+2026-09-10T08:46:33.5277759Z [36;1m  godot/qualification/build/modules/androidHost/outputs/apk/debug/androidHost-debug.apk \[0m
+2026-09-10T08:46:33.5278315Z [36;1m  "$PARTYDECK_GODOT_CI_MODE" "$PARTYDECK_GODOT_CI_FONT_SCALE" \[0m
+2026-09-10T08:46:33.5278703Z [36;1m  godot/qualification/build/ci/android[0m
+2026-09-10T08:46:33.5297996Z shell: /usr/bin/bash -e {0}
+2026-09-10T08:46:33.5298259Z env:
+2026-09-10T08:46:33.5298569Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T08:46:33.5299043Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T08:46:33.5299419Z   MAVEN_ARGS: -ntp
+2026-09-10T08:46:33.5299651Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-10T08:46:33.5299987Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-10T08:46:33.5300277Z   PARTYDECK_GODOT_CI_MODE: 2d
+2026-09-10T08:46:33.5300530Z   PARTYDECK_GODOT_CI_FONT_SCALE: 1.0
+2026-09-10T08:46:33.5300782Z ##[endgroup]
+2026-09-10T08:46:33.5650071Z accel:
+2026-09-10T08:46:33.5650341Z 0
+2026-09-10T08:46:33.5675087Z KVM (version 12) is installed and usable.
+2026-09-10T08:46:33.5675579Z accel
+2026-09-10T08:46:34.1219862Z * daemon not running; starting now at tcp:5037
+2026-09-10T08:46:34.3503797Z * daemon started successfully
+2026-09-10T08:46:35.1375227Z Loading local repository...                                                     
+2026-09-10T08:46:35.1859064Z [=========                              ] 25% Loading local repository...       
+2026-09-10T08:46:35.1860194Z Auto-selecting single ABI x86_64
+2026-09-10T08:47:20.0345411Z [avd-preparation-1] Verified responsive Android launcher before app installation
+2026-09-10T08:47:23.0368524Z AVD prepared; strict debug and optimized APK acceptance can begin.
+2026-09-10T08:47:31.7101246Z [godot-comparison] Verified responsive Android launcher before app installation
+2026-09-10T08:47:41.2055033Z [godot-comparison] Tapped reference_scenario
+2026-09-10T08:47:49.7672146Z [godot-comparison] Tapped sound_enabled
+2026-09-10T08:47:55.5432311Z [godot-comparison] Captured chooser
+2026-09-10T08:47:57.6864109Z [godot-comparison] Tapped launch_2d
+2026-09-10T08:48:04.1868154Z [godot-comparison] Verified real 2d match setup, Ready and concealed renderer
+2026-09-10T08:48:07.9561197Z [godot-comparison] Captured 01-concealed
+2026-09-10T08:48:12.2022256Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:48:21.0784125Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:48:27.2210877Z [godot-comparison] Captured 02-revealed
+2026-09-10T08:48:31.4320023Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:48:40.1802353Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:48:46.2629419Z [godot-comparison] Captured 03-selected
+2026-09-10T08:48:50.4847255Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:48:59.2235025Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:49:05.3370394Z [godot-comparison] Captured 04-covered
+2026-09-10T08:49:09.5475842Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:49:18.2465926Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:49:24.8040284Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:49:33.5160456Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:49:45.9445883Z [godot-comparison] Captured 05-background-home
+2026-09-10T08:49:51.5842278Z [godot-comparison] Captured 06-recents-privacy
+2026-09-10T08:49:56.7506371Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:50:02.9031298Z [godot-comparison] Captured 07-resumed-concealed
+2026-09-10T08:50:07.1280657Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:50:15.9150257Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:50:22.4572838Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:50:31.2162827Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:50:37.8112041Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:50:47.0810059Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:50:53.5967635Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:50:59.6905626Z [godot-comparison] Captured 08-after-play
+2026-09-10T08:51:03.4251472Z [godot-comparison] Captured 09-public-outcome
+2026-09-10T08:51:07.6484964Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:51:16.8920703Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:51:23.4506435Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:51:29.4834398Z [godot-comparison] Captured 10-next-round
+2026-09-10T08:51:33.7087870Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:51:42.8817897Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:51:49.3866655Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:51:55.9120047Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:52:05.1359718Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:52:11.6777014Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:52:18.2003875Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:52:27.0248273Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:52:33.5478762Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:52:39.7133689Z [godot-comparison] Captured 11-after-challenge
+2026-09-10T08:52:43.9465730Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:52:52.7789736Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:52:59.2934634Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:53:05.8153368Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:53:14.6334659Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:53:21.1856205Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:53:29.8813261Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:53:36.3972197Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:53:45.5481782Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:53:52.1139224Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:53:58.6038527Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:54:07.7770605Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:54:14.3178824Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:54:20.8473779Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:54:30.0351313Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:54:36.5572912Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:54:43.0565472Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:54:52.2685664Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:54:58.7730587Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:55:05.3486248Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:55:14.1865949Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:55:20.7142028Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:55:27.2617206Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:55:36.4334902Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:55:42.8962122Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:55:49.4089588Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:55:58.5550820Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:56:05.0721135Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:56:11.5780009Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:56:20.7237886Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:56:27.2433608Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:56:33.7312171Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:56:42.9240539Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:56:49.4491565Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:56:55.9954420Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:57:05.1552268Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:57:11.6687252Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:57:18.2388816Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:57:27.4135409Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:57:33.9383248Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:57:39.9518785Z [godot-comparison] Captured 12-winner
+2026-09-10T08:57:44.1657061Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:58:01.2039335Z [godot-comparison] Captured 14-chooser-after-exit
+2026-09-10T08:58:01.2047500Z [godot-comparison] Verified native destruction, actual PID absence and surviving chooser: return_to_chooser
+2026-09-10T08:58:03.3295657Z [godot-comparison] Tapped launch_2d
+2026-09-10T08:58:09.3271796Z [godot-comparison] Verified real 2d scene-exit setup, Ready and concealed renderer
+2026-09-10T08:58:13.0313141Z [godot-comparison] Captured 01-fresh-concealed
+2026-09-10T08:58:17.2644953Z [godot-comparison] Tapped refresh_diagnostics
+2026-09-10T08:58:34.7039304Z [godot-comparison] Captured 14-chooser-after-exit
+2026-09-10T08:58:34.7046312Z [godot-comparison] Verified native destruction, actual PID absence and surviving chooser: renderer_exit
+2026-09-10T08:58:36.8255936Z [godot-comparison] Tapped launch_2d
+2026-09-10T08:58:42.9472657Z [godot-comparison] Verified real 2d native-exit setup, Ready and concealed renderer
+2026-09-10T08:58:46.7285306Z [godot-comparison] Captured 01-fresh-concealed
+2026-09-10T08:58:48.8490595Z [godot-comparison] Tapped exit_game
+2026-09-10T08:59:01.6804761Z [godot-comparison] Captured 14-chooser-after-exit
+2026-09-10T08:59:01.6812683Z [godot-comparison] Verified native destruction, actual PID absence and surviving chooser: native_close
+2026-09-10T08:59:05.6279955Z Real Android 2d Godot qualification passed; inspect retained captures for visual review.
+2026-09-10T08:59:07.6594759Z Prepare all required actions
+2026-09-10T08:59:07.6595354Z Getting action download info
+2026-09-10T08:59:07.9328175Z Download action repository 'actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a' (SHA:043fb46d1a93c77aae656e7c1c64a875d1fc6a0a)
+2026-09-10T08:59:08.0167022Z ##[group]Run ./.github/actions/upload-artifact
+2026-09-10T08:59:08.0167325Z with:
+2026-09-10T08:59:08.0167550Z   name: godot-android-2d-font-1.0-debug
+2026-09-10T08:59:08.0168463Z   path: godot/qualification/build/ci/package-inputs.json
+godot/qualification/build/ci/android/**/*.log
+godot/qualification/build/ci/android/**/*.json
+godot/qualification/build/ci/android/**/*.xml
+godot/qualification/build/ci/android/**/*.png
+
+2026-09-10T08:59:08.0169351Z   retention-days: 14
+2026-09-10T08:59:08.0169581Z   if-no-files-found: warn
+2026-09-10T08:59:08.0169814Z env:
+2026-09-10T08:59:08.0170105Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T08:59:08.0170626Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T08:59:08.0170996Z   MAVEN_ARGS: -ntp
+2026-09-10T08:59:08.0171231Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-10T08:59:08.0171539Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-10T08:59:08.0171813Z ##[endgroup]
+2026-09-10T08:59:08.0229650Z ##[start-action display=Upload artifact;id=__self.first]
+2026-09-10T08:59:08.0271109Z ##[group]Run actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+2026-09-10T08:59:08.0271485Z with:
+2026-09-10T08:59:08.0271702Z   name: godot-android-2d-font-1.0-debug
+2026-09-10T08:59:08.0272603Z   path: godot/qualification/build/ci/package-inputs.json
+godot/qualification/build/ci/android/**/*.log
+godot/qualification/build/ci/android/**/*.json
+godot/qualification/build/ci/android/**/*.xml
+godot/qualification/build/ci/android/**/*.png
+
+2026-09-10T08:59:08.0273470Z   retention-days: 14
+2026-09-10T08:59:08.0273689Z   if-no-files-found: warn
+2026-09-10T08:59:08.0274091Z   compression-level: 6
+2026-09-10T08:59:08.0274313Z   overwrite: false
+2026-09-10T08:59:08.0274537Z   include-hidden-files: false
+2026-09-10T08:59:08.0274775Z   archive: true
+2026-09-10T08:59:08.0274973Z env:
+2026-09-10T08:59:08.0275259Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T08:59:08.0275723Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T08:59:08.0276079Z   MAVEN_ARGS: -ntp
+2026-09-10T08:59:08.0276309Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-10T08:59:08.0276601Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-10T08:59:08.0276870Z ##[endgroup]
+2026-09-10T08:59:08.1922410Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-09-10T08:59:08.1924967Z The least common ancestor is /home/runner/work/PartyDeck/PartyDeck/godot/qualification/build/ci. This will be the root directory of the artifact
+2026-09-10T08:59:08.1926123Z With the provided path, there will be 117 files uploaded
+2026-09-10T08:59:08.1927154Z Artifact name is valid!
+2026-09-10T08:59:08.1927728Z Root directory input is valid!
+2026-09-10T08:59:08.5125210Z Uploading artifact: godot-android-2d-font-1.0-debug.zip
+2026-09-10T08:59:08.5161973Z Beginning upload of artifact content to blob storage
+2026-09-10T08:59:09.2676192Z Uploaded bytes 4812944
+2026-09-10T08:59:09.3109338Z Finished uploading artifact content to blob storage!
+2026-09-10T08:59:09.3110637Z SHA256 digest of uploaded artifact is 83257bda004883998404747e145a7cb48ec91d6d6f4f522c9f712d5468e82b00
+2026-09-10T08:59:09.3111688Z Finalizing artifact upload
+2026-09-10T08:59:09.5914529Z Artifact godot-android-2d-font-1.0-debug successfully finalized. Artifact ID 10144334829
+2026-09-10T08:59:09.5916296Z Artifact godot-android-2d-font-1.0-debug has been successfully uploaded! Final size is 4812944 bytes. Artifact ID is 10144334829
+2026-09-10T08:59:09.5919746Z Artifact download URL: https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34456443339/artifacts/10144334829
+2026-09-10T08:59:09.6030292Z ##[end-action id=__self.first;outcome=success;conclusion=success;duration_ms=1579]
+2026-09-10T08:59:09.6034813Z ##[start-action display=Wait before the single upload retry;id=__self.__run]
+2026-09-10T08:59:09.6060162Z ##[end-action id=__self.__run;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-09-10T08:59:09.6062226Z ##[start-action display=Retry artifact upload;id=__self.retry]
+2026-09-10T08:59:09.6066829Z ##[end-action id=__self.retry;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-09-10T08:59:09.6068574Z ##[start-action display=Require a successful upload attempt;id=__self.__run_2]
+2026-09-10T08:59:09.6077034Z ##[end-action id=__self.__run_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-09-10T08:59:09.6199821Z Post job cleanup.
+2026-09-10T08:59:09.6953876Z Post job cleanup.
+2026-09-10T08:59:09.7758055Z [command]/usr/bin/git version
+2026-09-10T08:59:09.7795943Z git version 2.55.0
+2026-09-10T08:59:09.7836448Z Temporarily overriding HOME='/home/runner/work/_temp/c1fccccd-2689-4b2d-8883-ac437da830bf' before making global git config changes
+2026-09-10T08:59:09.7838242Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-10T08:59:09.7841199Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/PartyDeck/PartyDeck
+2026-09-10T08:59:09.7869033Z Removing SSH command configuration
+2026-09-10T08:59:09.7876015Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-10T08:59:09.7905346Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-10T08:59:09.8115988Z Removing HTTP extra header
+2026-09-10T08:59:09.8135626Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-10T08:59:09.8167439Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-10T08:59:09.8353791Z Removing includeIf entries pointing to credentials config files
+2026-09-10T08:59:09.8360759Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-10T08:59:09.8397543Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-10T08:59:09.8744514Z Cleaning up orphan processes
+2026-09-10T08:59:09.8999699Z Terminate orphan process: pid (2636) (adb)

@@ -1,0 +1,578 @@
+{
+  "runId": 34456443339,
+  "headSha": "dad1c11741bd4322bb8b2afb9f18f3db5f50c919",
+  "priorRunId": 34450246541,
+  "priorHeadSha": "a7278686170243795e505ce4f6a6788e912c01fe",
+  "sourceArchiveVerified": true,
+  "sourceArchiveReceipt": {
+    "path": "/tmp/partydeck-engine-ci/34456443339/source-archive.json",
+    "bytes": 615,
+    "sha256": "6eb514c414d3a61c73d53f3bf2634196ea6dd9baf32cc3892202ee3a2d769a2d"
+  },
+  "sourceArchive": {
+    "path": "/tmp/partydeck-engine-ci/34456443339/source-dad1c11.tar.gz",
+    "bytes": 245465945,
+    "sha256": "955de3c9791d1642780b7496096aa4a9dbf351f7ca361f67a5f842e8e595f8cc"
+  },
+  "selectedExtractedSourcesMatchArchiveMembers": {
+    ".github/workflows/godot-compare.yml": {
+      "member": "Apdelrahman1911-PartyDeck-dad1c11/.github/workflows/godot-compare.yml",
+      "bytes": 11044,
+      "sha256": "d82399bb2e190c2a3bc9646c9450141ca2ae84ca96b2381600a175bd0454b0c5"
+    },
+    "godot/android-checks/emulator.sh": {
+      "member": "Apdelrahman1911-PartyDeck-dad1c11/godot/android-checks/emulator.sh",
+      "bytes": 8189,
+      "sha256": "c065aa0b52e03da4c75adbb4465bb91c45233e05871b2c0dd1bdc4501c524de0"
+    },
+    "godot/android-checks/evidence.py": {
+      "member": "Apdelrahman1911-PartyDeck-dad1c11/godot/android-checks/evidence.py",
+      "bytes": 25692,
+      "sha256": "7581f00bea3021f6718429757d3f86d6c847be81e01ff5553f22822cce285eed"
+    },
+    "godot/android-checks/run.py": {
+      "member": "Apdelrahman1911-PartyDeck-dad1c11/godot/android-checks/run.py",
+      "bytes": 47583,
+      "sha256": "037536435de365752a1863c5128bbfb9254d0cb9d53f2bb7c585e100928ce89d"
+    },
+    "godot/android-host/src/main/kotlin/dev/partydeck/godot/compare/GodotGameActivity.kt": {
+      "member": "Apdelrahman1911-PartyDeck-dad1c11/godot/android-host/src/main/kotlin/dev/partydeck/godot/compare/GodotGameActivity.kt",
+      "bytes": 29227,
+      "sha256": "bb3d5c560906e6fb021522d3119a1df90aae13f5123a10ebd318085cd2518382"
+    },
+    "godot/android-renderer/src/main/kotlin/dev/partydeck/godot/android/BoundedDispatchQueue.kt": {
+      "member": "Apdelrahman1911-PartyDeck-dad1c11/godot/android-renderer/src/main/kotlin/dev/partydeck/godot/android/BoundedDispatchQueue.kt",
+      "bytes": 3520,
+      "sha256": "89609aedc15ad374bbfd716890dc6d301fccc84b277c724cb0c71b465ba1caee"
+    },
+    "godot/android-renderer/src/main/kotlin/dev/partydeck/godot/android/NativeSignalDispatch.kt": {
+      "member": "Apdelrahman1911-PartyDeck-dad1c11/godot/android-renderer/src/main/kotlin/dev/partydeck/godot/android/NativeSignalDispatch.kt",
+      "bytes": 1875,
+      "sha256": "2370acaec39c6a8629110bbf4a9b5e59b28da6f510240b8bdd15746f822b595a"
+    },
+    "godot/android-renderer/src/main/kotlin/dev/partydeck/godot/android/PartyDeckBridgePlugin.kt": {
+      "member": "Apdelrahman1911-PartyDeck-dad1c11/godot/android-renderer/src/main/kotlin/dev/partydeck/godot/android/PartyDeckBridgePlugin.kt",
+      "bytes": 10347,
+      "sha256": "1ad39c0cf4cc64c881f23a2dad14a4b1eb4e116cba6b100fed225ecf1f0a8eee"
+    },
+    "godot/android-renderer/src/test/kotlin/dev/partydeck/godot/android/NativeSignalDispatchTest.kt": {
+      "member": "Apdelrahman1911-PartyDeck-dad1c11/godot/android-renderer/src/test/kotlin/dev/partydeck/godot/android/NativeSignalDispatchTest.kt",
+      "bytes": 6924,
+      "sha256": "1e66d179f50d2408e13de63da4ad86ac26b1c481985dd2b2d7fa23299c861beb"
+    },
+    "godot/tools/renderer.py": {
+      "member": "Apdelrahman1911-PartyDeck-dad1c11/godot/tools/renderer.py",
+      "bytes": 23976,
+      "sha256": "706b3a62e8d6ab7089a7be0ac79c2ec2e96d2fccbdc80bf08910d3605ed8fb59"
+    },
+    "scripts/smoke-android-ui.py": {
+      "member": "Apdelrahman1911-PartyDeck-dad1c11/scripts/smoke-android-ui.py",
+      "bytes": 38110,
+      "sha256": "7d6cef007b3d4fb64c6aaaf2e55c3039dc02853332607ccba4a239bc8cd1e5f3"
+    }
+  },
+  "checkerSourceHashes": {
+    "run.py": "037536435de365752a1863c5128bbfb9254d0cb9d53f2bb7c585e100928ce89d",
+    "evidence.py": "7581f00bea3021f6718429757d3f86d6c847be81e01ff5553f22822cce285eed",
+    "smoke-android-ui.py": "7d6cef007b3d4fb64c6aaaf2e55c3039dc02853332607ccba4a239bc8cd1e5f3"
+  },
+  "checkerAndWorkflowUnchanged": true,
+  "strictTeardownCheckUnchanged": true,
+  "byteIdenticalSourceComparisons": [
+    {
+      "relativePath": "godot/android-checks/run.py",
+      "prior": {
+        "path": "/tmp/partydeck-engine-ci/34450246541/source-a727868/godot/android-checks/run.py",
+        "bytes": 47583,
+        "sha256": "037536435de365752a1863c5128bbfb9254d0cb9d53f2bb7c585e100928ce89d"
+      },
+      "current": {
+        "path": "/tmp/partydeck-engine-ci/34456443339/source-dad1c11/godot/android-checks/run.py",
+        "bytes": 47583,
+        "sha256": "037536435de365752a1863c5128bbfb9254d0cb9d53f2bb7c585e100928ce89d"
+      },
+      "byteIdentical": true
+    },
+    {
+      "relativePath": "godot/android-checks/evidence.py",
+      "prior": {
+        "path": "/tmp/partydeck-engine-ci/34450246541/source-a727868/godot/android-checks/evidence.py",
+        "bytes": 25692,
+        "sha256": "7581f00bea3021f6718429757d3f86d6c847be81e01ff5553f22822cce285eed"
+      },
+      "current": {
+        "path": "/tmp/partydeck-engine-ci/34456443339/source-dad1c11/godot/android-checks/evidence.py",
+        "bytes": 25692,
+        "sha256": "7581f00bea3021f6718429757d3f86d6c847be81e01ff5553f22822cce285eed"
+      },
+      "byteIdentical": true
+    },
+    {
+      "relativePath": "scripts/smoke-android-ui.py",
+      "prior": {
+        "path": "/tmp/partydeck-engine-ci/34450246541/source-a727868/scripts/smoke-android-ui.py",
+        "bytes": 38110,
+        "sha256": "7d6cef007b3d4fb64c6aaaf2e55c3039dc02853332607ccba4a239bc8cd1e5f3"
+      },
+      "current": {
+        "path": "/tmp/partydeck-engine-ci/34456443339/source-dad1c11/scripts/smoke-android-ui.py",
+        "bytes": 38110,
+        "sha256": "7d6cef007b3d4fb64c6aaaf2e55c3039dc02853332607ccba4a239bc8cd1e5f3"
+      },
+      "byteIdentical": true
+    },
+    {
+      "relativePath": ".github/workflows/godot-compare.yml",
+      "prior": {
+        "path": "/tmp/partydeck-engine-ci/34450246541/source-a727868/.github/workflows/godot-compare.yml",
+        "bytes": 11044,
+        "sha256": "d82399bb2e190c2a3bc9646c9450141ca2ae84ca96b2381600a175bd0454b0c5"
+      },
+      "current": {
+        "path": "/tmp/partydeck-engine-ci/34456443339/source-dad1c11/.github/workflows/godot-compare.yml",
+        "bytes": 11044,
+        "sha256": "d82399bb2e190c2a3bc9646c9450141ca2ae84ca96b2381600a175bd0454b0c5"
+      },
+      "byteIdentical": true
+    },
+    {
+      "relativePath": "godot/android-checks/emulator.sh",
+      "prior": {
+        "path": "/tmp/partydeck-engine-ci/34450246541/source-a727868/godot/android-checks/emulator.sh",
+        "bytes": 8189,
+        "sha256": "c065aa0b52e03da4c75adbb4465bb91c45233e05871b2c0dd1bdc4501c524de0"
+      },
+      "current": {
+        "path": "/tmp/partydeck-engine-ci/34456443339/source-dad1c11/godot/android-checks/emulator.sh",
+        "bytes": 8189,
+        "sha256": "c065aa0b52e03da4c75adbb4465bb91c45233e05871b2c0dd1bdc4501c524de0"
+      },
+      "byteIdentical": true
+    },
+    {
+      "relativePath": "godot/android-renderer/src/main/kotlin/dev/partydeck/godot/android/BoundedDispatchQueue.kt",
+      "prior": {
+        "path": "/tmp/partydeck-engine-ci/34450246541/source-a727868/godot/android-renderer/src/main/kotlin/dev/partydeck/godot/android/BoundedDispatchQueue.kt",
+        "bytes": 3520,
+        "sha256": "89609aedc15ad374bbfd716890dc6d301fccc84b277c724cb0c71b465ba1caee"
+      },
+      "current": {
+        "path": "/tmp/partydeck-engine-ci/34456443339/source-dad1c11/godot/android-renderer/src/main/kotlin/dev/partydeck/godot/android/BoundedDispatchQueue.kt",
+        "bytes": 3520,
+        "sha256": "89609aedc15ad374bbfd716890dc6d301fccc84b277c724cb0c71b465ba1caee"
+      },
+      "byteIdentical": true
+    }
+  ],
+  "changedSourceComparisons": [
+    {
+      "relativePath": "godot/android-renderer/src/main/kotlin/dev/partydeck/godot/android/PartyDeckBridgePlugin.kt",
+      "prior": {
+        "path": "/tmp/partydeck-engine-ci/34450246541/source-a727868/godot/android-renderer/src/main/kotlin/dev/partydeck/godot/android/PartyDeckBridgePlugin.kt",
+        "bytes": 9228,
+        "sha256": "2ef14deed786bccbdec1299b7aa47e44e41a15ed806fb32740406e00e1077951"
+      },
+      "current": {
+        "path": "/tmp/partydeck-engine-ci/34456443339/source-dad1c11/godot/android-renderer/src/main/kotlin/dev/partydeck/godot/android/PartyDeckBridgePlugin.kt",
+        "bytes": 10347,
+        "sha256": "1ad39c0cf4cc64c881f23a2dad14a4b1eb4e116cba6b100fed225ecf1f0a8eee"
+      },
+      "unifiedDiff": "--- prior/godot/android-renderer/src/main/kotlin/dev/partydeck/godot/android/PartyDeckBridgePlugin.kt\n+++ current/godot/android-renderer/src/main/kotlin/dev/partydeck/godot/android/PartyDeckBridgePlugin.kt\n@@ -2,6 +2,8 @@\n \n import android.os.Handler\n import android.os.Looper\n+import android.os.SystemClock\n+import android.util.Log\n import dev.partydeck.games.EngineEventBody\n import dev.partydeck.games.MAX_ENGINE_PAYLOAD_BYTES\n import dev.partydeck.godot.bridge.LastLightWireCodec\n@@ -52,6 +54,10 @@\n     private val renderedFrames = AtomicLong(0)\n     private val afterDraw = AtomicReference<DrawContinuation?>(null)\n     val nativeTerminating = AtomicBoolean(false)\n+    private val signalDispatch = NativeSignalDispatch(\n+        schedule = { task -> engine.runOnRenderThread { task() } },\n+        nowMillis = SystemClock::elapsedRealtime,\n+    )\n     private val incoming = BoundedDispatchQueue<Inbound>(\n         capacity = 32,\n         schedule = { task -> main.post { task() } },\n@@ -71,19 +77,28 @@\n         schedule = { task -> engine.runOnRenderThread { task() } },\n         consume = { output, done ->\n             if (active.get() || output is Outbound.Close) {\n-                when (output) {\n-                    is Outbound.Command -> emitSignal(\"command_received\", output.document)\n-                    is Outbound.Close -> emitSignal(\"command_received\", output.document)\n-                    is Outbound.Diagnostics -> emitSignal(\"diagnostics_requested\", output.requestId)\n-                }\n-                // emitSignal queues a second Runnable in Godot 4.7.2. Acknowledge after\n-                // that Runnable so a stalled engine cannot accumulate native emissions.\n-                engine.runOnRenderThread {\n-                    done()\n-                    if (output is Outbound.Command && output.afterDelivery != null) {\n-                        main.post { if (active.get()) output.afterDelivery.invoke() }\n-                    }\n-                }\n+                signalDispatch.dispatch(\n+                    terminalClose = output is Outbound.Close,\n+                    emit = {\n+                        when (output) {\n+                            is Outbound.Command -> emitSignal(\"command_received\", output.document)\n+                            is Outbound.Close -> {\n+                                Log.i(TAG, \"Close dispatch started elapsed_ms=${signalDispatch.closeObservation.dispatchStartedElapsedRealtimeMs}\")\n+                                emitSignal(\"command_received\", output.document)\n+                            }\n+                            is Outbound.Diagnostics -> emitSignal(\"diagnostics_requested\", output.requestId)\n+                        }\n+                    },\n+                    afterNativeSignal = {\n+                        if (output is Outbound.Close) {\n+                            Log.i(TAG, \"Close native barrier elapsed_ms=${signalDispatch.closeObservation.nativeBarrierElapsedRealtimeMs}\")\n+                        }\n+                        done()\n+                        if (output is Outbound.Command && output.afterDelivery != null) {\n+                            main.post { if (active.get()) output.afterDelivery.invoke() }\n+                        }\n+                    },\n+                )\n             } else done()\n         },\n         onFailure = { fail(\"outbound_backpressure_or_dispatch\") },\n@@ -198,6 +213,8 @@\n \n     fun close(document: String, afterDelivery: () -> Unit) {\n         if (!active.getAndSet(false)) return\n+        signalDispatch.closeRequested()\n+        Log.i(TAG, \"Close requested elapsed_ms=${signalDispatch.closeObservation.requestedElapsedRealtimeMs}\")\n         inputGate.setEnabled(false)\n         initialLaunch.set(null)\n         afterDraw.set(null)\n@@ -205,6 +222,9 @@\n         diagnosticsExpected.set(false)\n         outgoing.finish(Outbound.Close(document)) { main.post { afterDelivery() } }\n     }\n+\n+    /** Actual native signal-barrier observation, independent of main-thread callback delivery. */\n+    fun closeSignalObservation(): CloseSignalObservation = signalDispatch.closeObservation\n \n     fun dispose() {\n         active.set(false)\n@@ -231,6 +251,7 @@\n     }\n \n     companion object {\n+        private const val TAG = \"PartyDeckGodotBridge\"\n         const val MAX_DIAGNOSTICS_BYTES = 16_384\n \n         fun withinUtf8Limit(document: String, limit: Int): Boolean =\n"
+    },
+    {
+      "relativePath": "godot/android-host/src/main/kotlin/dev/partydeck/godot/compare/GodotGameActivity.kt",
+      "prior": {
+        "path": "/tmp/partydeck-engine-ci/34450246541/source-a727868/godot/android-host/src/main/kotlin/dev/partydeck/godot/compare/GodotGameActivity.kt",
+        "bytes": 28811,
+        "sha256": "b6dc98d69013253a9c601f80dd417c52cd003bdd9c13adc2d8fd335a76e0f027"
+      },
+      "current": {
+        "path": "/tmp/partydeck-engine-ci/34456443339/source-dad1c11/godot/android-host/src/main/kotlin/dev/partydeck/godot/compare/GodotGameActivity.kt",
+        "bytes": 29227,
+        "sha256": "bb3d5c560906e6fb021522d3119a1df90aae13f5123a10ebd318085cd2518382"
+      },
+      "unifiedDiff": "--- prior/godot/android-host/src/main/kotlin/dev/partydeck/godot/compare/GodotGameActivity.kt\n+++ current/godot/android-host/src/main/kotlin/dev/partydeck/godot/compare/GodotGameActivity.kt\n@@ -102,7 +102,7 @@\n     private val startupTimeout = Runnable { if (!ready && !closing) fail(\"renderer_ready_timeout\") }\n     private val closeFallback = Runnable {\n         if (!destroying) {\n-            facts.put(\"closeSignalAcknowledged\", false)\n+            Log.i(EvidenceRecorder.TAG, \"Close fallback elapsed_ms=${SystemClock.elapsedRealtime()}\")\n             destroyEngine()\n         }\n     }\n@@ -542,7 +542,7 @@\n         // bridge invalidation are synchronous; upstream destruction follows after this bound.\n         main.postDelayed(closeFallback, 250)\n         plugin?.close(closeDocument) {\n-            facts.put(\"closeSignalAcknowledged\", true)\n+            Log.i(EvidenceRecorder.TAG, \"Close main callback elapsed_ms=${SystemClock.elapsedRealtime()}\")\n             destroyEngine()\n         }\n     }\n@@ -602,6 +602,10 @@\n \n     private fun evidenceDocument(): String {\n         evidenceRevision += 1\n+        // Queue disposal or a late main callback cannot erase a native barrier that ran.\n+        // Conversely, admission, timeout and process death are never delivery evidence.\n+        val closeSignal = plugin?.closeSignalObservation()\n+        facts.put(\"closeSignalAcknowledged\", closeSignal?.acknowledged == true)\n         val view = authority.view\n         val publicState = JSONObject()\n             .put(\"phase\", view.phase.name)\n"
+    }
+  ],
+  "newSourceFiles": [
+    {
+      "path": "/tmp/partydeck-engine-ci/34456443339/source-dad1c11/godot/android-renderer/src/main/kotlin/dev/partydeck/godot/android/NativeSignalDispatch.kt",
+      "bytes": 1875,
+      "sha256": "2370acaec39c6a8629110bbf4a9b5e59b28da6f510240b8bdd15746f822b595a"
+    },
+    {
+      "path": "/tmp/partydeck-engine-ci/34456443339/source-dad1c11/godot/android-renderer/src/test/kotlin/dev/partydeck/godot/android/NativeSignalDispatchTest.kt",
+      "bytes": 6924,
+      "sha256": "1e66d179f50d2408e13de63da4ad86ac26b1c481985dd2b2d7fa23299c861beb"
+    }
+  ],
+  "checkerBounds": {
+    "SETUP_SECONDS": 600,
+    "MODE_SECONDS": 900,
+    "ENTRY_SECONDS": 45,
+    "ACTION_SECONDS": 30,
+    "EXIT_SECONDS": 25,
+    "CLEANUP_SECONDS": 180,
+    "MAX_SCROLLS": 16,
+    "MAX_MATCH_ACTIONS": 300
+  },
+  "nativeFallbackMs": 250,
+  "nativeRendererExitWaitMs": 1500,
+  "nativeHostBoundLinesUnchanged": [
+    {
+      "line": 131,
+      "text": "            if (isolatedProcess) main.postDelayed({ Process.killProcess(Process.myPid()) }, 150)"
+    },
+    {
+      "line": 139,
+      "text": "            main.postDelayed({ Process.killProcess(Process.myPid()) }, 150)"
+    },
+    {
+      "line": 188,
+      "text": "        main.postDelayed(startupTimeout, 30_000)"
+    },
+    {
+      "line": 489,
+      "text": "        if (foreground && ready && !closing) main.postDelayed(botTurn, 700)"
+    },
+    {
+      "line": 498,
+      "text": "        main.postDelayed(requestDiagnostics, remaining)"
+    },
+    {
+      "line": 514,
+      "text": "        main.postDelayed(diagnosticsTimeout, 2_000)"
+    },
+    {
+      "line": 543,
+      "text": "        main.postDelayed(closeFallback, 250)"
+    },
+    {
+      "line": 562,
+      "text": "            timeoutMillis = 1_500,"
+    },
+    {
+      "line": 564,
+      "text": "            requestExitAndWait = renderer::blockingExitRenderer,"
+    },
+    {
+      "line": 583,
+      "text": "            main.postDelayed({ terminateOwnEngineProcess() }, 100)"
+    },
+    {
+      "line": 586,
+      "text": "        main.postDelayed({ terminateOwnEngineProcess() }, 1_500)"
+    }
+  ],
+  "workflowBoundLines": [
+    {
+      "line": 17,
+      "text": "    timeout-minutes: 45"
+    },
+    {
+      "line": 26,
+      "text": "        timeout-minutes: 2"
+    },
+    {
+      "line": 60,
+      "text": "        timeout-minutes: 2"
+    },
+    {
+      "line": 88,
+      "text": "        timeout-minutes: 10"
+    },
+    {
+      "line": 142,
+      "text": "    timeout-minutes: 55"
+    },
+    {
+      "line": 208,
+      "text": "        timeout-minutes: 40"
+    },
+    {
+      "line": 213,
+      "text": "          timeout --signal=TERM --kill-after=30s 38m bash godot/android-checks/emulator.sh \\"
+    }
+  ],
+  "strictCheckerLines": [
+    {
+      "line": 253,
+      "text": "        \"lastAuthorityRejection\", \"closeSignalAcknowledged\", \"nativeDestroyElapsedMs\", \"closeReason\", \"failureCode\","
+    },
+    {
+      "line": 278,
+      "text": "    for name in (\"staleDiagnosticsRejected\", \"closeSignalAcknowledged\"):"
+    },
+    {
+      "line": 386,
+      "text": "                 \"processExitRequested\", \"closeSignalAcknowledged\"):"
+    },
+    {
+      "line": 387,
+      "text": "        require(value.get(name) is True, \"Missing actual native teardown marker: \" + name)"
+    }
+  ],
+  "barrierSourceLines": [
+    {
+      "line": 1,
+      "text": "package dev.partydeck.godot.android"
+    },
+    {
+      "line": 3,
+      "text": "import java.util.concurrent.atomic.AtomicReference"
+    },
+    {
+      "line": 5,
+      "text": "/** Per-plugin observations in Android elapsed-realtime milliseconds; null means unobserved. */"
+    },
+    {
+      "line": 6,
+      "text": "data class CloseSignalObservation("
+    },
+    {
+      "line": 7,
+      "text": "    val requestedElapsedRealtimeMs: Long? = null,"
+    },
+    {
+      "line": 8,
+      "text": "    val dispatchStartedElapsedRealtimeMs: Long? = null,"
+    },
+    {
+      "line": 9,
+      "text": "    val nativeBarrierElapsedRealtimeMs: Long? = null,"
+    },
+    {
+      "line": 10,
+      "text": ") {"
+    },
+    {
+      "line": 11,
+      "text": "    val acknowledged: Boolean get() = nativeBarrierElapsedRealtimeMs != null"
+    },
+    {
+      "line": 12,
+      "text": "}"
+    },
+    {
+      "line": 14,
+      "text": "/**"
+    },
+    {
+      "line": 15,
+      "text": " * Godot 4.7.2 emitSignal queues its native call. The following render-queue barrier"
+    },
+    {
+      "line": 16,
+      "text": " * observes its return independently of any subsequent notification to the main thread."
+    },
+    {
+      "line": 17,
+      "text": " * This observation belongs to one plugin lifetime and survives queue disposal."
+    },
+    {
+      "line": 18,
+      "text": " */"
+    },
+    {
+      "line": 19,
+      "text": "internal class NativeSignalDispatch("
+    },
+    {
+      "line": 20,
+      "text": "    private val schedule: (() -> Unit) -> Unit,"
+    },
+    {
+      "line": 21,
+      "text": "    private val nowMillis: () -> Long,"
+    },
+    {
+      "line": 22,
+      "text": ") {"
+    },
+    {
+      "line": 23,
+      "text": "    private val close = AtomicReference(CloseSignalObservation())"
+    },
+    {
+      "line": 24,
+      "text": "    val closeObservation: CloseSignalObservation get() = close.get()"
+    },
+    {
+      "line": 26,
+      "text": "    fun closeRequested() {"
+    },
+    {
+      "line": 27,
+      "text": "        val now = nowMillis()"
+    },
+    {
+      "line": 28,
+      "text": "        close.updateAndGet {"
+    },
+    {
+      "line": 29,
+      "text": "            if (it.requestedElapsedRealtimeMs == null) it.copy(requestedElapsedRealtimeMs = now) else it"
+    },
+    {
+      "line": 30,
+      "text": "        }"
+    },
+    {
+      "line": 31,
+      "text": "    }"
+    },
+    {
+      "line": 33,
+      "text": "    fun dispatch(terminalClose: Boolean, emit: () -> Unit, afterNativeSignal: () -> Unit) {"
+    },
+    {
+      "line": 34,
+      "text": "        if (terminalClose) {"
+    },
+    {
+      "line": 35,
+      "text": "            val now = nowMillis()"
+    },
+    {
+      "line": 36,
+      "text": "            close.updateAndGet {"
+    },
+    {
+      "line": 37,
+      "text": "                if (it.dispatchStartedElapsedRealtimeMs == null) it.copy(dispatchStartedElapsedRealtimeMs = now) else it"
+    },
+    {
+      "line": 38,
+      "text": "            }"
+    },
+    {
+      "line": 39,
+      "text": "        }"
+    },
+    {
+      "line": 40,
+      "text": "        emit()"
+    },
+    {
+      "line": 41,
+      "text": "        schedule {"
+    },
+    {
+      "line": 42,
+      "text": "            if (terminalClose) {"
+    },
+    {
+      "line": 43,
+      "text": "                val now = nowMillis()"
+    },
+    {
+      "line": 44,
+      "text": "                close.updateAndGet {"
+    },
+    {
+      "line": 45,
+      "text": "                    if (it.nativeBarrierElapsedRealtimeMs == null) it.copy(nativeBarrierElapsedRealtimeMs = now) else it"
+    },
+    {
+      "line": 46,
+      "text": "                }"
+    },
+    {
+      "line": 47,
+      "text": "            }"
+    },
+    {
+      "line": 48,
+      "text": "            afterNativeSignal()"
+    },
+    {
+      "line": 49,
+      "text": "        }"
+    },
+    {
+      "line": 50,
+      "text": "    }"
+    },
+    {
+      "line": 51,
+      "text": "}"
+    }
+  ],
+  "pluginObservationLines": [
+    {
+      "line": 57,
+      "text": "    private val signalDispatch = NativeSignalDispatch("
+    },
+    {
+      "line": 80,
+      "text": "                signalDispatch.dispatch("
+    },
+    {
+      "line": 81,
+      "text": "                    terminalClose = output is Outbound.Close,"
+    },
+    {
+      "line": 85,
+      "text": "                            is Outbound.Close -> {"
+    },
+    {
+      "line": 86,
+      "text": "                                Log.i(TAG, \"Close dispatch started elapsed_ms=${signalDispatch.closeObservation.dispatchStartedElapsedRealtimeMs}\")"
+    },
+    {
+      "line": 94,
+      "text": "                            Log.i(TAG, \"Close native barrier elapsed_ms=${signalDispatch.closeObservation.nativeBarrierElapsedRealtimeMs}\")"
+    },
+    {
+      "line": 216,
+      "text": "        signalDispatch.closeRequested()"
+    },
+    {
+      "line": 217,
+      "text": "        Log.i(TAG, \"Close requested elapsed_ms=${signalDispatch.closeObservation.requestedElapsedRealtimeMs}\")"
+    },
+    {
+      "line": 223,
+      "text": "        outgoing.finish(Outbound.Close(document)) { main.post { afterDelivery() } }"
+    },
+    {
+      "line": 227,
+      "text": "    fun closeSignalObservation(): CloseSignalObservation = signalDispatch.closeObservation"
+    }
+  ],
+  "hostObservationLines": [
+    {
+      "line": 105,
+      "text": "            Log.i(EvidenceRecorder.TAG, \"Close fallback elapsed_ms=${SystemClock.elapsedRealtime()}\")"
+    },
+    {
+      "line": 545,
+      "text": "            Log.i(EvidenceRecorder.TAG, \"Close main callback elapsed_ms=${SystemClock.elapsedRealtime()}\")"
+    },
+    {
+      "line": 607,
+      "text": "        val closeSignal = plugin?.closeSignalObservation()"
+    },
+    {
+      "line": 608,
+      "text": "        facts.put(\"closeSignalAcknowledged\", closeSignal?.acknowledged == true)"
+    }
+  ],
+  "executedBarrierUnitSuite": {
+    "name": "dev.partydeck.godot.android.NativeSignalDispatchTest",
+    "tests": 8,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "actualCases": 8,
+    "path": "/tmp/partydeck-engine-ci/34456443339/godot-comparison-builds/godot/qualification/build/modules/androidRenderer/test-results/testDebugUnitTest/TEST-dev.partydeck.godot.android.NativeSignalDispatchTest.xml"
+  },
+  "sourceReviewFindings": [
+    "Acknowledgment is read from a per-plugin AtomicReference only after the scheduled native-signal barrier executes.",
+    "The Close dispatch timestamp is set before emitSignal; the native barrier timestamp is set before queue completion and the posted main callback.",
+    "Queue disposal, fallback and process death do not write or clear the native-barrier observation.",
+    "The host final document reads the barrier directly instead of treating main-thread completion or its fallback as acknowledgment.",
+    "Terminal Close queue admission and native delivery remain distinct. Missing dispatch logs identify an unobserved dispatch stage, not its scheduling cause."
+  ],
+  "scope": "Read-only exact archived source and retained producer-test correlation. No build, native execution, Git command or CI dispatch. Unit-test success does not qualify the failed native cases."
+}
