@@ -10,6 +10,7 @@
 #include "core/input/input.h"
 #include "core/io/resource_loader.h"
 #include "core/object/class_db.h"
+#include "core/object/callable_mp.h"
 #include "core/object/message_queue.h"
 #include "core/os/main_loop.h"
 #include "core/os/os.h"
@@ -86,6 +87,49 @@ struct PDNativeStageTiming {
 	}
 };
 
+
+// Startup-only callback delivery marks, not exclusive scene or GPU timings.
+// The retained stale-Ready test already supplies the opt-in launch argument.
+// Storage is fixed, reset per presentation, and never retains renderer data.
+static const uint64_t PDStartupPhaseSampleLimit = 32;
+struct PDNativeIterationPhases {
+	uint64_t completed_iterations_before = 0;
+	uint64_t presentation_generation = 0, lifecycle_generation = 0, input_generation = 0;
+	uint64_t engine_frames_before = 0, engine_frames_after = 0;
+	double started_uptime = 0, finished_uptime = 0;
+	double callback_uptimes[3] = {};
+	uint64_t callback_counts[3] = {};
+	unsigned callback_order[3] = { 3, 3, 3 };
+	uint64_t delivered_callbacks = 0;
+	uint32_t connections = 0;
+	bool same_epochs = false;
+	bool main_thread_before = false, main_thread_after = false;
+	bool current_context_before = false, current_context_after = false;
+
+	bool complete_callback_sequence() const {
+		return connections == 7 && same_epochs && main_thread_before && main_thread_after &&
+				current_context_before && current_context_after && delivered_callbacks == 3 &&
+				callback_order[0] == 0 && callback_order[1] == 1 && callback_order[2] == 2 &&
+				callback_counts[0] == 1 && callback_counts[1] == 1 && callback_counts[2] == 1 &&
+				started_uptime <= callback_uptimes[0] && callback_uptimes[0] <= callback_uptimes[1] &&
+				callback_uptimes[1] <= callback_uptimes[2] && callback_uptimes[2] <= finished_uptime;
+	}
+};
+
+struct PDNativeStartupPhases {
+	bool enabled = false, active = false, separate_rendering_seen = false;
+	uint64_t admitted_iterations_seen = 0, completed_samples = 0, complete_callback_samples = 0;
+	PDNativeIterationPhases current, latest, longest;
+
+	void mark(unsigned index, double now) {
+		if (!active || index >= 3) { return; }
+		if (current.delivered_callbacks < 3) { current.callback_order[current.delivered_callbacks] = index; }
+		if (current.delivered_callbacks != UINT64_MAX) { ++current.delivered_callbacks; }
+		if (current.callback_counts[index] == 0) { current.callback_uptimes[index] = now; }
+		if (current.callback_counts[index] != UINT64_MAX) { ++current.callback_counts[index]; }
+	}
+};
+
 struct PDNativeTimings {
 	PDNativeStageTiming draw_view;
 	PDNativeStageTiming uikit_pump;
@@ -94,6 +138,7 @@ struct PDNativeTimings {
 	PDNativeStageTiming iterate;
 	PDNativeStageTiming present_renderbuffer;
 	PDNativeStageTiming drain;
+	PDNativeStartupPhases startup;
 };
 
 static double PDNativeTimingUptime() {
@@ -123,6 +168,29 @@ static NSDictionary *PDNativeStageTimingSnapshot(const PDNativeStageTiming &stag
 		@"activeStartedUptime": @(stage.active_started_uptime),
 		@"lastSeconds": @(stage.last_seconds), @"maxSeconds": @(stage.max_seconds),
 		@"lastCompletedUptime": @(stage.last_completed_uptime), @"maxCompletedUptime": @(stage.max_completed_uptime)
+	};
+}
+
+
+static NSDictionary *PDNativeIterationPhasesSnapshot(const PDNativeIterationPhases &phase) {
+	return @{
+		@"completedIterationsBefore": @(phase.completed_iterations_before),
+		@"presentationGeneration": @(phase.presentation_generation).stringValue,
+		@"lifecycleGeneration": @(phase.lifecycle_generation).stringValue,
+		@"inputGeneration": @(phase.input_generation).stringValue,
+		@"engineFramesDrawnBefore": @(phase.engine_frames_before).stringValue,
+		@"engineFramesDrawnAfter": @(phase.engine_frames_after).stringValue,
+		@"startedUptime": @(phase.started_uptime), @"finishedUptime": @(phase.finished_uptime),
+		@"processFrameCallbackUptime": @(phase.callback_uptimes[0]),
+		@"preDrawCallbackUptime": @(phase.callback_uptimes[1]),
+		@"postDrawCallbackUptime": @(phase.callback_uptimes[2]),
+		@"callbackCounts": @[ @(phase.callback_counts[0]), @(phase.callback_counts[1]), @(phase.callback_counts[2]) ],
+		@"callbackOrder": @[ @(phase.callback_order[0]), @(phase.callback_order[1]), @(phase.callback_order[2]) ],
+		@"deliveredCallbacks": @(phase.delivered_callbacks),
+		@"connectionMask": @(phase.connections), @"sameEpochs": @(phase.same_epochs),
+		@"mainThreadBefore": @(phase.main_thread_before), @"mainThreadAfter": @(phase.main_thread_after),
+		@"currentContextBefore": @(phase.current_context_before), @"currentContextAfter": @(phase.current_context_after),
+		@"completeCallbackSequence": @(phase.complete_callback_sequence())
 	};
 }
 
@@ -810,6 +878,17 @@ protected:
 	}
 
 public:
+
+	// C++ signal observers only: these methods are not exposed in the bridge API.
+	void observe_process_frame() {
+		if (NSThread.isMainThread && activeRuntime) { [activeRuntime nativeTimings]->startup.mark(0, PDNativeTimingUptime()); }
+	}
+	void observe_pre_draw() {
+		if (NSThread.isMainThread && activeRuntime) { [activeRuntime nativeTimings]->startup.mark(1, PDNativeTimingUptime()); }
+	}
+	void observe_post_draw() {
+		if (NSThread.isMainThread && activeRuntime) { [activeRuntime nativeTimings]->startup.mark(2, PDNativeTimingUptime()); }
+	}
 	String get_launch_document() const {
 		if (!NSThread.isMainThread || !activeRuntime) {
 			return String();
@@ -848,6 +927,89 @@ public:
 };
 
 static PartyDeckBridge *bridge = nullptr;
+
+// Connections exist only around one already-admitted iterate call. This observer
+// neither requests a frame nor changes the engine's processing/rendering policy.
+class PDNativeStartupPhaseScope {
+	PDNativeStartupPhases &trace;
+	Object *emitters[3] = {};
+	StringName signals[3];
+	Callable observers[3];
+	uint32_t owned_connections = 0;
+	bool sampled = false;
+
+public:
+	PDNativeStartupPhaseScope(PDNativeStartupPhases &p_trace, uint64_t iterations,
+			uint64_t presentation, uint64_t lifecycle, uint64_t input, bool current_context) : trace(p_trace) {
+		if (!NSThread.isMainThread || !trace.enabled) { return; }
+		if (trace.admitted_iterations_seen != UINT64_MAX) { ++trace.admitted_iterations_seen; }
+		if (trace.completed_samples >= PDStartupPhaseSampleLimit) { return; }
+		// A separate render thread defers post_draw without a frame identifier.
+		// Counts/order cannot pair that callback with this native iteration.
+		if (!OS::get_singleton() || OS::get_singleton()->is_separate_thread_rendering_enabled()) {
+			trace.separate_rendering_seen = true;
+			return;
+		}
+		trace.current = {};
+		trace.current.completed_iterations_before = iterations;
+		trace.current.presentation_generation = presentation;
+		trace.current.lifecycle_generation = lifecycle;
+		trace.current.input_generation = input;
+		trace.current.engine_frames_before = Engine::get_singleton()->get_frames_drawn();
+		trace.current.main_thread_before = NSThread.isMainThread;
+		trace.current.current_context_before = current_context;
+		emitters[0] = SceneTree::get_singleton();
+		emitters[1] = emitters[2] = RenderingServer::get_singleton();
+		signals[0] = "process_frame"; signals[1] = "frame_pre_draw"; signals[2] = "frame_post_draw";
+		if (bridge) {
+			observers[0] = callable_mp(bridge, &PartyDeckBridge::observe_process_frame);
+			observers[1] = callable_mp(bridge, &PartyDeckBridge::observe_pre_draw);
+			observers[2] = callable_mp(bridge, &PartyDeckBridge::observe_post_draw);
+			for (unsigned i = 0; i < 3; ++i) {
+				if (emitters[i] && !emitters[i]->is_connected(signals[i], observers[i]) &&
+						emitters[i]->connect(signals[i], observers[i]) == OK) {
+					owned_connections |= 1U << i;
+				}
+			}
+		}
+		trace.current.connections = owned_connections;
+		trace.current.started_uptime = PDNativeTimingUptime();
+		trace.active = true;
+		sampled = true;
+	}
+
+	void finish(uint64_t presentation, uint64_t lifecycle, uint64_t input, bool current_context) {
+		if (!sampled) { return; }
+		trace.current.finished_uptime = PDNativeTimingUptime();
+		trace.active = false;
+		trace.current.engine_frames_after = Engine::get_singleton()->get_frames_drawn();
+		trace.current.main_thread_after = NSThread.isMainThread;
+		trace.current.current_context_after = current_context;
+		trace.current.same_epochs = presentation == trace.current.presentation_generation &&
+				lifecycle == trace.current.lifecycle_generation && input == trace.current.input_generation;
+		++trace.completed_samples;
+		if (trace.current.complete_callback_sequence()) { ++trace.complete_callback_samples; }
+		trace.latest = trace.current;
+		if (trace.completed_samples == 1 ||
+				trace.current.finished_uptime - trace.current.started_uptime > trace.longest.finished_uptime - trace.longest.started_uptime) {
+			trace.longest = trace.current;
+		}
+	}
+
+	~PDNativeStartupPhaseScope() {
+		if (sampled) { trace.active = false; }
+		// Existing engine/draw depth guards keep these emitters alive until the
+		// scope ends. Remove only the connections this scope actually installed.
+		for (unsigned i = 0; i < 3; ++i) {
+			if ((owned_connections & (1U << i)) && emitters[i]->is_connected(signals[i], observers[i])) {
+				emitters[i]->disconnect(signals[i], observers[i]);
+			}
+		}
+	}
+	PDNativeStartupPhaseScope(const PDNativeStartupPhaseScope &) = delete;
+	PDNativeStartupPhaseScope &operator=(const PDNativeStartupPhaseScope &) = delete;
+};
+
 
 void initialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 	if (level == MODULE_INITIALIZATION_LEVEL_SCENE) {
@@ -933,6 +1095,8 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 		_state = @"prepared";
 	}
 	_retainedPolicy = YES;
+	_nativeTimings.startup = {};
+	_nativeTimings.startup.enabled = [NSProcessInfo.processInfo.arguments containsObject:@"--supersede-first-ready"];
 	_retainedOwner = owner;
 	_fixedPackSHA256 = hash;
 	_presentationGeneration = generation;
@@ -1221,8 +1385,13 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 	if ([self requiresFreshFrame]) { Main::force_redraw(); }
 	BOOL requestedQuit;
 	{
-		PDNativeTimingScope iterateTiming(_nativeTimings.iterate);
-		requestedQuit = OS_AppleEmbedded::get_singleton()->iterate();
+		PDNativeStartupPhaseScope phases(_nativeTimings.startup, _iterations,
+				_presentationGeneration, _lifecycleGeneration, _foregroundGeneration, [self hasCurrentRenderContext]);
+		{
+			PDNativeTimingScope iterateTiming(_nativeTimings.iterate);
+			requestedQuit = OS_AppleEmbedded::get_singleton()->iterate();
+		}
+		phases.finish(_presentationGeneration, _lifecycleGeneration, _foregroundGeneration, [self hasCurrentRenderContext]);
 	}
 	++_iterations;
 	--_engineDepth;
@@ -2132,6 +2301,23 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 		@"renderingLayerClass": _renderingLayerClass ?: @"", @"reinitializationQualified": @NO,
 		@"kmpFactoryQualified": @NO
 	} mutableCopy];
+
+	if (_nativeTimings.startup.enabled) {
+		const PDNativeStartupPhases &trace = _nativeTimings.startup;
+		snapshot[@"startupPhaseProbe"] = @{
+			@"schemaVersion": @1, @"sampleLimit": @(PDStartupPhaseSampleLimit),
+			@"admittedIterationsSeen": @(trace.admitted_iterations_seen),
+			@"completedSamples": @(trace.completed_samples), @"completeCallbackSamples": @(trace.complete_callback_samples),
+			@"captureLimitReached": @(trace.completed_samples >= PDStartupPhaseSampleLimit),
+			@"separateRenderingSeen": @(trace.separate_rendering_seen), @"active": @(trace.active),
+			@"latestCapturedIteration": trace.completed_samples ? PDNativeIterationPhasesSnapshot(trace.latest) : @{},
+			@"longestCapturedIteration": trace.completed_samples ? PDNativeIterationPhasesSnapshot(trace.longest) : @{},
+			@"inFlightIteration": trace.active ? PDNativeIterationPhasesSnapshot(trace.current) : @{},
+			@"lastStateMutationIteration": @(_lastStateMutationIteration),
+			@"concealedDiagnosticIteration": @(_concealedDiagnosticIteration),
+			@"coverUntilIteration": @(_coverUntilIteration), @"diagnosticRequestPending": @(_diagnosticsRequest != nil)
+		};
+	}
 	if (_retainedPolicy) { [snapshot addEntriesFromDictionary:[self retainedSnapshot]]; }
 	return snapshot;
 }
