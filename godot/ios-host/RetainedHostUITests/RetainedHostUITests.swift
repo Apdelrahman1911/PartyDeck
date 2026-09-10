@@ -94,8 +94,11 @@ final class RetainedHostUITests: XCTestCase {
         try await homeAndActivate(app)
         let dormantReturned = try await wait(app, "Dormant Home/activate must reach the real native owner.") {
             $0["state"] as? String == "dormant" &&
-                self.number("applicationBackgroundCount", $0) > self.number("applicationBackgroundCount", beforeDormantHome)
+                self.number("applicationBackgroundCount", $0) > self.number("applicationBackgroundCount", beforeDormantHome) &&
+                self.flag("applicationActive", self.native($0)) &&
+                !self.flag("applicationBackgrounded", self.native($0))
         }
+        attach(dormantReturned, "Dormant Home/activate accepted native observation")
         try assertDormant(dormantReturned)
         assertNoDormantWork(beforeDormantHome, dormantReturned)
         XCTAssertTrue(flag("applicationActive", native(dormantReturned)))
