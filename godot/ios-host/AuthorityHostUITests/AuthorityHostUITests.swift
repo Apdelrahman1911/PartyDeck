@@ -166,14 +166,12 @@ final class AuthorityHostUITests: XCTestCase {
         try await revealAndSelect(app)
         let beforeHome = try await currentDiagnostics(app)
         XCUIDevice.shared.press(.home)
-        let observedBackground = try await waitForBackground(app)
-        let enteredBackground = observedBackground == .runningBackground || observedBackground == .runningBackgroundSuspended
-        attachJSON(["observedApplicationState": observedBackground.rawValue, "enteredBackground": enteredBackground],
-                   name: "Actual application state after Home")
-        if !enteredBackground { capture("Failed native Home transition", app) }
-        try require(enteredBackground, "The real application must enter the background.")
+        let homeObservation = try await waitForHome(app)
+        attachJSON(homeObservation, name: "Actual Home and application state observation")
+        if !flag("homeVisible", homeObservation) { capture("Failed native Home transition", app) }
+        try require(flag("homeVisible", homeObservation), "The real Home screen must be visible with its hittable dock icons.")
         let home = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
-        home.name = "Actual home screen while game is backgrounded"
+        home.name = "Actual Home screen before game reactivation"
         home.lifetime = .keepAlways
         add(home)
         app.activate()
@@ -188,18 +186,64 @@ final class AuthorityHostUITests: XCTestCase {
     }
 
     @MainActor
-    private func waitForBackground(_ app: XCUIApplication) async throws -> XCUIApplication.State {
-        // Native evidence includes a roughly 12-second Home transition.
-        // Keep the wait bounded while allowing that measured transition.
-        // Apple also defines suspended background as a legitimate state.
-        // https://developer.apple.com/documentation/xcuiautomation/xcuiapplication/state-swift.enum
-        let deadline = Date().addingTimeInterval(20)
+    private func waitForHome(_ app: XCUIApplication) async throws -> [String: Any] {
+        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        // The pinned iPhone simulator Home screenshots show Safari and Messages
+        // in the dock on both pages. Their AX identities/hit points are verified
+        // by this run, not inferred as a prior test pass from those pixels.
+        // SpringBoard foreground alone also occurs for notification overlays.
+        // https://developer.apple.com/documentation/xcuiautomation/xcuielementtypequeryprovider/icons
+        // https://developer.apple.com/documentation/xcuiautomation/xcuielement/ishittable
+        let started = Date()
+        let deadline = started.addingTimeInterval(20)
+        var observation: [String: Any] = [:]
+        var firstStateSample: [String: Any]?
         while Date() < deadline {
             let state = app.state
-            if state == .runningBackground || state == .runningBackgroundSuspended || state == .notRunning { return state }
+            let springboardState = springboard.state
+            let reportedBackground = state == .runningBackground || state == .runningBackgroundSuspended
+            var dock: [[String: Any]] = []
+            if springboardState == .runningForeground && state != .notRunning {
+                let screen = springboard.frame
+                for identifier in ["Safari", "Messages"] {
+                    let icon = springboard.icons.matching(identifier: identifier).firstMatch
+                    guard icon.exists && icon.isHittable else { continue }
+                    let frame = icon.frame
+                    if frame.width > 0 && frame.height > 0 && screen.contains(frame) &&
+                        frame.midY > screen.minY + screen.height * 0.75 {
+                        dock.append(["identifier": icon.identifier, "label": icon.label,
+                                     "frame": [frame.minX, frame.minY, frame.width, frame.height], "hittable": true])
+                    }
+                }
+            }
+            let visibleDockWithoutAlert = dock.count == 2 && springboard.alerts.count == 0
+            let observedAt = Date()
+            let homeVisible = visibleDockWithoutAlert && observedAt <= deadline
+            observation = ["observedApplicationState": state.rawValue,
+                           "applicationReportedBackground": reportedBackground,
+                           "observedSpringBoardState": springboardState.rawValue,
+                           "homeVisible": homeVisible, "dockIcons": dock,
+                           "observedAtUnixSeconds": observedAt.timeIntervalSince1970,
+                           "elapsedSeconds": observedAt.timeIntervalSince(started)]
+            if firstStateSample == nil { firstStateSample = observation }
+            if homeVisible || state == .notRunning {
+                observation["firstStateSample"] = firstStateSample
+                attachHomeHierarchy(springboard)
+                return observation
+            }
             try await Task.sleep(nanoseconds: 150_000_000)
         }
-        return app.state
+        observation["firstStateSample"] = firstStateSample
+        attachHomeHierarchy(springboard)
+        return observation
+    }
+
+    @MainActor
+    private func attachHomeHierarchy(_ springboard: XCUIApplication) {
+        let attachment = XCTAttachment(string: springboard.debugDescription)
+        attachment.name = "Actual SpringBoard accessibility hierarchy after Home"
+        attachment.lifetime = .keepAlways
+        add(attachment)
     }
 
     @MainActor
@@ -246,7 +290,12 @@ final class AuthorityHostUITests: XCTestCase {
     @MainActor
     private func tapControl(_ action: String, _ app: XCUIApplication, cardIndex: Int = -1) async throws -> [String: Any] {
         var value = try await currentDiagnostics(app)
-        for _ in 0..<8 {
+        var scrollGestures = 0
+        var unsettledObservations = 0
+        // Keep actual gestures bounded independently of the observations that
+        // wait for layout. The prior native run used only three drags before
+        // its shared eight-attempt limit expired on a settling observation.
+        while unsettledObservations < 16 {
             guard let candidate = control(action, in: value, cardIndex: cardIndex) else { throw Failure.controlMissing }
             let candidateViewport = viewportSize(value)
             let candidateRevision = value["revision"] as? String
@@ -261,7 +310,10 @@ final class AuthorityHostUITests: XCTestCase {
             value = confirmed
             guard value["revision"] as? String == candidateRevision, viewportSize(value) == candidateViewport,
                   let confirmedTarget = control(action, in: value, cardIndex: cardIndex),
-                  NSDictionary(dictionary: candidate).isEqual(to: confirmedTarget) else { continue }
+                  NSDictionary(dictionary: candidate).isEqual(to: confirmedTarget) else {
+                unsettledObservations += 1
+                continue
+            }
             try validateGeometry(value, app)
             guard let target = control(action, in: value, cardIndex: cardIndex) else { throw Failure.controlMissing }
             try require(flag("enabled", target), "The actual Godot control must be enabled.")
@@ -281,6 +333,7 @@ final class AuthorityHostUITests: XCTestCase {
                     !flag("privacyCoverVisible", native(latest)), "Input must target the current uncovered authority view.")
                 guard let latestTarget = control(action, in: latest, cardIndex: cardIndex),
                       NSDictionary(dictionary: target).isEqual(to: latestTarget), viewportSize(latest) == viewport else {
+                    unsettledObservations += 1
                     value = try await currentDiagnostics(app, after: value)
                     continue
                 }
@@ -292,29 +345,62 @@ final class AuthorityHostUITests: XCTestCase {
             let fitsClip = clip.width >= 32 && clip.height >= 32 && rect.width <= clip.width + 0.5 && rect.height <= clip.height + 0.5
             if !fitsClip { capture("Control does not fit its reported viewport: \(action)", app) }
             try require(fitsClip, "The control must fit wholly inside its real scroll viewport.")
+            guard scrollGestures < 8 else {
+                capture("Control still clipped after bounded scrolling: \(action)", app)
+                throw Failure.scrollBound
+            }
             let start: CGPoint
             let end: CGPoint
+            let gap: CGFloat
+            let distance: CGFloat
             if rect.minY < clip.minY {
-                start = CGPoint(x: clip.midX, y: clip.minY + clip.height * 0.25)
-                end = CGPoint(x: clip.midX, y: clip.minY + clip.height * 0.75)
+                gap = clip.minY - rect.minY
+                distance = scrollDistance(gap: gap, span: clip.height, targetSpan: rect.height)
+                start = CGPoint(x: clip.midX, y: clip.minY + clip.height * 0.2)
+                end = CGPoint(x: clip.midX, y: start.y + distance)
             } else if rect.maxY > clip.maxY {
-                start = CGPoint(x: clip.midX, y: clip.minY + clip.height * 0.75)
-                end = CGPoint(x: clip.midX, y: clip.minY + clip.height * 0.25)
+                gap = rect.maxY - clip.maxY
+                distance = scrollDistance(gap: gap, span: clip.height, targetSpan: rect.height)
+                start = CGPoint(x: clip.midX, y: clip.minY + clip.height * 0.8)
+                end = CGPoint(x: clip.midX, y: start.y - distance)
             } else if rect.minX < clip.minX {
-                start = CGPoint(x: clip.minX + clip.width * 0.25, y: clip.midY)
-                end = CGPoint(x: clip.minX + clip.width * 0.75, y: clip.midY)
+                gap = clip.minX - rect.minX
+                distance = scrollDistance(gap: gap, span: clip.width, targetSpan: rect.width)
+                start = CGPoint(x: clip.minX + clip.width * 0.2, y: clip.midY)
+                end = CGPoint(x: start.x + distance, y: clip.midY)
             } else if rect.maxX > clip.maxX {
-                start = CGPoint(x: clip.minX + clip.width * 0.75, y: clip.midY)
-                end = CGPoint(x: clip.minX + clip.width * 0.25, y: clip.midY)
+                gap = rect.maxX - clip.maxX
+                distance = scrollDistance(gap: gap, span: clip.width, targetSpan: rect.width)
+                start = CGPoint(x: clip.minX + clip.width * 0.8, y: clip.midY)
+                end = CGPoint(x: start.x - distance, y: clip.midY)
             } else {
                 throw Failure.controlHidden
             }
             let origin = surface.coordinate(withNormalizedOffset: CGVector(dx: start.x / viewport.width, dy: start.y / viewport.height))
             let destination = surface.coordinate(withNormalizedOffset: CGVector(dx: end.x / viewport.width, dy: end.y / viewport.height))
-            origin.press(forDuration: 0.1, thenDragTo: destination)
+            // XCTest's default was 500 pixels/s in the failed native run.
+            // Use the documented velocity/hold API with a smaller measured
+            // movement. Godot 4.7.2 updates stationary drag speed after 0.1 s;
+            // the end hold allows that update before release. Fresh stable
+            // diagnostics still decide whether the control can be tapped.
+            // https://developer.apple.com/documentation/xcuiautomation/xcuicoordinate/press(forduration:thendragto:withvelocity:thenholdforduration:)
+            let velocity = min(CGFloat(180), max(CGFloat(60), distance))
+            attachJSON(["action": action, "gesture": scrollGestures + 1,
+                        "gap": gap, "distance": distance, "velocityPixelsPerSecond": velocity,
+                        "endHoldSeconds": 0.35, "start": [start.x, start.y], "end": [end.x, end.y],
+                        "measurements": value], name: "Measured scroll gesture: \(action)")
+            origin.press(forDuration: 0.1, thenDragTo: destination,
+                         withVelocity: XCUIGestureVelocity(rawValue: velocity), thenHoldForDuration: 0.35)
+            scrollGestures += 1
             value = try await currentDiagnostics(app, after: value)
         }
-        throw Failure.scrollBound
+        capture("Control geometry did not settle within the observation bound: \(action)", app)
+        throw Failure.layoutBound
+    }
+
+    private func scrollDistance(gap: CGFloat, span: CGFloat, targetSpan: CGFloat) -> CGFloat {
+        let clearance = min(CGFloat(12), max(CGFloat(0), (span - targetSpan) / 2))
+        return min(span * 0.45, max(CGFloat(24), gap + clearance))
     }
 
     @MainActor
@@ -463,6 +549,6 @@ final class AuthorityHostUITests: XCTestCase {
     }
 
     private enum Failure: Error {
-        case waitTimedOut, nativeFailure, matchActionBound, controlMissing, controlHidden, scrollBound, invalidGeometry, invalidObservation
+        case waitTimedOut, nativeFailure, matchActionBound, controlMissing, controlHidden, scrollBound, layoutBound, invalidGeometry, invalidObservation
     }
 }
