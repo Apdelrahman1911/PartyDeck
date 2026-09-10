@@ -2,8 +2,10 @@
 """Pinned Godot install, isolated renderer validation, PCK export, and previews."""
 
 import argparse
+import configparser
 from datetime import datetime, timezone
 from hashlib import sha256, sha512
+import io
 import json
 import os
 from pathlib import Path
@@ -168,6 +170,38 @@ def copy_project(project: Path, snapshot: dict, destination: Path) -> None:
         target.write_bytes(data)
 
 
+def explicit_export_preset(source: bytes, snapshot: dict, preset_name: str) -> tuple[bytes, dict]:
+    config = configparser.ConfigParser(interpolation=None)
+    config.optionxform = str
+    try:
+        config.read_string(source.decode("utf-8"))
+        sections = [section for section in config.sections() if re.fullmatch(r"preset\.\d+", section)
+                    and json.loads(config[section].get("name", '""')) == preset_name]
+    except (configparser.Error, ValueError) as error:
+        raise ToolError("Cannot read renderer export presets: " + str(error)) from error
+    if len(sections) != 1:
+        raise ToolError("Expected exactly one renderer export preset named " + preset_name)
+    metadata = {"project.godot", "export_presets.cfg", ".gdignore"}
+    omitted = sorted(entry["path"] for entry in snapshot["files"]
+                     if entry["path"] in metadata or Path(entry["path"]).suffix.lower() in {".import", ".uid"})
+    files = sorted("res://" + entry["path"] for entry in snapshot["files"] if entry["path"] not in omitted)
+    preset = config[sections[0]]
+    # Godot preserves explicit insertion order. Wildcard scans use unsorted
+    # readdir; their insertions/removals can change both payload and cache order.
+    preset["export_filter"] = '"resources"'
+    preset["export_files"] = "PackedStringArray(" + ", ".join(json.dumps(path, ensure_ascii=False) for path in files) + ")"
+    preset["include_filter"] = '""'
+    preset["exclude_filter"] = '""'
+    stream = io.StringIO()
+    config.write(stream, space_around_delimiters=False)
+    prepared = stream.getvalue().encode("utf-8")
+    plan = {"strategy": "sorted-explicit-resources", "preset": preset_name,
+            "source_preset_sha256": sha256(source).hexdigest(),
+            "staged_preset_sha256": sha256(prepared).hexdigest(),
+            "files": files, "omitted_metadata": omitted}
+    return prepared, plan
+
+
 def scene_check(engine: dict, project: Path, commands: Commands, pack: Path | None = None) -> dict:
     argv = [engine["executable"], "--headless", "--path", str(project)]
     if pack:
@@ -260,11 +294,16 @@ def validate_or_pack(args: argparse.Namespace) -> None:
     with tempfile.TemporaryDirectory(prefix="renderer-stage-", dir=output.parent) as temporary:
         stage = Path(temporary) / "project"
         copy_project(project, snapshot, stage)
+        source_preset = (stage / "export_presets.cfg").read_bytes()
         commands = Commands(output.parent / ("pack-logs" if args.command == "pack" else "validation-logs"))
         structural = import_and_check(engine, stage, commands)
         receipt = {"schema_version": 1, "engine": engine, "inputs": snapshot, "scene_check": structural,
                    "scope": "Structural import/resource validation; no authority or gameplay acceptance is inferred."}
         if args.command == "pack":
+            preset_path = stage / "export_presets.cfg"
+            prepared, receipt["export_inputs"] = explicit_export_preset(source_preset, snapshot, args.preset)
+            preset_path.write_bytes(prepared)
+            (commands.directory / "export_presets.cfg").write_bytes(prepared)
             pending = Path(temporary) / output.name
             commands.run("export-pack", [engine["executable"], "--headless", "--path", str(stage),
                          "--export-pack", args.preset, str(pending)], stage, timeout=300)
@@ -305,6 +344,12 @@ def check_pack(args: argparse.Namespace) -> dict:
     expected_scene_check = {"ok": True, "scenes": ["res://" + item for item in SCENES]}
     if receipt.get("scene_check") != expected_scene_check or receipt.get("packed_scene_check") != expected_scene_check:
         raise ToolError("PCK has no successful source and packed scene checks")
+    preset = receipt.get("export_preset")
+    if not isinstance(preset, str):
+        raise ToolError("PCK receipt has no export preset name")
+    _, expected_plan = explicit_export_preset((args.project.resolve() / "export_presets.cfg").read_bytes(), snapshot, preset)
+    if receipt.get("export_inputs") != expected_plan:
+        raise ToolError("PCK has no matching explicit-resource export plan; rebuild it")
     verify_contents(pack, snapshot)
     print(f"PCK checks passed: {len(pack['entries'])} entries; SHA-256 {pack['sha256']}")
     return receipt
@@ -322,9 +367,14 @@ def preview(args: argparse.Namespace) -> None:
         raise ToolError("--presentation must match launch.presentationMode; no document is rewritten")
     engine = engine_info(args.godot)
     commands = Commands(BUILD / "renderer" / ("preview-" + args.presentation))
+    receipt_path = commands.directory / "preview.receipt.json"
+    # A failed run must not leave a previous success beside overwritten logs.
+    receipt_path.unlink(missing_ok=True)
     argv = [engine["executable"]]
     if args.headless:
         argv.append("--headless")
+    if args.audio_driver:
+        argv += ["--audio-driver", args.audio_driver]
     if args.quit_after:
         argv += ["--quit-after", str(args.quit_after)]
     temporary_root = BUILD / "renderer"
@@ -332,10 +382,14 @@ def preview(args: argparse.Namespace) -> None:
     with tempfile.TemporaryDirectory(prefix="preview-", dir=temporary_root) as temporary:
         project = Path(temporary)
         if args.pack:
-            check_pack(args)
+            packed = check_pack(args)
+            source_fingerprint = packed["inputs"]["fingerprint"]
+            pack_sha256 = packed["pack"]["sha256"]
             argv += ["--path", str(project), "--main-pack", str(args.pack.resolve())]
         else:
             snapshot = source_snapshot(args.project.resolve())
+            source_fingerprint = snapshot["fingerprint"]
+            pack_sha256 = None
             copy_project(args.project.resolve(), snapshot, project)
             import_and_check(engine, project, commands)
             argv += ["--path", str(project)]
@@ -343,8 +397,10 @@ def preview(args: argparse.Namespace) -> None:
         output = commands.run("preview", argv, project, timeout=args.timeout)
         if "PartyDeck renderer event: ready" not in output or "PartyDeck renderer event: failed" in output:
             raise ToolError("Renderer preview did not report a successful Ready event; inspect preview.log")
-    write_json(commands.directory / "preview.receipt.json", {"engine": engine, "presentation": args.presentation,
+    write_json(receipt_path, {"engine": engine, "presentation": args.presentation,
                "launch_file": str(launch), "launch_sha256": sha256(raw).hexdigest(), "commands": commands.records,
+               "source_fingerprint": source_fingerprint, "pack_sha256": pack_sha256,
+               "headless": args.headless, "audio_driver": args.audio_driver,
                "renderer_ready_observed": True,
                "scope": "Fixture presentation preview only. Accepted actions/outcomes require the Kotlin comparison authority."})
 
@@ -369,6 +425,7 @@ def main() -> int:
             command.add_argument("--presentation", choices=("2d", "3d"), required=True)
             command.add_argument("--launch-file", type=Path, required=True)
             command.add_argument("--headless", action="store_true")
+            command.add_argument("--audio-driver", help="Godot audio driver; use Dummy for display checks without an audio device")
             command.add_argument("--quit-after", type=int)
             command.add_argument("--timeout", type=int, default=0, help="Seconds; zero waits until the preview closes")
     args = parser.parse_args()
