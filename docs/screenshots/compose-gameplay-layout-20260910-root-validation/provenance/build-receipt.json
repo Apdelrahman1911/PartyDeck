@@ -1,0 +1,48 @@
+{
+  "utc": "2026-09-10T16:26:36.964812+00:00",
+  "command": [
+    "xvfb-run",
+    "-a",
+    "./gradlew",
+    "--console=plain",
+    "-PpartydeckGodotQualificationModes=2d,3d",
+    ":composeApp:jvmTest",
+    "--tests",
+    "dev.partydeck.app.GameplayLayoutTest",
+    ":androidApp:assembleRelease"
+  ],
+  "exit_code": 0,
+  "source_files": [
+    {
+      "path": "godot/android-renderer/consumer-rules.pro",
+      "sha256": "e144eb3efca6a4f42775d929dc1597de508fc3af3fdaa3b56838fbafb134d28c",
+      "patch_sha256": "10056d38848962dd4ca2991d4c6e24800f5ae38642b5cb59deafdb4d67e10936"
+    },
+    {
+      "path": "composeApp/src/commonMain/kotlin/dev/partydeck/app/ui/game/PrivateHand.kt",
+      "sha256": "68d7ecd74bb052c87ac0551d2104c20438893f751861d507e4a66cf0941bf408",
+      "patch_sha256": "b5fb8baaafeb3a7c60415e0c85a53a1595883e4b54eabaa9cba6d45cea086cae"
+    }
+  ],
+  "reports": [
+    {
+      "file": "TEST-dev.partydeck.app.GameplayLayoutTest.xml",
+      "name": "GameplayLayoutTest[jvm]",
+      "tests": "7",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-09-10T16:24:46.139Z",
+      "hostname": "oblien",
+      "time": "7.114"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-jni-standard-root-validation-20260910/androidApp-release-unsigned.apk",
+      "bytes": 316255235,
+      "sha256": "a72ca06c7b59f1dcfc7b2cba6d2771e08a5722af462f0700c7b3a3a748530321"
+    }
+  ],
+  "native_execution": false
+}

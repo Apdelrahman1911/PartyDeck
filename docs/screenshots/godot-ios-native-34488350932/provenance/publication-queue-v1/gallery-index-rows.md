@@ -1,0 +1,5 @@
+| Proposed collection | Original PNGs | Evidence scope |
+| --- | ---: | --- |
+| [iOS retained native host — two passes, one failed wait](godot-ios-native-34488350932/retained/README.md) | 28 | Active/dormant background and repeated 2D/3D cases passed; stale-first-ready/close-completion reentry failed its renderer-diagnostics wait. The retained suite remains unqualified. |
+| [iOS Authority native host — five Simulator fixture passes](godot-ios-native-34488350932/authority/README.md) | 45 | Five Authority Simulator fixture cases passed: four reference full matches and secure launch/renderer exit. Secure-default full match and production KMP factory integration remain unqualified. |
+| [iOS ordinary production app — Standard accessibility failure](ios-34496252392/README.md) | 9 | Ordinary Standard unfiltered .all accessibility audit failed: “Hit area is too small.” Six ordinary unit tests passed, including three real UIKit tests; UI tests had two passes and one failure. Guarded qualification geometry assertions, the separate layout gate/checker and both real Godot production sessions did not execute. |

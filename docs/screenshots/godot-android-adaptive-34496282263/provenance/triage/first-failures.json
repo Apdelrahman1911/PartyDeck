@@ -1,0 +1,322 @@
+{
+  "runId": 34496282263,
+  "headSha": "410c9386dd88b2ad0ab380e5b8f1f9bf19674b00",
+  "attempt": 1,
+  "earliestRecordedCheckerError": {
+    "jobId": 102938357830,
+    "originalLog": {
+      "file": "job-102938357830.log",
+      "bytes": 121503,
+      "sha256": "4553ab90e7e9f7f958d3f19caec32f447dd9ff9e1cbe7120886e804a6f0bf6f7"
+    },
+    "line": 1212,
+    "text": "2026-09-10T15:43:59.4664190Z FAILED 2d-landscape.initial-landscape: Multiple exact app processes; cannot attribute lifetime."
+  },
+  "cases": [
+    {
+      "case": "android-adaptive-api36-optimized-test-signed-font-1.0-34496282263-1",
+      "variant": "optimized-test-signed",
+      "fontScale": "1.0",
+      "originalResult": {
+        "file": "android-adaptive-api36-optimized-test-signed-font-1.0-34496282263-1/godot-adaptive/runtime/godot-adaptive-result.json",
+        "bytes": 105635,
+        "sha256": "b5dbacb3d532edfc9bac64d802a54e2b65c07c544a5affc0dbef169b3ffcdb96"
+      },
+      "failedStage": "2d-landscape.initial-landscape",
+      "error": "Multiple exact app processes; cannot attribute lifetime.",
+      "firstCheckerError": {
+        "jobId": 102938357830,
+        "originalLog": {
+          "file": "job-102938357830.log",
+          "bytes": 121503,
+          "sha256": "4553ab90e7e9f7f958d3f19caec32f447dd9ff9e1cbe7120886e804a6f0bf6f7"
+        },
+        "line": 1212,
+        "text": "2026-09-10T15:43:59.4664190Z FAILED 2d-landscape.initial-landscape: Multiple exact app processes; cannot attribute lifetime."
+      },
+      "checks": {
+        "2d-landscape.initial-landscape": {
+          "status": "failed",
+          "startedUtc": "2026-09-10T15:43:12.443+00:00",
+          "endedUtc": "2026-09-10T15:43:59.466+00:00",
+          "error": "Multiple exact app processes; cannot attribute lifetime."
+        },
+        "installation": {
+          "status": "passed",
+          "startedUtc": "2026-09-10T15:42:54.774+00:00",
+          "endedUtc": "2026-09-10T15:43:12.443+00:00",
+          "error": null
+        }
+      },
+      "nativeCrashLog": {
+        "file": "android-adaptive-api36-optimized-test-signed-font-1.0-34496282263-1/godot-adaptive/runtime/logs/crash.log",
+        "bytes": 16408,
+        "sha256": "cca5ef9fbf288802910777d9eb933f990f1cbc1e633b7586d3685af32e647e21"
+      },
+      "firstNativeErrorLines": [
+        {
+          "line": 2,
+          "text": "09-10 15:43:58.330  3743  3743 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 3743 (ydeck.app:godot), pid 3743 (ydeck.app:godot)"
+        },
+        {
+          "line": 13,
+          "text": "09-10 15:43:58.552  3792  3792 F DEBUG   : Abort message: 'Throwing new exception 'no non-static method \"Lorg/godotengine/godot/GodotIO;.openURI(Ljava/lang/String;)I\"' with unexpected pending exception: java.lang.NoSuchMethodError: no non-static method \"Lorg/godotengine/godot/nativeapi/GodotNativeBridge;.getRenderView()Lorg/godotengine/godot/GodotRenderView;\""
+        }
+      ],
+      "finalState": {
+        "file": "android-adaptive-api36-optimized-test-signed-font-1.0-34496282263-1/godot-adaptive/runtime/states/00021.json",
+        "bytes": 3916,
+        "sha256": "faa3a9551b47d26ed25d01200fd3133f591846b2119a4a21bc6359d753458f5e"
+      },
+      "finalObservedConfiguration": {
+        "bounds": [
+          0,
+          0,
+          1600,
+          720
+        ],
+        "density_dpi": 280,
+        "display_rotation": 1,
+        "font_scale": 1.0,
+        "height_dp": 411,
+        "layout_direction": "ldltr",
+        "orientation": "land",
+        "width_dp": 914,
+        "window_size": [
+          1600,
+          720
+        ],
+        "windowing_mode": "fullscreen"
+      }
+    },
+    {
+      "case": "android-adaptive-api36-debug-font-1.0-34496282263-1",
+      "variant": "debug",
+      "fontScale": "1.0",
+      "originalResult": {
+        "file": "android-adaptive-api36-debug-font-1.0-34496282263-1/godot-adaptive/runtime/godot-adaptive-result.json",
+        "bytes": 146733,
+        "sha256": "eee77d5486fc41c5c745a66e15a7f35170782b5337247065e3deb078af34b998"
+      },
+      "failedStage": "2d-landscape.held-rotation",
+      "error": "Native Activity remains after supposed retirement.",
+      "firstCheckerError": {
+        "jobId": 102938357874,
+        "originalLog": {
+          "file": "job-102938357874.log",
+          "bytes": 121554,
+          "sha256": "9421695c7bc61c43c5c2fa8b926993478c3e0c2d1a1b2c5ff1332a0fc77a9fb3"
+        },
+        "line": 1215,
+        "text": "2026-09-10T15:45:33.3042124Z FAILED 2d-landscape.held-rotation: Native Activity remains after supposed retirement."
+      },
+      "checks": {
+        "2d-landscape.held-rotation": {
+          "status": "failed",
+          "startedUtc": "2026-09-10T15:44:51.579+00:00",
+          "endedUtc": "2026-09-10T15:45:33.302+00:00",
+          "error": "Native Activity remains after supposed retirement."
+        },
+        "2d-landscape.initial-landscape": {
+          "status": "passed",
+          "startedUtc": "2026-09-10T15:43:23.324+00:00",
+          "endedUtc": "2026-09-10T15:44:51.579+00:00",
+          "error": null
+        },
+        "installation": {
+          "status": "passed",
+          "startedUtc": "2026-09-10T15:43:04.496+00:00",
+          "endedUtc": "2026-09-10T15:43:23.324+00:00",
+          "error": null
+        }
+      },
+      "nativeCrashLog": {
+        "file": "android-adaptive-api36-debug-font-1.0-34496282263-1/godot-adaptive/runtime/logs/crash.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "firstNativeErrorLines": [],
+      "finalState": {
+        "file": "android-adaptive-api36-debug-font-1.0-34496282263-1/godot-adaptive/runtime/states/00032.json",
+        "bytes": 3920,
+        "sha256": "173797c9ef573c802c54c9a51111098e53196ff02d54ea4df977fd1ee676084e"
+      },
+      "finalObservedConfiguration": {
+        "bounds": [
+          0,
+          0,
+          720,
+          1600
+        ],
+        "density_dpi": 280,
+        "display_rotation": 0,
+        "font_scale": 1.0,
+        "height_dp": 914,
+        "layout_direction": "ldltr",
+        "orientation": "port",
+        "width_dp": 411,
+        "window_size": [
+          720,
+          1600
+        ],
+        "windowing_mode": "fullscreen"
+      }
+    },
+    {
+      "case": "android-adaptive-api36-optimized-test-signed-font-2.0-34496282263-1",
+      "variant": "optimized-test-signed",
+      "fontScale": "2.0",
+      "originalResult": {
+        "file": "android-adaptive-api36-optimized-test-signed-font-2.0-34496282263-1/godot-adaptive/runtime/godot-adaptive-result.json",
+        "bytes": 102996,
+        "sha256": "f2db7555fd36c8447c3feeb1f28f61e4f011a57d3a6f034fdde54a8884008544"
+      },
+      "failedStage": "2d-landscape.initial-landscape",
+      "error": "2d-landscape.initial-landscape: Expected native Ready/chrome within 60 seconds: Command '['adb', '-s', 'emulator-5554', 'shell', 'uiautomator', 'dump', '/sdcard/partydeck-ci-godot-session-ui.xml']' timed out after 1.1022341210000377 seconds",
+      "firstCheckerError": {
+        "jobId": 102938357959,
+        "originalLog": {
+          "file": "job-102938357959.log",
+          "bytes": 121318,
+          "sha256": "fa5f1dce7e8c3f152fcbb5202d8906c7d541885fa82ae3af5cc932ffc5ea90cc"
+        },
+        "line": 1206,
+        "text": "2026-09-10T15:46:05.5023530Z FAILED 2d-landscape.initial-landscape: 2d-landscape.initial-landscape: Expected native Ready/chrome within 60 seconds: Command '['adb', '-s', 'emulator-5554', 'shell', 'uiautomator', 'dump', '/sdcard/partydeck-ci-godot-session-ui.xml']' timed out after 1.1022341210000377 seconds"
+      },
+      "checks": {
+        "2d-landscape.initial-landscape": {
+          "status": "failed",
+          "startedUtc": "2026-09-10T15:43:32.490+00:00",
+          "endedUtc": "2026-09-10T15:46:05.501+00:00",
+          "error": "2d-landscape.initial-landscape: Expected native Ready/chrome within 60 seconds: Command '['adb', '-s', 'emulator-5554', 'shell', 'uiautomator', 'dump', '/sdcard/partydeck-ci-godot-session-ui.xml']' timed out after 1.1022341210000377 seconds"
+        },
+        "installation": {
+          "status": "passed",
+          "startedUtc": "2026-09-10T15:43:14.885+00:00",
+          "endedUtc": "2026-09-10T15:43:32.490+00:00",
+          "error": null
+        }
+      },
+      "nativeCrashLog": {
+        "file": "android-adaptive-api36-optimized-test-signed-font-2.0-34496282263-1/godot-adaptive/runtime/logs/crash.log",
+        "bytes": 16408,
+        "sha256": "9c4890ab79af871c5b3f5c44fbc8421ccb152f4ce0f61b97d7f453bb356b77c5"
+      },
+      "firstNativeErrorLines": [
+        {
+          "line": 2,
+          "text": "09-10 15:45:04.935  4114  4114 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 4114 (ydeck.app:godot), pid 4114 (ydeck.app:godot)"
+        },
+        {
+          "line": 13,
+          "text": "09-10 15:45:05.128  4155  4155 F DEBUG   : Abort message: 'Throwing new exception 'no non-static method \"Lorg/godotengine/godot/GodotIO;.openURI(Ljava/lang/String;)I\"' with unexpected pending exception: java.lang.NoSuchMethodError: no non-static method \"Lorg/godotengine/godot/nativeapi/GodotNativeBridge;.getRenderView()Lorg/godotengine/godot/GodotRenderView;\""
+        }
+      ],
+      "finalState": {
+        "file": "android-adaptive-api36-optimized-test-signed-font-2.0-34496282263-1/godot-adaptive/runtime/states/00019.json",
+        "bytes": 3920,
+        "sha256": "da84996fa1e01d5e23d0d886346a163a113c9c7f96da8f0367b584454c539d33"
+      },
+      "finalObservedConfiguration": {
+        "bounds": [
+          0,
+          0,
+          1600,
+          720
+        ],
+        "density_dpi": 280,
+        "display_rotation": 1,
+        "font_scale": 2.0,
+        "height_dp": 411,
+        "layout_direction": "ldltr",
+        "orientation": "land",
+        "width_dp": 914,
+        "window_size": [
+          1600,
+          720
+        ],
+        "windowing_mode": "fullscreen"
+      }
+    },
+    {
+      "case": "android-adaptive-api36-debug-font-2.0-34496282263-1",
+      "variant": "debug",
+      "fontScale": "2.0",
+      "originalResult": {
+        "file": "android-adaptive-api36-debug-font-2.0-34496282263-1/godot-adaptive/runtime/godot-adaptive-result.json",
+        "bytes": 202718,
+        "sha256": "c4c1e046623a1d2458c492be6f21021afb163f7c379c609b4fd744153113e460"
+      },
+      "failedStage": "2d-landscape.portrait-reentry-standard",
+      "error": "2d-landscape.portrait-reentry-standard: Expected fully reachable card 1 with checked=False within 45 seconds: Command '['adb', '-s', 'emulator-5554', 'shell', 'uiautomator', 'dump', '/sdcard/partydeck-ci-godot-session-ui.xml']' timed out after 0.3388080180000088 seconds",
+      "firstCheckerError": {
+        "jobId": 102938357860,
+        "originalLog": {
+          "file": "job-102938357860.log",
+          "bytes": 122168,
+          "sha256": "ef5812f9cf9e8188c800ff550eab7382562cf1347c549ed4bd475475efa3cd76"
+        },
+        "line": 1219,
+        "text": "2026-09-10T15:47:17.1357089Z FAILED 2d-landscape.portrait-reentry-standard: 2d-landscape.portrait-reentry-standard: Expected fully reachable card 1 with checked=False within 45 seconds: Command '['adb', '-s', 'emulator-5554', 'shell', 'uiautomator', 'dump', '/sdcard/partydeck-ci-godot-session-ui.xml']' timed out after 0.3388080180000088 seconds"
+      },
+      "checks": {
+        "2d-landscape.held-rotation": {
+          "status": "unsupported",
+          "startedUtc": "2026-09-10T15:45:08.917+00:00",
+          "endedUtc": "2026-09-10T15:45:21.529+00:00",
+          "error": null
+        },
+        "2d-landscape.initial-landscape": {
+          "status": "passed",
+          "startedUtc": "2026-09-10T15:43:12.828+00:00",
+          "endedUtc": "2026-09-10T15:45:08.917+00:00",
+          "error": null
+        },
+        "2d-landscape.portrait-reentry-standard": {
+          "status": "failed",
+          "startedUtc": "2026-09-10T15:46:32.133+00:00",
+          "endedUtc": "2026-09-10T15:47:17.135+00:00",
+          "error": "2d-landscape.portrait-reentry-standard: Expected fully reachable card 1 with checked=False within 45 seconds: Command '['adb', '-s', 'emulator-5554', 'shell', 'uiautomator', 'dump', '/sdcard/partydeck-ci-godot-session-ui.xml']' timed out after 0.3388080180000088 seconds"
+        },
+        "installation": {
+          "status": "passed",
+          "startedUtc": "2026-09-10T15:42:52.688+00:00",
+          "endedUtc": "2026-09-10T15:43:12.827+00:00",
+          "error": null
+        }
+      },
+      "nativeCrashLog": {
+        "file": "android-adaptive-api36-debug-font-2.0-34496282263-1/godot-adaptive/runtime/logs/crash.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "firstNativeErrorLines": [],
+      "finalState": {
+        "file": "android-adaptive-api36-debug-font-2.0-34496282263-1/godot-adaptive/runtime/states/00041.json",
+        "bytes": 3916,
+        "sha256": "1d6f9c88690b430a33d3070c680341c4701934f84ab6760a2ac959f9c86981f0"
+      },
+      "finalObservedConfiguration": {
+        "bounds": [
+          0,
+          0,
+          720,
+          1600
+        ],
+        "density_dpi": 280,
+        "display_rotation": 0,
+        "font_scale": 2.0,
+        "height_dp": 914,
+        "layout_direction": "ldltr",
+        "orientation": "port",
+        "width_dp": 411,
+        "window_size": [
+          720,
+          1600
+        ],
+        "windowing_mode": "fullscreen"
+      }
+    }
+  ],
+  "scope": "Original checker/native error lines. Separate owners diagnose corrections; no identity is invented for an unobserved PID or missing state."
+}
