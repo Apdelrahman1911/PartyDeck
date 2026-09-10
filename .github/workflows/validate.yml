@@ -33,7 +33,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: validate-${{ github.workflow }}-${{ github.ref }}
+  group: validate-${{ github.workflow }}-${{ github.ref }}-${{ inputs.platform || 'all' }}-${{ inputs.android_api || '35' }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
