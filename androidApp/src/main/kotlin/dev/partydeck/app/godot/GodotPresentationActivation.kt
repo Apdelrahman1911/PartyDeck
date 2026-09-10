@@ -21,6 +21,26 @@ internal object GodotPresentationActivation {
         emptySet()
     }
 
+    fun allowsQualificationObservation(context: Context, admittedMode: String): Boolean = try {
+        @Suppress("DEPRECATION")
+        val metadata = context.packageManager.getApplicationInfo(context.packageName, PackageManager.GET_META_DATA).metaData
+        qualificationObservationFromPackagedMetadata(metadata?.getString(PROFILE), metadata?.getString(MODES), admittedMode)
+    } catch (_: PackageManager.NameNotFoundException) {
+        false
+    } catch (_: RuntimeException) {
+        false
+    }
+
+    internal fun qualificationObservationFromPackagedMetadata(profile: String?, modesCsv: String?, admittedMode: String): Boolean {
+        if (profile != "qualification") return false
+        val mode = when (admittedMode) {
+            "2d" -> GameplayPresentation.GODOT_2D
+            "3d" -> GameplayPresentation.GODOT_3D
+            else -> return false
+        }
+        return mode in fromPackagedMetadata(profile, modesCsv)
+    }
+
     internal fun fromPackagedMetadata(profile: String?, modesCsv: String?): Set<GameplayPresentation> {
         if (profile !in setOf("shipping", "qualification") || modesCsv == null) return emptySet()
         if (modesCsv.isEmpty()) return emptySet()

@@ -7,6 +7,7 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -19,6 +20,7 @@ import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Button
@@ -71,6 +73,9 @@ class SessionGodotActivity : FragmentActivity(), GodotHost, PartyDeckBridgePlugi
     private var rendererRunning: Boolean? = null
     private var backDownTime: Long? = null
     private var initialSurfaceSize: Pair<Int, Int>? = null
+    private var qualificationObservation: GodotQualificationObservation? = null
+    private var qualificationLayoutListener: ViewTreeObserver.OnGlobalLayoutListener? = null
+    private var qualificationExpiry: Runnable? = null
     private lateinit var initialConfiguration: Configuration
     private lateinit var engineContainer: SessionEngineContainer
     private lateinit var cover: TextView
@@ -147,6 +152,7 @@ class SessionGodotActivity : FragmentActivity(), GodotHost, PartyDeckBridgePlugi
         closeDocument = terminal
         pendingLaunch = document
         launchAdmitted = true
+        installQualificationObservation(launch)
         bootstrapIfPossible()
         return !closing
     }
@@ -189,9 +195,14 @@ class SessionGodotActivity : FragmentActivity(), GodotHost, PartyDeckBridgePlugi
             hostForeground = command.getBoolean("isForeground")
         }
         val generation = privacyGeneration
+        val observationCommand = qualificationObservation?.commandQueued(
+            isView = !foregroundCommand, newRevision = command.opt("revision"),
+        )
+        synchronizeQualificationObservation()
         updateRenderScheduling()
         return bridge.send(document) {
             // Only this render-thread delivery callback acknowledges the broker command.
+            qualificationObservation?.commandDelivered(observationCommand)
             afterDelivery()
             if (foregroundCommand && canDrawForeground(generation)) {
                 foregroundDelivered = true
@@ -212,7 +223,13 @@ class SessionGodotActivity : FragmentActivity(), GodotHost, PartyDeckBridgePlugi
         if (!closing && connection?.sendRendererEvent(document) != true) fallBack()
     }
 
-    override fun onRendererDiagnostics(document: String) = Unit
+    override fun onRendererDiagnostics(document: String) {
+        checkMainThread()
+        val observation = qualificationObservation ?: return
+        val value = GodotQualificationJson.decode(document) ?: return
+        observation.receive(value, SystemClock.uptimeMillis(), qualificationSurface())
+        synchronizeQualificationObservation()
+    }
 
     override fun onBridgeFailure(code: String) { if (!closing) fallBack() }
 
@@ -379,6 +396,8 @@ class SessionGodotActivity : FragmentActivity(), GodotHost, PartyDeckBridgePlugi
         generation == privacyGeneration && readyAccepted && hostForeground && localInteractive()
 
     private fun conceal() {
+        qualificationObservation?.invalidate()
+        synchronizeQualificationObservation()
         plugin?.setInputEnabled(false)
         foregroundDelivered = false
         foregroundDrawn = false
@@ -413,6 +432,8 @@ class SessionGodotActivity : FragmentActivity(), GodotHost, PartyDeckBridgePlugi
         engineContainer.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS
         cover.visibility = View.GONE
         status.setText(R.string.godot_table_ready)
+        qualificationObservation?.nativeChanged(qualificationSurface())
+        synchronizeQualificationObservation()
     }
 
     private fun updateRenderScheduling(force: Boolean = false) {
@@ -473,6 +494,8 @@ class SessionGodotActivity : FragmentActivity(), GodotHost, PartyDeckBridgePlugi
         main.removeCallbacks(closeFallback)
         main.removeCallbacks(startupTimeout)
         main.removeCallbacks(foregroundDrawTimeout)
+        qualificationObservation?.disable()
+        synchronizeQualificationObservation()
         plugin?.dispose()
         pendingLaunch = null
         closeDocument = null
@@ -532,6 +555,101 @@ class SessionGodotActivity : FragmentActivity(), GodotHost, PartyDeckBridgePlugi
     private fun terminateOwnProcess() {
         // Never terminate the shell or a PID received through the handoff/renderer.
         if (isOwnGodotProcess()) Process.killProcess(Process.myPid())
+    }
+
+    private fun installQualificationObservation(launch: JSONObject) {
+        // The validated broker launch and the whole packaged mode list must both admit this
+        // mode. Shipping never creates an observer, refresh listener, request or publication.
+        check(launchAdmitted && ownsProcess)
+        val mode = launch.opt("presentationMode") as? String ?: return
+        if (!GodotPresentationActivation.allowsQualificationObservation(this, mode)) return
+        val revision = GodotQualificationSchema.counter(launch.opt("revision")) ?: return
+        qualificationObservation = GodotQualificationObservation(checkNotNull(presentationId), mode, revision)
+        status.id = R.id.godot_qualification_observation
+        status.setOnClickListener { requestQualificationObservation() }
+        engineContainer.onObservationInput = {
+            qualificationObservation?.inputChanged()
+            synchronizeQualificationObservation()
+        }
+        qualificationLayoutListener = ViewTreeObserver.OnGlobalLayoutListener {
+            qualificationObservation?.nativeChanged(qualificationSurface())
+            synchronizeQualificationObservation()
+        }.also { engineContainer.viewTreeObserver.addOnGlobalLayoutListener(it) }
+    }
+
+    private fun requestQualificationObservation() {
+        checkMainThread()
+        val observation = qualificationObservation ?: return
+        val now = SystemClock.uptimeMillis()
+        val surface = qualificationSurface()
+        // Release an expired/invalidated plugin slot before allocating its replacement.
+        observation.expire(now)
+        observation.nativeChanged(surface)
+        synchronizeQualificationObservation()
+        val request = observation.begin(now, surface)
+        // Clear the preceding publication before a new asynchronous request can be issued.
+        synchronizeQualificationObservation()
+        if (request != null && plugin?.requestDiagnostics(request) != true) {
+            observation.invalidate()
+            synchronizeQualificationObservation()
+        }
+    }
+
+    private fun synchronizeQualificationObservation() {
+        val observation = qualificationObservation ?: return
+        qualificationExpiry?.let(main::removeCallbacks)
+        qualificationExpiry = null
+        if (!observation.waiting) plugin?.cancelDiagnosticsRequest()
+        val snapshot = observation.snapshot
+        val document = snapshot?.let(GodotQualificationJson::encode)
+        if (snapshot != null && document == null) observation.disable()
+        status.contentDescription = document
+        if (observation.disabled) {
+            status.contentDescription = null
+            status.setOnClickListener(null)
+            status.isClickable = false
+            engineContainer.onObservationInput = null
+            qualificationLayoutListener?.let {
+                engineContainer.viewTreeObserver.removeOnGlobalLayoutListener(it)
+            }
+            qualificationLayoutListener = null
+            qualificationObservation = null
+            return
+        }
+        observation.deadline?.let { deadline ->
+            qualificationExpiry = Runnable {
+                qualificationObservation?.expire(SystemClock.uptimeMillis())
+                synchronizeQualificationObservation()
+            }.also { main.postAtTime(it, deadline) }
+        }
+    }
+
+    private fun qualificationSurface(): QualificationSurface? {
+        if (!ownsProcess || !launchAdmitted || destroying || !localInteractive() || !readyAccepted ||
+            !hostForeground || !foregroundDelivered || !foregroundDrawn || cover.visibility != View.GONE ||
+            !engineContainer.observationInputIdle ||
+            engineContainer.importantForAccessibility != View.IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS) return null
+        // foregroundDrawn proves the existing cover transition only. Later view application
+        // and settled control geometry are separately checked in diagnostics and by the driver.
+        val view = engine?.renderView?.view ?: return null
+        if (!view.isAttachedToWindow || !view.isShown || !view.hasWindowFocus() ||
+            view.windowVisibility != View.VISIBLE || view.width <= 0 || view.height <= 0) return null
+        var ancestor: View? = view
+        var belongsToContainer = false
+        while (ancestor != null) {
+            if (!ancestor.matrix.isIdentity || ancestor.alpha != 1f || ancestor.scrollX != 0 || ancestor.scrollY != 0 ||
+                ancestor.visibility != View.VISIBLE) return null
+            if (ancestor === engineContainer) belongsToContainer = true
+            ancestor = ancestor.parent as? View
+        }
+        if (!belongsToContainer) return null
+        val visible = Rect()
+        if (!view.getLocalVisibleRect(visible) || visible != Rect(0, 0, view.width, view.height)) return null
+        // getGlobalVisibleRect uses root-view coordinates, not physical screen coordinates.
+        val location = IntArray(2)
+        view.getLocationOnScreen(location)
+        return QualificationSurface(view, location[0], location[1], view.width, view.height,
+            resources.displayMetrics.density.toDouble(), privacyGeneration).takeIf { it.isValid() }
     }
 
     private fun createNativeContent() {
@@ -635,6 +753,8 @@ private class SessionEngineContainer(context: Context, private val onTouchStart:
     private var lastTouch: MotionEvent? = null
     private val pressedPointers = mutableSetOf<Int>()
     private val pressedKeys = mutableMapOf<KeyIdentity, PressedKey>()
+    var onObservationInput: (() -> Unit)? = null
+    val observationInputIdle: Boolean get() = inputEnabled && lastTouch == null && pressedKeys.isEmpty()
 
     init { descendantFocusability = FOCUS_BLOCK_DESCENDANTS }
 
@@ -686,6 +806,7 @@ private class SessionEngineContainer(context: Context, private val onTouchStart:
         }
         lastTouch?.recycle()
         lastTouch = MotionEvent.obtain(event)
+        onObservationInput?.invoke()
         val handled = super.dispatchTouchEvent(event)
         when (action) {
             MotionEvent.ACTION_POINTER_UP -> pressedPointers.remove(event.getPointerId(event.actionIndex))
@@ -713,20 +834,28 @@ private class SessionEngineContainer(context: Context, private val onTouchStart:
             }
             else -> return true
         }
+        onObservationInput?.invoke()
         return super.dispatchKeyEvent(event)
     }
 
     override fun dispatchKeyShortcutEvent(event: KeyEvent): Boolean {
         val pressed = pressedKeys[KeyIdentity(event.deviceId, event.keyCode, event.scanCode)]
-        return if (!inputEnabled || pressed?.generation != inputGeneration ||
-            pressed.event.downTime != event.downTime) true else super.dispatchKeyShortcutEvent(event)
+        if (!inputEnabled || pressed?.generation != inputGeneration || pressed.event.downTime != event.downTime) return true
+        onObservationInput?.invoke()
+        return super.dispatchKeyShortcutEvent(event)
     }
 
-    override fun dispatchGenericMotionEvent(event: MotionEvent): Boolean =
-        if (!ownsMotion(event)) true else super.dispatchGenericMotionEvent(event)
+    override fun dispatchGenericMotionEvent(event: MotionEvent): Boolean {
+        if (!ownsMotion(event)) return true
+        onObservationInput?.invoke()
+        return super.dispatchGenericMotionEvent(event)
+    }
 
-    override fun dispatchCapturedPointerEvent(event: MotionEvent): Boolean =
-        if (!ownsMotion(event)) true else super.dispatchCapturedPointerEvent(event)
+    override fun dispatchCapturedPointerEvent(event: MotionEvent): Boolean {
+        if (!ownsMotion(event)) return true
+        onObservationInput?.invoke()
+        return super.dispatchCapturedPointerEvent(event)
+    }
 
     private fun ownsMotion(event: MotionEvent): Boolean {
         if (!inputEnabled || event.eventTime < enabledAt) return false
