@@ -15,6 +15,7 @@ SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO
 TARGETED_DEVICE_FAMILY = 1,2
 SWIFT_OBJC_BRIDGING_HEADER = $(SRCROOT)/modules/partydeck_ios_probe/PDGodotRuntime.h
 OTHER_LDFLAGS = $(inherited) -lc++ -lz -liconv
+LIBRARY_SEARCH_PATHS = $(inherited) "$(SRCROOT)/build/artifacts"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks
 LD_GENERATE_MAP_FILE = YES
 LD_MAP_FILE_PATH = $(SRCROOT)/build/evidence/host-LinkMap-$(CONFIGURATION)-$(CURRENT_ARCH).txt
