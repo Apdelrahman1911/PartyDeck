@@ -67,6 +67,10 @@ internal class SessionVisibility(
         return true
     }
 
+    /** Retain a dialog choice only for this resumed owner; focus is still required to launch. */
+    fun shellCanSelectPresentation(attachment: Long): Boolean =
+        attachment == shellAttachment && shell.started && shell.resumed && !userLeaving
+
     fun shellCanLaunch(attachment: Long): Boolean =
         attachment == shellAttachment && shell.interactive && !userLeaving
 

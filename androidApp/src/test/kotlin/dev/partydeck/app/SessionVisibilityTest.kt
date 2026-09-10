@@ -7,6 +7,61 @@ import kotlin.test.assertTrue
 
 class SessionVisibilityTest {
     @Test
+    fun dialogFocusLossCanRetainASelectionButOnlyRealShellFocusCanLaunch() {
+        val visibility = SessionVisibility()
+        val shell = startedShell(visibility)
+        visibility.updateShell(shell, started = true, resumed = true, focused = false)
+        assertTrue(visibility.shellCanSelectPresentation(shell))
+        assertFalse(visibility.shellCanLaunch(shell))
+        assertState(visibility, 10, foreground = false, backgrounded = false)
+        // Repeated lifecycle publication does not invent a focus gain.
+        visibility.updateShell(shell, started = true, resumed = true, focused = false)
+        assertFalse(visibility.shellCanLaunch(shell))
+        visibility.updateShell(shell, started = true, resumed = true, focused = true)
+        assertTrue(visibility.shellCanSelectPresentation(shell))
+        assertTrue(visibility.shellCanLaunch(shell))
+        assertState(visibility, 20, foreground = true, backgrounded = false)
+    }
+
+    @Test
+    fun pauseStopDepartureDetachAndReplacementInvalidateTheSelectionOwnerWithoutNeedingFocus() {
+        val invalidations: List<Pair<String, (SessionVisibility, Long) -> Unit>> = listOf(
+            "pause" to { visibility, shell -> visibility.updateShell(shell, started = true, resumed = false, focused = false) },
+            "stop" to { visibility, shell -> visibility.stopShell(shell, changingConfigurations = false, nowMillis = 20) },
+            "configuration stop" to { visibility, shell -> visibility.stopShell(shell, changingConfigurations = true, nowMillis = 20) },
+            "user departure" to { visibility, shell -> visibility.userLeavingShell(shell) },
+            "detach" to { visibility, shell -> visibility.detachShell(shell) },
+            "replacement" to { visibility, _ -> visibility.attachShell(20) },
+        )
+        for ((reason, invalidate) in invalidations) {
+            val visibility = SessionVisibility()
+            val shell = startedShell(visibility)
+            visibility.updateShell(shell, started = true, resumed = true, focused = false)
+            assertTrue(visibility.shellCanSelectPresentation(shell), reason)
+            invalidate(visibility, shell)
+            assertFalse(visibility.shellCanSelectPresentation(shell), reason)
+            assertFalse(visibility.shellCanLaunch(shell), reason)
+        }
+    }
+
+    @Test
+    fun oldShellFocusCannotAuthorizeSelectionForItsReplacement() {
+        val visibility = SessionVisibility()
+        val old = startedShell(visibility)
+        val current = visibility.attachShell(10)
+        assertFalse(visibility.shellCanSelectPresentation(old))
+        assertFalse(visibility.shellCanSelectPresentation(current))
+        assertFalse(visibility.updateShell(old, started = true, resumed = true, focused = true))
+        assertFalse(visibility.shellCanLaunch(current))
+        visibility.updateShell(current, started = true, resumed = true, focused = false)
+        assertTrue(visibility.shellCanSelectPresentation(current))
+        assertFalse(visibility.shellCanLaunch(current))
+        visibility.updateShell(current, started = true, resumed = true, focused = true)
+        assertTrue(visibility.shellCanLaunch(current))
+        assertFalse(visibility.shellCanLaunch(old))
+    }
+
+    @Test
     fun focusAndPauseConcealImmediatelyWithoutTreatingAVisibleShellAsBackground() {
         val visibility = SessionVisibility()
         val shell = startedShell(visibility)

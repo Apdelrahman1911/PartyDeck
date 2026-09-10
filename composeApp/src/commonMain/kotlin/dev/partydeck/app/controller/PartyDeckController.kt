@@ -196,6 +196,14 @@ class PartyDeckController(
     fun selectPresentation(presentation: GameplayPresentation): Boolean =
         !closed && presentations.select(presentation)
 
+    /**
+     * Native owners clear this while paused, detached or leaving, and before replacing the owner.
+     * A modal's focus loss alone does not end the lifetime of its explicit presentation choice.
+     */
+    fun setPresentationSelectionOwnerActive(value: Boolean) {
+        if (!closed) presentations.setSelectionOwnerActive(value)
+    }
+
     fun useComposePresentation() { selectPresentation(GameplayPresentation.COMPOSE) }
 
     fun requestPresentationExit(presentationId: String) {

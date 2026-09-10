@@ -63,6 +63,7 @@ class PartyDeckAndroidViewModel(
         check(!cleared)
         val oldAttachment = attachment
         if (oldAttachment != null && activity.get() === value) return oldAttachment
+        controller.setPresentationSelectionOwnerActive(false)
         if (oldAttachment != null) activity.get()?.onShellInteractivityChanged(oldAttachment, false)
         val identity = visibility.attachShell(SystemClock.elapsedRealtime())
         attachment = identity
@@ -80,24 +81,28 @@ class PartyDeckAndroidViewModel(
         focused: Boolean,
     ) {
         if (!ownsActivity(value, identity)) return
+        if (!started || !resumed) controller.setPresentationSelectionOwnerActive(false)
         visibility.updateShell(identity, started, resumed, focused)
         publishVisibility()
     }
 
     internal fun stopActivity(value: MainActivity, identity: Long, changingConfigurations: Boolean) {
         if (!ownsActivity(value, identity)) return
+        controller.setPresentationSelectionOwnerActive(false)
         visibility.stopShell(identity, changingConfigurations, SystemClock.elapsedRealtime())
         publishVisibility()
     }
 
     internal fun userLeavingActivity(value: MainActivity, identity: Long) {
         if (!ownsActivity(value, identity)) return
+        controller.setPresentationSelectionOwnerActive(false)
         visibility.userLeavingShell(identity)
         publishVisibility()
     }
 
     internal fun detachActivity(value: MainActivity, identity: Long) {
         if (!ownsActivity(value, identity)) return
+        controller.setPresentationSelectionOwnerActive(false)
         visibility.detachShell(identity)
         attachment = null
         activity.clear()
@@ -109,7 +114,10 @@ class PartyDeckAndroidViewModel(
         if (cleared || controller.state.value.presentation.presentationId != presentationId) return
         if (!visibility.rendererOpening(presentationId, deadlineMillis)) return
         pendingLaunch = attachment?.let { PendingLaunch(presentationId, it) }
-        publishVisibility() // Synchronous native shell cover precedes launching the child.
+        // Selection can resume inside publishVisibility's foreground setter. Its reentrancy
+        // guard defers another publication, so cover directly before the immediate child launch.
+        attachment?.let { activity.get()?.onShellInteractivityChanged(it, false) }
+        publishVisibility()
     }
 
     override fun launchRenderer(intent: Intent): Boolean {
@@ -178,6 +186,9 @@ class PartyDeckAndroidViewModel(
                 visibility.selectPresentation(selected)
                 val snapshot = visibility.snapshot(SystemClock.elapsedRealtime())
                 val identity = attachment
+                controller.setPresentationSelectionOwnerActive(
+                    identity != null && visibility.shellCanSelectPresentation(identity),
+                )
                 if (identity != null) {
                     activity.get()?.onShellInteractivityChanged(identity, snapshot.shellSelected && snapshot.foreground)
                 }

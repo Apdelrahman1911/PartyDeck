@@ -36,6 +36,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import kotlinx.coroutines.withTimeoutOrNull
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.TimeMark
+import kotlin.time.TimeSource
 
 /** The session revision is captured from the exact projection which accepted the renderer input. */
 internal data class PresentationSubmission(
@@ -57,11 +60,13 @@ internal class EmbeddedPresentationCoordinator(
     private val publish: (GameplayPresentationState, Boolean) -> Unit,
     private val submit: (PresentationSubmission) -> Boolean,
     private val requestExit: () -> Unit,
+    private val selectionTimeSource: TimeSource = TimeSource.Monotonic,
 ) {
     private var ui = GameplayPresentationState()
     private var active: Presentation? = null
     private var closing: Presentation? = null
     private var pendingOpen: PendingOpen? = null
+    private var selectionOwnerActive = true
     private var availabilityJob: Job? = null
     private var advertised: Set<GameplayPresentation>? = null
     private var factoryPreferences: PresentationPreferences? = null
@@ -72,7 +77,7 @@ internal class EmbeddedPresentationCoordinator(
     fun start() {
         if (closed || availabilityJob != null) return
         availabilityJob = scope.launch(start = CoroutineStart.UNDISPATCHED) {
-            host.available.collect { refreshFactories() }
+            host.available.collect { update() }
         }
     }
 
@@ -81,47 +86,99 @@ internal class EmbeddedPresentationCoordinator(
         if (closed) return
         refreshFactories()
         val state = currentState()
-        pendingOpen?.let { if (!it.binding.matches(state.session, sessionGeneration())) pendingOpen = null }
-        val presentation = active ?: return
-        if (!presentation.binding.matches(state.session, sessionGeneration()) ||
-            state.screen != AppScreen.SESSION || state.leaveConfirmationRequested ||
-            state.connection.status != ConnectionStatus.CONNECTED
-        ) {
-            pendingOpen = null
-            stop(presentation)
-            return
+        pendingOpen?.let { if (!pendingIsCurrent(it, state)) cancelPendingSelection() }
+        val presentation = active
+        if (presentation != null) {
+            if (!presentation.binding.matches(state.session, sessionGeneration()) ||
+                state.screen != AppScreen.SESSION || state.leaveConfirmationRequested ||
+                state.connection.status != ConnectionStatus.CONNECTED
+            ) {
+                cancelPendingSelection()
+                stop(presentation)
+                return
+            }
+            if (presentation.preferences != preferences(state)) {
+                cancelPendingSelection()
+                stop(presentation, PresentationFallbackReason.PREFERENCES_CHANGED)
+                return
+            }
+            project(presentation)
         }
-        if (presentation.preferences != preferences(state)) {
-            pendingOpen = null
-            stop(presentation, PresentationFallbackReason.PREFERENCES_CHANGED)
-            return
-        }
-        project(presentation)
+        openPendingIfReady()
+    }
+
+    /** A modal may take focus; pause, departure or owner replacement invalidates its selection. */
+    fun setSelectionOwnerActive(value: Boolean) {
+        selectionOwnerActive = value
+        if (!value) cancelPendingSelection()
     }
 
     fun select(choice: GameplayPresentation): Boolean {
         if (closed) return false
+        cancelPendingSelection()
         if (choice == GameplayPresentation.COMPOSE) {
-            pendingOpen = null
             active?.let { stop(it) } ?: emit(ui.copy(fallbackReason = null))
             return true
         }
         val state = currentState()
         val session = state.session?.takeIf { it.phase == SessionPhase.GAME && it.game?.viewerId == it.selfPlayerId }
             ?: return false
-        if (state.screen != AppScreen.SESSION || !state.isForeground || state.isBackgrounded ||
-            state.leaveConfirmationRequested || state.connection.status != ConnectionStatus.CONNECTED || !scope.isActive
-        ) return false
+        if (!selectionAllowed(state)) return false
         if (active?.choice == choice) return true
         refreshFactories(force = true)
-        val factory = factories[choice] ?: return false
-        val binding = Binding(sessionGeneration(), session.sessionId, session.selfPlayerId)
+        if (choice !in factories) return false
+        val pending = PendingOpen(
+            choice,
+            Binding(sessionGeneration(), session.sessionId, session.selfPlayerId),
+            preferences(state),
+            selectionTimeSource.markNow() + SELECTION_TIMEOUT_MS.milliseconds,
+        )
+        pendingOpen = pending
+        pending.timeout = scope.launch(start = CoroutineStart.UNDISPATCHED) {
+            delay(SELECTION_TIMEOUT_MS)
+            // Expiry only cancels this attempt; it never grants focus or renews a later choice.
+            if (pendingOpen === pending) cancelPendingSelection()
+        }
         if (active != null || closing != null) {
-            pendingOpen = PendingOpen(choice, binding)
             active?.let { stop(it) }
             return true
         }
-        val preference = preferences(state)
+        return openPendingIfReady()
+    }
+
+    private fun selectionAllowed(state: AppUiState): Boolean =
+        !closed && selectionOwnerActive && scope.isActive && state.screen == AppScreen.SESSION &&
+            !state.isBackgrounded && !state.leaveConfirmationRequested &&
+            state.connection.status == ConnectionStatus.CONNECTED
+
+    private fun pendingIsCurrent(pending: PendingOpen, state: AppUiState): Boolean =
+        selectionAllowed(state) && pending.binding.matches(state.session, sessionGeneration()) &&
+            pending.preferences == preferences(state) && pending.choice in factories &&
+            !pending.deadline.hasPassedNow()
+
+    private fun cancelPendingSelection() {
+        val pending = pendingOpen
+        pendingOpen = null
+        pending?.timeout?.cancel()
+    }
+
+    private fun openPendingIfReady(): Boolean {
+        val pending = pendingOpen ?: return false
+        refreshFactories(force = true)
+        if (pendingOpen !== pending) return false
+        val state = currentState()
+        if (!pendingIsCurrent(pending, state)) {
+            cancelPendingSelection()
+            return false
+        }
+        // Both close completion and actual foreground publication may arrive first. Neither a
+        // dismissed-dialog flag nor the expiration timer is evidence of current window focus.
+        if (active != null || closing != null || !state.isForeground) return true
+        val factory = factories[pending.choice] ?: return false
+        cancelPendingSelection() // Consume before publishing or entering an undispatched factory.
+        val choice = pending.choice
+        val binding = pending.binding
+        val preference = pending.preferences
         val initial = projection(state, ready = false)
         val adapter = try {
             LastLightBridgeAdapter(newPresentationId(), 0, initial.game, initial.controls).also {
@@ -153,14 +210,14 @@ internal class EmbeddedPresentationCoordinator(
     /** Native Back may arrive before renderer Ready; it is not assigned a renderer sequence. */
     fun exit(presentationId: String) {
         val presentation = active?.takeIf { it.adapter.presentationId == presentationId } ?: return
-        pendingOpen = null
+        cancelPendingSelection()
         stop(presentation)
         requestExit()
     }
 
     fun close() {
         if (closed) return
-        pendingOpen = null
+        cancelPendingSelection()
         active?.let { stop(it) }
         closed = true
         availabilityJob?.cancel()
@@ -349,16 +406,19 @@ internal class EmbeddedPresentationCoordinator(
 
     private fun completeClose(presentation: Presentation, released: Boolean) {
         if (closing !== presentation) return
-        closing = null
         if (!released) nativeCleanupFailed = true
-        if (closed) return
+        if (closed) {
+            closing = null
+            return
+        }
+        // Keep the close gate through publication: a native owner may synchronously publish
+        // regained foreground from this callback, before the old close has finished publishing.
         refreshFactories(force = true)
         emit(ui.copy(lifecycle = PresentationLifecycle.COMPOSE, fallbackReason = if (released) {
             ui.fallbackReason
         } else PresentationFallbackReason.DELIVERY_FAILED))
-        val pending = pendingOpen
-        pendingOpen = null
-        if (pending != null && pending.binding.matches(currentState().session, sessionGeneration())) select(pending.choice)
+        closing = null
+        openPendingIfReady()
     }
 
     private fun refreshFactories(force: Boolean = false) {
@@ -422,7 +482,14 @@ internal class EmbeddedPresentationCoordinator(
                 session.phase == SessionPhase.GAME && session.game?.viewerId == recipient
     }
 
-    private data class PendingOpen(val choice: GameplayPresentation, val binding: Binding)
+    private class PendingOpen(
+        val choice: GameplayPresentation,
+        val binding: Binding,
+        val preferences: PresentationPreferences,
+        val deadline: TimeMark,
+    ) {
+        var timeout: Job? = null
+    }
 
     private data class Projection(
         val sessionRevision: Long,
@@ -452,6 +519,7 @@ internal class EmbeddedPresentationCoordinator(
     }
 
     private companion object {
+        const val SELECTION_TIMEOUT_MS = 5_000L
         const val STARTUP_TIMEOUT_MS = 10_000L
         const val DELIVERY_TIMEOUT_MS = 5_000L
         const val CLOSE_TIMEOUT_MS = 3_000L

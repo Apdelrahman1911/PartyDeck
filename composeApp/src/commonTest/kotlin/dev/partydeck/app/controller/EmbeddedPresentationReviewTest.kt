@@ -35,6 +35,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
@@ -45,9 +46,274 @@ import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.ExperimentalTime
+import kotlin.time.TestTimeSource
+import kotlin.time.TimeSource
 
-@OptIn(ExperimentalCoroutinesApi::class)
+@OptIn(ExperimentalCoroutinesApi::class, ExperimentalTime::class)
 class EmbeddedPresentationReviewTest {
+    @Test
+    fun modalSelectionWaitsForForegroundAndOpensEachModeOnceWithCurrentConcealedControls() = runTest {
+        for (mode in listOf(GameplayPresentation.GODOT_2D, GameplayPresentation.GODOT_3D)) {
+            val fixture = PresentationReviewFixture(backgroundScope)
+            try {
+                val original = fixture.state.session
+                fixture.state = fixture.state.copy(isForeground = false)
+                fixture.coordinator.update()
+                assertTrue(fixture.coordinator.select(mode))
+                runCurrent()
+                assertTrue(fixture.host.ports.isEmpty(), "A dismissed-dialog flag must not grant focus")
+                assertEquals(GameplayPresentation.COMPOSE, fixture.state.presentation.selected)
+                fixture.coordinator.update()
+                assertTrue(fixture.host.ports.isEmpty())
+
+                // The same session can publish a newer recipient view during the focus wait.
+                fixture.authority.disconnectGuest()
+                fixture.changeSession(fixture.authority.view())
+                val newest = fixture.state.session
+                assertEquals(original?.sessionId, newest?.sessionId)
+                assertTrue(fixture.host.ports.isEmpty())
+                fixture.state = fixture.state.copy(isForeground = true)
+                fixture.coordinator.update()
+                val port = fixture.host.ports.single()
+                val initial = LastLightWireCodec.decodeViewPayload(port.launch.initialView)
+                assertEquals(newest?.game, initial.game)
+                assertEquals(newest?.selfPlayerId, initial.game.viewerId)
+                assertFalse(initial.controls.canSendAction)
+                assertTrue(port.commands.isEmpty())
+                assertEquals(mode, fixture.state.presentation.selected)
+                repeat(3) { fixture.coordinator.update() }
+                assertEquals(1, fixture.host.ports.size)
+                assertTrue(fixture.submissions.isEmpty())
+            } finally {
+                fixture.coordinator.close()
+                runCurrent()
+            }
+        }
+    }
+
+    @Test
+    fun newestExplicitChoiceSurvivesTheReplacedChoicesTimeout() = runTest {
+        val fixture = PresentationReviewFixture(backgroundScope)
+        try {
+            fixture.state = fixture.state.copy(isForeground = false)
+            fixture.coordinator.update()
+            assertTrue(fixture.coordinator.select(GameplayPresentation.GODOT_2D))
+            advanceTimeBy(3_000)
+            assertTrue(fixture.coordinator.select(GameplayPresentation.GODOT_3D))
+            advanceTimeBy(2_001)
+            runCurrent()
+            assertTrue(fixture.host.ports.isEmpty())
+            fixture.state = fixture.state.copy(isForeground = true)
+            fixture.coordinator.update()
+            assertEquals(1, fixture.host.ports.size)
+            assertEquals(GameplayPresentation.GODOT_3D, fixture.state.presentation.selected)
+        } finally {
+            fixture.coordinator.close()
+            runCurrent()
+        }
+    }
+
+    @Test
+    fun selectionExpiryNeverLaunchesAndForegroundUpdatesDoNotRenewIt() = runTest {
+        val fixture = PresentationReviewFixture(backgroundScope)
+        try {
+            fixture.state = fixture.state.copy(isForeground = false)
+            fixture.coordinator.update()
+            assertTrue(fixture.coordinator.select(GameplayPresentation.GODOT_2D))
+            advanceTimeBy(4_000)
+            fixture.coordinator.update()
+            advanceTimeBy(1_001)
+            runCurrent()
+            assertTrue(fixture.host.ports.isEmpty())
+            fixture.state = fixture.state.copy(isForeground = true)
+            fixture.coordinator.update()
+            assertTrue(fixture.host.ports.isEmpty(), "An expired choice must not launch on a later return")
+            assertTrue(fixture.coordinator.select(GameplayPresentation.GODOT_2D))
+            assertEquals(1, fixture.host.ports.size)
+        } finally {
+            fixture.coordinator.close()
+            runCurrent()
+        }
+    }
+
+    @Test
+    fun monotonicDeadlineRejectsFocusEvenBeforeTheTimeoutCoroutineCanRun() = runTest {
+        val clock = TestTimeSource()
+        val fixture = PresentationReviewFixture(backgroundScope, clock)
+        try {
+            fixture.state = fixture.state.copy(isForeground = false)
+            fixture.coordinator.update()
+            assertTrue(fixture.coordinator.select(GameplayPresentation.GODOT_3D))
+            clock += 5.seconds
+            // Leave scheduler time unchanged: focus may be dispatched before an overdue timer.
+            fixture.state = fixture.state.copy(isForeground = true)
+            fixture.coordinator.update()
+            assertTrue(fixture.host.ports.isEmpty())
+            runCurrent()
+            assertTrue(fixture.host.ports.isEmpty())
+        } finally {
+            fixture.coordinator.close()
+            runCurrent()
+        }
+    }
+
+    @Test
+    fun aPendingChoiceCannotSurviveSessionRoutePrivacyPreferenceOrOwnerInvalidation() = runTest {
+        val invalidations: List<Pair<String, (PresentationReviewFixture) -> Unit>> = listOf(
+            "background" to { it.state = it.state.copy(isBackgrounded = true) },
+            "leave" to { it.state = it.state.copy(leaveConfirmationRequested = true) },
+            "route" to { it.state = it.state.copy(screen = AppScreen.HOW_TO) },
+            "session removed" to { it.state = it.state.copy(session = null) },
+            "session generation" to { it.generation++ },
+            "session ID" to { it.state = it.state.copy(session = it.state.session?.copy(sessionId = "replacement-session")) },
+            "recipient" to { it.state = it.state.copy(session = it.authority.view(it.authority.guests.first())) },
+            "game phase" to { it.state = it.state.copy(session = it.state.session?.copy(phase = SessionPhase.LOBBY, game = null)) },
+            "connection" to { it.state = it.state.copy(connection = it.state.connection.copy(status = ConnectionStatus.DISCONNECTED)) },
+            "text scale" to { it.state = it.state.copy(presentationTextScale = 2.0) },
+            "motion" to { it.state = it.state.copy(systemReduceMotion = true) },
+            "owner pause or replacement" to { it.coordinator.setSelectionOwnerActive(false) },
+            "Standard selected" to { assertTrue(it.coordinator.select(GameplayPresentation.COMPOSE)) },
+        )
+        for ((reason, invalidate) in invalidations) {
+            val fixture = PresentationReviewFixture(backgroundScope)
+            try {
+                fixture.state = fixture.state.copy(isForeground = false)
+                fixture.coordinator.update()
+                val before = fixture.state
+                val generation = fixture.generation
+                assertTrue(fixture.coordinator.select(GameplayPresentation.GODOT_2D), reason)
+                invalidate(fixture)
+                fixture.coordinator.update()
+                fixture.state = before.copy(isForeground = true)
+                fixture.generation = generation
+                fixture.coordinator.setSelectionOwnerActive(true)
+                fixture.coordinator.update()
+                runCurrent()
+                assertTrue(fixture.host.ports.isEmpty(), reason)
+                assertTrue(fixture.submissions.isEmpty(), reason)
+                assertTrue(fixture.coordinator.select(GameplayPresentation.GODOT_3D), reason)
+                assertEquals(1, fixture.host.ports.size, reason)
+            } finally {
+                fixture.coordinator.close()
+                runCurrent()
+            }
+        }
+    }
+
+    @Test
+    fun availabilityLossCancelsTheChoiceEvenIfTheModeReturnsBeforeFocus() = runTest {
+        val fixture = PresentationReviewFixture(backgroundScope)
+        try {
+            fixture.state = fixture.state.copy(isForeground = false)
+            fixture.coordinator.update()
+            assertTrue(fixture.coordinator.select(GameplayPresentation.GODOT_2D))
+            fixture.host.available.value = emptySet()
+            runCurrent()
+            fixture.host.available.value = setOf(GameplayPresentation.GODOT_2D, GameplayPresentation.GODOT_3D)
+            runCurrent()
+            fixture.state = fixture.state.copy(isForeground = true)
+            fixture.coordinator.update()
+            assertTrue(fixture.host.ports.isEmpty())
+            assertTrue(fixture.coordinator.select(GameplayPresentation.GODOT_2D))
+            assertEquals(1, fixture.host.ports.size)
+        } finally {
+            fixture.coordinator.close()
+            runCurrent()
+        }
+    }
+
+    @Test
+    fun inactiveOwnerRejectsNewChoicesAndReactivationDoesNotReplayAnOldOne() = runTest {
+        val fixture = PresentationReviewFixture(backgroundScope)
+        try {
+            fixture.state = fixture.state.copy(isForeground = false)
+            fixture.coordinator.update()
+            assertTrue(fixture.coordinator.select(GameplayPresentation.GODOT_2D))
+            fixture.coordinator.setSelectionOwnerActive(false)
+            assertFalse(fixture.coordinator.select(GameplayPresentation.GODOT_3D))
+            fixture.coordinator.setSelectionOwnerActive(true)
+            fixture.state = fixture.state.copy(isForeground = true)
+            fixture.coordinator.update()
+            assertTrue(fixture.host.ports.isEmpty())
+        } finally {
+            fixture.coordinator.close()
+            runCurrent()
+        }
+    }
+
+    @Test
+    fun modeSwitchRequiresBothCloseCompletionAndForegroundInEitherOrder() = runTest {
+        for (focusFirst in listOf(false, true)) {
+            val fixture = PresentationReviewFixture(backgroundScope)
+            val close = CompletableDeferred<Unit>()
+            try {
+                assertTrue(fixture.coordinator.select(GameplayPresentation.GODOT_2D))
+                val first = fixture.host.ports.single()
+                first.closeBarrier = close
+                assertTrue(fixture.coordinator.select(GameplayPresentation.GODOT_3D))
+                fixture.state = fixture.state.copy(isForeground = false)
+                fixture.coordinator.update()
+                runCurrent()
+                if (focusFirst) {
+                    fixture.state = fixture.state.copy(isForeground = true)
+                    fixture.coordinator.update()
+                    assertEquals(1, fixture.host.ports.size)
+                    close.complete(Unit)
+                    runCurrent()
+                } else {
+                    close.complete(Unit)
+                    runCurrent()
+                    assertEquals(1, fixture.host.ports.size)
+                    fixture.state = fixture.state.copy(isForeground = true)
+                    fixture.coordinator.update()
+                }
+                assertTrue(first.closed)
+                assertEquals(2, fixture.host.ports.size)
+                assertEquals(GameplayPresentation.GODOT_3D, fixture.state.presentation.selected)
+                assertEquals(PresentationLifecycle.OPENING, fixture.state.presentation.lifecycle)
+            } finally {
+                close.complete(Unit)
+                fixture.coordinator.close()
+                runCurrent()
+            }
+        }
+    }
+
+    @Test
+    fun reentrantForegroundPublicationCannotOpenUntilClosePublicationFinishes() = runTest {
+        val fixture = PresentationReviewFixture(backgroundScope)
+        val close = CompletableDeferred<Unit>()
+        try {
+            assertTrue(fixture.coordinator.select(GameplayPresentation.GODOT_2D))
+            fixture.host.ports.single().closeBarrier = close
+            assertTrue(fixture.coordinator.select(GameplayPresentation.GODOT_3D))
+            fixture.state = fixture.state.copy(isForeground = false)
+            fixture.coordinator.update()
+            runCurrent()
+            var foregroundPublications = 0
+            fixture.onPublish = { presentation ->
+                if (presentation.lifecycle == PresentationLifecycle.COMPOSE) {
+                    foregroundPublications++
+                    fixture.state = fixture.state.copy(isForeground = true)
+                    fixture.coordinator.update()
+                    assertEquals(1, fixture.host.ports.size, "Close publication must retain the old close gate")
+                }
+            }
+            close.complete(Unit)
+            runCurrent()
+            assertEquals(1, foregroundPublications)
+            assertEquals(2, fixture.host.ports.size)
+            assertEquals(PresentationLifecycle.OPENING, fixture.state.presentation.lifecycle)
+        } finally {
+            fixture.onPublish = {}
+            close.complete(Unit)
+            fixture.coordinator.close()
+            runCurrent()
+        }
+    }
+
     @Test
     fun bothModesReceiveOnlyTheCurrentRecipientAndTheNewestViewAfterReady() = runTest {
         for (mode in listOf(GameplayPresentation.GODOT_2D, GameplayPresentation.GODOT_3D)) {
@@ -337,7 +603,7 @@ class EmbeddedPresentationReviewTest {
     }
 }
 
-private class PresentationReviewFixture(scope: CoroutineScope) {
+private class PresentationReviewFixture(scope: CoroutineScope, selectionTimeSource: TimeSource = TimeSource.Monotonic) {
     val authority = PresentationReviewAuthority()
     val host = PresentationReviewHost()
     var state = AppUiState(
@@ -351,13 +617,16 @@ private class PresentationReviewFixture(scope: CoroutineScope) {
         private set
     val submissions = mutableListOf<PresentationSubmission>()
     var onSubmission: (PresentationSubmission) -> Boolean = { false }
+    var onPublish: (GameplayPresentationState) -> Unit = {}
     val coordinator = EmbeddedPresentationCoordinator(
         scope, host, { state }, { generation }, { "review-presentation-${nextPresentation++}" },
         { presentation, conceal ->
             state = state.copy(presentation = presentation, privacyEpoch = state.privacyEpoch + if (conceal) 1 else 0)
+            onPublish(presentation)
         },
         { submissions += it; onSubmission(it) },
         { exitRequests++ },
+        selectionTimeSource,
     ).also { it.start() }
 
     fun changeSession(next: SessionView) {

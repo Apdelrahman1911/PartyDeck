@@ -35,6 +35,66 @@ import kotlin.test.fail
 
 class EmbeddedPresentationControllerTest {
     @Test
+    fun pickerChoiceWaitsForTheControllersActualForegroundPublicationInBothModes() = runTest {
+        for (choice in listOf(GameplayPresentation.GODOT_2D, GameplayPresentation.GODOT_3D)) {
+            val host = TestPresentationHost()
+            val controller = controller(host)
+            try {
+                controller.startPractice()
+                runCurrent()
+                reachOwnPlay(controller)
+                val before = controller.state.value.session
+                controller.setForeground(false)
+                assertFalse(controller.state.value.isBackgrounded)
+                assertTrue(controller.selectPresentation(choice))
+                runCurrent()
+                assertTrue(host.opened.isEmpty())
+                assertEquals(before, controller.state.value.session)
+                val concealedEpoch = controller.state.value.privacyEpoch
+
+                controller.setForeground(true)
+                val native = host.opened.single()
+                assertTrue(controller.state.value.privacyEpoch > concealedEpoch)
+                assertEquals(before?.game, LastLightWireCodec.decodeViewPayload(native.launch.initialView).game)
+                assertFalse(LastLightWireCodec.decodeViewPayload(native.launch.initialView).controls.canSendAction)
+                assertTrue(native.commands.isEmpty())
+                controller.setForeground(true)
+                runCurrent()
+                assertEquals(1, host.opened.size)
+                assertEquals(choice, controller.state.value.presentation.selected)
+            } finally {
+                controller.close()
+                runCurrent()
+                controller.awaitClosed()
+            }
+        }
+    }
+
+    @Test
+    fun ownerDepartureWhileAlreadyUnfocusedCancelsTheChoiceBeforeReturning() = runTest {
+        val host = TestPresentationHost()
+        val controller = controller(host)
+        try {
+            controller.startPractice()
+            runCurrent()
+            controller.setForeground(false)
+            assertTrue(controller.selectPresentation(GameplayPresentation.GODOT_2D))
+            controller.setPresentationSelectionOwnerActive(false)
+            assertFalse(controller.selectPresentation(GameplayPresentation.GODOT_3D))
+            controller.setPresentationSelectionOwnerActive(true)
+            controller.setForeground(true)
+            runCurrent()
+            assertTrue(host.opened.isEmpty())
+            assertTrue(controller.selectPresentation(GameplayPresentation.GODOT_3D))
+            assertEquals(1, host.opened.size)
+        } finally {
+            controller.close()
+            runCurrent()
+            controller.awaitClosed()
+        }
+    }
+
+    @Test
     fun bothModesSubmitToPracticeAuthorityOnceAndReturnToTheSameConcealedSession() = runTest {
         for (choice in listOf(GameplayPresentation.GODOT_2D, GameplayPresentation.GODOT_3D)) {
             val host = TestPresentationHost()
