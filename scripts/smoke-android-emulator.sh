@@ -334,12 +334,13 @@ except Exception as error:
 finally:
     (output / 'package-inputs.json').write_text(json.dumps(record, indent=2) + '\n')
 PY
-  local engine_arguments=() runtime_timeout=10m
+  # Both modes now include the full Standard-hand and lifecycle sequence.
+  # Bound the cumulative run separately from each unchanged scenario deadline.
+  local engine_arguments=() runtime_timeout=20m
   if [[ "$PARTYDECK_ANDROID_API" == 36 ]]; then
     # The qualified API36 path owns the original package/PCK/activation receipt.
     # Invoke the separate real-engine practice scenario for both APK variants.
     engine_arguments=(--engine-gameplay --engine-package-inputs "$output/package-inputs.json")
-    runtime_timeout=20m
   fi
   timeout --signal=TERM --kill-after=15s "$runtime_timeout" \
     python3 -B scripts/smoke-android-godot-session.py \
