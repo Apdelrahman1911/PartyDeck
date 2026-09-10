@@ -5,6 +5,8 @@ import UIKit
 
 // The real qualification facade owns all rules and recipient projections. This
 // host owns only native lifetimes, bounded command delivery, and observations.
+// Native completions run on the main thread but import as nonisolated. Their
+// checked actor scopes run inline so cancellation and close ordering stay real.
 @MainActor
 final class RetainedModel: ObservableObject {
     let owner = PDGodotEngineOwner()
@@ -166,12 +168,14 @@ final class RetainedModel: ObservableObject {
             entry.closeProbeBeforeNative = entry.native.snapshot()
             entry.native.deliverDocument(document, lifecycleGeneration: entry.closeProbeLifecycleGeneration, confirmReady: false) {
                 [weak self, weak entry] delivered in
-                guard let self, let entry else { return }
-                entry.closeProbeDelivered = delivered
-                entry.closeProbeCallbackObserved = true
-                entry.closeProbeCallbackBeforeClose = !entry.closing
-                entry.closeProbeCallbackBeforeCompletion = !entry.closeCompletionObserved
-                self.poll()
+                MainActor.assumeIsolated {
+                    guard let self, let entry else { return }
+                    entry.closeProbeDelivered = delivered
+                    entry.closeProbeCallbackObserved = true
+                    entry.closeProbeCallbackBeforeClose = !entry.closing
+                    entry.closeProbeCallbackBeforeCompletion = !entry.closeCompletionObserved
+                    self.poll()
+                }
             }
             entry.closeProbeAfterNative = entry.native.snapshot()
             entry.closeProbeCallbackObservedBeforeClose = entry.closeProbeCallbackObserved
@@ -203,14 +207,18 @@ final class RetainedModel: ObservableObject {
         }
         old.native.deliverDocument(document, lifecycleGeneration: current.native.lifecycleGeneration, confirmReady: true) {
             [weak self] delivered in
-            self?.staleProbe["deliveryCompleted"] = true
-            self?.staleProbe["deliveryAccepted"] = delivered
-            self?.poll()
+            MainActor.assumeIsolated {
+                self?.staleProbe["deliveryCompleted"] = true
+                self?.staleProbe["deliveryAccepted"] = delivered
+                self?.poll()
+            }
         }
         old.native.close { [weak self] dormant in
-            self?.staleProbe["closeCompleted"] = true
-            self?.staleProbe["oldCloseDormant"] = dormant
-            self?.poll()
+            MainActor.assumeIsolated {
+                self?.staleProbe["closeCompleted"] = true
+                self?.staleProbe["oldCloseDormant"] = dormant
+                self?.poll()
+            }
         }
         staleProbe["after"] = owner.snapshot()
         poll()
@@ -326,12 +334,14 @@ final class RetainedModel: ObservableObject {
         entry.firstReadyProbe = ["attempted": true, "capturedGeneration": String(captured),
                                  "currentGeneration": String(entry.native.lifecycleGeneration), "completed": false]
         entry.native.deliverDocument(document, lifecycleGeneration: captured, confirmReady: true) { [weak self, weak entry] delivered in
-            guard let self, let entry else { return }
-            entry.firstReadyProbe["completed"] = true
-            entry.firstReadyProbe["accepted"] = delivered
-            entry.firstReadyProbe["nativeReadyConfirmedAtRejection"] = self.flag("authorityReadyConfirmed", entry.native.snapshot())
-            entry.firstReadyProbe["reportedGenerationBeforeCompletion"] = String(entry.lifecycleGeneration)
-            if delivered { self.fail("STALE_FIRST_READY_ACCEPTED", entry: entry) }
+            MainActor.assumeIsolated {
+                guard let self, let entry else { return }
+                entry.firstReadyProbe["completed"] = true
+                entry.firstReadyProbe["accepted"] = delivered
+                entry.firstReadyProbe["nativeReadyConfirmedAtRejection"] = self.flag("authorityReadyConfirmed", entry.native.snapshot())
+                entry.firstReadyProbe["reportedGenerationBeforeCompletion"] = String(entry.lifecycleGeneration)
+                if delivered { self.fail("STALE_FIRST_READY_ACCEPTED", entry: entry) }
+            }
         }
     }
 
@@ -358,17 +368,19 @@ final class RetainedModel: ObservableObject {
         // The completion captures no private command document.
         entry.native.deliverDocument(next.document, lifecycleGeneration: captured, confirmReady: confirmReady) {
             [weak self, weak entry] delivered in
-            guard let self, let entry else { return }
-            guard self.active === entry, !entry.closing, entry.inFlight == serial else { return }
-            entry.inFlight = nil
-            if delivered {
-                if confirmReady { entry.readyConfirmed = true }
-            } else if captured == entry.native.lifecycleGeneration {
-                self.fail("CURRENT_NATIVE_DELIVERY_REJECTED", entry: entry)
-                return
+            MainActor.assumeIsolated {
+                guard let self, let entry else { return }
+                guard self.active === entry, !entry.closing, entry.inFlight == serial else { return }
+                entry.inFlight = nil
+                if delivered {
+                    if confirmReady { entry.readyConfirmed = true }
+                } else if captured == entry.native.lifecycleGeneration {
+                    self.fail("CURRENT_NATIVE_DELIVERY_REJECTED", entry: entry)
+                    return
+                }
+                self.pump(entry)
+                self.poll()
             }
-            self.pump(entry)
-            self.poll()
         }
     }
 
@@ -394,25 +406,27 @@ final class RetainedModel: ObservableObject {
         entry.closeReason = reason
         entry.closeRequestedAt = ProcessInfo.processInfo.systemUptime
         entry.native.close { [weak self, weak entry] dormant in
-            guard let self, let entry else { return }
-            entry.closeCompletionObserved = true
-            entry.closeCompletedAt = ProcessInfo.processInfo.systemUptime
-            entry.closeCompletionNative = self.owner.snapshot()
-            entry.closeSucceeded = dormant
-            self.lastClosure = self.closureObservation(entry)
-            guard self.active === entry else { return }
-            self.active = nil
-            self.showEngine = false
-            self.retired.append(entry)
-            if self.retired.count > 4 { self.retired.removeFirst() }
-            if !dormant { self.errorMessage = "The native owner did not observe dormant cleanup." }
-            self.poll()
-            self.persist("close-completed")
-            if dormant, let next = self.pendingMode {
-                self.pendingMode = nil
-                // Tests require this immediate open to succeed. The native
-                // completion must have released its old ownership first.
-                self.start(mode: next)
+            MainActor.assumeIsolated {
+                guard let self, let entry else { return }
+                entry.closeCompletionObserved = true
+                entry.closeCompletedAt = ProcessInfo.processInfo.systemUptime
+                entry.closeCompletionNative = self.owner.snapshot()
+                entry.closeSucceeded = dormant
+                self.lastClosure = self.closureObservation(entry)
+                guard self.active === entry else { return }
+                self.active = nil
+                self.showEngine = false
+                self.retired.append(entry)
+                if self.retired.count > 4 { self.retired.removeFirst() }
+                if !dormant { self.errorMessage = "The native owner did not observe dormant cleanup." }
+                self.poll()
+                self.persist("close-completed")
+                if dormant, let next = self.pendingMode {
+                    self.pendingMode = nil
+                    // Tests require this immediate open to succeed. The native
+                    // completion must have released its old ownership first.
+                    self.start(mode: next)
+                }
             }
         }
         entry.closeReturnedBeforeCompletion = !entry.closeCompletionObserved
@@ -510,6 +524,7 @@ final class RetainedModel: ObservableObject {
     private enum HostFailure: Error { case resources, preparation, commandBound, opponentPolicy, foreground }
     private struct Command { let document: String; let generation: UInt64 }
 
+    @MainActor
     private final class Entry {
         let id: String
         let ordinal: Int

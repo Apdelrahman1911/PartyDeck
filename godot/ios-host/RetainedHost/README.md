@@ -7,10 +7,14 @@ UUID; its commands use the native lifecycle generation captured before queuing.
 All calls and callbacks stay on the native main thread. No game rules, copied
 authority state, fabricated renderer events, or replacement engine live here.
 
-The harness and XCTest sources have not yet been compiled or executed on macOS.
+The first macOS attempt (run `34460468965`) failed during Swift compilation,
+before XCTest. Native completion blocks imported without main-actor isolation;
+the host now checks their synchronous main-executor contract with
+`MainActor.assumeIsolated` and isolates retained entry state to `@MainActor`.
+The correction still requires an actual Xcode build and native test run.
 Linux validation covers Swift grammar, runner syntax, plist/XML structure, and
-failure-receipt handling only. A grammar parser cannot verify Swift imports,
-Objective-C selector names, actor isolation, UIKit behavior, or native lifecycle.
+failure-receipt handling only. It cannot verify imports, selector names, actor
+isolation, UIKit behavior, or native lifecycle.
 
 ## Native cases
 
@@ -96,6 +100,8 @@ its retained-scene assumptions were checked against pinned Godot
 - [XCUIApplication.state](https://developer.apple.com/documentation/xcuiautomation/xcuiapplication/state-swift.property).
 - [XCUIDevice.press](https://developer.apple.com/documentation/xcuiautomation/xcuidevice/press(_:)).
 - [XCUICoordinate.tap](https://developer.apple.com/documentation/xcuiautomation/xcuicoordinate/tap()).
+- [MainActor.assumeIsolated](https://developer.apple.com/documentation/swift/mainactor/assumeisolated(_:file:line:)) checks and executes synchronously; no task hop changes native completion ordering.
+- [SE-0316 global actors](https://github.com/swiftlang/swift-evolution/blob/main/proposals/0316-global-actors.md) makes an explicitly actor-isolated entry reference shareable while protecting its state.
 
 Fetched source copies and SHA-256 records are retained at
 `/tmp/partydeck-ios-retained-harness-research`. Temporary tree-sitter packages are
