@@ -269,6 +269,74 @@ named local APKs. The earlier 20-check CI audit retains its exact artifact scope
 native runtime, input-gate behavior, generated splits, and distribution signing
 were not qualified by this bounded review.
 
+## Production Credits source completeness
+
+The production Credits source change passed independent review on **2026-09-10**
+against committed baseline `86ca7f5`. All **19 canonical notices / 537,959 bytes**
+remain identical to that baseline and to the accepted comparison release APK
+`f5ae9db9b00574672811ed0288be06291919d582c25f8d2d34f726bfe0197b82`, whose
+identity was independently rechecked. Each new common resource under
+`files/licenses/godot/` preserves its original filename and exact bytes.
+
+The regenerated `files/licenses/third_party_notices.txt` is **743,782 bytes**,
+SHA-256 `7e20d6f71fcc8fba56050280ea38d41305029194c585be59f070eaaf2ac71e06`.
+All **83 complete notice bodies** retain their associated titles and component
+attributions in **66 distinct text groups**. This includes the full Godot
+MIT/copyright notices, NDK/LLVM notice, Mozilla CA source and source-availability
+notice. The Android comparison dependency inventory and supplemental notices
+remain explicitly labeled for the comparison host. Their inclusion does not
+assert a new production dependency inventory.
+
+The existing **64 individual common notice resources** are unchanged. An
+independent isolated generator run reproduces all **84 resource files**, and
+the focused `verify_assets.check_sources()` check passes **87 pinned files**.
+The unchanged common Settings implementation reads this complete aggregate and
+splits it into bounded text items without discarding characters. The retained
+official Godot license guidance and pinned upstream license/copyright files
+were also checked against the reviewed sources.
+
+Reproducible review code, body/attribution checks, hashes, focused-check output
+and generated copies are retained under
+`/tmp/partydeck-godot-release-review/production-credits-20260910/`.
+This closes the source completeness gap in production Credits. Final Android/iOS
+package inclusion and native Credits-screen execution remain separate checks;
+no app build or native run was performed for this addendum.
+
+## Production Android merged-manifest checkpoint
+
+The coordinator's actual debug/release merged manifests and successful
+`releaseRuntimeClasspath` report were independently reviewed on **2026-09-10**.
+The retained manifest identities are:
+
+| Manifest | SHA-256 |
+| --- | --- |
+| Debug | `f3407ad13120a092189ede865c4726c76d4a9b2ac50e8f3591180a049e71e18f` |
+| Release | `24a482e75253b05033457a687d6436636092f0299fd930c875a35f5a33047848` |
+
+They differ only in debug's `debuggable=true`. All **10 components** match the
+application declarations and expected transitive entries. `MainActivity` is the
+only exported component without a declared permission; the exported
+`ProfileInstallReceiver` declares `android.permission.DUMP`. The renderer,
+broker, Godot `ProcessPhoenix`, and all providers remain nonexported. The
+renderer uses `:godot`, and the broker remains in the shell process.
+
+Permissions remain Internet, Camera, and AndroidX's app-owned signature
+permission. Camera features and GLES 3 remain optional. The minimum/target SDKs
+remain 26/36; backup and cleartext restrictions and the intended startup
+initializers survive merging. Godot's provider attributes match its pinned AAR.
+
+The resolved release graph includes Godot **4.7.2.stable**, Fragment and
+Fragment KTX **1.8.6**, DocumentFile **1.1.0**, Kotlin standard library
+**2.4.20**, Activity **1.13.0**, and Lifecycle runtime **2.11.0**.
+The receipt and input hashes are retained in
+`/tmp/partydeck-godot-release-review/production-manifest-20260910/audit-summary.json`;
+the coordinator's manifest copies and dependency log remain under
+`/tmp/partydeck-production-manifest-review/` and
+`/tmp/partydeck-production-manifest-check.log`.
+This checkpoint establishes merged configuration and dependency resolution.
+It does not verify a production APK/AAB, PCK, optimized DEX, native libraries,
+installation, or runtime behavior.
+
 ## Remaining artifact gates
 
 - Retain the exact checked artifact identities and unsigned/debug labels. Any further replacement requires checking changed inputs and package contents against the accepted evidence.
