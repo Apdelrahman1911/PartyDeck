@@ -1,0 +1,188 @@
+{
+  "serial": "emulator-5554",
+  "variant": "debug",
+  "passed": false,
+  "apk_sha256": "f356fdaabf9d7b67f217fda9a66014d3121b5ea5becf8b0b3a1ec4fc26b7ae43",
+  "steps": [
+    "Verified responsive Android launcher before app installation",
+    "Verified home: home-practice",
+    "Tapped home-how-to",
+    "Verified rules-intro: rules-first-step",
+    "Verified rules-last-step: rules-last-step",
+    "Verified rules-practice-action: rules-practice",
+    "Verified rules content and final practice action are reachable",
+    "Tapped home-settings",
+    "Tapped settings-sound",
+    "Tapped settings-haptics",
+    "Tapped settings-reduce-motion",
+    "Verified settings-changed: settings-reduce-motion",
+    "Verified settings-return-home: home-practice",
+    "Tapped home-settings",
+    "Verified settings-persisted: settings-reduce-motion",
+    "Verified all three settings survive a real process restart",
+    "Tapped home-practice",
+    "Tapped game-next-round",
+    "Verified practice-concealed: game-reveal-hand",
+    "Tapped game-reveal-hand",
+    "Tapped game-card-0",
+    "Verified practice-selected: game-card-0",
+    "Tapped game-hide-hand",
+    "Tapped game-reveal-hand",
+    "Tapped game-card-0",
+    "Verified practice-resumed-concealed: game-reveal-hand",
+    "Tapped game-reveal-hand",
+    "Tapped game-card-0",
+    "Tapped game-play",
+    "Verified practice-after-play: game-table",
+    "Tapped leave-confirm",
+    "Verified practice-returned-home: home-practice",
+    "Verified reveal, selection, hide, background concealment, one-card play and leave",
+    "Tapped home-host",
+    "Tapped host-name",
+    "Tapped host-create",
+    "Verified host-lobby: lobby-invitation",
+    "Tapped lobby-invitation",
+    "Tapped invitation-copy",
+    "Tapped invitation-share",
+    "Tapped invitation-done",
+    "Verified host-after-share: lobby-invitation",
+    "Tapped leave-confirm",
+    "Verified host-returned-home: home-practice",
+    "Verified real host, invitation QR/copy, Sharesheet cancellation and host teardown",
+    "Tapped home-join",
+    "Tapped join-name",
+    "Verified join-name-soft-ime: join-name",
+    "Tapped join-invitation",
+    "Tapped join-submit",
+    "Verified join-invalid: invalid-invitation",
+    "Tapped join-invitation",
+    "Verified invalid invitation feedback, editing recovery, preserved name and Back",
+    "Verified large-text-home-actions: home-practice",
+    "Tapped home-how-to",
+    "Verified large-text-rules-intro: rules-first-step",
+    "Verified large-text-rules-last-step: rules-last-step",
+    "Verified large-text-rules-practice-action: rules-practice",
+    "Verified rules content and final practice action are reachable",
+    "Tapped home-settings",
+    "Verified large-text-settings: settings-reduce-motion",
+    "Tapped home-join",
+    "Tapped join-name",
+    "Verified large-text-join-name-soft-ime: join-name",
+    "Tapped join-invitation",
+    "Tapped join-submit"
+  ],
+  "observations": {
+    "display_size": [
+      720,
+      1600
+    ],
+    "screenshots": {
+      "home": {
+        "width": 720,
+        "height": 1600
+      },
+      "rules-intro": {
+        "width": 720,
+        "height": 1600
+      },
+      "rules-last-step": {
+        "width": 720,
+        "height": 1600
+      },
+      "rules-practice-action": {
+        "width": 720,
+        "height": 1600
+      },
+      "settings-changed": {
+        "width": 720,
+        "height": 1600
+      },
+      "settings-return-home": {
+        "width": 720,
+        "height": 1600
+      },
+      "settings-persisted": {
+        "width": 720,
+        "height": 1600
+      },
+      "practice-concealed": {
+        "width": 720,
+        "height": 1600
+      },
+      "practice-selected": {
+        "width": 720,
+        "height": 1600
+      },
+      "practice-resumed-concealed": {
+        "width": 720,
+        "height": 1600
+      },
+      "practice-after-play": {
+        "width": 720,
+        "height": 1600
+      },
+      "practice-returned-home": {
+        "width": 720,
+        "height": 1600
+      },
+      "host-lobby": {
+        "width": 720,
+        "height": 1600
+      },
+      "host-after-share": {
+        "width": 720,
+        "height": 1600
+      },
+      "host-returned-home": {
+        "width": 720,
+        "height": 1600
+      },
+      "join-name-soft-ime": {
+        "width": 720,
+        "height": 1600
+      },
+      "join-invalid": {
+        "width": 720,
+        "height": 1600
+      },
+      "large-text-home-actions": {
+        "width": 720,
+        "height": 1600
+      },
+      "large-text-rules-intro": {
+        "width": 720,
+        "height": 1600
+      },
+      "large-text-rules-last-step": {
+        "width": 720,
+        "height": 1600
+      },
+      "large-text-rules-practice-action": {
+        "width": 720,
+        "height": 1600
+      },
+      "large-text-settings": {
+        "width": 720,
+        "height": 1600
+      },
+      "large-text-join-name-soft-ime": {
+        "width": 720,
+        "height": 1600
+      }
+    },
+    "persisted_switches": {
+      "settings-sound": false,
+      "settings-haptics": false,
+      "settings-reduce-motion": true
+    },
+    "played_card": "hand decreased by one",
+    "soft_ime_captures": [
+      "join-name-soft-ime",
+      "large-text-join-name-soft-ime"
+    ],
+    "large_text_font_scale": 2.0
+  },
+  "scope": "Single-emulator UI and local hosting; physical LAN, camera frames and store signing are separate gates.",
+  "error": "large-text-join validation and recovery: Expected visible 'invalid-invitation' within 45 seconds: Command '['adb', '-s', 'emulator-5554', 'shell', 'uiautomator', 'dump', '/sdcard/partydeck-ci-ui.xml']' timed out after 0.6396423369999411 seconds",
+  "stage": "large-text-join validation and recovery"
+}

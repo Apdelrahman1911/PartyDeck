@@ -1,15 +1,15 @@
 # Screenshot review gallery
 
-This collection preserves **178 original app and renderer captures** and links to **four existing asset proofs**. Click a collection, then any thumbnail to open the full PNG. Every record includes its original filename, scenario, platform, pixel dimensions and full SHA-256; [manifest.json](manifest.json) also records source locations, exact revisions where known, CI runs, receipts and duplicate-source aliases.
+This collection preserves **228 original app and renderer captures** and links to **four existing asset proofs**. Click a collection, then any thumbnail to open the full PNG. Every record includes its original filename, scenario, platform, pixel dimensions and full SHA-256; [manifest.json](manifest.json) also records source locations, exact revisions where known, CI runs, receipts and duplicate-source aliases.
 
-[Open the published first batch](first-batch/README.md) for the 125 current native, shared-UI and first desktop 2D views. The collection pages below add complete source records and original-filename mappings without duplicating those images.
+[Open the published first batch](first-batch/README.md) for the 125 initially published native, shared-UI and first desktop 2D views. The collection pages below add complete source records and original-filename mappings without duplicating those images.
 
 Use the latest native and shared-UI collections for current review. Earlier captures and Godot iterations are retained below for comparison. A screenshot shows a particular state; the run and fixture limits remain part of its evidence.
 
 | Current reviewed collection | Images | Evidence scope |
 | --- | ---: | --- |
-| [Android debug — CI 34413839964](android-34413839964/debug/README.md) | 24 | Partial Android smoke; failed at 200% Join invitation focus. |
-| [Android optimized, test signed — CI 34413839964](android-34413839964/optimized-test-signed/README.md) | 24 | Partial Android smoke; failed at 200% Join invitation focus. |
+| [Android optimized, test signed — CI 34417204089](android-34417204089/optimized-test-signed/README.md) | 27 | Latest optimized variant passed the full exercised smoke flow, including 200% Join/hand/Play reachability. |
+| [Android debug — CI 34417204089](android-34417204089/debug/README.md) | 23 | Latest debug variant stopped at 200% Join validation while the notification shade covered the app. |
 | [iOS — CI 34398824935](ios-34398824935/README.md) | 8 | 3 UI tests passed; native qualification remains bounded to this run. |
 | [Compose shared UI — reviewed layout fixtures](compose-shared/README.md) | 65 | JVM layout fixtures; exact working-tree capture revision not recorded. |
 
@@ -27,6 +27,8 @@ These are actual Godot-rendered images. Iteration 01 uses synthetic structural d
 
 | Historical collection | Images | Reason retained |
 | --- | ---: | --- |
+| [Android debug — CI 34413839964](android-34413839964/debug/README.md) | 24 | Earlier API 35 run, failed at 200% Join invitation focus; original failure frames retained. |
+| [Android optimized, test signed — CI 34413839964](android-34413839964/optimized-test-signed/README.md) | 24 | Earlier API 35 run, failed at 200% Join invitation focus; original failure frames retained. |
 | [Earlier Android optimized review — c73a659](history/android-c73a659/README.md) | 21 | Earlier API 36 run; incomplete large-text Join flow and final-rule coverage. |
 | [Earlier Compose review — first render](history/compose-first-review/README.md) | 7 | First-render comparisons, including the original layout defects. |
 
@@ -46,7 +48,7 @@ The [Godot import report](../../godot/renderer/assets/proofs/import_verification
 ## Provenance and capture safety
 
 - Original PNG bytes are preserved. Original capture filenames are retained in each record; the first-batch iOS gallery uses readable repository filenames mapped back to the original UUID filenames. Inline thumbnails display the same files at a smaller width; no image is redrawn, redacted or recompressed. Distinct scenario records remain separate even when their image bytes match.
-- Native captures were screened against their reviewed capture guards and Android UI dumps. Live invitation and share surfaces were not captured; the host lobby images precede invitation opening or follow its dismissal. Infrastructure/SystemUI preparation images and app-bundle icons are excluded.
+- Native captures were screened against their reviewed capture guards and Android UI dumps. Live invitation and share surfaces were not captured; the host lobby images precede invitation opening or follow its dismissal. Infrastructure/SystemUI preparation images and app-bundle icons are excluded. Run 34417204089 debug/final-screen.png is also excluded because it shows the notification shade; its source/hash/reason are recorded in the manifest.
 - Four Compose invitation/QR/Join captures contain explicitly labeled synthetic fixture values. `ShellLayoutTest.syntheticInvitation()` uses the documentation-only endpoint `192.0.2.44:42424` and deterministic fixture credentials. These are not live admission material.
 - Godot iteration 01 contains synthetic recipient-safe structural data; iteration 02 contains frozen Kotlin-authority projections. Original reports, diagnostics and available fixture/source provenance are retained. No LAN or admission credentials are involved.
 - Failed runtime stages, historical layout defects and missing native qualification are recorded in the relevant collection. No retained candidate required credential redaction or omission.
