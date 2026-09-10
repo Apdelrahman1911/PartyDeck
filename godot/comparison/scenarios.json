@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "authority": "QualificationAuthorityDriver -> existing core LastLightEngine",
+  "presentations": ["2d", "3d"],
+  "defaultSeed": 2,
+  "seedQualification": "Real-driver audit: two viewer plays and two viewer challenges, full winner reached with the default four-seat roster and safe-view opponent policy.",
+  "defaultViewport": {"width": 430, "height": 932},
+  "maximumUiSteps": 400,
+  "maximumSecondsPerPresentation": 240,
+  "automatedPreferences": {"reduceMotion": true, "soundEnabled": false, "textScale": 1.0},
+  "input": "Godot Input.parse_input_event mouse motion/press/release on the transformed center of actual grouped Buttons",
+  "requiredCoverage": [
+    "concealed_start",
+    "reveal_select",
+    "hide_clears_selection",
+    "foreground_privacy",
+    "pending_until_authority_view",
+    "viewer_play",
+    "viewer_challenge",
+    "public_round_result",
+    "next_round",
+    "winner",
+    "return_to_lobby",
+    "fresh_entry_and_leave"
+  ],
+  "stages": [
+    {"capture": "01-concealed", "expect": "Recipient hand is concealed in presentation state and real face/label bindings."},
+    {"capture": "02-revealed", "expect": "Reveal displays exactly the authority recipient's own cards; no event is emitted."},
+    {"capture": "03-selected", "expect": "Actual card input selects the first own card without changing authority."},
+    {"capture": "04-covered", "expect": "Cover removes private faces/labels and selection without an authority event."},
+    {"capture": "05-background-privacy", "expect": "Foreground loss conceals and disables interaction; return never auto-reveals."},
+    {"capture": "06-play-pending", "expect": "Actual Play emits a revision-bound intent and disables submission until a newer authority view."},
+    {"capture": "07-public-round-result", "expect": "Only actual authority challenge proof and penalty are displayed."},
+    {"capture": "08-next-round", "expect": "Actual Continue advances the authority and conceals the newly dealt hand."},
+    {"capture": "09-challenge-pending", "expect": "The viewer's actual Challenge button emits an accepted authoritative challenge."},
+    {"capture": "10-winner", "expect": "Bounded real game progression reaches an authority-selected winner."},
+    {"capture": "11-lobby-confirmation", "optional": true, "expect": "If shown, the actual confirmation requests native lobby navigation."},
+    {"capture": "12-fresh-presentation", "expect": "A new root, presentation identity, gate and authority launch start concealed before actual Leave."}
+  ],
+  "comparison": "Both full matches must have identical safe authority-view SHA-256 values at every revision, including the initial launch.",
+  "limits": "Desktop rendering/bridge/input evidence only; no multiplayer, Android/iOS embedding, hardware performance or native accessibility claim."
+}
