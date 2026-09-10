@@ -137,7 +137,7 @@ static const BOOL PDSDLEnabled = NO;
 
 // This lifecycle is audited for the frozen trusted content, including its
 // imported resources. A different pack requires a new content/source review.
-static NSString *const PDQualifiedRetainedPackSHA256 = @"d6adbba1b5cbd6a1ac3a5754e4294363eae70ae9540af4ba12040cd4cfff44e0";
+static NSString *const PDQualifiedRetainedPackSHA256 = @"557b2297bed133a433acc25efa4837462465dd4e06da659ae5a4cbd792f77fe0";
 
 static NSString *PDPackSHA256(NSString *path) {
 	NSDictionary *attributes = [NSFileManager.defaultManager attributesOfItemAtPath:path error:nil];
