@@ -28,10 +28,10 @@ FILES = {
 PINS = {
     "scripts/android_godot_activation.py": "5f5650fbabd934f904ceaf9e5b7705f5c91bfde999fb2bb03ad28062e91e61f9",
     "scripts/smoke-android-godot-session.py": "7e9e1cfeba1676ad82b621597c3d26e9e39355cfcabff563e24cdb118b70d097",
-    "scripts/smoke-android-ui.py": "fc208dfbb04356eff921f5388996afc06eecff53ceb8347e621508eba7c85741",
+    "scripts/smoke-android-ui.py": "831b57634a0cee99a466e6820059bb55209a26db3723b2ffff703b2ee0f60836",
     "scripts/tests/test_android_godot_session.py": "77aa9c7dee4147141c61d95266d7bb6cdab0e3287fc3e41b9ed23a207bbf756e",
-    "scripts/adaptive_observations.py": "f7f7a40f6b539b6925ef681564ca14b62a7fda7ec59bf8c30fffcfe30ba121a2",
-    "scripts/smoke_android_godot_adaptive.py": "21fa988315c16e150b600666b07c760ed02be045b4095cfe40f6dc2564274e09",
+    "scripts/adaptive_observations.py": "8b636b7f2687d6ddc0bca37624e678c3f1779a2df9537062088fd1e203a481c5",
+    "scripts/smoke_android_godot_adaptive.py": "fe7192901b2c87b9ad54a1963c21217387de434fcf3400349af043fbe6300b1c",
     "scripts/android_godot_session_observation.py": "4a9340d49e69d596d2d6ed3cfd12b69eb567ab0fb49fed0fa49a643dfc877a8f",
     "scripts/tests/test_android_engine_gameplay.py": "d4cdec6444f4b7dd8240e5b8ae5b1f1ee26717ebac61efc68f92944ae7eb9f83",
 }

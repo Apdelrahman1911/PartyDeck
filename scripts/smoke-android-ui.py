@@ -185,7 +185,7 @@ class AndroidSmoke:
                 return node
         return None
 
-    def wait_until(self, description, predicate, seconds=45, scroll=None):
+    def wait_until(self, description, predicate, seconds=45, scroll=None, *, target_tags=()):
         deadline = time.monotonic() + seconds
         swipes = 0
         direction = scroll
@@ -207,7 +207,8 @@ class AndroidSmoke:
                     if stationary >= 2 and not reversed_direction:
                         direction = "up" if direction == "down" else "down"
                         reversed_direction = True
-                    self.swipe(direction, root, timeout=min(10, max(0.1, deadline - time.monotonic())))
+                    self.swipe(direction, root, timeout=min(10, max(0.1, deadline - time.monotonic())),
+                               target_tags=target_tags)
                     swipes += 1
             except TRANSIENT_ERRORS as error:
                 self.last_error = str(error)
@@ -217,7 +218,7 @@ class AndroidSmoke:
     def wait_for_tag(self, tag, fallback_text=None, enabled=True, scroll=None, seconds=45):
         return self.wait_until(
             f"Expected visible {tag!r}",
-            lambda root: self.find(root, tag, fallback_text, enabled), seconds, scroll,
+            lambda root: self.find(root, tag, fallback_text, enabled), seconds, scroll, target_tags=(tag,),
         )
 
     def find_action(self, root, tag, fallback_text=None):
@@ -243,7 +244,7 @@ class AndroidSmoke:
     def wait_for_action(self, tag, fallback_text=None, scroll=None, seconds=45):
         return self.wait_until(
             f"Expected a fully visible enabled action {tag!r} with {ACTION_VIEWPORT_CLEARANCE_PX}px viewport clearance",
-            lambda root: self.find_action(root, tag, fallback_text), seconds, scroll,
+            lambda root: self.find_action(root, tag, fallback_text), seconds, scroll, target_tags=(tag,),
         )
 
     def swipe(self, direction, root, timeout=10, target_tags=()):

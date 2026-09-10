@@ -138,7 +138,7 @@ class PortraitScenarioReplay(session.GodotSessionSmoke):
         self.bind_ui(root)
         return root
 
-    def wait_until(self, description, predicate, seconds=45, scroll=None):
+    def wait_until(self, description, predicate, seconds=45, scroll=None, *, target_tags=()):
         value = predicate(self.dump_ui())
         if value is None or value is False:
             raise RuntimeError(description)

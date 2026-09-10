@@ -31,8 +31,8 @@ from adaptive_observations import (
 
 
 SESSION_SHA256 = "7e9e1cfeba1676ad82b621597c3d26e9e39355cfcabff563e24cdb118b70d097"
-UI_SHA256 = "fc208dfbb04356eff921f5388996afc06eecff53ceb8347e621508eba7c85741"
-SESSION_DEPENDENCIES = {'android_godot_session_observation.py': '4a9340d49e69d596d2d6ed3cfd12b69eb567ab0fb49fed0fa49a643dfc877a8f', 'android_godot_activation.py': '5f5650fbabd934f904ceaf9e5b7705f5c91bfde999fb2bb03ad28062e91e61f9', 'adaptive_observations.py': 'f7f7a40f6b539b6925ef681564ca14b62a7fda7ec59bf8c30fffcfe30ba121a2'}
+UI_SHA256 = "831b57634a0cee99a466e6820059bb55209a26db3723b2ffff703b2ee0f60836"
+SESSION_DEPENDENCIES = {'android_godot_session_observation.py': '4a9340d49e69d596d2d6ed3cfd12b69eb567ab0fb49fed0fa49a643dfc877a8f', 'android_godot_activation.py': '5f5650fbabd934f904ceaf9e5b7705f5c91bfde999fb2bb03ad28062e91e61f9', 'adaptive_observations.py': '8b636b7f2687d6ddc0bca37624e678c3f1779a2df9537062088fd1e203a481c5'}
 
 
 def sha256(path):
@@ -543,9 +543,17 @@ class AdaptiveScenarios:
         # Keep waiting for actual removal within the held-input loop's existing deadline.
         if any(item["component"] == self.session.NATIVE_COMPONENT for item in state["activities"]):
             return False
+        self.bind_ui(root)
         self.assert_no_private_semantics(root)
         require(self.text_node(root, "Leave the table?") is None, "Held touch opened a stale Leave dialog.")
-        return self.find(root, "game-reveal-hand") is not None
+        marker = self.session.tagged_node(root, "game-reveal-hand")
+        if marker is None or marker.get("enabled") == "false":
+            return False
+        # A clipped marker can identify the concealed branch without being a
+        # safe action target. Action lookup keeps its full-visibility clearance.
+        return self.session.ui.intersect_bounds(
+            self.session.ui.node_bounds(marker), self.viewport(marker)
+        ) is not None
 
     def rotate_while_held(self, pid, before, portrait_rotation, prefix):
         controls = self.dump_ui()

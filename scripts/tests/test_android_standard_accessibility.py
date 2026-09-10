@@ -67,7 +67,7 @@ class OriginalReplay(smoke.GodotSessionSmoke):
         self.last_xml_time = "2026-09-10T00:00:00.000+00:00"
         return root
 
-    def wait_until(self, description, predicate, seconds=45, scroll=None):
+    def wait_until(self, description, predicate, seconds=45, scroll=None, *, target_tags=()):
         # Timing/adb acquisition is tested by the existing session/helper suite.
         # Keep a broken UI observation deterministic and fast in these replays.
         for _ in range(8):

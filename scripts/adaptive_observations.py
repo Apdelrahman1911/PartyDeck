@@ -319,9 +319,35 @@ def split_capability(multi, split, help_text):
     require(multi.strip() in ("true", "false") and split.strip() in ("true", "false"), "Unrecognized Android multi-window capability output.")
     if multi.strip() != "true" or split.strip() != "true":
         raise Unavailable("Android advertises no multi-window/split-screen support.")
-    match = re.search(r"^  splitscreen\s*$([\s\S]*?)(?=^  \S|\Z)", help_text, re.M)
-    if match is None or not all(command in match[1] for command in
-                                ("moveToSideStage <taskId> <SideStagePosition>", "exitSplitScreen <taskId>")):
+    # ShellCommandHandler indents actions two spaces below their section; the
+    # wm passthrough output can prefix that whole help tree with more spaces.
+    # Require the sole root help heading, its direct split section and complete
+    # action lines. Nested sections and descriptions cannot advertise a route.
+    lines = help_text.splitlines()
+    parents = [(index, len(match[1])) for index, line in enumerate(lines)
+               if (match := re.fullmatch(r"( *)Window Manager Shell commands:[ \t]*", line))]
+    commands = set()
+    if len(parents) == 1 and not any(line.strip() for line in lines[:parents[0][0]]):
+        parent_index, parent_indent = parents[0]
+        children = []
+        for line in lines[parent_index + 1:]:
+            if not line.strip():
+                continue
+            depth = len(line) - len(line.lstrip(" "))
+            if depth <= parent_indent:
+                break
+            children.append((depth, line[depth:].rstrip(" \t")))
+        indent = parent_indent + 2
+        headings = [index for index, child in enumerate(children)
+                    if child == (indent, "splitscreen")]
+        if len(headings) == 1:
+            for depth, command in children[headings[0] + 1:]:
+                if depth <= indent:
+                    break
+                if depth == indent + 2:
+                    commands.add(command)
+    if not all(command in commands for command in
+               ("moveToSideStage <taskId> <SideStagePosition>", "exitSplitScreen <taskId>")):
         raise Unavailable("Platform supports split-screen but does not advertise the verified WM Shell automation route.")
     return {"platform_support": True, "automation_route": "wm shell splitscreen"}
 
