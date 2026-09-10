@@ -206,6 +206,7 @@ internal fun PrivateHand(
                 color = PartyDeckColors.Citron,
                 style = MaterialTheme.typography.bodySmall,
                 modifier = Modifier.padding(horizontal = 20.dp, vertical = 6.dp)
+                    .heightIn(min = 48.dp)
                     .semantics { liveRegion = LiveRegionMode.Polite },
             )
         }
