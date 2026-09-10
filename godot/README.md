@@ -25,12 +25,12 @@ All implementation and review agents use **gpt-6-astra, max reasoning**.
 | Owner | Files | Deliverable |
 | --- | --- | --- |
 | Coordinator | `qualification/`, module Gradle files, this plan, workflows | Isolated builds, integration, CI and delivery |
-| `ui_game` | `renderer/`, excluding `assets/` and `presentations/two_d/` | Verified Godot installation, shared scene runtime and 3D presentation |
+| `ui_game` | `renderer/`, excluding `assets/`, `licenses/` and `presentations/two_d/` | Verified Godot installation, shared scene runtime and 3D presentation |
 | `ui_shell` | `renderer/presentations/two_d/` | Complete 2D presentation using the same bridge |
 | `game_domain` | `bridge/`, excluding Gradle | Strict versioned codec, safe adapter, authority driver and focused tests |
 | `network_transport` | `android-host/`, excluding Gradle | Real Android Godot host, native event bridge and 2D/3D launch choices |
 | `ios_platform` | `ios-host/` | Actual iOS embedding probe and documented supported/unsupported lifecycle behavior |
-| `assets` | `renderer/assets/`, `tools/prepare_assets.py` | Original/licensed shared artwork, fonts, sound and source inventory |
+| `assets` | `renderer/assets/`, `renderer/licenses/`, `tools/prepare_assets.py` | Shared artwork, fonts, sound, engine/native notices and source inventory |
 | `app_controller` | `comparison/`, excluding Gradle | Playable desktop comparison harness and common authority scenarios |
 | `session_protocol` | `tools/`, excluding `prepare_assets.py` | Reproducible import, PCK export and separate preview commands |
 | `android_platform` | `android-checks/` | Actual Android entry, input, background, exit and re-entry verification |
