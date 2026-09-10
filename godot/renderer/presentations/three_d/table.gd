@@ -20,6 +20,7 @@ var _viewport: SubViewport
 var _world: Node3D
 var _camera: Camera3D
 var _cards: Node3D
+var _card_resources: Card3D.SharedResources
 var _ornament: Node3D
 var _hits: Control
 var _card_bindings: Array = []
@@ -482,7 +483,7 @@ func _show_cards() -> void:
 		return
 	if game.latestClaim != null:
 		for index in range(int(game.latestClaim.cardCount)):
-			var card = Card3D.new()
+			var card = _create_card()
 			_cards.add_child(card)
 			card.position = Vector3(index * 0.1, 0.08 + index * 0.035, -0.25)
 			card.rotation_degrees.y = -8 + index * 8
@@ -494,9 +495,17 @@ func _show_cards() -> void:
 				card.id in _state.selectedCardIds, 1.65)
 
 
+func _create_card():
+	if _card_resources == null:
+		_card_resources = Card3D.create_shared_resources()
+	var card = Card3D.new()
+	card.set_shared_resources(_card_resources)
+	return card
+
+
 func _add_card(card_data: Dictionary, index: int, count: int, face_up: bool, private_card: bool, selected: bool,
 	depth: float, table_rank: String = "") -> void:
-	var card = Card3D.new()
+	var card = _create_card()
 	_cards.add_child(card)
 	if not private_card:
 		card.add_to_group("partydeck_public_card")
@@ -947,6 +956,7 @@ func _public_sound() -> void:
 
 func _exit_tree() -> void:
 	RenderingServer.frame_pre_draw.disconnect(_prepare_viewport_frame)
+	_card_resources = null
 	if is_instance_valid(_feedback):
 		_feedback.stop()
 	_state = {}

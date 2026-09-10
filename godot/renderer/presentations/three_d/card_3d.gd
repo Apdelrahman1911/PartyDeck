@@ -2,19 +2,51 @@ extends Node3D
 
 const PAPER := Color("#f4f0e8")
 const CITRON := Color("#d6ef82")
+
+class SharedResources:
+	extends RefCounted
+	var border_mesh: BoxMesh
+	var body_mesh: BoxMesh
+	var face_mesh: PlaneMesh
+	var border_material: StandardMaterial3D
+	var body_material: StandardMaterial3D
+
 var face: MeshInstance3D
 var _border: MeshInstance3D
+var _shared_resources: SharedResources
+
+
+static func create_shared_resources() -> SharedResources:
+	# These resources contain no card state and remain immutable after construction.
+	var resources := SharedResources.new()
+	resources.border_mesh = BoxMesh.new()
+	resources.border_mesh.size = Vector3(1.11, 0.018, 1.65)
+	resources.body_mesh = BoxMesh.new()
+	resources.body_mesh.size = Vector3(1.035, 0.035, 1.575)
+	resources.face_mesh = PlaneMesh.new()
+	resources.face_mesh.size = Vector2(1.06, 1.59)
+	resources.border_material = StandardMaterial3D.new()
+	resources.border_material.albedo_color = CITRON
+	resources.border_material.roughness = 0.9
+	resources.body_material = StandardMaterial3D.new()
+	resources.body_material.albedo_color = PAPER.darkened(0.09)
+	resources.body_material.roughness = 0.9
+	return resources
+
+
+func set_shared_resources(resources: SharedResources) -> void:
+	assert(not is_inside_tree() and resources != null)
+	_shared_resources = resources
 
 
 func _ready() -> void:
-	_border = _box(Vector3(1.11, 0.018, 1.65), CITRON)
+	assert(_shared_resources != null)
+	_border = _box(_shared_resources.border_mesh, _shared_resources.border_material)
 	_border.position.y = -0.023
 	_border.visible = false
-	_box(Vector3(1.035, 0.035, 1.575), PAPER.darkened(0.09))
+	_box(_shared_resources.body_mesh, _shared_resources.body_material)
 	face = MeshInstance3D.new()
-	var plane := PlaneMesh.new()
-	plane.size = Vector2(1.06, 1.59)
-	face.mesh = plane
+	face.mesh = _shared_resources.face_mesh
 	face.position.y = 0.02
 	add_child(face)
 
@@ -47,14 +79,9 @@ func corners() -> Array[Vector3]:
 		to_global(Vector3(0.53, 0.03, 0.795)), to_global(Vector3(-0.53, 0.03, 0.795))]
 
 
-func _box(dimensions: Vector3, color: Color) -> MeshInstance3D:
+func _box(mesh: BoxMesh, material: StandardMaterial3D) -> MeshInstance3D:
 	var instance := MeshInstance3D.new()
-	var mesh := BoxMesh.new()
-	mesh.size = dimensions
 	instance.mesh = mesh
-	var material := StandardMaterial3D.new()
-	material.albedo_color = color
-	material.roughness = 0.9
 	instance.material_override = material
 	add_child(instance)
 	return instance
