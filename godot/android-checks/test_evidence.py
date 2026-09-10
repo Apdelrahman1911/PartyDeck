@@ -8,7 +8,7 @@ import zlib
 
 from evidence import (
     CheckFailure, concealed, control_named, counter, parse_document,
-    read_png, require_rendered_pixels, scroll_points, touch_point, validate_diagnostics,
+    read_png, require_rendered_pixels, scroll_gesture, touch_point, validate_diagnostics,
 )
 
 
@@ -122,7 +122,63 @@ class DiagnosticsEvidenceTest(unittest.TestCase):
         surface = {"x": 0, "y": 200, "width": 720, "height": 1200}
         with self.assertRaises(CheckFailure):
             touch_point(value, card, surface, (720, 1600))
-        self.assertEqual(scroll_points(value, card, surface, (720, 1600)), ((360, 850), (360, 550)))
+        self.assertEqual(scroll_gesture(value, card, surface, (720, 1600)),
+                         ((360, 758), (360, 642), 464))
+
+    def test_native_large_text_round_four_uses_slow_measured_correction(self):
+        value = diagnostics()
+        value["viewport"] = {"width": 411.428558349609, "height": 688}
+        target = value["controls"][0]
+        target.update(rect=[16, 809, 371, 72], clipRect=[16, 211, 379, 465])
+        surface = {"x": 0, "y": 312, "width": 720, "height": 1204}
+        self.assertEqual(scroll_gesture(value, target, surface, (720, 1600)),
+                         ((359, 1281), (359, 894), 885))
+        # The same trace overshot to y=191. Its small correction must not
+        # repeat the original 407-pixel fling across the whole visible band.
+        target["rect"][1] = 191
+        self.assertEqual(scroll_gesture(value, target, surface, (720, 1600)),
+                         ((359, 1056), (359, 1119), 350))
+
+    def test_small_gaps_correct_the_actual_axis_in_both_directions(self):
+        surface = {"x": 0, "y": 200, "width": 720, "height": 1200}
+        for rect, axis, direction in (([100, 190, 100, 100], 1, 1),
+                                      ([100, 710, 100, 100], 1, -1),
+                                      ([90, 300, 100, 100], 0, 1),
+                                      ([410, 300, 100, 100], 0, -1)):
+            with self.subTest(rect=rect):
+                value = diagnostics()
+                target = value["controls"][0]
+                target.update(rect=rect, clipRect=[100, 200, 400, 600])
+                start, end, duration = scroll_gesture(value, target, surface, (720, 1600))
+                self.assertEqual(end[axis] - start[axis], direction * 26)
+                self.assertEqual(end[1 - axis], start[1 - axis])
+                self.assertEqual(duration, 350)
+                for point in (start, end):
+                    self.assertTrue(100 <= point[0] < 500 and 400 <= point[1] < 1000)
+
+    def test_far_target_keeps_duration_and_logical_speed_bounded_at_each_density(self):
+        for scale in (0.75, 1, 1.75, 2.625):
+            with self.subTest(scale=scale):
+                value = diagnostics()
+                value["viewport"] = {"width": 400, "height": 700}
+                target = value["controls"][0]
+                target.update(rect=[16, 5000, 300, 60], clipRect=[16, 100, 350, 500])
+                surface = {"x": 0, "y": 100, "width": 400 * scale, "height": 700 * scale}
+                display = (400 * scale, 700 * scale + 200)
+                start, end, duration = scroll_gesture(value, target, surface, display)
+                distance = (start[1] - end[1]) / scale
+                self.assertTrue(0 < distance <= 250)
+                self.assertTrue(350 <= duration <= 1000)
+                self.assertLessEqual(distance / (duration / 1000), 250)
+
+    def test_impossible_or_already_inside_targets_do_not_produce_a_scroll(self):
+        for change in ({"rect": [0, 1250, 721, 100]}, {"rect": [0, 1250, 100, 1201]},
+                       {"clipRect": [0, 0, 31, 1200]}, {"enabled": False}, {"visible": False}):
+            with self.subTest(change=change), self.assertRaises(CheckFailure):
+                value = diagnostics()
+                target = value["controls"][0]
+                target.update(change)
+                scroll_gesture(value, target, {"x": 0, "y": 200, "width": 720, "height": 1200}, (720, 1600))
 
     def test_android_density_maps_logical_rectangles_without_double_scaling(self):
         value = diagnostics()

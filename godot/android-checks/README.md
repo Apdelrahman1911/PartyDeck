@@ -60,7 +60,7 @@ For each selected presentation, the checker requires:
    authority. The canonical scenario ends in round 14 at revision 41, with two
    viewer plays, two viewer challenges and 13 advances. Observed outcomes are
    retained; unobserved truthful/bluff coverage is not invented.
-5. Winner-to-chooser navigation, including the 2D confirmation; complete native
+5. Winner-to-chooser navigation through an accepted lobby intent; complete native
    destruction facts; absence of the actual old PID and engine process; no
    upstream renderer-exit timeout; the original chooser with both entries usable.
 6. Two predetermined fresh entries. One exercises scene Exit through the
@@ -80,13 +80,30 @@ or stale evidence, rejected authority input, a crash, a retained private binding
 an alive old PID, missing native teardown markers, or collection/restore failure
 cannot produce a successful result.
 
-The checker has a 600-second setup budget, a 600-second budget for each selected
+The checker has a 600-second setup budget, a 900-second budget for each selected
 mode, and a 180-second diagnostic/restore budget. Individual entry waits are
 45 seconds, ordinary response waits 30 seconds and teardown waits 25 seconds;
 all device commands are capped by the enclosing budget. A target allows at most
 16 swipes and stops after stationary geometry. Match progression allows at most
 300 authority actions, within the same mode budget. These are failure bounds,
 not promises of normal execution time. CI must also impose its own process limit.
+
+The mode budget includes the full reference match, verified destruction and two
+fresh re-entries. Native run `34433457249` reached the 2D 1× winner 574.4 seconds
+after launch, after 261 UI dump processes; even the finished-match direct lobby
+route leaves too little of the former 600-second budget for those required final
+stages. The 900-second bound allows their measured automation cost and large-text
+scroll checks while retaining the individual response and scroll failure bounds.
+CI runs one mode per emulator: setup, mode and cleanup bounds total 28 minutes,
+leaving 10 minutes for emulator preparation within its existing 38-minute limit.
+
+Scene scrolling corrects the observed gap to the actual clip, with up to 16
+logical units of interior clearance. Each stroke stays inside the clip, travels
+at most 250 logical units and lasts 350–1000 ms at no more than 250 logical units
+per second. A fresh diagnostic response must show the whole control before its
+tap; a sent swipe never counts as proof of reachability. The finished 2D Lobby
+action goes directly to verified native teardown; an unfinished match still
+requires the scene's confirmation dialog and exactly one accepted lobby intent.
 
 Transient UI dump/read/parse failures use the caller's existing deadline. Each
 attempt invalidates old input geometry and removes the device XML before dumping

@@ -53,8 +53,8 @@ def refreshed(value=None):
     return value
 
 
-def final_host():
-    value = refreshed()
+def final_host(value=None):
+    value = refreshed(value)
     value.update(lifecycle="process_exit_requested", foreground=False, coverVisible=True,
                  foregroundFrameReady=False, bridgeClosed=True, nativeDestroyRequested=True,
                  nativeDestroyReturned=True, nativeTerminating=True, processExitRequested=True,
@@ -306,6 +306,78 @@ class DriverReplayTest(unittest.TestCase):
         self.assertTrue(value["old_pid_absent"])
         self.assertEqual(value["surviving_chooser_pid"], 999)
 
+    def lobby_exit(self, before, confirmation=None):
+        last = confirmation or before
+        final = final_host(last)
+        final.update(closeReason="return_to_chooser", lastIntentType="return_to_lobby")
+        for name in ("receivedEvents", "receivedIntents", "acceptedIntents"):
+            final[name] = str(int(last[name]) + 1)
+        qualification = self.qualification(final)
+        qualification.device.final_only = True
+        qualification.engine_log = mock.Mock()
+        qualification.capture_native = mock.Mock()
+        qualification.capture_scene = mock.Mock()
+        qualification.tap_scene = mock.Mock(side_effect=[before] + ([confirmation] if confirmation else []))
+        qualification.refresh = mock.Mock(return_value=confirmation)
+        return qualification
+
+    def test_finished_lobby_route_uses_pre_tap_phase_and_verifies_real_teardown(self):
+        before = host()
+        before["publicState"].update(phase="FINISHED", canPlay=False, winnerPresent=True,
+                                     outcomeRoundNumber=1, truthful=False, burnedOut=True)
+        qualification = self.lobby_exit(before)
+        qualification.snapshot = host()  # Older cached phase cannot decide the route.
+        qualification.return_to_chooser("2d")
+        qualification.tap_scene.assert_called_once_with("lobby")
+        qualification.refresh.assert_not_called()
+        qualification.capture_scene.assert_not_called()
+        receipt = json.loads((self.output / "teardown.json").read_text())
+        self.assertEqual(receipt["host"]["closeReason"], "return_to_chooser")
+        self.assertTrue(receipt["old_pid_absent"])
+
+    def test_finished_lobby_cannot_pass_missing_intent_or_teardown_marker(self):
+        before = host()
+        before["publicState"].update(phase="FINISHED", canPlay=False, winnerPresent=True,
+                                     outcomeRoundNumber=1, truthful=False, burnedOut=True)
+        for field, wrong, error in (("acceptedIntents", "0", "exactly one accepted native intent"),
+                                    ("nativeDestroyReturned", False, "Missing actual native teardown marker")):
+            with self.subTest(field=field):
+                qualification = self.lobby_exit(before)
+                qualification.device.after[field] = wrong
+                with self.assertRaisesRegex(CheckFailure, error):
+                    qualification.return_to_chooser("2d")
+
+    def test_unfinished_lobby_preserves_confirmation_before_authority_exit(self):
+        before = host()
+        confirmation = refreshed(before)
+        confirmation["diagnostics"]["controls"].append({
+            "group": "partydeck_action_lobby_confirm", "cardIndex": -1,
+            "rect": [100, 300, 300, 100], "clipRect": [0, 0, 720, 1200],
+            "visible": True, "enabled": True, "selected": False,
+        })
+        qualification = self.lobby_exit(before, confirmation)
+        qualification.snapshot = copy.deepcopy(before)
+        qualification.snapshot["publicState"]["phase"] = "FINISHED"
+        qualification.return_to_chooser("2d")
+        self.assertEqual(qualification.tap_scene.call_args_list, [mock.call("lobby"), mock.call("lobby_confirm")])
+        qualification.capture_scene.assert_called_once_with("13-lobby-confirmation", confirmation)
+        predicate = qualification.refresh.call_args.args[1]
+        self.assertTrue(predicate(confirmation))
+        self.assertFalse(predicate(before))
+        confirmation["diagnostics"]["controls"][-1]["visible"] = False
+        self.assertFalse(predicate(confirmation))
+
+    def test_unfinished_lobby_rejects_a_gameplay_event_while_opening_dialog(self):
+        before = host()
+        confirmation = refreshed(before)
+        confirmation["receivedEvents"] = "2"
+        qualification = self.lobby_exit(before, confirmation)
+        with self.assertRaisesRegex(CheckFailure, "local hand interaction emitted an authority event"):
+            qualification.return_to_chooser("2d")
+        qualification.tap_scene.assert_called_once_with("lobby")
+        qualification.capture_scene.assert_not_called()
+        self.assertFalse((self.output / "teardown.json").exists())
+
     def test_scene_geometry_changed_before_touch_is_not_used(self):
         qualification = self.qualification(refreshed())
         qualification.device.final_only = True
@@ -330,6 +402,24 @@ class DriverReplayTest(unittest.TestCase):
         self.assertEqual(qualification.device.adb.call_count, 2)
         for call in qualification.device.adb.call_args_list:
             self.assertEqual(call.args[:3], ("shell", "input", "swipe"))
+
+    def test_oscillating_control_still_stops_at_the_original_scroll_bound(self):
+        observations = []
+        for attempt in range(runner.MAX_SCROLLS + 1):
+            value = refreshed(observations[-1] if observations else host())
+            value["diagnostics"]["controls"][0].update(
+                rect=[20, 1150 if attempt % 2 == 0 else -150, 100, 200], enabled=True)
+            observations.append(value)
+        qualification = self.qualification(observations[0])
+        qualification.refresh = mock.Mock(side_effect=observations)
+        qualification.scene_input = mock.Mock()
+        qualification.device.adb = mock.Mock()
+        with self.assertRaisesRegex(CheckFailure, "remained clipped after the bounded real scroll sequence"):
+            qualification.control("card", 0)
+        self.assertEqual(qualification.device.adb.call_count, 16)
+        for call in qualification.device.adb.call_args_list:
+            self.assertEqual(call.args[:3], ("shell", "input", "swipe"))
+            self.assertTrue(350 <= int(call.args[-1]) <= 1000)
 
 
 class UiAcquisitionTest(unittest.TestCase):

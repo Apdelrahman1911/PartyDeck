@@ -15,7 +15,7 @@ import zipfile
 from evidence import (
     CheckFailure, HostTrace, Rect, accepted_intent, active, completed_teardown, concealed,
     control_named, counter, healthy, local_transition, parse_document, read_png, require,
-    require_rendered_pixels, scroll_points, touch_point, validate_host,
+    require_rendered_pixels, scroll_gesture, touch_point, validate_host,
 )
 
 
@@ -25,7 +25,7 @@ PACKAGE = "dev.partydeck.godot.compare"
 APP_LABEL = "PartyDeck · Godot comparison"
 PRIVATE_FILE = "files/godot-qualification.json"
 SETUP_SECONDS = 600
-MODE_SECONDS = 600
+MODE_SECONDS = 900
 ENTRY_SECONDS = 45
 ACTION_SECONDS = 30
 EXIT_SECONDS = 25
@@ -454,9 +454,9 @@ class Qualification:
             stationary = stationary + 1 if geometry == previous_geometry else 0
             require(stationary < 2, "The actual scene scroll did not move the clipped target.")
             previous_geometry = geometry
-            start, end = scroll_points(diagnostic, control, value.get("engineSurface"), self.device.display_size)
-            self.scene_input(value, control, "swipe", {"start": start, "end": end, "duration_ms": 250})
-            self.device.adb("shell", "input", "swipe", *(str(part) for point in (start, end) for part in point), "250")
+            start, end, duration_ms = scroll_gesture(diagnostic, control, value.get("engineSurface"), self.device.display_size)
+            self.scene_input(value, control, "swipe", {"start": start, "end": end, "duration_ms": duration_ms})
+            self.device.adb("shell", "input", "swipe", *(str(part) for point in (start, end) for part in point), str(duration_ms))
             after = self.refresh("Expected fresh scene geometry after scrolling", after=value)
             local_transition(value, after)
             value = after
@@ -646,14 +646,16 @@ class Qualification:
         raise CheckFailure("The real authority did not reach a winner within the fixed action bound.")
 
     def return_to_chooser(self, mode):
-        if mode == "2d":
-            confirmation = self.local_action("lobby", lambda item: (
+        before = self.tap_scene("lobby")
+        # The actual 2D scene confirms ending an unfinished match; after a
+        # winner its Lobby action returns directly through the native bridge.
+        if mode == "2d" and before["publicState"]["phase"] != "FINISHED":
+            confirmation = self.refresh("Expected the unfinished-match lobby confirmation", lambda item: (
                 control_named(item["diagnostics"], "lobby_confirm") is not None
-                and control_named(item["diagnostics"], "lobby_confirm")["visible"]))
+                and control_named(item["diagnostics"], "lobby_confirm")["visible"]), after=before)
+            local_transition(before, confirmation)
             self.capture_scene("13-lobby-confirmation", confirmation)
             before = self.tap_scene("lobby_confirm")
-        else:
-            before = self.tap_scene("lobby")
         final = self.exit_entry("return_to_chooser")
         accepted_intent(before, final, "return_to_lobby", changes_view=False)
 

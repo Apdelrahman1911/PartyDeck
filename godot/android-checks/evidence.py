@@ -202,7 +202,7 @@ def touch_point(diagnostics, control, surface, display_size):
     return x, y
 
 
-def scroll_points(diagnostics, control, surface, display_size):
+def scroll_gesture(diagnostics, control, surface, display_size):
     require(control is not None and control["enabled"], "Requested scene control is absent or disabled.")
     host, viewport, scale_x, scale_y = surface_geometry(diagnostics, surface, display_size)
     clip = Rect.read(control["clipRect"], "control clip")
@@ -213,16 +213,33 @@ def scroll_points(diagnostics, control, surface, display_size):
             "Control cannot fit wholly inside its actual scroll clip.")
     x, y = clip.x + clip.width / 2, clip.y + clip.height / 2
     if target.y < clip.y:
-        start, end = (x, clip.y + clip.height / 4), (x, clip.y + clip.height * 3 / 4)
+        axis, direction, gap = 1, 1, clip.y - target.y
     elif target.y + target.height > clip.y + clip.height:
-        start, end = (x, clip.y + clip.height * 3 / 4), (x, clip.y + clip.height / 4)
+        axis, direction, gap = 1, -1, target.y + target.height - clip.y - clip.height
     elif target.x < clip.x:
-        start, end = (clip.x + clip.width / 4, y), (clip.x + clip.width * 3 / 4, y)
+        axis, direction, gap = 0, 1, clip.x - target.x
     elif target.x + target.width > clip.x + clip.width:
-        start, end = (clip.x + clip.width * 3 / 4, y), (clip.x + clip.width / 4, y)
+        axis, direction, gap = 0, -1, target.x + target.width - clip.x - clip.width
     else:
         raise CheckFailure("A hidden control inside its clip cannot be recovered by scrolling.")
-    return tuple((int(host.x + point[0] * scale_x), int(host.y + point[1] * scale_y)) for point in (start, end))
+    span, target_span, scale = ((clip.width, target.width, scale_x) if axis == 0
+                                else (clip.height, target.height, scale_y))
+    # A fixed fast fling overshoots narrow controls after ScrollContainer's
+    # inertial release. Correct the measured gap with modest interior clearance,
+    # then obtain fresh settled geometry; never infer that a gesture succeeded.
+    distance = min(span / 2, 250, gap + min(16, (span - target_span) / 2))
+    start, end = [x, y], [x, y]
+    start[axis] -= direction * distance / 2
+    end[axis] += direction * distance / 2
+    start, end = ([int(host.x + point[0] * scale_x), int(host.y + point[1] * scale_y)]
+                  for point in (start, end))
+    end[axis] = start[axis] + direction * min(abs(end[axis] - start[axis]), int(250 * scale))
+    logical_distance = abs(end[axis] - start[axis]) / scale
+    require(logical_distance > 0, "The required scroll is smaller than a device pixel.")
+    # Bound speed at 250 logical units/s, with a slow floor for small corrections.
+    # Use the rounded physical endpoints so density cannot increase that speed.
+    duration_ms = max(350, math.ceil(logical_distance / 250 * 1000))
+    return tuple(start), tuple(end), duration_ms
 
 
 def validate_host(value):
