@@ -23,6 +23,11 @@ on:
         options:
           - '35'
           - '36'
+      android_godot_session:
+        description: Exercise qualified production Godot modes through the real presentation picker
+        required: true
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -36,9 +41,11 @@ jobs:
     name: Android and shared JVM tests
     if: ${{ github.event_name != 'workflow_dispatch' || inputs.platform == 'all' || inputs.platform == 'android' }}
     runs-on: ubuntu-24.04
-    timeout-minutes: 45
+    timeout-minutes: ${{ inputs.android_godot_session && 70 || 45 }}
     env:
       PARTYDECK_ANDROID_API: ${{ inputs.android_api || '35' }}
+      PARTYDECK_ANDROID_GODOT_SESSION_SMOKE: ${{ inputs.android_godot_session && '1' || '0' }}
+      PARTYDECK_SOURCE_REVISION: ${{ github.sha }}
     steps:
       - name: Check out source
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -89,7 +96,7 @@ jobs:
           sudo chmod a+rw /dev/kvm
       - name: Exercise debug and optimized Android APKs
         if: ${{ !cancelled() && hashFiles('androidApp/build/outputs/apk/debug/*.apk') != '' }}
-        timeout-minutes: 30
+        timeout-minutes: ${{ inputs.android_godot_session && 55 || 30 }}
         run: ./scripts/smoke-android-emulator.sh
       - name: Upload test and lint reports
         if: always()
@@ -104,6 +111,7 @@ jobs:
             build/ci/android/**/*.json
             build/ci/android/**/*.xml
             build/ci/android/**/*.png
+            build/ci/android/godot-session/**/*-invalid-screencap.bin
           retention-days: 14
           if-no-files-found: warn
       - name: Upload Android packages

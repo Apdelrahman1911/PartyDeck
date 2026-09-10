@@ -27,6 +27,8 @@ import kotlinx.coroutines.launch
 class MainActivity : ComponentActivity(), InvitationScannerHost {
     private lateinit var owner: PartyDeckAndroidViewModel
     private lateinit var privacy: SessionPrivacyGuard
+    private var shellAttachment: Long? = null
+    private var activityStarted = false
     private var activityResumed = false
     private var activityFocused = false
     private val scanner = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -51,10 +53,10 @@ class MainActivity : ComponentActivity(), InvitationScannerHost {
                 return PartyDeckAndroidViewModel(application) as T
             }
         })[PartyDeckAndroidViewModel::class.java]
-        owner.services.attachActivity(this)
-        updateInteractivity()
         privacy = SessionPrivacyGuard(this)
         privacy.setPrivateSession(owner.controller.state.value.session != null)
+        shellAttachment = owner.attachActivity(this)
+        updateInteractivity()
 
         val back = object : OnBackPressedCallback(false) {
             override fun handleOnBackPressed() {
@@ -86,7 +88,8 @@ class MainActivity : ComponentActivity(), InvitationScannerHost {
 
     override fun onStart() {
         super.onStart()
-        if (owner.services.isAttachedActivity(this)) owner.controller.setBackgrounded(false)
+        activityStarted = true
+        updateInteractivity()
     }
 
     override fun onResume() {
@@ -95,9 +98,8 @@ class MainActivity : ComponentActivity(), InvitationScannerHost {
         activityFocused = hasWindowFocus()
         if (owner.services.isAttachedActivity(this)) {
             owner.controller.setSystemReduceMotion(!ValueAnimator.areAnimatorsEnabled())
+            owner.controller.setPresentationTextScale(resources.configuration.fontScale.toDouble())
         }
-        privacy.setFocused(activityFocused)
-        privacy.setResumed(true)
         updateInteractivity()
     }
 
@@ -111,22 +113,28 @@ class MainActivity : ComponentActivity(), InvitationScannerHost {
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         activityFocused = hasFocus
-        if (::privacy.isInitialized) privacy.setFocused(hasFocus)
+        if (::privacy.isInitialized && !hasFocus) privacy.setFocused(false)
         updateInteractivity()
     }
 
+    override fun onUserLeaveHint() {
+        if (::privacy.isInitialized) privacy.setFocused(false)
+        shellAttachment?.let { owner.userLeavingActivity(this, it) }
+        super.onUserLeaveHint()
+    }
+
     override fun onStop() {
+        activityStarted = false
         activityResumed = false
-        updateInteractivity()
-        // A replacement Activity keeps the same session; rotation is not OS backgrounding.
-        if (!isChangingConfigurations && owner.services.isAttachedActivity(this)) {
-            owner.controller.setBackgrounded(true)
-        }
+        activityFocused = false
+        privacy.setResumed(false)
+        shellAttachment?.let { owner.stopActivity(this, it, isChangingConfigurations) }
         super.onStop()
     }
 
     override fun onDestroy() {
-        owner.services.detachActivity(this)
+        shellAttachment?.let { owner.detachActivity(this, it) }
+        shellAttachment = null
         super.onDestroy()
     }
 
@@ -135,8 +143,18 @@ class MainActivity : ComponentActivity(), InvitationScannerHost {
     }
 
     private fun updateInteractivity() {
-        if (::owner.isInitialized && owner.services.isAttachedActivity(this)) {
-            owner.controller.setForeground(activityResumed && activityFocused)
+        val identity = shellAttachment ?: return
+        owner.updateActivityVisibility(this, identity, activityStarted, activityResumed, activityFocused)
+    }
+
+    internal fun onShellInteractivityChanged(identity: Long, interactive: Boolean) {
+        if (shellAttachment != identity) return
+        if (::privacy.isInitialized) {
+            privacy.setPrivateSession(owner.controller.state.value.session != null)
+            // Positive privacy permission comes only from the selected aggregate surface.
+            // Negative native lifecycle callbacks cover synchronously before publication.
+            privacy.setFocused(activityFocused && interactive)
+            privacy.setResumed(activityResumed)
         }
     }
 }

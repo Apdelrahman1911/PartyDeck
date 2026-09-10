@@ -29,6 +29,13 @@ with `NO-SOURCE` is not test evidence. Reports live under each module's
 unsigned unless the complete signing environment below is supplied, as is the
 original release APK.
 
+It first runs `prepare-godot-renderer.sh`, which verifies or exports the real
+renderer PCK and its source receipt. Linux x86_64 can install the checksum-pinned
+Godot tool automatically; another host must set `PARTYDECK_GODOT_EXECUTABLE` to
+its official Godot 4.7.2 executable. Bridge and shared native-runtime tests are
+included. Packaging verifies the pack again and includes the same original
+notices as the comparison host.
+
 For focused work, run the affected module's `jvmTest` task instead of the full
 script. Use the complete script at integration and release checkpoints.
 
@@ -64,6 +71,36 @@ To run that separate smoke on Linux with usable KVM:
 sdkmanager 'emulator' 'system-images;android-35;default;x86_64'
 ./scripts/smoke-android-emulator.sh
 ```
+
+The manual Validate workflow also has `android_godot_session`, defaulting to
+false. Root enables this check after qualifying the real native prerequisites
+and enabling the production presentation choices in source. The option only
+requests checks; it cannot enable a renderer or bypass a missing picker.
+The equivalent local invocation sets `PARTYDECK_ANDROID_GODOT_SESSION_SMOKE=1`
+and `PARTYDECK_SOURCE_REVISION` to the full commit used to build the APKs.
+That revision is caller provenance, not an embedded binary attestation.
+
+The optional check reuses both APKs and the same prepared emulator boot. It
+verifies each packaged PCK against the source-checked export, ties the optimized
+copy to its disposable-signing receipt, and runs
+`smoke-android-godot-session.py` through the real presentation picker for both
+2D and 3D at normal text scale 1.0. The checker compares the installed base APK
+bytes with the supplied APK. Each variant has a ten-minute command limit. Debug requests the renderer
+death case and preserves unsupported exit 2 as a failure; the non-debuggable
+optimized APK explicitly uses `--skip-renderer-death`. Its omitted death case
+is recorded separately and cannot qualify optimized renderer-death handling.
+
+Original screenshots, XML, input geometry, process observations, package hashes,
+command logs and results are retained below `build/ci/android/godot-session`
+by the report upload, including malformed screenshot bytes for failure review.
+The pulled `installed-base.apk` remains in the runner directory; its matching
+input APK is retained by the existing package upload, while the report retains
+the pull log and both hashes. The checker writes to a fresh `runtime`
+subdirectory within each variant and refuses to overwrite previous evidence.
+`runtime-variants.json` includes both optional
+phase statuses, and any requested failure fails the workflow. Native chrome
+and Ready establish session lifecycle behavior only; rendered gameplay and
+pixel privacy remain separate review requirements.
 
 Set `PARTYDECK_ANDROID_API=36` and install
 `system-images;android-36;default;x86_64` to select Android 16 instead. Both the

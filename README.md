@@ -26,9 +26,16 @@ Use JDK 21. The checked-in wrapper installs Gradle 9.7.0 and verifies its distri
 ```bash
 sdkmanager 'platform-tools' 'platforms;android-37.1' 'build-tools;36.0.0'
 # Set ANDROID_HOME to your SDK directory, or put sdk.dir=/your/sdk in local.properties.
+bash scripts/prepare-godot-renderer.sh
 ./gradlew :androidApp:assembleDebug
 adb install -r androidApp/build/outputs/apk/debug/androidApp-debug.apk
 ```
+
+The Android package includes both real Godot presentations. The preparation
+script verifies an existing renderer pack or exports one with checksum-verified
+Godot 4.7.2 on Linux x86_64. On another host, supply an official executable with
+`PARTYDECK_GODOT_EXECUTABLE=/path/to/godot`. Native session integration remains
+under qualification; Compose is the default gameplay surface.
 
 Run the shared desktop application:
 

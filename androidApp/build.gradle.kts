@@ -42,11 +42,16 @@ android {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
+    androidResources { noCompress += "pck" }
     packaging.resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
     packaging.resources.merges += "/META-INF/LICENSE.md"
 }
 dependencies {
     implementation(project(":composeApp"))
+    implementation(project(":games"))
+    implementation(project(":bridge"))
+    implementation(project(":androidRenderer"))
+    implementation(libs.coroutines.android)
     implementation(libs.activity.compose)
     implementation(libs.android.lifecycle.viewmodel)
     implementation(libs.android.lifecycle.runtime)
