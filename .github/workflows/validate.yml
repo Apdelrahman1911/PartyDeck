@@ -281,8 +281,16 @@ jobs:
         env:
           PARTYDECK_IOS_SIMULATOR_GODOT_ENGINE_ROOT: ${{ github.workspace }}/godot/ios-host/build
         run: ./scripts/validate-ios-app.sh
-      - name: Exercise both real production Godot practice sessions
+      - name: Qualify native UIKit Godot shell layout
+        id: ios-godot-layout
         if: ${{ !cancelled() && inputs.ios_godot_session && steps.ios-app.outcome == 'success' }}
+        timeout-minutes: 20
+        env:
+          PARTYDECK_IOS_GODOT_SESSION_SMOKE: '1'
+          PARTYDECK_IOS_SIMULATOR_GODOT_ENGINE_ROOT: ${{ github.workspace }}/godot/ios-host/build
+        run: bash scripts/validate-ios-godot-layout.sh
+      - name: Exercise both real production Godot practice sessions
+        if: ${{ !cancelled() && inputs.ios_godot_session && steps.ios-app.outcome == 'success' && steps.ios-godot-layout.outcome == 'success' }}
         timeout-minutes: 45
         env:
           PARTYDECK_IOS_GODOT_SESSION_SMOKE: '1'
@@ -301,6 +309,12 @@ jobs:
             build/ci/ios/PartyDeck.xcresult/**
             build/ci/ios/attachments/**
             build/ci/ios/interop/**
+            build/ci/ios/godot-layout/*.log
+            build/ci/ios/godot-layout/*.json
+            build/ci/ios/godot-layout/*.tar.gz
+            build/ci/ios/godot-layout/PartyDeckGodotLayout.xcresult/**
+            build/ci/ios/godot-layout/attachments/**
+            build/ci/ios/godot-layout/DerivedData/Build/Products/Debug-iphonesimulator/PartyDeckGodotInputs/inputs.json
             build/ci/ios/godot-session/*.log
             build/ci/ios/godot-session/*.json
             build/ci/ios/godot-session/*.tar.gz

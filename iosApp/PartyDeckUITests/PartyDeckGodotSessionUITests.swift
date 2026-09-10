@@ -31,8 +31,19 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
             try require(!home.port.ownerCreated, "Observation must not acquire a native engine before the user selects a renderer.")
             try await tapElement("home-practice", app)
             let practice = try await playablePractice(app)
-            let generation = try controller(practice).sessionGeneration
+            let practiceState = try controller(practice)
+            let generation = practiceState.sessionGeneration
             try require(!practice.port.ownerCreated, "The real Standard practice session must not eagerly acquire Godot.")
+            try require(practiceState.handCount == 5, "Full native hand acceptance requires the fresh five-card hand before any Play.")
+            try StandardTableAcceptance(app).exerciseFiveCardHand { checkpoint in
+                guard let observed = try read(app) else { throw Failure("Native hand acceptance requires the real session observation.") }
+                let state = try controller(observed)
+                try require(state.sessionGeneration == generation && state.sessionRevision == practiceState.sessionRevision &&
+                    state.lastViewerReceipt?.serial == practiceState.lastViewerReceipt?.serial && state.handCount == 5 &&
+                    state.mode == "COMPOSE" && state.ownTurn && state.canPlay && !observed.port.ownerCreated,
+                    "Reveal, native card toggles and Hide must preserve the real session without an authority action or engine acquisition.")
+                capture("\(mode.rawValue) Standard \(checkpoint)", app)
+            }
 
             let first = try await enter(mode, app, session: generation)
             capture("\(mode.rawValue) production concealed entry", app)
@@ -61,6 +72,8 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
             let standard = try await standardTable(app, session: generation, privacyAfter: accepted.state.privacyEpoch)
             try retained(standard, first: first)
             capture("\(mode.rawValue) same session Standard return", app)
+            let standardAction = try await exerciseStandardAuthorityAction(mode, app, session: generation)
+            try retained(standardAction, first: first)
 
             let second = try await enter(mode, app, session: generation, after: first)
             try retained(second.observation, first: first)
@@ -181,6 +194,112 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
             try require(!element("game-play", app).isEnabled, "The concealed Standard hand must have no retained selection.")
         }
         return value
+    }
+
+    @MainActor
+    private func exerciseStandardAuthorityAction(_ mode: Mode, _ app: XCUIApplication, session: Counter) async throws -> Observation {
+        // Real bots can challenge the native Play and eliminate the viewer. An outcome never
+        // replaces the five-card checks above; it determines the legal authority action here.
+        let choices: [StandardAction] = [.play, .challenge, .nextRound, .returnToLobby]
+        let origin = try await dormant(app, "The same Standard session must expose a currently legal authority action.") { value in
+            guard self.standardContext(value, session: session), let state = value.controller else { return false }
+            return choices.contains { self.available($0, state: state, app: app) }
+        }
+        let state = try controller(origin)
+        guard let action = choices.first(where: { available($0, state: state, app: app) }) else {
+            throw Failure("No supported Standard authority action was observed.")
+        }
+        let result = try await submitStandard(action, mode, app, session: session, origin: origin)
+        guard action == .returnToLobby else { return result }
+
+        // Return to lobby is an accepted action, not a Play pass. Start the next real match
+        // inside this same authority/session before the existing retained-entry checks continue.
+        let lobby = try await dormant(app, "The retained practice authority must expose its real lobby Start control.") { value in
+            guard self.standardContext(value, session: session), let state = value.controller else { return false }
+            return self.available(.startGame, state: state, app: app)
+        }
+        return try await submitStandard(.startGame, mode, app, session: session, origin: lobby)
+    }
+
+    private func standardContext(_ value: Observation, session: Counter) -> Bool {
+        guard let state = value.controller else { return false }
+        return state.sessionPresent && state.practice && state.sessionGeneration == session && state.screen == "SESSION" &&
+            state.mode == "COMPOSE" && state.lifecycle == "COMPOSE" && state.foreground && !state.backgrounded &&
+            !state.leaveConfirmation && state.canSendAction && state.pending == nil && state.sessionRevision != nil
+    }
+
+    @MainActor
+    private func available(_ action: StandardAction, state: Controller, app: XCUIApplication) -> Bool {
+        switch action {
+        case .play:
+            return state.phase == "PLAYING" && state.ownTurn && state.canPlay && state.handCount > 0 && element("game-play", app).exists
+        case .challenge:
+            return state.phase == "PLAYING" && state.ownTurn && !state.canPlay &&
+                element("game-challenge", app).exists && element("game-challenge", app).isEnabled
+        case .nextRound:
+            return state.phase == "ROUND_ENDED" && state.canAdvanceRound &&
+                element("game-next-round", app).exists && element("game-next-round", app).isEnabled
+        case .returnToLobby:
+            return state.phase == "FINISHED" && element("game-rematch", app).exists && element("game-rematch", app).isEnabled
+        case .startGame:
+            return state.phase == nil && state.round == 0 && state.handCount == 0 && !element("game-table", app).exists &&
+                element("lobby-start", app).exists && element("lobby-start", app).isEnabled
+        }
+    }
+
+    @MainActor
+    private func submitStandard(_ action: StandardAction, _ mode: Mode, _ app: XCUIApplication,
+                                session: Counter, origin: Observation) async throws -> Observation {
+        let originState = try controller(origin)
+        let standard = StandardTableAcceptance(app)
+        if action == .play {
+            _ = try standard.reveal(count: originState.handCount)
+            try standard.toggle(index: 0, count: originState.handCount, selected: true)
+        }
+        let button = try standard.control(action.identifier)
+        let before = try await dormant(app, "The Standard action must still match its exact pre-tap session and revision.") { value in
+            guard self.standardContext(value, session: session), let state = value.controller else { return false }
+            return state.sessionRevision == originState.sessionRevision && state.phase == originState.phase &&
+                state.round == originState.round && state.handCount == originState.handCount &&
+                state.lastViewerReceipt?.serial == originState.lastViewerReceipt?.serial &&
+                self.available(action, state: state, app: app) && button.isEnabled && button.isHittable
+        }
+        let beforeState = try controller(before)
+        let beforeNative = try native(before)
+        guard let revision = beforeState.sessionRevision else { throw Failure("A Standard authority action needs an observed revision.") }
+        let serial = beforeState.lastViewerReceipt?.serial.value ?? 0
+        button.tap()
+        let accepted = try await dormant(app, "The actual Standard action must receive one accepted, session-bound authority receipt.") { value in
+            guard self.standardContext(value, session: session), let state = value.controller,
+                  let receipt = state.lastViewerReceipt, receipt.serial.value > serial,
+                  let native = value.port.native else { return false }
+            try self.require(receipt.serial.value == serial + 1 && receipt.accepted && receipt.error == nil &&
+                receipt.action == action.rawValue && receipt.mode == "COMPOSE" && receipt.presentationOrdinal.value == 0 &&
+                receipt.sessionGeneration == session && receipt.expectedRevision == revision && receipt.revision > revision,
+                "A Standard receipt must identify the tapped action, authority generation and exact pre-tap revision.")
+            guard state.sessionRevision.map({ $0 >= receipt.revision }) == true else { return false }
+            let transition: Bool
+            switch action {
+            case .play:
+                transition = state.round == beforeState.round && (state.handCount == beforeState.handCount - 1 ||
+                    (["ROUND_ENDED", "FINISHED"].contains(state.phase ?? "") && state.handCount == 0))
+            case .challenge:
+                transition = state.round == beforeState.round && ["ROUND_ENDED", "FINISHED"].contains(state.phase ?? "")
+            case .nextRound:
+                transition = state.round == beforeState.round + 1 && ["PLAYING", "ROUND_ENDED", "FINISHED"].contains(state.phase ?? "")
+            case .returnToLobby:
+                transition = state.phase == nil && state.round == 0 && state.handCount == 0 &&
+                    !self.element("game-table", app).exists && self.element("lobby-start", app).exists
+            case .startGame:
+                transition = state.round == 1 && ["PLAYING", "ROUND_ENDED"].contains(state.phase ?? "") && self.element("game-table", app).exists
+            }
+            try self.require(transition && native.intentEvents == beforeNative.intentEvents &&
+                native.presentationGeneration == beforeNative.presentationGeneration,
+                "The accepted Standard action must change the real authority as specified while the retained renderer remains dormant.")
+            return true
+        }
+        capture("\(mode.rawValue) real Standard authority accepted \(action.rawValue)", app)
+        return accepted
     }
 
     @MainActor
@@ -461,6 +580,19 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
     private enum Mode: String, Decodable, Hashable {
         case twoD = "2d", threeD = "3d"
         var selection: String { self == .twoD ? "GODOT_2D" : "GODOT_3D" }
+    }
+    private enum StandardAction: String {
+        case play = "PLAY_CARDS", challenge = "CHALLENGE", nextRound = "NEXT_ROUND"
+        case returnToLobby = "RETURN_TO_LOBBY", startGame = "START_GAME"
+        var identifier: String {
+            switch self {
+            case .play: return "game-play"
+            case .challenge: return "game-challenge"
+            case .nextRound: return "game-next-round"
+            case .returnToLobby: return "game-rematch"
+            case .startGame: return "lobby-start"
+            }
+        }
     }
     // JSONDecoder requires every nonoptional field and enforces Boolean/numeric types.
     // Long counters are decimal strings on the Kotlin/native boundary, never lossy JSON doubles.
