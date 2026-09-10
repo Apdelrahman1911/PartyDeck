@@ -1,0 +1,194 @@
+{
+  "runId": 34520365907,
+  "headSha": "c65e264892ad21ecd8b7f8fba8bc3ae441ab3137",
+  "attempt": 1,
+  "verifiedAtUtc": "2026-09-10T20:15:10.320992+00:00",
+  "provenanceType": "derived-exact-commit-source",
+  "runApi": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/ios-validate-34520365907/api-snapshots/20260910T201451.333063Z-run.json",
+    "bytes": 12875,
+    "sha256": "765cbb7dea5bce13e9d90144d94bf53b54d72303e45e005aaa4ec752bec7bee8"
+  },
+  "sourceDirectory": "/root/projects/PartyDeck/artifacts/evidence-storage/source-c65e264/source-c65e264",
+  "gitTreeSha": "b8c1985b2c988853d60798633c0dd121bc6fda0c",
+  "derivedSourceSnapshot": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-c65e264/derived-source-snapshot.json",
+    "bytes": 8517,
+    "sha256": "89f3b9ae4acff81e70afac7beea69df12860d26401a13d554d3b8b7ff2b1632a"
+  },
+  "derivedSourceVerification": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-c65e264/derived-source-verification.json",
+    "bytes": 698315,
+    "sha256": "0dcc9787c0e60292c055e257987b7ddad84dbb39ecb8750b044dc6c6b97c3bca"
+  },
+  "sourceFreeze": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-c65e264/collection-frozen.json",
+    "bytes": 179510,
+    "sha256": "081555ba6d9543a4538069a8cbdb3e218933712791d980445c70ebaf0024df1a"
+  },
+  "originalCommitApi": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-c65e264/source-commit.json",
+    "bytes": 1248,
+    "sha256": "6d82ec7c861f8f11ddd1b77af6634d5c51808b17701c9f3690ab414becda6172"
+  },
+  "originalTreeApi": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-c65e264/source-git-tree.json",
+    "bytes": 4976630,
+    "sha256": "6e48b5e7e082a765955e0f6fed80c62fe986c4b07361408521f1cc5ac5a172f7"
+  },
+  "nativeRedrawSourceVerification": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-c65e264/redraw-source-binding.json",
+    "bytes": 3649,
+    "sha256": "a377108c0da18db52932444f86c6d4941039811de7075a7ddfa74a191ffb3c41"
+  },
+  "reviewedRedrawProposalFreeze": {
+    "path": "/tmp/partydeck-ios-diagnostic-redraw-v1/FROZEN.json",
+    "bytes": 1633,
+    "sha256": "f7fe5201e971309b89fac39a17324f746be606f806953e3cbcea9bb3eab07ca0"
+  },
+  "verifiedNativeInsertions": [
+    {
+      "beforeLine": 1752,
+      "afterLine": 1752,
+      "lines": [
+        "\t\tconst uint64_t presentationGeneration = _presentationGeneration;\n",
+        "\t\tconst uint64_t lifecycleGeneration = _lifecycleGeneration;\n",
+        "\t\tconst NSUInteger foregroundGeneration = _foregroundGeneration;\n"
+      ]
+    },
+    {
+      "beforeLine": 1755,
+      "afterLine": 1758,
+      "lines": [
+        "\t\tif (!_diagnosticsRequest && [_rendererDiagnostics[@\"requestId\"] isEqual:request] &&\n",
+        "\t\t\t\t_presentationGeneration == presentationGeneration && _lifecycleGeneration == lifecycleGeneration &&\n",
+        "\t\t\t\t_foregroundGeneration == foregroundGeneration && NSThread.isMainThread &&\n",
+        "\t\t\t\t_foreground && _appliedForeground && [self canDraw]) {\n",
+        "\t\t\t// Diagnostics do not invalidate a static scene in low-processor mode.\n",
+        "\t\t\t// Request one coalesced draw for this accepted, still-current sample;\n",
+        "\t\t\t// the normal draw and successful layer-presentation gates remain in force.\n",
+        "\t\t\tMain::force_redraw();\n",
+        "\t\t}\n"
+      ]
+    }
+  ],
+  "nativeInsertedLines": 12,
+  "nativeRemovedOrReplacedLines": 0,
+  "nativeMatchesReviewedCandidate": true,
+  "sourceFrozenFilesIndependentlyHashVerified": 875,
+  "parentFrozenFilesIndependentlyHashVerified": 865,
+  "retainedSourceFilesIndependentlyComparedToGitBlobs": 841,
+  "targetDirectoryObjectHashesIndependentlyRecomputed": 1896,
+  "verifiedParentHardlinks": 838,
+  "documentedTextConversions": [
+    {
+      "path": "gradlew.bat",
+      "retainedBytes": 2848,
+      "gitBlobBytes": 2766,
+      "retainedRawGitBlobSha": "8508ef684d4e1f8473dcbbfdacf52a131beaee0e",
+      "gitBlobSha": "a51ec4f5886d3bb106b26724ee4507addbbe3fa8",
+      "conversion": "Parent archive CRLF form exactly reverses to the canonical LF Git blob",
+      "attribute": "*.bat text eol=crlf whitespace=cr-at-eol",
+      "rawGitBlobProof": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-1cd34a3/source-git-blob-gradlew-bat.json",
+        "bytes": 4103,
+        "sha256": "870832a2ec7941e0d2d538c95876b627635ca217e3aa8e14492ab51190e9805e"
+      },
+      "retainedPayloadModified": false
+    }
+  ],
+  "changedNonGalleryBlobPathsFromParent": [
+    "docs/STATUS.md",
+    "godot/ios-host/modules/partydeck_ios_probe/PDGodotRuntime.mm",
+    "godot/reviews/design-review.md"
+  ],
+  "allOtherNonGalleryBlobIdentitiesUnchangedFromParent": true,
+  "galleryTreeChangedAndSeparatelyAccounted": true,
+  "rendererSubtreeUnchanged": "0d1d43f209c03234c3a5b6ae7a0169dd950244e5",
+  "sourceSlices": [
+    {
+      "relativePath": "godot/ios-host/modules/partydeck_ios_probe/PDGodotRuntime.mm",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-c65e264/source-c65e264/godot/ios-host/modules/partydeck_ios_probe/PDGodotRuntime.mm",
+      "bytes": 109819,
+      "sha256": "0a9ca8e16ee6e15fba3cb82aa2b11dd3ed22113ea0494812c86eb8132869a5ff"
+    },
+    {
+      "relativePath": "iosApp/PartyDeckTests/GodotPresentationViewControllerTests.swift",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-c65e264/source-c65e264/iosApp/PartyDeckTests/GodotPresentationViewControllerTests.swift",
+      "bytes": 9430,
+      "sha256": "fad65fa69bb82a49bc7131dabe4e04ed8effc037ca45b63e858d875c76f9a0b2"
+    },
+    {
+      "relativePath": "composeApp/src/commonMain/kotlin/dev/partydeck/app/controller/EmbeddedPresentationCoordinator.kt",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-c65e264/source-c65e264/composeApp/src/commonMain/kotlin/dev/partydeck/app/controller/EmbeddedPresentationCoordinator.kt",
+      "bytes": 24317,
+      "sha256": "0058a5bb8a38f2ea9c4ca444f4d81b6efce07e9900e62442704ab7bc20dd654a"
+    },
+    {
+      "relativePath": "composeApp/src/commonMain/kotlin/dev/partydeck/app/ui/game/PrivateHand.kt",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-c65e264/source-c65e264/composeApp/src/commonMain/kotlin/dev/partydeck/app/ui/game/PrivateHand.kt",
+      "bytes": 13938,
+      "sha256": "68d7ecd74bb052c87ac0551d2104c20438893f751861d507e4a66cf0941bf408"
+    },
+    {
+      "relativePath": "composeApp/src/iosMain/kotlin/dev/partydeck/app/godot/IosGodotPresentationHost.kt",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-c65e264/source-c65e264/composeApp/src/iosMain/kotlin/dev/partydeck/app/godot/IosGodotPresentationHost.kt",
+      "bytes": 15220,
+      "sha256": "25841af386d30c83b5091e0a04e6df97192e1899589c499efa31af97d653a888"
+    },
+    {
+      "relativePath": "composeApp/src/iosTest/kotlin/dev/partydeck/app/godot/IosGodotPresentationHostTest.kt",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-c65e264/source-c65e264/composeApp/src/iosTest/kotlin/dev/partydeck/app/godot/IosGodotPresentationHostTest.kt",
+      "bytes": 22600,
+      "sha256": "77d74bbfdd8083999460225015025f2050a17d537e5f3e62a22cbfa5276f76f5"
+    },
+    {
+      "relativePath": "iosApp/PartyDeckUITests/PartyDeckUITests.swift",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-c65e264/source-c65e264/iosApp/PartyDeckUITests/PartyDeckUITests.swift",
+      "bytes": 17949,
+      "sha256": "b332a3576d7b13fdcca082459f9dc0abc5cf8b1e7be5c68d2641e332dca66d17"
+    },
+    {
+      "relativePath": "iosApp/PartyDeckUITests/PartyDeckGodotSessionUITests.swift",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-c65e264/source-c65e264/iosApp/PartyDeckUITests/PartyDeckGodotSessionUITests.swift",
+      "bytes": 46547,
+      "sha256": "ec28d783a221a31af0fa6730d4dda734a1fad3c291e7938bc4916677babe62ab"
+    }
+  ],
+  "exactNativePinMatchesActualExportedPack": true,
+  "exportedPack": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/ios-validate-34520365907/ios-renderer-pack/partydeck-last-light.pck",
+    "bytes": 1549560,
+    "sha256": "557b2297bed133a433acc25efa4837462465dd4e06da659ae5a4cbd792f77fe0"
+  },
+  "rendererSourceCommit": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/ios-validate-34520365907/ios-renderer-pack/renderer-source-commit.txt",
+    "bytes": 41,
+    "sha256": "c0b43f63cd02714c31ffaedec3824d8cfe5274b99cd1af3b66e9d0811aeda8a3"
+  },
+  "originalArchiveForThisHead": null,
+  "ancestorOriginalArchive": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-b080780/source-b080780.tar.gz",
+    "bytes": 486968892,
+    "sha256": "db317cc2324210408cc62f49063c92bb8c10ea4c9ad9195d9ee5c5dee4c7ad8c"
+  },
+  "ancestorOriginalArchiveHeadSha": "b08078028895ea8681fb72c57cfd613324a085cf",
+  "parentDerivedSourceSnapshot": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-0f00f17/derived-source-snapshot.json",
+    "bytes": 6784,
+    "sha256": "bc6e5d1648e52a5e522fdce200c6fdd24eca4ff70e1cb17e6d60d4f3189544af"
+  },
+  "parentFreeze": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-0f00f17/collection-frozen.json",
+    "bytes": 177693,
+    "sha256": "2ca15362aa3be8ce13a324f1b22c0c099a624f27790031b7b2a1365f60233061"
+  },
+  "omittedGalleryAccounting": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-c65e264/omitted-gallery-accounting.json",
+    "bytes": 6990149,
+    "sha256": "a29fcae5af381267bae78b07ac434bfa4e90e86d121b518be28848d563db67c0"
+  },
+  "omittedGalleryBlobsWithInheritedArchivePayloadProof": 8973,
+  "omittedGalleryBlobsWithRemoteTreeIdentityOnly": 4350,
+  "scope": "Reuses the sole owner-frozen derived source, independently verifying every frozen current/parent file, all 841 retained source Git identities, all 1896 target directory object hashes, three canonical changed non-gallery source blobs, the reviewed 12-line runtime insertion, and the exact exported pack/native-pin equality. Gallery tree changes are accounted separately from source changes. The retained BAT archive form has explicit reversible CRLF proof. This is a derived snapshot with b080780 original-archive lineage, not an original archive for this head. Omitted gallery payloads remain omitted; 4350 have remote tree identity only. No source writes, Git operations, downloads, builds or native acceptance claims."
+}

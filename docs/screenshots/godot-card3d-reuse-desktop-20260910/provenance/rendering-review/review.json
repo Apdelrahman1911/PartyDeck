@@ -1,0 +1,157 @@
+{
+  "baselineMatchesDiagnosticRenderer": true,
+  "bindings": {
+    "REVIEW.md": {
+      "bytes": 7754,
+      "path": "/tmp/partydeck-card3d-reuse-review-game-v1/REVIEW.md",
+      "sha256": "ddc36c9f95035704c4de0aa1027a7c486b8e076e2424091f1530b9cdd165b90b"
+    },
+    "candidate-source-review.json": {
+      "bytes": 50682,
+      "path": "/tmp/partydeck-card3d-reuse-review-game-v1/candidate-source-review.json",
+      "sha256": "064c51934725e58b29385f5ad98be285d677a7202318e32faf357e811693783e"
+    },
+    "engine-source-binding.json": {
+      "bytes": 7204,
+      "path": "/tmp/partydeck-card3d-reuse-review-game-v1/engine-source-binding.json",
+      "sha256": "64088f97c9fa245cd7b64fd7474a0bbb09216c852e139f820e8225a89433495b"
+    },
+    "validation-original-audit.json": {
+      "bytes": 52047,
+      "path": "/tmp/partydeck-card3d-reuse-review-game-v1/validation-original-audit.json",
+      "sha256": "0d5370f56d77bd6c633ffbea5e9725e2eaf7e2fa8fbab1467cf9582637333f9b"
+    }
+  },
+  "blockingFindings": [],
+  "candidateRoot": "/tmp/partydeck-card3d-reuse-candidate-assets-v1-n6xs0bjq",
+  "completedUtc": "2026-09-10T21:16:48.295068+00:00",
+  "exactPatchReconstruction": true,
+  "originalValidation": {
+    "allNumberedChecksPassed": true,
+    "auditedOwnerRuns": 13,
+    "engineExecutedByReviewer": false,
+    "exactPNGBytePairs": 20,
+    "imagesViewedByReviewer": false,
+    "numberedChecks": 560,
+    "runtime": "Owner-run Godot 4.7.2, OpenGL Compatibility, Xvfb, Mesa llvmpipe. Imports alone use headless mode."
+  },
+  "ownerFreezeSHA256": "7c274914ff2f3d8e500458ef5303492e02d2af2144c04e2d16f3659bf8a8b5e3",
+  "patchSHA256": "a904d39cb259cae75085001f4733a0d7ee49cd1f2693f8c723ae914541c9b484",
+  "preservedMethods": {
+    "card_3d.gd": {
+      "addedMethods": [
+        "create_shared_resources",
+        "set_shared_resources"
+      ],
+      "changedMethods": [
+        "_box",
+        "_ready"
+      ],
+      "removedMethods": [],
+      "unchangedMethods": [
+        "configure",
+        "corners",
+        "lift"
+      ]
+    },
+    "table.gd": {
+      "addedMethods": [
+        "_create_card"
+      ],
+      "changedMethods": [
+        "_add_card",
+        "_exit_tree",
+        "_show_cards"
+      ],
+      "removedMethods": [],
+      "unchangedMethods": [
+        "_bring_hand_into_view",
+        "_build_layout",
+        "_button",
+        "_challenge",
+        "_claim_line",
+        "_clear",
+        "_close_lobby_dialog",
+        "_confirm_return_to_lobby",
+        "_controls_current",
+        "_cylinder",
+        "_enter_tree",
+        "_hand_controls",
+        "_hand_toggle",
+        "_keep_control_inside_scroll",
+        "_label",
+        "_make_stage",
+        "_name",
+        "_play",
+        "_position_targets",
+        "_prepare_viewport_frame",
+        "_process",
+        "_proof_words",
+        "_public_info",
+        "_public_sound",
+        "_queue_sound",
+        "_rank",
+        "_ready",
+        "_remember_focus",
+        "_remember_scrolls",
+        "_remove_lobby_dialog",
+        "_render",
+        "_request_lobby",
+        "_request_target_update",
+        "_resize",
+        "_restore_scroll_node",
+        "_restore_scrolls",
+        "_result_info",
+        "_reveal_hand",
+        "_roster",
+        "_show_lobby_dialog",
+        "_sound",
+        "_style",
+        "_toggle_card",
+        "_toggle_history",
+        "_viewer",
+        "_viewport_frame_signature",
+        "apply_state",
+        "bind",
+        "store_state"
+      ]
+    }
+  },
+  "renderingConclusions": [
+    "All three mesh dimensions and two solid-material configurations exactly match the original construction.",
+    "Every card and mesh-instance node remains per card; configure, lift, corners and table rendering policy remain unchanged.",
+    "Mesh sharing preserves per-instance material_override; every face material remains independently constructed.",
+    "Every existing construction path injects a fully initialized bundle before add_child and ready.",
+    "Shared configuration fields have no post-construction mutations in the full frozen source.",
+    "The bundle is per table lifetime and is released with its holders; no static/global bundle storage."
+  ],
+  "reviewer": "review_game",
+  "scopeLimits": [
+    "Source approval and original local desktop behavior only; native iOS latency and qualification remain unproven for this candidate.",
+    "Future callers must keep using the injected bundle and treat its shared configuration as immutable.",
+    "Source-proven resource-construction savings do not prove shader compilation counts or callback-interval causality.",
+    "No native run card-count attribution is made from source-test fixtures.",
+    "Native diagnostic 34525504734 remains failed; neither endpoint passed the original second-entry wait.",
+    "Root owns integration, canonical exports, and subsequent platform qualification."
+  ],
+  "separateOriginalPhaseInterpretation": {
+    "bytes": 7068,
+    "path": "/tmp/partydeck-ios-startup-phase-interpretation-game-34525504734-v1/FROZEN.json",
+    "sha256": "b2f708e46bd2329af8f2722645ca473a6e98b6553127e40e4f7c607b432215c3"
+  },
+  "separateSecurityReviewReferences": [
+    {
+      "bytes": 6534,
+      "path": "/tmp/partydeck-3d-resource-reuse-security-candidate-v1/SOURCE-REVIEW.md",
+      "sha256": "facf043271ceb3fb6fd0f58dc63dfa2897337108d446c9fc8db7ded7856ae989"
+    },
+    {
+      "bytes": 4140,
+      "path": "/tmp/partydeck-3d-resource-reuse-security-candidate-v1/review-receipt.json",
+      "sha256": "bcdde5679e40b0319b19f3682e3a7f7e01612d024580b04840402a39e7f45803"
+    }
+  ],
+  "sourceFilesVerified": 155,
+  "status": "APPROVED_EXACT_RENDERING_SOURCE_AND_LOCAL_BEHAVIOR",
+  "unchangedSourceFiles": 153
+}

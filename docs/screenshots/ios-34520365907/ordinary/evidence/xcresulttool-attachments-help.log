@@ -1,0 +1,26 @@
+OVERVIEW: Export attachments.
+
+A test identifier can be used to specify a Test Case or a Test Suite. All
+attachments will be exported if no test identifier is provided. An additional
+manifest.json file will be generated and saved to the output directory. This
+file contains a list of attachment details for each test.
+
+Use --schema option to get the output format as JSON Schema. Default schema
+version: 0.1.0.
+
+USAGE: xcresulttool export attachments [--test-id <test-id>] [--schema] [--schema-version <schema-version>] --path <path> --output-path <output-path> [--only-failures]
+
+OPTIONS:
+  --test-id <test-id>     Test identifier URL or identifier string.
+  --schema                Show output format as JSON Schema.
+  --schema-version <schema-version>
+                          Schema version in major.minor.patch format. Command
+                          will return an error if unknown version is passed.
+  --path <path>           The result bundle path.
+  --output-path <output-path>
+                          Output directory path.
+  --only-failures         Export only those attachments that are associated
+                          with test failures.
+  --version               Show the version.
+  -h, --help              Show help information.
+

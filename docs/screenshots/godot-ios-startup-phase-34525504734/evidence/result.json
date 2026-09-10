@@ -1,0 +1,357 @@
+{
+  "stage": "retained_engine_lifecycle_execution",
+  "recorded_utc": "2026-09-10T20:39:07.511762+00:00",
+  "command_exit_code": 65,
+  "problems": [
+    "The three actual retained-engine XCTest cases did not each finish with a pass.",
+    "The native runner or evidence export returned exit code 65."
+  ],
+  "inputs": {
+    "started_utc": "2026-09-10T20:23:13.614722+00:00",
+    "sources": {
+      "RetainedHost/Host.xcconfig": "3651cd7294b88ad2a9e8cc0e1324fcc534e3588232d14008733528cd3cf46cf3",
+      "RetainedHost/Info.plist": "2a839863df5784b890c7a51efdd695bedaec5461cb5c5191e80ca1f439ef307c",
+      "RetainedHost/README.md": "b255102284fed68dddf0f5d157b08f23bf36aafed2753f1262f6a66d554dfa80",
+      "RetainedHost/RetainedHostApp.swift": "4e50fa627cf1ee74455aee9cf64c9fda34d71e51991ae83175f4f5a0b5418a1c",
+      "RetainedHost/RetainedModel.swift": "6074e9de7186adddfd85e450722470d73c46806e0592305671b303b3369b7ed1",
+      "RetainedHostUITests/RetainedHostUITests.swift": "ca2f573379be62e2c82df38af31556d0961133af2480d20901d93ce63152951b",
+      "RetainedHost.xcodeproj/project.pbxproj": "5a88e42d278871df1545751c4d4d69841cc3b7997e420dbf39d58b90ef318c7f",
+      "RetainedHost.xcodeproj/xcshareddata/xcschemes/RetainedHost.xcscheme": "26a3e28aeaa1b0a39af391e669f3b5ed1b2b221eb02486fcd707a6fb4a3474f2",
+      "test-retained-host.sh": "c5d978464fbb28d57fb65e668e2fe55bd39d9dff4ba212c7f59ae9ff45e1433b",
+      "record-retained-result.py": "4387cd8cb78a3ef9f393f19e433df4238e4697fd67388975ab999b1e0ffdac49",
+      "modules/partydeck_ios_probe/PDGodotEngineOwner.h": "f55aed92a3c0987ce2f2e5ba544738d5a7dcd53a3f19581c6056dc1de642f1c0"
+    },
+    "verified_engine_framework_pack": {
+      "stage": "authority_host_inputs_only",
+      "framework_receipt": {
+        "stage": "authority_framework_compilation",
+        "target": "iosSimulatorArm64",
+        "configuration": "debugFramework",
+        "framework": {
+          "PartyDeckGodotBridge": {
+            "sha256": "580b45b44dc59289a65178fa8187f3512563a918294eb1c5262398b1a240ff95",
+            "bytes": 40739216
+          },
+          "Headers/PartyDeckGodotBridge.h": {
+            "sha256": "dddbb2ae23d1e87ebab18fa7c4f77326c3e370422b96f1e723c3e2f2cdde14fd",
+            "bytes": 179497
+          },
+          "Modules/module.modulemap": {
+            "sha256": "566a10ca59319c5510d030cc2418d21900d0cc724abd7627cfd65972aeec3a04",
+            "bytes": 149
+          },
+          "Info.plist": {
+            "sha256": "7873447ece8f8dab0760511eed41646ef12e940a3c7f70ec16acf7a394b6eb7a",
+            "bytes": 953
+          }
+        },
+        "archive": {
+          "name": "PartyDeckGodotBridge-simulator.framework.tar.gz",
+          "sha256": "bc5477773a372bbe12cec8663130c70921ba8b0b6ff7f0f012f6e53af1119caf",
+          "bytes": 8148400
+        },
+        "framework_compiled": true,
+        "expected_facade_declarations_present": true,
+        "swift_module_import_typechecked": true,
+        "swift_authority_host_compiled": false,
+        "ios_authority_runtime_executed": false,
+        "kmp_factory_qualified": false
+      },
+      "engine_receipt": {
+        "engine_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+        "upstream_archive": "libgodot.ios.template_debug.arm64.simulator.a",
+        "artifact": "libpartydeck_godot_ios_probe.a",
+        "sha256": "ad0ff2c3fdec87d0490dd4f387491de89358124b1de627df2fc5f1716b628988",
+        "bytes": 191092648,
+        "auxiliary_archives": [
+          {
+            "artifact": "libpartydeck_godot_camera.a",
+            "sha256": "3b5f3448b399a20e1670398f37180235e636fc9c0797759f5ebcb0fb45ec3c30",
+            "bytes": 82392,
+            "upstream_archive": "libgodot_camera.ios.template_debug.arm64.simulator.a"
+          }
+        ],
+        "stage": "engine_compile_only",
+        "platform": "ios",
+        "target": "template_debug",
+        "configuration": "Debug",
+        "simulator": true,
+        "architecture": "arm64",
+        "sdk": "iphonesimulator",
+        "sdk_version": "26.4",
+        "lto": "none",
+        "xcode_version": "26.4.1",
+        "rendering_drivers": [
+          "opengl3"
+        ],
+        "path_overrides_enabled": true,
+        "bootstrap_arguments": "native_owned_bundle_paths",
+        "sdl_enabled": false,
+        "native_input_scope": "touch_and_hardware_keyboard",
+        "upstream_patches": [
+          {
+            "name": "coreaudio-dormancy",
+            "base_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+            "patch_sha256": "d5aad26c18f79c830c660cbd4f2debf401fb796381d4742706eb233afff4701c",
+            "manifest_sha256": "7d02c1a1a20c9f941f3b94119a3a7dd4dc0f19972a1744d16acc08ad80b62724",
+            "applied": true,
+            "files": [
+              {
+                "path": "drivers/coreaudio/audio_driver_coreaudio.h",
+                "originalSha256": "6fd7e8ce99b61d6922259e8d806bc5e6de85c99b8d7033ac72d508ff0a419f0c",
+                "patchedSha256": "12b24d810c8b95a0cb40e3dd41ca8999048571bda9474bcc86ef624915f0ff3f",
+                "originalGitBlob": "08c4ec475f9835cc5ecce3f50a6b4b043be3ec88",
+                "patchedGitBlob": "52e2708f3f95a970750375f15bc4ffd6da1cb07d"
+              },
+              {
+                "path": "drivers/coreaudio/audio_driver_coreaudio.mm",
+                "originalSha256": "656bef8d243670b902c8a9f203f301dc10c23ea9f2ee38f7583e541fe1c5b959",
+                "patchedSha256": "f0d5a678385492c38e83698a7c1884d625d8b52deb49535ffd2309e2ddf54531",
+                "originalGitBlob": "fbd73c8d73d712bfb03c94c9c02357db5a3b2813",
+                "patchedGitBlob": "9b1eefab413502b65fdf05b622808f307000e101"
+              },
+              {
+                "path": "servers/audio/audio_server.cpp",
+                "originalSha256": "d7641ef5852aa86f75c4d506759de2838a2c3886c29f7eb25fd9e9310d87c102",
+                "patchedSha256": "7b32e9c83867692147581b7ac551ee2ea34fda3505ee1cb0dc3d9ad4fc1accec",
+                "originalGitBlob": "98bb2cebd94299cd2d87bc1ca5fd4d5c73ab1807",
+                "patchedGitBlob": "d9f2f8b4d529af3bbe4583f431e0eefd2dff23f4"
+              },
+              {
+                "path": "servers/audio/audio_server.h",
+                "originalSha256": "fb97202eb2148536c06f193f1ccd838ce121b8cfddbb9f1bcd30e7fdbe74647c",
+                "patchedSha256": "6f9bf751e81e51fc490102b1990c0280fa1272884d0821e9dce8e8d2b679f7bd",
+                "originalGitBlob": "efb0a58e1cc4cab257fa1bbf4be0184303f2e234",
+                "patchedGitBlob": "c169e9c4308541a5ee1ae25e1f08c12b15c7dd07"
+              }
+            ]
+          },
+          {
+            "name": "main-loop-access",
+            "base_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+            "patch_sha256": "896fe2da52c8d3e4f9d436c4d41808e5fbc567c268294baf898843c28dbbb3c6",
+            "manifest_sha256": "456c08911c1aa8c4c4efd5d7a372cdf12f2da6380f699b295fe3aeab8e7828ab",
+            "applied": true,
+            "files": [
+              {
+                "path": "drivers/apple_embedded/os_apple_embedded.h",
+                "originalSha256": "c78457c745e3596edd355aaf2e23611a1f51c782ed25a701fb0d3e06dd3cd9e3",
+                "patchedSha256": "5b331a2008f22581320ec2301a269dcc6344814a3d985ffbb63df2107ba64dee",
+                "originalGitBlob": "d801a8652d63b31b2a24e037735314d7ad7a5117",
+                "patchedGitBlob": "b3e14db14a3a8d056948f3396227e1fc7a0a39cc"
+              }
+            ]
+          }
+        ],
+        "native_module_sources": {
+          "partydeck_ios_probe/AppleExportPlugins.mm": "4fd8706afd3616e59221e12969d2a16380f3f8984077b0ff2a59dba0a74f30fc",
+          "partydeck_ios_probe/PDGodotEngineOwner.h": "f55aed92a3c0987ce2f2e5ba544738d5a7dcd53a3f19581c6056dc1de642f1c0",
+          "partydeck_ios_probe/PDGodotRuntime.h": "781d0ea7d206d91a49316f30eeb905caec4b5715f5222fc363ed1b03127a647e",
+          "partydeck_ios_probe/PDGodotRuntime.mm": "18561b769a1736ee3c19633e2a6e7a60f591b1ee8d3e0f867c6cb1e3f53e61ea",
+          "partydeck_ios_probe/SCsub": "781f9abdcb30c34d0271bcc21372c6b2ca59545594b8f59625bf05cd9c52f564",
+          "partydeck_ios_probe/config.py": "a7d49c9d253183baf38500b6427d3dde8465df1c176d14ddae240ea086e67d3f",
+          "partydeck_ios_probe/engine_surface_probe.mm": "d86ee6e956ba38843c4d359ff140fe1635d9537775787722d66d7caaac7206f2",
+          "partydeck_ios_probe/register_types.h": "f4550220fcfb8bbd2bb42118823987254b40d6f9293cee61bb972acaa82e4c9c",
+          "partydeck_ios_probe/strict_json.h": "c3bff31433102904886a4fb1adcee109c912b7532f21a46f7e1b1ae629c9d074"
+        },
+        "module_snapshot_sha256": "4206e3881c1f9488b811c9bc10209df254c6625eca95df15fda1419303b2828d",
+        "native_module_capture_phase": "before_scons",
+        "engine_checkout_policy": "fresh_isolated_checkout",
+        "ios_runtime_executed": false,
+        "kmp_factory_qualified": false
+      },
+      "framework_receipt_file": {
+        "sha256": "bac5417cc1c488d3cb2049996bfec780f4e640ccb49e569851c6ef682a3228f0",
+        "bytes": 1138
+      },
+      "resources": {
+        "stage": "host_resources_only",
+        "fixture_sha256": "c43b9b8d379b1dcc22311d269745da9e67c3904bae6251636ed8e9abcb22cbb3",
+        "fixture_manifest_sha256": "79b71d6dd1d9ff43fd667482f4323aec9a1bf7720d4964315cdb3dab1a68038e",
+        "fixture_authority": "LastLightEngine.start/viewFor/apply/advanceRound",
+        "diagnostic_sources": {
+          "ProbeScene/project.godot": "e0eaa6ea4d92d7d1786ae82e2523f6b1084262559c90490ee1dd59639aae93e7",
+          "ProbeScene/main.tscn": "1666abce420c16f190937a650fdea6ef2e57ad429ee321c5bee27ad03f8b2885",
+          "ProbeScene/main.gd": "59d6f9e57c3b15ac0393d7a6ed6fd75b212002097fc6e22da515c8cc6d7dc05b",
+          "ProbeResources/MissingMainScene/project.godot": "ccda6894238df7cc451cce666655fea1f48e4d676b9888e5cef27f527cc813c6"
+        },
+        "license_bundle_sha256": {
+          "ANDROID_NDK_LLVM_NOTICE.txt": "f96f763beb66a7ba7a667647fc64c0226ace875e590c831fdd9579ec1c1d91e1",
+          "GODOT_CA_BUNDLE_SOURCE.txt": "33a22c7286f7752131636a11fb9feb3fb12ecd02f1a9b3e54e5901349d37362e",
+          "GODOT_CA_CERTIFICATES_SOURCE.txt": "c68edd43fa15b39be0aa724eaf28cdfa9df22a83eb74f66614b93993bdcde1f7",
+          "GODOT_COPYRIGHT.txt": "cb1980c88089573bcacd7221d777c689bb8bbd778799f24c27fca0fe5f774d6d",
+          "GODOT_LICENSE.txt": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80",
+          "NOTICE_PROVENANCE.json": "c702de9b8f36aa7144902b816a74b8a4718dc34245bfbbe3cb056fed4f65f062",
+          "README.txt": "1ccab8a45f6dab1e3a9117b8f29c56fe67ec969b5c3083fe1a0027eabf3b9231"
+        },
+        "optional_shared_pack": {
+          "sha256": "557b2297bed133a433acc25efa4837462465dd4e06da659ae5a4cbd792f77fe0",
+          "bytes": 1549560
+        },
+        "ios_runtime_executed": false,
+        "kmp_factory_qualified": false
+      },
+      "swift_authority_host_compiled": false,
+      "ios_authority_runtime_executed": false,
+      "kmp_factory_qualified": false,
+      "native_pack_sha256": "557b2297bed133a433acc25efa4837462465dd4e06da659ae5a4cbd792f77fe0"
+    }
+  },
+  "inputs_file_sha256": "36b7f425fb4dced0bda08bc250d9ba8f0216f43cf75495b7936b1e0a2813f0c7",
+  "source_hashes_after": {
+    "RetainedHost/Host.xcconfig": "3651cd7294b88ad2a9e8cc0e1324fcc534e3588232d14008733528cd3cf46cf3",
+    "RetainedHost/Info.plist": "2a839863df5784b890c7a51efdd695bedaec5461cb5c5191e80ca1f439ef307c",
+    "RetainedHost/README.md": "b255102284fed68dddf0f5d157b08f23bf36aafed2753f1262f6a66d554dfa80",
+    "RetainedHost/RetainedHostApp.swift": "4e50fa627cf1ee74455aee9cf64c9fda34d71e51991ae83175f4f5a0b5418a1c",
+    "RetainedHost/RetainedModel.swift": "6074e9de7186adddfd85e450722470d73c46806e0592305671b303b3369b7ed1",
+    "RetainedHostUITests/RetainedHostUITests.swift": "ca2f573379be62e2c82df38af31556d0961133af2480d20901d93ce63152951b",
+    "RetainedHost.xcodeproj/project.pbxproj": "5a88e42d278871df1545751c4d4d69841cc3b7997e420dbf39d58b90ef318c7f",
+    "RetainedHost.xcodeproj/xcshareddata/xcschemes/RetainedHost.xcscheme": "26a3e28aeaa1b0a39af391e669f3b5ed1b2b221eb02486fcd707a6fb4a3474f2",
+    "test-retained-host.sh": "c5d978464fbb28d57fb65e668e2fe55bd39d9dff4ba212c7f59ae9ff45e1433b",
+    "record-retained-result.py": "4387cd8cb78a3ef9f393f19e433df4238e4697fd67388975ab999b1e0ffdac49",
+    "modules/partydeck_ios_probe/PDGodotEngineOwner.h": "f55aed92a3c0987ce2f2e5ba544738d5a7dcd53a3f19581c6056dc1de642f1c0"
+  },
+  "executable_sha256": "f6f62dfae21ddf5dd14fa1deb2c5577475bf284a9876bcc9aa1571bd0282167d",
+  "swift_harness_compiled": true,
+  "native_and_kotlin_owners_linked": true,
+  "native_tests_started": [
+    "testActiveAndDormantBackgroundTransitionsStayConcealed",
+    "testRepeated2DAnd3DKeepOneDormantEngine",
+    "testStaleFirstReadyAndCloseCompletionReentry"
+  ],
+  "native_tests": [
+    {
+      "case": "testActiveAndDormantBackgroundTransitionsStayConcealed",
+      "status": "passed",
+      "seconds": 126.192
+    },
+    {
+      "case": "testRepeated2DAnd3DKeepOneDormantEngine",
+      "status": "passed",
+      "seconds": 273.403
+    },
+    {
+      "case": "testStaleFirstReadyAndCloseCompletionReentry",
+      "status": "failed",
+      "seconds": 46.146
+    }
+  ],
+  "test_evidence": {
+    "xcresult_retained": true,
+    "attachment_files": [
+      "attachments/00DCFDAE-D114-4CDD-8E5B-DC333AE4C85F.png",
+      "attachments/05C9FF15-A969-496C-81B6-B9E1B5B841A5.png",
+      "attachments/06B43B13-5EA7-47BD-8064-00D8191218F9.png",
+      "attachments/0899007A-7012-455C-885D-AAD91C5937E9.png",
+      "attachments/0DCA9C7D-5F20-4B6A-A853-40AE4A69748E.png",
+      "attachments/1116259F-0670-4CF7-B723-0D004846029F.json",
+      "attachments/190B3D75-9DCC-4540-AD99-90ACBADBEF5B.txt",
+      "attachments/1F714F89-D618-433E-8C67-EF1C87F33EA7",
+      "attachments/1FC51BF4-923F-4120-8F05-6DB9DDBD56B2.json",
+      "attachments/20182C88-5D7A-442D-96F3-5D56E4A9863E.json",
+      "attachments/20BD0A84-65F4-4575-B461-BE99EA15BD95.json",
+      "attachments/20F05055-14C3-4A94-B9B6-4011D8A2DAFF.png",
+      "attachments/233101B2-AD30-45C4-9F66-D920FA39AB0D.png",
+      "attachments/264D1ADF-C709-4E32-B0F8-A8FD5C44902E.json",
+      "attachments/2825B691-374E-4E5C-8027-C89845014C24.json",
+      "attachments/28574024-AD6E-47D4-95B3-3AC6DEC55D7D.json",
+      "attachments/304EC2DD-06D6-4420-BE45-1C42882FB000.json",
+      "attachments/314E0631-3342-4A38-AEB4-027F235C8A8C.json",
+      "attachments/31BC554E-58B6-4D7F-8866-26BB64C1B094.json",
+      "attachments/31F4727B-2E91-46FD-88DB-4D00A3426349.png",
+      "attachments/340DA153-FFDC-45C7-94AA-B50C26C76B63.json",
+      "attachments/351D64C3-C2FD-4781-A9F6-43A29EE6726D.json",
+      "attachments/36273FD1-1F1E-4304-965F-9ED452836FE4.json",
+      "attachments/39BC4565-7B04-49B4-B364-50FABFF3A568.json",
+      "attachments/3D0C3E9F-91E9-4DB7-B136-7709F85B44AC.json",
+      "attachments/405E8E48-F538-44A9-92D4-796B90A270F8.json",
+      "attachments/41B748C7-C269-4911-82AE-FA21CAB57C29.json",
+      "attachments/46BE68CC-AB3C-4AE6-BB6E-2B52D3A25E91.png",
+      "attachments/4D171B61-E1B6-4B42-BE94-F61A1B2122EA.json",
+      "attachments/50B9F436-B299-4823-99AF-44AECC10B495.json",
+      "attachments/54BF1D37-E850-49BE-8591-D14E38A6596C.json",
+      "attachments/5EFF60CD-9CCA-49C3-9893-79D8EBA0EC48.png",
+      "attachments/60487A22-060F-4018-8DB2-1A19CD3033F1.png",
+      "attachments/625B39D5-F0EB-4F6F-8F5A-7BE93BC788DB.json",
+      "attachments/63019D0D-28F4-4341-BB3A-D6D9C75BFE55.json",
+      "attachments/653146FB-6802-461A-A299-016C738573BC.png",
+      "attachments/65A2D13D-89E3-4E17-9D42-C11F362D5918",
+      "attachments/68DE7E15-7269-4ED3-8FB5-62E10E0EB47B.png",
+      "attachments/6B97D753-D5AC-4409-825B-C0977D1D1123.json",
+      "attachments/6E9542B7-155E-4115-8A94-512B0C930271.json",
+      "attachments/6F569085-4309-4C83-92AB-BCE199BF86A1.png",
+      "attachments/7101B2CE-F7C2-4FE9-87AB-F9FDDB73E486.mp4",
+      "attachments/851E69C1-BF7F-4EFC-A32F-83299180E9A7.png",
+      "attachments/86EB0D29-B448-4C55-A34A-5F9384D6EFD5.json",
+      "attachments/902D4251-05D3-4FEB-966D-C3DE5E508E61.json",
+      "attachments/92B65425-DB82-4B1C-8E9F-FA5BEB0C15FE.json",
+      "attachments/93FDEE8A-DF89-430A-ADA4-E19E81CDB1D7.png",
+      "attachments/942C62B7-E68B-4C63-AC93-190E11A1C128.json",
+      "attachments/94C76E3F-8E48-4C12-90BF-0CC7DDFB011F.json",
+      "attachments/95067CA3-666A-4CF2-A5ED-5E194C7A24A6.json",
+      "attachments/963B26AC-5DAC-4FF8-A639-7B6D3C813A59.txt",
+      "attachments/964CA3EF-0EF4-4FBF-A2B2-897413B1E711.json",
+      "attachments/9BE8F5E2-C46D-4356-9EB7-3CF227909C0F.json",
+      "attachments/9C55C8ED-8D33-469C-B459-B8DC20F3657C.json",
+      "attachments/9DA994F9-3900-4BB9-BCE4-F4194780B2EA.json",
+      "attachments/A19C4798-1DC7-455A-9EDD-794208D37828.json",
+      "attachments/A468766B-7D23-4A88-8FC4-715592E9E207.json",
+      "attachments/A9865F81-0852-432E-9539-C5332EB354E8.png",
+      "attachments/AA350D78-69AA-410F-93EA-DD3917EBD7EF.json",
+      "attachments/ACCF917D-35B0-4CA5-B706-3B5B066AE263.png",
+      "attachments/AF935729-A5C4-4F16-96FA-97A80396492C.png",
+      "attachments/AFA9E34A-CFE8-47DB-B222-8347CCEF1B80.json",
+      "attachments/B25387BD-CB7C-4C5D-BF03-A9B4C65C52E8.json",
+      "attachments/B7B4EC75-75F4-421C-AC56-C83F50A6566C.json",
+      "attachments/B83953AC-686A-4DB6-BE62-32222F45FE88.json",
+      "attachments/B8490C00-6653-4196-B9DF-A1C062B67233.json",
+      "attachments/BB023D2D-E16A-4CDA-B4CE-D616D620AFC6.png",
+      "attachments/BB48E72B-7106-419A-8835-1BC462C5A50F.png",
+      "attachments/BFD9BB64-C3A8-4CE2-8097-89FF992001DE.json",
+      "attachments/C43A9D12-C750-42CB-9DE5-127B7F4DB61E.json",
+      "attachments/C90C4A86-E040-453E-BB48-BB5D2F019E82.png",
+      "attachments/C9CB11DB-01A9-4179-B52F-D3478F6EBFAC.png",
+      "attachments/CE28093D-A39B-480B-96F8-418973947492.png",
+      "attachments/CFF3A75F-B6BE-4522-903E-D67D4A2471B5.json",
+      "attachments/D551F59A-039D-48BD-B18F-B3790DD88255.json",
+      "attachments/D7C39501-F137-4159-8FD8-62492D64685D.json",
+      "attachments/DD3C7110-C8BB-4A03-9927-A2A44D99A67E.json",
+      "attachments/E143D2DF-5182-456D-85B4-DB0178733F74.png",
+      "attachments/E3B08B6A-D8B2-4228-B818-588FBD8BA91F.json",
+      "attachments/E68E53EF-2AA3-428D-A2A3-24D1B6560004.json",
+      "attachments/E70856E7-7092-41F0-9973-1BF3B609A97F.json",
+      "attachments/ED39CD87-FF0D-44CE-A311-906DAE60858E.png",
+      "attachments/EE21E6F7-9D7D-4602-8BCA-CAB40BF4F3CB.json",
+      "attachments/EED97AB5-610E-4138-B4C9-AA8DE8C08F0D.json",
+      "attachments/F2A8F311-8F8F-4E61-95A3-7E773F3EA911.json",
+      "attachments/F6C4E1F5-4ADA-4660-AF11-E66BB3CE5CE4.json",
+      "attachments/F70BED17-1C22-452C-8457-56A947AACA3D.json",
+      "attachments/F92869D1-2E70-46EB-BC7E-085259F8BBDC.json",
+      "attachments/F97DE381-0C3F-425F-816A-1B825C567197.png",
+      "attachments/FA5CFC95-3DD7-4FA1-8129-B94380AFDF6C.json",
+      "attachments/FB14F4BD-9294-4B62-A7E8-44F735E625D6.json",
+      "attachments/FCCA10C8-9F9D-4D06-A3FE-D69CA0FDC554.png",
+      "attachments/FD02A785-8161-4493-B838-9C671D846786.json",
+      "attachments/manifest.json"
+    ],
+    "export_commands": {
+      "attachments_export_exit_code": 0,
+      "summary_export_exit_code": 0
+    },
+    "export_metadata_sha256": "a26fb7cf154c7bb08a3a3ff377334bab7314f8323ab0092a4674eacf1ef35a8f",
+    "summary_sha256": "90a36477cd41eef495da05e371d1bd248c64fa7420fd51b0d78c16b71a0c9152"
+  },
+  "retained_engine_lifecycle_qualified": false,
+  "same_process_reentry_qualified": false,
+  "kmp_factory_qualified": false,
+  "device_metal_qualified": false,
+  "physical_motion_shutdown_qualified": false,
+  "real_audio_interruption_qualified": false,
+  "simulator_only": true,
+  "observed_scope": "Whole-scene replacement; 2D/3D real input and concealed entry; native close ordering; stale handle and epoch rejection; native-shell display/audio/input/motion observations; actual application Home/activate. Unavailable simulator sensors remain unqualified.",
+  "application_observation_files": [
+    "retained-runtime-33079426-8BE1-45E5-91F6-2E267BA93623.json",
+    "retained-runtime-331EB2AB-85CB-44C6-A7B8-A179E2865002.json",
+    "retained-runtime-FFA96A9E-2C82-4D3F-83D1-D205C7BA81A3.json"
+  ]
+}

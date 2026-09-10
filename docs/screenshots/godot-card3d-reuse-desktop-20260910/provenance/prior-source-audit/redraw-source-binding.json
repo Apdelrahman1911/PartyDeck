@@ -1,0 +1,75 @@
+{
+  "verifiedAtUtc": "2026-09-10T19:41:19.378818+00:00",
+  "headSha": "c65e264892ad21ecd8b7f8fba8bc3ae441ab3137",
+  "treeSha": "b8c1985b2c988853d60798633c0dd121bc6fda0c",
+  "before": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-0f00f17/source-0f00f17/godot/ios-host/modules/partydeck_ios_probe/PDGodotRuntime.mm",
+    "bytes": 109043,
+    "sha256": "776e624a0bf06aa86b98c8a8b1efa7069fc6fefcf3e2325565c624a3e4a09cb2"
+  },
+  "after": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-c65e264/source-c65e264/godot/ios-host/modules/partydeck_ios_probe/PDGodotRuntime.mm",
+    "bytes": 109819,
+    "sha256": "0a9ca8e16ee6e15fba3cb82aa2b11dd3ed22113ea0494812c86eb8132869a5ff"
+  },
+  "reviewedProposalFreeze": {
+    "path": "/tmp/partydeck-ios-diagnostic-redraw-v1/FROZEN.json",
+    "bytes": 1633,
+    "sha256": "f7fe5201e971309b89fac39a17324f746be606f806953e3cbcea9bb3eab07ca0"
+  },
+  "byteIdenticalToReviewedCandidate": true,
+  "insertedLines": 12,
+  "removedOrReplacedLines": 0,
+  "insertions": [
+    {
+      "beforeLine": 1752,
+      "afterLine": 1752,
+      "lines": [
+        "\t\tconst uint64_t presentationGeneration = _presentationGeneration;\n",
+        "\t\tconst uint64_t lifecycleGeneration = _lifecycleGeneration;\n",
+        "\t\tconst NSUInteger foregroundGeneration = _foregroundGeneration;\n"
+      ]
+    },
+    {
+      "beforeLine": 1755,
+      "afterLine": 1758,
+      "lines": [
+        "\t\tif (!_diagnosticsRequest && [_rendererDiagnostics[@\"requestId\"] isEqual:request] &&\n",
+        "\t\t\t\t_presentationGeneration == presentationGeneration && _lifecycleGeneration == lifecycleGeneration &&\n",
+        "\t\t\t\t_foregroundGeneration == foregroundGeneration && NSThread.isMainThread &&\n",
+        "\t\t\t\t_foreground && _appliedForeground && [self canDraw]) {\n",
+        "\t\t\t// Diagnostics do not invalidate a static scene in low-processor mode.\n",
+        "\t\t\t// Request one coalesced draw for this accepted, still-current sample;\n",
+        "\t\t\t// the normal draw and successful layer-presentation gates remain in force.\n",
+        "\t\t\tMain::force_redraw();\n",
+        "\t\t}\n"
+      ]
+    }
+  ],
+  "retainedPackHashLiteralUnchanged": true,
+  "retainedPackHashLiteral": "557b2297bed133a433acc25efa4837462465dd4e06da659ae5a4cbd792f77fe0",
+  "rendererTreeUnchanged": true,
+  "rendererTreeSha": "0d1d43f209c03234c3a5b6ae7a0169dd950244e5",
+  "sourceSnapshot": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-c65e264/derived-source-snapshot.json",
+    "bytes": 8517,
+    "sha256": "89f3b9ae4acff81e70afac7beea69df12860d26401a13d554d3b8b7ff2b1632a"
+  },
+  "sourceVerification": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-c65e264/derived-source-verification.json",
+    "bytes": 698315,
+    "sha256": "0dcc9787c0e60292c055e257987b7ddad84dbb39ecb8750b044dc6c6b97c3bca"
+  },
+  "finalBuilderStdout": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-c65e264/derived-builder-final.stdout.log",
+    "bytes": 403643,
+    "sha256": "7afec0a6eb11be67de6c82a6ee3a1dce0ca13a992d13c70078865507c40b6b42"
+  },
+  "finalBuilderStderr": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-c65e264/derived-builder-final.stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "finalBuilderExitCode": 0,
+  "scope": "Exact source binding only. This does not establish actual exported PCK bytes, native artifact rebuild success, or runtime acceptance. Source donor and earlier frozen snapshots were not modified."
+}

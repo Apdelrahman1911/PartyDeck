@@ -1,0 +1,28 @@
+The isolated Card3D reuse candidate passes the existing render/input/privacy checks. All 20 captured PNGs are byte-identical to fresh baseline captures. The additional resource contract probe confirms sharing within one presentation and release on Close. Native latency improvement remains unproven.
+
+The patch changes only `presentations/three_d/card_3d.gd` and `presentations/three_d/table.gd`, against the frozen c65e264 renderer. The other 153 project source files remain byte-identical in both private copies. No canonical source, import cache, pack, export or native artifact was modified.
+
+`Card3D.SharedResources` holds two BoxMeshes, one PlaneMesh and two StandardMaterial3D resources. The factory sets the original sizes, colors and roughness before any assignment. The table creates this bundle lazily, injects it before both existing `add_child` sites, retains it across ordinary rebuilds, and clears its reference on exit. Every Card3D, MeshInstance3D, face material, private label, target, input closure and Tween keeps its original fresh-node ownership. Face configuration, selection, groups, scene removal and render settings are unchanged.
+
+The first nonempty K-card batch avoids 3(K−1) mesh and 2(K−1) solid-material constructions. Later batches within that presentation avoid 3K and 2K. Node count is unchanged. This demonstrates less resource construction, not fewer shader compilations or a native timing remedy. The source audit and pinned engine semantics are separately frozen at `/tmp/partydeck-3d-resource-reuse-assets-v1-7j78j2k7`.
+
+| Validation | Result | Original evidence |
+| --- | --- | --- |
+| Private project import/parser, baseline and candidate | Both passed; no engine/script errors | `evidence/{baseline,candidate}/import/receipt.json` |
+| Existing real 3D redraw checks | 306 passed | `evidence/candidate/redraw/report.json` and `receipt.json` |
+| Existing terminal-return/lifetime checks, both 2D and 3D | 216 passed | `evidence/candidate/terminal-return/report.json` and `receipt.json` |
+| Existing scene/input/privacy checker: portrait, short landscape, enlarged text with emulated touch drag, resolved public proof | All four candidate and four baseline runs passed | `evidence/{baseline,candidate}/{portrait,landscape,large-text,round-ended}/report.json` and `receipt.json` |
+| Exact baseline/candidate image comparison | 20 of 20 PNG files byte-identical | `evidence/pixel-comparison.json` |
+| Private sharing and lifetime contract probe | 38 passed | `evidence/candidate/resource-reuse/report.json` and `receipt.json` |
+
+The unchanged existing checks exercise real mouse input, concealed/revealed selection, maximum selection and deselection, enlarged-text scrolling, background/resume concealment, closed-state cleanup, actual Tween poses, resize, discarded viewport recovery, and dirty/idle update modes. The terminal runner additionally exercises cancellation and fresh presentation lifetimes. Numbered-check totals do not include the scene checker's procedural assertions.
+
+The extra probe remains outside the candidate project and patch, at `receipts/resource_reuse_check.gd`. It uses an explicitly derived recipient-safe source-test projection with three public claim backs plus five own-hand cards to exercise both Card3D construction paths. It records only object identifiers/counts and checks: exactly three shared mesh resources/two shared solids, unique face materials and mesh-instance nodes, preserved sharing across reveal/selection/resize, fresh card/face-material nodes across rebuild, correct private groups, five released shared resources plus released bundle after Close, and a fresh bundle/resources on next entry. It neither submits an accepted authority play nor represents the native phase fixture.
+
+Execution was serialized by `/tmp/partydeck-godot.lock`. The independently queried binary was `/opt/partydeck-godot/godot`, version `4.7.2.stable.official.ed1daf0bf`, SHA-256 `8d106cbe6144c2dc7e881d61d2429c1a8a76e6b22ef48bd5e48dcf934953f71e`. Render checks used actual OpenGL Compatibility with Xvfb and software Mesa; headless mode was used only for imports. `receipts/run_check.py` retains exact commands, environment overrides, engine logs, process exit status and report hashes. Recorded elapsed time is test duration, not entry latency.
+
+The existing source-test fixture came from the previously retained redraw validation fixture set; its binding is `receipts/fixture-binding.json`. Its P=4/H=5/C=0 aggregate and the extra probe's derived claim are not bound to native run 34525504734. No source allocation total is attached to that native run here. The project keeps MSAA_2X, original texture imports/filtering, fonts, lighting, geometry and viewport update policy.
+
+Independent source/privacy review approved the exact patch `a904d39cb259cae75085001f4733a0d7ee49cd1f2693f8c723ae914541c9b484`; its original report and receipt are copied under `receipts/security-source-review/`. Reviewer's approval covers the source ownership boundary, not native performance. Rendering-source review is coordinated separately by review_game. Root owns any integration, canonical export and subsequent platform qualification.
+
+Two selected candidate captures (portrait and enlarged text) were directly viewed during this handoff. Exact image equality covers all captured states on this local stack. It does not establish native-device antialiasing, driver behavior, snapshot timing, native accessibility, or native entry performance. Phase listener intervals cover the work between their actual callback deliveries and do not isolate mesh/material construction, shader compilation or GPU cost.

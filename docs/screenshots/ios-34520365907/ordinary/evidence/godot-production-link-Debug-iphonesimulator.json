@@ -1,0 +1,265 @@
+{
+  "schema_version": 2,
+  "stage": "production_ios_app_link_only",
+  "inputs": {
+    "schema_version": 2,
+    "stage": "production_ios_inputs_only",
+    "configuration": "Debug",
+    "platform": "iphonesimulator",
+    "engine_root": "/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build",
+    "engine_receipt": {
+      "engine_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+      "upstream_archive": "libgodot.ios.template_debug.arm64.simulator.a",
+      "artifact": "libpartydeck_godot_ios_probe.a",
+      "sha256": "efd5bf6fa3b8657edcdcc4efc1d0a2b93b3dfe9acb3257e3c4b6932694d776b4",
+      "bytes": 191065920,
+      "auxiliary_archives": [
+        {
+          "artifact": "libpartydeck_godot_camera.a",
+          "sha256": "1f0b206fa6158076329a10ff65cfe484421e7ccfc6b2f6eae1a57a3b6c6b1bc6",
+          "bytes": 82392,
+          "upstream_archive": "libgodot_camera.ios.template_debug.arm64.simulator.a"
+        }
+      ],
+      "stage": "engine_compile_only",
+      "platform": "ios",
+      "target": "template_debug",
+      "configuration": "Debug",
+      "simulator": true,
+      "architecture": "arm64",
+      "sdk": "iphonesimulator",
+      "sdk_version": "26.4",
+      "lto": "none",
+      "xcode_version": "26.4.1",
+      "rendering_drivers": [
+        "opengl3"
+      ],
+      "path_overrides_enabled": true,
+      "bootstrap_arguments": "native_owned_bundle_paths",
+      "sdl_enabled": false,
+      "native_input_scope": "touch_and_hardware_keyboard",
+      "upstream_patches": [
+        {
+          "name": "coreaudio-dormancy",
+          "base_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+          "patch_sha256": "d5aad26c18f79c830c660cbd4f2debf401fb796381d4742706eb233afff4701c",
+          "manifest_sha256": "7d02c1a1a20c9f941f3b94119a3a7dd4dc0f19972a1744d16acc08ad80b62724",
+          "applied": true,
+          "files": [
+            {
+              "path": "drivers/coreaudio/audio_driver_coreaudio.h",
+              "originalSha256": "6fd7e8ce99b61d6922259e8d806bc5e6de85c99b8d7033ac72d508ff0a419f0c",
+              "patchedSha256": "12b24d810c8b95a0cb40e3dd41ca8999048571bda9474bcc86ef624915f0ff3f",
+              "originalGitBlob": "08c4ec475f9835cc5ecce3f50a6b4b043be3ec88",
+              "patchedGitBlob": "52e2708f3f95a970750375f15bc4ffd6da1cb07d"
+            },
+            {
+              "path": "drivers/coreaudio/audio_driver_coreaudio.mm",
+              "originalSha256": "656bef8d243670b902c8a9f203f301dc10c23ea9f2ee38f7583e541fe1c5b959",
+              "patchedSha256": "f0d5a678385492c38e83698a7c1884d625d8b52deb49535ffd2309e2ddf54531",
+              "originalGitBlob": "fbd73c8d73d712bfb03c94c9c02357db5a3b2813",
+              "patchedGitBlob": "9b1eefab413502b65fdf05b622808f307000e101"
+            },
+            {
+              "path": "servers/audio/audio_server.cpp",
+              "originalSha256": "d7641ef5852aa86f75c4d506759de2838a2c3886c29f7eb25fd9e9310d87c102",
+              "patchedSha256": "7b32e9c83867692147581b7ac551ee2ea34fda3505ee1cb0dc3d9ad4fc1accec",
+              "originalGitBlob": "98bb2cebd94299cd2d87bc1ca5fd4d5c73ab1807",
+              "patchedGitBlob": "d9f2f8b4d529af3bbe4583f431e0eefd2dff23f4"
+            },
+            {
+              "path": "servers/audio/audio_server.h",
+              "originalSha256": "fb97202eb2148536c06f193f1ccd838ce121b8cfddbb9f1bcd30e7fdbe74647c",
+              "patchedSha256": "6f9bf751e81e51fc490102b1990c0280fa1272884d0821e9dce8e8d2b679f7bd",
+              "originalGitBlob": "efb0a58e1cc4cab257fa1bbf4be0184303f2e234",
+              "patchedGitBlob": "c169e9c4308541a5ee1ae25e1f08c12b15c7dd07"
+            }
+          ]
+        },
+        {
+          "name": "main-loop-access",
+          "base_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+          "patch_sha256": "896fe2da52c8d3e4f9d436c4d41808e5fbc567c268294baf898843c28dbbb3c6",
+          "manifest_sha256": "456c08911c1aa8c4c4efd5d7a372cdf12f2da6380f699b295fe3aeab8e7828ab",
+          "applied": true,
+          "files": [
+            {
+              "path": "drivers/apple_embedded/os_apple_embedded.h",
+              "originalSha256": "c78457c745e3596edd355aaf2e23611a1f51c782ed25a701fb0d3e06dd3cd9e3",
+              "patchedSha256": "5b331a2008f22581320ec2301a269dcc6344814a3d985ffbb63df2107ba64dee",
+              "originalGitBlob": "d801a8652d63b31b2a24e037735314d7ad7a5117",
+              "patchedGitBlob": "b3e14db14a3a8d056948f3396227e1fc7a0a39cc"
+            }
+          ]
+        }
+      ],
+      "native_module_sources": {
+        "partydeck_ios_probe/AppleExportPlugins.mm": "4fd8706afd3616e59221e12969d2a16380f3f8984077b0ff2a59dba0a74f30fc",
+        "partydeck_ios_probe/PDGodotEngineOwner.h": "f55aed92a3c0987ce2f2e5ba544738d5a7dcd53a3f19581c6056dc1de642f1c0",
+        "partydeck_ios_probe/PDGodotRuntime.h": "781d0ea7d206d91a49316f30eeb905caec4b5715f5222fc363ed1b03127a647e",
+        "partydeck_ios_probe/PDGodotRuntime.mm": "0a9ca8e16ee6e15fba3cb82aa2b11dd3ed22113ea0494812c86eb8132869a5ff",
+        "partydeck_ios_probe/SCsub": "781f9abdcb30c34d0271bcc21372c6b2ca59545594b8f59625bf05cd9c52f564",
+        "partydeck_ios_probe/config.py": "a7d49c9d253183baf38500b6427d3dde8465df1c176d14ddae240ea086e67d3f",
+        "partydeck_ios_probe/engine_surface_probe.mm": "d86ee6e956ba38843c4d359ff140fe1635d9537775787722d66d7caaac7206f2",
+        "partydeck_ios_probe/register_types.h": "f4550220fcfb8bbd2bb42118823987254b40d6f9293cee61bb972acaa82e4c9c",
+        "partydeck_ios_probe/strict_json.h": "c3bff31433102904886a4fb1adcee109c912b7532f21a46f7e1b1ae629c9d074"
+      },
+      "module_snapshot_sha256": "77c6f55cea88ff8706407194a93b3b1b53119d3dd0d62e2d5efb9310b45efb98",
+      "native_module_capture_phase": "before_scons",
+      "engine_checkout_policy": "fresh_isolated_checkout",
+      "ios_runtime_executed": false,
+      "kmp_factory_qualified": false
+    },
+    "engine_receipt_file": {
+      "sha256": "0f7e36f2108a89f45ff905de0416c9b4eea71578696a6a677111a9456260405c",
+      "bytes": 5130
+    },
+    "archives": {
+      "libpartydeck_godot_ios_probe.a": {
+        "sha256": "efd5bf6fa3b8657edcdcc4efc1d0a2b93b3dfe9acb3257e3c4b6932694d776b4",
+        "bytes": 191065920,
+        "macho": {
+          "architectures": [
+            "arm64"
+          ],
+          "platform": "7",
+          "build_version_commands": 2200
+        }
+      },
+      "libpartydeck_godot_camera.a": {
+        "sha256": "1f0b206fa6158076329a10ff65cfe484421e7ccfc6b2f6eae1a57a3b6c6b1bc6",
+        "bytes": 82392,
+        "macho": {
+          "architectures": [
+            "arm64"
+          ],
+          "platform": "7",
+          "build_version_commands": 1
+        }
+      }
+    },
+    "pack_path": "/Users/runner/work/PartyDeck/PartyDeck/godot/qualification/build/renderer/partydeck-last-light.pck",
+    "pack": {
+      "sha256": "557b2297bed133a433acc25efa4837462465dd4e06da659ae5a4cbd792f77fe0",
+      "bytes": 1549560
+    },
+    "pack_receipt": {
+      "sha256": "a4635faca30916b0f4494fc6e8ac9a8f9fa39dcfa07674ec7b0e06a58e4508a7",
+      "bytes": 61685
+    },
+    "native_pack_sha256": "557b2297bed133a433acc25efa4837462465dd4e06da659ae5a4cbd792f77fe0",
+    "ios_runtime_executed": false,
+    "kmp_factory_qualified": false,
+    "activation": {
+      "source_plist": {
+        "path": "/Users/runner/work/PartyDeck/PartyDeck/iosApp/PartyDeck/Info.plist",
+        "sha256": "b83321c5f3bcf8ee09e92a9f758f8c02f3b3b65adfe046daa9fc59a504d0b502",
+        "bytes": 2495
+      },
+      "input_plist": {
+        "path": "/Users/runner/work/PartyDeck/PartyDeck/iosApp/PartyDeck/Info.plist",
+        "sha256": "b83321c5f3bcf8ee09e92a9f758f8c02f3b3b65adfe046daa9fc59a504d0b502",
+        "bytes": 2495
+      },
+      "configuration": {
+        "profile": "shipping",
+        "accepted_shipping_modes": [],
+        "qualification_modes": [],
+        "configured_enabled_native_modes": []
+      },
+      "expectation": null
+    },
+    "activation_profile": "shipping",
+    "configured_enabled_native_modes": [],
+    "resource_files": {
+      "Licenses/ANDROID_NDK_LLVM_NOTICE.txt": {
+        "sha256": "f96f763beb66a7ba7a667647fc64c0226ace875e590c831fdd9579ec1c1d91e1",
+        "bytes": 130424
+      },
+      "Licenses/GODOT_CA_BUNDLE_SOURCE.txt": {
+        "sha256": "33a22c7286f7752131636a11fb9feb3fb12ecd02f1a9b3e54e5901349d37362e",
+        "bytes": 225076
+      },
+      "Licenses/GODOT_CA_CERTIFICATES_SOURCE.txt": {
+        "sha256": "c68edd43fa15b39be0aa724eaf28cdfa9df22a83eb74f66614b93993bdcde1f7",
+        "bytes": 1241
+      },
+      "Licenses/GODOT_COPYRIGHT.txt": {
+        "sha256": "cb1980c88089573bcacd7221d777c689bb8bbd778799f24c27fca0fe5f774d6d",
+        "bytes": 100108
+      },
+      "Licenses/GODOT_LICENSE.txt": {
+        "sha256": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80",
+        "bytes": 1149
+      },
+      "Licenses/NOTICE_PROVENANCE.json": {
+        "sha256": "c702de9b8f36aa7144902b816a74b8a4718dc34245bfbbe3cb056fed4f65f062",
+        "bytes": 5002
+      },
+      "Licenses/README.txt": {
+        "sha256": "1ccab8a45f6dab1e3a9117b8f29c56fe67ec969b5c3083fe1a0027eabf3b9231",
+        "bytes": 1322
+      },
+      "partydeck-last-light.pck": {
+        "sha256": "557b2297bed133a433acc25efa4837462465dd4e06da659ae5a4cbd792f77fe0",
+        "bytes": 1549560
+      },
+      "partydeck-last-light.receipt.json": {
+        "sha256": "a4635faca30916b0f4494fc6e8ac9a8f9fa39dcfa07674ec7b0e06a58e4508a7",
+        "bytes": 61685
+      }
+    }
+  },
+  "executable": {
+    "sha256": "b7be28a4570edd65c4fa83be49e11e9f2ca43e5e0931606d59e7b6a780231d50",
+    "bytes": 160794888
+  },
+  "macho": {
+    "architectures": [
+      "arm64"
+    ],
+    "platform": "7",
+    "build_version_commands": 1
+  },
+  "link_map": {
+    "sha256": "1998241ff2332fb1aedb6f7f8a83018b508241b3c73cb5ca84136563ea4906e8",
+    "bytes": 115738680
+  },
+  "partydeck_kit_link_owners": [
+    "/Users/runner/work/PartyDeck/PartyDeck/build/ci/ios/DerivedData/Build/Products/Debug-iphonesimulator/PartyDeckKit.framework/PartyDeckKit"
+  ],
+  "loaded_archive_members": {
+    "libpartydeck_godot_ios_probe.a": 1834,
+    "libpartydeck_godot_camera.a": 0
+  },
+  "linked_native_classes": [
+    "_OBJC_CLASS_$_PDGodotEngineOwner",
+    "_OBJC_CLASS_$_PDGodotPresentation"
+  ],
+  "main_owner": "/Users/runner/work/PartyDeck/PartyDeck/build/ci/ios/DerivedData/Build/Intermediates.noindex/PartyDeck.build/Debug-iphonesimulator/PartyDeck.build/Objects-normal/arm64/PartyDeckApp.o",
+  "linked_kotlin_classes": [
+    "_OBJC_CLASS_$_PDKBase",
+    "_OBJC_CLASS_$_PDKIosAppHandle",
+    "_OBJC_CLASS_$_PDKIosGodotRegistration"
+  ],
+  "kotlin_class_owners": {
+    "_OBJC_CLASS_$_PDKBase": "/Users/runner/work/PartyDeck/PartyDeck/build/ci/ios/DerivedData/Build/Products/Debug-iphonesimulator/PartyDeckKit.framework/PartyDeckKit(PartyDeckKit.framework.o)",
+    "_OBJC_CLASS_$_PDKIosAppHandle": "/Users/runner/work/PartyDeck/PartyDeck/build/ci/ios/DerivedData/Build/Products/Debug-iphonesimulator/PartyDeckKit.framework/PartyDeckKit(PartyDeckKit.framework.o)",
+    "_OBJC_CLASS_$_PDKIosGodotRegistration": "/Users/runner/work/PartyDeck/PartyDeck/build/ci/ios/DerivedData/Build/Products/Debug-iphonesimulator/PartyDeckKit.framework/PartyDeckKit(PartyDeckKit.framework.o)"
+  },
+  "ios_runtime_executed": false,
+  "kmp_factory_qualified": false,
+  "app_info_plist": {
+    "path": "/Users/runner/work/PartyDeck/PartyDeck/build/ci/ios/DerivedData/Build/Products/Debug-iphonesimulator/PartyDeck.app/Info.plist",
+    "sha256": "fe3ca5e9209fd31570d59a9f826d58b534da7f827735a81c93cffb9cb1a22fa0",
+    "bytes": 1998
+  },
+  "packaged_activation": {
+    "profile": "shipping",
+    "accepted_shipping_modes": [],
+    "qualification_modes": [],
+    "configured_enabled_native_modes": []
+  },
+  "activation_profile": "shipping",
+  "configured_enabled_native_modes": []
+}

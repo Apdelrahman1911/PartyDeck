@@ -1,0 +1,85 @@
+{
+  "schema": "partydeck-source-review-receipt-v1",
+  "captured_utc": "2026-09-10T20:46:56.126828+00:00",
+  "reviewer": "/root/review_security",
+  "decision": "approved_source_only",
+  "blockers": [],
+  "scope": "Exact frozen two-file Card3D/table immutable-resource reuse delta; source ownership, privacy, input and teardown review.",
+  "owner_workspace": "/tmp/partydeck-card3d-reuse-candidate-assets-v1-n6xs0bjq",
+  "owner_source_freeze_sha256": "8f1aa984995a77956c651034233ea45aaeb99f1320b068c428616d3e4199338a",
+  "patch_sha256": "a904d39cb259cae75085001f4733a0d7ee49cd1f2693f8c723ae914541c9b484",
+  "source_binding_sha256": "b2498436798a2e44ff184ec380ce22c7127576531fe822ab77452293e42f3d4a",
+  "independently_derived_patch_matches": true,
+  "independently_verified_source_files": 155,
+  "unchanged_source_files": 153,
+  "candidate_files": {
+    "presentations/three_d/card_3d.gd": {
+      "bytes": 3044,
+      "sha256": "6383be0e044f1f54792ab3f575917ef29a2d843e697f792d748627059c9bcba5"
+    },
+    "presentations/three_d/table.gd": {
+      "bytes": 40950,
+      "sha256": "a9edd383b71832b41d3fd307d3cf4397fe33df099c54471cb16006da0246e061"
+    }
+  },
+  "engine_semantics_reused_from_review": "/tmp/partydeck-3d-reuse-security-review-v1/SOURCE-RESEARCH.md",
+  "engine_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+  "protected_security_review_sha256": "bee360e6feee86077df66fb5ad762d791067bb902cdd307832c892b7d44fde15",
+  "artifacts": {
+    "SOURCE-REVIEW.md": {
+      "path": "/tmp/partydeck-3d-resource-reuse-security-candidate-v1/SOURCE-REVIEW.md",
+      "sha256": "facf043271ceb3fb6fd0f58dc63dfa2897337108d446c9fc8db7ded7856ae989"
+    },
+    "identity-verification.json": {
+      "path": "/tmp/partydeck-3d-resource-reuse-security-candidate-v1/identity-verification.json",
+      "sha256": "cea4cac01a5f2cdcec722aff28f5495c4baae0c271d01b9fa873ab4cc816cef9"
+    },
+    "candidate-source-freeze.json": {
+      "path": "/tmp/partydeck-3d-resource-reuse-security-candidate-v1/candidate-source-freeze.json",
+      "sha256": "8f1aa984995a77956c651034233ea45aaeb99f1320b068c428616d3e4199338a"
+    },
+    "source-binding.json": {
+      "path": "/tmp/partydeck-3d-resource-reuse-security-candidate-v1/source-binding.json",
+      "sha256": "b2498436798a2e44ff184ec380ce22c7127576531fe822ab77452293e42f3d4a"
+    },
+    "card3d-resource-reuse.patch": {
+      "path": "/tmp/partydeck-3d-resource-reuse-security-candidate-v1/card3d-resource-reuse.patch",
+      "sha256": "a904d39cb259cae75085001f4733a0d7ee49cd1f2693f8c723ae914541c9b484"
+    },
+    "independently-derived.patch": {
+      "path": "/tmp/partydeck-3d-resource-reuse-security-candidate-v1/independently-derived.patch",
+      "sha256": "a904d39cb259cae75085001f4733a0d7ee49cd1f2693f8c723ae914541c9b484"
+    },
+    "baseline-binding.json": {
+      "path": "/tmp/partydeck-3d-resource-reuse-security-candidate-v1/baseline-binding.json",
+      "sha256": "332200839265e2f7c68a42e93536d2b1ec08a7a8630ad84e62a1464dfc4e8f1b"
+    }
+  },
+  "verified_boundaries": [
+    "Bundle contains exactly three meshes and two invariant solid materials, with no node, controller, card-ID, texture or private-state references.",
+    "Factory configures all shared properties before assignment; no later consumer mutation found.",
+    "Both card creation paths inject the table-instance bundle before attachment.",
+    "Fresh card/mesh-instance nodes, face materials, labels, hit buttons, callbacks, bindings and tweens are preserved.",
+    "Detach-before-deferred-deletion, concealment, input guards and existing teardown remain unchanged; table bundle reference is cleared on exit.",
+    "Viewport dirty/signature logic, layout, MSAA_2X and all other source files remain unchanged."
+  ],
+  "not_attested": [
+    "parsing",
+    "runtime_checks",
+    "rendering_equivalence",
+    "performance_improvement",
+    "native_integration",
+    "pck_qualification"
+  ],
+  "excluded_actions": [
+    "product_or_checker_imports",
+    "tests",
+    "probes",
+    "builds",
+    "exports",
+    "git_commands",
+    "engine_native_or_device_execution",
+    "product_or_shared_edits",
+    "owner_artifact_edits"
+  ]
+}

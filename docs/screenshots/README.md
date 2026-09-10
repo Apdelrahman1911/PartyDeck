@@ -1,8 +1,8 @@
 # Screenshot review gallery
 
-This collection preserves **3,433 original app and renderer captures**, including failed attempts, and links to **four existing asset proofs**. Click a collection, then any thumbnail to open the full PNG. Every record includes its original filename, scenario, platform, pixel dimensions and full SHA-256; [manifest.json](manifest.json) also records source locations, exact revisions where known, CI runs, receipts and duplicate-source aliases.
+This collection preserves **3,559 original app and renderer captures**, including failed attempts, and links to **four existing asset proofs**. Click a collection, then any thumbnail to open the full PNG. Every record includes its original filename, scenario, platform, pixel dimensions and full SHA-256; [manifest.json](manifest.json) also records source locations, exact revisions where known, CI runs, receipts and duplicate-source aliases.
 
-This batch preserves 618 additional originals: **53 directly viewed, 84 exact published-byte matches and 481 explicitly unviewed**. The unviewed originals carry no visual acceptance. All original capture identities remain separate, including failed cases and identical image bytes.
+This batch preserves 126 additional originals: **9 directly viewed by review_design, 2 prior direct views by assets, 36 exact reviewed published-byte matches and 79 explicitly unviewed**. Unviewed originals carry no visual acceptance. All original identities remain separate, including failed cases and identical bytes. 4 original MP4s remain unviewed/undecoded.
 
 An additional **13 supplemental images** comprise [nine decoded launch-video frames](supplemental/ios-34478720554-launch-video/README.md) and [four existing adaptive review sheets](supplemental/android-adaptive-34485033488-review-sheets/README.md). They are separate from the original PNG total.
 
@@ -12,6 +12,7 @@ Use the latest native and shared-UI collections for current review. Earlier capt
 
 | Current preserved collection | Images | Evidence scope |
 | --- | ---: | --- |
+| [iOS ordinary — CI 34520365907](ios-34520365907/ordinary/README.md) | 10 | Nine cases and five unfiltered .all audits pass. All ten original PNGs remain explicitly unviewed. |
 | [Android API 35 debug — CI 34515669045](android-34515669045/debug/README.md) | 31 | Ordinary smoke passes; originals retain exact published-byte matches or explicit unviewed status. |
 | [Android API 35 optimized, test signed — CI 34515669045](android-34515669045/optimized-test-signed/README.md) | 31 | Ordinary smoke passes; native and visual-review limits remain separate. |
 | [iOS ordinary — CI 34515669045](ios-34515669045/ordinary/README.md) | 10 | Nine cases and five unfiltered .all audits pass. All ten originals remain explicitly unviewed in this batch. |
@@ -45,6 +46,9 @@ Use the latest native and shared-UI collections for current review. Earlier capt
 
 | Collection | Images | Evidence scope |
 | --- | ---: | --- |
+| [iOS production — CI 34520365907](ios-34520365907/godot-session/README.md) | 20 | Both native cases pass entry/selection/Hide/accepted Play, then fail Standard return. Six direct views; 3D selected/later concealed frames show five/four cards. |
+| [iOS retained-host — CI 34520375602](godot-ios-retained-34520375602/README.md) | 28 | Background/repeated cases pass; stale reentry fails. Two direct views and 26 unviewed. Later seat audit records scroll-boundary clipping; no correction. |
+| [iOS startup-phase diagnostic — CI 34525504734](godot-ios-startup-phase-34525504734/README.md) | 28 | Background/repeated cases pass; stale reentry fails. Direct failure still is fully covered. Phase delivery intervals do not identify a cause. |
 | [Android API 35 native sessions — CI 34515669045](android-34515669045/godot-session/README.md) | 186 | Debug 30 pass; optimized 28 pass and two renderer-death skips. Two compact 2D entries and four public outcome frames directly viewed; remaining-hand size unobserved. |
 | [Android API 36 adaptive — CI 34514544296](godot-android-adaptive-34514544296/README.md) | 228 | 28 named scopes pass, four fail, 12 unsupported, 52 unreached. Failure is 3D preparation after unsupported recording; no split request. Twelve unviewed movies. |
 | [iOS production — CI 34515669045](ios-34515669045/godot-session/README.md) | 12 | Both cases fail second entry freshness wait. Compact 2D cover/Reveal fits; seat-bottom and 3D lower-action clipping remain. Two direct views, ten unviewed. |
@@ -127,6 +131,7 @@ These are actual Godot capture files, including explicitly labeled blank parse-e
 
 | Collection | Images | Stage |
 | --- | ---: | --- |
+| [Card3D resource reuse — paired desktop source runs](godot-card3d-reuse-desktop-20260910/README.md) | 40 | Twenty byte-identical pairs; two prior assets views, 36 reviewed published-byte matches and two unviewed public-proof originals. --path source runs; no executed PCK or native latency claim. |
 | [Godot 2D — iteration 10, final compact Reveal and confirmation checks](godot-2d-iteration-10/README.md) | 14 | Complete initial Reveal at 900 × 740; both confirmation choices visible at 200%; repeat emulated drag/tap/privacy checks pass. |
 | [Godot 2D — iteration 09, corrected gestures and authority edge cases](godot-2d-iteration-09/README.md) | 26 | Nine static reports pass; one/zero-card, truthful rank/Wild, burnout and six-seat confirmation. Case-specific seeds and frozen fixture tools retained. |
 | [Godot 2D — iteration 08, action-drag failures](godot-2d-iteration-08/README.md) | 3 | All three failed attempts retained; ancestor probe identifies the cover panel stopping drag propagation. |

@@ -1,0 +1,121 @@
+--- a/godot/renderer/presentations/three_d/card_3d.gd
++++ b/godot/renderer/presentations/three_d/card_3d.gd
+@@ -2,19 +2,51 @@
+ 
+ const PAPER := Color("#f4f0e8")
+ const CITRON := Color("#d6ef82")
++
++class SharedResources:
++	extends RefCounted
++	var border_mesh: BoxMesh
++	var body_mesh: BoxMesh
++	var face_mesh: PlaneMesh
++	var border_material: StandardMaterial3D
++	var body_material: StandardMaterial3D
++
+ var face: MeshInstance3D
+ var _border: MeshInstance3D
++var _shared_resources: SharedResources
++
++
++static func create_shared_resources() -> SharedResources:
++	# These resources contain no card state and remain immutable after construction.
++	var resources := SharedResources.new()
++	resources.border_mesh = BoxMesh.new()
++	resources.border_mesh.size = Vector3(1.11, 0.018, 1.65)
++	resources.body_mesh = BoxMesh.new()
++	resources.body_mesh.size = Vector3(1.035, 0.035, 1.575)
++	resources.face_mesh = PlaneMesh.new()
++	resources.face_mesh.size = Vector2(1.06, 1.59)
++	resources.border_material = StandardMaterial3D.new()
++	resources.border_material.albedo_color = CITRON
++	resources.border_material.roughness = 0.9
++	resources.body_material = StandardMaterial3D.new()
++	resources.body_material.albedo_color = PAPER.darkened(0.09)
++	resources.body_material.roughness = 0.9
++	return resources
++
++
++func set_shared_resources(resources: SharedResources) -> void:
++	assert(not is_inside_tree() and resources != null)
++	_shared_resources = resources
+ 
+ 
+ func _ready() -> void:
+-	_border = _box(Vector3(1.11, 0.018, 1.65), CITRON)
++	assert(_shared_resources != null)
++	_border = _box(_shared_resources.border_mesh, _shared_resources.border_material)
+ 	_border.position.y = -0.023
+ 	_border.visible = false
+-	_box(Vector3(1.035, 0.035, 1.575), PAPER.darkened(0.09))
++	_box(_shared_resources.body_mesh, _shared_resources.body_material)
+ 	face = MeshInstance3D.new()
+-	var plane := PlaneMesh.new()
+-	plane.size = Vector2(1.06, 1.59)
+-	face.mesh = plane
++	face.mesh = _shared_resources.face_mesh
+ 	face.position.y = 0.02
+ 	add_child(face)
+ 
+@@ -47,14 +79,9 @@
+ 		to_global(Vector3(0.53, 0.03, 0.795)), to_global(Vector3(-0.53, 0.03, 0.795))]
+ 
+ 
+-func _box(dimensions: Vector3, color: Color) -> MeshInstance3D:
++func _box(mesh: BoxMesh, material: StandardMaterial3D) -> MeshInstance3D:
+ 	var instance := MeshInstance3D.new()
+-	var mesh := BoxMesh.new()
+-	mesh.size = dimensions
+ 	instance.mesh = mesh
+-	var material := StandardMaterial3D.new()
+-	material.albedo_color = color
+-	material.roughness = 0.9
+ 	instance.material_override = material
+ 	add_child(instance)
+ 	return instance
+--- a/godot/renderer/presentations/three_d/table.gd
++++ b/godot/renderer/presentations/three_d/table.gd
+@@ -20,6 +20,7 @@
+ var _world: Node3D
+ var _camera: Camera3D
+ var _cards: Node3D
++var _card_resources: Card3D.SharedResources
+ var _ornament: Node3D
+ var _hits: Control
+ var _card_bindings: Array = []
+@@ -482,7 +483,7 @@
+ 		return
+ 	if game.latestClaim != null:
+ 		for index in range(int(game.latestClaim.cardCount)):
+-			var card = Card3D.new()
++			var card = _create_card()
+ 			_cards.add_child(card)
+ 			card.position = Vector3(index * 0.1, 0.08 + index * 0.035, -0.25)
+ 			card.rotation_degrees.y = -8 + index * 8
+@@ -494,9 +495,17 @@
+ 				card.id in _state.selectedCardIds, 1.65)
+ 
+ 
++func _create_card():
++	if _card_resources == null:
++		_card_resources = Card3D.create_shared_resources()
++	var card = Card3D.new()
++	card.set_shared_resources(_card_resources)
++	return card
++
++
+ func _add_card(card_data: Dictionary, index: int, count: int, face_up: bool, private_card: bool, selected: bool,
+ 	depth: float, table_rank: String = "") -> void:
+-	var card = Card3D.new()
++	var card = _create_card()
+ 	_cards.add_child(card)
+ 	if not private_card:
+ 		card.add_to_group("partydeck_public_card")
+@@ -947,6 +956,7 @@
+ 
+ func _exit_tree() -> void:
+ 	RenderingServer.frame_pre_draw.disconnect(_prepare_viewport_frame)
++	_card_resources = null
+ 	if is_instance_valid(_feedback):
+ 		_feedback.stop()
+ 	_state = {}
