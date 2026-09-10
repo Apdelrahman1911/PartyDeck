@@ -67,9 +67,19 @@ func store_state(state: Dictionary) -> void:
 		_bring_hand_requested = false
 
 
-func apply_state(state: Dictionary) -> void:
-	_render(state)
-	_applied_revision = _controller.revision
+func apply_state(state: Dictionary) -> bool:
+	_applied_revision = ""
+	var applying_controller := _controller
+	if not is_inside_tree() or is_queued_for_deletion() or not is_instance_valid(applying_controller):
+		return false
+	var applying_revision: String = applying_controller.revision
+	if not _render(state):
+		return false
+	if not is_inside_tree() or is_queued_for_deletion() or not is_instance_valid(applying_controller) \
+		or _controller != applying_controller or applying_controller.revision != applying_revision:
+		return false
+	_applied_revision = applying_revision
+	return true
 
 
 func _controls_current() -> bool:
@@ -78,7 +88,7 @@ func _controls_current() -> bool:
 		and bool(_state.get("foreground", false)) and not bool(_state.get("closed", true))
 
 
-func _render(state: Dictionary) -> void:
+func _render(state: Dictionary) -> bool:
 	var same_page: bool = not state.game.is_empty() and _last_page_phase == state.game.phase \
 		and _last_page_round == int(state.game.roundNumber)
 	if not same_page:
@@ -90,9 +100,9 @@ func _render(state: Dictionary) -> void:
 		_feedback.stop()
 		_clear(_cards)
 		_clear(_hits)
-		return
+		return false
 	if state.game.is_empty():
-		return
+		return false
 	if not state.foreground or not state.soundEnabled:
 		_feedback.stop()
 	if not state.foreground:
@@ -113,6 +123,7 @@ func _render(state: Dictionary) -> void:
 	set_process(true)
 	_last_page_phase = state.game.phase
 	_last_page_round = int(state.game.roundNumber)
+	return true
 
 
 func _make_stage() -> void:

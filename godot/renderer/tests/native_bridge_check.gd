@@ -72,6 +72,8 @@ func _run() -> void:
 	ordinary.free()
 	for mode in ["2d", "3d"]:
 		await _check_lifetime(mode)
+		await _check_application_currentness(mode)
+		await _check_ready_removal(mode)
 		await _check_frame_boundary(mode)
 		await _check_before_first_frame(mode, false)
 		await _check_before_first_frame(mode, true)
@@ -104,6 +106,7 @@ func _check_lifetime(mode: String) -> void:
 	_check(bridge.diagnostics.size() == 1 and bridge.diagnostics[0].requestId == "17", mode + ": diagnostic request reaches the callback")
 	if bridge.diagnostics.size() == 1:
 		var diagnostic: Dictionary = bridge.diagnostics[0]
+		_check(diagnostic.sceneStateApplied, mode + ": ordinary mounted scene reports completed state application")
 		_check(diagnostic.handConcealed and diagnostic.privateFaceCount == 0 and diagnostic.privateLabelCount == 0,
 			mode + ": initial diagnostics confirm private bindings are absent")
 		_check(diagnostic.coordinateSpace == "root_viewport" and is_equal_approx(diagnostic.viewport.width, 720.0 / 1.75),
@@ -124,12 +127,14 @@ func _check_lifetime(mode: String) -> void:
 	bridge.diagnostics_requested.emit("19")
 	if _check(bridge.diagnostics.size() == 3, mode + ": diagnostics remain callable while backgrounded"):
 		var concealed: Dictionary = bridge.diagnostics.back()
+		_check(not concealed.sceneStateApplied, mode + ": pending background diagnostics remain immediate and noncurrent")
 		_check(not concealed.foreground and concealed.handConcealed and not controller.presentation_state().controls.canSendAction,
 			mode + ": background commands synchronously conceal controller state and reject input")
 	await process_frame
 	await process_frame
 	bridge.diagnostics_requested.emit("20")
-	_check(bridge.diagnostics.size() == 4 and bridge.diagnostics.back().privateFaceCount == 0 \
+	_check(bridge.diagnostics.size() == 4 and bridge.diagnostics.back().sceneStateApplied \
+		and bridge.diagnostics.back().privateFaceCount == 0 \
 		and bridge.diagnostics.back().privateLabelCount == 0,
 		mode + ": the next engine frame removes private scene bindings")
 	_check(bridge.events.size() == 1, mode + ": local changes and diagnostics emit no authority intent")
@@ -139,6 +144,7 @@ func _check_lifetime(mode: String) -> void:
 	await process_frame
 	await process_frame
 	_check(main._presentation == null, mode + ": Close removes the scene while processing is paused")
+	_check(not _diagnostic_applied(main), mode + ": closed cleanup cannot report an applied presentation")
 	root.remove_child(main)
 	main.queue_free()
 	Engine.unregister_singleton("PartyDeckBridge")
@@ -146,6 +152,95 @@ func _check_lifetime(mode: String) -> void:
 	root.content_scale_factor = 1.0
 	await process_frame
 	bridge.free()
+
+
+func _check_application_currentness(mode: String) -> void:
+	await process_frame
+	var bridge := OrdinaryBridge.new()
+	bridge.launch = FileAccess.get_file_as_string(_fixtures.path_join("launch-%s.json" % mode)) \
+		.replace('"canReturnToLobby":false', '"canReturnToLobby":true') \
+		.replace('"reduceMotion":false', '"reduceMotion":true')
+	Engine.register_singleton("PartyDeckBridge", bridge)
+	var main: Node = load("res://main.tscn").instantiate()
+	var ready_observations: Array[Dictionary] = []
+	main.bridge_event.connect(func(document: String) -> void:
+		if JSON.parse_string(document).get("type") == "ready":
+			main.controller.reveal_hand()
+			ready_observations.append(JSON.parse_string(main.diagnostics_document()))
+	)
+	root.add_child(main)
+	_check(not _diagnostic_applied(main), mode + ": launch has no applied scene before its first frame")
+	await process_frame
+	_check(ready_observations.size() == 1 and not ready_observations[0].sceneStateApplied \
+		and not _diagnostic_applied(main), mode + ": a Ready callback cannot stamp its newer controller state as applied")
+	_check(await _wait_applied(main) and _private_faces(main) > 0,
+		mode + ": the next ordinary application binds the reentrant revealed state")
+	var table: Node = main._presentation
+	var revision: String = main.controller.revision
+	table.redraw_requested.emit()
+	_check(not _diagnostic_applied(main) and main.controller.revision == revision,
+		mode + ": a layout redraw invalidates application even at the same authority revision")
+	_check(await _wait_applied(main), mode + ": ordinary redraw can establish a new applied stamp")
+	var construction_observations: Array[Dictionary] = []
+	var during_construction := func(child: Node) -> void:
+		if child.name == "LobbyConfirmation" and construction_observations.is_empty():
+			_foreground(main, false)
+			construction_observations.append(JSON.parse_string(main.diagnostics_document()))
+	table.child_entered_tree.connect(during_construction)
+	table._request_lobby()
+	await process_frame
+	table.child_entered_tree.disconnect(during_construction)
+	_check(construction_observations.size() == 1 and not construction_observations[0].sceneStateApplied \
+		and not construction_observations[0].foreground and not _diagnostic_applied(main),
+		mode + ": a state callback during actual scene construction invalidates the in-flight application")
+	_check(await _wait_applied(main) and _private_faces(main) == 0,
+		mode + ": background reconciliation eventually applies the concealed bindings")
+	if mode == "2d":
+		table._built = false
+		table.redraw_requested.emit()
+		await process_frame
+		_check(not _diagnostic_applied(main), "2d: an incomplete actual scene apply cannot stamp success")
+		table._built = true
+		table.redraw_requested.emit()
+		_check(await _wait_applied(main), "2d: a later successful actual scene apply establishes currentness")
+	main._scene_generation = main.MAX_SCENE_GENERATION - 1
+	table.redraw_requested.emit()
+	await process_frame
+	table.redraw_requested.emit()
+	await process_frame
+	_check(main._scene_generation == main.MAX_SCENE_GENERATION and not _diagnostic_applied(main),
+		mode + ": generation exhaustion saturates without accepting an old or wrapped stamp")
+	await _dispose_main(main, bridge)
+
+
+func _check_ready_removal(mode: String) -> void:
+	await process_frame
+	var bridge := OrdinaryBridge.new()
+	bridge.launch = FileAccess.get_file_as_string(_fixtures.path_join("launch-%s.json" % mode))
+	Engine.register_singleton("PartyDeckBridge", bridge)
+	var main: Node = load("res://main.tscn").instantiate()
+	main.bridge_event.connect(func(document: String) -> void:
+		if JSON.parse_string(document).get("type") == "ready":
+			root.remove_child(main)
+	)
+	root.add_child(main)
+	await process_frame
+	_check(not main.is_inside_tree() and not main._scene_state_is_applied() and bridge.events.size() == 1,
+		mode + ": removal during Ready delivery cannot restore an applied stamp after cleanup")
+	await _dispose_main(main, bridge)
+
+
+func _diagnostic_applied(main: Node) -> bool:
+	var diagnostic: Dictionary = JSON.parse_string(main.diagnostics_document())
+	return diagnostic.sceneStateApplied
+
+
+func _wait_applied(main: Node) -> bool:
+	for _frame in 8:
+		if _diagnostic_applied(main):
+			return true
+		await process_frame
+	return _diagnostic_applied(main)
 
 
 func _check_frame_boundary(mode: String) -> void:
@@ -288,6 +383,7 @@ func _check_before_first_frame(mode: String, fail_initialization: bool) -> void:
 	else:
 		_check(bridge.events.is_empty() and main._presentation == null,
 			mode + ": Close before the first frame prevents both mounting and Ready")
+	_check(not _diagnostic_applied(main), mode + ": initialization early exit cannot stamp scene application")
 	await _dispose_main(main, bridge)
 
 
@@ -327,7 +423,9 @@ func _restore_integer_tokens(value: Variant) -> void:
 
 
 func _dispose_main(main: Node, bridge: OrdinaryBridge) -> void:
-	root.remove_child(main)
+	if main.is_inside_tree():
+		root.remove_child(main)
+	_check(not main._scene_state_is_applied(), "A detached root has no applied scene stamp")
 	_check(not _foreground(main, true), "A detached root rejects bridge commands")
 	main.queue_free()
 	Engine.unregister_singleton("PartyDeckBridge")

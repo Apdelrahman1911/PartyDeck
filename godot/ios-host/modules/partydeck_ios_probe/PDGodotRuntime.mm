@@ -64,7 +64,7 @@ static const BOOL PDSDLEnabled = NO;
 
 // This lifecycle is audited for the frozen trusted content, including its
 // imported resources. A different pack requires a new content/source review.
-static NSString *const PDQualifiedRetainedPackSHA256 = @"a47392b4ca50e0433e1f42043b9473b08e9641d24117e251a4ab88e11027e3db";
+static NSString *const PDQualifiedRetainedPackSHA256 = @"91eeb2fba17dd291564bf2e005f85c0924f813f044f945297f10b281e608b2e6";
 
 static NSString *PDPackSHA256(NSString *path) {
 	NSDictionary *attributes = [NSFileManager.defaultManager attributesOfItemAtPath:path error:nil];
@@ -285,10 +285,10 @@ static NSArray<NSNumber *> *PDDiagnosticRect(id value) {
 
 static NSDictionary *PDSanitizedDiagnostics(NSDictionary *value, NSString *presentationID, NSString *mode) {
 	if (!PDKeys(value, @[ @"schemaVersion", @"requestId", @"sequence", @"presentationId", @"revision", @"presentationMode",
-			@"coordinateSpace", @"foreground", @"viewport", @"handConcealed", @"selectedCount", @"privateFaceCount", @"privateLabelCount", @"controls" ]) ||
+			@"coordinateSpace", @"foreground", @"sceneStateApplied", @"viewport", @"handConcealed", @"selectedCount", @"privateFaceCount", @"privateLabelCount", @"controls" ]) ||
 			!PDVersion(value[@"schemaVersion"]) || ![value[@"presentationId"] isEqual:presentationID] || ![value[@"presentationMode"] isEqual:mode] ||
 			![value[@"coordinateSpace"] isEqual:@"root_viewport"] || !PDCounter(value[@"requestId"]) || !PDCounter(value[@"sequence"]) || !PDCounter(value[@"revision"]) ||
-			!PDBoolean(value[@"foreground"]) || !PDBoolean(value[@"handConcealed"]) ||
+			!PDBoolean(value[@"foreground"]) || !PDBoolean(value[@"sceneStateApplied"]) || !PDBoolean(value[@"handConcealed"]) ||
 			!PDNumberInRange(value[@"selectedCount"], 0, 3, YES) || !PDNumberInRange(value[@"privateFaceCount"], 0, 30, YES) ||
 			!PDNumberInRange(value[@"privateLabelCount"], 0, 60, YES)) {
 		return nil;
@@ -321,7 +321,8 @@ static NSDictionary *PDSanitizedDiagnostics(NSDictionary *value, NSString *prese
 	// value, or state document can enter the native receipt through this channel.
 	return @{ @"schemaVersion": @1, @"requestId": value[@"requestId"], @"sequence": value[@"sequence"],
 		@"presentationId": presentationID, @"revision": value[@"revision"], @"presentationMode": mode,
-		@"coordinateSpace": @"root_viewport", @"foreground": value[@"foreground"], @"handConcealed": value[@"handConcealed"],
+		@"coordinateSpace": @"root_viewport", @"foreground": value[@"foreground"], @"sceneStateApplied": value[@"sceneStateApplied"],
+		@"handConcealed": value[@"handConcealed"],
 		@"viewport": @{ @"width": @([viewport[@"width"] doubleValue]), @"height": @([viewport[@"height"] doubleValue]) },
 		@"selectedCount": @([value[@"selectedCount"] intValue]), @"privateFaceCount": @([value[@"privateFaceCount"] intValue]),
 		@"privateLabelCount": @([value[@"privateLabelCount"] intValue]), @"controls": safeControls };
@@ -1115,7 +1116,8 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 }
 
 - (BOOL)hasConcealedCurrentDiagnostics {
-	return _rendererDiagnostics && _concealedDiagnosticIteration > _lastStateMutationIteration &&
+	return _rendererDiagnostics && [_rendererDiagnostics[@"sceneStateApplied"] boolValue] &&
+			_concealedDiagnosticIteration > _lastStateMutationIteration &&
 			[_rendererDiagnostics[@"handConcealed"] boolValue] && [_rendererDiagnostics[@"selectedCount"] intValue] == 0 &&
 			[_rendererDiagnostics[@"privateFaceCount"] intValue] == 0 && [_rendererDiagnostics[@"privateLabelCount"] intValue] == 0 &&
 			[_rendererDiagnostics[@"revision"] isEqual:_revision] && [_rendererDiagnostics[@"foreground"] boolValue];

@@ -16,7 +16,7 @@ def diagnostics():
     return {
         "schemaVersion": 1, "requestId": "3", "sequence": "5", "presentationId": "entry-a",
         "revision": "9007199254740993", "presentationMode": "2d", "coordinateSpace": "root_viewport",
-        "foreground": True, "viewport": {"width": 720, "height": 1200}, "handConcealed": False,
+        "foreground": True, "sceneStateApplied": True, "viewport": {"width": 720, "height": 1200}, "handConcealed": False,
         "selectedCount": 1, "privateFaceCount": 2, "privateLabelCount": 2,
         "controls": [
             {"group": "partydeck_hand_card", "cardIndex": 0, "rect": [20, 300, 100, 200],
@@ -58,6 +58,21 @@ class DiagnosticsEvidenceTest(unittest.TestCase):
                 value = diagnostics()
                 value[key] = wrong
                 validate_diagnostics(value, "entry-a", "2d")
+
+    def test_scene_application_flag_is_required_and_strictly_boolean(self):
+        value = diagnostics()
+        del value["sceneStateApplied"]
+        with self.assertRaises(CheckFailure):
+            validate_diagnostics(value, "entry-a", "2d")
+        for wrong in (0, 1, None, "true", "false"):
+            with self.subTest(value=wrong), self.assertRaises(CheckFailure):
+                value = diagnostics()
+                value["sceneStateApplied"] = wrong
+                validate_diagnostics(value, "entry-a", "2d")
+        for applied in (False, True):
+            value = diagnostics()
+            value["sceneStateApplied"] = applied
+            self.assertIs(validate_diagnostics(value, "entry-a", "2d")["sceneStateApplied"], applied)
 
     def test_counter_precision_cannot_be_silently_lost(self):
         for wrong in (9007199254740993, 9007199254740992.0, "01", "1e3", "-1", "9223372036854775808"):

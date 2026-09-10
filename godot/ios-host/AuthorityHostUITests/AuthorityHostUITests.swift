@@ -316,14 +316,13 @@ final class AuthorityHostUITests: XCTestCase {
             }
             try validateGeometry(value, app)
             guard let target = control(action, in: value, cardIndex: cardIndex) else { throw Failure.controlMissing }
+            // Preserve the target and state before any enabled or geometry assertion.
+            attachJSON(["action": action, "control": target, "measurements": value], name: "Observed control before input: \(action)")
             try require(flag("enabled", target), "The actual Godot control must be enabled.")
             let rect = try rectangle(target["rect"])
             let clip = try rectangle(target["clipRect"])
             let viewport = viewportSize(value)
             let bounds = CGRect(origin: .zero, size: viewport)
-            // Preserve the rejected geometry too. A fit assertion must not
-            // leave only the preceding successful tap in the native evidence.
-            attachJSON(["action": action, "control": target, "measurements": value], name: "Observed control before input: \(action)")
             try require(bounds.insetBy(dx: -0.5, dy: -0.5).contains(clip), "The reported clip must stay inside the root viewport.")
             let surface = element("godot-surface", app)
             if flag("visible", target), clip.insetBy(dx: -0.5, dy: -0.5).contains(rect) {
@@ -331,7 +330,8 @@ final class AuthorityHostUITests: XCTestCase {
                 let latest = metrics(app)
                 try require(latest["revision"] as? String == value["revision"] as? String &&
                     !flag("privacyCoverVisible", native(latest)), "Input must target the current uncovered authority view.")
-                guard let latestTarget = control(action, in: latest, cardIndex: cardIndex),
+                guard flag("sceneStateApplied", diagnostics(latest)),
+                      let latestTarget = control(action, in: latest, cardIndex: cardIndex),
                       NSDictionary(dictionary: target).isEqual(to: latestTarget), viewportSize(latest) == viewport else {
                     unsettledObservations += 1
                     value = try await currentDiagnostics(app, after: value)
@@ -410,6 +410,7 @@ final class AuthorityHostUITests: XCTestCase {
             let diagnostic = self.diagnostics(value)
             let newer = after == nil || self.counter("sequence", diagnostic) > self.counter("sequence", self.diagnostics(after!))
             return value["lifecycle"] as? String == "READY" && !diagnostic.isEmpty && newer &&
+                self.flag("sceneStateApplied", diagnostic) &&
                 diagnostic["revision"] as? String == value["revision"] as? String &&
                 self.flag("foreground", diagnostic) == foreground && self.flag("foreground", value) == foreground &&
                 (!foreground || (self.flag("renderLoopActive", self.native(value)) && !self.flag("privacyCoverVisible", self.native(value)) &&
@@ -420,7 +421,9 @@ final class AuthorityHostUITests: XCTestCase {
     @MainActor
     private func waitSnapshot(_ app: XCUIApplication, _ message: String, timeout: TimeInterval = 15,
                               predicate: ([String: Any]) -> Bool) async throws -> [String: Any] {
+        let startedAt = ProcessInfo.processInfo.systemUptime
         let deadline = Date().addingTimeInterval(timeout)
+        var lastRejectedMeasurements: [String: Any] = [:]
         while Date() < deadline {
             let value = metrics(app)
             if app.state == .notRunning {
@@ -434,8 +437,14 @@ final class AuthorityHostUITests: XCTestCase {
                 throw Failure.nativeFailure
             }
             if predicate(value) { return value }
+            lastRejectedMeasurements = value
             try await Task.sleep(nanoseconds: 150_000_000)
         }
+        // A later capture can show a newer diagnostic than the rejected read.
+        // Preserve the observation that exhausted the unchanged wait deadline.
+        attachJSON(["timeoutSeconds": timeout,
+                    "elapsedSeconds": ProcessInfo.processInfo.systemUptime - startedAt,
+                    "measurements": lastRejectedMeasurements], name: "Last rejected authority wait observation")
         capture("Failed authority wait", app)
         XCTFail(message)
         throw Failure.waitTimedOut
@@ -499,10 +508,21 @@ final class AuthorityHostUITests: XCTestCase {
         guard applicationState == .runningForeground else {
             return ["observedApplicationState": applicationState.rawValue]
         }
-        guard let document = element("authority-metrics", app).value as? String,
+        // AuthorityScreen emits this identifier on Text, and the native AX
+        // record identifies it as StaticText. Keep unrelated element types out
+        // of this frequent query; freshness still comes from currentDiagnostics.
+        // https://developer.apple.com/documentation/xcuiautomation/xcuielementtypequeryprovider/statictexts
+        let queryStartedAt = ProcessInfo.processInfo.systemUptime
+        let queriedValue = app.staticTexts.matching(identifier: "authority-metrics").firstMatch.value
+        let querySeconds = ProcessInfo.processInfo.systemUptime - queryStartedAt
+        guard let document = queriedValue as? String,
               let bytes = document.data(using: .utf8),
-              var value = try? JSONSerialization.jsonObject(with: bytes) as? [String: Any] else { return [:] }
+              var value = try? JSONSerialization.jsonObject(with: bytes) as? [String: Any] else {
+            return ["observedApplicationState": applicationState.rawValue,
+                    "observedMetricsQuerySeconds": querySeconds]
+        }
         value["observedApplicationState"] = applicationState.rawValue
+        value["observedMetricsQuerySeconds"] = querySeconds
         lastObservedMetrics = value
         return value
     }

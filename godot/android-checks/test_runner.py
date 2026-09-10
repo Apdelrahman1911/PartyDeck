@@ -121,6 +121,15 @@ class HostSchemaTest(unittest.TestCase):
         value["submittedCommands"] = "0"
         self.assertFalse(active(validate_host(value)))
 
+    def test_pending_scene_is_preserved_but_cannot_authorize_scene_input(self):
+        value = host()
+        value["diagnostics"]["sceneStateApplied"] = False
+        observed = validate_host(value)
+        self.assertIs(observed["diagnostics"]["sceneStateApplied"], False)
+        self.assertFalse(active(observed))
+        value["diagnostics"]["sceneStateApplied"] = True
+        self.assertTrue(active(validate_host(value)))
+
     def test_host_cannot_accept_future_or_wrong_lifetime_diagnostics(self):
         for field, replacement in (("presentationId", "another-entry"), ("revision", "1"), ("requestId", "2")):
             value = host()

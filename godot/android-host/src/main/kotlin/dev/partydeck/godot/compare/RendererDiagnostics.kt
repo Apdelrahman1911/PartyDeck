@@ -25,7 +25,7 @@ internal object RendererDiagnostics {
         validateBoundedJson(document, PartyDeckBridgePlugin.MAX_DIAGNOSTICS_BYTES)
         val value = JSONObject(document)
         value.requireKeys("schemaVersion", "requestId", "sequence", "presentationId", "revision",
-            "presentationMode", "coordinateSpace", "foreground", "viewport", "handConcealed",
+            "presentationMode", "coordinateSpace", "foreground", "sceneStateApplied", "viewport", "handConcealed",
             "selectedCount", "privateFaceCount", "privateLabelCount", "controls")
         require(value.integer("schemaVersion", 1..1) == 1)
         require(value.get("presentationId") == presentationId)
@@ -60,6 +60,7 @@ internal object RendererDiagnostics {
             .put("presentationMode", mode)
             .put("coordinateSpace", "root_viewport")
             .put("foreground", value.boolean("foreground"))
+            .put("sceneStateApplied", value.boolean("sceneStateApplied"))
             .put("viewport", JSONObject()
                 .put("width", viewport.dimension("width"))
                 .put("height", viewport.dimension("height")))

@@ -4,6 +4,7 @@ signal bridge_event(document: String)
 
 const Controller = preload("res://scripts/renderer_controller.gd")
 const MAX_BYTES := 65_536
+const MAX_SCENE_GENERATION := 9_223_372_036_854_775_807
 const PRESENTATIONS := {
 	"2d": "res://presentations/two_d/table.tscn",
 	"3d": "res://presentations/three_d/table.tscn",
@@ -22,6 +23,8 @@ var _manual_bridge := false
 var _waiting: CanvasLayer
 var _native_display_scale_valid := true
 var _state_pending := false
+var _scene_generation := 0
+var _applied_scene_generation := -1
 var _pending_ready := ""
 var _quiet_pending := false
 var _return_rendering_suspended := false
@@ -103,6 +106,8 @@ func _on_state(state: Dictionary) -> void:
 	# only the latest CPU state here; resource work belongs to Main::iteration.
 	if not is_inside_tree() or is_queued_for_deletion():
 		return
+	# Invalidate before CPU state storage or any callback can observe new state.
+	_request_reconcile()
 	_update_return_rendering(state.returnToLobbyPending)
 	if is_instance_valid(_presentation) and _presentation.has_method("store_state"):
 		_presentation.store_state(state)
@@ -110,10 +115,10 @@ func _on_state(state: Dictionary) -> void:
 		_pending_ready = ""
 	if not state.soundEnabled:
 		_quiet_pending = true
-	_request_reconcile()
 
 
 func _request_reconcile() -> void:
+	_invalidate_scene_state()
 	if is_inside_tree() and not is_queued_for_deletion():
 		_state_pending = true
 		set_process(true)
@@ -127,10 +132,12 @@ func _process(_delta: float) -> void:
 	_state_pending = false
 	# PROCESS_MODE_ALWAYS also drains Close/resume while SceneTree is paused.
 	# No signal arguments are queued, so background bursts cannot retain old hands.
-	_reconcile_state(controller.presentation_state())
+	_applied_scene_generation = -1
+	_reconcile_state(controller.presentation_state(), _scene_generation)
 
 
-func _reconcile_state(state: Dictionary) -> void:
+func _reconcile_state(state: Dictionary, generation: int) -> void:
+	var applying_controller := controller
 	if _quiet_pending:
 		_quiet_pending = false
 		_quiet_feedback()
@@ -173,7 +180,11 @@ func _reconcile_state(state: Dictionary) -> void:
 		if _waiting != null:
 			_waiting.queue_free()
 			_waiting = null
-	_presentation.apply_state(state)
+	var applying_presentation := _presentation
+	if applying_presentation.apply_state(state) != true:
+		return
+	if controller != applying_controller or _presentation != applying_presentation or not _scene_target_live():
+		return
 	# Scene bindings are reconciled before this frame can draw. Native hosts keep
 	# their immediate opaque cover until a fresh foreground frame has completed.
 	if not state.foreground or not state.soundEnabled:
@@ -184,6 +195,30 @@ func _reconcile_state(state: Dictionary) -> void:
 		var ready := _pending_ready
 		_pending_ready = ""
 		_deliver_bridge_event(ready)
+	# Ready delivery and scene callbacks can synchronously change state or detach
+	# this lifetime. Never stamp their newer generation with the older bindings.
+	if generation == _scene_generation and generation < MAX_SCENE_GENERATION \
+		and controller == applying_controller and _presentation == applying_presentation and _scene_target_live():
+		_applied_scene_generation = generation
+
+
+func _invalidate_scene_state() -> void:
+	_applied_scene_generation = -1
+	# Saturate and keep observations noncurrent at exhaustion; never wrap a stamp.
+	if _scene_generation < MAX_SCENE_GENERATION:
+		_scene_generation += 1
+
+
+func _scene_target_live() -> bool:
+	return is_inside_tree() and not is_queued_for_deletion() and is_instance_valid(controller) \
+		and controller.is_inside_tree() and not controller.is_queued_for_deletion() \
+		and is_instance_valid(_presentation) and _presentation.is_inside_tree() \
+		and not _presentation.is_queued_for_deletion() and _presentation.get_parent() == self
+
+
+func _scene_state_is_applied() -> bool:
+	return _scene_target_live() and _scene_generation < MAX_SCENE_GENERATION \
+		and _applied_scene_generation == _scene_generation
 
 
 func _on_bridge_event(document: String) -> void:
@@ -221,6 +256,7 @@ func _notification(what: int) -> void:
 
 
 func _remove_presentation() -> void:
+	_applied_scene_generation = -1
 	if is_instance_valid(_presentation):
 		if _presentation.has_signal("redraw_requested") \
 			and _presentation.redraw_requested.is_connected(_request_reconcile):
@@ -233,6 +269,7 @@ func _remove_presentation() -> void:
 
 
 func _exit_tree() -> void:
+	_invalidate_scene_state()
 	_state_pending = false
 	_pending_ready = ""
 	_quiet_pending = false
@@ -326,6 +363,8 @@ func diagnostics_document(request_id: String = "0") -> String:
 		"schemaVersion": 1, "requestId": request_id, "sequence": str(_diagnostic_sequence), "presentationId": controller.presentation_id,
 		"revision": controller.revision, "presentationMode": state.presentationMode,
 		"coordinateSpace": "root_viewport", "foreground": state.foreground,
+		# State application is separate from later container layout and native draw completion.
+		"sceneStateApplied": _scene_state_is_applied(),
 		"viewport": {"width": viewport.size.x, "height": viewport.size.y},
 		"handConcealed": not state.handVisible, "selectedCount": selected_count,
 		"privateFaceCount": private_faces, "privateLabelCount": private_labels, "controls": controls,

@@ -450,7 +450,8 @@ final class RetainedHostUITests: XCTestCase {
             if flag("visible", target) && clip.insetBy(dx: -0.5, dy: -0.5).contains(rect) {
                 try require(rect.width >= 44 && rect.height >= 44, "The actual touch target must be at least 44 points.")
                 let latest = metrics(app)
-                guard latest["revision"] as? String == revision, !flag("privacyCoverVisible", native(latest)),
+                guard flag("sceneStateApplied", renderer(latest)),
+                      latest["revision"] as? String == revision, !flag("privacyCoverVisible", native(latest)),
                       let current = control(action, in: latest, cardIndex: cardIndex), NSDictionary(dictionary: target).isEqual(to: current) else { continue }
                 surface.coordinate(withNormalizedOffset: CGVector(dx: rect.midX / size.width, dy: rect.midY / size.height)).tap()
                 return value
@@ -490,7 +491,8 @@ final class RetainedHostUITests: XCTestCase {
             let scene = self.renderer(value)
             let newer = after == nil || self.counter("sequence", scene) > self.counter("sequence", self.renderer(after!)) ||
                 value["presentationID"] as? String != after?["presentationID"] as? String
-            return value["lifecycle"] as? String == "READY" && self.flag("readyConfirmed", value) && !scene.isEmpty && newer &&
+            return value["lifecycle"] as? String == "READY" && self.flag("readyConfirmed", value) && !scene.isEmpty &&
+                self.flag("sceneStateApplied", scene) && newer &&
                 scene["presentationId"] as? String == value["presentationID"] as? String &&
                 scene["revision"] as? String == value["revision"] as? String &&
                 self.flag("foreground", scene) == foreground && self.flag("foreground", value) == foreground &&
@@ -501,7 +503,9 @@ final class RetainedHostUITests: XCTestCase {
     @MainActor
     private func wait(_ app: XCUIApplication, _ message: String, timeout: TimeInterval = 15,
                       predicate: ([String: Any]) -> Bool) async throws -> [String: Any] {
+        let startedAt = ProcessInfo.processInfo.systemUptime
         let deadline = Date().addingTimeInterval(timeout)
+        var lastRejectedMeasurements: [String: Any] = [:]
         while Date() < deadline {
             let value = metrics(app)
             if app.state == .notRunning || !(value["failure"] as? String ?? "").isEmpty || flag("quarantined", native(value)) || native(value)["state"] as? String == "failed" {
@@ -510,8 +514,14 @@ final class RetainedHostUITests: XCTestCase {
                 throw Failure.native
             }
             if predicate(value) { return value }
+            lastRejectedMeasurements = value
             try await Task.sleep(nanoseconds: 150_000_000)
         }
+        // Screenshot capture can wait on the app and observe a later frame.
+        // Keep the rejected value before requesting any further app work.
+        attach(["timeoutSeconds": timeout,
+                "elapsedSeconds": ProcessInfo.processInfo.systemUptime - startedAt,
+                "measurements": lastRejectedMeasurements], "Last rejected retained wait observation")
         capture("Failed retained observation", app)
         XCTFail(message)
         throw Failure.timeout
@@ -560,9 +570,19 @@ final class RetainedHostUITests: XCTestCase {
     @MainActor
     private func metrics(_ app: XCUIApplication) -> [String: Any] {
         guard app.state == .runningForeground else { return ["observedApplicationState": app.state.rawValue] }
-        guard let document = element("retained-metrics", app).value as? String, let data = document.data(using: .utf8),
-              var value = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else { return [:] }
+        // RetainedHost emits this identifier on Text; native AX records StaticText.
+        // A typed query does not remove the need for current native readiness.
+        // https://developer.apple.com/documentation/xcuiautomation/xcuielementtypequeryprovider/statictexts
+        let queryStartedAt = ProcessInfo.processInfo.systemUptime
+        let queriedValue = app.staticTexts.matching(identifier: "retained-metrics").firstMatch.value
+        let querySeconds = ProcessInfo.processInfo.systemUptime - queryStartedAt
+        guard let document = queriedValue as? String, let data = document.data(using: .utf8),
+              var value = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+            return ["observedApplicationState": app.state.rawValue,
+                    "observedMetricsQuerySeconds": querySeconds]
+        }
         value["observedApplicationState"] = app.state.rawValue
+        value["observedMetricsQuerySeconds"] = querySeconds
         lastForegroundObservation = value
         return value
     }

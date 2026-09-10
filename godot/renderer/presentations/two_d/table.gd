@@ -76,9 +76,19 @@ func store_state(state: Dictionary) -> void:
 	if not state.soundEnabled:
 		_pending_sound = ""
 
-func apply_state(state: Dictionary) -> void:
-	_render(state)
-	_applied_revision = _controller.revision
+func apply_state(state: Dictionary) -> bool:
+	_applied_revision = ""
+	var applying_controller := _controller
+	if not is_inside_tree() or is_queued_for_deletion() or not is_instance_valid(applying_controller):
+		return false
+	var applying_revision: String = applying_controller.revision
+	if not _render(state):
+		return false
+	if not is_inside_tree() or is_queued_for_deletion() or not is_instance_valid(applying_controller) \
+		or _controller != applying_controller or applying_controller.revision != applying_revision:
+		return false
+	_applied_revision = applying_revision
+	return true
 
 func _controls_current() -> bool:
 	return is_inside_tree() and not is_queued_for_deletion() and is_instance_valid(_controller) \
@@ -270,10 +280,10 @@ func _action(title: String, identifier: String, method: String, secondary: bool 
 	)
 	return button
 
-func _render(next_state: Dictionary) -> void:
+func _render(next_state: Dictionary) -> bool:
 	store_state(next_state)
 	if not _built:
-		return
+		return false
 	_text_scale = float(_state.get("textScale", 1.0))
 	var game: Dictionary = _state.get("game", {})
 	var controls: Dictionary = _state.get("controls", {})
@@ -357,6 +367,7 @@ func _render(next_state: Dictionary) -> void:
 		_pending_sound = ""
 	_last_hand_visible = hand_visible
 	_last_phase = phase
+	return true
 
 func _scroll_hand_into_view(revealed: bool) -> void:
 	await get_tree().process_frame

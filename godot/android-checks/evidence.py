@@ -121,7 +121,7 @@ class Rect:
 
 def validate_diagnostics(value, presentation_id, mode):
     fields = {"schemaVersion", "requestId", "sequence", "presentationId", "revision", "presentationMode",
-              "coordinateSpace", "foreground", "viewport", "handConcealed", "selectedCount",
+              "coordinateSpace", "foreground", "sceneStateApplied", "viewport", "handConcealed", "selectedCount",
               "privateFaceCount", "privateLabelCount", "controls"}
     require(isinstance(value, dict) and set(value) == fields
             and type(value.get("schemaVersion")) is int and value["schemaVersion"] == 1,
@@ -131,7 +131,7 @@ def validate_diagnostics(value, presentation_id, mode):
     require(value.get("coordinateSpace") == "root_viewport", "Unknown renderer coordinate space.")
     for name in ("requestId", "sequence", "revision"):
         counter(value.get(name), f"diagnostics.{name}")
-    for name in ("foreground", "handConcealed"):
+    for name in ("foreground", "sceneStateApplied", "handConcealed"):
         boolean(value.get(name), f"diagnostics.{name}")
     for name, maximum in (("selectedCount", 3), ("privateFaceCount", 30), ("privateLabelCount", 60)):
         integer(value.get(name), f"diagnostics.{name}", maximum=maximum)
@@ -330,7 +330,7 @@ def active(value):
         and not value["coverVisible"] and not value["bridgeClosed"]
         and counter(value["receivedEvents"], "received events") > 0
         and counter(value["submittedCommands"], "submitted commands") > 0
-        and diagnostic is not None and diagnostic["foreground"]
+        and diagnostic is not None and diagnostic["foreground"] and diagnostic["sceneStateApplied"]
         and surface is not None and surface["width"] > 0 and surface["height"] > 0
         and diagnostic["requestId"] == value["diagnosticsRequested"]
         and diagnostic["revision"] == value["revision"]

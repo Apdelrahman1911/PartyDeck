@@ -69,6 +69,7 @@ func _mount(mode: String, finished: bool = false) -> Node:
 	_check(main._presentation != null and _events.size() == 1 and _events[0].type == "ready",
 		mode + ": a fresh lifetime mounts the presentation and emits Ready")
 	_check(Engine.get_frames_drawn() > before, mode + ": a fresh lifetime actually draws")
+	_check(_diagnostic_applied(main), mode + ": a fresh ordinary scene has applied its state")
 	return main
 
 
@@ -112,6 +113,7 @@ func _pending_then_refresh(mode: String, prior_enabled: bool) -> void:
 		and _events.back().expectedRevision == revision,
 		mode + ": lobby intent is delivered synchronously with its existing revision")
 	_check(_node_ids(table) == nodes, mode + ": terminal CPU state does not mutate scene resources off-frame")
+	_check(not _diagnostic_applied(main), mode + ": terminal CPU state immediately invalidates retained scene bindings")
 	controller.return_to_lobby()
 	_check(_events.size() == 2, mode + ": duplicate pending return cannot emit another intent")
 	await process_frame
@@ -119,6 +121,8 @@ func _pending_then_refresh(mode: String, prior_enabled: bool) -> void:
 	await process_frame
 	_check(Engine.get_frames_drawn() == frames and _node_ids(table) == nodes,
 		mode + ": pending return does not draw or rebuild the retained page while logic advances")
+	_check(not main._state_pending and not _diagnostic_applied(main),
+		mode + ": draining terminal pending work does not stamp the unchanged retained controls")
 	var stale := _view(main, revision.to_int())
 	_check(not main.receive_document(JSON.stringify(stale)) and not RenderingServer.render_loop_enabled,
 		mode + ": same bridge revision remains rejected and cannot release drawing")
@@ -131,11 +135,13 @@ func _pending_then_refresh(mode: String, prior_enabled: bool) -> void:
 		and not controller.presentation_state().get("returnToLobbyPending", false) \
 		and RenderingServer.render_loop_enabled == prior_enabled,
 		mode + ": accepted fresh view restores the exact prior rendering setting")
+	_check(not _diagnostic_applied(main), mode + ": accepted refresh remains noncurrent until scene application")
 	await process_frame
 	await process_frame
 	await process_frame
 	_check(_node_ids(table) != nodes and (not prior_enabled or Engine.get_frames_drawn() > frames),
 		mode + ": a rejected return can reconcile its refreshed page and resume prior drawing")
+	_check(_diagnostic_applied(main), mode + ": refreshed scene application restores currentness after terminal retention")
 	await _dispose(main)
 	_check(RenderingServer.render_loop_enabled == prior_enabled,
 		mode + ": removal preserves an already restored prior rendering setting")
@@ -173,6 +179,7 @@ func _cancel_pending(mode: String, cancellation: String) -> void:
 		if cancellation in ["close", "failure"]:
 			_check(controller.presentation_state().closed and main._presentation == null,
 				mode + ": terminal cleanup still removes the presentation")
+			_check(not _diagnostic_applied(main), mode + ": closed or failed cleanup has no applied presentation")
 		else:
 			controller.return_to_lobby()
 			_check(_events.size() == 2, mode + ": backgrounded stale return remains rejected")
@@ -224,9 +231,15 @@ func _restore_integer_tokens(value: Variant) -> void:
 			_restore_integer_tokens(child)
 
 
+func _diagnostic_applied(main: Node) -> bool:
+	var diagnostic: Dictionary = JSON.parse_string(main.diagnostics_document())
+	return diagnostic.sceneStateApplied
+
+
 func _dispose(main: Node) -> void:
 	if main.is_inside_tree():
 		root.remove_child(main)
+	_check(not main._scene_state_is_applied(), "Detached terminal lifetime has no applied scene stamp")
 	main.queue_free()
 	paused = false
 	await process_frame
