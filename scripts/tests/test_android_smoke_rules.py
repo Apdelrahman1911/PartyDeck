@@ -162,6 +162,16 @@ class RulesSmokeTest(unittest.TestCase):
                 self.assertEqual("true", action.get("clickable"))
                 self.assertEqual(bounds, action.get("bounds"))
 
+    def test_clamped_parent_is_not_ready_even_when_its_label_and_bounds_fit(self):
+        # Actual optimized 1x capture from run 34428798269: the rounded bottom
+        # was cut off, but Android reported the parent only up to the scroll edge.
+        root = rules_tree("[42,1428][678,1516]", "[232,1458][488,1496]")
+        device = Replay(self.output)
+        self.assertIsNotNone(device.find(root, "rules-practice", LABEL))
+        parent = next(node for node in root.iter("node") if node.get("clickable") == "true")
+        self.assertTrue(device.visible(parent))
+        self.assertIsNone(device.find_action(root, "rules-practice", LABEL))
+
     def test_disabled_foreign_and_nonclickable_ancestors_are_rejected(self):
         device = Replay(self.output)
         for attribute, value in (("enabled", "false"), ("package", "android"), ("clickable", "false")):
@@ -181,13 +191,35 @@ class RulesSmokeTest(unittest.TestCase):
         saved = ET.parse(self.output / "rules-action.xml").getroot()
         self.assertIsNotNone(device.find_action(saved, "rules-practice", LABEL))
 
+    def test_clamped_parent_scrolls_before_capture_and_tap_uses_fresh_geometry(self):
+        device = Replay(self.output, frames=[
+            rules_tree("[42,1428][678,1516]", "[232,1458][488,1496]"), rules_tree(),
+        ])
+        initial = device.dump_ui()
+        old_parent = next(node for node in initial.iter("node") if node.get("clickable") == "true")
+        device.capture("rules-action", "rules-practice", LABEL, scroll="down", action=True)
+        self.assertEqual("swipe", device.commands[0][2])
+        self.assertEqual(("exec-out", "screencap", "-p"), device.commands[-1])
+        with self.assertRaisesRegex(RuntimeError, "current visible viewport"):
+            device.tap_node(old_parent, "rules-practice")
+        saved = ET.parse(self.output / "rules-action.xml").getroot()
+        self.assertIsNotNone(device.find_action(saved, "rules-practice", LABEL))
+        device.tap_node(device.wait_for_action("rules-practice", LABEL, scroll="down"), "rules-practice")
+        self.assertEqual(("shell", "input", "tap", "360", "1404"), device.commands[-1])
+
     def test_permanently_clipped_button_times_out_without_a_capture(self):
-        device = Replay(self.output, frames=[rules_tree("[42,1481][678,1565]", "[232,1511][488,1516]")])
-        with self.assertRaisesRegex(RuntimeError, "fully visible enabled action"):
-            device.capture("rules-action", "rules-practice", LABEL, scroll="down", action=True)
-        self.assertEqual(16, sum(command[:3] == ("shell", "input", "swipe") for command in device.commands))
-        self.assertFalse((self.output / "rules-action.png").exists())
-        self.assertNotIn(("exec-out", "screencap", "-p"), device.commands)
+        for bounds, label in (
+            ("[42,1481][678,1565]", "[232,1511][488,1516]"),
+            ("[42,1428][678,1516]", "[232,1458][488,1496]"),
+        ):
+            with self.subTest(bounds=bounds):
+                device = Replay(self.output, frames=[rules_tree(bounds, label)])
+                with self.assertRaisesRegex(RuntimeError, "fully visible enabled action.*within 45 seconds"):
+                    device.capture("rules-action", "rules-practice", LABEL, scroll="down", action=True)
+                self.assertEqual(16, sum(command[:3] == ("shell", "input", "swipe") for command in device.commands))
+                self.assertFalse((self.output / "rules-action.png").exists())
+                self.assertNotIn(("exec-out", "screencap", "-p"), device.commands)
+                self.assertFalse(any(command[:3] == ("shell", "input", "tap") for command in device.commands))
 
     def test_rules_cta_enters_game_and_confirms_leave_at_both_scales(self):
         for prefix in ("rules", "large-text-rules"):

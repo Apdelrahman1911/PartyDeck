@@ -19,6 +19,7 @@ QR_DESCRIPTION = "Private table invitation QR code. Share and Copy are also avai
 INVALID_INVITATION = "That invitation does not look right. Scan or paste the full invitation again."
 INVITATION_HINT = "Only accept an invitation from the person hosting your table."
 TRANSIENT_ERRORS = (subprocess.SubprocessError, OSError, ET.ParseError)
+ACTION_VIEWPORT_CLEARANCE_PX = 8
 
 
 def redacted(text):
@@ -230,11 +231,18 @@ class AndroidSmoke:
                 or action.get("enabled") == "false" or not self.visible(action)
                 or intersect_bounds(node_bounds(label), node_bounds(action)) != node_bounds(label)):
             return None
+        # A clickable parent's reported bounds can themselves be clamped at the
+        # scroll edge. Require a small visible gap in display pixels, rather than
+        # treating edge contact as evidence that the whole button was captured.
+        bounds, viewport = node_bounds(action), self.viewport(action)
+        if min(bounds[0] - viewport[0], bounds[1] - viewport[1],
+               viewport[2] - bounds[2], viewport[3] - bounds[3]) < ACTION_VIEWPORT_CLEARANCE_PX:
+            return None
         return action
 
     def wait_for_action(self, tag, fallback_text=None, scroll=None, seconds=45):
         return self.wait_until(
-            f"Expected a fully visible enabled action {tag!r}",
+            f"Expected a fully visible enabled action {tag!r} with {ACTION_VIEWPORT_CLEARANCE_PX}px viewport clearance",
             lambda root: self.find_action(root, tag, fallback_text), seconds, scroll,
         )
 
