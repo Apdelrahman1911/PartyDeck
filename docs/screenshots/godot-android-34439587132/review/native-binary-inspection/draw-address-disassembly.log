@@ -1,0 +1,57 @@
+
+/tmp/partydeck-native-3d-failure-investigation/native-binary/libgodot_android.so:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+00000000022b0400 <WebPPictureRescale@@Base+0x1150d0>:
+ 22b0400:	02 0f                	add    (%rdi),%cl
+ 22b0402:	84 42 05             	test   %al,0x5(%rdx)
+ 22b0405:	00 00                	add    %al,(%rax)
+ 22b0407:	e9 4b 05 00 00       	jmp    22b0957 <WebPPictureRescale@@Base+0x115627>
+ 22b040c:	45 85 f6             	test   %r14d,%r14d
+ 22b040f:	74 3a                	je     22b044b <WebPPictureRescale@@Base+0x11511b>
+ 22b0411:	8b 41 1c             	mov    0x1c(%rcx),%eax
+ 22b0414:	31 c9                	xor    %ecx,%ecx
+ 22b0416:	85 c0                	test   %eax,%eax
+ 22b0418:	0f 94 c1             	sete   %cl
+ 22b041b:	3d 01 00 01 00       	cmp    $0x10001,%eax
+ 22b0420:	8d 94 09 03 14 00 00 	lea    0x1403(%rcx,%rcx,1),%edx
+ 22b0427:	b8 05 14 00 00       	mov    $0x1405,%eax
+ 22b042c:	0f 43 d0             	cmovae %eax,%edx
+ 22b042f:	8b bd 78 fb ff ff    	mov    -0x488(%rbp),%edi
+ 22b0435:	44 89 e6             	mov    %r12d,%esi
+ 22b0438:	31 c9                	xor    %ecx,%ecx
+ 22b043a:	e8 11 48 27 02       	call   4524c50 <glDrawElements@plt>
+ 22b043f:	4c 8b bd 70 fc ff ff 	mov    -0x390(%rbp),%r15
+ 22b0446:	e9 75 06 00 00       	jmp    22b0ac0 <WebPPictureRescale@@Base+0x115790>
+ 22b044b:	8b bd 78 fb ff ff    	mov    -0x488(%rbp),%edi
+ 22b0451:	31 f6                	xor    %esi,%esi
+ 22b0453:	44 89 e2             	mov    %r12d,%edx
+ 22b0456:	e8 45 49 27 02       	call   4524da0 <glDrawArrays@plt>
+ 22b045b:	eb e2                	jmp    22b043f <WebPPictureRescale@@Base+0x11510f>
+ 22b045d:	31 c9                	xor    %ecx,%ecx
+ 22b045f:	83 bd 50 fc ff ff 00 	cmpl   $0x0,-0x3b0(%rbp)
+ 22b0466:	0f 9f c1             	setg   %cl
+ 22b0469:	4c 89 ef             	mov    %r13,%rdi
+ 22b046c:	48 8d 35 ed 70 29 fe 	lea    -0x1d68f13(%rip),%rsi        # 547560 <_binary_classes_dex_size@@Base+0x545244>
+ 22b0473:	ba e4 00 00 00       	mov    $0xe4,%edx
+ 22b0478:	4c 8d 0d 62 f7 23 fe 	lea    -0x1dc089e(%rip),%r9        # 4efbe1 <_binary_classes_dex_size@@Base+0x4ed8c5>
+ 22b047f:	6a 00                	push   $0x0
+ 22b0481:	6a 00                	push   $0x0
+ 22b0483:	48 8d 05 db 5b 1b fe 	lea    -0x1e4a425(%rip),%rax        # 466065 <_binary_classes_dex_size@@Base+0x463d49>
+ 22b048a:	50                   	push   %rax
+ 22b048b:	48 8d 05 5e 67 15 fe 	lea    -0x1ea98a2(%rip),%rax        # 406bf0 <_binary_classes_dex_size@@Base+0x4048d4>
+ 22b0492:	e9 04 08 00 00       	jmp    22b0c9b <WebPPictureRescale@@Base+0x11596b>
+ 22b0497:	31 c9                	xor    %ecx,%ecx
+ 22b0499:	83 bd 50 fc ff ff 00 	cmpl   $0x0,-0x3b0(%rbp)
+ 22b04a0:	0f 9f c1             	setg   %cl
+ 22b04a3:	4c 89 ef             	mov    %r13,%rdi
+ 22b04a6:	48 8d 35 b3 70 29 fe 	lea    -0x1d68f4d(%rip),%rsi        # 547560 <_binary_classes_dex_size@@Base+0x545244>
+ 22b04ad:	ba e4 00 00 00       	mov    $0xe4,%edx
+ 22b04b2:	4c 8d 0d 28 f7 23 fe 	lea    -0x1dc08d8(%rip),%r9        # 4efbe1 <_binary_classes_dex_size@@Base+0x4ed8c5>
+ 22b04b9:	6a 00                	push   $0x0
+ 22b04bb:	6a 00                	push   $0x0
+ 22b04bd:	48                   	rex.W
+ 22b04be:	8d                   	.byte 0x8d
+ 22b04bf:	05                   	.byte 0x5

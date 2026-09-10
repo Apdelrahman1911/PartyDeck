@@ -1,0 +1,170 @@
+{
+  "stage": "swift_authority_host_link",
+  "executable_sha256": "12bd8a8c1e5798e06a257236a80186e36cefda9a7bb9f3b6d132b1cfb0e8762a",
+  "inputs": {
+    "stage": "authority_host_inputs_only",
+    "framework_receipt": {
+      "stage": "authority_framework_compilation",
+      "target": "iosSimulatorArm64",
+      "configuration": "debugFramework",
+      "framework": {
+        "PartyDeckGodotBridge": {
+          "sha256": "580b45b44dc59289a65178fa8187f3512563a918294eb1c5262398b1a240ff95",
+          "bytes": 40739216
+        },
+        "Headers/PartyDeckGodotBridge.h": {
+          "sha256": "dddbb2ae23d1e87ebab18fa7c4f77326c3e370422b96f1e723c3e2f2cdde14fd",
+          "bytes": 179497
+        },
+        "Modules/module.modulemap": {
+          "sha256": "566a10ca59319c5510d030cc2418d21900d0cc724abd7627cfd65972aeec3a04",
+          "bytes": 149
+        },
+        "Info.plist": {
+          "sha256": "7873447ece8f8dab0760511eed41646ef12e940a3c7f70ec16acf7a394b6eb7a",
+          "bytes": 953
+        }
+      },
+      "archive": {
+        "name": "PartyDeckGodotBridge-simulator.framework.tar.gz",
+        "sha256": "415a00a90b5b60239574084c3335c1c1957c920d7a6b71525db45d6d65fc8147",
+        "bytes": 8148398
+      },
+      "framework_compiled": true,
+      "expected_facade_declarations_present": true,
+      "swift_module_import_typechecked": true,
+      "swift_authority_host_compiled": false,
+      "ios_authority_runtime_executed": false,
+      "kmp_factory_qualified": false
+    },
+    "engine_receipt": {
+      "engine_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+      "upstream_archive": "libgodot.ios.template_debug.arm64.simulator.a",
+      "artifact": "libpartydeck_godot_ios_probe.a",
+      "sha256": "e4d72f49557856f8085032704b0ce2acdfb29a767f6b26985b4b8e10cd1f8b46",
+      "bytes": 191543584,
+      "auxiliary_archives": [
+        {
+          "artifact": "libpartydeck_godot_camera.a",
+          "sha256": "be5b380ff3fb2b0df43c97ab7784672f027980785add26ef3b0b6501e146be21",
+          "bytes": 82392,
+          "upstream_archive": "libgodot_camera.ios.template_debug.arm64.simulator.a"
+        }
+      ],
+      "stage": "engine_compile_only",
+      "path_overrides_enabled": true,
+      "bootstrap_arguments": "native_owned_bundle_paths",
+      "native_module_sources": {
+        "partydeck_ios_probe/AppleExportPlugins.mm": "4fd8706afd3616e59221e12969d2a16380f3f8984077b0ff2a59dba0a74f30fc",
+        "partydeck_ios_probe/PDGodotRuntime.h": "781d0ea7d206d91a49316f30eeb905caec4b5715f5222fc363ed1b03127a647e",
+        "partydeck_ios_probe/PDGodotRuntime.mm": "4edfc4505cb15e40a6a728831ace7bcc1fbe2f7c103b3640aeb7aab1d32868f9",
+        "partydeck_ios_probe/SCsub": "781f9abdcb30c34d0271bcc21372c6b2ca59545594b8f59625bf05cd9c52f564",
+        "partydeck_ios_probe/SDLUIKitDeviceQueries.mm": "de234fbd5d28790e329f915417e99422ea1a66276de085e70ff7afcbe64962fe",
+        "partydeck_ios_probe/config.py": "a7d49c9d253183baf38500b6427d3dde8465df1c176d14ddae240ea086e67d3f",
+        "partydeck_ios_probe/engine_surface_probe.mm": "797dd6eb76527d4e3a5b5366667bfca0c720e07078d0e071710a6086254e7e6b",
+        "partydeck_ios_probe/register_types.h": "f4550220fcfb8bbd2bb42118823987254b40d6f9293cee61bb972acaa82e4c9c",
+        "partydeck_ios_probe/strict_json.h": "c3bff31433102904886a4fb1adcee109c912b7532f21a46f7e1b1ae629c9d074"
+      },
+      "ios_runtime_executed": false,
+      "kmp_factory_qualified": false
+    },
+    "framework_receipt_file": {
+      "sha256": "63fa579353a79ca068af283060e58eddd3cf1291ac6cb72e77afe2636130b518",
+      "bytes": 1138
+    },
+    "resources": {
+      "stage": "host_resources_only",
+      "fixture_sha256": "c43b9b8d379b1dcc22311d269745da9e67c3904bae6251636ed8e9abcb22cbb3",
+      "fixture_manifest_sha256": "79b71d6dd1d9ff43fd667482f4323aec9a1bf7720d4964315cdb3dab1a68038e",
+      "fixture_authority": "LastLightEngine.start/viewFor/apply/advanceRound",
+      "diagnostic_sources": {
+        "ProbeScene/project.godot": "e0eaa6ea4d92d7d1786ae82e2523f6b1084262559c90490ee1dd59639aae93e7",
+        "ProbeScene/main.tscn": "1666abce420c16f190937a650fdea6ef2e57ad429ee321c5bee27ad03f8b2885",
+        "ProbeScene/main.gd": "59d6f9e57c3b15ac0393d7a6ed6fd75b212002097fc6e22da515c8cc6d7dc05b",
+        "ProbeResources/MissingMainScene/project.godot": "ccda6894238df7cc451cce666655fea1f48e4d676b9888e5cef27f527cc813c6"
+      },
+      "license_bundle_sha256": {
+        "ANDROID_NDK_LLVM_NOTICE.txt": "f96f763beb66a7ba7a667647fc64c0226ace875e590c831fdd9579ec1c1d91e1",
+        "GODOT_CA_BUNDLE_SOURCE.txt": "33a22c7286f7752131636a11fb9feb3fb12ecd02f1a9b3e54e5901349d37362e",
+        "GODOT_CA_CERTIFICATES_SOURCE.txt": "c68edd43fa15b39be0aa724eaf28cdfa9df22a83eb74f66614b93993bdcde1f7",
+        "GODOT_COPYRIGHT.txt": "cb1980c88089573bcacd7221d777c689bb8bbd778799f24c27fca0fe5f774d6d",
+        "GODOT_LICENSE.txt": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80",
+        "NOTICE_PROVENANCE.json": "c702de9b8f36aa7144902b816a74b8a4718dc34245bfbbe3cb056fed4f65f062",
+        "README.txt": "1ccab8a45f6dab1e3a9117b8f29c56fe67ec969b5c3083fe1a0027eabf3b9231"
+      },
+      "optional_shared_pack": {
+        "sha256": "6599f825a418f9d2a7049b3ba9325e8e0dcb474685262899079231b7ec955938",
+        "bytes": 1542296
+      },
+      "ios_runtime_executed": false,
+      "kmp_factory_qualified": false
+    },
+    "swift_authority_host_compiled": false,
+    "ios_authority_runtime_executed": false,
+    "kmp_factory_qualified": false
+  },
+  "engine": {
+    "engine_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "upstream_archive": "libgodot.ios.template_debug.arm64.simulator.a",
+    "artifact": "libpartydeck_godot_ios_probe.a",
+    "sha256": "e4d72f49557856f8085032704b0ce2acdfb29a767f6b26985b4b8e10cd1f8b46",
+    "bytes": 191543584,
+    "auxiliary_archives": [
+      {
+        "artifact": "libpartydeck_godot_camera.a",
+        "sha256": "be5b380ff3fb2b0df43c97ab7784672f027980785add26ef3b0b6501e146be21",
+        "bytes": 82392,
+        "upstream_archive": "libgodot_camera.ios.template_debug.arm64.simulator.a"
+      }
+    ],
+    "stage": "engine_compile_only",
+    "path_overrides_enabled": true,
+    "bootstrap_arguments": "native_owned_bundle_paths",
+    "native_module_sources": {
+      "partydeck_ios_probe/AppleExportPlugins.mm": "4fd8706afd3616e59221e12969d2a16380f3f8984077b0ff2a59dba0a74f30fc",
+      "partydeck_ios_probe/PDGodotRuntime.h": "781d0ea7d206d91a49316f30eeb905caec4b5715f5222fc363ed1b03127a647e",
+      "partydeck_ios_probe/PDGodotRuntime.mm": "4edfc4505cb15e40a6a728831ace7bcc1fbe2f7c103b3640aeb7aab1d32868f9",
+      "partydeck_ios_probe/SCsub": "781f9abdcb30c34d0271bcc21372c6b2ca59545594b8f59625bf05cd9c52f564",
+      "partydeck_ios_probe/SDLUIKitDeviceQueries.mm": "de234fbd5d28790e329f915417e99422ea1a66276de085e70ff7afcbe64962fe",
+      "partydeck_ios_probe/config.py": "a7d49c9d253183baf38500b6427d3dde8465df1c176d14ddae240ea086e67d3f",
+      "partydeck_ios_probe/engine_surface_probe.mm": "797dd6eb76527d4e3a5b5366667bfca0c720e07078d0e071710a6086254e7e6b",
+      "partydeck_ios_probe/register_types.h": "f4550220fcfb8bbd2bb42118823987254b40d6f9293cee61bb972acaa82e4c9c",
+      "partydeck_ios_probe/strict_json.h": "c3bff31433102904886a4fb1adcee109c912b7532f21a46f7e1b1ae629c9d074"
+    },
+    "ios_runtime_executed": false,
+    "kmp_factory_qualified": false
+  },
+  "swift_authority_host_compiled": true,
+  "ios_authority_runtime_executed": false,
+  "last_light_gameplay_qualified": false,
+  "dormant_engine_reentry_qualified": false,
+  "kmp_factory_qualified": false,
+  "device_metal_qualified": false,
+  "simulator_only": true,
+  "reference_full_matches": {
+    "executed": false,
+    "randomness": "reference_seed_2",
+    "presentations": [
+      {
+        "mode": "2d",
+        "text_scale": 1
+      },
+      {
+        "mode": "2d",
+        "text_scale": 2
+      },
+      {
+        "mode": "3d",
+        "text_scale": 1
+      },
+      {
+        "mode": "3d",
+        "text_scale": 2
+      }
+    ]
+  },
+  "secure_default": {
+    "launch_and_renderer_exit_executed": false,
+    "full_match_qualified": false
+  }
+}

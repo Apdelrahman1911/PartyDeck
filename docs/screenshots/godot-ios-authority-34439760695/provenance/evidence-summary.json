@@ -1,0 +1,1622 @@
+{
+  "schemaVersion": 1,
+  "runId": 34439760695,
+  "headSha": "f85f8158054ab70cc3f981c23a6854bb7b0630b6",
+  "runUrl": "https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34439760695",
+  "ciConclusion": "failure",
+  "collectionComplete": true,
+  "artifactsDownloaded": [
+    "godot-ios-authority-gameplay",
+    "godot-ios-host-engine",
+    "godot-ios-host-framework",
+    "godot-ios-host-renderer",
+    "godot-ios-host-renderer-evidence"
+  ],
+  "jobs": [
+    {
+      "id": 102752150775,
+      "name": "Export both real presentations",
+      "conclusion": "success"
+    },
+    {
+      "id": 102752150941,
+      "name": "Compile the native embedded engine",
+      "conclusion": "success"
+    },
+    {
+      "id": 102752150945,
+      "name": "Compile the real Kotlin authority framework",
+      "conclusion": "success"
+    },
+    {
+      "id": 102752630851,
+      "name": "Link the Swift caller and exercise native gameplay",
+      "conclusion": "failure"
+    }
+  ],
+  "rawJobLogs": [
+    {
+      "path": "/tmp/partydeck-engine-ci/34439760695/job-102752150775.log",
+      "bytes": 23837,
+      "sha256": "f367d5c5ebeb770d8c11fb2e50613bd594111b7786e9a616e08c2839d89b223d"
+    },
+    {
+      "path": "/tmp/partydeck-engine-ci/34439760695/job-102752150941.log",
+      "bytes": 441106,
+      "sha256": "6877549d66a918d7c19434f4ae6f3c34e2dc5a85d6cef3faf51c69d59875cf1c"
+    },
+    {
+      "path": "/tmp/partydeck-engine-ci/34439760695/job-102752150945.log",
+      "bytes": 46528,
+      "sha256": "6c5212a71db515d8cfc9d58823820057feb66ea22d7cf81cb42caf6459501523"
+    },
+    {
+      "path": "/tmp/partydeck-engine-ci/34439760695/job-102752630851.log",
+      "bytes": 503555,
+      "sha256": "943ecce3d67d3d0750b428865dc7ed86ca376b5256c9d1c1cf7e27ab5dba5290"
+    }
+  ],
+  "tests": {
+    "executed": 5,
+    "passed": 3,
+    "failed": 2,
+    "skipped": 0,
+    "cases": [
+      {
+        "name": "testReferenceMatchIn2DAt200Percent()",
+        "identifier": "AuthorityHostUITests/testReferenceMatchIn2DAt200Percent()",
+        "duration": 64.92479598522186,
+        "issues": [
+          {
+            "testCaseRun_fk": 1,
+            "compactDescription": "failed: caught error: \"scrollBound\"",
+            "detailedDescription": null,
+            "issueType": "Thrown Error"
+          }
+        ],
+        "attachmentCount": 74,
+        "measurementCount": 7,
+        "geometryCount": 10,
+        "observedControlCount": 14,
+        "geometryByAction": {
+          "reveal": 4,
+          "card": 4,
+          "hide": 1,
+          "play": 1
+        },
+        "backgroundStates": [
+          {
+            "file": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/C6ED8B88-277A-424E-9EB2-03E9383C492D.json",
+            "timestamp": 1789017465.039,
+            "enteredBackground": true,
+            "observedApplicationState": 3
+          }
+        ],
+        "independentChecks": {},
+        "result": "failed",
+        "pid": 11029,
+        "lastExportedMeasurement": {
+          "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/9C844A48-19F9-46B6-B762-4EAF9A930E1F.json",
+          "bytes": 5301,
+          "sha256": "7cf21c62a7806a7bca4b6abec6302672eaf91d045d9800e102190e0831066835",
+          "name": "05 public outcome 2d text 2 measurements_0_A336A8CE-C638-4063-81BB-9730A82FEB08.json",
+          "timestamp": 1789017476.331,
+          "testIdentifier": "AuthorityHostUITests/testReferenceMatchIn2DAt200Percent()",
+          "value": {
+            "state": "running",
+            "mode": "2d",
+            "textScale": 2,
+            "referenceSeed2": true,
+            "foreground": true,
+            "observedApplicationState": 4,
+            "lifecycle": "READY",
+            "phase": "ROUND_ENDED",
+            "roundNumber": 1,
+            "revision": "2",
+            "roundsAdvanced": 0,
+            "acceptedViewerPlays": 1,
+            "acceptedViewerChallenges": 0,
+            "acceptedOpponentActions": 1,
+            "acceptedRendererEvents": 2,
+            "winnerId": "",
+            "lastOutcome": "ACCEPTED",
+            "authorityReleased": false,
+            "hostCounter": 0,
+            "native": {
+              "state": "running",
+              "foreground": true,
+              "bootstrapCount": 1,
+              "readyEvents": 1,
+              "intentEvents": 1,
+              "exitEvents": 0,
+              "iterations": 872,
+              "drawDepth": 0,
+              "backgroundTransitions": 4,
+              "privacyCoverCount": 2,
+              "privacyCoverVisible": false,
+              "renderLoopActive": true,
+              "cleanupCount": 0,
+              "cleanupDepth": 0,
+              "viewReleased": false,
+              "controllerReleased": false,
+              "osSingletonPresent": true,
+              "bridgeRegistered": true,
+              "quarantined": false,
+              "queuedBytes": 0,
+              "queuedCommands": 0,
+              "queuedEvents": 0,
+              "idleTimerDisabled": true,
+              "previousIdleTimerDisabled": false,
+              "idleTimerPolicyRestored": false,
+              "failure": "",
+              "rejectedEvents": 0,
+              "rejectedDiagnostics": 0,
+              "unansweredDiagnostics": 0,
+              "kmpFactoryQualified": false,
+              "reinitializationQualified": false
+            },
+            "rendererDiagnostics": {
+              "presentationId": "7DCF69DF-94FA-4A73-AC9B-D69B5EFD029E",
+              "presentationMode": "2d",
+              "revision": "2",
+              "sequence": "50",
+              "requestId": "51",
+              "foreground": true,
+              "handConcealed": true,
+              "selectedCount": 0,
+              "privateFaceCount": 0,
+              "privateLabelCount": 0
+            }
+          }
+        },
+        "selectedMeasurementReferences": [
+          {
+            "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/78564B8F-E37D-4BE8-B392-16329034D46D.json",
+            "bytes": 5294,
+            "sha256": "862f3016e3f2b350d399a2ec57889f25e956d675888c0d5ffc64dbcd6291b8ee",
+            "name": "Native cover with paused private bindings cleared measurements_0_48E92A14-9563-4F30-ABB1-7C0753F5159F.json",
+            "timestamp": 1789017457.74,
+            "testIdentifier": "AuthorityHostUITests/testReferenceMatchIn2DAt200Percent()"
+          },
+          {
+            "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/B62AE1A3-190D-454F-9E98-4BEE8374F3E7.json",
+            "bytes": 5289,
+            "sha256": "7ba64211d3086824008af12bef78d3e3e7770e110878c69d5f1bf835c669c7c3",
+            "name": "Same authority resumed with concealed cards measurements_0_8900AE3D-372E-48D7-8689-FE0A8090C738.json",
+            "timestamp": 1789017466.709,
+            "testIdentifier": "AuthorityHostUITests/testReferenceMatchIn2DAt200Percent()"
+          }
+        ],
+        "failureAnalysis": {
+          "classification": "Harness scrolling/stability budget exhausted after three synthesized gestures. No Next tap or authority rejection. The renderer is fully inside its clip at the last retained observation; stable full visibility is unproved.",
+          "frozenSource": "godot/ios-host/AuthorityHostUITests/AuthorityHostUITests.swift@f85f8158054ab70cc3f981c23a6854bb7b0630b6:247-317",
+          "throwLine": 317,
+          "sharedOuterAttempts": 8,
+          "gestureCount": 3,
+          "gestures": [
+            {
+              "testLogLine": 620,
+              "elapsedSeconds": 53.86,
+              "fromNormalized": [
+                0.5,
+                0.47
+              ],
+              "toNormalized": [
+                0.5,
+                0.81
+              ],
+              "fromLogical": [
+                189,
+                328
+              ],
+              "toLogical": [
+                189,
+                562
+              ]
+            },
+            {
+              "testLogLine": 646,
+              "elapsedSeconds": 57.75,
+              "fromNormalized": [
+                0.5,
+                0.47
+              ],
+              "toNormalized": [
+                0.5,
+                0.81
+              ],
+              "fromLogical": [
+                189,
+                328
+              ],
+              "toLogical": [
+                189,
+                562
+              ]
+            },
+            {
+              "testLogLine": 675,
+              "elapsedSeconds": 61.7,
+              "fromNormalized": [
+                0.5,
+                0.81
+              ],
+              "toNormalized": [
+                0.5,
+                0.47
+              ],
+              "fromLogical": [
+                189,
+                562
+              ],
+              "toLogical": [
+                189,
+                328
+              ]
+            }
+          ],
+          "gestureSharedParameters": {
+            "pressSeconds": 0.1,
+            "velocityLoggedPixelsPerSecond": 500,
+            "holdAtEndSeconds": 0,
+            "distanceLogicalPoints": 234,
+            "normalizationNote": "Normalized offsets are rounded as printed by XCTest; logical endpoints computed from the recorded clip and frozen source."
+          },
+          "loopReconstruction": {
+            "basis": "Inferred from exact frozen control flow, successive fresh metric sequence/iteration pairs, and three recorded gestures; loop counters were not explicitly logged.",
+            "attempts": [
+              {
+                "attempt": 1,
+                "candidateRendererSequence": 50,
+                "confirmedRendererSequence": 51,
+                "outcome": "drag down"
+              },
+              {
+                "attempt": 2,
+                "candidateRendererSequence": 54,
+                "confirmedRendererSequence": 55,
+                "outcome": "geometry changed; continue"
+              },
+              {
+                "attempt": 3,
+                "candidateRendererSequence": 55,
+                "confirmedRendererSequence": 56,
+                "outcome": "geometry changed; continue"
+              },
+              {
+                "attempt": 4,
+                "candidateRendererSequence": 56,
+                "confirmedRendererSequence": 57,
+                "outcome": "drag down"
+              },
+              {
+                "attempt": 5,
+                "candidateRendererSequence": 60,
+                "confirmedRendererSequence": 61,
+                "outcome": "geometry changed; continue"
+              },
+              {
+                "attempt": 6,
+                "candidateRendererSequence": 61,
+                "confirmedRendererSequence": 62,
+                "outcome": "geometry changed; continue"
+              },
+              {
+                "attempt": 7,
+                "candidateRendererSequence": 62,
+                "confirmedRendererSequence": 63,
+                "outcome": "drag up"
+              },
+              {
+                "attempt": 8,
+                "candidateRendererSequence": 65,
+                "confirmedRendererSequence": 66,
+                "outcome": "geometry changed to fully visible; continue exhausts bound"
+              }
+            ]
+          },
+          "actualNextTapProved": false,
+          "fullMatchProved": false,
+          "lastObservedRenderer": {
+            "sourceLine": 95480,
+            "utc": "2026-09-10 05:18:06.932487+0000",
+            "pid": "11029",
+            "acceptedDiagnostics": 67,
+            "rendererSequence": "66",
+            "requestId": "67",
+            "iterations": 1167,
+            "revision": "2",
+            "roundNumber": 1,
+            "phase": "ROUND_ENDED",
+            "foreground": true,
+            "nativeForeground": true,
+            "nativeState": "running",
+            "bootstrapCount": 1,
+            "backgroundTransitions": 4,
+            "privacyCoverCount": 2,
+            "privacyCoverVisible": false,
+            "renderLoopActive": true,
+            "presentationId": "7DCF69DF-94FA-4A73-AC9B-D69B5EFD029E",
+            "handConcealed": true,
+            "selectedCount": 0,
+            "privateFaceCount": 0,
+            "privateLabelCount": 0,
+            "acceptedViewerPlays": 1,
+            "acceptedViewerChallenges": 0,
+            "roundsAdvanced": 0,
+            "acceptedOpponentActions": 1,
+            "rejectedEvents": 0,
+            "failure": "",
+            "control": {
+              "cardIndex": -1,
+              "clipRect": [
+                16,
+                211,
+                346,
+                468
+              ],
+              "enabled": true,
+              "group": "partydeck_action_next_round",
+              "rect": [
+                16,
+                341,
+                338,
+                72
+              ],
+              "selected": false,
+              "visible": true
+            },
+            "fullyInsideClip": true,
+            "source": "/root/projects/PartyDeck/artifacts/evidence-storage/34439760695-xcresult-decoded/app-stdout-stderr-001.log",
+            "sourceSha256": "4d0d31a2a8b9dd585c836f64e7c6ab636c89732e79eeb83f1ea3bc4906bab817"
+          },
+          "observedNextControls": [
+            {
+              "attachment": {
+                "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/F00BCB36-6981-4D29-BF10-242057775ED3.json",
+                "bytes": 6097,
+                "sha256": "e8f2cca02516632657a77999e3796f1329b58492c7e45d1efad385edf9542afe",
+                "name": "Observed control before input next_round_0_CFDB0386-1B9E-464D-B7C1-0F9D710504A1.json",
+                "timestamp": 1789017477.342,
+                "testIdentifier": "AuthorityHostUITests/testReferenceMatchIn2DAt200Percent()"
+              },
+              "rendererSequence": "51",
+              "control": {
+                "cardIndex": -1,
+                "clipRect": [
+                  16,
+                  211,
+                  346,
+                  468
+                ],
+                "enabled": true,
+                "group": "partydeck_action_next_round",
+                "rect": [
+                  16,
+                  -235,
+                  338,
+                  72
+                ],
+                "selected": false,
+                "visible": false
+              }
+            },
+            {
+              "attachment": {
+                "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/2FEBF0B3-DB9B-46AB-A5AE-E0966BF8D6E3.json",
+                "bytes": 6091,
+                "sha256": "323c07df9c05190c28d9226fdcd4fa21529820cc14dd287b3484471ac8c4ddda",
+                "name": "Observed control before input next_round_0_4CD553EB-4AAF-44AD-BD85-10A298B13E7A.json",
+                "timestamp": 1789017481.232,
+                "testIdentifier": "AuthorityHostUITests/testReferenceMatchIn2DAt200Percent()"
+              },
+              "rendererSequence": "57",
+              "control": {
+                "cardIndex": -1,
+                "clipRect": [
+                  16,
+                  211,
+                  346,
+                  468
+                ],
+                "enabled": true,
+                "group": "partydeck_action_next_round",
+                "rect": [
+                  16,
+                  160,
+                  338,
+                  72
+                ],
+                "selected": false,
+                "visible": true
+              }
+            },
+            {
+              "attachment": {
+                "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/A0019D53-DD0B-43F4-834B-746838890B4C.json",
+                "bytes": 6090,
+                "sha256": "92638f2b6336e9b6f010c176ba861b545ecf00e8e272aa7a507ae53fd6cd5c55",
+                "name": "Observed control before input next_round_0_D14ABDE9-DD55-4883-9BED-2B36192FED38.json",
+                "timestamp": 1789017485.183,
+                "testIdentifier": "AuthorityHostUITests/testReferenceMatchIn2DAt200Percent()"
+              },
+              "rendererSequence": "63",
+              "control": {
+                "cardIndex": -1,
+                "clipRect": [
+                  16,
+                  211,
+                  346,
+                  468
+                ],
+                "enabled": true,
+                "group": "partydeck_action_next_round",
+                "rect": [
+                  16,
+                  675,
+                  338,
+                  72
+                ],
+                "selected": false,
+                "visible": true
+              }
+            }
+          ]
+        },
+        "scope": "Manual pause/Home/resume and one viewer play reached round 1/revision 2. First Next-round input, full match and close remain unproved."
+      },
+      {
+        "name": "testReferenceMatchIn2D()",
+        "identifier": "AuthorityHostUITests/testReferenceMatchIn2D()",
+        "duration": 98.8740029335022,
+        "issues": [],
+        "attachmentCount": 82,
+        "measurementCount": 10,
+        "geometryCount": 29,
+        "observedControlCount": 31,
+        "geometryByAction": {
+          "reveal": 5,
+          "card": 5,
+          "hide": 1,
+          "play": 2,
+          "next_round": 13,
+          "challenge": 2,
+          "lobby": 1
+        },
+        "backgroundStates": [
+          {
+            "file": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/92CED986-6556-4EA8-9250-6224A6AF97CF.json",
+            "timestamp": 1789017527.518,
+            "enteredBackground": true,
+            "observedApplicationState": 3
+          }
+        ],
+        "independentChecks": {
+          "closedAuthorityAndNativeOwnershipVerified": true,
+          "referenceCountsAndWinnerVerified": true,
+          "actualTouchCountsVerified": true,
+          "samePresentationPauseHomeResumeVerified": true
+        },
+        "result": "passed",
+        "pid": 12816,
+        "lastExportedMeasurement": {
+          "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/C4139F3B-2562-464E-9DFA-A99128C8D045.json",
+          "bytes": 2169,
+          "sha256": "64d93ba2471f73bf47603da4cecf329aa24312c3a8cf9243a9c905a6079ca9bf",
+          "name": "09 table returned through authority 2d text 1 measurements_0_54C61F61-747B-4EDA-9328-3D3F974E11B8.json",
+          "timestamp": 1789017586.988,
+          "testIdentifier": "AuthorityHostUITests/testReferenceMatchIn2D()",
+          "value": {
+            "state": "closed",
+            "mode": "2d",
+            "textScale": 1,
+            "referenceSeed2": true,
+            "foreground": false,
+            "observedApplicationState": 4,
+            "lifecycle": "CLOSED",
+            "phase": "FINISHED",
+            "roundNumber": 14,
+            "revision": "41",
+            "roundsAdvanced": 13,
+            "acceptedViewerPlays": 2,
+            "acceptedViewerChallenges": 2,
+            "acceptedOpponentActions": 24,
+            "acceptedRendererEvents": 19,
+            "winnerId": "seat-4",
+            "lastOutcome": "RETURN_TO_LOBBY",
+            "closeReason": "RETURN_TO_LOBBY",
+            "authorityReleased": true,
+            "hostCounter": 1,
+            "native": {
+              "state": "closed",
+              "foreground": true,
+              "bootstrapCount": 1,
+              "readyEvents": 1,
+              "intentEvents": 18,
+              "exitEvents": 0,
+              "iterations": 2586,
+              "drawDepth": 0,
+              "backgroundTransitions": 4,
+              "privacyCoverCount": 3,
+              "privacyCoverVisible": false,
+              "renderLoopActive": false,
+              "cleanupCount": 1,
+              "cleanupDepth": 0,
+              "viewReleased": true,
+              "controllerReleased": true,
+              "osSingletonPresent": false,
+              "bridgeRegistered": false,
+              "quarantined": false,
+              "queuedBytes": 0,
+              "queuedCommands": 0,
+              "queuedEvents": 0,
+              "idleTimerDisabled": false,
+              "previousIdleTimerDisabled": false,
+              "idleTimerPolicyRestored": true,
+              "failure": "",
+              "rejectedEvents": 0,
+              "rejectedDiagnostics": 0,
+              "unansweredDiagnostics": 0,
+              "kmpFactoryQualified": false,
+              "reinitializationQualified": false
+            }
+          }
+        },
+        "selectedMeasurementReferences": [
+          {
+            "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/57A1440B-7818-4C76-891C-CCD125ACAAE9.json",
+            "bytes": 5281,
+            "sha256": "a120c756566e302c74f0cc95551fcfc2af8799f56daa279d776f206cb5d12b6c",
+            "name": "Native cover with paused private bindings cleared measurements_0_93D90E98-9A41-4BDA-BE6A-108B8799D52E.json",
+            "timestamp": 1789017520.13,
+            "testIdentifier": "AuthorityHostUITests/testReferenceMatchIn2D()"
+          },
+          {
+            "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/B0DD0235-E419-4DC1-87A0-1FB7DE1A468D.json",
+            "bytes": 5277,
+            "sha256": "04fa7a6e4065721a367393cf156e1928ae873aebc106d83dac3095cf516c25e2",
+            "name": "Same authority resumed with concealed cards measurements_0_85E74BFC-D1F1-4736-903C-B4AE1048D9A6.json",
+            "timestamp": 1789017529.538,
+            "testIdentifier": "AuthorityHostUITests/testReferenceMatchIn2D()"
+          },
+          {
+            "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/5338AD43-F031-4B7C-89F0-DD8423D0C4C3.json",
+            "bytes": 5298,
+            "sha256": "85275baa40b3fa97e92f590f97f47158cb7c1c08c4f8953e1b8dde419c04d862",
+            "name": "07 real winner 2d text 1 measurements_0_9E54546E-F850-420A-A57E-D6DF36587CDD.json",
+            "timestamp": 1789017583.276,
+            "testIdentifier": "AuthorityHostUITests/testReferenceMatchIn2D()"
+          },
+          {
+            "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/C4139F3B-2562-464E-9DFA-A99128C8D045.json",
+            "bytes": 2169,
+            "sha256": "64d93ba2471f73bf47603da4cecf329aa24312c3a8cf9243a9c905a6079ca9bf",
+            "name": "09 table returned through authority 2d text 1 measurements_0_54C61F61-747B-4EDA-9328-3D3F974E11B8.json",
+            "timestamp": 1789017586.988,
+            "testIdentifier": "AuthorityHostUITests/testReferenceMatchIn2D()"
+          }
+        ],
+        "winnerMeasurement": {
+          "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/5338AD43-F031-4B7C-89F0-DD8423D0C4C3.json",
+          "bytes": 5298,
+          "sha256": "85275baa40b3fa97e92f590f97f47158cb7c1c08c4f8953e1b8dde419c04d862",
+          "name": "07 real winner 2d text 1 measurements_0_9E54546E-F850-420A-A57E-D6DF36587CDD.json",
+          "timestamp": 1789017583.276,
+          "testIdentifier": "AuthorityHostUITests/testReferenceMatchIn2D()",
+          "value": {
+            "state": "running",
+            "mode": "2d",
+            "textScale": 1,
+            "referenceSeed2": true,
+            "foreground": true,
+            "observedApplicationState": 4,
+            "lifecycle": "READY",
+            "phase": "FINISHED",
+            "roundNumber": 14,
+            "revision": "41",
+            "roundsAdvanced": 13,
+            "acceptedViewerPlays": 2,
+            "acceptedViewerChallenges": 2,
+            "acceptedOpponentActions": 24,
+            "acceptedRendererEvents": 18,
+            "winnerId": "seat-4",
+            "lastOutcome": "ACCEPTED",
+            "authorityReleased": false,
+            "hostCounter": 0,
+            "native": {
+              "state": "running",
+              "foreground": true,
+              "bootstrapCount": 1,
+              "readyEvents": 1,
+              "intentEvents": 17,
+              "exitEvents": 0,
+              "iterations": 2535,
+              "drawDepth": 0,
+              "backgroundTransitions": 4,
+              "privacyCoverCount": 2,
+              "privacyCoverVisible": false,
+              "renderLoopActive": true,
+              "cleanupCount": 0,
+              "cleanupDepth": 0,
+              "viewReleased": false,
+              "controllerReleased": false,
+              "osSingletonPresent": true,
+              "bridgeRegistered": true,
+              "quarantined": false,
+              "queuedBytes": 0,
+              "queuedCommands": 0,
+              "queuedEvents": 0,
+              "idleTimerDisabled": true,
+              "previousIdleTimerDisabled": false,
+              "idleTimerPolicyRestored": false,
+              "failure": "",
+              "rejectedEvents": 0,
+              "rejectedDiagnostics": 0,
+              "unansweredDiagnostics": 0,
+              "kmpFactoryQualified": false,
+              "reinitializationQualified": false
+            },
+            "rendererDiagnostics": {
+              "presentationId": "2AEC0752-98D2-4974-9E34-30568D41EB66",
+              "presentationMode": "2d",
+              "revision": "41",
+              "sequence": "125",
+              "requestId": "126",
+              "foreground": true,
+              "handConcealed": true,
+              "selectedCount": 0,
+              "privateFaceCount": 0,
+              "privateLabelCount": 0
+            }
+          }
+        },
+        "scope": "Passed bounded reference-seed local match, manual pause, observed background state 3, same-presentation concealed resume, actual winner/ReturnToLobby and native ownership cleanup."
+      },
+      {
+        "name": "testReferenceMatchIn3DAt200Percent()",
+        "identifier": "AuthorityHostUITests/testReferenceMatchIn3DAt200Percent()",
+        "duration": 249.33119201660156,
+        "issues": [
+          {
+            "testCaseRun_fk": 3,
+            "compactDescription": "failed - The real application must enter the background.",
+            "detailedDescription": null,
+            "issueType": "Assertion Failure"
+          }
+        ],
+        "attachmentCount": 45,
+        "measurementCount": 5,
+        "geometryCount": 7,
+        "observedControlCount": 7,
+        "geometryByAction": {
+          "reveal": 3,
+          "card": 3,
+          "hide": 1
+        },
+        "backgroundStates": [
+          {
+            "file": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/993BB05F-9E38-4906-8951-B4F459DEC8B3.json",
+            "timestamp": 1789017835.942,
+            "enteredBackground": false,
+            "observedApplicationState": 4
+          }
+        ],
+        "independentChecks": {},
+        "result": "failed",
+        "pid": 16826,
+        "lastExportedMeasurement": {
+          "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/3E9B0DD4-A2E5-4EA0-9CFF-854FD9BE3837.json",
+          "bytes": 3733,
+          "sha256": "892ca6845b1d85056b782c4e1fb7fd87503c09dfe8ecac5253cfe71eed456758",
+          "name": "Failed native Home transition measurements_0_586BF404-B5AC-4630-BA76-0E70C1CDB819.json",
+          "timestamp": 1789017836.363,
+          "testIdentifier": "AuthorityHostUITests/testReferenceMatchIn3DAt200Percent()",
+          "value": {
+            "state": "paused",
+            "mode": "3d",
+            "textScale": 2,
+            "referenceSeed2": true,
+            "foreground": false,
+            "observedApplicationState": 4,
+            "lifecycle": "READY",
+            "phase": "PLAYING",
+            "roundNumber": 1,
+            "revision": "0",
+            "roundsAdvanced": 0,
+            "acceptedViewerPlays": 0,
+            "acceptedViewerChallenges": 0,
+            "acceptedOpponentActions": 0,
+            "acceptedRendererEvents": 1,
+            "winnerId": "",
+            "lastOutcome": "ACCEPTED",
+            "authorityReleased": false,
+            "hostCounter": 0,
+            "native": {
+              "state": "paused",
+              "foreground": false,
+              "bootstrapCount": 1,
+              "readyEvents": 1,
+              "intentEvents": 0,
+              "exitEvents": 0,
+              "iterations": 631,
+              "drawDepth": 0,
+              "backgroundTransitions": 3,
+              "privacyCoverCount": 2,
+              "privacyCoverVisible": true,
+              "renderLoopActive": false,
+              "cleanupCount": 0,
+              "cleanupDepth": 0,
+              "viewReleased": false,
+              "controllerReleased": false,
+              "osSingletonPresent": true,
+              "bridgeRegistered": true,
+              "quarantined": false,
+              "queuedBytes": 0,
+              "queuedCommands": 0,
+              "queuedEvents": 0,
+              "idleTimerDisabled": true,
+              "previousIdleTimerDisabled": false,
+              "idleTimerPolicyRestored": false,
+              "failure": "",
+              "rejectedEvents": 0,
+              "rejectedDiagnostics": 0,
+              "unansweredDiagnostics": 0,
+              "kmpFactoryQualified": false,
+              "reinitializationQualified": false
+            },
+            "rendererDiagnostics": {
+              "presentationId": "9A0A54B5-48BD-468C-AA79-D7FEE77EABB5",
+              "presentationMode": "3d",
+              "revision": "0",
+              "sequence": "134",
+              "requestId": "135",
+              "foreground": false,
+              "handConcealed": true,
+              "selectedCount": 0,
+              "privateFaceCount": 0,
+              "privateLabelCount": 0
+            }
+          }
+        },
+        "selectedMeasurementReferences": [
+          {
+            "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/D6A269C5-6B8E-4E47-8F3F-F1A1B7DDAB38.json",
+            "bytes": 3729,
+            "sha256": "778aba1b4aa6a71eb0aea7075e90c7fa131db99e2c35b2271a7fcf8cf093fec9",
+            "name": "Native cover with paused private bindings cleared measurements_0_AAB703D5-EFC1-4AE0-B792-A607D5FE98C2.json",
+            "timestamp": 1789017796.238,
+            "testIdentifier": "AuthorityHostUITests/testReferenceMatchIn3DAt200Percent()"
+          },
+          {
+            "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/3E9B0DD4-A2E5-4EA0-9CFF-854FD9BE3837.json",
+            "bytes": 3733,
+            "sha256": "892ca6845b1d85056b782c4e1fb7fd87503c09dfe8ecac5253cfe71eed456758",
+            "name": "Failed native Home transition measurements_0_586BF404-B5AC-4630-BA76-0E70C1CDB819.json",
+            "timestamp": 1789017836.363,
+            "testIdentifier": "AuthorityHostUITests/testReferenceMatchIn3DAt200Percent()"
+          }
+        ],
+        "failureAnalysis": {
+          "classification": "XCTest application-state observation conflicts with Home UI and native pause. SpringBoard Home appearance is within deadline, unlike the prior run. Exact cause of raw-state disagreement is unproved; native Home/resume and full-match case remains failed.",
+          "timeline": [
+            {
+              "utc": "2026-09-10T05:23:35.437Z",
+              "sessionLine": 96115,
+              "event": "Home press starts"
+            },
+            {
+              "utc": "2026-09-10T05:23:35.927Z",
+              "sessionLine": 96134,
+              "event": "Home synthesis completes; duration 0.489932 s"
+            },
+            {
+              "utc": "2026-09-10T05:23:36.326Z",
+              "sessionLine": 96138,
+              "event": "SpringBoard SBRootFolderController ViewDidAppear notification"
+            },
+            {
+              "utc": "2026-09-10T05:23:37.196Z",
+              "sessionLine": 96143,
+              "event": "Application scene ViewDidDisappear notification"
+            },
+            {
+              "utc": "2026-09-10T05:23:37.231Z",
+              "sessionLine": 96148,
+              "event": "Switcher/deck ViewDidDisappear notifications"
+            },
+            {
+              "utc": "2026-09-10T05:23:55.942Z",
+              "sessionLine": 96159,
+              "event": "20-second state deadline retained: enteredBackground=false, raw state 4"
+            },
+            {
+              "utc": "2026-09-10T05:23:55.976Z",
+              "sessionLine": 96235,
+              "event": "Screenshot requested on screen 1 using fallback from app display ID 0"
+            },
+            {
+              "utc": "2026-09-10T05:23:56.290Z",
+              "sessionLine": 96238,
+              "event": "Screenshot completes; engine_ci directly observes Home screen in original PNG"
+            },
+            {
+              "utc": "2026-09-10T05:23:56.358647Z",
+              "appStreamLine": 347486,
+              "event": "Native paused metrics read, privacy clear, app-state annotation still4"
+            },
+            {
+              "utc": "2026-09-10T05:23:57.091Z",
+              "sessionLine": 96360,
+              "event": "UITest runner PID 10373 death notice, exit 75"
+            },
+            {
+              "utc": "2026-09-10T05:23:57.101Z",
+              "sessionLine": 96361,
+              "event": "AuthorityHost PID 16826 kill(pid,0)=0; alive"
+            }
+          ],
+          "beforeHome": {
+            "sourceLine": 347059,
+            "utc": "2026-09-10 05:23:35.429925+0000",
+            "pid": "16826",
+            "acceptedDiagnostics": 100,
+            "rendererSequence": "99",
+            "requestId": "100",
+            "iterations": 628,
+            "revision": "0",
+            "roundNumber": 1,
+            "phase": "PLAYING",
+            "foreground": true,
+            "nativeForeground": true,
+            "nativeState": "running",
+            "bootstrapCount": 1,
+            "backgroundTransitions": 1,
+            "privacyCoverCount": 1,
+            "privacyCoverVisible": false,
+            "renderLoopActive": true,
+            "presentationId": "9A0A54B5-48BD-468C-AA79-D7FEE77EABB5",
+            "handConcealed": false,
+            "selectedCount": 1,
+            "privateFaceCount": 5,
+            "privateLabelCount": 6,
+            "acceptedViewerPlays": 0,
+            "acceptedViewerChallenges": 0,
+            "roundsAdvanced": 0,
+            "acceptedOpponentActions": 0,
+            "rejectedEvents": 0,
+            "failure": ""
+          },
+          "afterHome": {
+            "sourceLine": 347486,
+            "utc": "2026-09-10 05:23:56.358647+0000",
+            "pid": "16826",
+            "acceptedDiagnostics": 135,
+            "rendererSequence": "134",
+            "requestId": "135",
+            "iterations": 631,
+            "revision": "0",
+            "roundNumber": 1,
+            "phase": "PLAYING",
+            "foreground": false,
+            "nativeForeground": false,
+            "nativeState": "paused",
+            "bootstrapCount": 1,
+            "backgroundTransitions": 3,
+            "privacyCoverCount": 2,
+            "privacyCoverVisible": true,
+            "renderLoopActive": false,
+            "presentationId": "9A0A54B5-48BD-468C-AA79-D7FEE77EABB5",
+            "handConcealed": true,
+            "selectedCount": 0,
+            "privateFaceCount": 0,
+            "privateLabelCount": 0,
+            "acceptedViewerPlays": 0,
+            "acceptedViewerChallenges": 0,
+            "roundsAdvanced": 0,
+            "acceptedOpponentActions": 0,
+            "rejectedEvents": 0,
+            "failure": ""
+          },
+          "actualBackgroundStateAcceptedByFrozenTest": false,
+          "postHomeResumeProved": false,
+          "fullMatchProved": false,
+          "homeSelectorLimit": "No stable Home accessibility identifier was substantiated in retained session/app logs. SBRootFolderController is a notification controller class, not a verified AX identifier. Runtime Home selector requires actual observation.",
+          "sessionLog": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34439760695-xcresult-decoded/data.0~dyVfldi0leQXH5a1-jC_zyxbfTj0hHxZn8diQaFH5i-_E4cr9r0FTKI3U1FLIzbZK3PE-BSqsmyB8pwKq_WmBg==.bin",
+            "bytes": 11213038,
+            "sha256": "9b95a7080a91b22c849b47bf0b70ae04c424b98c0ea314eec0d94820fc7441ff"
+          },
+          "stateAttachment": {
+            "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/993BB05F-9E38-4906-8951-B4F459DEC8B3.json",
+            "bytes": 67,
+            "sha256": "a722114952311d0982dd1b52d2cde4a80a93338b3dbafdd576102d216f48eaa7",
+            "name": "Actual application state after Home_0_65916095-B5E2-4FB2-A4BC-F76257A1497D.json",
+            "timestamp": 1789017835.942,
+            "testIdentifier": "AuthorityHostUITests/testReferenceMatchIn3DAt200Percent()"
+          },
+          "stateValue": {
+            "enteredBackground": false,
+            "observedApplicationState": 4
+          },
+          "originalHomeImage": {
+            "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/FC2F83FD-72AB-465A-838D-151A9F5A3829.png",
+            "bytes": 2805485,
+            "sha256": "f3a62fcc75c1abb1ccdd11dc99f01d8494fb1bd4c0a30c0b5534660c0eace0ae",
+            "name": "Failed native Home transition_0_0612D747-82AA-4D3F-B9E3-33891E729252.png",
+            "timestamp": 1789017836.29,
+            "testIdentifier": "AuthorityHostUITests/testReferenceMatchIn3DAt200Percent()"
+          },
+          "observedHomeUiWithinDeadline": true,
+          "observedRawStateDiscrepancyCauseEstablished": false
+        },
+        "scope": "Manual privacy cycle runs. Native state is covered/paused after actual Home and the Home UI is observed, but the test reports raw state 4/false. No completed Home/resume, gameplay action, winner or close."
+      },
+      {
+        "name": "testReferenceMatchIn3D()",
+        "identifier": "AuthorityHostUITests/testReferenceMatchIn3D()",
+        "duration": 500.7129570245743,
+        "issues": [],
+        "attachmentCount": 80,
+        "measurementCount": 10,
+        "geometryCount": 29,
+        "observedControlCount": 29,
+        "geometryByAction": {
+          "reveal": 5,
+          "card": 5,
+          "hide": 1,
+          "play": 2,
+          "next_round": 13,
+          "challenge": 2,
+          "lobby": 1
+        },
+        "backgroundStates": [
+          {
+            "file": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/98A7480B-0B34-4439-AB7B-63FD1F7F9AF7.json",
+            "timestamp": 1789018069.261,
+            "enteredBackground": true,
+            "observedApplicationState": 3
+          }
+        ],
+        "independentChecks": {
+          "closedAuthorityAndNativeOwnershipVerified": true,
+          "referenceCountsAndWinnerVerified": true,
+          "actualTouchCountsVerified": true,
+          "samePresentationPauseHomeResumeVerified": true
+        },
+        "result": "passed",
+        "pid": 25005,
+        "lastExportedMeasurement": {
+          "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/3F38D953-17C5-4A58-8AAC-530AB62D918F.json",
+          "bytes": 2169,
+          "sha256": "49ec1c1257f28e0a2e852ceb560caa2c3039195d01be6f7c2c333016083799ba",
+          "name": "09 table returned through authority 3d text 1 measurements_0_18AA8A66-8D06-4094-99B1-100A2C4030CF.json",
+          "timestamp": 1789018343.607,
+          "testIdentifier": "AuthorityHostUITests/testReferenceMatchIn3D()",
+          "value": {
+            "state": "closed",
+            "mode": "3d",
+            "textScale": 1,
+            "referenceSeed2": true,
+            "foreground": false,
+            "observedApplicationState": 4,
+            "lifecycle": "CLOSED",
+            "phase": "FINISHED",
+            "roundNumber": 14,
+            "revision": "41",
+            "roundsAdvanced": 13,
+            "acceptedViewerPlays": 2,
+            "acceptedViewerChallenges": 2,
+            "acceptedOpponentActions": 24,
+            "acceptedRendererEvents": 19,
+            "winnerId": "seat-4",
+            "lastOutcome": "RETURN_TO_LOBBY",
+            "closeReason": "RETURN_TO_LOBBY",
+            "authorityReleased": true,
+            "hostCounter": 1,
+            "native": {
+              "state": "closed",
+              "foreground": true,
+              "bootstrapCount": 1,
+              "readyEvents": 1,
+              "intentEvents": 18,
+              "exitEvents": 0,
+              "iterations": 1971,
+              "drawDepth": 0,
+              "backgroundTransitions": 4,
+              "privacyCoverCount": 3,
+              "privacyCoverVisible": false,
+              "renderLoopActive": false,
+              "cleanupCount": 1,
+              "cleanupDepth": 0,
+              "viewReleased": true,
+              "controllerReleased": true,
+              "osSingletonPresent": false,
+              "bridgeRegistered": false,
+              "quarantined": false,
+              "queuedBytes": 0,
+              "queuedCommands": 0,
+              "queuedEvents": 0,
+              "idleTimerDisabled": false,
+              "previousIdleTimerDisabled": false,
+              "idleTimerPolicyRestored": true,
+              "failure": "",
+              "rejectedEvents": 0,
+              "rejectedDiagnostics": 0,
+              "unansweredDiagnostics": 0,
+              "kmpFactoryQualified": false,
+              "reinitializationQualified": false
+            }
+          }
+        },
+        "selectedMeasurementReferences": [
+          {
+            "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/EC1A7F23-CAE7-4058-ABAD-E5A14EAD5102.json",
+            "bytes": 3729,
+            "sha256": "bd5961eecf31321e49926c2205544e34cb2c1e420f6a17f9a53ba79e27c53554",
+            "name": "Native cover with paused private bindings cleared measurements_0_23E18605-CBA6-4F28-91A8-A7F36B7B3914.json",
+            "timestamp": 1789018047.39,
+            "testIdentifier": "AuthorityHostUITests/testReferenceMatchIn3D()"
+          },
+          {
+            "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/18319034-C36B-430C-9866-FF2668EE7364.json",
+            "bytes": 3746,
+            "sha256": "71041a60136017760de23ee8078b27ebb0da3fb173d50af42745d458ff43c531",
+            "name": "Same authority resumed with concealed cards measurements_0_AE3F170D-2A3C-42A2-9E97-4DFA102744DD.json",
+            "timestamp": 1789018073.549,
+            "testIdentifier": "AuthorityHostUITests/testReferenceMatchIn3D()"
+          },
+          {
+            "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/E32FBF14-E998-431D-9E57-34AC57B56C9F.json",
+            "bytes": 3381,
+            "sha256": "be7202d7ede8a07a5782f8290fcac2a9209815a556bd58085264a879005797f2",
+            "name": "07 real winner 3d text 1 measurements_0_995740C6-B9A5-43A9-A75C-E6AADC5763F0.json",
+            "timestamp": 1789018328.358,
+            "testIdentifier": "AuthorityHostUITests/testReferenceMatchIn3D()"
+          },
+          {
+            "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/3F38D953-17C5-4A58-8AAC-530AB62D918F.json",
+            "bytes": 2169,
+            "sha256": "49ec1c1257f28e0a2e852ceb560caa2c3039195d01be6f7c2c333016083799ba",
+            "name": "09 table returned through authority 3d text 1 measurements_0_18AA8A66-8D06-4094-99B1-100A2C4030CF.json",
+            "timestamp": 1789018343.607,
+            "testIdentifier": "AuthorityHostUITests/testReferenceMatchIn3D()"
+          }
+        ],
+        "winnerMeasurement": {
+          "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/E32FBF14-E998-431D-9E57-34AC57B56C9F.json",
+          "bytes": 3381,
+          "sha256": "be7202d7ede8a07a5782f8290fcac2a9209815a556bd58085264a879005797f2",
+          "name": "07 real winner 3d text 1 measurements_0_995740C6-B9A5-43A9-A75C-E6AADC5763F0.json",
+          "timestamp": 1789018328.358,
+          "testIdentifier": "AuthorityHostUITests/testReferenceMatchIn3D()",
+          "value": {
+            "state": "running",
+            "mode": "3d",
+            "textScale": 1,
+            "referenceSeed2": true,
+            "foreground": true,
+            "observedApplicationState": 4,
+            "lifecycle": "READY",
+            "phase": "FINISHED",
+            "roundNumber": 14,
+            "revision": "41",
+            "roundsAdvanced": 13,
+            "acceptedViewerPlays": 2,
+            "acceptedViewerChallenges": 2,
+            "acceptedOpponentActions": 24,
+            "acceptedRendererEvents": 18,
+            "winnerId": "seat-4",
+            "lastOutcome": "ACCEPTED",
+            "authorityReleased": false,
+            "hostCounter": 0,
+            "native": {
+              "state": "running",
+              "foreground": true,
+              "bootstrapCount": 1,
+              "readyEvents": 1,
+              "intentEvents": 17,
+              "exitEvents": 0,
+              "iterations": 1920,
+              "drawDepth": 0,
+              "backgroundTransitions": 4,
+              "privacyCoverCount": 2,
+              "privacyCoverVisible": false,
+              "renderLoopActive": true,
+              "cleanupCount": 0,
+              "cleanupDepth": 0,
+              "viewReleased": false,
+              "controllerReleased": false,
+              "osSingletonPresent": true,
+              "bridgeRegistered": true,
+              "quarantined": false,
+              "queuedBytes": 0,
+              "queuedCommands": 0,
+              "queuedEvents": 0,
+              "idleTimerDisabled": true,
+              "previousIdleTimerDisabled": false,
+              "idleTimerPolicyRestored": false,
+              "failure": "",
+              "rejectedEvents": 0,
+              "rejectedDiagnostics": 0,
+              "unansweredDiagnostics": 0,
+              "kmpFactoryQualified": false,
+              "reinitializationQualified": false
+            },
+            "rendererDiagnostics": {
+              "presentationId": "0B68AFC0-6EE2-40B0-9F8E-3DAE8A696252",
+              "presentationMode": "3d",
+              "revision": "41",
+              "sequence": "368",
+              "requestId": "369",
+              "foreground": true,
+              "handConcealed": true,
+              "selectedCount": 0,
+              "privateFaceCount": 0,
+              "privateLabelCount": 0
+            }
+          }
+        },
+        "scope": "Passed bounded reference-seed local match, manual pause, observed background state 3, same-presentation concealed resume, actual winner/ReturnToLobby and native ownership cleanup."
+      },
+      {
+        "name": "testSecureTableRendererExit()",
+        "identifier": "AuthorityHostUITests/testSecureTableRendererExit()",
+        "duration": 25.38720703125,
+        "issues": [],
+        "attachmentCount": 4,
+        "measurementCount": 1,
+        "geometryCount": 1,
+        "observedControlCount": 1,
+        "geometryByAction": {
+          "exit": 1
+        },
+        "backgroundStates": [],
+        "independentChecks": {
+          "closedAuthorityAndNativeOwnershipVerified": true,
+          "secureLaunchAndExitOnlyVerified": true
+        },
+        "result": "passed",
+        "pid": 43922,
+        "lastExportedMeasurement": {
+          "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/F6022A2B-EB36-4B65-B979-0E85EE3B2688.json",
+          "bytes": 2151,
+          "sha256": "e7a368915a17cc5888662e9c40105be8bf0d0b8e30a26128f71de1779ff16aa2",
+          "name": "Secure default table exited through Godot input measurements_0_F36089AC-D7F6-41B8-AC01-C0A52AB8ED0F.json",
+          "timestamp": 1789018369.218,
+          "testIdentifier": "AuthorityHostUITests/testSecureTableRendererExit()",
+          "value": {
+            "state": "closed",
+            "mode": "2d",
+            "textScale": 1,
+            "referenceSeed2": false,
+            "foreground": false,
+            "observedApplicationState": 4,
+            "lifecycle": "CLOSED",
+            "phase": "PLAYING",
+            "roundNumber": 1,
+            "revision": "0",
+            "roundsAdvanced": 0,
+            "acceptedViewerPlays": 0,
+            "acceptedViewerChallenges": 0,
+            "acceptedOpponentActions": 0,
+            "acceptedRendererEvents": 2,
+            "winnerId": "",
+            "lastOutcome": "EXIT_REQUESTED",
+            "closeReason": "EXIT_REQUESTED",
+            "authorityReleased": true,
+            "hostCounter": 1,
+            "native": {
+              "state": "closed",
+              "foreground": true,
+              "bootstrapCount": 1,
+              "readyEvents": 1,
+              "intentEvents": 0,
+              "exitEvents": 1,
+              "iterations": 118,
+              "drawDepth": 0,
+              "backgroundTransitions": 0,
+              "privacyCoverCount": 1,
+              "privacyCoverVisible": false,
+              "renderLoopActive": false,
+              "cleanupCount": 1,
+              "cleanupDepth": 0,
+              "viewReleased": true,
+              "controllerReleased": true,
+              "osSingletonPresent": false,
+              "bridgeRegistered": false,
+              "quarantined": false,
+              "queuedBytes": 0,
+              "queuedCommands": 0,
+              "queuedEvents": 0,
+              "idleTimerDisabled": false,
+              "previousIdleTimerDisabled": false,
+              "idleTimerPolicyRestored": true,
+              "failure": "",
+              "rejectedEvents": 0,
+              "rejectedDiagnostics": 0,
+              "unansweredDiagnostics": 0,
+              "kmpFactoryQualified": false,
+              "reinitializationQualified": false
+            }
+          }
+        },
+        "selectedMeasurementReferences": [
+          {
+            "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/authority-attachments/F6022A2B-EB36-4B65-B979-0E85EE3B2688.json",
+            "bytes": 2151,
+            "sha256": "e7a368915a17cc5888662e9c40105be8bf0d0b8e30a26128f71de1779ff16aa2",
+            "name": "Secure default table exited through Godot input measurements_0_F36089AC-D7F6-41B8-AC01-C0A52AB8ED0F.json",
+            "timestamp": 1789018369.218,
+            "testIdentifier": "AuthorityHostUITests/testSecureTableRendererExit()"
+          }
+        ],
+        "scope": "Secure default launch/Ready, one actual scene Exit and cleanup only; zero gameplay actions."
+      }
+    ],
+    "restartSubtotalWarning": "The final restarted runner executed the last two cases; that zero-failure subtotal is not the aggregate result."
+  },
+  "packageIdentity": {
+    "appArchive": {
+      "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/AuthorityHost-simulator.app.tar.gz",
+      "bytes": 24539145,
+      "sha256": "8197cd6ca47b19f57ae2e4190d13c42f46bb740c74ee31db9131464b1ceda20e"
+    },
+    "executable": {
+      "bytes": 84390912,
+      "sha256": "12bd8a8c1e5798e06a257236a80186e36cefda9a7bb9f3b6d132b1cfb0e8762a",
+      "machOUuid": "b0a30c0d6b603033991e07ca7f7ad0cd",
+      "cputype": 16777228,
+      "filetype": 2,
+      "buildVersions": [
+        {
+          "platform": 7,
+          "minos": 983040,
+          "sdk": 1704960
+        }
+      ]
+    },
+    "archiveFileCount": 15,
+    "arm64Simulator": true,
+    "xcodeVersion": "26.4.1 (17E202)",
+    "sdkVersion": "26.4",
+    "runtimeVersion": "26.4.1 (23E254a)",
+    "checks": {
+      "executableReceiptMatches": true,
+      "nestedInputsMatch": true,
+      "nestedEngineMatches": true,
+      "nestedResourcesMatch": true,
+      "exactSourceMarkers": true,
+      "packReceiptMatches": true,
+      "fixtureMatches": true,
+      "fixtureManifestMatches": true,
+      "licensesMatch": true,
+      "arm64SimulatorMachO": true,
+      "consumerPckMatchesAuditedProducer": true,
+      "consumerEngineReceiptMatchesProducer": true,
+      "consumerFrameworkReceiptMatchesProducer": true
+    },
+    "comparisonWithFirstAuthorityRun": {
+      "runId": 34434392993,
+      "previousPackageSummarySha256": "3efd67dc9aeecaae7ff8c5ee094bc5f0db8daff3ece09121c768beaf6d323415",
+      "sameMemberPayloads": [
+        "AuthorityHost.app/AuthorityHost",
+        "AuthorityHost.app/Info.plist",
+        "AuthorityHost.app/PkgInfo",
+        "AuthorityHost.app/ProbeResources/partydeck-last-light.pck",
+        "AuthorityHost.app/ProbeResources/Launch.json",
+        "AuthorityHost.app/ProbeResources/fixture-manifest.json",
+        "AuthorityHost.app/ProbeResources/Licenses/NOTICE_PROVENANCE.json",
+        "AuthorityHost.app/ProbeResources/Licenses/GODOT_LICENSE.txt",
+        "AuthorityHost.app/ProbeResources/Licenses/GODOT_CA_CERTIFICATES_SOURCE.txt",
+        "AuthorityHost.app/ProbeResources/Licenses/README.txt",
+        "AuthorityHost.app/ProbeResources/Licenses/GODOT_COPYRIGHT.txt",
+        "AuthorityHost.app/ProbeResources/Licenses/GODOT_CA_BUNDLE_SOURCE.txt",
+        "AuthorityHost.app/ProbeResources/Licenses/ANDROID_NDK_LLVM_NOTICE.txt",
+        "AuthorityHost.app/ProbeResources/MissingMainScene/project.godot"
+      ],
+      "allMemberPayloadsIdentical": false,
+      "sameExecutable": true,
+      "sameMachOUuid": true,
+      "differingMembers": [
+        {
+          "member": "AuthorityHost.app/ProbeResources/partydeck-last-light.receipt.json",
+          "differentTopLevelFields": [
+            "commands"
+          ],
+          "commandDifferences": [
+            {
+              "label": "import",
+              "changedFields": [
+                "argv",
+                "cwd",
+                "started_utc",
+                "elapsed_seconds"
+              ],
+              "normalizedArgvAndCwdIdentical": true
+            },
+            {
+              "label": "source-scene-check",
+              "changedFields": [
+                "argv",
+                "cwd",
+                "started_utc",
+                "elapsed_seconds"
+              ],
+              "normalizedArgvAndCwdIdentical": true
+            },
+            {
+              "label": "export-pack",
+              "changedFields": [
+                "argv",
+                "cwd",
+                "started_utc",
+                "elapsed_seconds"
+              ],
+              "normalizedArgvAndCwdIdentical": true
+            },
+            {
+              "label": "packed-scene-check",
+              "changedFields": [
+                "argv",
+                "cwd",
+                "started_utc",
+                "elapsed_seconds"
+              ],
+              "normalizedArgvAndCwdIdentical": true
+            }
+          ],
+          "scope": "Only ephemeral staging directory names, command timestamps and elapsed seconds differ; pack content and all runtime member payloads match."
+        }
+      ]
+    }
+  },
+  "pack": {
+    "sha256": "6599f825a418f9d2a7049b3ba9325e8e0dcb474685262899079231b7ec955938",
+    "bytes": 1542296,
+    "exactSourceChecked": true
+  },
+  "producerInputs": {
+    "archives": [
+      {
+        "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-host-engine/artifacts/libpartydeck_godot_ios_probe.a",
+        "sha256": "e4d72f49557856f8085032704b0ce2acdfb29a767f6b26985b4b8e10cd1f8b46",
+        "bytes": 191543584
+      },
+      {
+        "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-host-engine/artifacts/libpartydeck_godot_camera.a",
+        "sha256": "be5b380ff3fb2b0df43c97ab7784672f027980785add26ef3b0b6501e146be21",
+        "bytes": 82392
+      },
+      {
+        "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-host-framework/artifacts/PartyDeckGodotBridge-simulator.framework.tar.gz",
+        "sha256": "415a00a90b5b60239574084c3335c1c1957c920d7a6b71525db45d6d65fc8147",
+        "bytes": 8148398
+      }
+    ],
+    "frameworkFiles": [
+      {
+        "member": "PartyDeckGodotBridge.framework/PartyDeckGodotBridge",
+        "sha256": "580b45b44dc59289a65178fa8187f3512563a918294eb1c5262398b1a240ff95",
+        "bytes": 40739216
+      },
+      {
+        "member": "PartyDeckGodotBridge.framework/Headers/PartyDeckGodotBridge.h",
+        "sha256": "dddbb2ae23d1e87ebab18fa7c4f77326c3e370422b96f1e723c3e2f2cdde14fd",
+        "bytes": 179497
+      },
+      {
+        "member": "PartyDeckGodotBridge.framework/Modules/module.modulemap",
+        "sha256": "566a10ca59319c5510d030cc2418d21900d0cc724abd7627cfd65972aeec3a04",
+        "bytes": 149
+      },
+      {
+        "member": "PartyDeckGodotBridge.framework/Info.plist",
+        "sha256": "7873447ece8f8dab0760511eed41646ef12e940a3c7f70ec16acf7a394b6eb7a",
+        "bytes": 953
+      }
+    ],
+    "checks": {
+      "sourceMarkers": true,
+      "samePinnedEngineCommit": true,
+      "sameNativeModuleSourceHashesAsPriorRun": true,
+      "exactHeadNativeSources": true,
+      "pathOverridesEnabled": true,
+      "arm64SimulatorFrameworkReceipt": true,
+      "frameworkCompiled": true,
+      "swiftModuleImportTypechecked": true,
+      "frameworkMembersSameAsPriorRun": true,
+      "sourcePackCheckPassed": true,
+      "packSameAsPriorRun": true,
+      "sameNativeArchiveMemberContentAsPriorRun": true
+    },
+    "engineMemberCount": 2297,
+    "cameraMemberCount": 2,
+    "memberPayloadsMatchFirstAuthorityRun": true,
+    "producerReceiptTimingNote": "The input-only summary was recorded while the native consumer was still running; final runtime scope is recorded by this aggregate."
+  },
+  "attachments": {
+    "attachmentCount": 285,
+    "pngCount": 36,
+    "jsonMeasurementCount": 33,
+    "jsonTouchGeometryCount": 76,
+    "jsonObservedControlCount": 82,
+    "xcresultHashMatchedAttachments": 285
+  },
+  "actualTouchGeometryScope": {
+    "count": 76,
+    "allEnabledVisible": true,
+    "allAtLeast44LogicalPoints": true,
+    "allFullyInsideReportedClipAndViewport": true,
+    "basis": "Completed independent attachment audit and original xcresult payload identity checks; rejected pre-input control observations are counted separately."
+  },
+  "visualReview": {
+    "receipt": {
+      "path": "/tmp/partydeck-engine-ci/34439760695/original-image-review.json",
+      "bytes": 17320,
+      "sha256": "c09613ae2ed9c29d52b97740dcbba56adf641c172049a9677cc32b31c761b9cc"
+    },
+    "originalsDirectlyReviewed": 13,
+    "allOriginalPngsDecoded": 36,
+    "scope": "Direct visual review of the 13 named original captures, after complete attachment hash matching. No image modifications, gallery-publication, continuous video-coverage or general design-approval claim."
+  },
+  "decodedEvidence": {
+    "originalXcresult": "/tmp/partydeck-engine-ci/34439760695/godot-ios-authority-gameplay/artifacts/AuthorityHost.xcresult",
+    "objects": 953,
+    "zstdObjects": 811,
+    "combinedAppStreams": 1,
+    "appLaunchPids": [
+      11029,
+      12816,
+      16826,
+      25005,
+      43922
+    ],
+    "fullMetricRecords": 698,
+    "decodedCrashCandidates": 1,
+    "inspectedCrashCandidate": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34439760695-xcresult-decoded/data.0~UpfryZbKO93rW2uhZhMht4m8qoJqc7fzR7dmjRbtP2s0Kq0xRet1UJcOo5juwhSe7UN9kHUXl98zPNuznIPMyw==.bin",
+      "procName": "searchd",
+      "pid": 3616,
+      "signal": "SIGABRT",
+      "sha256": "b71d88d361ed036c01bf99e22c101545a51b7c3afb945bfa52b9ebec93182e19"
+    }
+  },
+  "nativeSeverityLines": [
+    {
+      "appStreamLine": 873,
+      "text": "2026-09-10 05:17:21.476456+0000 AuthorityHost[11029:36601] [ERROR] servers/display/display_server.cpp:536:mouse_get_position(): Mouse is not supported by this display server. Method/function failed. Returning: Point2i()"
+    },
+    {
+      "appStreamLine": 96385,
+      "text": "2026-09-10 05:18:18.000890+0000 AuthorityHost[12816:41323] [ERROR] servers/display/display_server.cpp:536:mouse_get_position(): Mouse is not supported by this display server. Method/function failed. Returning: Point2i()"
+    },
+    {
+      "appStreamLine": 300736,
+      "text": "2026-09-10 05:19:55.099538+0000 AuthorityHost[16826:50800] [ERROR] servers/display/display_server.cpp:536:mouse_get_position(): Mouse is not supported by this display server. Method/function failed. Returning: Point2i()"
+    },
+    {
+      "appStreamLine": 348451,
+      "text": "2026-09-10 05:24:11.313699+0000 AuthorityHost[25005:71070] [ERROR] servers/display/display_server.cpp:536:mouse_get_position(): Mouse is not supported by this display server. Method/function failed. Returning: Point2i()"
+    },
+    {
+      "appStreamLine": 513986,
+      "text": "2026-09-10 05:32:38.218330+0000 AuthorityHost[43922:115613] [ERROR] servers/display/display_server.cpp:536:mouse_get_position(): Mouse is not supported by this display server. Method/function failed. Returning: Point2i()"
+    }
+  ],
+  "privacyScope": "Both normal cases and 2D at 200 percent complete reveal/select/hide, manual pause, actual background and same-presentation concealed resume. 3D at 200 percent retains privacy-cleared paused metrics after Home but fails the observed-state assertion; no completed Home/resume is established for that case.",
+  "qualification": {
+    "nativeReferenceFullMatch2DNormalText": true,
+    "nativeReferenceFullMatch3DNormalText": true,
+    "nativeReferenceFullMatch2D200Percent": false,
+    "nativeReferenceFullMatch3D200Percent": false,
+    "nativeAllModesPass": false,
+    "secureLaunchAndRendererExit": true,
+    "secureFullMatch": false,
+    "sameProcessReentry": false,
+    "audioDormancy": false,
+    "audioStartupFixProved": false,
+    "kmpFactory": false,
+    "deviceMetal": false,
+    "physicalDevice": false,
+    "storeSigning": false
+  },
+  "audioComparison": "The prior AuthorityHost CoreAudio startup abort did not reproduce, but the executable, native archive member payloads and runtime resources are unchanged. No native runtime or audio fix is established.",
+  "independentDiagnosis": {
+    "path": "/tmp/partydeck-ios-authority-host-review/native-34439760695/final-native-diagnosis.json",
+    "bytes": 100154,
+    "sha256": "b6c8d5eea80b9c4eebb1acbd5fe24dfd930a309968ab5a504b144c51afbda771",
+    "reviewer": "/root/review_game",
+    "engineCiVerification": "Independently checked normal-case original measurements, closed/winner/Home images, 2D renderer sequences 65/66 in original app stream lines 95125/95480, 3D sequence 134 in line 347486, and cited Home/session/runner-vs-app chronology against original decoded session lines 96115\u201396164, 96235\u201396240, 96360\u201396361. Loop-attempt reconstruction remains explicitly inferred from frozen source and observed sequences."
+  },
+  "evidenceReceipts": [
+    {
+      "path": "/tmp/partydeck-engine-ci/34439760695/input-evidence-summary.json",
+      "bytes": 4207,
+      "sha256": "f4457e74922660ebfa4c4755cfedbb44c940e21eb891954bb57e93e5dcf1167b"
+    },
+    {
+      "path": "/tmp/partydeck-engine-ci/34439760695/authority-package-evidence-summary.json",
+      "bytes": 8420,
+      "sha256": "b44f9694257edacf04518019f9ba85ef8888eb7ebc603f44cfdd566ef925ad31"
+    },
+    {
+      "path": "/tmp/partydeck-engine-ci/34439760695/authority-attachment-evidence-summary.json",
+      "bytes": 1264332,
+      "sha256": "1a9555b07bcdf80ec29c3a7291a7f2130129cf47e0b30fc240311fab39d189cf"
+    },
+    {
+      "path": "/tmp/partydeck-engine-ci/34439760695/original-image-review.json",
+      "bytes": 17320,
+      "sha256": "c09613ae2ed9c29d52b97740dcbba56adf641c172049a9677cc32b31c761b9cc"
+    },
+    {
+      "path": "/tmp/partydeck-engine-ci/34439760695/native-archive-member-comparison.json",
+      "bytes": 1417929,
+      "sha256": "b7bf7751416dacdb871c55007b486552580062c0c8ac925c960169c443ec8c45"
+    },
+    {
+      "path": "/tmp/partydeck-engine-ci/34439760695/source-pack-check.log",
+      "bytes": 105,
+      "sha256": "706bf7bf5f6734f5c76a664dade2a22aea4b2603832a926e9ea7056368a47085"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34439760695-xcresult-decoded/decoded-object-index.json",
+      "bytes": 666857,
+      "sha256": "20334a4380e6bc2cb5037fff3ee919f8dbcef9e95ef5248a1ab3b906b944e866"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34439760695-xcresult-decoded/app-native-severity-excerpts.log",
+      "bytes": 1137,
+      "sha256": "344932607c30d76e152fe28ed4194c2900a34bc17b5acc376e7a258427f85b5f"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34439760695-xcresult-decoded/app-stdout-stderr-001.log",
+      "bytes": 67332393,
+      "sha256": "4d0d31a2a8b9dd585c836f64e7c6ab636c89732e79eeb83f1ea3bc4906bab817"
+    },
+    {
+      "path": "/tmp/partydeck-ios-authority-host-review/native-34439760695/final-native-diagnosis.json",
+      "bytes": 100154,
+      "sha256": "b6c8d5eea80b9c4eebb1acbd5fe24dfd930a309968ab5a504b144c51afbda771"
+    },
+    {
+      "path": "/tmp/partydeck-ios-authority-host-review/native-34439760695/native-review-summary.md",
+      "bytes": 5140,
+      "sha256": "bc3a69564f8bb314a67dd5533f1f0ffc2510c3560fd53be1df3cb134b3ac6d98"
+    },
+    {
+      "path": "/tmp/partydeck-ios-authority-host-review/native-34439760695/2d-200-scroll-test-excerpts.log",
+      "bytes": 5861,
+      "sha256": "91ce0d30f5031bb4447e6744c242e04f8164399b78c1c3519ebd51b112007ac7"
+    },
+    {
+      "path": "/tmp/partydeck-ios-authority-host-review/native-34439760695/3d-200-home-session-excerpts.log",
+      "bytes": 12462,
+      "sha256": "7af104f21b972b8d92695f5a1f30b9e272be51c511fd4c3ab9b5288f7075e6a7"
+    },
+    {
+      "path": "/tmp/partydeck-ios-authority-host-review/native-34439760695/springboard-notification-counterexample.log",
+      "bytes": 8116,
+      "sha256": "a037a4efc5bc4b7d3cfcae1c69175942a89f6946bbd41ca633c30f75e373544f"
+    },
+    {
+      "path": "/tmp/partydeck-ios-authority-host-review/native-34439760695/app-metric-extraction.json",
+      "bytes": 361,
+      "sha256": "379eda90635ba0938a53ff0bc17764c9b93062ec6c151f3c0f6ea65bf93e66e3"
+    }
+  ],
+  "collectionLimits": "All five gh artifact extractions and four job logs are retained. No independent raw GitHub artifact ZIP digest audit was made. Exported attachment hashes and sizes match original decoded xcresult payload references.",
+  "archiveSizeScope": "Archive and executable sizes only, not installed/distribution/per-device download measurements.",
+  "galleryPublicationClaim": false,
+  "researchPatch": {
+    "path": "/tmp/partydeck-engine-ci/34439760695/engine-ci-authority-followup.patch",
+    "sha256": "86e8b01128aa6c0a4fa5274672bf305ad8eda62001123653a46f3603d0129fc9",
+    "snippetPath": "/tmp/partydeck-engine-ci/34439760695/engine-ci-authority-followup-section.md",
+    "snippetSha256": "152eaf1c8df59e21681721fd1168335b883aa014b6d2c39ddad087c033ddb400",
+    "baseDocumentSha256": "355252545e74dbd263cfb41d1700648ccdc573c2428403fd96d61d52ecaf0e57",
+    "gitApplyCheckPassed": true,
+    "applied": false
+  },
+  "reviewedAtUtc": "2026-09-10T06:21:32.189303+00:00",
+  "frozenAtUtc": "2026-09-10T06:21:32.189303+00:00"
+}

@@ -1,0 +1,48 @@
+{
+  "purpose": "Common app presentation selector and Compose fallback qualification",
+  "testResult": {
+    "name": "PresentationLayoutTest[jvm]",
+    "tests": "2",
+    "skipped": "0",
+    "failures": "0",
+    "errors": "0",
+    "timestamp": "2026-09-10T05:09:27.364Z",
+    "hostname": "oblien",
+    "time": "3.492"
+  },
+  "sourceSha256": {
+    "composeApp/src/commonMain/kotlin/dev/partydeck/app/PartyDeckApp.kt": "692c5e7e88d497df0a907043ea068407dd3ad5ef52ce5c5eed2e9b53188a0b54",
+    "composeApp/src/commonMain/kotlin/dev/partydeck/app/ui/shell/GameplayPresentationControls.kt": "9234a20d66b0acb013a2671a0d94b62a03c04c16a21b158022fea436f26b1d81",
+    "composeApp/src/commonMain/composeResources/values/presentation_strings.xml": "c0ed69a8972b90702d889b9b11dbc4ad564cabddd0813e476b54e1608f883f30",
+    "composeApp/src/jvmTest/kotlin/dev/partydeck/app/PresentationLayoutTest.kt": "28166010d957ec7cad9b04b7d30ee2bb764020b2580ac3eed93bfa8abd9fe91d"
+  },
+  "controllerApiSource": "composeApp/src/commonMain/kotlin/dev/partydeck/app/controller/GameplayPresentationState.kt",
+  "controllerApiSha256": "de688588d528ed76832bf468f82348d801a2e4f90cbebd607c3bb0e0fc118e86",
+  "behavior": "Only available modes offered; 2D, 3D and Standard choices reachable at 200% text; OPENING and ACTIVE contain no game/private card nodes; CLOSING/COMPOSE retain the same SessionView and pending action, conceal the hand and require a fresh selection. UI passes fontScale to the controller, keeps shell Rules/Settings routes and localizes labels.",
+  "repeatReason": "Recover the first run\u2019s report under the shared lock after another filtered test removed the shared XML. Gradle restored the original passing report from its Test task cache, with the original timestamp; no second rendering occurred.",
+  "limitations": "Real Compose/Skia JVM rendering of explicit shell lifecycle fixtures and real core-safe GameView projections. No native factory is faked or instantiated; not Android/iOS execution or native accessibility/attachment qualification. Platform native fallback controls are owned separately.",
+  "filesSha256": {
+    "cache-report-recovery.txt": "b4b4f6566f8aff26bf8b4c11287c24eeb82468783d91949ce3a5e5f5b00b6228",
+    "iteration-01/observed-result.json": "989121b4a4c866da2b20c008bc11bf370a4f2f583fac04c296ff84407034e12e",
+    "iteration-01/screenshots/fallback-concealed-large-text.png": "12347fa731153e191e327d17c0a5c2721f08d11808d1fa8983dfce3887f9e183",
+    "iteration-01/screenshots/opening-large-text.png": "809be09df87e6cd1fa2c939e75d99017f2e4a06a7636695ea330d3b86230d5da",
+    "iteration-01/screenshots/picker-three-available-large-text.png": "971dd17d5da80e6c6f2fd906e1f7c5627efa8cef0f4c990c999f7c4b89046ad4",
+    "iteration-01/screenshots/picker-two-available-large-text.png": "5f2567bd072ed09df534e5145554638043e6e9306b945d3d6191c8c90f2721b0",
+    "iteration-01/test.log": "3e6ee99b2bb14ae1222b41ee435a8d4def663d54ea54793840b58cc2f11998a3",
+    "iteration-02/command.json": "14fecef5880c1ec54416581f743734f5dfdc15f2e3676117ed71b87981b47c9d",
+    "iteration-02/test-results.xml": "400d42a5cb4537e3a8c0e83b953cd4a25a51bd587cbb924a0b77e284309843fa",
+    "iteration-02/test.log": "4f096641977ea9c0a9aace2b77d8c29b713c9c4379a52814f8ce7a7dc4d6ef02",
+    "radio-button-source.html": "6526dd74c197332bf6539ed6d207fc1b0dd7257e176d9ea173d20d2f27677d91",
+    "run-and-preserve.py": "084a58b9fe0ffb0068e9ed18ca0fc2890b91f3d34391bb5e091c4232d785e140",
+    "source/composeApp/src/commonMain/composeResources/values/presentation_strings.xml": "c0ed69a8972b90702d889b9b11dbc4ad564cabddd0813e476b54e1608f883f30",
+    "source/composeApp/src/commonMain/kotlin/dev/partydeck/app/PartyDeckApp.kt": "692c5e7e88d497df0a907043ea068407dd3ad5ef52ce5c5eed2e9b53188a0b54",
+    "source/composeApp/src/commonMain/kotlin/dev/partydeck/app/ui/shell/GameplayPresentationControls.kt": "9234a20d66b0acb013a2671a0d94b62a03c04c16a21b158022fea436f26b1d81",
+    "source/composeApp/src/jvmTest/kotlin/dev/partydeck/app/PresentationLayoutTest.kt": "28166010d957ec7cad9b04b7d30ee2bb764020b2580ac3eed93bfa8abd9fe91d",
+    "source-review.txt": "8eaf6c728ffc0ba4d9f0b8b5c7901bb14efdd72dd2ba315b67862cd03194b567",
+    "test-01.log": "3e6ee99b2bb14ae1222b41ee435a8d4def663d54ea54793840b58cc2f11998a3"
+  },
+  "reportRecoveredFromBuildCache": true,
+  "actualRenderedExecutions": 1,
+  "originalPngCount": 4,
+  "actualTestTimestamp": "2026-09-10T05:09:27.364Z"
+}

@@ -1,0 +1,865 @@
+{
+  "schemaVersion": 1,
+  "createdAtUtc": "2026-09-10T05:50:34.364056+00:00",
+  "authorAgent": "/root/ui_shell",
+  "scope": "Read-only diagnosis of retained failed Android comparison 3D runtime artifacts; no new native execution, image capture, source edits, or qualification pass.",
+  "runId": "34439587132",
+  "sourceCommit": "ff6e0ac04f917c2830c98cf25cee2b3220b151e4",
+  "apkSha256": "8be9d3f1714895c541b6e3936e411df61a6f332cb1f8e66308148d3548795b51",
+  "embeddedPackSha256": "6599f825a418f9d2a7049b3ba9325e8e0dcb474685262899079231b7ec955938",
+  "checkerRunPySha256": "037536435de365752a1863c5128bbfb9254d0cb9d53f2bb7c585e100928ce89d",
+  "godotTag": "4.7.2-stable",
+  "godotCommit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+  "godotMavenSourcesJarSha256": "aa9b8361b2ce9e60512cb02281171c25f2553ee45481065f09cac3e780508cc2",
+  "originalScreenshotCount": 10,
+  "nativeBinary": {
+    "sourceApkPath": "/tmp/partydeck-engine-ci/34439587132/godot-comparison-runtime-apk/modules/androidHost/outputs/apk/debug/androidHost-debug.apk",
+    "zipEntry": "lib/x86_64/libgodot_android.so",
+    "bytes": 74061272,
+    "sha256": "7ce311ee6319c21d11740c29d636720ab219db13c7d17de4847fb6dd778e860f",
+    "buildId": "ae8c6200a500554c8ea0a5ca4317c45b008d28e3",
+    "retainedExtractedPath": "/tmp/partydeck-native-3d-failure-investigation/native-binary/libgodot_android.so",
+    "includedInReceipt": false,
+    "note": "Exact extraction retained separately; source APK already archived by engine_ci. No debug info or static symbol table."
+  },
+  "outcomes": [
+    {
+      "fontScale": "1.0",
+      "passed": false,
+      "stage": "3d match entry",
+      "error": "A native diagnostic request timed out.",
+      "intentCounts": {
+        "play": 0,
+        "challenge": 0,
+        "advance_round": 0
+      }
+    },
+    {
+      "fontScale": "2.0",
+      "passed": false,
+      "stage": "3d background privacy",
+      "error": "Native or renderer failure appeared in the actual engine process log.",
+      "intentCounts": {
+        "play": 0,
+        "challenge": 0,
+        "advance_round": 0
+      }
+    }
+  ],
+  "files": [
+    {
+      "path": "runtime/font-1.0/3d/match/failure-host-observations.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 4335,
+      "sha256": "ffd25f60e1927c986b232080d8d3fb9377d48d0b3a454f7b9be33741d9205e12",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-1.0-debug/android/runtime/3d/match/failure-host-observations.log"
+    },
+    {
+      "path": "runtime/font-1.0/3d/match/failure-process-3144-logcat.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 7324,
+      "sha256": "c197bc5fe5e58096eddd87e308a866eccafa529d973cca6c9f11116a1a06eb50",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-1.0-debug/android/runtime/3d/match/failure-process-3144-logcat.log"
+    },
+    {
+      "path": "runtime/font-1.0/3d/match/final-process-logcat.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 7324,
+      "sha256": "c197bc5fe5e58096eddd87e308a866eccafa529d973cca6c9f11116a1a06eb50",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-1.0-debug/android/runtime/3d/match/final-process-logcat.log"
+    },
+    {
+      "path": "runtime/font-1.0/3d/match/host-observations.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 5255,
+      "sha256": "ee52d9c742408f5a96bcb0ffc39314ba7c32bfa0a2286eae2e40b00ddda8ca47",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-1.0-debug/android/runtime/3d/match/host-observations.log"
+    },
+    {
+      "path": "runtime/font-1.0/3d/match/runtime-logcat.error.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-1.0-debug/android/runtime/3d/match/runtime-logcat.error.log"
+    },
+    {
+      "path": "runtime/font-1.0/3d/match/runtime-logcat.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 7324,
+      "sha256": "c197bc5fe5e58096eddd87e308a866eccafa529d973cca6c9f11116a1a06eb50",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-1.0-debug/android/runtime/3d/match/runtime-logcat.log"
+    },
+    {
+      "path": "runtime/font-1.0/chooser.png",
+      "kind": "original_screenshot",
+      "bytes": 76887,
+      "sha256": "243a2b9d3883ffb77eabe7bbbfe11a381a075f5a1a7c1a5e2307929003879f45",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-1.0-debug/android/runtime/chooser.png"
+    },
+    {
+      "path": "runtime/font-1.0/chooser.xml",
+      "kind": "original_runtime_evidence",
+      "bytes": 6741,
+      "sha256": "d8c2ab153abc538b821f06cc51794a0e24b9e1a6e62314b3068cfa7e525e4cb9",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-1.0-debug/android/runtime/chooser.xml"
+    },
+    {
+      "path": "runtime/font-1.0/display-density.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 22,
+      "sha256": "b5bfd6a953a8c2b3c885059d88bc65ed56d93dcda07a435eaffbaa6c0f23e0be",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-1.0-debug/android/runtime/display-density.log"
+    },
+    {
+      "path": "runtime/font-1.0/display-size.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 24,
+      "sha256": "1ad2de0dcd3731d70d8d421b9574379a8395702c4ab81c429984fde204a77f50",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-1.0-debug/android/runtime/display-size.log"
+    },
+    {
+      "path": "runtime/font-1.0/events.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 149960,
+      "sha256": "6cec76675c9299c561e2f87edaccd9f61c1e7a15e1616e02deebc76525df380b",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-1.0-debug/android/runtime/events.log"
+    },
+    {
+      "path": "runtime/font-1.0/final-screen.png",
+      "kind": "original_screenshot",
+      "bytes": 192327,
+      "sha256": "65057e0353a02e5e2bd19b44f3bcd0ff2d42c9e76b00c4e065ef9a8a403627d3",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-1.0-debug/android/runtime/final-screen.png"
+    },
+    {
+      "path": "runtime/font-1.0/home-activity.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 128,
+      "sha256": "898d7ee1626e80ee6458ce6f33b180fba77cc33075ed22d413080498ca7964c7",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-1.0-debug/android/runtime/home-activity.log"
+    },
+    {
+      "path": "runtime/font-1.0/input-geometry.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 1142,
+      "sha256": "7c0cae5442b57d7243a18c8f00704591f25fb8ba8f3d47fd22f080d6a61204d6",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-1.0-debug/android/runtime/input-geometry.log"
+    },
+    {
+      "path": "runtime/font-1.0/input-help.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 1875,
+      "sha256": "21df8eefea3dba53ddc636fecb93ef347ad99362dee640e721496820972a52b9",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-1.0-debug/android/runtime/input-help.log"
+    },
+    {
+      "path": "runtime/font-1.0/last-anr.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 10815,
+      "sha256": "e2b8971cfb7510b6fa0aa89aec37e999fd9e481651cb756b0e7f94fc9df7942f",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-1.0-debug/android/runtime/last-anr.log"
+    },
+    {
+      "path": "runtime/font-1.0/last-ui-dump.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 52,
+      "sha256": "47028187f2b9b2bdb3f809da218f9786bb48cfbc3ab5181dd9498400fad20b3f",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-1.0-debug/android/runtime/last-ui-dump.log"
+    },
+    {
+      "path": "runtime/font-1.0/last-ui.xml",
+      "kind": "original_runtime_evidence",
+      "bytes": 5049,
+      "sha256": "61cb2f2520231fa9bd34b593e3ca67e5b8cad4115742e7180dc4d3b21f3c2adf",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-1.0-debug/android/runtime/last-ui.xml"
+    },
+    {
+      "path": "runtime/font-1.0/launch-1-chooser.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 198,
+      "sha256": "2a4e6932ad2251ef6ad6b9470e7466826192172bcef1a39fa977b22494d132ee",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-1.0-debug/android/runtime/launch-1-chooser.log"
+    },
+    {
+      "path": "runtime/font-1.0/logcat.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 3523103,
+      "sha256": "b0fd919a682c464707ae338c1695d5230a79d68a4709231eb9958494c290edc2",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-1.0-debug/android/runtime/logcat.log"
+    },
+    {
+      "path": "runtime/font-1.0/result.json",
+      "kind": "original_runtime_evidence",
+      "bytes": 1664,
+      "sha256": "8a28ad68b17a7744c5bd206aaafbd824b9940c966f9dca29b6871a039950c1b7",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-1.0-debug/android/runtime/result.json"
+    },
+    {
+      "path": "runtime/font-1.0/uiautomator-help.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-1.0-debug/android/runtime/uiautomator-help.log"
+    },
+    {
+      "path": "runtime/font-1.0/package-inputs.json",
+      "kind": "original_package_identity",
+      "bytes": 344,
+      "sha256": "bf03e167afdd0804ee76a90c056832b7f1b2a472ee04454baa8653fb72b536e0",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-1.0-debug/package-inputs.json"
+    },
+    {
+      "path": "runtime/font-2.0/3d/match/01-concealed.json",
+      "kind": "original_runtime_evidence",
+      "bytes": 2740,
+      "sha256": "4546c54e3411a638d4b29e70395856b9b88a1ade6b4de519fd3d5c7f9069b0ee",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/3d/match/01-concealed.json"
+    },
+    {
+      "path": "runtime/font-2.0/3d/match/01-concealed.png",
+      "kind": "original_screenshot",
+      "bytes": 176713,
+      "sha256": "41097049225ebc04f2a6376f47f1530dbf6993ffcea2d22a5255e94a4fec30cb",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/3d/match/01-concealed.png"
+    },
+    {
+      "path": "runtime/font-2.0/3d/match/01-concealed.xml",
+      "kind": "original_runtime_evidence",
+      "bytes": 4993,
+      "sha256": "3718da51289a2685fb9cc1e7c98482b46487a0f4adf22fca702657fcb87fd94b",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/3d/match/01-concealed.xml"
+    },
+    {
+      "path": "runtime/font-2.0/3d/match/02-revealed.json",
+      "kind": "original_runtime_evidence",
+      "bytes": 4413,
+      "sha256": "b84cdbdae8fc4e592d2fd5e6f020e53c01c603601bdacf8590011bb1f9c2e934",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/3d/match/02-revealed.json"
+    },
+    {
+      "path": "runtime/font-2.0/3d/match/02-revealed.png",
+      "kind": "original_screenshot",
+      "bytes": 178524,
+      "sha256": "98cac9506d90f7fb0a98fa196c2fc90b245a5bd9c56aa24c7c05e3c49e0a008f",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/3d/match/02-revealed.png"
+    },
+    {
+      "path": "runtime/font-2.0/3d/match/02-revealed.xml",
+      "kind": "original_runtime_evidence",
+      "bytes": 4993,
+      "sha256": "3718da51289a2685fb9cc1e7c98482b46487a0f4adf22fca702657fcb87fd94b",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/3d/match/02-revealed.xml"
+    },
+    {
+      "path": "runtime/font-2.0/3d/match/03-selected.json",
+      "kind": "original_runtime_evidence",
+      "bytes": 4408,
+      "sha256": "f334f8a0352cf440f0cdd09858752210ab977dd5affbe9c407802a42396fc512",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/3d/match/03-selected.json"
+    },
+    {
+      "path": "runtime/font-2.0/3d/match/03-selected.png",
+      "kind": "original_screenshot",
+      "bytes": 197228,
+      "sha256": "75e76a954b3e13703bd01f4bdbedb2b4ce63e9e9ce3409e8c19990814c47c712",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/3d/match/03-selected.png"
+    },
+    {
+      "path": "runtime/font-2.0/3d/match/03-selected.xml",
+      "kind": "original_runtime_evidence",
+      "bytes": 4993,
+      "sha256": "3718da51289a2685fb9cc1e7c98482b46487a0f4adf22fca702657fcb87fd94b",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/3d/match/03-selected.xml"
+    },
+    {
+      "path": "runtime/font-2.0/3d/match/04-covered.json",
+      "kind": "original_runtime_evidence",
+      "bytes": 2739,
+      "sha256": "f58b940a72d52a9365d7b9ccfa16f33afd7bd4b88464260b01f7d91446f642a3",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/3d/match/04-covered.json"
+    },
+    {
+      "path": "runtime/font-2.0/3d/match/04-covered.png",
+      "kind": "original_screenshot",
+      "bytes": 197350,
+      "sha256": "c03eea8b0b2eb2ea915de7978eebd229b7afe5dc826dd21537ed5c2bcf32afec",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/3d/match/04-covered.png"
+    },
+    {
+      "path": "runtime/font-2.0/3d/match/04-covered.xml",
+      "kind": "original_runtime_evidence",
+      "bytes": 4993,
+      "sha256": "3718da51289a2685fb9cc1e7c98482b46487a0f4adf22fca702657fcb87fd94b",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/3d/match/04-covered.xml"
+    },
+    {
+      "path": "runtime/font-2.0/3d/match/05-background-home.png",
+      "kind": "original_screenshot",
+      "bytes": 740230,
+      "sha256": "ef28d671179af24ad743fc03f03663f5685258afb6803a37c0533fcefb78871f",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/3d/match/05-background-home.png"
+    },
+    {
+      "path": "runtime/font-2.0/3d/match/05-background-home.xml",
+      "kind": "original_runtime_evidence",
+      "bytes": 9215,
+      "sha256": "71b8ecc80959a719f8c40c103255a1224e6d91985f1ee33fc55bddd294d6881f",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/3d/match/05-background-home.xml"
+    },
+    {
+      "path": "runtime/font-2.0/3d/match/06-recents-privacy.png",
+      "kind": "original_screenshot",
+      "bytes": 24354,
+      "sha256": "55734181476c9fcf88ca732987c401d7b2d3417f2d6eeaf48bc5020020d018e4",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/3d/match/06-recents-privacy.png"
+    },
+    {
+      "path": "runtime/font-2.0/3d/match/06-recents-privacy.xml",
+      "kind": "original_runtime_evidence",
+      "bytes": 5054,
+      "sha256": "5ce25495c38e1467682fb3c761e99b05e6894ba94b7d5eb70343b98984191b86",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/3d/match/06-recents-privacy.xml"
+    },
+    {
+      "path": "runtime/font-2.0/3d/match/captures.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 996,
+      "sha256": "2d4652afec79b553f8368cb08cb6aba292ad4f001cb51c1317ebe5f68f83e549",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/3d/match/captures.log"
+    },
+    {
+      "path": "runtime/font-2.0/3d/match/failure-host-observations.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 5887,
+      "sha256": "f5b6b048c6a2807b262f4b5a759490fc43703434887bb74dec1b7890cea53bda",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/3d/match/failure-host-observations.log"
+    },
+    {
+      "path": "runtime/font-2.0/3d/match/failure-process-3106-logcat.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 15004,
+      "sha256": "42cfaf31fc072babda212d526eead57c54cebdd4feeec2b8dd238b8c8c313c06",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/3d/match/failure-process-3106-logcat.log"
+    },
+    {
+      "path": "runtime/font-2.0/3d/match/final-process-logcat.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 15004,
+      "sha256": "42cfaf31fc072babda212d526eead57c54cebdd4feeec2b8dd238b8c8c313c06",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/3d/match/final-process-logcat.log"
+    },
+    {
+      "path": "runtime/font-2.0/3d/match/host-observations.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 36768,
+      "sha256": "5b7e281d53731177bfbd96500b0b2d4d878233a2c85c91a5e148ea2e5f00854d",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/3d/match/host-observations.log"
+    },
+    {
+      "path": "runtime/font-2.0/3d/match/runtime-logcat.error.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/3d/match/runtime-logcat.error.log"
+    },
+    {
+      "path": "runtime/font-2.0/3d/match/runtime-logcat.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 15004,
+      "sha256": "42cfaf31fc072babda212d526eead57c54cebdd4feeec2b8dd238b8c8c313c06",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/3d/match/runtime-logcat.log"
+    },
+    {
+      "path": "runtime/font-2.0/3d/match/scene-input-geometry.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 2308,
+      "sha256": "305029ace7ddc20f5a098de00a739d43ce100ebe3cecbc2c2c4839eee813f8d4",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/3d/match/scene-input-geometry.log"
+    },
+    {
+      "path": "runtime/font-2.0/chooser.png",
+      "kind": "original_screenshot",
+      "bytes": 130383,
+      "sha256": "6fe6e548d899d58dadabbfbf397691941dd32377f3116e804abafd2784c47b74",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/chooser.png"
+    },
+    {
+      "path": "runtime/font-2.0/chooser.xml",
+      "kind": "original_runtime_evidence",
+      "bytes": 6746,
+      "sha256": "c16cbb01b48e6da4c2241ff667edeb198b06ce845b736ddf8e4bbc935299646c",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/chooser.xml"
+    },
+    {
+      "path": "runtime/font-2.0/display-density.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 22,
+      "sha256": "b5bfd6a953a8c2b3c885059d88bc65ed56d93dcda07a435eaffbaa6c0f23e0be",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/display-density.log"
+    },
+    {
+      "path": "runtime/font-2.0/display-size.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 24,
+      "sha256": "1ad2de0dcd3731d70d8d421b9574379a8395702c4ab81c429984fde204a77f50",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/display-size.log"
+    },
+    {
+      "path": "runtime/font-2.0/events.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 174563,
+      "sha256": "d916a9284e158cf3e9368704c5c3d44d9c432d1052f7a989f3d0ddeb2cc2dada",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/events.log"
+    },
+    {
+      "path": "runtime/font-2.0/final-screen.png",
+      "kind": "original_screenshot",
+      "bytes": 134960,
+      "sha256": "25f36c1aeca763eaae03c35442c0938d56af65d4a4fd7b8755aeacf7a3439869",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/final-screen.png"
+    },
+    {
+      "path": "runtime/font-2.0/home-activity.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 128,
+      "sha256": "898d7ee1626e80ee6458ce6f33b180fba77cc33075ed22d413080498ca7964c7",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/home-activity.log"
+    },
+    {
+      "path": "runtime/font-2.0/input-geometry.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 5063,
+      "sha256": "882af5881d8a071af45c95d121b01d1b92a01f24ecf21beb57a54e6ae5f28138",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/input-geometry.log"
+    },
+    {
+      "path": "runtime/font-2.0/input-help.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 1875,
+      "sha256": "21df8eefea3dba53ddc636fecb93ef347ad99362dee640e721496820972a52b9",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/input-help.log"
+    },
+    {
+      "path": "runtime/font-2.0/last-anr.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 88,
+      "sha256": "42cf4931006fd0ff42d3522af31f9346431b409aa22a793ecc16b5aedeed28a1",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/last-anr.log"
+    },
+    {
+      "path": "runtime/font-2.0/last-ui-dump.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 52,
+      "sha256": "47028187f2b9b2bdb3f809da218f9786bb48cfbc3ab5181dd9498400fad20b3f",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/last-ui-dump.log"
+    },
+    {
+      "path": "runtime/font-2.0/last-ui.xml",
+      "kind": "original_runtime_evidence",
+      "bytes": 6448,
+      "sha256": "193dad0d169ba670b8b5d0bf9d1e52127bd098f8fd5cc2c50e2db3ed38321a8a",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/last-ui.xml"
+    },
+    {
+      "path": "runtime/font-2.0/launch-1-chooser.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 200,
+      "sha256": "8f913d3f5909e64ba7164faeb5d40b00fbcf38bf905f6dc8cedf125eecf09d85",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/launch-1-chooser.log"
+    },
+    {
+      "path": "runtime/font-2.0/logcat.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 3942850,
+      "sha256": "538acfee491b13cfe9dcc308ed19d5dcb4188320594be1e3935710336a2fb465",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/logcat.log"
+    },
+    {
+      "path": "runtime/font-2.0/result.json",
+      "kind": "original_runtime_evidence",
+      "bytes": 2706,
+      "sha256": "e38488e69603443059b0f25f67353a0320877c935bdd6835354de473cccabbe5",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/result.json"
+    },
+    {
+      "path": "runtime/font-2.0/uiautomator-help.log",
+      "kind": "original_runtime_evidence",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/android/runtime/uiautomator-help.log"
+    },
+    {
+      "path": "runtime/font-2.0/package-inputs.json",
+      "kind": "original_package_identity",
+      "bytes": 344,
+      "sha256": "bf03e167afdd0804ee76a90c056832b7f1b2a472ee04454baa8653fb72b536e0",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/godot-android-3d-font-2.0-debug/package-inputs.json"
+    },
+    {
+      "path": "sources/partydeck-ff6e0ac/godot/renderer/project.godot",
+      "kind": "exact_run_project_source",
+      "bytes": 929,
+      "sha256": "14e8414e3bd9349559c31a204dc5f845cb98c21f5feb3726cb6c0bbd3f9d78a2",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/source-ff6e0ac/godot/renderer/project.godot",
+      "notes": "Copied from coordinator/engine_ci retained source archive, not the changing worktree."
+    },
+    {
+      "path": "sources/partydeck-ff6e0ac/godot/renderer/scripts/main.gd",
+      "kind": "exact_run_project_source",
+      "bytes": 11012,
+      "sha256": "2a9798e54e31b98b992eb0abf4f282dcdadccc22f9a79d14066aacb706c6e9e5",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/source-ff6e0ac/godot/renderer/scripts/main.gd",
+      "notes": "Copied from coordinator/engine_ci retained source archive, not the changing worktree."
+    },
+    {
+      "path": "sources/partydeck-ff6e0ac/godot/renderer/scripts/renderer_controller.gd",
+      "kind": "exact_run_project_source",
+      "bytes": 8076,
+      "sha256": "4891269ee70a642e92e1871346ce135b2ee00c7f2b09166f96d0b1890f24de51",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/source-ff6e0ac/godot/renderer/scripts/renderer_controller.gd",
+      "notes": "Copied from coordinator/engine_ci retained source archive, not the changing worktree."
+    },
+    {
+      "path": "sources/partydeck-ff6e0ac/godot/renderer/presentations/three_d/table.gd",
+      "kind": "exact_run_project_source",
+      "bytes": 35946,
+      "sha256": "924617ff3d08e00df38bb6c33ed7e869f636e23e5022d676557edf4141b4f83c",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/source-ff6e0ac/godot/renderer/presentations/three_d/table.gd",
+      "notes": "Copied from coordinator/engine_ci retained source archive, not the changing worktree."
+    },
+    {
+      "path": "sources/partydeck-ff6e0ac/godot/renderer/presentations/three_d/card_3d.gd",
+      "kind": "exact_run_project_source",
+      "bytes": 1986,
+      "sha256": "5c11c95a545cb4143cc38b5ebef5b8eb737a7f434e3c0567c0638dbbcf97680d",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/source-ff6e0ac/godot/renderer/presentations/three_d/card_3d.gd",
+      "notes": "Copied from coordinator/engine_ci retained source archive, not the changing worktree."
+    },
+    {
+      "path": "sources/partydeck-ff6e0ac/godot/renderer/presentations/two_d/table.gd",
+      "kind": "exact_run_project_source",
+      "bytes": 30707,
+      "sha256": "b32c27d9f03418bc9dd0ddc6926b2e504e5d796a9b80cebde730aeea78db969c",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/source-ff6e0ac/godot/renderer/presentations/two_d/table.gd",
+      "notes": "Copied from coordinator/engine_ci retained source archive, not the changing worktree."
+    },
+    {
+      "path": "sources/partydeck-ff6e0ac/godot/android-host/src/main/kotlin/dev/partydeck/godot/compare/GodotGameActivity.kt",
+      "kind": "exact_run_project_source",
+      "bytes": 27279,
+      "sha256": "49030757634ed069cb0fcc60b7ae87f11d34325b38fdea75c93ff73c341266a5",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/source-ff6e0ac/godot/android-host/src/main/kotlin/dev/partydeck/godot/compare/GodotGameActivity.kt",
+      "notes": "Copied from coordinator/engine_ci retained source archive, not the changing worktree."
+    },
+    {
+      "path": "sources/partydeck-ff6e0ac/godot/android-host/src/main/kotlin/dev/partydeck/godot/compare/EvidenceRecorder.kt",
+      "kind": "exact_run_project_source",
+      "bytes": 2811,
+      "sha256": "ea79bc7bfca0315f9361eacb084dabb90340e826040efdc126cfbee45955f689",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/source-ff6e0ac/godot/android-host/src/main/kotlin/dev/partydeck/godot/compare/EvidenceRecorder.kt",
+      "notes": "Copied from coordinator/engine_ci retained source archive, not the changing worktree."
+    },
+    {
+      "path": "sources/partydeck-ff6e0ac/godot/android-renderer/src/main/kotlin/dev/partydeck/godot/android/PartyDeckBridgePlugin.kt",
+      "kind": "exact_run_project_source",
+      "bytes": 9228,
+      "sha256": "2ef14deed786bccbdec1299b7aa47e44e41a15ed806fb32740406e00e1077951",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/source-ff6e0ac/godot/android-renderer/src/main/kotlin/dev/partydeck/godot/android/PartyDeckBridgePlugin.kt",
+      "notes": "Copied from coordinator/engine_ci retained source archive, not the changing worktree."
+    },
+    {
+      "path": "sources/partydeck-ff6e0ac/godot/android-renderer/src/main/kotlin/dev/partydeck/godot/android/BoundedDispatchQueue.kt",
+      "kind": "exact_run_project_source",
+      "bytes": 3520,
+      "sha256": "89609aedc15ad374bbfd716890dc6d301fccc84b277c724cb0c71b465ba1caee",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/source-ff6e0ac/godot/android-renderer/src/main/kotlin/dev/partydeck/godot/android/BoundedDispatchQueue.kt",
+      "notes": "Copied from coordinator/engine_ci retained source archive, not the changing worktree."
+    },
+    {
+      "path": "sources/partydeck-ff6e0ac/godot/android-renderer/src/main/kotlin/dev/partydeck/godot/android/RendererInputGate.kt",
+      "kind": "exact_run_project_source",
+      "bytes": 773,
+      "sha256": "605e8baabba66ba448e8f8af4c7167f3c05a6ff7c02fdc962b1f859b5d85b3ac",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/source-ff6e0ac/godot/android-renderer/src/main/kotlin/dev/partydeck/godot/android/RendererInputGate.kt",
+      "notes": "Copied from coordinator/engine_ci retained source archive, not the changing worktree."
+    },
+    {
+      "path": "sources/godot-4.7.2-stable/platform/android/java_godot_lib_jni.cpp",
+      "kind": "pinned_engine_source",
+      "bytes": 27472,
+      "sha256": "ace9423f36253d593a1d135e740406dee661020448694c12b79ba889495ef133",
+      "originalPath": "/tmp/partydeck-native-3d-failure-investigation/java_godot_lib_jni.cpp",
+      "sourceUrl": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/platform/android/java_godot_lib_jni.cpp"
+    },
+    {
+      "path": "sources/godot-4.7.2-stable/platform/android/os_android.cpp",
+      "kind": "pinned_engine_source",
+      "bytes": 32625,
+      "sha256": "0ffa68f056c5ec2f91f2a965cbfdc4e876f8628dbdf1125ec63fa86240129b55",
+      "originalPath": "/tmp/partydeck-native-3d-failure-investigation/os_android.cpp",
+      "sourceUrl": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/platform/android/os_android.cpp"
+    },
+    {
+      "path": "sources/godot-4.7.2-stable/scene/resources/3d/primitive_meshes.cpp",
+      "kind": "pinned_engine_source",
+      "bytes": 125707,
+      "sha256": "c9ec1d7d201849e76ad35ecf613812e0888ddb40ef02806cb64b5377ae41b800",
+      "originalPath": "/tmp/partydeck-native-3d-failure-investigation/primitive_meshes.cpp",
+      "sourceUrl": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/scene/resources/3d/primitive_meshes.cpp"
+    },
+    {
+      "path": "sources/godot-4.7.2-stable/scene/3d/mesh_instance_3d.cpp",
+      "kind": "pinned_engine_source",
+      "bytes": 36490,
+      "sha256": "ca512fb89b38508d76b60f0062040dd80cfac4818458fab9c695942c523e5d2e",
+      "originalPath": "/tmp/partydeck-native-3d-failure-investigation/mesh_instance_3d.cpp",
+      "sourceUrl": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/scene/3d/mesh_instance_3d.cpp"
+    },
+    {
+      "path": "sources/godot-4.7.2-stable/servers/rendering/rendering_server_default.h",
+      "kind": "pinned_engine_source",
+      "bytes": 50483,
+      "sha256": "1edab81178754a27e70eb897b3a8d22e246c20dee060072e785674f4ff62d6e6",
+      "originalPath": "/tmp/partydeck-native-3d-failure-investigation/rendering_server_default.h",
+      "sourceUrl": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/servers/rendering/rendering_server_default.h"
+    },
+    {
+      "path": "sources/godot-4.7.2-stable/servers/rendering/rendering_server_default.cpp",
+      "kind": "pinned_engine_source",
+      "bytes": 16829,
+      "sha256": "60cdf149a4cb8c8c7b49d562edcce2273e028e4a0a6cb067c7c478054a3dc3c9",
+      "originalPath": "/tmp/partydeck-native-3d-failure-investigation/rendering_server_default.cpp",
+      "sourceUrl": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/servers/rendering/rendering_server_default.cpp"
+    },
+    {
+      "path": "sources/godot-4.7.2-stable/servers/rendering/rendering_server.cpp",
+      "kind": "pinned_engine_source",
+      "bytes": 197506,
+      "sha256": "b108f62d9d6113061dd1261e7bef51515fbdba9080b4393245e84cecc67ad7ca",
+      "originalPath": "/tmp/partydeck-native-3d-failure-investigation/rendering_server.cpp",
+      "sourceUrl": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/servers/rendering/rendering_server.cpp"
+    },
+    {
+      "path": "sources/godot-4.7.2-stable/servers/server_wrap_mt_common.h",
+      "kind": "pinned_engine_source",
+      "bytes": 29313,
+      "sha256": "e93980e3b211b7f781a320c549e1c951dd512ffae09b2ca2bc3badf98d034b19",
+      "originalPath": "/tmp/partydeck-native-3d-failure-investigation/server_wrap_mt_common.h",
+      "sourceUrl": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/servers/server_wrap_mt_common.h"
+    },
+    {
+      "path": "sources/godot-4.7.2-stable/drivers/gles3/storage/mesh_storage.cpp",
+      "kind": "pinned_engine_source",
+      "bytes": 98279,
+      "sha256": "799e81b40f02ebf9dc330b2279304502b6847410f4f61bd8ba404dd09d5d03e1",
+      "originalPath": "/tmp/partydeck-native-3d-failure-investigation/mesh_storage.cpp",
+      "sourceUrl": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/drivers/gles3/storage/mesh_storage.cpp"
+    },
+    {
+      "path": "sources/godot-4.7.2-stable/main/main.cpp",
+      "kind": "pinned_engine_source",
+      "bytes": 210345,
+      "sha256": "1831257f5c8eb0707d278f04b21b1e4b3ba863f8dca5cab36022d4b19e36b8c1",
+      "originalPath": "/tmp/partydeck-native-3d-failure-investigation/main.cpp",
+      "sourceUrl": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/main/main.cpp"
+    },
+    {
+      "path": "sources/godot-4.7.2-stable/scene/main/scene_tree.cpp",
+      "kind": "pinned_engine_source",
+      "bytes": 75907,
+      "sha256": "eed6dbff323344efff19f2de6763705aff062a76e00fd7cbe42a4ee849b7e5a4",
+      "originalPath": "/tmp/partydeck-native-3d-failure-investigation/scene_tree.cpp",
+      "sourceUrl": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/scene/main/scene_tree.cpp"
+    },
+    {
+      "path": "sources/godot-4.7.2-stable/core/object/message_queue.cpp",
+      "kind": "pinned_engine_source",
+      "bytes": 14914,
+      "sha256": "a151cf95e67754a608f2465a9425a92c957cffaafd249104c99a4c44bb9e0e37",
+      "originalPath": "/tmp/partydeck-native-3d-failure-investigation/message_queue.cpp",
+      "sourceUrl": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/core/object/message_queue.cpp"
+    },
+    {
+      "path": "sources/godot-maven-4.7.2.stable/org/godotengine/godot/GodotGLRenderView.java",
+      "kind": "maven_engine_source",
+      "bytes": 10135,
+      "sha256": "31eac16f8f17e8115add736d7168d948d1e6c15020e353cd8aa8651488445e01",
+      "originalPath": "/tmp/partydeck-godot-android-research/maven-sources/org/godotengine/godot/GodotGLRenderView.java",
+      "sourceUrl": "https://repo.maven.apache.org/maven2/org/godotengine/godot/4.7.2.stable/godot-4.7.2.stable-sources.jar",
+      "notes": {
+        "archiveEntry": "org/godotengine/godot/GodotGLRenderView.java",
+        "archiveSha256": "aa9b8361b2ce9e60512cb02281171c25f2553ee45481065f09cac3e780508cc2",
+        "matchesArchiveEntry": true
+      }
+    },
+    {
+      "path": "sources/godot-maven-4.7.2.stable/org/godotengine/godot/GodotFragment.java",
+      "kind": "maven_engine_source",
+      "bytes": 9256,
+      "sha256": "3a5ebd3eac446859820e7d2699ff1d932ed579fa31dc3d7aa299a3e5a4022b5a",
+      "originalPath": "/tmp/partydeck-godot-android-research/maven-sources/org/godotengine/godot/GodotFragment.java",
+      "sourceUrl": "https://repo.maven.apache.org/maven2/org/godotengine/godot/4.7.2.stable/godot-4.7.2.stable-sources.jar",
+      "notes": {
+        "archiveEntry": "org/godotengine/godot/GodotFragment.java",
+        "archiveSha256": "aa9b8361b2ce9e60512cb02281171c25f2553ee45481065f09cac3e780508cc2",
+        "matchesArchiveEntry": true
+      }
+    },
+    {
+      "path": "sources/godot-maven-4.7.2.stable/org/godotengine/godot/Godot.kt",
+      "kind": "maven_engine_source",
+      "bytes": 36504,
+      "sha256": "ec2a0701e6378b615518989fbf942b61efc75eca81f6593b3169fa515c2a33c9",
+      "originalPath": "/tmp/partydeck-godot-android-research/maven-sources/org/godotengine/godot/Godot.kt",
+      "sourceUrl": "https://repo.maven.apache.org/maven2/org/godotengine/godot/4.7.2.stable/godot-4.7.2.stable-sources.jar",
+      "notes": {
+        "archiveEntry": "org/godotengine/godot/Godot.kt",
+        "archiveSha256": "aa9b8361b2ce9e60512cb02281171c25f2553ee45481065f09cac3e780508cc2",
+        "matchesArchiveEntry": true
+      }
+    },
+    {
+      "path": "sources/godot-maven-4.7.2.stable/org/godotengine/godot/gl/GLSurfaceView.java",
+      "kind": "maven_engine_source",
+      "bytes": 61996,
+      "sha256": "15d56bda1cf68e72bb3b48f8e2b0cd6a57dfab9832a674a6f2b4ce82b2f44dbb",
+      "originalPath": "/tmp/partydeck-godot-android-research/maven-sources/org/godotengine/godot/gl/GLSurfaceView.java",
+      "sourceUrl": "https://repo.maven.apache.org/maven2/org/godotengine/godot/4.7.2.stable/godot-4.7.2.stable-sources.jar",
+      "notes": {
+        "archiveEntry": "org/godotengine/godot/gl/GLSurfaceView.java",
+        "archiveSha256": "aa9b8361b2ce9e60512cb02281171c25f2553ee45481065f09cac3e780508cc2",
+        "matchesArchiveEntry": true
+      }
+    },
+    {
+      "path": "sources/godot-maven-4.7.2.stable/org/godotengine/godot/gl/GodotRenderer.java",
+      "kind": "maven_engine_source",
+      "bytes": 4048,
+      "sha256": "012b20f77e39bddaa23b8198bbdd0da25b9e6a8303fed4571c8098d5fff62da1",
+      "originalPath": "/tmp/partydeck-godot-android-research/maven-sources/org/godotengine/godot/gl/GodotRenderer.java",
+      "sourceUrl": "https://repo.maven.apache.org/maven2/org/godotengine/godot/4.7.2.stable/godot-4.7.2.stable-sources.jar",
+      "notes": {
+        "archiveEntry": "org/godotengine/godot/gl/GodotRenderer.java",
+        "archiveSha256": "aa9b8361b2ce9e60512cb02281171c25f2553ee45481065f09cac3e780508cc2",
+        "matchesArchiveEntry": true
+      }
+    },
+    {
+      "path": "sources/godot-maven-4.7.2.stable/org/godotengine/godot/plugin/GodotPlugin.java",
+      "kind": "maven_engine_source",
+      "bytes": 16902,
+      "sha256": "a755126a4b857571653513cfa2e21b4f2dcfc8e56f7bf5d15f39eacf0ccbbe87",
+      "originalPath": "/tmp/partydeck-godot-android-research/maven-sources/org/godotengine/godot/plugin/GodotPlugin.java",
+      "sourceUrl": "https://repo.maven.apache.org/maven2/org/godotengine/godot/4.7.2.stable/godot-4.7.2.stable-sources.jar",
+      "notes": {
+        "archiveEntry": "org/godotengine/godot/plugin/GodotPlugin.java",
+        "archiveSha256": "aa9b8361b2ce9e60512cb02281171c25f2553ee45481065f09cac3e780508cc2",
+        "matchesArchiveEntry": true
+      }
+    },
+    {
+      "path": "source-archive.json",
+      "kind": "source_identity",
+      "bytes": 299,
+      "sha256": "125509dc6b458f41217f89573cc8e18e6065c2e1382e7b9a52fdd5e63ef2051a",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/source-archive.json"
+    },
+    {
+      "path": "producer-evidence-summary.json",
+      "kind": "retained_engine_ci_package_audit",
+      "bytes": 14785,
+      "sha256": "27f62d92e6765e3607d1de3c08a8e7700308e08f49d265b2a1924b139c868534",
+      "originalPath": "/tmp/partydeck-engine-ci/34439587132/producer-evidence-summary.json"
+    },
+    {
+      "path": "godot-tag-reference.json",
+      "kind": "authoritative_engine_tag_identity",
+      "bytes": 363,
+      "sha256": "feffd504823ac8ec4f14baf1028382118cf7e630eeccf232d1a7eaf2c48bfbfa",
+      "originalPath": "/tmp/partydeck-native-3d-failure-investigation/godot-tag-reference.json",
+      "sourceUrl": "https://api.github.com/repos/godotengine/godot/git/ref/tags/4.7.2-stable"
+    },
+    {
+      "path": "native-binary-inspection/addr2line.log",
+      "kind": "read_only_binary_inspection",
+      "bytes": 24,
+      "sha256": "62d1344a97f7b0a29f88e84bffa073b5225e4743ca8b108a7b339461b5b5ca1c",
+      "originalPath": "/tmp/partydeck-native-3d-failure-investigation/native-binary/addr2line.log"
+    },
+    {
+      "path": "native-binary-inspection/draw-address-disassembly.log",
+      "kind": "read_only_binary_inspection",
+      "bytes": 3286,
+      "sha256": "5c79c4a5663aee25473c33493fd847f61680f17459e276e0ca368aa3804190d3",
+      "originalPath": "/tmp/partydeck-native-3d-failure-investigation/native-binary/draw-address-disassembly.log"
+    },
+    {
+      "path": "native-binary-inspection/dynamic-symbols.log",
+      "kind": "read_only_binary_inspection",
+      "bytes": 66323,
+      "sha256": "07a5136f68e6c30a7088930c6b0b001a6f85423e8d03baa7f156db3f45a16a5f",
+      "originalPath": "/tmp/partydeck-native-3d-failure-investigation/native-binary/dynamic-symbols.log"
+    },
+    {
+      "path": "native-binary-inspection/elf-notes.log",
+      "kind": "read_only_binary_inspection",
+      "bytes": 793,
+      "sha256": "ffbc5340754057f7e99e84250ff1edfe14e0f18861b1eff5cd55d46ccea41ba8",
+      "originalPath": "/tmp/partydeck-native-3d-failure-investigation/native-binary/elf-notes.log"
+    },
+    {
+      "path": "native-binary-inspection/elf-sections.log",
+      "kind": "read_only_binary_inspection",
+      "bytes": 2763,
+      "sha256": "cafcda5e21af9a0fb74d8cb5650f2155378ac9eb03f6389f83a53f68891e17ab",
+      "originalPath": "/tmp/partydeck-native-3d-failure-investigation/native-binary/elf-sections.log"
+    },
+    {
+      "path": "native-binary-inspection/inspection.json",
+      "kind": "read_only_binary_inspection",
+      "bytes": 498,
+      "sha256": "08ec551b186bab95ee64afffe580b9c544031a8eaa201d997162f919bde704e2",
+      "originalPath": "/tmp/partydeck-native-3d-failure-investigation/native-binary/inspection.json"
+    },
+    {
+      "path": "native-binary-inspection/nearby-diagnostic-strings.json",
+      "kind": "read_only_binary_inspection",
+      "bytes": 431,
+      "sha256": "e0d9a18988eef781330b7b39c3778590643d757ee0beeeef5fd26ab990823d89",
+      "originalPath": "/tmp/partydeck-native-3d-failure-investigation/native-binary/nearby-diagnostic-strings.json"
+    },
+    {
+      "path": "outcomes-and-observations.json",
+      "kind": "derived_summary",
+      "bytes": 11858,
+      "sha256": "70a902b39e88b50dce2ed0b44608dff03e0ebf5722ac15549f5768f1669d05d4",
+      "notes": "Only extracts selected fields from unchanged original runtime records."
+    },
+    {
+      "path": "investigation.md",
+      "kind": "investigation_report",
+      "bytes": 10593,
+      "sha256": "685ca37ccbcec63879f4a9c7dc483023967e18164237ea006ce3cf6375718899"
+    },
+    {
+      "path": "source-url-verification.json",
+      "kind": "source_verification",
+      "bytes": 4087,
+      "sha256": "59a6c26c93a8b904d0c0c28702057ff7625d0adc3e71cf2d1e2f1e07af96caec"
+    }
+  ],
+  "limitations": [
+    "No callback-level trace was captured for the first no-current-context call; the synchronous focus/command resource path is source-proven and strongly consistent with the crash but not instrumented as the specific executed callback.",
+    "No proposed correction has been executed or qualified in this receipt.",
+    "Normal-text records do not persist exact diagnostic enqueue/delivery timestamps; shader-delay timing is consistent with the watchdog expiration, not exact attribution.",
+    "Font 2.0 last persisted diagnostic is pre-background response 12/sequence 11; it is not an accepted resumed scene diagnostic or proof of a privacy leak.",
+    "Last persisted host command count does not prove whether a resume command was attempted before process death.",
+    "No production-session, physical-device, TalkBack, physical-LAN, or store qualification claim."
+  ],
+  "receiptVerification": {
+    "allManifestHashesMatch": true,
+    "allOriginalCopiesMatch": true,
+    "files": 106,
+    "originalScreenshotCount": 10
+  }
+}

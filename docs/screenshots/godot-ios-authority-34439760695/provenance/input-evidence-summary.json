@@ -1,0 +1,92 @@
+{
+  "runId": 34439760695,
+  "headSha": "f85f8158054ab70cc3f981c23a6854bb7b0630b6",
+  "scope": "Verified producer inputs only; Swift runtime consumer is still running.",
+  "checks": {
+    "sourceMarkers": true,
+    "samePinnedEngineCommit": true,
+    "sameNativeModuleSourceHashesAsPriorRun": true,
+    "exactHeadNativeSources": true,
+    "pathOverridesEnabled": true,
+    "arm64SimulatorFrameworkReceipt": true,
+    "frameworkCompiled": true,
+    "swiftModuleImportTypechecked": true,
+    "frameworkMembersSameAsPriorRun": true,
+    "sourcePackCheckPassed": true,
+    "packSameAsPriorRun": true,
+    "sameNativeArchiveMemberContentAsPriorRun": true
+  },
+  "archives": [
+    {
+      "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-host-engine/artifacts/libpartydeck_godot_ios_probe.a",
+      "sha256": "e4d72f49557856f8085032704b0ce2acdfb29a767f6b26985b4b8e10cd1f8b46",
+      "bytes": 191543584
+    },
+    {
+      "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-host-engine/artifacts/libpartydeck_godot_camera.a",
+      "sha256": "be5b380ff3fb2b0df43c97ab7784672f027980785add26ef3b0b6501e146be21",
+      "bytes": 82392
+    },
+    {
+      "path": "/tmp/partydeck-engine-ci/34439760695/godot-ios-host-framework/artifacts/PartyDeckGodotBridge-simulator.framework.tar.gz",
+      "sha256": "415a00a90b5b60239574084c3335c1c1957c920d7a6b71525db45d6d65fc8147",
+      "bytes": 8148398
+    }
+  ],
+  "frameworkFiles": [
+    {
+      "member": "PartyDeckGodotBridge.framework/PartyDeckGodotBridge",
+      "sha256": "580b45b44dc59289a65178fa8187f3512563a918294eb1c5262398b1a240ff95",
+      "bytes": 40739216
+    },
+    {
+      "member": "PartyDeckGodotBridge.framework/Headers/PartyDeckGodotBridge.h",
+      "sha256": "dddbb2ae23d1e87ebab18fa7c4f77326c3e370422b96f1e723c3e2f2cdde14fd",
+      "bytes": 179497
+    },
+    {
+      "member": "PartyDeckGodotBridge.framework/Modules/module.modulemap",
+      "sha256": "566a10ca59319c5510d030cc2418d21900d0cc724abd7627cfd65972aeec3a04",
+      "bytes": 149
+    },
+    {
+      "member": "PartyDeckGodotBridge.framework/Info.plist",
+      "sha256": "7873447ece8f8dab0760511eed41646ef12e940a3c7f70ec16acf7a394b6eb7a",
+      "bytes": 953
+    }
+  ],
+  "frameworkPlist": {
+    "CFBundleExecutable": "PartyDeckGodotBridge",
+    "CFBundleIdentifier": "dev.partydeck.godot.bridge",
+    "CFBundleInfoDictionaryVersion": "6.0",
+    "CFBundleName": "PartyDeckGodotBridge",
+    "CFBundlePackageType": "FMWK",
+    "CFBundleShortVersionString": "1.0",
+    "CFBundleSupportedPlatforms": [
+      "iPhoneSimulator"
+    ],
+    "CFBundleVersion": "1",
+    "MinimumOSVersion": "15.0",
+    "UIDeviceFamily": [
+      1,
+      2
+    ]
+  },
+  "packSha256": "6599f825a418f9d2a7049b3ba9325e8e0dcb474685262899079231b7ec955938",
+  "packBytes": 1542296,
+  "nativeSources": {
+    "partydeck_ios_probe/AppleExportPlugins.mm": "4fd8706afd3616e59221e12969d2a16380f3f8984077b0ff2a59dba0a74f30fc",
+    "partydeck_ios_probe/PDGodotRuntime.h": "781d0ea7d206d91a49316f30eeb905caec4b5715f5222fc363ed1b03127a647e",
+    "partydeck_ios_probe/PDGodotRuntime.mm": "4edfc4505cb15e40a6a728831ace7bcc1fbe2f7c103b3640aeb7aab1d32868f9",
+    "partydeck_ios_probe/SCsub": "781f9abdcb30c34d0271bcc21372c6b2ca59545594b8f59625bf05cd9c52f564",
+    "partydeck_ios_probe/SDLUIKitDeviceQueries.mm": "de234fbd5d28790e329f915417e99422ea1a66276de085e70ff7afcbe64962fe",
+    "partydeck_ios_probe/config.py": "a7d49c9d253183baf38500b6427d3dde8465df1c176d14ddae240ea086e67d3f",
+    "partydeck_ios_probe/engine_surface_probe.mm": "797dd6eb76527d4e3a5b5366667bfca0c720e07078d0e071710a6086254e7e6b",
+    "partydeck_ios_probe/register_types.h": "f4550220fcfb8bbd2bb42118823987254b40d6f9293cee61bb972acaa82e4c9c",
+    "partydeck_ios_probe/strict_json.h": "c3bff31433102904886a4fb1adcee109c912b7532f21a46f7e1b1ae629c9d074"
+  },
+  "rawEngineArchiveSameAsPriorRun": false,
+  "engineArchiveDifferenceNote": "All 2,297 engine and 2 camera archive member payloads match the prior run exactly. Whole archive digests differ with header metadata, recorded in native-archive-member-comparison.json.",
+  "runtimeQualified": false,
+  "nativeArchiveMemberComparison": "/tmp/partydeck-engine-ci/34439760695/native-archive-member-comparison.json"
+}

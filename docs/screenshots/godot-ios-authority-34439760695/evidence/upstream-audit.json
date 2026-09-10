@@ -1,0 +1,250 @@
+{
+  "tag": "4.7.2-stable",
+  "commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+  "source_audit": "passed",
+  "ios_libgodot_library_mode": "unsupported_by_upstream_build",
+  "ios_native_surface": "internal_GDTView_source_candidate",
+  "ios_runtime_executed": false,
+  "kmp_factory_qualified": false,
+  "upstream_patches": [],
+  "required_template_option": "disable_path_overrides=no",
+  "exported_apple_plugins": [],
+  "extracted_sdl_device_queries": {
+    "upstream_url": "https://github.com/libsdl-org/SDL/blob/7f3ae3d57459e59943a4ecfefc8f6277ec6bf540/src/video/uikit/SDL_uikitvideo.m",
+    "upstream_file_sha256": "e42cc222f7c551fe2100ff98ce1035db6c2d6c164bb585bc5b2d3d8456d2ef31",
+    "functions": [
+      "SDL_IsIPad",
+      "SDL_IsAppleTV"
+    ],
+    "behavior": "unchanged_UIDevice_userInterfaceIdiom_queries"
+  },
+  "sources": [
+    {
+      "path": "SConstruct",
+      "sha256": "b67bd31bf2d3bc1d91d4a1c5b2e4117c3d2dbd9c066ba3bb040cdd61226845f7",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/SConstruct",
+      "lines": {
+        "Library builds unsupported": 602,
+        "env.Append(CPPDEFINES=[\"LIBGODOT_ENABLED\"])": 604,
+        "\"disable_path_overrides\"": 274,
+        "env.Append(CPPDEFINES=[\"OVERRIDE_PATH_ENABLED\"])": 1102
+      }
+    },
+    {
+      "path": "platform/ios/detect.py",
+      "sha256": "e7fe9867344d77e92ff4b318fc820ad05c0d5c0799032542cb5c59bfb568e478",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/platform/ios/detect.py",
+      "lines": {
+        "\"supported\": [\"metal\", \"mono\"]": 54,
+        "env[\"metal\"] = False": 158,
+        "env[\"vulkan\"] = False": 173
+      }
+    },
+    {
+      "path": "platform/ios/SCsub",
+      "sha256": "683cb6d2b487a2a6139b87a425fa278f0b71d356589a14d3ba4aacb2ff1833da",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/platform/ios/SCsub",
+      "lines": {
+        "\"main_ios.mm\"": 15,
+        "combine_libs_apple_embedded": 6
+      }
+    },
+    {
+      "path": "platform/ios/main_ios.mm",
+      "sha256": "033b5dd98868a245c49d963d37693c5552244a35e773a4aca55b1d819f507ccb",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/platform/ios/main_ios.mm",
+      "lines": {
+        "int apple_embedded_main(int argc, char **argv)": 44,
+        "void apple_embedded_finish()": 76,
+        "delete os;": 79
+      }
+    },
+    {
+      "path": "platform/ios/api/api.cpp",
+      "sha256": "352b30c2ee1afc90089373e7508346909def887b30ad758453c9b88240febbfa",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/platform/ios/api/api.cpp",
+      "lines": {
+        "godot_apple_embedded_plugins_initialize()": 36,
+        "godot_apple_embedded_plugins_deinitialize()": 40
+      }
+    },
+    {
+      "path": "editor/export/editor_export_platform_apple_embedded.cpp",
+      "sha256": "9202b5caa7ead3f4d5f3cbb8c5bf172632acb2775a38dd9173cc2087e755d4f1",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/editor/export/editor_export_platform_apple_embedded.cpp",
+      "lines": {
+        "String plugin_initialization_cpp_code;": 1430,
+        "void godot_apple_embedded_plugins_initialize()": 1613,
+        "void godot_apple_embedded_plugins_deinitialize()": 1614
+      }
+    },
+    {
+      "path": "thirdparty/README.md",
+      "sha256": "a8037f030f40bcc4b3b70fa87de4f2424130ed8a432774ecca78707c038e4ccc",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/thirdparty/README.md",
+      "lines": {
+        "3.2.28 (7f3ae3d57459e59943a4ecfefc8f6277ec6bf540": 1005
+      }
+    },
+    {
+      "path": "thirdparty/sdl/SDL.c",
+      "sha256": "b76622d58975b100599fa22d5dd93078dc4b9274de2b613e6170d0244ada76ac",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/thirdparty/sdl/SDL.c",
+      "lines": {
+        "extern bool SDL_IsIPad(void)": 766,
+        "extern bool SDL_IsAppleTV(void)": 778
+      }
+    },
+    {
+      "path": "drivers/sdl/SCsub",
+      "sha256": "085bc87dac3b37c2c97d76d25325e144bf769486b86f356d4dbe4340ad42443f",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/drivers/sdl/SCsub",
+      "lines": {
+        "elif env[\"platform\"] in [\"ios\", \"visionos\"]": 191,
+        "\"joystick/apple/SDL_mfijoystick.m\"": 153
+      }
+    },
+    {
+      "path": "drivers/apple_embedded/main_utilities.mm",
+      "sha256": "b04b976948030582d989e190749148881b5c0b90f45276aaf2df6e2dc5a2e311",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/drivers/apple_embedded/main_utilities.mm",
+      "lines": {
+        "char path[512]": 48,
+        "r_args[p_argc] = nullptr": 78,
+        "godot_cmdline": 56
+      }
+    },
+    {
+      "path": "main/main.cpp",
+      "sha256": "1831257f5c8eb0707d278f04b21b1e4b3ba863f8dca5cab36022d4b19e36b8c1",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/main/main.cpp",
+      "lines": {
+        "Error Main::setup2": 3033,
+        "_start_success = true": 879,
+        "ERR_FAIL_COND(!_start_success)": 886,
+        "int Main::start()": 4013,
+        "without support for path overrides": 1783,
+        "disable_path_overrides=no": 1784
+      }
+    },
+    {
+      "path": "core/extension/libgodot.h",
+      "sha256": "66aa85e6ec69b35ae8a7b8c0b17f50474bfae45d7d040293d43e2f1cca6b1d2d",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/core/extension/libgodot.h",
+      "lines": {
+        "libgodot_create_godot_instance": 49,
+        "libgodot_destroy_godot_instance": 63
+      }
+    },
+    {
+      "path": "drivers/apple_embedded/app.swift",
+      "sha256": "be46e906b643f700ce5d8cd09258cd7da6f0c562f8d1bd0918aa84cef1554e43",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/drivers/apple_embedded/app.swift",
+      "lines": {
+        "UIViewControllerRepresentable": 34,
+        "@main": 48,
+        "GDTAppDelegateService.viewController = viewController": 38
+      }
+    },
+    {
+      "path": "drivers/apple_embedded/godot_view_controller.h",
+      "sha256": "64f19b4891aa6d1d47ba8c85becc679f9141db0be612b384711cf23a436a599f",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/drivers/apple_embedded/godot_view_controller.h",
+      "lines": {
+        "@interface GDTViewController : UIViewController": 38,
+        "propagateUIPreferencesToRootViewController": 44
+      }
+    },
+    {
+      "path": "drivers/apple_embedded/godot_view_controller.mm",
+      "sha256": "3c1c20ef2386250ee62e8ac9eec13e462fce9881cdae80439d4102712f11a128",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/drivers/apple_embedded/godot_view_controller.mm",
+      "lines": {
+        "method_setImplementation": 264,
+        "[self.godotView startRendering]": 174,
+        "[self.godotView stopRendering]": 181
+      }
+    },
+    {
+      "path": "drivers/apple_embedded/godot_view_apple_embedded.mm",
+      "sha256": "ee116714ab1ac863ace4fd23debac98faa498ed5f51e3a0c96120e0f86af720a",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/drivers/apple_embedded/godot_view_apple_embedded.mm",
+      "lines": {
+        "CFRunLoopRunInMode": 226,
+        "[self.renderer renderOnView:self]": 267
+      }
+    },
+    {
+      "path": "drivers/apple_embedded/display_server_apple_embedded.mm",
+      "sha256": "99917d4f29e0d7d91d5bc0fe496501f100e0fb2cc4d7072e1cffd20a89b57ca4",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/drivers/apple_embedded/display_server_apple_embedded.mm",
+      "lines": {
+        "GDTAppDelegateService.viewController.godotView": 89,
+        "initializeRenderingForDriver": 89,
+        "screen_set_keep_on(keep_screen_on)": 175,
+        "[UIApplication sharedApplication].idleTimerDisabled = p_enable;": 799,
+        "* screen_get_max_scale()": 140,
+        "return screen_get_scale(DisplayServerEnums::SCREEN_OF_MAIN_WINDOW);": 659
+      }
+    },
+    {
+      "path": "platform/ios/display_server_ios.mm",
+      "sha256": "461e33ac6bb5e6c5eae17f61b2c85e4c037b0052fdd1cf828b7e72f8f81da21b",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/platform/ios/display_server_ios.mm",
+      "lines": {
+        "float DisplayServerIOS::screen_get_scale(int p_screen) const": 116,
+        "return [UIScreen mainScreen].scale;": 121
+      }
+    },
+    {
+      "path": "drivers/apple_embedded/godot_view_renderer.mm",
+      "sha256": "deb76f84e79af974811e93086232bf00956d1eb3734cfdf4f1ffeb25de661d27",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/drivers/apple_embedded/godot_view_renderer.mm",
+      "lines": {
+        "Main::setup2()": 85,
+        "OS_AppleEmbedded::get_singleton()->start()": 73,
+        "OS_AppleEmbedded::get_singleton()->iterate()": 116
+      }
+    },
+    {
+      "path": "drivers/apple_embedded/os_apple_embedded.mm",
+      "sha256": "e89fa0a4f09eea31dddadf7a308e60b1cde4901badecd5a93a533361d1969db8",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/drivers/apple_embedded/os_apple_embedded.mm",
+      "lines": {
+        "main_loop->initialize()": 244,
+        "audio_driver.stop()": 788,
+        "audio_driver.start()": 806,
+        "handle_application_pause": 815
+      }
+    },
+    {
+      "path": "platform/ios/godot_view_ios.mm",
+      "sha256": "eac459c0586c7d0ff78b377d21d61fcac45fb34f9fe555f26812b64cca61050d",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/platform/ios/godot_view_ios.mm",
+      "lines": {
+        "@implementation GDTViewIOS": 46,
+        "GDTOpenGLLayer layer": 68,
+        "initializeDisplayLayer": 81
+      }
+    },
+    {
+      "path": "platform/ios/display_layer_ios.mm",
+      "sha256": "acb703a33e09e9dada66eee45b48cb6f3150d662a2ecf6f0c8612e49f8e85aea",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/platform/ios/display_layer_ios.mm",
+      "lines": {
+        "@implementation GDTOpenGLLayer": 75,
+        "presentRenderbuffer": 129,
+        "setCurrentContext:nil": 141
+      }
+    },
+    {
+      "path": "platform/macos/libgodot_macos.mm",
+      "sha256": "c88b7977d2fd37d0371f738a895d57aa6901f13950502785093c7631479cc467",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/platform/macos/libgodot_macos.mm",
+      "lines": {
+        "Only one Godot Instance may be created.": 42,
+        "When Godot Engine supports reinitialization": 69
+      }
+    }
+  ]
+}

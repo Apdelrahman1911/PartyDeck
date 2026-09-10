@@ -1,0 +1,11 @@
+Common UI source review, 2026-09-10
+
+Controller API source: composeApp/src/commonMain/kotlin/dev/partydeck/app/controller/GameplayPresentationState.kt
+Integration contract: /tmp/partydeck-session-godot-integration-contract.md
+Accessible selector source: https://developer.android.com/develop/ui/compose/components/radio-button
+Downloaded source: /tmp/partydeck-session-ui-radio-button.html
+SHA-256: 6526dd74c197332bf6539ed6d207fc1b0dd7257e176d9ea173d20d2f27677d91
+
+The official example puts selectableGroup on the options container, Role.RadioButton and the single click on the row, and null onClick on the nested RadioButton for screen-reader behavior. This UI uses heightIn instead of a fixed row height to allow 200% text to wrap. Existing Compose AlertDialog + scrollable text and existing DeckButton patterns are reused.
+
+UI qualification scope: available-choice filtering and real safe GameView rendering through Compose branches. Explicit lifecycle state fixtures do not implement a native factory and are not Android/iOS execution evidence.
