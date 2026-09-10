@@ -10,6 +10,10 @@
 
 #include <type_traits>
 
+#ifndef OVERRIDE_PATH_ENABLED
+#error "The isolated iOS host requires the supported disable_path_overrides=no SCons option."
+#endif
+
 // These are the actual definitions in platform/ios/main_ios.mm. They are
 // internal C++ export-template entry points, not the desktop LibGodot C API.
 extern int apple_embedded_main(int argc, char **argv);

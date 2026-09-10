@@ -106,6 +106,11 @@ ordinary iOS export-template static archive with the custom probe module and
 two compiler jobs. It uses the Compatibility/OpenGL renderer; both official
 iOS compilation documentation and the pinned platform configuration limit the
 Simulator to that renderer. This does not test device Metal or GPU performance.
+The supported `disable_path_overrides=no` option is required because this owned
+host supplies its bundled project/pack paths to `--path` and `--main-pack`.
+The custom module fails compilation if `OVERRIDE_PATH_ENABLED` is absent.
+The host constructs its argument list itself; it does not forward application
+launch arguments or allow `godot_cmdline` injection.
 
 All generated files stay under `godot/ios-host/build`:
 
@@ -152,7 +157,19 @@ from the exact SDL commit named by Godot, retaining the original notice and
 source hash. It also supplies the Apple exporter's empty-list initialization
 hooks: this host selects no `.gdip` export plugins. The actual `PartyDeckBridge`
 engine module registers independently through Godot's module lifecycle. Native
-linking and execution with this glue remain unverified until a later test run.
+linking with this glue passed in
+[run 34428221586](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34428221586).
+All five diagnostic tests executed, but only cancellation before bootstrap
+passed. Retained app stderr identifies the initial engine failure exactly:
+`Main::setup` refused `--path` because the template's default configuration
+disables path overrides. The failed runtime snapshot reports one bootstrap,
+zero setup2/Ready/iterations, and a quarantined OS; it also confirms the shell's
+idle-timer policy was restored. Enabling the supported option fixes that
+configuration mismatch; the lifecycle gate still requires a successful rerun.
+Actual bootstrap/setup2/start return codes are now retained (`-1` means that
+stage was not attempted), and failed waits preserve measurements before ending
+the test. No native scene-rendering or cleanup success is inferred from this
+failed run.
 
 The optional `PARTYDECK_GODOT_PROBE_PCK=/absolute/path/partydeck-last-light.pck`
 input bundles the shared pack after its companion receipt is verified with

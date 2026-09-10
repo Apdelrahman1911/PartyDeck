@@ -13,7 +13,7 @@ COMMIT = "ed1daf0bf001b61586d9930840f2f1394092c079"
 REPOSITORY = "https://github.com/godotengine/godot.git"
 
 SOURCES = {
-    "SConstruct": ["Library builds unsupported", 'env.Append(CPPDEFINES=["LIBGODOT_ENABLED"])'],
+    "SConstruct": ["Library builds unsupported", 'env.Append(CPPDEFINES=["LIBGODOT_ENABLED"])', '"disable_path_overrides"', 'env.Append(CPPDEFINES=["OVERRIDE_PATH_ENABLED"])'],
     "platform/ios/detect.py": ['"supported": ["metal", "mono"]', 'env["metal"] = False', 'env["vulkan"] = False'],
     "platform/ios/SCsub": ['"main_ios.mm"', "combine_libs_apple_embedded"],
     "platform/ios/main_ios.mm": ["int apple_embedded_main(int argc, char **argv)", "void apple_embedded_finish()", "delete os;"],
@@ -23,7 +23,7 @@ SOURCES = {
     "thirdparty/sdl/SDL.c": ["extern bool SDL_IsIPad(void)", "extern bool SDL_IsAppleTV(void)"],
     "drivers/sdl/SCsub": ['elif env["platform"] in ["ios", "visionos"]', '"joystick/apple/SDL_mfijoystick.m"'],
     "drivers/apple_embedded/main_utilities.mm": ["char path[512]", "r_args[p_argc] = nullptr", "godot_cmdline"],
-    "main/main.cpp": ["Error Main::setup2", "_start_success = true", "ERR_FAIL_COND(!_start_success)", "int Main::start()"],
+    "main/main.cpp": ["Error Main::setup2", "_start_success = true", "ERR_FAIL_COND(!_start_success)", "int Main::start()", "without support for path overrides", "disable_path_overrides=no"],
     "core/extension/libgodot.h": ["libgodot_create_godot_instance", "libgodot_destroy_godot_instance"],
     "drivers/apple_embedded/app.swift": ["UIViewControllerRepresentable", "@main", "GDTAppDelegateService.viewController = viewController"],
     "drivers/apple_embedded/godot_view_controller.h": ["@interface GDTViewController : UIViewController", "propagateUIPreferencesToRootViewController"],
@@ -65,6 +65,7 @@ def inspect(source: Path) -> dict:
         "ios_runtime_executed": False,
         "kmp_factory_qualified": False,
         "upstream_patches": [],
+        "required_template_option": "disable_path_overrides=no",
         "exported_apple_plugins": [],
         "extracted_sdl_device_queries": {
             "upstream_url": "https://github.com/libsdl-org/SDL/blob/7f3ae3d57459e59943a4ecfefc8f6277ec6bf540/src/video/uikit/SDL_uikitvideo.m",

@@ -15,7 +15,7 @@ final class ProbeHostUITests: XCTestCase {
         capture("Diagnostic rendering", app)
 
         element("pause-scene", app).tap()
-        try await waitUntil("Pause must stop the render loop and cover the old frame.") {
+        try await waitUntil("Pause must stop the render loop and cover the old frame.", app: app) {
             self.metrics(app)["state"] as? String == "paused" &&
             self.flag("privacyCoverVisible", app) && !self.flag("renderLoopActive", app)
         }
@@ -25,7 +25,7 @@ final class ProbeHostUITests: XCTestCase {
         capture("Diagnostic paused and covered", app)
 
         element("pause-scene", app).tap()
-        try await waitUntil("Resume must produce a fresh frame before uncovering.") {
+        try await waitUntil("Resume must produce a fresh frame before uncovering.", app: app) {
             self.number("iterations", app) > pausedIterations + 2 &&
             !self.flag("privacyCoverVisible", app)
         }
@@ -33,7 +33,7 @@ final class ProbeHostUITests: XCTestCase {
         XCUIDevice.shared.press(.home)
         XCTAssertTrue(app.wait(for: .runningBackground, timeout: 10))
         app.activate()
-        try await waitUntil("Application lifecycle must reach Godot's pause/resume path.") {
+        try await waitUntil("Application lifecycle must reach Godot's pause/resume path.", app: app) {
             self.number("backgroundTransitions", app) > backgroundTransitions &&
             self.metrics(app)["state"] as? String == "running" &&
             !self.flag("privacyCoverVisible", app)
@@ -47,7 +47,7 @@ final class ProbeHostUITests: XCTestCase {
         surface.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.51)).tap()
         try await assertClosed(app, expectedExitEvents: 1)
         element("try-reopen", app).tap()
-        try await waitUntil("A second engine must be refused without a second bootstrap.") {
+        try await waitUntil("A second engine must be refused without a second bootstrap.", app: app) {
             self.flag("reopenDenied", app)
         }
         XCTAssertEqual(number("bootstrapCount", app), 1)
@@ -71,7 +71,7 @@ final class ProbeHostUITests: XCTestCase {
         let covers = number("privacyCoverCount", app)
         let losses = number("backgroundTransitions", app)
         element("cycle-focus", app).tap()
-        try await waitUntil("A coalesced false/true pair must preserve concealment and restart drawing.") {
+        try await waitUntil("A coalesced false/true pair must preserve concealment and restart drawing.", app: app) {
             self.number("backgroundTransitions", app) == losses + 1 &&
             self.number("privacyCoverCount", app) == covers + 1 &&
             self.number("iterations", app) > before + 2 &&
@@ -88,12 +88,15 @@ final class ProbeHostUITests: XCTestCase {
         app.launchArguments = ["--close-before-start", "--host-idle-timer=on"]
         app.launch()
         element("start-scene", app).tap()
-        try await waitUntil("A cancelled presentation must close without bootstrapping.") {
+        try await waitUntil("A cancelled presentation must close without bootstrapping.", app: app) {
             self.metrics(app)["state"] as? String == "closed"
         }
         XCTAssertEqual(number("bootstrapCount", app), 0)
         XCTAssertEqual(number("cleanupCount", app), 0)
         XCTAssertEqual(number("iterations", app), 0)
+        XCTAssertEqual(number("bootstrapExitCode", app), -1)
+        XCTAssertEqual(number("setup2ErrorCode", app), -1)
+        XCTAssertEqual(number("mainStartExitCode", app), -1)
         XCTAssertFalse(flag("osSingletonPresent", app))
         XCTAssertTrue(flag("previousIdleTimerDisabled", app))
         assertIdleTimerRestored(app)
@@ -110,6 +113,9 @@ final class ProbeHostUITests: XCTestCase {
         element("start-scene", app).tap()
         try await assertClosed(app, expectedExitEvents: 0)
         XCTAssertTrue(flag("setup2Succeeded", app))
+        XCTAssertEqual(number("bootstrapExitCode", app), 0)
+        XCTAssertEqual(number("setup2ErrorCode", app), 0)
+        XCTAssertEqual(number("mainStartExitCode", app), -1)
         XCTAssertEqual(number("closeRequestedDuringInitialization", app), 1)
         XCTAssertEqual(number("readyEvents", app), 0)
         XCTAssertEqual(number("iterations", app), 0)
@@ -126,6 +132,9 @@ final class ProbeHostUITests: XCTestCase {
         try await assertClosed(app, expectedExitEvents: 0, expectedState: "failed")
         XCTAssertTrue(flag("setup2Succeeded", app))
         XCTAssertEqual(metrics(app)["failure"] as? String, "MAIN_START_FAILED")
+        XCTAssertEqual(number("bootstrapExitCode", app), 0)
+        XCTAssertEqual(number("setup2ErrorCode", app), 0)
+        XCTAssertEqual(number("mainStartExitCode", app), 1)
         XCTAssertTrue(flag("previousIdleTimerDisabled", app))
         XCTAssertTrue(flag("idleTimerDisabledAfterSetup", app))
         XCTAssertEqual(number("readyEvents", app), 0)
@@ -140,12 +149,15 @@ final class ProbeHostUITests: XCTestCase {
         app.launch()
         XCTAssertTrue(element("start-scene", app).waitForExistence(timeout: 15))
         element("start-scene", app).tap()
-        try await waitUntil("A real Godot scene must emit Ready and execute iterations.", timeout: 45) {
+        try await waitUntil("A real Godot scene must emit Ready and execute iterations.", timeout: 45, app: app) {
             self.number("readyEvents", app) == 1 &&
             self.number("iterations", app) >= 3 &&
             self.flag("renderLoopActive", app)
         }
         XCTAssertTrue(flag("idleTimerPolicyCaptured", app))
+        XCTAssertEqual(number("bootstrapExitCode", app), 0)
+        XCTAssertEqual(number("setup2ErrorCode", app), 0)
+        XCTAssertEqual(number("mainStartExitCode", app), 0)
         XCTAssertEqual(flag("previousIdleTimerDisabled", app), initialIdleTimerDisabled)
         XCTAssertTrue(flag("idleTimerDisabledAfterSetup", app))
         XCTAssertTrue(flag("idleTimerDisabled", app))
@@ -154,7 +166,7 @@ final class ProbeHostUITests: XCTestCase {
 
     @MainActor
     private func assertClosed(_ app: XCUIApplication, expectedExitEvents: Int, expectedState: String = "closed") async throws {
-        try await waitUntil("Close must destroy the OS singleton, stop iteration, and release the native view.", timeout: 30) {
+        try await waitUntil("Close must destroy the OS singleton, stop iteration, and release the native view.", timeout: 30, app: app) {
             self.metrics(app)["state"] as? String == expectedState &&
             self.flag("viewReleased", app) && self.flag("controllerReleased", app)
         }
@@ -209,13 +221,26 @@ final class ProbeHostUITests: XCTestCase {
     }
 
     @MainActor
-    private func waitUntil(_ message: String, timeout: TimeInterval = 15, condition: @MainActor () -> Bool) async throws {
+    private func waitUntil(_ message: String, timeout: TimeInterval = 15, app: XCUIApplication, condition: @MainActor () -> Bool) async throws {
         let deadline = Date().addingTimeInterval(timeout)
         while !condition(), Date() < deadline {
             try await Task.sleep(nanoseconds: 150_000_000)
         }
-        XCTAssertTrue(condition(), message)
+        let passed = condition()
+        if !passed {
+            // Preserve the actual coarse runtime state before an assertion
+            // aborts this test. No launch document or renderer payload is logged.
+            capture("Failed wait: \(message)", app)
+            if let bytes = try? JSONSerialization.data(withJSONObject: metrics(app), options: [.sortedKeys]),
+               let document = String(data: bytes, encoding: .utf8) {
+                print("Probe failure snapshot: \(document)")
+            }
+        }
+        XCTAssertTrue(passed, message)
+        if !passed { throw WaitFailure.conditionTimedOut }
     }
+
+    private enum WaitFailure: Error { case conditionTimedOut }
 
     @MainActor
     private func capture(_ name: String, _ app: XCUIApplication) {

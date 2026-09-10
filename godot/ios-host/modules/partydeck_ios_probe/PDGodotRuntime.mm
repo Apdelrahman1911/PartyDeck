@@ -170,6 +170,7 @@ static BOOL PDIntent(NSDictionary *object) {
 	NSUInteger _cleanupCount, _cleanupDepth, _readyEvents, _exitEvents, _intentEvents, _rejectedEvents;
 	NSUInteger _backgroundTransitions, _closeDuringDraw, _closeDuringInitialization, _coverUntilIteration, _privacyCoverCount;
 	NSUInteger _foregroundGeneration;
+	int _bootstrapExitCode, _setup2ErrorCode, _mainStartExitCode;
 	BOOL _prepared, _bootstrapAttempted, _bootstrapSucceeded, _setup2Succeeded, _started;
 	BOOL _foreground, _appliedForeground, _lifecycleApplied, _closeRequested, _closed, _quarantined;
 	BOOL _drainScheduled, _eventTerminal, _readySeen, _closeOnNextDraw, _pendingForegroundLoss, _closeAfterSetup;
@@ -349,6 +350,7 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 	if (self) {
 		_state = @"idle";
 		_foreground = YES;
+		_bootstrapExitCode = _setup2ErrorCode = _mainStartExitCode = -1;
 		_commands = [NSMutableArray new];
 		_events = [NSMutableArray new];
 	}
@@ -424,7 +426,8 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 	for (std::string &argument : arguments) {
 		argv.push_back(argument.data());
 	}
-	_bootstrapSucceeded = apple_embedded_main(static_cast<int>(argv.size()), argv.data()) == 0;
+	_bootstrapExitCode = apple_embedded_main(static_cast<int>(argv.size()), argv.data());
+	_bootstrapSucceeded = _bootstrapExitCode == EXIT_SUCCESS;
 	if (_bootstrapSucceeded) {
 		_godotController = [PDGodotHostViewController new];
 		_godotController.runtime = self;
@@ -441,14 +444,18 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 		}
 		// The actual setupProjectData stage, with its Error result checked.
 		// The attached native surface exists before any display-server setup.
-		_setup2Succeeded = Main::setup2(false) == OK;
+		_setup2ErrorCode = Main::setup2(false);
+		_setup2Succeeded = _setup2ErrorCode == OK;
 		_idleTimerDisabledAfterSetup = UIApplication.sharedApplication.idleTimerDisabled;
 		if (_closeAfterSetup) {
 			[self close];
 		}
-		if (_setup2Succeeded && !_closeRequested && Main::start() == EXIT_SUCCESS && OS::get_singleton()->get_main_loop()) {
-			OS::get_singleton()->get_main_loop()->initialize();
-			_started = YES;
+		if (_setup2Succeeded && !_closeRequested) {
+			_mainStartExitCode = Main::start();
+			if (_mainStartExitCode == EXIT_SUCCESS && OS::get_singleton()->get_main_loop()) {
+				OS::get_singleton()->get_main_loop()->initialize();
+				_started = YES;
+			}
 		}
 		_renderingLayerClass = NSStringFromClass(_observedView.renderingLayer.class);
 	}
@@ -800,6 +807,8 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 	return @{
 		@"state": _state, @"failure": _failure ?: @"", @"bootstrapCount": @(processBootstrapCount),
 		@"setup2Succeeded": @(_setup2Succeeded), @"mainStarted": @(_started),
+		@"bootstrapExitCode": @(_bootstrapExitCode), @"setup2ErrorCode": @(_setup2ErrorCode),
+		@"mainStartExitCode": @(_mainStartExitCode),
 		@"iterations": @(_iterations), @"drawCalls": @(_drawCalls), @"drawDepth": @(_drawDepth),
 		@"cleanupCount": @(_cleanupCount), @"cleanupDepth": @(_cleanupDepth),
 		@"closeRequestedDuringDraw": @(_closeDuringDraw), @"renderLoopActive": @(_observedView.isActive),

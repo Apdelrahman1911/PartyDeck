@@ -63,11 +63,13 @@ PARTYDECK_PROBE_PYTHON="$PARTYDECK_PROBE_BUILD/venv/bin/python"
 # iOS's normal export-template build already produces a static archive.
 # SConstruct explicitly rejects library_type=static_library/shared_library on iOS.
 # Simulator drivers are limited to Compatibility by this exact upstream source.
+# The owned host supplies its validated bundle paths through --path/--main-pack;
+# export templates disable those arguments by default in this engine version.
 (
   cd "$PARTYDECK_PROBE_SOURCE"
   "$PARTYDECK_PROBE_PYTHON" -m SCons \
     platform=ios target=template_debug arch=arm64 simulator=yes \
-    vulkan=no metal=no opengl3=yes generate_bundle=no \
+    vulkan=no metal=no opengl3=yes generate_bundle=no disable_path_overrides=no \
     custom_modules="$PARTYDECK_PROBE_ROOT/modules" \
     cache_path="$PARTYDECK_PROBE_BUILD/scons-cache" \
     -j2
@@ -105,6 +107,8 @@ result = {
     **receipt(destination),
     "auxiliary_archives": [{**receipt(camera_destination), "upstream_archive": camera[0].name}],
     "stage": "engine_compile_only",
+    "path_overrides_enabled": True,
+    "bootstrap_arguments": "native_owned_bundle_paths",
     "ios_runtime_executed": False,
     "kmp_factory_qualified": False,
 }
