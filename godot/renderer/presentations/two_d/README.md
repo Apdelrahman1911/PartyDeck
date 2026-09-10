@@ -2,10 +2,10 @@
 
 [`table.tscn`](table.tscn) is the real flat Godot presentation selected by
 `presentationMode: "2d"`. It remains alongside the separately owned 3D scene.
-The shared main scene calls `bind(controller)`; this presentation renders
-`presentation_state()`, listens to `state_changed`, and requests only the
-controller's reveal, cover, selection, play, challenge, next-round, lobby and
-exit methods. The [bridge contract](../../../bridge/CONTRACT.md) and existing
+The shared main scene calls `bind(controller)` and reconciles this presentation
+from `presentation_state()` during its processing frame. The presentation
+requests only the controller's reveal, cover, selection, play, challenge,
+next-round, lobby and exit methods. The [bridge contract](../../../bridge/CONTRACT.md) and existing
 Kotlin authority own legality, identity, pending actions and outcomes.
 
 The table shows the required rank, public claim count, numbered seats, public
