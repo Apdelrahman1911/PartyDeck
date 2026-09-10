@@ -21,10 +21,14 @@ var _diagnostic_sequence := 0
 var _manual_bridge := false
 var _waiting: CanvasLayer
 var _native_display_scale_valid := true
+var _state_pending := false
+var _pending_ready := ""
+var _quiet_pending := false
 
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	set_process(false)
 	get_tree().auto_accept_quit = false
 	controller = Controller.new()
 	controller.name = "Controller"
@@ -60,7 +64,8 @@ func _ready() -> void:
 
 
 func receive_document(document: String) -> bool:
-	return controller != null and controller.receive_document(document)
+	return is_inside_tree() and not is_queued_for_deletion() and is_instance_valid(controller) \
+		and controller.receive_document(document)
 
 
 func _plugin_has_method(method_name: StringName) -> bool:
@@ -92,6 +97,40 @@ func _configure_native_display_scale(value: Variant) -> bool:
 
 
 func _on_state(state: Dictionary) -> void:
+	# Android's GL event queue runs even before its EGL surface is current. Keep
+	# only the latest CPU state here; resource work belongs to Main::iteration.
+	if not is_inside_tree() or is_queued_for_deletion():
+		return
+	if is_instance_valid(_presentation) and _presentation.has_method("store_state"):
+		_presentation.store_state(state)
+	if state.closed:
+		_pending_ready = ""
+	if not state.soundEnabled:
+		_quiet_pending = true
+	_request_reconcile()
+
+
+func _request_reconcile() -> void:
+	if is_inside_tree() and not is_queued_for_deletion():
+		_state_pending = true
+		set_process(true)
+
+
+func _process(_delta: float) -> void:
+	set_process(false)
+	if not _state_pending or not is_inside_tree() or is_queued_for_deletion() \
+		or not is_instance_valid(controller):
+		return
+	_state_pending = false
+	# PROCESS_MODE_ALWAYS also drains Close/resume while SceneTree is paused.
+	# No signal arguments are queued, so background bursts cannot retain old hands.
+	_reconcile_state(controller.presentation_state())
+
+
+func _reconcile_state(state: Dictionary) -> void:
+	if _quiet_pending:
+		_quiet_pending = false
+		_quiet_feedback()
 	if state.closed:
 		_quiet_feedback()
 		_remove_presentation()
@@ -116,22 +155,41 @@ func _on_state(state: Dictionary) -> void:
 		_presentation = scene.instantiate()
 		_presentation.process_mode = Node.PROCESS_MODE_PAUSABLE
 		_mode = state.presentationMode
-		add_child(_presentation)
-		if not _presentation.has_method("bind"):
+		if not _presentation.has_method("bind") or not _presentation.has_method("store_state") \
+			or not _presentation.has_method("apply_state") or not _presentation.has_signal("redraw_requested"):
 			controller.fail("INITIALIZATION_FAILED")
 			return
+		_presentation.redraw_requested.connect(_request_reconcile)
+		add_child(_presentation)
 		_presentation.bind(controller)
 		if _waiting != null:
 			_waiting.queue_free()
 			_waiting = null
-	# Renderers synchronously receive the same state signal, remove private bindings, then pause.
+	_presentation.apply_state(state)
+	# Scene bindings are reconciled before this frame can draw. Native hosts keep
+	# their immediate opaque cover until a fresh foreground frame has completed.
 	if not state.foreground or not state.soundEnabled:
 		_quiet_feedback()
 	AudioServer.set_bus_mute(0, not state.soundEnabled)
 	get_tree().paused = not state.foreground
+	if not _pending_ready.is_empty() and not controller.presentation_state().closed:
+		var ready := _pending_ready
+		_pending_ready = ""
+		_deliver_bridge_event(ready)
 
 
 func _on_bridge_event(document: String) -> void:
+	var event: Dictionary = JSON.parse_string(document)
+	if event.type == "ready":
+		if not is_inside_tree() or controller.presentation_state().closed:
+			return
+		_pending_ready = document
+		_request_reconcile()
+		return
+	_deliver_bridge_event(document)
+
+
+func _deliver_bridge_event(document: String) -> void:
 	bridge_event.emit(document)
 	if _plugin != null:
 		_plugin.call("renderer_event", document)
@@ -156,10 +214,20 @@ func _notification(what: int) -> void:
 
 func _remove_presentation() -> void:
 	if is_instance_valid(_presentation):
-		remove_child(_presentation)
+		if _presentation.has_signal("redraw_requested") \
+			and _presentation.redraw_requested.is_connected(_request_reconcile):
+			_presentation.redraw_requested.disconnect(_request_reconcile)
+		if _presentation.get_parent() == self:
+			remove_child(_presentation)
 		_presentation.queue_free()
 	_presentation = null
 	_mode = ""
+
+
+func _exit_tree() -> void:
+	_state_pending = false
+	_pending_ready = ""
+	_quiet_pending = false
 
 
 func _quiet_feedback() -> void:

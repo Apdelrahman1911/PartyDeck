@@ -93,8 +93,13 @@ func _run() -> void:
 			return
 		var foreground := {"protocolVersion": 1, "presentationId": fixture.presentationId,
 			"type": "foreground", "isForeground": false}
-		if not _main.receive_document(JSON.stringify(foreground)) or not _private_nodes_erased():
-			_fail("Foreground loss did not immediately erase private card nodes.")
+		if not _main.receive_document(JSON.stringify(foreground)) or _main.controller.presentation_state().handVisible \
+			or _main.controller.presentation_state().controls.canSendAction:
+			_fail("Foreground loss did not immediately conceal controller state and reject input.")
+			return
+		await _settle()
+		if not _private_nodes_erased():
+			_fail("The next engine frame did not erase private card nodes.")
 			return
 		foreground.isForeground = true
 		_main.receive_document(JSON.stringify(foreground))
@@ -128,6 +133,10 @@ func _run() -> void:
 			return
 	var closed := {"protocolVersion": 1, "presentationId": fixture.presentationId, "type": "close"}
 	_main.receive_document(JSON.stringify(closed))
+	if not _main.controller.presentation_state().closed:
+		_fail("Close did not immediately close the controller.")
+		return
+	await _settle()
 	if not _private_nodes_erased():
 		_fail("Close retained private card nodes.")
 		return

@@ -416,7 +416,7 @@ class GodotGameActivity : FragmentActivity(), GodotHost, PartyDeckBridgePlugin.L
         findViewById<View>(R.id.engine_container).importantForAccessibility = if (conceal) {
             View.IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS
         } else View.IMPORTANT_FOR_ACCESSIBILITY_AUTO
-        refresh.isEnabled = next && ready
+        refresh.isEnabled = next && ready && foregroundDelivered
         if (next != foreground && ::authority.isInitialized && !closing) {
             foreground = next
             sendForeground(next)
@@ -452,6 +452,7 @@ class GodotGameActivity : FragmentActivity(), GodotHost, PartyDeckBridgePlugin.L
                         if (!closing && foreground && ready && foregroundEpoch == epoch) {
                             foregroundDelivered = true
                             updatePrivacy()
+                            scheduleDiagnostics()
                         }
                     }
                 }
@@ -464,14 +465,16 @@ class GodotGameActivity : FragmentActivity(), GodotHost, PartyDeckBridgePlugin.L
     }
 
     private fun scheduleDiagnostics() {
-        if (!ready || closing || !foreground) return
+        // Ready may precede the initial shader work and a laid-out foreground frame.
+        // The delivery callback above starts this clock after the guarded draw handoff.
+        if (!ready || closing || !foreground || !foregroundDelivered) return
         main.removeCallbacks(requestDiagnostics)
         val remaining = (lastDiagnosticRequestAt + 500 - SystemClock.elapsedRealtime()).coerceAtLeast(100)
         main.postDelayed(requestDiagnostics, remaining)
     }
 
     private fun requestFreshDiagnostics() {
-        if (closing || !ready || !foreground || requestInFlight != null) return
+        if (closing || !ready || !foreground || !foregroundDelivered || requestInFlight != null) return
         if (diagnosticRequest == Long.MAX_VALUE) { fail("diagnostic_counter_exhausted"); return }
         diagnosticRequest += 1
         val request = diagnosticRequest.toString()

@@ -1,5 +1,7 @@
 extends Control
 
+signal redraw_requested
+
 const Card3D = preload("res://presentations/three_d/card_3d.gd")
 const INK := Color("#191526")
 const PAPER := Color("#f4f0e8")
@@ -22,7 +24,6 @@ var _ornament: Node3D
 var _hits: Control
 var _card_bindings: Array = []
 var _feedback: AudioStreamPlayer
-var _layout_pending := false
 var _motion_frames := 0
 var _scroll_offsets: Dictionary = {}
 var _history_visible := false
@@ -31,6 +32,12 @@ var _last_public_cue := ""
 var _focus_request: Dictionary = {}
 var _context_pinned := false
 var _hand_toggle_in_header := false
+var _last_page_phase := ""
+var _last_page_round := -1
+var _lobby_requested := false
+var _pending_sound := ""
+var _bring_hand_requested := false
+var _applied_revision := ""
 
 
 func _ready() -> void:
@@ -45,18 +52,40 @@ func _ready() -> void:
 
 func bind(controller: Node) -> void:
 	_controller = controller
-	_controller.state_changed.connect(_render)
-	_render(_controller.presentation_state())
+
+
+func store_state(state: Dictionary) -> void:
+	# CPU-only replacement: lifecycle callbacks must not keep an older private hand.
+	_state = state
+	if state.closed or not state.foreground:
+		_history_visible = false
+	if state.closed or not state.foreground or not state.controls.canReturnToLobby:
+		_lobby_requested = false
+	if not state.soundEnabled:
+		_pending_sound = ""
+	if not state.handVisible:
+		_bring_hand_requested = false
+
+
+func apply_state(state: Dictionary) -> void:
+	_render(state)
+	_applied_revision = _controller.revision
+
+
+func _controls_current() -> bool:
+	return is_inside_tree() and not is_queued_for_deletion() and is_instance_valid(_controller) \
+		and _controller.revision == _applied_revision \
+		and bool(_state.get("foreground", false)) and not bool(_state.get("closed", true))
 
 
 func _render(state: Dictionary) -> void:
-	var same_page: bool = not _state.is_empty() and not _state.game.is_empty() and not state.game.is_empty() \
-		and _state.game.phase == state.game.phase and _state.game.roundNumber == state.game.roundNumber
+	var same_page: bool = not state.game.is_empty() and _last_page_phase == state.game.phase \
+		and _last_page_round == int(state.game.roundNumber)
 	if not same_page:
 		_history_visible = false
-	_state = state
-	if _lobby_dialog != null and (state.closed or not state.foreground or not state.controls.canReturnToLobby):
-		_close_lobby_dialog()
+	store_state(state)
+	if not _lobby_requested:
+		_remove_lobby_dialog()
 	if state.closed:
 		_feedback.stop()
 		_clear(_cards)
@@ -71,10 +100,19 @@ func _render(state: Dictionary) -> void:
 	_build_layout(same_page)
 	_show_cards()
 	_public_sound()
+	if _lobby_requested:
+		_show_lobby_dialog()
+	if not _pending_sound.is_empty():
+		_sound(_pending_sound)
+		_pending_sound = ""
+	if _bring_hand_requested:
+		_bring_hand_requested = false
+		_bring_hand_into_view()
 	_viewport.render_target_update_mode = SubViewport.UPDATE_WHEN_VISIBLE if state.foreground else SubViewport.UPDATE_ONCE
 	_motion_frames = 12 if not state.reduceMotion and state.foreground else 1
 	set_process(true)
-	call_deferred("_position_targets")
+	_last_page_phase = state.game.phase
+	_last_page_round = int(state.game.roundNumber)
 
 
 func _make_stage() -> void:
@@ -83,7 +121,7 @@ func _make_stage() -> void:
 	_stage.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_stage.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_stage.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_stage.resized.connect(_position_targets)
+	_stage.resized.connect(_request_target_update)
 	add_child(_stage)
 	_viewport_container = SubViewportContainer.new()
 	_viewport_container.stretch = true
@@ -237,7 +275,7 @@ func _build_layout(preserve_scroll: bool = true) -> void:
 	_layout.visible = _lobby_dialog == null
 	if _lobby_dialog != null:
 		move_child(_lobby_dialog, get_child_count() - 1)
-	call_deferred("_restore_scrolls")
+	_restore_scrolls()
 
 
 func _public_info(parent: VBoxContainer, compact: bool) -> void:
@@ -493,7 +531,11 @@ func _add_card(card_data: Dictionary, index: int, count: int, face_up: bool, pri
 		focus.set_border_width_all(2)
 		focus.set_corner_radius_all(4)
 		target.add_theme_stylebox_override("focus", focus)
-		target.pressed.connect(_toggle_card.bind(card_data.id))
+		var card_id: String = card_data.id
+		target.pressed.connect(func() -> void:
+			if target.is_inside_tree() and not target.is_queued_for_deletion():
+				_toggle_card(card_id)
+		)
 		_hits.add_child(target)
 	var explanation: Label
 	if not private_card and _state.textScale < 1.3:
@@ -537,17 +579,13 @@ func _process(_delta: float) -> void:
 		set_process(false)
 
 
+func _request_target_update() -> void:
+	_motion_frames = maxi(_motion_frames, 1)
+	set_process(true)
+
+
 func _resize() -> void:
-	if _state.is_empty() or _layout_pending:
-		return
-	_layout_pending = true
-	call_deferred("_apply_resize")
-
-
-func _apply_resize() -> void:
-	_layout_pending = false
-	if not _state.is_empty() and not _state.game.is_empty():
-		_render(_state)
+	redraw_requested.emit()
 
 
 func _button(text: String, group: String, action: Callable, enabled: bool, primary: bool, accent: Color = CITRON) -> Button:
@@ -572,7 +610,10 @@ func _button(text: String, group: String, action: Callable, enabled: bool, prima
 	button.add_theme_stylebox_override("disabled", _style(SURFACE, SURFACE))
 	button.add_theme_stylebox_override("focus", _style(Color.TRANSPARENT, PAPER))
 	button.add_to_group(group)
-	button.pressed.connect(action)
+	button.pressed.connect(func() -> void:
+		if _controls_current() and button.is_inside_tree() and not button.is_queued_for_deletion():
+			action.call()
+	)
 	return button
 
 
@@ -646,18 +687,30 @@ func _clear(node: Node) -> void:
 
 
 func _toggle_card(id_value: String) -> void:
-	_sound("ui_tap")
+	if not _controls_current():
+		return
+	_queue_sound("ui_tap")
 	_controller.toggle_card(id_value)
 
 
 func _play() -> void:
-	_sound("ui_tap")
+	if not _controls_current():
+		return
+	_queue_sound("ui_tap")
 	_controller.play_selected()
 
 
 func _challenge() -> void:
-	_sound("challenge")
+	if not _controls_current():
+		return
+	_queue_sound("challenge")
 	_controller.challenge()
+
+
+func _queue_sound(cue: String) -> void:
+	if _state.get("soundEnabled", false):
+		_pending_sound = cue
+		redraw_requested.emit()
 
 
 func _sound(cue: String) -> void:
@@ -739,19 +792,28 @@ func _remember_focus() -> void:
 
 
 func _toggle_history() -> void:
+	if not _controls_current():
+		return
 	_history_visible = not _history_visible
-	_render(_state)
+	redraw_requested.emit()
 
 
 func _request_lobby() -> void:
-	if _controller == null or not _state.controls.canReturnToLobby:
+	if not _controls_current() or not _state.controls.canReturnToLobby:
 		return
 	if _state.game.phase == "FINISHED":
 		_controller.return_to_lobby()
 		return
+	if _lobby_requested:
+		return
+	_lobby_requested = true
+	_controller.hide_hand()
+	redraw_requested.emit()
+
+
+func _show_lobby_dialog() -> void:
 	if _lobby_dialog != null:
 		return
-	_controller.hide_hand()
 	_layout.hide()
 	_lobby_dialog = PanelContainer.new()
 	_lobby_dialog.name = "LobbyConfirmation"
@@ -782,11 +844,18 @@ func _request_lobby() -> void:
 
 
 func _confirm_return_to_lobby() -> void:
+	if not _controls_current():
+		return
 	_close_lobby_dialog()
 	_controller.return_to_lobby()
 
 
 func _close_lobby_dialog() -> void:
+	_lobby_requested = false
+	redraw_requested.emit()
+
+
+func _remove_lobby_dialog() -> void:
 	if _lobby_dialog == null:
 		return
 	remove_child(_lobby_dialog)
@@ -813,11 +882,14 @@ func _public_sound() -> void:
 
 
 func _exit_tree() -> void:
-	if _controller != null and _controller.state_changed.is_connected(_render):
-		_controller.state_changed.disconnect(_render)
 	if is_instance_valid(_feedback):
 		_feedback.stop()
 	_state = {}
+	_controller = null
+	_lobby_requested = false
+	_pending_sound = ""
+	_bring_hand_requested = false
+	_applied_revision = ""
 	_focus_request.clear()
 	_scroll_offsets.clear()
 
@@ -829,9 +901,10 @@ func _hand_toggle() -> Button:
 
 
 func _reveal_hand() -> void:
+	if not _controls_current():
+		return
+	_bring_hand_requested = _hand_toggle_in_header
 	_controller.reveal_hand()
-	if _hand_toggle_in_header:
-		call_deferred("_bring_hand_into_view")
 
 
 func _bring_hand_into_view() -> void:

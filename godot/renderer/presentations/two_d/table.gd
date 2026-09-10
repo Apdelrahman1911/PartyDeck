@@ -1,6 +1,8 @@
 extends Control
 ## Last Light's flat editorial presentation. The shared controller owns every action/state decision.
 
+signal redraw_requested
+
 const DeckStyle = preload("res://presentations/two_d/deck_style.gd")
 const HandCard = preload("res://presentations/two_d/hand_card.gd")
 const SeatView = preload("res://presentations/two_d/seat_view.gd")
@@ -55,30 +57,44 @@ var _lobby_dialog: PanelContainer
 var _dialog_scroll: ScrollContainer
 var _audio: AudioStreamPlayer
 var _last_claim_sound_key := ""
+var _lobby_requested := false
+var _pending_sound := ""
+var _applied_revision := ""
 
 func _ready() -> void:
 	_build()
-	resized.connect(_relayout)
-	if not _state.is_empty():
-		_render(_state)
-	else:
-		_render({"game": {}, "foreground": true, "status": tr("Waiting for your table…")})
+	resized.connect(_request_redraw)
 
 func bind(controller: Object) -> void:
-	if _controller != null and _controller.state_changed.is_connected(_render):
-		_controller.state_changed.disconnect(_render)
 	_controller = controller
-	_controller.state_changed.connect(_render)
-	_state = _controller.presentation_state()
-	if is_node_ready():
-		_render(_state)
+
+func store_state(state: Dictionary) -> void:
+	# CPU-only replacement: lifecycle callbacks must not keep an older private hand.
+	_state = state
+	if state.closed or not state.foreground or not state.controls.canReturnToLobby:
+		_lobby_requested = false
+	if not state.soundEnabled:
+		_pending_sound = ""
+
+func apply_state(state: Dictionary) -> void:
+	_render(state)
+	_applied_revision = _controller.revision
+
+func _controls_current() -> bool:
+	return is_inside_tree() and not is_queued_for_deletion() and is_instance_valid(_controller) \
+		and _controller.revision == _applied_revision \
+		and bool(_state.get("foreground", false)) and not bool(_state.get("closed", true))
+
+func _request_redraw() -> void:
+	redraw_requested.emit()
 
 func _exit_tree() -> void:
 	_erase_hand()
-	if _controller != null and _controller.state_changed.is_connected(_render):
-		_controller.state_changed.disconnect(_render)
 	_controller = null
 	_state = {}
+	_lobby_requested = false
+	_pending_sound = ""
+	_applied_revision = ""
 
 func _build() -> void:
 	_audio = AudioStreamPlayer.new()
@@ -248,14 +264,14 @@ func _action(title: String, identifier: String, method: String, secondary: bool 
 	button.add_to_group("partydeck_action_" + identifier)
 	button.accessibility_name = title
 	button.pressed.connect(func() -> void:
-		if _controller != null:
-			_sound("challenge" if method == "challenge" else "ui_tap")
+		if _controls_current() and button.is_inside_tree() and not button.is_queued_for_deletion():
+			_queue_sound("challenge" if method == "challenge" else "ui_tap")
 			_controller.call(method)
 	)
 	return button
 
 func _render(next_state: Dictionary) -> void:
-	_state = next_state
+	store_state(next_state)
 	if not _built:
 		return
 	_text_scale = float(_state.get("textScale", 1.0))
@@ -324,18 +340,28 @@ func _render(next_state: Dictionary) -> void:
 	elif status.is_empty() and playing and not recipient_active:
 		_feedback.text = tr("You burned out. Watch the table.") if game.get("viewerId") != null else tr("Watching the table.")
 	_feedback.visible = not _feedback.text.is_empty()
-	if _lobby_dialog != null and (closed or not foreground or not bool(controls.get("canReturnToLobby", false))):
-		_close_lobby_dialog()
+	if not _lobby_requested:
+		_remove_lobby_dialog()
 	_relayout(false)
 	if hand_visible and not _last_hand_visible:
-		_body_scroll.call_deferred("ensure_control_visible", _hand_scroll)
+		_scroll_hand_into_view(true)
 	elif not hand_visible and _last_hand_visible and playing and not hand.is_empty():
-		_body_scroll.call_deferred("ensure_control_visible", _cover_panel)
+		_scroll_hand_into_view(false)
 	elif phase != _last_phase:
 		_body_scroll.scroll_vertical = 0
 	_update_audio(game)
+	if _lobby_requested:
+		_show_lobby_dialog()
+	if not _pending_sound.is_empty():
+		_sound(_pending_sound)
+		_pending_sound = ""
 	_last_hand_visible = hand_visible
 	_last_phase = phase
+
+func _scroll_hand_into_view(revealed: bool) -> void:
+	await get_tree().process_frame
+	if is_inside_tree() and revealed == bool(_state.get("handVisible", false)):
+		_body_scroll.ensure_control_visible(_hand_scroll if revealed else _cover_panel)
 
 func _update_public_table(game: Dictionary, foreground: bool, closed: bool) -> void:
 	var phase := str(game.get("phase", ""))
@@ -460,8 +486,8 @@ func _update_hand(hand: Array, visible_hand: bool, selected: Array, can_play: bo
 			_hand_row.add_child(card_button)
 			var card_id := ids[index]
 			card_button.pressed.connect(func() -> void:
-				if _controller != null:
-					_sound("ui_tap")
+				if _controls_current() and card_button.is_inside_tree() and not card_button.is_queued_for_deletion():
+					_queue_sound("ui_tap")
 					_controller.toggle_card(card_id)
 			)
 			_cards.append(card_button)
@@ -562,15 +588,22 @@ func _relayout(refresh_cards: bool = true) -> void:
 		_update_hand(hand, true, _state.get("selectedCardIds", []), bool(_state.get("controls", {}).get("canSendAction", false)) and bool(available.get("canPlay", false)), int(available.get("maxPlayableCards", 0)))
 
 func _request_lobby() -> void:
-	if _controller == null:
+	if not _controls_current() \
+		or not bool(_state.get("controls", {}).get("canReturnToLobby", false)):
 		return
-	_sound("ui_tap")
+	_queue_sound("ui_tap")
 	if str(_state.get("game", {}).get("phase", "")) == "FINISHED":
 		_controller.return_to_lobby()
 		return
+	if _lobby_requested:
+		return
+	_lobby_requested = true
+	_controller.hide_hand()
+	_request_redraw()
+
+func _show_lobby_dialog() -> void:
 	if _lobby_dialog != null:
 		return
-	_controller.hide_hand()
 	_margin.focus_behavior_recursive = Control.FOCUS_BEHAVIOR_DISABLED
 	_lobby_dialog = PanelContainer.new()
 	_lobby_dialog.name = "LobbyConfirmation"
@@ -594,18 +627,26 @@ func _request_lobby() -> void:
 	var confirm := DeckStyle.button(tr("Return to lobby"), int(18 * _text_scale), DeckStyle.COPPER)
 	confirm.add_to_group("partydeck_action_lobby_confirm")
 	confirm.pressed.connect(func() -> void:
+		if not _controls_current() or not confirm.is_inside_tree() or confirm.is_queued_for_deletion():
+			return
 		_close_lobby_dialog()
-		if _controller != null:
-			_controller.return_to_lobby()
+		_controller.return_to_lobby()
 	)
 	content.add_child(confirm)
 	var cancel := DeckStyle.button(tr("Keep playing"), int(18 * _text_scale), DeckStyle.CITRON, true)
 	cancel.add_to_group("partydeck_action_lobby_cancel")
-	cancel.pressed.connect(_close_lobby_dialog)
+	cancel.pressed.connect(func() -> void:
+		if _controls_current() and cancel.is_inside_tree() and not cancel.is_queued_for_deletion():
+			_close_lobby_dialog()
+	)
 	content.add_child(cancel)
 	cancel.grab_focus()
 
 func _close_lobby_dialog() -> void:
+	_lobby_requested = false
+	_request_redraw()
+
+func _remove_lobby_dialog() -> void:
 	if _lobby_dialog != null:
 		remove_child(_lobby_dialog)
 		_lobby_dialog.queue_free()
@@ -617,6 +658,11 @@ func _close_lobby_dialog() -> void:
 
 func _fit_lobby_dialog() -> void:
 	_dialog_scroll.custom_minimum_size = Vector2(minf(480, size.x - 40), minf(680 if _text_scale >= 1.5 else 460, size.y - 40))
+
+func _queue_sound(cue: String) -> void:
+	if bool(_state.get("soundEnabled", false)):
+		_pending_sound = cue
+		_request_redraw()
 
 func _sound(cue: String) -> void:
 	if not bool(_state.get("soundEnabled", false)) or not bool(_state.get("foreground", false)) or bool(_state.get("closed", false)):
