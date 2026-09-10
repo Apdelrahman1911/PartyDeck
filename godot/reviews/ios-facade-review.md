@@ -1,6 +1,6 @@
 # iOS qualification facade review
 
-Status: **accepted for source and common-code behavior, 2026-09-10**. No source finding remains in this review. Native compilation, generated Swift method spellings, factory/entropy execution, native event delivery and a playable iOS match require the separate macOS/device evidence.
+Status: **accepted for source, JVM/iOS Simulator shared tests, framework compilation and generated facade declarations, 2026-09-10**. No source finding remains in this review. The native follow-up below records the new execution evidence. Actual Swift factory/method calls, factory entropy execution, native event delivery and a playable iOS match remain separate gates.
 
 ## Reviewed behavior
 
@@ -37,4 +37,32 @@ Retrieved directly on 2026-09-10:
 2. [Kotlin Objective-C interoperability](https://kotlinlang.org/docs/native-objc-interop.html) documents internal visibility, enums and immutable-list export, plus `@Throws` propagation of the named exception classes and subclasses through `NSError`/Swift `throws`. Unexpected exceptions outside that contract terminate the program.
 3. [Kotlin native binary configuration](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html) distinguishes linked implementation dependencies from explicitly exported APIs. The supported facade does not require exporting domain dependencies to Swift.
 
-The root-owned workflow/build script accurately separates framework compilation, declaration presence and bare Swift module import from compiling an actual Swift authority caller and executing the factory. This review does not mark any of those native gates complete. The host must discard a failed or closed facade and clear its own retained strings/queues; clearing the facade's launch property does not erase copies already delivered to native code.
+The root-owned workflow/build script separates framework compilation, declaration presence and bare Swift module import from compiling an actual Swift authority caller and executing the factory. The follow-up below records the completed native checks. The host must discard a failed or closed facade and clear its own retained strings/queues; clearing the facade's launch property does not erase copies already delivered to native code.
+
+## Native framework and shared-test follow-up, 2026-09-10
+
+**Accepted for the executed native shared tests, compiled simulator framework and inspected header.** [Workflow run 34427976260](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34427976260) succeeded at commit `cf6434df2fd32909f70feee68bfcb82e527e2b70`. This reviewer inspected the actual run metadata, all five native XML files, framework/archive receipts, generated Objective-C header, build/import logs and committed source. The reviewed facade, iOS factory, driver, both facade test files, framework configuration, workflow and build script match that commit byte-for-byte. No unchanged test was rerun by this reviewer.
+
+The `iosSimulatorArm64` execution contains **20 tests, zero failures/errors/skips**: six owner bridge tests, six adversarial bridge tests, two public-parser API tests, four owner facade tests and two independent facade initialization tests. The retained selector evidence identifies an iPhone 17 simulator with runtime 26.4.1, build `23E254a`; Xcode is 26.4.1, build `17E202`. These are Kotlin/Native shared-test executions, including the seeded facade's complete matches and lifecycle checks. They do not call the iOS factory or execute its secure-random path through Swift.
+
+The actual header confirms the facade's supported surface. `PDGBIosQualificationAuthority` has no public construction path through its base initializer. It exposes only the launch string, randomness enum, status and the intended operations. Results export `NSArray<NSString *> *commands`, fixed enums/reason strings and status; status properties are readonly, with the exact revision as `NSString`. No domain state/action/decision or random-generator type appears in these facade declarations. Factory and five mutating methods have the expected `NSError` parameters and recorded Swift-name annotations:
+
+- `create(presentationId:mode:randomness:reduceMotion:soundEnabled:textScale:)`
+- `handleRendererEvent(document:)`, `setForeground(isForeground:)`
+- `advanceOtherPlayers()`, `refreshView()`, `close()`
+
+The generated enum properties include `PresentationMode.twoD`/`threeD` and `IosQualificationRandomness.referenceSeed2`/`secure`. These spellings were read from the generated header. Compiling an actual Swift caller remains necessary to verify its use of those methods and types.
+
+Independently verified artifact hashes:
+
+| Artifact | SHA-256 |
+| --- | --- |
+| `PartyDeckGodotBridge-simulator.framework.tar.gz` | `f0383e1d821f0f56954a6f71458f63483981984589646e5b0686533db0c4d998` |
+| Framework binary | `580b45b44dc59289a65178fa8187f3512563a918294eb1c5262398b1a240ff95` |
+| Actual `PartyDeckGodotBridge.h` | `dddbb2ae23d1e87ebab18fa7c4f77326c3e370422b96f1e723c3e2f2cdde14fd` |
+
+All four framework receipt entries, including module map and Info.plist, match the archive contents; the separately preserved header/module map match those same bytes. The architecture log records `arm64`. The framework build completed successfully and its symbol evidence includes the Security.framework random binding. That establishes compilation, not execution of the secure factory.
+
+The Swift input file contains exactly `import PartyDeckGodotBridge`, and its typecheck step passed. The receipt correctly records `swift_module_import_typechecked=true`, while `swift_authority_host_compiled`, `ios_authority_runtime_executed` and `kmp_factory_qualified` remain false. Those flags describe the missing Swift/native-host integration; they do not negate the separately executed Kotlin/Native shared tests.
+
+Original retained artifact tree: `/tmp/partydeck-ios-authority-ci/34427976260/artifacts/`. Independent copies of all native XML files, the header, module map, run/receipt/selector evidence and JSON audits are preserved under `/tmp/partydeck-ios-facade-review/native-34427976260/`. `independent-native-review.json` records the count, selectors and scope; `framework-hash-audit.json` records all artifact hashes. The committed/current source comparison is `/tmp/partydeck-ios-facade-review/native-cf6434d-source-hashes.json`.
