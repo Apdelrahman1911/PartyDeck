@@ -84,6 +84,37 @@ jobs:
               raise SystemExit('The engine reported an error despite its process exit status.')
           print(f"{len(report['checks'])} packed boundary assertions passed without engine errors.")
           PY
+      - name: Check terminal return rendering and restoration from the exported PCK
+        timeout-minutes: 2
+        shell: bash
+        env:
+          LIBGL_ALWAYS_SOFTWARE: 'true'
+        run: |
+          mkdir -p godot/qualification/build/ci/terminal-return/empty
+          xvfb-run -a godot/qualification/build/toolchain/godot \
+            --path "$GITHUB_WORKSPACE/godot/qualification/build/ci/terminal-return/empty" \
+            --main-pack "$GITHUB_WORKSPACE/godot/qualification/build/renderer/partydeck-last-light.pck" \
+            --rendering-method gl_compatibility --audio-driver Dummy \
+            --script "$GITHUB_WORKSPACE/godot/renderer/tests/terminal_return_render_check.gd" -- \
+            --manual-bridge \
+            --check-output="$GITHUB_WORKSPACE/godot/qualification/build/ci/terminal-return/results" \
+            --check-fixtures="$GITHUB_WORKSPACE/godot/bridge/fixtures" \
+            2>&1 | tee godot/qualification/build/ci/terminal-return/runtime.log
+          python3 - <<'PY'
+          import json
+          import re
+          from pathlib import Path
+
+          output = Path('godot/qualification/build/ci/terminal-return')
+          report = json.loads((output / 'results/report.json').read_text())
+          if report.get('result') != 'passed' or not report.get('checks'):
+              raise SystemExit('The packed terminal-return rendering check did not pass.')
+          if any(check.get('passed') is not True for check in report['checks']):
+              raise SystemExit('The terminal-return report contains a failed assertion.')
+          if re.search(r'(?m)^(?:SCRIPT ERROR|ERROR|Parse Error):', (output / 'runtime.log').read_text()):
+              raise SystemExit('The engine reported an error despite its process exit status.')
+          print(f"{len(report['checks'])} packed terminal-return assertions passed without engine errors.")
+          PY
       - name: Exercise matched 2D and 3D gameplay from the exported PCK
         timeout-minutes: 10
         env:
@@ -129,6 +160,7 @@ jobs:
             godot/qualification/build/toolchain/install.receipt.json
             godot/qualification/build/ci/android-checker-tests.log
             godot/qualification/build/ci/native-boundary/**
+            godot/qualification/build/ci/terminal-return/**
             godot/qualification/build/ci/desktop/**
             build/ci/android/graphics-*.log
           retention-days: 14

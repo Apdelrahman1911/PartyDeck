@@ -24,6 +24,8 @@ var _native_display_scale_valid := true
 var _state_pending := false
 var _pending_ready := ""
 var _quiet_pending := false
+var _return_rendering_suspended := false
+var _render_loop_before_return := true
 
 
 func _ready() -> void:
@@ -101,6 +103,7 @@ func _on_state(state: Dictionary) -> void:
 	# only the latest CPU state here; resource work belongs to Main::iteration.
 	if not is_inside_tree() or is_queued_for_deletion():
 		return
+	_update_return_rendering(state.returnToLobbyPending)
 	if is_instance_valid(_presentation) and _presentation.has_method("store_state"):
 		_presentation.store_state(state)
 	if state.closed:
@@ -134,6 +137,11 @@ func _reconcile_state(state: Dictionary) -> void:
 	if state.closed:
 		_quiet_feedback()
 		_remove_presentation()
+		get_tree().paused = true
+		return
+	if state.returnToLobbyPending:
+		# Keep the current resources while the host decides. Rebuilding this pending
+		# page would compete with the Close signal queued by that same input.
 		get_tree().paused = true
 		return
 	if state.game.is_empty():
@@ -228,6 +236,25 @@ func _exit_tree() -> void:
 	_state_pending = false
 	_pending_ready = ""
 	_quiet_pending = false
+	_restore_return_rendering()
+
+
+func _update_return_rendering(pending: bool) -> void:
+	if pending:
+		if not _return_rendering_suspended:
+			_render_loop_before_return = RenderingServer.render_loop_enabled
+			_return_rendering_suspended = true
+			# Pinned RenderingServer::set_render_loop_enabled only stores a CPU bool.
+			# It skips new draw work without delaying host input or touching RIDs here.
+			RenderingServer.render_loop_enabled = false
+	else:
+		_restore_return_rendering()
+
+
+func _restore_return_rendering() -> void:
+	if _return_rendering_suspended:
+		RenderingServer.render_loop_enabled = _render_loop_before_return
+		_return_rendering_suspended = false
 
 
 func _quiet_feedback() -> void:

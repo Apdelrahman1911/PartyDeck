@@ -20,6 +20,7 @@ var _host_foreground := true
 var _window_foreground := true
 var _hand_visible := false
 var _pending := false
+var _return_to_lobby_pending := false
 var _selected: Array[String] = []
 var _game: Dictionary = {}
 var _controls := {"isHost": false, "canSendAction": false, "canAdvanceRound": false, "canReturnToLobby": false}
@@ -60,6 +61,7 @@ func receive_document(document: String) -> bool:
 			_host_foreground = message.isForeground
 			if not _host_foreground:
 				_pending = false
+				_return_to_lobby_pending = false
 				_conceal()
 			_publish()
 			return true
@@ -94,6 +96,7 @@ func _set_view(payload: Dictionary, new_revision: String) -> void:
 	_game = payload.game.duplicate(true)
 	_controls = payload.controls.duplicate(true)
 	_pending = false
+	_return_to_lobby_pending = false
 	_status = ""
 	_conceal()
 	_publish()
@@ -113,8 +116,9 @@ func presentation_state() -> Dictionary:
 	return {
 		"game": game, "controls": controls, "handVisible": visible,
 		"selectedCardIds": _selected.duplicate(), "foreground": _foreground(), "closed": _closed,
+		"returnToLobbyPending": _return_to_lobby_pending,
 		"status": _status, "reduceMotion": _preferences.reduceMotion,
-		"soundEnabled": _preferences.soundEnabled and _foreground() and not _closed,
+		"soundEnabled": _preferences.soundEnabled and _foreground() and not _closed and not _return_to_lobby_pending,
 		"textScale": float(_preferences.textScale), "presentationMode": presentation_mode,
 	}
 
@@ -175,6 +179,8 @@ func next_round() -> void:
 func return_to_lobby() -> void:
 	if not _can_send() or not _controls.isHost or not _controls.canReturnToLobby:
 		return
+	_return_to_lobby_pending = true
+	_conceal()
 	_send_intent({"type": "return_to_lobby"}, "Returning to the room…")
 
 
@@ -191,6 +197,7 @@ func set_window_foreground(active: bool) -> void:
 	_window_foreground = active
 	if not active:
 		_pending = false
+		_return_to_lobby_pending = false
 		_conceal()
 	_publish()
 
@@ -223,6 +230,7 @@ func _emit(body: Dictionary) -> void:
 
 func _close() -> void:
 	_closed = true
+	_return_to_lobby_pending = false
 	_conceal()
 	_game.clear()
 	_controls = {"isHost": false, "canSendAction": false, "canAdvanceRound": false, "canReturnToLobby": false}
