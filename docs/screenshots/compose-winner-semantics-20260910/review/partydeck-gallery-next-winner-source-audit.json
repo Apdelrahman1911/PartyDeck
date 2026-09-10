@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "audit_kind": "independent existing source, XML, log and PNG read; no new app or test execution",
+  "completed_at": "2026-09-10T14:14:03.600112+00:00",
+  "source_directory": "/root/projects/PartyDeck/artifacts/evidence-storage/winner-semantics-validation-20260910",
+  "original_receipt": {
+    "command": [
+      "xvfb-run",
+      "-a",
+      "./gradlew",
+      "--console=plain",
+      ":composeApp:jvmTest",
+      "--tests",
+      "dev.partydeck.app.GameplayLayoutTest"
+    ],
+    "exitCode": 0,
+    "elapsedSeconds": 17.675813765003113,
+    "timestampUtc": "2026-09-10T12:54:03.973895+00:00",
+    "source": {
+      "composeApp/src/commonMain/kotlin/dev/partydeck/app/ui/game/GameResults.kt": "748cdd33a4635e9763b7903afcba3f187923941b0d09c04406b3b864787db608",
+      "composeApp/src/jvmTest/kotlin/dev/partydeck/app/GameplayLayoutTest.kt": "018cc7724ff0cea939b245914aa7e5fa7b532a7481c2b290c9f490b892f472ce"
+    },
+    "suite": {
+      "name": "GameplayLayoutTest[jvm]",
+      "tests": "7",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-09-10T12:53:56.500Z",
+      "hostname": "oblien",
+      "time": "7.34"
+    }
+  },
+  "source_revision": null,
+  "source_revision_exact": false,
+  "source_scope": "Two later source copies exactly match hashes recorded by the original execution receipt. No exact whole-tree capture revision is asserted.",
+  "executed_test_results": {
+    "handAndResultsRemainUsableOnShortLandscapePhone": {
+      "name": "handAndResultsRemainUsableOnShortLandscapePhone[jvm]",
+      "classname": "dev.partydeck.app.GameplayLayoutTest",
+      "time": "2.985"
+    },
+    "handAndResultsRemainUsableAtLargeText": {
+      "name": "handAndResultsRemainUsableAtLargeText[jvm]",
+      "classname": "dev.partydeck.app.GameplayLayoutTest",
+      "time": "1.436"
+    },
+    "normalChoiceSupportsThreeCardsAndAReadableLongClaimant": {
+      "name": "normalChoiceSupportsThreeCardsAndAReadableLongClaimant[jvm]",
+      "classname": "dev.partydeck.app.GameplayLayoutTest",
+      "time": "0.502"
+    },
+    "handAndResultsRemainUsableInTabletWindow": {
+      "name": "handAndResultsRemainUsableInTabletWindow[jvm]",
+      "classname": "dev.partydeck.app.GameplayLayoutTest",
+      "time": "1.313"
+    },
+    "forcedChallengeKeepsOneClearActionAndGatesPendingRequests": {
+      "name": "forcedChallengeKeepsOneClearActionAndGatesPendingRequests[jvm]",
+      "classname": "dev.partydeck.app.GameplayLayoutTest",
+      "time": "0.092"
+    },
+    "revealedWildAndMismatchingRankExplainTheBluff": {
+      "name": "revealedWildAndMismatchingRankExplainTheBluff[jvm]",
+      "classname": "dev.partydeck.app.GameplayLayoutTest",
+      "time": "0.051"
+    },
+    "fifthCardAndPrivateHandControlsWorkOnNarrowPhone": {
+      "name": "fifthCardAndPrivateHandControlsWorkOnNarrowPhone[jvm]",
+      "classname": "dev.partydeck.app.GameplayLayoutTest",
+      "time": "0.955"
+    }
+  },
+  "focused_capture_count": 4,
+  "captures": [
+    {
+      "source_original": "/root/projects/PartyDeck/artifacts/evidence-storage/winner-semantics-validation-20260910/ui-snapshots/game-phone-winner.png",
+      "sha256": "be63e9b3011dacad3811f44ad0c51f23421751ee0c6e62431118e8f887b5b24f",
+      "bytes": 24841,
+      "relative_path": "game-phone-winner.png",
+      "original_filename": "game-phone-winner.png",
+      "scenario": "Named winner — phone",
+      "width_px": 360,
+      "height_px": 640,
+      "font_scale": 1.0,
+      "source_revision": null,
+      "source_revision_exact": false,
+      "ci_run": null,
+      "source_generation_path": "build/ui-snapshots/game-phone-winner.png",
+      "test_name": "fifthCardAndPrivateHandControlsWorkOnNarrowPhone",
+      "test_result": "passed",
+      "receipt_source": "/root/projects/PartyDeck/artifacts/evidence-storage/winner-semantics-validation-20260910/receipt.json",
+      "test_result_source": "/root/projects/PartyDeck/artifacts/evidence-storage/winner-semantics-validation-20260910/TEST-dev.partydeck.app.GameplayLayoutTest.xml",
+      "platform": "Compose JVM/Skiko layout fixture under Xvfb; density 1"
+    },
+    {
+      "source_original": "/root/projects/PartyDeck/artifacts/evidence-storage/winner-semantics-validation-20260910/ui-snapshots/game-large-text-winner.png",
+      "sha256": "7088f1c112b973c7af042071828683669f725ab967be9533ae1ecd1ca7542fb0",
+      "bytes": 26744,
+      "relative_path": "game-large-text-winner.png",
+      "original_filename": "game-large-text-winner.png",
+      "scenario": "Named winner — large text",
+      "width_px": 320,
+      "height_px": 740,
+      "font_scale": 2.0,
+      "source_revision": null,
+      "source_revision_exact": false,
+      "ci_run": null,
+      "source_generation_path": "build/ui-snapshots/game-large-text-winner.png",
+      "test_name": "handAndResultsRemainUsableAtLargeText",
+      "test_result": "passed",
+      "receipt_source": "/root/projects/PartyDeck/artifacts/evidence-storage/winner-semantics-validation-20260910/receipt.json",
+      "test_result_source": "/root/projects/PartyDeck/artifacts/evidence-storage/winner-semantics-validation-20260910/TEST-dev.partydeck.app.GameplayLayoutTest.xml",
+      "platform": "Compose JVM/Skiko layout fixture under Xvfb; density 1"
+    },
+    {
+      "source_original": "/root/projects/PartyDeck/artifacts/evidence-storage/winner-semantics-validation-20260910/ui-snapshots/game-landscape-winner.png",
+      "sha256": "047656f4f92d2a73a1d65cca1f91e8209fe775a6217b962796f2335ddb230a92",
+      "bytes": 23671,
+      "relative_path": "game-landscape-winner.png",
+      "original_filename": "game-landscape-winner.png",
+      "scenario": "Named winner — landscape",
+      "width_px": 844,
+      "height_px": 390,
+      "font_scale": 1.0,
+      "source_revision": null,
+      "source_revision_exact": false,
+      "ci_run": null,
+      "source_generation_path": "build/ui-snapshots/game-landscape-winner.png",
+      "test_name": "handAndResultsRemainUsableOnShortLandscapePhone",
+      "test_result": "passed",
+      "receipt_source": "/root/projects/PartyDeck/artifacts/evidence-storage/winner-semantics-validation-20260910/receipt.json",
+      "test_result_source": "/root/projects/PartyDeck/artifacts/evidence-storage/winner-semantics-validation-20260910/TEST-dev.partydeck.app.GameplayLayoutTest.xml",
+      "platform": "Compose JVM/Skiko layout fixture under Xvfb; density 1"
+    },
+    {
+      "source_original": "/root/projects/PartyDeck/artifacts/evidence-storage/winner-semantics-validation-20260910/ui-snapshots/game-tablet-winner.png",
+      "sha256": "a14740d1fae23f0a102959ff7d323ff2ac0aaedb828b1d6683cd8b114afbd94d",
+      "bytes": 28593,
+      "relative_path": "game-tablet-winner.png",
+      "original_filename": "game-tablet-winner.png",
+      "scenario": "Named winner — tablet",
+      "width_px": 1024,
+      "height_px": 768,
+      "font_scale": 1.0,
+      "source_revision": null,
+      "source_revision_exact": false,
+      "ci_run": null,
+      "source_generation_path": "build/ui-snapshots/game-tablet-winner.png",
+      "test_name": "handAndResultsRemainUsableInTabletWindow",
+      "test_result": "passed",
+      "receipt_source": "/root/projects/PartyDeck/artifacts/evidence-storage/winner-semantics-validation-20260910/receipt.json",
+      "test_result_source": "/root/projects/PartyDeck/artifacts/evidence-storage/winner-semantics-validation-20260910/TEST-dev.partydeck.app.GameplayLayoutTest.xml",
+      "platform": "Compose JVM/Skiko layout fixture under Xvfb; density 1"
+    }
+  ],
+  "evidence_files": [
+    {
+      "source_original": "/root/projects/PartyDeck/artifacts/evidence-storage/winner-semantics-validation-20260910/receipt.json",
+      "sha256": "202be5b1fc80b337d9386e758f9b8edbb9ba4b857e9e6abd9a50640cb714d1cb",
+      "bytes": 822,
+      "relative_path": "evidence/receipt.json",
+      "artifact_type": "original executed JVM validation evidence"
+    },
+    {
+      "source_original": "/root/projects/PartyDeck/artifacts/evidence-storage/winner-semantics-validation-20260910/gradle.log",
+      "sha256": "636d16b9ae4b2107c9363df43410701dd607025a5549e965cb2ae49ea3848183",
+      "bytes": 6752,
+      "relative_path": "evidence/gradle.log",
+      "artifact_type": "original executed JVM validation evidence"
+    },
+    {
+      "source_original": "/root/projects/PartyDeck/artifacts/evidence-storage/winner-semantics-validation-20260910/TEST-dev.partydeck.app.GameplayLayoutTest.xml",
+      "sha256": "3b86ab6438a65f6577fee2d60439d309a7f56fd617e0d5498921795a73687ea2",
+      "bytes": 1255,
+      "relative_path": "evidence/TEST-dev.partydeck.app.GameplayLayoutTest.xml",
+      "artifact_type": "original executed JVM validation evidence"
+    },
+    {
+      "source_original": "/tmp/partydeck-gallery-next-winner-source/composeApp/src/commonMain/kotlin/dev/partydeck/app/ui/game/GameResults.kt",
+      "sha256": "748cdd33a4635e9763b7903afcba3f187923941b0d09c04406b3b864787db608",
+      "bytes": 20511,
+      "relative_path": "source/composeApp/src/commonMain/kotlin/dev/partydeck/app/ui/game/GameResults.kt",
+      "source_repository_path": "composeApp/src/commonMain/kotlin/dev/partydeck/app/ui/game/GameResults.kt",
+      "source_copied_from": "/root/projects/PartyDeck/composeApp/src/commonMain/kotlin/dev/partydeck/app/ui/game/GameResults.kt",
+      "receipt_source_sha256": "748cdd33a4635e9763b7903afcba3f187923941b0d09c04406b3b864787db608",
+      "artifact_type": "later source copy matching the original execution receipt"
+    },
+    {
+      "source_original": "/tmp/partydeck-gallery-next-winner-source/composeApp/src/jvmTest/kotlin/dev/partydeck/app/GameplayLayoutTest.kt",
+      "sha256": "018cc7724ff0cea939b245914aa7e5fa7b532a7481c2b290c9f490b892f472ce",
+      "bytes": 20588,
+      "relative_path": "source/composeApp/src/jvmTest/kotlin/dev/partydeck/app/GameplayLayoutTest.kt",
+      "source_repository_path": "composeApp/src/jvmTest/kotlin/dev/partydeck/app/GameplayLayoutTest.kt",
+      "source_copied_from": "/root/projects/PartyDeck/composeApp/src/jvmTest/kotlin/dev/partydeck/app/GameplayLayoutTest.kt",
+      "receipt_source_sha256": "018cc7724ff0cea939b245914aa7e5fa7b532a7481c2b290c9f490b892f472ce",
+      "artifact_type": "later source copy matching the original execution receipt"
+    }
+  ],
+  "verified_behavior_scope": [
+    "Seven recorded JVM tests pass with no failures, errors or skips; jvmTest executes rather than being reported UP-TO-DATE.",
+    "Four executed fixture methods each reach the real engine-projected named winner and write their own winner original at the recorded dimensions and font scale.",
+    "The named-winner semantics node remains stable with heading and one polite live region during pending lobby controls and final-reveal open/close.",
+    "The expanded final reveal adds no second live region; the return-to-lobby callback executes."
+  ],
+  "limits": [
+    "JVM rendering and semantics fixtures do not execute native VoiceOver or TalkBack.",
+    "The retained directory contains 77 PNGs, including older subdirectories; only these four executed winner outputs are selected here. The rest are not claimed as freshly generated by this receipt.",
+    "No exact clean whole-tree source revision is recorded."
+  ],
+  "audit_script": {
+    "source_original": "/tmp/partydeck-gallery-next-finish-notes-and-audit-winner.py",
+    "sha256": "69bed1d33ad36b66a6ba27071f88f7b07db258d7b7d4ea380a24f78f2bbb77a7",
+    "bytes": 12622
+  }
+}

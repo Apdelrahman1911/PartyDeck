@@ -1,0 +1,443 @@
+{
+  "runId": 34473325295,
+  "headSha": "0f666e0ab7fdce63d5fa668442dae1c9fda86a1d",
+  "attempt": 1,
+  "scope": "Exact-source consumer input and preservation correlation. Original XCTest outcomes and any suite qualification are evaluated separately without an expected pass/fail assumption.",
+  "producerAudit": {
+    "path": "/tmp/partydeck-engine-ci/34473325295/producer-input-evidence-summary.json",
+    "sha256": "ca746cd14ed23f914798d434662ba55163022f087531d33d29cb6fea67dd0fda",
+    "bytes": 31476
+  },
+  "sourceArchive": {
+    "path": "/tmp/partydeck-engine-ci/34473325295/source-archive.json",
+    "sha256": "00d3de53e748e57a347207ac1f240c7c17ca3261fad2f5785946a6dd9233865b",
+    "bytes": 713
+  },
+  "workflowInputs": {
+    "host": "both",
+    "hostEvidence": "Both consumers executed under the exact archived workflow conditions.",
+    "retained_stage": "test",
+    "context": {
+      "path": "/tmp/partydeck-engine-ci/34473325295/godot-ios-retained-host-test-attempt-1/evidence/retained-ci-context.json",
+      "sha256": "0badbc736693b119eea4c42f576c9c4e35ce9976731996e14528d6878816f954",
+      "bytes": 651
+    }
+  },
+  "consumerRunners": [
+    {
+      "jobId": 102859300067,
+      "runnerId": 1000005453,
+      "name": "Link the Swift caller and exercise native gameplay"
+    },
+    {
+      "jobId": 102859300261,
+      "runnerId": 1000005454,
+      "name": "Retained native engine / test"
+    }
+  ],
+  "preservationAudit": {
+    "path": "/tmp/partydeck-engine-ci/34473325295/retained-preservation-audit.json",
+    "sha256": "1b9458fd5fc8f3364c12ea28b62539db1ee5c328403f95c343a4cedb08b199e6",
+    "bytes": 796046
+  },
+  "originalProducerFilesInPreservationVerified": [
+    "engine/artifacts/libpartydeck_godot_camera.a",
+    "engine/artifacts/libpartydeck_godot_ios_probe.a",
+    "engine/evidence/clang-version.log",
+    "engine/evidence/engine-artifact.json",
+    "engine/evidence/engine-build.log",
+    "engine/evidence/engine-source-commit.txt",
+    "engine/evidence/engine-symbols.log",
+    "engine/evidence/native-module-inputs.json",
+    "engine/evidence/scons-version.log",
+    "engine/evidence/sdk-version.log",
+    "engine/evidence/source-download.log",
+    "engine/evidence/upstream-audit.json",
+    "engine/evidence/upstream-postbuild-audit.json",
+    "engine/evidence/upstream-reference-audit.json",
+    "engine/evidence/xcode-sdks.log",
+    "engine/evidence/xcode-version.log",
+    "framework/artifacts/PartyDeckGodotBridge-simulator.framework.tar.gz",
+    "framework/evidence/PartyDeckGodotBridge.h",
+    "framework/evidence/PartyDeckGodotBridge.modulemap",
+    "framework/evidence/authority-framework-architectures.log",
+    "framework/evidence/authority-framework-build.log",
+    "framework/evidence/authority-framework-result.json",
+    "framework/evidence/authority-framework-symbols.log",
+    "framework/evidence/authority-header-check.log",
+    "framework/evidence/authority-java-version.log",
+    "framework/evidence/authority-module-import.log",
+    "framework/evidence/authority-module-import.swift",
+    "framework/evidence/authority-source-commit.txt",
+    "framework/evidence/authority-xcode-version.log",
+    "renderer/partydeck-last-light.pck",
+    "renderer/partydeck-last-light.receipt.json"
+  ],
+  "ciReceiptFilesDirectlyVerifiedFromPreservation": [
+    "retained-inputs/engine/evidence/engine-source-commit.txt",
+    "retained-inputs/framework/evidence/authority-source-commit.txt",
+    "retained-inputs/engine/artifacts/libpartydeck_godot_ios_probe.a",
+    "retained-inputs/engine/artifacts/libpartydeck_godot_camera.a",
+    "retained-inputs/framework/artifacts/PartyDeckGodotBridge-simulator.framework.tar.gz",
+    "retained-inputs/engine/evidence/engine-artifact.json",
+    "retained-inputs/framework/evidence/authority-framework-result.json",
+    "retained-inputs/renderer/partydeck-last-light.pck",
+    "retained-inputs/renderer/partydeck-last-light.receipt.json"
+  ],
+  "ciStagedArchiveReceiptsCorrelatedWithProducer": [
+    "artifacts/libpartydeck_godot_ios_probe.a",
+    "artifacts/libpartydeck_godot_camera.a"
+  ],
+  "stagedArchiveLimit": "Top-level staged native archives are absent from the preservation tar. Their CI receipts match original producer archives; no independent reread of absent staged files is claimed.",
+  "retainedSourceHashes": {
+    "RetainedHost/Host.xcconfig": "3651cd7294b88ad2a9e8cc0e1324fcc534e3588232d14008733528cd3cf46cf3",
+    "RetainedHost/Info.plist": "2a839863df5784b890c7a51efdd695bedaec5461cb5c5191e80ca1f439ef307c",
+    "RetainedHost/README.md": "b255102284fed68dddf0f5d157b08f23bf36aafed2753f1262f6a66d554dfa80",
+    "RetainedHost/RetainedHostApp.swift": "4e50fa627cf1ee74455aee9cf64c9fda34d71e51991ae83175f4f5a0b5418a1c",
+    "RetainedHost/RetainedModel.swift": "6074e9de7186adddfd85e450722470d73c46806e0592305671b303b3369b7ed1",
+    "RetainedHostUITests/RetainedHostUITests.swift": "5b76d03ec2898a8141bb7a1bc01777dbea2ac3f80ff138ce89642fe6cf740b0c",
+    "RetainedHost.xcodeproj/project.pbxproj": "5a88e42d278871df1545751c4d4d69841cc3b7997e420dbf39d58b90ef318c7f",
+    "RetainedHost.xcodeproj/xcshareddata/xcschemes/RetainedHost.xcscheme": "26a3e28aeaa1b0a39af391e669f3b5ed1b2b221eb02486fcd707a6fb4a3474f2",
+    "test-retained-host.sh": "4975153bc94793087f7a6fbf43026bd00927853c95f4ac3d03d0f76c28f441ed",
+    "record-retained-result.py": "4387cd8cb78a3ef9f393f19e433df4238e4697fd67388975ab999b1e0ffdac49",
+    "modules/partydeck_ios_probe/PDGodotEngineOwner.h": "f55aed92a3c0987ce2f2e5ba544738d5a7dcd53a3f19581c6056dc1de642f1c0"
+  },
+  "checks": [
+    {
+      "check": "completed producer audit at exact revision",
+      "passed": true
+    },
+    {
+      "check": "exact completed run/head/event/attempt",
+      "passed": true
+    },
+    {
+      "check": "retained CI exact revision, workflow revision, stage, run and architecture",
+      "passed": true
+    },
+    {
+      "check": "archived workflow and both executed consumers identify host=both",
+      "passed": true
+    },
+    {
+      "check": "consumers use distinct hosted runners",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/artifacts/libpartydeck_godot_camera.a",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/artifacts/libpartydeck_godot_ios_probe.a",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/clang-version.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/engine-artifact.json",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/engine-build.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/engine-source-commit.txt",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/engine-symbols.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/native-module-inputs.json",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/scons-version.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/sdk-version.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/source-download.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/upstream-audit.json",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/upstream-postbuild-audit.json",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/upstream-reference-audit.json",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/xcode-sdks.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: engine/evidence/xcode-version.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: framework/artifacts/PartyDeckGodotBridge-simulator.framework.tar.gz",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: framework/evidence/PartyDeckGodotBridge.h",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: framework/evidence/PartyDeckGodotBridge.modulemap",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: framework/evidence/authority-framework-architectures.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: framework/evidence/authority-framework-build.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: framework/evidence/authority-framework-result.json",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: framework/evidence/authority-framework-symbols.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: framework/evidence/authority-header-check.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: framework/evidence/authority-java-version.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: framework/evidence/authority-module-import.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: framework/evidence/authority-module-import.swift",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: framework/evidence/authority-source-commit.txt",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: framework/evidence/authority-xcode-version.log",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: renderer/partydeck-last-light.pck",
+      "passed": true
+    },
+    {
+      "check": "retained original producer file: renderer/partydeck-last-light.receipt.json",
+      "passed": true
+    },
+    {
+      "check": "retained source hashes unchanged during native build and test invocation",
+      "passed": true
+    },
+    {
+      "check": "retained harness matches exact archived source: RetainedHost/Host.xcconfig",
+      "passed": true
+    },
+    {
+      "check": "retained harness matches exact archived source: RetainedHost/Info.plist",
+      "passed": true
+    },
+    {
+      "check": "retained harness matches exact archived source: RetainedHost/README.md",
+      "passed": true
+    },
+    {
+      "check": "retained harness matches exact archived source: RetainedHost/RetainedHostApp.swift",
+      "passed": true
+    },
+    {
+      "check": "retained harness matches exact archived source: RetainedHost/RetainedModel.swift",
+      "passed": true
+    },
+    {
+      "check": "retained harness matches exact archived source: RetainedHostUITests/RetainedHostUITests.swift",
+      "passed": true
+    },
+    {
+      "check": "retained harness matches exact archived source: RetainedHost.xcodeproj/project.pbxproj",
+      "passed": true
+    },
+    {
+      "check": "retained harness matches exact archived source: RetainedHost.xcodeproj/xcshareddata/xcschemes/RetainedHost.xcscheme",
+      "passed": true
+    },
+    {
+      "check": "retained harness matches exact archived source: test-retained-host.sh",
+      "passed": true
+    },
+    {
+      "check": "retained harness matches exact archived source: record-retained-result.py",
+      "passed": true
+    },
+    {
+      "check": "retained harness matches exact archived source: modules/partydeck_ios_probe/PDGodotEngineOwner.h",
+      "passed": true
+    },
+    {
+      "check": "retained nested engine/framework inputs match independent producer bytes",
+      "passed": true
+    },
+    {
+      "check": "retained staged input receipt equals runner input",
+      "passed": true
+    },
+    {
+      "check": "retained framework receipt bytes match producer",
+      "passed": true
+    },
+    {
+      "check": "retained resources nested receipt",
+      "passed": true
+    },
+    {
+      "check": "retained bundled PCK bytes match audited producer",
+      "passed": true
+    },
+    {
+      "check": "retained bundled PCK companion receipt matches producer",
+      "passed": true
+    },
+    {
+      "check": "retained diagnostic resource: ProbeScene/project.godot",
+      "passed": true
+    },
+    {
+      "check": "retained diagnostic resource: ProbeScene/main.tscn",
+      "passed": true
+    },
+    {
+      "check": "retained diagnostic resource: ProbeScene/main.gd",
+      "passed": true
+    },
+    {
+      "check": "retained diagnostic resource: ProbeResources/MissingMainScene/project.godot",
+      "passed": true
+    },
+    {
+      "check": "retained license: ANDROID_NDK_LLVM_NOTICE.txt",
+      "passed": true
+    },
+    {
+      "check": "retained license: GODOT_CA_BUNDLE_SOURCE.txt",
+      "passed": true
+    },
+    {
+      "check": "retained license: GODOT_CA_CERTIFICATES_SOURCE.txt",
+      "passed": true
+    },
+    {
+      "check": "retained license: GODOT_COPYRIGHT.txt",
+      "passed": true
+    },
+    {
+      "check": "retained license: GODOT_LICENSE.txt",
+      "passed": true
+    },
+    {
+      "check": "retained license: NOTICE_PROVENANCE.json",
+      "passed": true
+    },
+    {
+      "check": "retained license: README.txt",
+      "passed": true
+    },
+    {
+      "check": "retained fixture and manifest bytes",
+      "passed": true
+    },
+    {
+      "check": "CI input file receipt: retained-inputs/engine/evidence/engine-source-commit.txt",
+      "passed": true
+    },
+    {
+      "check": "CI input file receipt: retained-inputs/framework/evidence/authority-source-commit.txt",
+      "passed": true
+    },
+    {
+      "check": "CI input file receipt: retained-inputs/engine/artifacts/libpartydeck_godot_ios_probe.a",
+      "passed": true
+    },
+    {
+      "check": "CI input file receipt: retained-inputs/engine/artifacts/libpartydeck_godot_camera.a",
+      "passed": true
+    },
+    {
+      "check": "CI input file receipt: retained-inputs/framework/artifacts/PartyDeckGodotBridge-simulator.framework.tar.gz",
+      "passed": true
+    },
+    {
+      "check": "CI input file receipt: retained-inputs/engine/evidence/engine-artifact.json",
+      "passed": true
+    },
+    {
+      "check": "CI input file receipt: retained-inputs/framework/evidence/authority-framework-result.json",
+      "passed": true
+    },
+    {
+      "check": "CI input file receipt: retained-inputs/renderer/partydeck-last-light.pck",
+      "passed": true
+    },
+    {
+      "check": "CI input file receipt: retained-inputs/renderer/partydeck-last-light.receipt.json",
+      "passed": true
+    },
+    {
+      "check": "CI input file receipt: artifacts/libpartydeck_godot_ios_probe.a",
+      "passed": true
+    },
+    {
+      "check": "CI input file receipt: artifacts/libpartydeck_godot_camera.a",
+      "passed": true
+    },
+    {
+      "check": "result embeds original inputs and exact file digest",
+      "passed": true
+    },
+    {
+      "check": "retained build and linkage succeeded",
+      "passed": true
+    },
+    {
+      "check": "retained suite qualification follows original recorded execution outcome",
+      "passed": true
+    },
+    {
+      "check": "broader native claims remain explicitly unqualified",
+      "passed": true
+    },
+    {
+      "check": "XCResult and both successful exports preserved",
+      "passed": true
+    },
+    {
+      "check": "summary and export metadata receipt hashes",
+      "passed": true
+    },
+    {
+      "check": "application observation file inventory",
+      "passed": true
+    }
+  ]
+}

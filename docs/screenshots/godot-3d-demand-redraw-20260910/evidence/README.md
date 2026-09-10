@@ -1,0 +1,20 @@
+# 3D viewport redraw proposal and execution evidence
+
+The frozen change redraws the actual 3D SubViewport when its state, size, camera projection, or any card pose changes. Unchanged root frames composite the retained texture with the SubViewport disabled. A pending `UPDATE_ONCE` remains pending until the actual RenderingServer consumes it; container visibility changes cannot stand in for that completion. Concealed background state still gets its required draw while the SceneTree is paused. Root drawing and the native privacy/presentation gates are unchanged.
+
+The source composes on currentness-v2's exact 3D table SHA256 `1f2c4951fb75fc7d718c68542129c7387dce7f1011220fe3df9edcce6e66b115`. Final table SHA256 is `45ee2ac81cd371f13b16e2b29b47468cbd86f2cbe98c1a0f8ba55787609cdf40`. `freeze-01/changed-files.json` lists the three integration files: the table and a new real-render check with its engine-generated UID. `freeze-01/three-d-demand-redraw-with-check.patch` is the complete integration patch. `freeze-01/independent-review.json` records app_controller's final source/evidence review.
+
+`validation-final/` contains the exact final source, recipient-safe fixtures, original process logs, complete commands, exit statuses, reports, and captures. All five checks passed with installed official Godot `4.7.2.stable.official.ed1daf0bf`, Xvfb, and Mesa llvmpipe's real OpenGL compatibility renderer:
+
+- The new redraw check passed 306 assertions. It observes server mode before and after actual drawing, verifies unchanged 3D with new root canvas pixels, actual card-created Tween poses and final pixels, first-frame overlay pixels, real input, resize, skipped renderer draws, zero-view-count recovery, reduced motion, paused concealment/resume, and teardown.
+- The existing bridge check passed 155 assertions. Its Java registry doubles do not execute native Android JNI.
+- The existing terminal-return check passed 216 assertions.
+- Existing 3D scene input/privacy checks passed at 390 × 844 with 100% text and with 200% text plus emulated touch drag. The 13 original PNGs are listed in `png-manifest.json` and were sent to review_design for preservation and separate visual review.
+
+The focused check controls root draw scheduling only inside its harness. It steps the actual card-created Tween deterministically so desktop raster cost cannot skip all intermediate poses. PNG output comes from the unchanged scene check; the focused check records pixel hashes. Final process logs contain only the expected environment warnings about V-Sync and running as root. These are desktop functional results, not native frame-time or accessibility results.
+
+Earlier failed attempts remain intact. Iteration 01 failed GDScript parsing because the initial proposal duplicated an existing `_exit_tree`; the disconnect was then merged into that existing cleanup. Iteration 02 reproduced late revealed/selected overlays when positioning happened only at `frame_pre_draw`. The final source keeps one on-demand process pass before queued CanvasItem drawing, while pre-draw still observes actual Tween poses. Its unchanged first-overlay comparisons now pass. A test expectation also needed correction: pinned Godot clamps node-level zero-size requests to 2 × 2. The check separately exercises a real RenderingServer zero-size skip and a node with zero view count.
+
+Authoritative engine source and hashes are preserved in `upstream/` and `upstream-source-provenance.json`, pinned to `ed1daf0bf001b61586d9930840f2f1394092c079`. Relevant behavior includes SubViewportContainer's automatic update-mode overrides, ONCE consumption in RendererViewport, the node's cached mode getter, script-bound actual server/camera APIs, signal callback ordering, and the deferred CanvasItem draw queue.
+
+No native build, export, workflow dispatch, shared renderer edit, or existing pack replacement was performed by ui_game. Root owns integration and fresh pack/native acceptance. This bundle does not establish that the iOS Retained deadline or its observed main-thread stall is fixed. The new run 34473325295 failure was still unattributed when this bundle was sealed.

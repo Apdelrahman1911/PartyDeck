@@ -1,0 +1,24 @@
+{
+  "command": [
+    "xvfb-run",
+    "-a",
+    "-s",
+    "-screen 0 1280x1024x24",
+    "/opt/partydeck-godot/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64",
+    "--path",
+    "/root/projects/PartyDeck/artifacts/evidence-storage/three-d-demand-redraw-20260910/iteration-03/source/godot/renderer",
+    "--audio-driver",
+    "Dummy",
+    "--rendering-method",
+    "gl_compatibility",
+    "--rendering-driver",
+    "opengl3",
+    "--script",
+    "res://tests/three_d_redraw_check.gd",
+    "--",
+    "--check-output=/root/projects/PartyDeck/artifacts/evidence-storage/three-d-demand-redraw-20260910/iteration-03/redraw",
+    "--check-fixture=/root/projects/PartyDeck/artifacts/evidence-storage/three-d-demand-redraw-20260910/iteration-03/fixtures/launch-3d.json"
+  ],
+  "exitCode": 0,
+  "elapsedSeconds": 3.278164959003334
+}

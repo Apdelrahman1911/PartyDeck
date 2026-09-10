@@ -1,0 +1,703 @@
+{
+  "activity_selection": "Recursively includes children whose testCaseRun_fk is null; filtering that column alone omits nested launch/tap activities.",
+  "connection_uri": "file:///root/projects/PartyDeck/artifacts/evidence-storage/34478720554/godot-ios-authority-gameplay/artifacts/AuthorityHost.xcresult/database.sqlite3?mode=ro",
+  "database": {
+    "bytes": 466944,
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554/godot-ios-authority-gameplay/artifacts/AuthorityHost.xcresult/database.sqlite3",
+    "sha256": "126f56be9263b31d35fe8166c7cabb88a737d6903604a4c87db46c440670ec3c"
+  },
+  "queries": [
+    {
+      "name": "relevant_schemas",
+      "parameters": [],
+      "rows": [
+        {
+          "name": "Activities",
+          "sql": "CREATE TABLE Activities (warningIDs TEXT, parent_fk INTEGER  REFERENCES Activities, orderInParent INTEGER, finishTime REAL, expectedFailureIDs TEXT, testCaseRun_fk INTEGER  REFERENCES TestCaseRuns, title TEXT, uuid TEXT, failureIDs TEXT, startTime REAL, activityType TEXT)"
+        },
+        {
+          "name": "Attachments",
+          "sql": "CREATE TABLE Attachments (lifetime TEXT, uuid TEXT, timestamp REAL, activity_fk INTEGER  REFERENCES Activities, name TEXT, uniformTypeIdentifier TEXT, testIssue_fk INTEGER  REFERENCES TestIssues, filenameOverride TEXT, inActivityIdentifier INTEGER, xcResultKitPayloadRefId TEXT, userInfo_fk INTEGER  REFERENCES UserInfos)"
+        },
+        {
+          "name": "SourceCodeContexts",
+          "sql": "CREATE TABLE SourceCodeContexts (location_fk INTEGER  REFERENCES SourceCodeLocations)"
+        },
+        {
+          "name": "SourceCodeLocations",
+          "sql": "CREATE TABLE SourceCodeLocations (lineNumber INTEGER, filePath TEXT)"
+        },
+        {
+          "name": "TestCaseRuns",
+          "sql": "CREATE TABLE TestCaseRuns (repetitionPolicy_fk INTEGER  REFERENCES RepetitionPolicies, testCase_fk INTEGER NOT NULL REFERENCES TestCases, skipNotice_fk INTEGER  REFERENCES SkipNotices, result TEXT, orderInTestSuiteRun INTEGER, duration REAL, dynamicTestParameters_fk INTEGER  REFERENCES UserInfos, testSuiteRun_fk INTEGER NOT NULL REFERENCES TestSuiteRuns)"
+        },
+        {
+          "name": "TestCases",
+          "sql": "CREATE TABLE TestCases (testSuite_fk INTEGER NOT NULL REFERENCES TestSuites, orderInTestSuite INTEGER, summary TEXT, identifier TEXT, identifierURL TEXT, name TEXT)"
+        },
+        {
+          "name": "TestIssues",
+          "sql": "CREATE TABLE TestIssues (issueType TEXT, expression_fk INTEGER  REFERENCES Expressions, detailedDescription TEXT, timestamp REAL, testCaseRun_fk INTEGER  REFERENCES TestCaseRuns, orderInOwner INTEGER, compactDescription TEXT, sanitizedDescription TEXT, associatedError_fk INTEGER  REFERENCES TestErrors, isTopLevel INTEGER, uuid TEXT, testSuiteRun_fk INTEGER  REFERENCES TestSuiteRuns, sourceCodeContext_fk INTEGER  REFERENCES SourceCodeContexts)"
+        },
+        {
+          "name": "UserInfoKeyValues",
+          "sql": "CREATE TABLE UserInfoKeyValues (stringValue TEXT, doubleValue REAL, key TEXT, intValue INTEGER, userInfo_fk INTEGER NOT NULL REFERENCES UserInfos)"
+        },
+        {
+          "name": "UserInfos",
+          "sql": "CREATE TABLE UserInfos (identifier INTEGER)"
+        }
+      ],
+      "sql": "SELECT name, sql FROM sqlite_master WHERE name IN ('TestCases', 'TestCaseRuns', 'TestIssues', 'Activities', 'Attachments', 'UserInfos', 'UserInfoKeyValues', 'SourceCodeContexts', 'SourceCodeLocations') ORDER BY name"
+    },
+    {
+      "name": "test_cases",
+      "parameters": [],
+      "rows": [
+        {
+          "identifier": "AuthorityHostUITests/testReferenceMatchIn2DAt200Percent()",
+          "identifierURL": "test://com.apple.xcode/AuthorityHost/AuthorityHostUITests/AuthorityHostUITests/testReferenceMatchIn2DAt200Percent",
+          "name": "testReferenceMatchIn2DAt200Percent()",
+          "orderInTestSuite": 0,
+          "rowid": 1,
+          "summary": null,
+          "testSuite_fk": 1
+        },
+        {
+          "identifier": "AuthorityHostUITests/testReferenceMatchIn2D()",
+          "identifierURL": "test://com.apple.xcode/AuthorityHost/AuthorityHostUITests/AuthorityHostUITests/testReferenceMatchIn2D",
+          "name": "testReferenceMatchIn2D()",
+          "orderInTestSuite": 1,
+          "rowid": 2,
+          "summary": null,
+          "testSuite_fk": 1
+        }
+      ],
+      "sql": "SELECT rowid, * FROM TestCases WHERE rowid IN (1, 2) ORDER BY rowid"
+    },
+    {
+      "name": "test_case_runs",
+      "parameters": [],
+      "rows": [
+        {
+          "duration": 92.26746201515198,
+          "dynamicTestParameters_fk": null,
+          "orderInTestSuiteRun": 0,
+          "repetitionPolicy_fk": null,
+          "result": "Failure",
+          "rowid": 1,
+          "skipNotice_fk": null,
+          "testCase_fk": 1,
+          "testSuiteRun_fk": 1
+        },
+        {
+          "duration": 108.52675104141235,
+          "dynamicTestParameters_fk": null,
+          "orderInTestSuiteRun": 0,
+          "repetitionPolicy_fk": null,
+          "result": "Success",
+          "rowid": 2,
+          "skipNotice_fk": null,
+          "testCase_fk": 2,
+          "testSuiteRun_fk": 2
+        }
+      ],
+      "sql": "SELECT rowid, * FROM TestCaseRuns WHERE rowid IN (1, 2) ORDER BY rowid"
+    },
+    {
+      "name": "failed_case_issues",
+      "parameters": [],
+      "rows": [
+        {
+          "associatedError_fk": null,
+          "compactDescription": "Failed to launch <XCUIApplicationImpl: 0x10644e2c0 dev.partydeck.godot.iosauthority at /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/AuthorityDerivedData/Build/Products/Debug-iphonesimulator/AuthorityHost.app> via Xcode: Timed out while launching application via Xcode.",
+          "detailedDescription": null,
+          "expression_fk": null,
+          "isTopLevel": 0,
+          "issueType": "Assertion Failure",
+          "orderInOwner": 0,
+          "rowid": 1,
+          "sanitizedDescription": "Failed to launch <XCUIApplicationImpl: 0x10644e2c0 dev.partydeck.godot.iosauthority at /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/AuthorityDerivedData/Build/Products/Debug-iphonesimulator/AuthorityHost.app> via Xcode: Timed out while launching application via Xcode.",
+          "sourceCodeContext_fk": 1,
+          "testCaseRun_fk": 1,
+          "testSuiteRun_fk": null,
+          "timestamp": 810738002.349,
+          "uuid": "22C77A43-526C-461A-9BD6-288F8D14E396"
+        }
+      ],
+      "sql": "SELECT rowid, * FROM TestIssues WHERE testCaseRun_fk = 1 ORDER BY rowid"
+    },
+    {
+      "name": "failed_case_complete_activity_tree",
+      "parameters": [
+        1
+      ],
+      "rows": [
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 1,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810737942.1170001,
+          "orderInParent": 0,
+          "parent_fk": null,
+          "startTime": 810737939.4719999,
+          "testCaseRun_fk": 1,
+          "title": "Start Test at 2026-09-10 12:58:59.472",
+          "uuid": "98AE0BA7-7A8B-4340-A94B-0D93CF8A542B",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 2,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810737942.1270001,
+          "orderInParent": 1,
+          "parent_fk": null,
+          "startTime": 810737942.1259999,
+          "testCaseRun_fk": 1,
+          "title": "Set Up",
+          "uuid": "408765F8-78A7-49FC-AF08-B3656C26CE9F",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 3,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738027.779,
+          "orderInParent": 2,
+          "parent_fk": null,
+          "startTime": 810737942.1889999,
+          "testCaseRun_fk": 1,
+          "title": "Open dev.partydeck.godot.iosauthority",
+          "uuid": "0CEAE4FB-0CB3-49ED-A13A-009C97AC440C",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 4,
+          "expectedFailureIDs": "",
+          "failureIDs": "22C77A43-526C-461A-9BD6-288F8D14E396",
+          "finishTime": 810738027.777,
+          "orderInParent": 0,
+          "parent_fk": 3,
+          "startTime": 810737942.191,
+          "testCaseRun_fk": null,
+          "title": "Launch dev.partydeck.godot.iosauthority",
+          "uuid": "EA95D6D9-1F5A-45F2-B38E-F5371BB98389",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 5,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738026.773,
+          "orderInParent": 1,
+          "parent_fk": 4,
+          "startTime": 810738025.504,
+          "testCaseRun_fk": null,
+          "title": "Wait for dev.partydeck.godot.iosauthority to idle",
+          "uuid": "474C93EC-AC38-4093-BCB9-ECCA5A7DCF71",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 6,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738025.504,
+          "orderInParent": 0,
+          "parent_fk": 4,
+          "startTime": 810738022.6270001,
+          "testCaseRun_fk": null,
+          "title": "Setting up automation session",
+          "uuid": "B1558868-50D6-4C89-9F91-D2E19D9398D0",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 7,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738029.128,
+          "orderInParent": 3,
+          "parent_fk": null,
+          "startTime": 810738027.7969999,
+          "testCaseRun_fk": 1,
+          "title": "Waiting 15.0s for \"start-2d\" Any to exist",
+          "uuid": "BE29C515-DE85-40A5-8503-8856DBCFDE53",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 8,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738029.1270001,
+          "orderInParent": 0,
+          "parent_fk": 7,
+          "startTime": 810738028.848,
+          "testCaseRun_fk": null,
+          "title": "Checking `Expect predicate `existsNoRetry == 1` for object \"start-2d\" Any`",
+          "uuid": "2ED6E1A6-FCBB-45EF-8572-C53B5A8FBBF6",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 9,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738029.1270001,
+          "orderInParent": 0,
+          "parent_fk": 8,
+          "startTime": 810738028.849,
+          "testCaseRun_fk": null,
+          "title": "Checking existence of `\"start-2d\" Any`",
+          "uuid": "3253E04C-DD6E-4966-9012-B3842030690F",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 10,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738030.56,
+          "orderInParent": 4,
+          "parent_fk": null,
+          "startTime": 810738029.144,
+          "testCaseRun_fk": 1,
+          "title": "Tap \"start-2d\" Any",
+          "uuid": "7AE9E7BC-788D-4EB0-895E-562D1D94DFBB",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 11,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738030.47,
+          "orderInParent": 2,
+          "parent_fk": 10,
+          "startTime": 810738029.572,
+          "testCaseRun_fk": null,
+          "title": "Check for interrupting elements affecting \"start-2d\" Button",
+          "uuid": "93D351A5-67A2-4689-BE90-BB832A9F0E90",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 12,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738029.5710001,
+          "orderInParent": 1,
+          "parent_fk": 10,
+          "startTime": 810738029.161,
+          "testCaseRun_fk": null,
+          "title": "Find the \"start-2d\" Any",
+          "uuid": "35E9DFCD-D619-459A-8B79-D56CB6A3B5B9",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 13,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738029.1600001,
+          "orderInParent": 0,
+          "parent_fk": 10,
+          "startTime": 810738029.145,
+          "testCaseRun_fk": null,
+          "title": "Wait for dev.partydeck.godot.iosauthority to idle",
+          "uuid": "EB6C541D-0769-464B-92FF-6B9AE521B546",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 14,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738030.917,
+          "orderInParent": 5,
+          "parent_fk": null,
+          "startTime": 810738030.5639999,
+          "testCaseRun_fk": 1,
+          "title": "Find the \"authority-metrics\" StaticText",
+          "uuid": "8C62425B-4A2D-4B1E-A10C-CF12F71C4CD5",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 15,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738031.7379999,
+          "orderInParent": 6,
+          "parent_fk": null,
+          "startTime": 810738030.927,
+          "testCaseRun_fk": 1,
+          "title": "Tear Down",
+          "uuid": "990F98C9-70D2-4C99-8032-F2ED2B63534E",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 16,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738031.7379999,
+          "orderInParent": 1,
+          "parent_fk": 15,
+          "startTime": 810738031.4430001,
+          "testCaseRun_fk": null,
+          "title": "Find the \"authority-metrics\" StaticText",
+          "uuid": "9EA65708-BF9D-46F4-8C25-50202637F2C7",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 17,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738031.287,
+          "orderInParent": 0,
+          "parent_fk": 15,
+          "startTime": 810738031.0840001,
+          "testCaseRun_fk": null,
+          "title": "Find the \"authority-metrics\" StaticText",
+          "uuid": "F9E1D763-EB3A-42ED-93B0-D91071C28B1A",
+          "warningIDs": ""
+        }
+      ],
+      "sql": "WITH RECURSIVE activity_tree AS (\n    SELECT rowid AS activity_rowid, * FROM Activities WHERE testCaseRun_fk = ? \n    UNION\n    SELECT a.rowid AS activity_rowid, a.* FROM Activities a\n      JOIN activity_tree t ON a.parent_fk = t.activity_rowid\n) SELECT * FROM activity_tree ORDER BY activity_rowid"
+    },
+    {
+      "name": "next_normal_case_launch_and_first_tap_activity_tree",
+      "parameters": [
+        2
+      ],
+      "rows": [
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 18,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738038.3199999,
+          "orderInParent": 0,
+          "parent_fk": null,
+          "startTime": 810738038.197,
+          "testCaseRun_fk": 2,
+          "title": "Start Test at 2026-09-10 13:00:38.196",
+          "uuid": "A79C909F-EB29-46F5-890E-A394CF6E321F",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 19,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738038.325,
+          "orderInParent": 1,
+          "parent_fk": null,
+          "startTime": 810738038.322,
+          "testCaseRun_fk": 2,
+          "title": "Set Up",
+          "uuid": "576838BB-6692-4E25-9663-EE279DED9EB4",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 20,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738045.052,
+          "orderInParent": 2,
+          "parent_fk": null,
+          "startTime": 810738038.345,
+          "testCaseRun_fk": 2,
+          "title": "Open dev.partydeck.godot.iosauthority",
+          "uuid": "96AA6B20-B816-4C5D-82DD-FEDFA85ED5ED",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 21,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738045.0510001,
+          "orderInParent": 0,
+          "parent_fk": 20,
+          "startTime": 810738038.3469999,
+          "testCaseRun_fk": null,
+          "title": "Launch dev.partydeck.godot.iosauthority",
+          "uuid": "126B01D0-546C-4DCE-A075-AD8C32789D76",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 22,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738044.039,
+          "orderInParent": 1,
+          "parent_fk": 21,
+          "startTime": 810738043.412,
+          "testCaseRun_fk": null,
+          "title": "Wait for dev.partydeck.godot.iosauthority to idle",
+          "uuid": "78A0731B-5FE1-4D96-86A1-199866931EDE",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 23,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738043.411,
+          "orderInParent": 0,
+          "parent_fk": 21,
+          "startTime": 810738041.198,
+          "testCaseRun_fk": null,
+          "title": "Setting up automation session",
+          "uuid": "58D3A8AD-7237-4271-93B2-84186D17C439",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 24,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738046.1760001,
+          "orderInParent": 3,
+          "parent_fk": null,
+          "startTime": 810738045.053,
+          "testCaseRun_fk": 2,
+          "title": "Waiting 15.0s for \"start-2d\" Any to exist",
+          "uuid": "DB02F247-4B3E-4385-845F-ADF48E3A278D",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 25,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738046.1760001,
+          "orderInParent": 0,
+          "parent_fk": 24,
+          "startTime": 810738046.106,
+          "testCaseRun_fk": null,
+          "title": "Checking `Expect predicate `existsNoRetry == 1` for object \"start-2d\" Any`",
+          "uuid": "7CBA2935-C821-459E-B82F-335C6EBD31D0",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 26,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738046.175,
+          "orderInParent": 0,
+          "parent_fk": 25,
+          "startTime": 810738046.1070001,
+          "testCaseRun_fk": null,
+          "title": "Checking existence of `\"start-2d\" Any`",
+          "uuid": "2EC1CC07-2B18-4017-B8E4-FCDBE3177504",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 27,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738048.4760001,
+          "orderInParent": 4,
+          "parent_fk": null,
+          "startTime": 810738046.177,
+          "testCaseRun_fk": 2,
+          "title": "Tap \"start-2d\" Any",
+          "uuid": "682C5321-06ED-4F3C-BF5D-9280216B726D",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 28,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738048.4760001,
+          "orderInParent": 4,
+          "parent_fk": 27,
+          "startTime": 810738046.786,
+          "testCaseRun_fk": null,
+          "title": "Wait for dev.partydeck.godot.iosauthority to idle",
+          "uuid": "CDFE1CFC-47E8-4B06-B891-F884026C68D7",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 29,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738046.7850001,
+          "orderInParent": 3,
+          "parent_fk": 27,
+          "startTime": 810738046.3169999,
+          "testCaseRun_fk": null,
+          "title": "Synthesize event",
+          "uuid": "513C69B7-1730-4E75-80D6-80979A0C78E8",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 30,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738046.292,
+          "orderInParent": 2,
+          "parent_fk": 27,
+          "startTime": 810738046.2360001,
+          "testCaseRun_fk": null,
+          "title": "Check for interrupting elements affecting \"start-2d\" Button",
+          "uuid": "1A98A535-E445-476D-A6AE-3517C17CE7C4",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 31,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738046.2349999,
+          "orderInParent": 1,
+          "parent_fk": 27,
+          "startTime": 810738046.1800001,
+          "testCaseRun_fk": null,
+          "title": "Find the \"start-2d\" Any",
+          "uuid": "55954771-3F67-4717-905E-5941722D7C3C",
+          "warningIDs": ""
+        },
+        {
+          "activityType": "com.apple.dt.xctest.activity-type.internal",
+          "activity_rowid": 32,
+          "expectedFailureIDs": "",
+          "failureIDs": "",
+          "finishTime": 810738046.1800001,
+          "orderInParent": 0,
+          "parent_fk": 27,
+          "startTime": 810738046.177,
+          "testCaseRun_fk": null,
+          "title": "Wait for dev.partydeck.godot.iosauthority to idle",
+          "uuid": "2DA96447-C439-413F-9311-AD62F95A9EDD",
+          "warningIDs": ""
+        }
+      ],
+      "sql": "WITH RECURSIVE activity_tree AS (\n    SELECT rowid AS activity_rowid, * FROM Activities WHERE testCaseRun_fk = ? AND orderInParent <= 4\n    UNION\n    SELECT a.rowid AS activity_rowid, a.* FROM Activities a\n      JOIN activity_tree t ON a.parent_fk = t.activity_rowid\n) SELECT * FROM activity_tree ORDER BY activity_rowid"
+    },
+    {
+      "name": "failed_case_database_attachments",
+      "parameters": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "rows": [
+        {
+          "activity_fk": 1,
+          "filenameOverride": "kXCTAttachmentScreenRecording_0_98AE0BA7-7A8B-4340-A94B-0D93CF8A542B.mp4",
+          "inActivityIdentifier": 0,
+          "lifetime": "deleteOnSuccess",
+          "name": "kXCTAttachmentScreenRecording",
+          "rowid": 1,
+          "testIssue_fk": null,
+          "timestamp": 810737942.0940001,
+          "uniformTypeIdentifier": "public.mpeg-4",
+          "userInfo_fk": 1,
+          "uuid": "856F498D-90C1-48CC-8225-0A35C78305BA",
+          "xcResultKitPayloadRefId": "0~zlfXNDesh6IkH2FGnGYrEAA6cSnEEiZBEURJbtBtn2SRE_JDYUm89FxDfUahtC6YZpObCSiWB_38D9KpNk_zOA=="
+        }
+      ],
+      "sql": "SELECT rowid, * FROM Attachments WHERE activity_fk IN (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) OR testIssue_fk IN (SELECT rowid FROM TestIssues WHERE testCaseRun_fk = 1) ORDER BY rowid"
+    },
+    {
+      "name": "recording_user_info",
+      "parameters": [],
+      "rows": [
+        {
+          "identifier": null,
+          "rowid": 1
+        }
+      ],
+      "sql": "SELECT rowid, * FROM UserInfos WHERE rowid = 1"
+    },
+    {
+      "name": "recording_user_info_key_values",
+      "parameters": [],
+      "rows": [
+        {
+          "doubleValue": null,
+          "intValue": null,
+          "key": "initialDeviceOrientation",
+          "rowid": 1,
+          "stringValue": "0",
+          "userInfo_fk": 1
+        },
+        {
+          "doubleValue": null,
+          "intValue": null,
+          "key": "scale",
+          "rowid": 2,
+          "stringValue": "3",
+          "userInfo_fk": 1
+        },
+        {
+          "doubleValue": null,
+          "intValue": null,
+          "key": "initialInterfaceOrientation",
+          "rowid": 3,
+          "stringValue": "1",
+          "userInfo_fk": 1
+        }
+      ],
+      "sql": "SELECT rowid, * FROM UserInfoKeyValues WHERE userInfo_fk = 1 ORDER BY rowid"
+    },
+    {
+      "name": "issue_source_context",
+      "parameters": [],
+      "rows": [
+        {
+          "location_fk": 1,
+          "rowid": 1
+        }
+      ],
+      "sql": "SELECT rowid, * FROM SourceCodeContexts WHERE rowid = 1"
+    },
+    {
+      "name": "issue_source_location",
+      "parameters": [],
+      "rows": [
+        {
+          "filePath": "/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/AuthorityHostUITests/AuthorityHostUITests.swift",
+          "lineNumber": 118,
+          "rowid": 1
+        }
+      ],
+      "sql": "SELECT rowid, * FROM SourceCodeLocations WHERE rowid = 1"
+    }
+  ],
+  "read_only": true,
+  "sqlite_version": "3.45.1"
+}

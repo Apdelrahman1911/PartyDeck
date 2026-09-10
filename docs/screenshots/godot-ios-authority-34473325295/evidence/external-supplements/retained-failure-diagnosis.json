@@ -1,0 +1,171 @@
+{
+  "dormantReactivation": {
+    "correction": "Require native applicationActive=true and applicationBackgrounded=false inside the same existing 15-second predicate, retain every existing assertion, and attach the accepted dictionary before later app actions.",
+    "correctionStatus": "Frozen off-repo patch sent to session_protocol for independent source review; native outcome unexecuted.",
+    "observationPipeline": [
+      "SwiftUI ScenePhase updates call RetainedModel.setApplicationActive, which polls immediately for every phase, including inactive.",
+      "A 0.2-second main-run-loop timer also publishes model.observations. Native metrics are sampled into that string before SwiftUI exposes its accessibilityValue.",
+      "Native applicationActive is applicationAllowsGraphics: UIKit applicationState Active AND the retained owner flag. UIKit documents inactive as running in foreground during transitions."
+    ],
+    "originalEvidenceLimit": "The old branch did not attach the exact dictionary returned before failing the immediate assertion. Collector confirms no post-activation custom measurement attachment. Prior dormant samples and Home observations cannot substitute.",
+    "runtimeConclusion": "Source establishes a premature observation-acceptance path. It does not prove whether this original run ultimately reactivated correctly; no native lifecycle success or defect is established from the missing returned snapshot.",
+    "sourceDefect": "The original wait predicate checks only dormant state and increased applicationBackgroundCount, accepting a still-inactive or stale-published sample before asserting applicationActive outside the wait.",
+    "timelineSeconds": {
+      "activate": 79.43,
+      "assertionFailure": 80.76,
+      "lastDormantIntervalAttachment": 76.29,
+      "metricsReadBegins": 79.53,
+      "secondHomeObservation": 78.56,
+      "secondHomeScreen": 79.42
+    }
+  },
+  "executionSummary": {
+    "backgroundCaseFailure": "RetainedHostUITests.swift:101, native applicationActive assertion after dormant Home/activate; 81.801 seconds",
+    "build": "succeeded",
+    "repeatedFourEntryCase": "passed in 274.544 seconds; uses a 60-second entry readiness timeout",
+    "staleReadyCaseFailure": "RetainedHostUITests.swift:526 through diagnostics at line 131 after switch into second 3D; old-handle button at line 140 was never reached",
+    "tests": {
+      "failed": 2,
+      "passed": 1
+    }
+  },
+  "limits": [
+    "Original 34473325295 remains failed.",
+    "The repeated-entry pass has distinct 60-second entry timing and does not satisfy the 15-second switch gate.",
+    "The generic XCTest restart message does not by itself establish an application crash.",
+    "Candidate 3 redraw source review and dormant observation correction do not establish native performance or lifecycle qualification."
+  ],
+  "originalEvidence": [
+    {
+      "path": "/tmp/partydeck-engine-ci/34473325295/job-102859300261.log",
+      "sha256": "685977f2b1d688355201badea2777936c2baa2ac3d07c589c07db8294ae3924e"
+    },
+    {
+      "path": "/tmp/partydeck-engine-ci/34473325295/godot-ios-retained-host-test-attempt-1/retained-host-test/artifacts/attachments/F3EFD573-7769-4516-B13C-B4DEF6FBDCAF.json",
+      "sha256": "4bccfcca9e0117171024a9c73ab4e89e7797a7bfe1d627e4aab6e3b2c9faa27a"
+    },
+    {
+      "path": "/tmp/partydeck-engine-ci/34473325295/godot-ios-retained-host-test-attempt-1/retained-host-test/artifacts/attachments/ED71EDA6-E3F2-41C9-9DC6-D7C15BBB2961.json",
+      "sha256": "c10a9ac734dc4e0bae4b8dc5194c2d20dd648ad336aaf83ab2cb3e9a4c179c5b"
+    },
+    {
+      "path": "/tmp/partydeck-engine-ci/34473325295/godot-ios-retained-host-test-attempt-1/retained-host-test/artifacts/attachments/5900D89A-FAAE-4DBC-BDB4-787BD3A1C1CE.json",
+      "sha256": "ac092b925fa27c4355643be2b67800f2227bb822c68c4aa1992162f5fe6ee5b4"
+    },
+    {
+      "path": "/tmp/partydeck-engine-ci/34473325295/godot-ios-retained-host-test-attempt-1/retained-host-test/artifacts/attachments/A13B43D0-A849-463E-B257-9CACFF7AC7B6.json",
+      "sha256": "065f87c9ed8fcfa29013d67d434d36f202586b3acc26ec1d4dda46b281a80196"
+    },
+    {
+      "path": "/tmp/partydeck-engine-ci/34473325295/early-retained-members/whole-zip-correlation.json",
+      "sha256": "bf55e77e8d561f17b516c462f5f657fafca9d9606d901af6c2870ad6842d6d47"
+    },
+    {
+      "path": "/tmp/partydeck-engine-ci/34473325295/godot-ios-retained-host-test-attempt-1.integrity.json",
+      "sha256": "a4f5920821152f68b874a3d77cdd2dd00eb5caf5fb7f54a8b5a18a6fce8beaa3"
+    },
+    {
+      "path": "/tmp/partydeck-engine-ci/34473325295/source-0f666e0/godot/ios-host/RetainedHostUITests/RetainedHostUITests.swift",
+      "sha256": "5b76d03ec2898a8141bb7a1bc01777dbea2ac3f80ff138ce89642fe6cf740b0c"
+    },
+    {
+      "path": "/tmp/partydeck-engine-ci/34473325295/source-0f666e0/godot/ios-host/RetainedHost/RetainedHostApp.swift",
+      "sha256": "4e50fa627cf1ee74455aee9cf64c9fda34d71e51991ae83175f4f5a0b5418a1c"
+    },
+    {
+      "path": "/tmp/partydeck-engine-ci/34473325295/source-0f666e0/godot/ios-host/RetainedHost/RetainedModel.swift",
+      "sha256": "6074e9de7186adddfd85e450722470d73c46806e0592305671b303b3369b7ed1"
+    },
+    {
+      "path": "/tmp/partydeck-engine-ci/34473325295/source-0f666e0/godot/ios-host/modules/partydeck_ios_probe/PDGodotRuntime.mm",
+      "sha256": "3270b219c3d66ba4a4cb12bab8a5f6460420d4c74416a9b75b39310faf8169e0"
+    },
+    {
+      "path": "/tmp/partydeck-retained-run-34473325295-diagnosis/UIApplication-inactive.json",
+      "sha256": "fff67c98b70766b4138e8c0f166a611719aed7448ca8f9fe260d17b74c8589a4"
+    },
+    {
+      "path": "/tmp/partydeck-retained-dormant-reactivation-v1/freeze-01/dormant-reactivation-observation.patch",
+      "sha256": "cc6f7c1d501e65d6dc58609e079bd033a6ea6e519375686be8b099e277cf2efb"
+    }
+  ],
+  "reviewer": "app_controller",
+  "runId": "34473325295",
+  "scope": "Read-only archived source and original observation diagnosis. No duplicate collection, native execution, build, Git, or shared edits. Test-only off-repo correction supplied separately.",
+  "second3DRejection": {
+    "conclusion": "The exact observation points to a slow draw/publication/AX-observation boundary. It establishes no stale-Ready acceptance, stale-epoch ownership, close-queue defect, leak, or old-handle outcome. Published snapshots and long AX queries do not isolate the expensive stage.",
+    "elapsedSeconds": 23.46761620833331,
+    "identity": {
+      "entryCount": 2,
+      "mode": "3d",
+      "packSHA256": "91eeb2fba17dd291564bf2e005f85c0924f813f044f945297f10b281e608b2e6",
+      "pid": 34441,
+      "presentationGeneration": "2",
+      "presentationID": "885F2515-EC59-4A20-8C14-A4686921B4EE",
+      "revision": "1",
+      "runID": "B054FD1D-8F50-4BD8-AE82-C2CFEE20441A"
+    },
+    "lastMetricsQuerySeconds": 10.262873750000153,
+    "laterDistinctObservation": {
+      "attachment": "/tmp/partydeck-engine-ci/34473325295/godot-ios-retained-host-test-attempt-1/retained-host-test/artifacts/attachments/ED71EDA6-E3F2-41C9-9DC6-D7C15BBB2961.json",
+      "diagnosticSequence": "4",
+      "iterationDelta": 3,
+      "iterations": 32,
+      "modelObservedSecondsDelta": 30.272265291666827,
+      "pollCountDelta": 3,
+      "presentedFrameDelta": 3,
+      "privacyCoverVisible": false,
+      "qualification": "Later progress only. This cannot replace the rejected observation or satisfy the original deadline.",
+      "sameCompleteLifetime": true
+    },
+    "nativeCoverGate": "PDGodotRuntime.mm:1073-1080 and 1118-1123 require one accepted Ready, authority confirmation, current concealed diagnostic after the last state mutation, and a later actually presented frame; source does not equate scene application with pixels.",
+    "nextAcceptance": "Execute the reviewed on-demand 3D candidate with the unchanged 15-second switch/currentness/privacy gate and retain the exact rejected sample on any failure. If it recurs, correlate native mutation/diagnostic/endDraw timing with publication and AX callback timing before changing runtime logic.",
+    "observedNative": {
+      "applicationActive": true,
+      "applicationBackgrounded": false,
+      "concealedSampleAttempts": 1,
+      "concealedSampleLimit": 8,
+      "drawCalls": 29,
+      "engineFramesDrawn": "7",
+      "failure": "",
+      "iterations": 29,
+      "nativeFailedPresentations": 0,
+      "nativePresentedFrames": 7,
+      "pendingForegroundLoss": false,
+      "privacyCoverVisible": true,
+      "quarantined": false,
+      "queuedBytes": 0,
+      "queuedCommands": 0,
+      "queuedEvents": 0,
+      "renderLoopActive": true,
+      "surfaceAccessibilityHidden": true
+    },
+    "observedScene": {
+      "foreground": true,
+      "handConcealed": true,
+      "privateFaceCount": 0,
+      "privateLabelCount": 0,
+      "requestId": "2",
+      "sceneStateApplied": true,
+      "selectedCount": 0,
+      "sequence": "1"
+    },
+    "onlyRejectedCondition": "privacyCoverVisible remains true in the preserved published snapshot",
+    "predicateEvaluation": {
+      "lifecycleReady": true,
+      "modelForeground": true,
+      "newerWithoutAfter": true,
+      "nonemptyScene": true,
+      "privacyCoverAbsent": false,
+      "readyConfirmed": true,
+      "renderLoopActive": true,
+      "samePresentation": true,
+      "sameRevision": true,
+      "sceneForeground": true,
+      "sceneStateApplied": true,
+      "second3D": true
+    },
+    "waitSeconds": 15
+  },
+  "sourceHead": "0f666e0ab7fdce63d5fa668442dae1c9fda86a1d"
+}

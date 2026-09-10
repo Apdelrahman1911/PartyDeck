@@ -1,0 +1,14 @@
+{
+  "kind": "gallery auditor assumption correction; original runtime evidence unchanged",
+  "failedPhase": "authority-payloads",
+  "initialScript": "/tmp/partydeck-gallery-next-audit-ios-initial.py",
+  "initialScriptSha256": "df169185935af93f01993e7345e982ffd4f22a35227d2b8588c35e449caa0b31",
+  "failure": "Auditor used MATCH_ENDED instead of the recorded FINISHED phase name.",
+  "originalObservedValue": "FINISHED",
+  "correction": "Check FINISHED and nonempty winnerId; preserve each original test result and revision.",
+  "reusedCompletedCheckpoints": [
+    "metadata",
+    "archives"
+  ],
+  "galleryChanged": false
+}

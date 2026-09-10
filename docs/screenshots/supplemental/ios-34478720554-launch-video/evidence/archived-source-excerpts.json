@@ -1,0 +1,892 @@
+{
+  "excerpts": [
+    {
+      "ranges": [
+        {
+          "end_line": 27,
+          "lines": [
+            {
+              "line": 1,
+              "text": "import XCTest"
+            },
+            {
+              "line": 2,
+              "text": ""
+            },
+            {
+              "line": 3,
+              "text": "final class AuthorityHostUITests: XCTestCase {"
+            },
+            {
+              "line": 4,
+              "text": "    private var lastObservedMetrics: [String: Any] = [:]"
+            },
+            {
+              "line": 5,
+              "text": ""
+            },
+            {
+              "line": 6,
+              "text": "    override func setUpWithError() throws {"
+            },
+            {
+              "line": 7,
+              "text": "        continueAfterFailure = false"
+            },
+            {
+              "line": 8,
+              "text": "    }"
+            },
+            {
+              "line": 9,
+              "text": ""
+            },
+            {
+              "line": 10,
+              "text": "    @MainActor"
+            },
+            {
+              "line": 11,
+              "text": "    func testReferenceMatchIn2D() async throws {"
+            },
+            {
+              "line": 12,
+              "text": "        try await referenceMatch(mode: \"2d\", textScale: 1)"
+            },
+            {
+              "line": 13,
+              "text": "    }"
+            },
+            {
+              "line": 14,
+              "text": ""
+            },
+            {
+              "line": 15,
+              "text": "    @MainActor"
+            },
+            {
+              "line": 16,
+              "text": "    func testReferenceMatchIn3D() async throws {"
+            },
+            {
+              "line": 17,
+              "text": "        try await referenceMatch(mode: \"3d\", textScale: 1)"
+            },
+            {
+              "line": 18,
+              "text": "    }"
+            },
+            {
+              "line": 19,
+              "text": ""
+            },
+            {
+              "line": 20,
+              "text": "    @MainActor"
+            },
+            {
+              "line": 21,
+              "text": "    func testReferenceMatchIn2DAt200Percent() async throws {"
+            },
+            {
+              "line": 22,
+              "text": "        try await referenceMatch(mode: \"2d\", textScale: 2)"
+            },
+            {
+              "line": 23,
+              "text": "    }"
+            },
+            {
+              "line": 24,
+              "text": ""
+            },
+            {
+              "line": 25,
+              "text": "    @MainActor"
+            },
+            {
+              "line": 26,
+              "text": "    func testReferenceMatchIn3DAt200Percent() async throws {"
+            },
+            {
+              "line": 27,
+              "text": "        try await referenceMatch(mode: \"3d\", textScale: 2)"
+            }
+          ],
+          "start_line": 1
+        },
+        {
+          "end_line": 129,
+          "lines": [
+            {
+              "line": 113,
+              "text": "    @MainActor"
+            },
+            {
+              "line": 114,
+              "text": "    private func launch(mode: String, textScale: Int, reference: Bool) async throws -> XCUIApplication {"
+            },
+            {
+              "line": 115,
+              "text": "        let app = XCUIApplication()"
+            },
+            {
+              "line": 116,
+              "text": "        app.launchArguments = [\"--text-scale=\\(textScale)\"]"
+            },
+            {
+              "line": 117,
+              "text": "        if reference { app.launchArguments.append(\"--reference-seed=2\") }"
+            },
+            {
+              "line": 118,
+              "text": "        app.launch()"
+            },
+            {
+              "line": 119,
+              "text": "        try require(element(\"start-\\(mode)\", app).waitForExistence(timeout: 15), \"The native table chooser must appear.\")"
+            },
+            {
+              "line": 120,
+              "text": "        element(\"start-\\(mode)\", app).tap()"
+            },
+            {
+              "line": 121,
+              "text": "        let value = try await currentDiagnostics(app, timeout: 60)"
+            },
+            {
+              "line": 122,
+              "text": "        XCTAssertEqual(value[\"lifecycle\"] as? String, \"READY\")"
+            },
+            {
+              "line": 123,
+              "text": "        XCTAssertEqual(number(\"readyEvents\", native(value)), 1)"
+            },
+            {
+              "line": 124,
+              "text": "        XCTAssertEqual(number(\"bootstrapCount\", native(value)), 1)"
+            },
+            {
+              "line": 125,
+              "text": "        XCTAssertGreaterThanOrEqual(number(\"iterations\", native(value)), 3)"
+            },
+            {
+              "line": 126,
+              "text": "        XCTAssertFalse(flag(\"authorityReleased\", value))"
+            },
+            {
+              "line": 127,
+              "text": "        try validateGeometry(value, app)"
+            },
+            {
+              "line": 128,
+              "text": "        return app"
+            },
+            {
+              "line": 129,
+              "text": "    }"
+            }
+          ],
+          "start_line": 113
+        }
+      ],
+      "source": {
+        "bytes": 33404,
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554/source-c6ea1dd/godot/ios-host/AuthorityHostUITests/AuthorityHostUITests.swift",
+        "sha256": "ce8dc5324fae078a6c5abdaa144973243b134689dddf9637753800c476e7b36a"
+      }
+    },
+    {
+      "ranges": [
+        {
+          "end_line": 103,
+          "lines": [
+            {
+              "line": 1,
+              "text": "import Combine"
+            },
+            {
+              "line": 2,
+              "text": "import SwiftUI"
+            },
+            {
+              "line": 3,
+              "text": "import UIKit"
+            },
+            {
+              "line": 4,
+              "text": ""
+            },
+            {
+              "line": 5,
+              "text": "@main"
+            },
+            {
+              "line": 6,
+              "text": "struct AuthorityHostApp: App {"
+            },
+            {
+              "line": 7,
+              "text": "    @UIApplicationDelegateAdaptor(AuthorityAppDelegate.self) private var appDelegate"
+            },
+            {
+              "line": 8,
+              "text": "    @StateObject private var model = AuthorityModel()"
+            },
+            {
+              "line": 9,
+              "text": "    @Environment(\\.scenePhase) private var scenePhase"
+            },
+            {
+              "line": 10,
+              "text": ""
+            },
+            {
+              "line": 11,
+              "text": "    var body: some Scene {"
+            },
+            {
+              "line": 12,
+              "text": "        WindowGroup {"
+            },
+            {
+              "line": 13,
+              "text": "            AuthorityScreen(model: model)"
+            },
+            {
+              "line": 14,
+              "text": "                .onChange(of: scenePhase) { phase in"
+            },
+            {
+              "line": 15,
+              "text": "                    model.setApplicationActive(phase == .active)"
+            },
+            {
+              "line": 16,
+              "text": "                }"
+            },
+            {
+              "line": 17,
+              "text": "        }"
+            },
+            {
+              "line": 18,
+              "text": "    }"
+            },
+            {
+              "line": 19,
+              "text": "}"
+            },
+            {
+              "line": 20,
+              "text": ""
+            },
+            {
+              "line": 21,
+              "text": "// The application owns its entry point and scene lifecycle. Godot's export"
+            },
+            {
+              "line": 22,
+              "text": "// app delegate is never installed by the qualification host."
+            },
+            {
+              "line": 23,
+              "text": "final class AuthorityAppDelegate: NSObject, UIApplicationDelegate {"
+            },
+            {
+              "line": 24,
+              "text": "    var window: UIWindow?"
+            },
+            {
+              "line": 25,
+              "text": "}"
+            },
+            {
+              "line": 26,
+              "text": ""
+            },
+            {
+              "line": 27,
+              "text": "private struct AuthorityScreen: View {"
+            },
+            {
+              "line": 28,
+              "text": "    @ObservedObject var model: AuthorityModel"
+            },
+            {
+              "line": 29,
+              "text": "    @Environment(\\.accessibilityReduceMotion) private var reduceMotion"
+            },
+            {
+              "line": 30,
+              "text": "    @State private var soundEnabled = true"
+            },
+            {
+              "line": 31,
+              "text": "    @ScaledMetric(relativeTo: .body) private var scaledBodySize: CGFloat = 17"
+            },
+            {
+              "line": 32,
+              "text": "    private let clock = Timer.publish(every: 0.2, on: .main, in: .common).autoconnect()"
+            },
+            {
+              "line": 33,
+              "text": ""
+            },
+            {
+              "line": 34,
+              "text": "    var body: some View {"
+            },
+            {
+              "line": 35,
+              "text": "        VStack(spacing: 10) {"
+            },
+            {
+              "line": 36,
+              "text": "            HStack {"
+            },
+            {
+              "line": 37,
+              "text": "                VStack(alignment: .leading, spacing: 2) {"
+            },
+            {
+              "line": 38,
+              "text": "                    Text(\"Last Light\").font(.headline)"
+            },
+            {
+              "line": 39,
+              "text": "                    Text(model.mode.isEmpty ? \"Choose your table\" : \"\\(model.mode.uppercased()) table\")"
+            },
+            {
+              "line": 40,
+              "text": "                        .font(.caption).foregroundStyle(.secondary)"
+            },
+            {
+              "line": 41,
+              "text": "                }"
+            },
+            {
+              "line": 42,
+              "text": "                Spacer()"
+            },
+            {
+              "line": 43,
+              "text": "                if model.showEngine {"
+            },
+            {
+              "line": 44,
+              "text": "                    Button(model.pausedByUser ? \"Resume\" : \"Pause\", action: model.togglePause)"
+            },
+            {
+              "line": 45,
+              "text": "                        .accessibilityIdentifier(\"pause-table\")"
+            },
+            {
+              "line": 46,
+              "text": "                    Button(\"Close\", action: model.close)"
+            },
+            {
+              "line": 47,
+              "text": "                        .accessibilityIdentifier(\"close-table\")"
+            },
+            {
+              "line": 48,
+              "text": "                }"
+            },
+            {
+              "line": 49,
+              "text": "            }"
+            },
+            {
+              "line": 50,
+              "text": "            if model.state == \"idle\" {"
+            },
+            {
+              "line": 51,
+              "text": "                VStack(spacing: 18) {"
+            },
+            {
+              "line": 52,
+              "text": "                    Text(\"Keep your hand hidden. Make your claim.\\nDecide who to believe.\")"
+            },
+            {
+              "line": 53,
+              "text": "                        .multilineTextAlignment(.center)"
+            },
+            {
+              "line": 54,
+              "text": "                    Button(\"Play in 2D\") { start(\"2d\") }"
+            },
+            {
+              "line": 55,
+              "text": "                        .accessibilityIdentifier(\"start-2d\")"
+            },
+            {
+              "line": 56,
+              "text": "                    Button(\"Play in 3D\") { start(\"3d\") }"
+            },
+            {
+              "line": 57,
+              "text": "                        .accessibilityIdentifier(\"start-3d\")"
+            },
+            {
+              "line": 58,
+              "text": "                    Toggle(\"Sound\", isOn: $soundEnabled).frame(maxWidth: 240)"
+            },
+            {
+              "line": 59,
+              "text": "                    if model.referenceScenario {"
+            },
+            {
+              "line": 60,
+              "text": "                        Text(\"Repeatable comparison scenario\")"
+            },
+            {
+              "line": 61,
+              "text": "                            .font(.caption).foregroundStyle(.secondary)"
+            },
+            {
+              "line": 62,
+              "text": "                    }"
+            },
+            {
+              "line": 63,
+              "text": "                }"
+            },
+            {
+              "line": 64,
+              "text": "                .frame(maxWidth: .infinity, maxHeight: .infinity)"
+            },
+            {
+              "line": 65,
+              "text": "            } else if model.showEngine, let controller = model.runtime.viewController {"
+            },
+            {
+              "line": 66,
+              "text": "                AuthoritySurface(controller: controller, model: model)"
+            },
+            {
+              "line": 67,
+              "text": "                    .frame(maxWidth: .infinity, maxHeight: .infinity)"
+            },
+            {
+              "line": 68,
+              "text": "            } else {"
+            },
+            {
+              "line": 69,
+              "text": "                VStack(spacing: 10) {"
+            },
+            {
+              "line": 70,
+              "text": "                    Text(model.state == \"closed\" ? \"Table closed\" : \"Table unavailable\")"
+            },
+            {
+              "line": 71,
+              "text": "                        .font(.title2.bold())"
+            },
+            {
+              "line": 72,
+              "text": "                    Text(\"Relaunch the comparison to choose another table.\")"
+            },
+            {
+              "line": 73,
+              "text": "                        .multilineTextAlignment(.center)"
+            },
+            {
+              "line": 74,
+              "text": "                    Button(\"Host +1\") {"
+            },
+            {
+              "line": 75,
+              "text": "                        model.hostCounter += 1"
+            },
+            {
+              "line": 76,
+              "text": "                        model.poll()"
+            },
+            {
+              "line": 77,
+              "text": "                    }"
+            },
+            {
+              "line": 78,
+              "text": "                    .accessibilityIdentifier(\"host-counter-button\")"
+            },
+            {
+              "line": 79,
+              "text": "                }"
+            },
+            {
+              "line": 80,
+              "text": "                .frame(maxWidth: .infinity, maxHeight: .infinity)"
+            },
+            {
+              "line": 81,
+              "text": "            }"
+            },
+            {
+              "line": 82,
+              "text": "            if !model.errorMessage.isEmpty {"
+            },
+            {
+              "line": 83,
+              "text": "                Text(model.errorMessage).font(.caption).foregroundStyle(.secondary)"
+            },
+            {
+              "line": 84,
+              "text": "                    .accessibilityIdentifier(\"authority-error\")"
+            },
+            {
+              "line": 85,
+              "text": "            }"
+            },
+            {
+              "line": 86,
+              "text": "            Text(model.state.capitalized)"
+            },
+            {
+              "line": 87,
+              "text": "                .font(.caption)"
+            },
+            {
+              "line": 88,
+              "text": "                .accessibilityLabel(\"Authority measurements\")"
+            },
+            {
+              "line": 89,
+              "text": "                .accessibilityValue(model.observations)"
+            },
+            {
+              "line": 90,
+              "text": "                .accessibilityIdentifier(\"authority-metrics\")"
+            },
+            {
+              "line": 91,
+              "text": "        }"
+            },
+            {
+              "line": 92,
+              "text": "        .padding(.horizontal, 12)"
+            },
+            {
+              "line": 93,
+              "text": "        .padding(.vertical, 8)"
+            },
+            {
+              "line": 94,
+              "text": "        .buttonStyle(.bordered)"
+            },
+            {
+              "line": 95,
+              "text": "        .onReceive(clock) { _ in model.poll() }"
+            },
+            {
+              "line": 96,
+              "text": "    }"
+            },
+            {
+              "line": 97,
+              "text": ""
+            },
+            {
+              "line": 98,
+              "text": "    private func start(_ mode: String) {"
+            },
+            {
+              "line": 99,
+              "text": "        let arguments = ProcessInfo.processInfo.arguments"
+            },
+            {
+              "line": 100,
+              "text": "        let textScale = arguments.contains(\"--text-scale=2\") ? 2.0 :"
+            },
+            {
+              "line": 101,
+              "text": "            arguments.contains(\"--text-scale=1\") ? 1.0 : min(2.0, max(1.0, Double(scaledBodySize) / 17.0))"
+            },
+            {
+              "line": 102,
+              "text": "        model.start(mode: mode, reduceMotion: reduceMotion, soundEnabled: soundEnabled, textScale: textScale)"
+            },
+            {
+              "line": 103,
+              "text": "    }"
+            }
+          ],
+          "start_line": 1
+        }
+      ],
+      "source": {
+        "bytes": 5102,
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554/source-c6ea1dd/godot/ios-host/AuthorityHost/AuthorityHostApp.swift",
+        "sha256": "f86d8371c199ffa543dbb81352a8b23459975de27ecfd5864d9e6bcc3ab5ef01"
+      }
+    },
+    {
+      "ranges": [
+        {
+          "end_line": 62,
+          "lines": [
+            {
+              "line": 1,
+              "text": "import Combine"
+            },
+            {
+              "line": 2,
+              "text": "import Foundation"
+            },
+            {
+              "line": 3,
+              "text": "import PartyDeckGodotBridge"
+            },
+            {
+              "line": 4,
+              "text": ""
+            },
+            {
+              "line": 5,
+              "text": "// The native runtime delivers synchronously on the main thread after its draw"
+            },
+            {
+              "line": 6,
+              "text": "// and engine scopes return. Keep the Kotlin facade on that same owner, with no"
+            },
+            {
+              "line": 7,
+              "text": "// per-event Task/dispatch queue and no game rules or copied authority state."
+            },
+            {
+              "line": 8,
+              "text": "final class AuthorityModel: ObservableObject {"
+            },
+            {
+              "line": 9,
+              "text": "    let runtime = PDGodotRuntime()"
+            },
+            {
+              "line": 10,
+              "text": "    @Published private(set) var showEngine = false"
+            },
+            {
+              "line": 11,
+              "text": "    @Published private(set) var state = \"idle\""
+            },
+            {
+              "line": 12,
+              "text": "    @Published private(set) var observations = \"{}\""
+            },
+            {
+              "line": 13,
+              "text": "    @Published private(set) var errorMessage = \"\""
+            },
+            {
+              "line": 14,
+              "text": "    @Published private(set) var pausedByUser = false"
+            },
+            {
+              "line": 15,
+              "text": "    @Published private(set) var mode = \"\""
+            },
+            {
+              "line": 16,
+              "text": "    @Published var hostCounter = 0"
+            },
+            {
+              "line": 17,
+              "text": ""
+            },
+            {
+              "line": 18,
+              "text": "    private var authority: IosQualificationAuthority?"
+            },
+            {
+              "line": 19,
+              "text": "    private var applicationActive = true"
+            },
+            {
+              "line": 20,
+              "text": "    private var closing = false"
+            },
+            {
+              "line": 21,
+              "text": "    private var generation: UInt64 = 0"
+            },
+            {
+              "line": 22,
+              "text": "    private var receipt: [String: Any] = [:]"
+            },
+            {
+              "line": 23,
+              "text": "    private var lastDiagnosticRequestAt: TimeInterval = 0"
+            },
+            {
+              "line": 24,
+              "text": ""
+            },
+            {
+              "line": 25,
+              "text": "    var referenceScenario: Bool {"
+            },
+            {
+              "line": 26,
+              "text": "        ProcessInfo.processInfo.arguments.contains(\"--reference-seed=2\")"
+            },
+            {
+              "line": 27,
+              "text": "    }"
+            },
+            {
+              "line": 28,
+              "text": ""
+            },
+            {
+              "line": 29,
+              "text": "    func start(mode selectedMode: String, reduceMotion: Bool, soundEnabled: Bool, textScale: Double) {"
+            },
+            {
+              "line": 30,
+              "text": "        precondition(Thread.isMainThread)"
+            },
+            {
+              "line": 31,
+              "text": "        guard state == \"idle\", !closing, authority == nil, selectedMode == \"2d\" || selectedMode == \"3d\" else { return }"
+            },
+            {
+              "line": 32,
+              "text": "        mode = selectedMode"
+            },
+            {
+              "line": 33,
+              "text": "        receipt[\"textScale\"] = textScale"
+            },
+            {
+              "line": 34,
+              "text": "        receipt[\"reduceMotion\"] = reduceMotion"
+            },
+            {
+              "line": 35,
+              "text": "        receipt[\"soundEnabled\"] = soundEnabled"
+            },
+            {
+              "line": 36,
+              "text": "        generation += 1"
+            },
+            {
+              "line": 37,
+              "text": "        let ownedGeneration = generation"
+            },
+            {
+              "line": 38,
+              "text": "        do {"
+            },
+            {
+              "line": 39,
+              "text": "            guard let resources = Bundle.main.resourceURL else { throw HostFailure.resourcesMissing }"
+            },
+            {
+              "line": 40,
+              "text": "            let pack = resources.appendingPathComponent(\"ProbeResources/partydeck-last-light.pck\")"
+            },
+            {
+              "line": 41,
+              "text": "            guard FileManager.default.isReadableFile(atPath: pack.path) else { throw HostFailure.resourcesMissing }"
+            },
+            {
+              "line": 42,
+              "text": "            let facade = try IosQualificationFactory.shared.create("
+            },
+            {
+              "line": 43,
+              "text": "                presentationId: UUID().uuidString,"
+            },
+            {
+              "line": 44,
+              "text": "                mode: selectedMode == \"3d\" ? .threeD : .twoD,"
+            },
+            {
+              "line": 45,
+              "text": "                randomness: referenceScenario ? .referenceSeed2 : .secure,"
+            },
+            {
+              "line": 46,
+              "text": "                reduceMotion: reduceMotion,"
+            },
+            {
+              "line": 47,
+              "text": "                soundEnabled: soundEnabled,"
+            },
+            {
+              "line": 48,
+              "text": "                textScale: textScale"
+            },
+            {
+              "line": 49,
+              "text": "            )"
+            },
+            {
+              "line": 50,
+              "text": "            authority = facade"
+            },
+            {
+              "line": 51,
+              "text": "            copyStatus(facade.status())"
+            },
+            {
+              "line": 52,
+              "text": "            runtime.eventHandler = { [weak self] document in"
+            },
+            {
+              "line": 53,
+              "text": "                self?.receive(document, generation: ownedGeneration)"
+            },
+            {
+              "line": 54,
+              "text": "            }"
+            },
+            {
+              "line": 55,
+              "text": "            try runtime.prepare(withProjectPath: resources.path, packPath: pack.path, launchDocument: facade.launchDocument)"
+            },
+            {
+              "line": 56,
+              "text": "            try applyForeground()"
+            },
+            {
+              "line": 57,
+              "text": "            showEngine = !closing"
+            },
+            {
+              "line": 58,
+              "text": "            poll()"
+            },
+            {
+              "line": 59,
+              "text": "        } catch {"
+            },
+            {
+              "line": 60,
+              "text": "            fail(\"PREPARATION_FAILED\")"
+            },
+            {
+              "line": 61,
+              "text": "        }"
+            },
+            {
+              "line": 62,
+              "text": "    }"
+            }
+          ],
+          "start_line": 1
+        }
+      ],
+      "source": {
+        "bytes": 11223,
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554/source-c6ea1dd/godot/ios-host/AuthorityHost/AuthorityModel.swift",
+        "sha256": "bcf2768777adcf97b50c5195b2acdc307559de0b259a13de1653276546876ac1"
+      }
+    }
+  ],
+  "head_sha": "c6ea1dd9f7966517fbee87a06b633d01c432c24d"
+}

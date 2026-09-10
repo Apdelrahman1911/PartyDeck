@@ -1,0 +1,28 @@
+{
+  "argv": [
+    "ffprobe",
+    "-v",
+    "error",
+    "-select_streams",
+    "v:0",
+    "-show_frames",
+    "-show_entries",
+    "frame=key_frame,pts,pts_time,best_effort_timestamp,best_effort_timestamp_time,duration,duration_time,pkt_duration,pkt_duration_time,pict_type,width,height,pix_fmt",
+    "-of",
+    "json",
+    "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554/godot-ios-authority-gameplay/artifacts/authority-attachments/856F498D-90C1-48CC-8225-0A35C78305BA.mp4"
+  ],
+  "started_utc": "2026-09-10T13:40:43.601991+00:00",
+  "ended_utc": "2026-09-10T13:40:44.616268+00:00",
+  "exit_code": 0,
+  "stdout": {
+    "file": "decoder/ffprobe-frames.stdout",
+    "bytes": 61867,
+    "sha256": "73dc8fdce7c6f93b015e93811c04342c07d7f6f64c4eec1642c74e73a7a6a096"
+  },
+  "stderr": {
+    "file": "decoder/ffprobe-frames.stderr",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

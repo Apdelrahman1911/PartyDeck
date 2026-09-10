@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "completed_visual_review": true,
+  "completed_at": "2026-09-10T14:25:31.321870+00:00",
+  "reviewer": "review_design",
+  "baseline_published_commit_acknowledged_by_root": "9a197392ccaa2605e55f9f751c1e3c3f610e623e",
+  "new_builds_or_runtime_tests": 0,
+  "git_commands_run": 0,
+  "review_script": {
+    "source_original": "/tmp/partydeck-gallery-next-review-synthesis.py",
+    "sha256": "841c49643c0224a2fa9bf8acbc43ecaf20aa432ed9abdbb42f8d0208da222d2b",
+    "bytes": 17996
+  },
+  "source_audit": {
+    "source_original": "/tmp/partydeck-gallery-next-video-source-audit.json",
+    "sha256": "a108079dcf80b94979e36355523b8bfee807d310f4fbaafe9661d978624c48a5",
+    "bytes": 31821
+  },
+  "original_ci_png_count": 0,
+  "derived_frame_count": 9,
+  "review_method": "All nine selected decoded PNG files independently viewed directly through the image tool. Their unchanged source dimensions are 1206 by 2622; the display tool may resize its preview.",
+  "frames": [
+    {
+      "source_original": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-2d200-launch-review/frames/frame-0001.png",
+      "sha256": "17557f9b8d04d1a58a3edabddb321d72c249536a791744e884171e8f90ca9f81",
+      "bytes": 1079010,
+      "pts_time": "0.000000",
+      "notes": [
+        "Actual iOS Home is visible with clock 12:59, the runner icon and Safari/Messages dock. No game view is visible."
+      ]
+    },
+    {
+      "source_original": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-2d200-launch-review/frames/frame-0002.png",
+      "sha256": "c6e7e644f95616533fb744648b7b217406f416b7785428042088f47365503812",
+      "bytes": 1523261,
+      "pts_time": "58.351667",
+      "notes": [
+        "Actual iOS Home remains visible with clock 1:00, the runner icon and Safari/Messages dock."
+      ]
+    },
+    {
+      "source_original": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-2d200-launch-review/frames/frame-0003.png",
+      "sha256": "249abf0a164d3ef96bdd9a30251bd0d45b5ab361111c5015bdf28a37daf85e49",
+      "bytes": 1527499,
+      "pts_time": "76.285000",
+      "notes": [
+        "Actual iOS Home now includes a separate LastLightComp... icon at the right. This frame still contains no game view."
+      ]
+    },
+    {
+      "source_original": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-2d200-launch-review/frames/frame-0025.png",
+      "sha256": "21c5e0edfeebd9c97e89e67a45af98f4e7dc908cb5472dc2b0ce7cc38fc96726",
+      "bytes": 241489,
+      "pts_time": "79.708333",
+      "notes": [
+        "A blank white rounded app window expands over the blurred Home screen. No chooser or gameplay content is visible."
+      ]
+    },
+    {
+      "source_original": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-2d200-launch-review/frames/frame-0060.png",
+      "sha256": "3f9caaded11c88336bacbecf437ea80ba082a07a47e558aa6d576a99dc723e43",
+      "bytes": 25323,
+      "pts_time": "80.850000",
+      "notes": [
+        "The app area is blank white beneath the status bar. No chooser, hand or gameplay control is visible."
+      ]
+    },
+    {
+      "source_original": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-2d200-launch-review/frames/frame-0072.png",
+      "sha256": "eec568ef7bbf59dddbfd9c30716c339c5c4a189a578fa9331f1dd947f74ffa9d",
+      "bytes": 24076,
+      "pts_time": "81.008333",
+      "notes": [
+        "The app area remains blank white. This is the last blank sample immediately before the retained 3.501667-second sample gap."
+      ]
+    },
+    {
+      "source_original": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-2d200-launch-review/frames/frame-0073.png",
+      "sha256": "f73cb18d26d18e0dd3a8c6d61ec3e7714cba2934e926a88ae928c390de23623b",
+      "bytes": 80370,
+      "pts_time": "84.510000",
+      "notes": [
+        "The chooser is faint during the fade: Last Light, Choose your table, both entry actions, Sound and Idle can be seen. This later chooser is separate from the failed launch assertion."
+      ]
+    },
+    {
+      "source_original": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-2d200-launch-review/frames/frame-0100.png",
+      "sha256": "c37e2ee6092fee14a66355e3af0ffb61091e3f6c0014b277f332638163aaca11",
+      "bytes": 121387,
+      "pts_time": "85.190000",
+      "notes": [
+        "The full chooser is readable with Play in 2D, Play in 3D, Sound, Repeatable comparison scenario and Idle. No renderer scene or delivered gameplay input is shown."
+      ]
+    },
+    {
+      "source_original": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-2d200-launch-review/frames/frame-0129.png",
+      "sha256": "03f20edef937dbe1d52ba861ca1cf41dddb909b2f9dd1b99db613bb3780a1651",
+      "bytes": 113804,
+      "pts_time": "88.831667",
+      "notes": [
+        "The final retained sample remains a full Idle chooser with both entry actions. It does not establish native scene entry or a 200% renderer appearance."
+      ]
+    }
+  ],
+  "limits": [
+    "Decoded video frames are supplemental and excluded from original CI PNG totals.",
+    "All 129 decoded frames were hash-verified; the nine selected frames were visually inspected by game_domain. Independent publication review is recorded separately.",
+    "The recording shows the late Idle chooser; native scene entry and gameplay are not qualified.",
+    "A start-2d tap attempt is logged, but delivery is not established. Absence of a Synthesize event activity does not prove that no input arrived.",
+    "2D/200% names the failed test; chooser pixels do not establish enlarged text or a 200% renderer.",
+    "The original launch failure remains failed. Neither late chooser pixels nor later source analysis establish an OS or debugger root cause."
+  ],
+  "absolute_pts_origin_resolved": false
+}

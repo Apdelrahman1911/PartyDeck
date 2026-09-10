@@ -1,0 +1,632 @@
+{
+  "runId": 34478720554,
+  "headSha": "c6ea1dd9f7966517fbee87a06b633d01c432c24d",
+  "scope": "Exact preserved severity-tagged output with raw line hashes and original XCResult object provenance. Generic XCTest restart messages are preserved as ambiguous; absent decoder crash signatures do not establish absence of a crash. The chosen scan is not a complete semantic audit of all platform output.",
+  "pattern": "\\[ERROR\\]|\\[WARNING\\]|\\bSCRIPT ERROR:|\\bERROR:|\\bfatal error:|\\bEXC_BAD_ACCESS\\b|\\bSIGABRT\\b|\\bterminating app\\b|\\buncaught exception\\b",
+  "patternIsCaseSensitive": true,
+  "hosts": [
+    {
+      "host": "retained",
+      "appOutputStreams": [
+        {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-retained-xcresult-decoded/app-stdout-stderr-001.log",
+          "bytes": 24630008,
+          "sha256": "efc52cbbb78db2e30185f13d35b4eb8dc1139d9a1893313c9f6103661529f7cc",
+          "originalObject": "/tmp/partydeck-engine-ci/34478720554/godot-ios-retained-host-test-attempt-1/retained-host-test/artifacts/RetainedHost.xcresult/Data/data.0~PFHMEsgJu6PrhChZOcFbHaXJSXBPI2bIQfBJFKeEFcmdlv7zEPjpbMNaIdojYBY6VU67YlUDs_7GoD1jM8pWQQ==",
+          "originalObjectSha256": "ee60551e2fcc8e65ce7603213953970ed6cdfde8d58cca06237433700ab9e051",
+          "zstdDecoded": true
+        }
+      ],
+      "decodedObjectIndex": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-retained-xcresult-decoded/decoded-object-index.json",
+        "bytes": 578072,
+        "sha256": "8997c821278aac8646d238a296c0207cba5489336092d4f59a36ffeaae1f4b42"
+      },
+      "nativeSeverityCounts": {
+        "ERROR": 9,
+        "WARNING": 12
+      },
+      "nativeClassificationCounts": {
+        "unsupported_mouse_display_server_error": 9,
+        "rgba_float_to_half_conversion_warning": 12
+      },
+      "perProcess": [
+        {
+          "processIdentifier": 11596,
+          "countsBySeverity": {
+            "ERROR": 2,
+            "WARNING": 4
+          },
+          "countsByClassification": {
+            "unsupported_mouse_display_server_error": 2,
+            "rgba_float_to_half_conversion_warning": 4
+          }
+        },
+        {
+          "processIdentifier": 16442,
+          "countsBySeverity": {
+            "ERROR": 5,
+            "WARNING": 4
+          },
+          "countsByClassification": {
+            "unsupported_mouse_display_server_error": 5,
+            "rgba_float_to_half_conversion_warning": 4
+          }
+        },
+        {
+          "processIdentifier": 23230,
+          "countsBySeverity": {
+            "ERROR": 2,
+            "WARNING": 4
+          },
+          "countsByClassification": {
+            "unsupported_mouse_display_server_error": 2,
+            "rgba_float_to_half_conversion_warning": 4
+          }
+        }
+      ],
+      "nativeLogEvents": [
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-retained-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 1418,
+          "rawLineSha256": "21f5a4ae2cd7b320b9fcccfe8dfdc27235dfa3df61ae0755a92818db885b58d3",
+          "text": "2026-09-10 12:58:18.758262+0000 RetainedHost[11596:39101] [ERROR] servers/display/display_server.cpp:536:mouse_get_position(): Mouse is not supported by this display server. Method/function failed. Returning: Point2i()",
+          "severity": "ERROR",
+          "classification": "unsupported_mouse_display_server_error",
+          "processIdentifier": 11596,
+          "threadIdentifier": 39101
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-retained-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 48270,
+          "rawLineSha256": "0b091afef3002553bd9f42522f362d44dea4e5130e7b0ed5eab29d6446e2ba08",
+          "text": "2026-09-10 12:58:56.740723+0000 RetainedHost[11596:39101] [ERROR] servers/display/display_server.cpp:536:mouse_get_position(): Mouse is not supported by this display server. Method/function failed. Returning: Point2i()",
+          "severity": "ERROR",
+          "classification": "unsupported_mouse_display_server_error",
+          "processIdentifier": 11596,
+          "threadIdentifier": 39101
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-retained-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 54780,
+          "rawLineSha256": "737359eb5a90fda59bc40d959463731bda6db9e90c02092e842e56569aeea3dc",
+          "text": "2026-09-10 13:00:02.179437+0000 RetainedHost[11596:39101] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf.",
+          "severity": "WARNING",
+          "classification": "rgba_float_to_half_conversion_warning",
+          "processIdentifier": 11596,
+          "threadIdentifier": 39101
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-retained-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 54781,
+          "rawLineSha256": "e488d682acb5234374f9168333981dcb7a83cebfc563fba17f5af614b538189e",
+          "text": "2026-09-10 13:00:02.180188+0000 RetainedHost[11596:39101] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf.",
+          "severity": "WARNING",
+          "classification": "rgba_float_to_half_conversion_warning",
+          "processIdentifier": 11596,
+          "threadIdentifier": 39101
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-retained-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 54782,
+          "rawLineSha256": "3e268c5c4cc8780c6592b0eacfcf7c693af972db06fc5f89498bbdfbb3656231",
+          "text": "2026-09-10 13:00:02.181647+0000 RetainedHost[11596:39101] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf.",
+          "severity": "WARNING",
+          "classification": "rgba_float_to_half_conversion_warning",
+          "processIdentifier": 11596,
+          "threadIdentifier": 39101
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-retained-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 54783,
+          "rawLineSha256": "e8597758b4e01b6eb58c14e3f8d4f9f596e14d9ea01fb708bfc1faa713fd8280",
+          "text": "2026-09-10 13:00:02.181847+0000 RetainedHost[11596:39101] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf.",
+          "severity": "WARNING",
+          "classification": "rgba_float_to_half_conversion_warning",
+          "processIdentifier": 11596,
+          "threadIdentifier": 39101
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-retained-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 56809,
+          "rawLineSha256": "59f13b9f2ca8d2f8b2d43f885604aa02b2dd0230d7b9e02333c28f126fe16699",
+          "text": "2026-09-10 13:01:33.786323+0000 RetainedHost[16442:52657] [ERROR] servers/display/display_server.cpp:536:mouse_get_position(): Mouse is not supported by this display server. Method/function failed. Returning: Point2i()",
+          "severity": "ERROR",
+          "classification": "unsupported_mouse_display_server_error",
+          "processIdentifier": 16442,
+          "threadIdentifier": 52657
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-retained-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 84486,
+          "rawLineSha256": "46e339df2321597e98d60de7505b66a9fcb461bed47c139ffa8ba545d854c6a2",
+          "text": "2026-09-10 13:01:50.968372+0000 RetainedHost[16442:52657] [ERROR] servers/display/display_server.cpp:536:mouse_get_position(): Mouse is not supported by this display server. Method/function failed. Returning: Point2i()",
+          "severity": "ERROR",
+          "classification": "unsupported_mouse_display_server_error",
+          "processIdentifier": 16442,
+          "threadIdentifier": 52657
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-retained-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 89475,
+          "rawLineSha256": "ae1e539845df4c0f67f883007ab133ed80aae4a3726e0e87ff9814c25111471d",
+          "text": "2026-09-10 13:02:06.894211+0000 RetainedHost[16442:52657] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf.",
+          "severity": "WARNING",
+          "classification": "rgba_float_to_half_conversion_warning",
+          "processIdentifier": 16442,
+          "threadIdentifier": 52657
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-retained-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 89476,
+          "rawLineSha256": "47629fb60ee47eedbff473e57386096664b107586c7285213caa069f50a7ab77",
+          "text": "2026-09-10 13:02:06.894448+0000 RetainedHost[16442:52657] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf.",
+          "severity": "WARNING",
+          "classification": "rgba_float_to_half_conversion_warning",
+          "processIdentifier": 16442,
+          "threadIdentifier": 52657
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-retained-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 89477,
+          "rawLineSha256": "99d09e5d6ce40489d93f0e6f89d9b00b510b9013315abae4af25d594176766e7",
+          "text": "2026-09-10 13:02:06.894772+0000 RetainedHost[16442:52657] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf.",
+          "severity": "WARNING",
+          "classification": "rgba_float_to_half_conversion_warning",
+          "processIdentifier": 16442,
+          "threadIdentifier": 52657
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-retained-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 89478,
+          "rawLineSha256": "e7f697772603ad15a928c2181f9a29f4cd5e871bc9f93a8806ca02456d3907de",
+          "text": "2026-09-10 13:02:06.894996+0000 RetainedHost[16442:52657] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf.",
+          "severity": "WARNING",
+          "classification": "rgba_float_to_half_conversion_warning",
+          "processIdentifier": 16442,
+          "threadIdentifier": 52657
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-retained-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 110101,
+          "rawLineSha256": "d7cf80658f47cf37c8e91bb15b9a476593e87e762d20ebf144d9caf3dbbf5ac4",
+          "text": "2026-09-10 13:03:50.542470+0000 RetainedHost[16442:52657] [ERROR] servers/display/display_server.cpp:536:mouse_get_position(): Mouse is not supported by this display server. Method/function failed. Returning: Point2i()",
+          "severity": "ERROR",
+          "classification": "unsupported_mouse_display_server_error",
+          "processIdentifier": 16442,
+          "threadIdentifier": 52657
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-retained-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 141696,
+          "rawLineSha256": "148c1c5cd488392adf782fa443e7294dc4220a33f2f70a2b95e3fbe7774a295b",
+          "text": "2026-09-10 13:04:12.565453+0000 RetainedHost[16442:52657] [ERROR] servers/display/display_server.cpp:536:mouse_get_position(): Mouse is not supported by this display server. Method/function failed. Returning: Point2i()",
+          "severity": "ERROR",
+          "classification": "unsupported_mouse_display_server_error",
+          "processIdentifier": 16442,
+          "threadIdentifier": 52657
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-retained-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 168108,
+          "rawLineSha256": "9e46f8eecd6774619252008419e3a7eb9f986117851d31619023ea4e1ec0dc73",
+          "text": "2026-09-10 13:04:46.978065+0000 RetainedHost[16442:52657] [ERROR] servers/display/display_server.cpp:536:mouse_get_position(): Mouse is not supported by this display server. Method/function failed. Returning: Point2i()",
+          "severity": "ERROR",
+          "classification": "unsupported_mouse_display_server_error",
+          "processIdentifier": 16442,
+          "threadIdentifier": 52657
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-retained-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 173614,
+          "rawLineSha256": "c8fe0c64ca2d41dc29782f1a74467145fa3d08f58c93a5a0192bf46cdcf5b64e",
+          "text": "2026-09-10 13:05:03.681002+0000 RetainedHost[23230:69224] [ERROR] servers/display/display_server.cpp:536:mouse_get_position(): Mouse is not supported by this display server. Method/function failed. Returning: Point2i()",
+          "severity": "ERROR",
+          "classification": "unsupported_mouse_display_server_error",
+          "processIdentifier": 23230,
+          "threadIdentifier": 69224
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-retained-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 175194,
+          "rawLineSha256": "1f1993447c7b8c82f27cc3e8dbc2f90a28cc07a4b0f351be8f5ac53f0db03916",
+          "text": "2026-09-10 13:05:08.625595+0000 RetainedHost[23230:69224] [ERROR] servers/display/display_server.cpp:536:mouse_get_position(): Mouse is not supported by this display server. Method/function failed. Returning: Point2i()",
+          "severity": "ERROR",
+          "classification": "unsupported_mouse_display_server_error",
+          "processIdentifier": 23230,
+          "threadIdentifier": 69224
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-retained-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 175969,
+          "rawLineSha256": "30b6064f0446a665cc361194b5acc0688ad5c00d6ec4f3d0ca3002dae5e296a7",
+          "text": "2026-09-10 13:05:10.025327+0000 RetainedHost[23230:69224] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf.",
+          "severity": "WARNING",
+          "classification": "rgba_float_to_half_conversion_warning",
+          "processIdentifier": 23230,
+          "threadIdentifier": 69224
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-retained-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 175970,
+          "rawLineSha256": "3799521e459a0a766e72f4810ae2ce8fd8dd14e72b65b5507f76762c239f3885",
+          "text": "2026-09-10 13:05:10.027077+0000 RetainedHost[23230:69224] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf.",
+          "severity": "WARNING",
+          "classification": "rgba_float_to_half_conversion_warning",
+          "processIdentifier": 23230,
+          "threadIdentifier": 69224
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-retained-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 175971,
+          "rawLineSha256": "22a19b076b7067d20d2c1cd191ddda2bc4d7c0d7151fa629e982051bc966eeed",
+          "text": "2026-09-10 13:05:10.028178+0000 RetainedHost[23230:69224] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf.",
+          "severity": "WARNING",
+          "classification": "rgba_float_to_half_conversion_warning",
+          "processIdentifier": 23230,
+          "threadIdentifier": 69224
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-retained-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 175972,
+          "rawLineSha256": "fe6269aa00c67431de4088b00bcfcd5694b567b5eb30dbc6631e75b56f5b1e76",
+          "text": "2026-09-10 13:05:10.028479+0000 RetainedHost[23230:69224] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf.",
+          "severity": "WARNING",
+          "classification": "rgba_float_to_half_conversion_warning",
+          "processIdentifier": 23230,
+          "threadIdentifier": 69224
+        }
+      ],
+      "jobLog": {
+        "path": "/tmp/partydeck-engine-ci/34478720554/job-102876625041.log",
+        "bytes": 324401,
+        "sha256": "f83df399be0f53ae0550772cb502191a238e11e96bbfd6292717c3f8ba6e0247"
+      },
+      "xctestCaseEvents": [
+        {
+          "line": 1374,
+          "rawLineSha256": "74ad7707d6539174c67ea5670504362472c5a61e65b3117758681e5f42a46021",
+          "text": "2026-09-10T12:57:22.3501800Z Test Case '-[RetainedHostUITests.RetainedHostUITests testActiveAndDormantBackgroundTransitionsStayConcealed]' started."
+        },
+        {
+          "line": 1703,
+          "rawLineSha256": "0c4a2e08a477429b0d429a77a7bf0021ac8f37509e97f2d69dd6168983d0238c",
+          "text": "2026-09-10T13:00:49.2010090Z Test Case '-[RetainedHostUITests.RetainedHostUITests testActiveAndDormantBackgroundTransitionsStayConcealed]' failed (206.780 seconds)."
+        },
+        {
+          "line": 1714,
+          "rawLineSha256": "99e0bdc389383cc3a1d0e382caa9520870caa1783d647459df52854eca387d2a",
+          "text": "2026-09-10T13:01:01.6047970Z Test Case '-[RetainedHostUITests.RetainedHostUITests testRepeated2DAnd3DKeepOneDormantEngine]' started."
+        },
+        {
+          "line": 2269,
+          "rawLineSha256": "44e62e69f3e1aca9601b2535537926772e0b3882c44e2e647319b977b80868ed",
+          "text": "2026-09-10T13:04:49.9138380Z Test Case '-[RetainedHostUITests.RetainedHostUITests testRepeated2DAnd3DKeepOneDormantEngine]' passed (228.429 seconds)."
+        },
+        {
+          "line": 2270,
+          "rawLineSha256": "e10ea12f5a22e360506b101f1a05229712525e1401e6813ef88e159f3229b864",
+          "text": "2026-09-10T13:04:50.0500910Z Test Case '-[RetainedHostUITests.RetainedHostUITests testStaleFirstReadyAndCloseCompletionReentry]' started."
+        },
+        {
+          "line": 2314,
+          "rawLineSha256": "6d299e2f037d38ece69be84d1739edcd227806997a7bccca7dad25b0728757b9",
+          "text": "2026-09-10T13:05:45.9899910Z Test Case '-[RetainedHostUITests.RetainedHostUITests testStaleFirstReadyAndCloseCompletionReentry]' failed (56.036 seconds)."
+        }
+      ],
+      "xctestFailureLines": [
+        {
+          "line": 1701,
+          "rawLineSha256": "7cf83632a85333e7385f53b946b12bb5687e2a00939b34571526fcde91d913f3",
+          "text": "2026-09-10T13:00:42.8173360Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHostUITests/RetainedHostUITests.swift:529: error: -[RetainedHostUITests.RetainedHostUITests testActiveAndDormantBackgroundTransitionsStayConcealed] : failed - Observe current renderer diagnostics for the retained presentation."
+        },
+        {
+          "line": 2312,
+          "rawLineSha256": "d04c383e090c388aea37487069841518da563c4ab71904adeebc34de68b03aa5",
+          "text": "2026-09-10T13:05:45.9715320Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHostUITests/RetainedHostUITests.swift:529: error: -[RetainedHostUITests.RetainedHostUITests testStaleFirstReadyAndCloseCompletionReentry] : failed - Observe current renderer diagnostics for the retained presentation."
+        }
+      ],
+      "xctestGenericRestartLines": [
+        {
+          "line": 1709,
+          "rawLineSha256": "fe63dfc556e27b9c77c5a104871fc4f96b7f48a95ad0b0aba47b92cabff4302e",
+          "text": "2026-09-10T13:01:01.2927410Z Restarting after unexpected exit, crash, or test timeout; summary will include totals from previous launches."
+        },
+        {
+          "line": 2321,
+          "rawLineSha256": "2a879fd5833755d321c10bfb1fdb92b4a798ffb8afe2c5a87cc83c88d8f5856e",
+          "text": "2026-09-10T13:05:52.5889700Z Restarting after unexpected exit, crash, or test timeout; summary will include totals from previous launches."
+        }
+      ],
+      "decoderCrashSignatureCandidateCount": 0,
+      "cleanNativeLogClaim": false,
+      "noCrashClaim": false
+    },
+    {
+      "host": "authority",
+      "appOutputStreams": [
+        {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-xcresult-decoded/app-stdout-stderr-001.log",
+          "bytes": 25053941,
+          "sha256": "5e64b2edae6257bfc05209fd8820d44eb44767da51a97ca612e15a33b37356f3",
+          "originalObject": "/tmp/partydeck-engine-ci/34478720554/godot-ios-authority-gameplay/artifacts/AuthorityHost.xcresult/Data/data.0~rk-DPPzIxGzRqqxapT8UzsQC2lugQmPl39tiJsRtNocojA8KlcpQSFDJZAbjaYAa_vQKScjoxL2DRqWL1-sX9g==",
+          "originalObjectSha256": "892e056fbd25c1c254b6cf06c9ef623ba72d593f17ea6423355b3cdca3711292",
+          "zstdDecoded": true
+        }
+      ],
+      "decodedObjectIndex": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-xcresult-decoded/decoded-object-index.json",
+        "bytes": 546828,
+        "sha256": "0f0cae4d1f06ec8dc2e349d95b9d82a9e63403d36a2535d48c64ac97e0fe5fce"
+      },
+      "nativeSeverityCounts": {
+        "ERROR": 4,
+        "WARNING": 8
+      },
+      "nativeClassificationCounts": {
+        "unsupported_mouse_display_server_error": 4,
+        "rgba_float_to_half_conversion_warning": 8
+      },
+      "perProcess": [
+        {
+          "processIdentifier": 16084,
+          "countsBySeverity": {
+            "ERROR": 1
+          },
+          "countsByClassification": {
+            "unsupported_mouse_display_server_error": 1
+          }
+        },
+        {
+          "processIdentifier": 19665,
+          "countsBySeverity": {
+            "ERROR": 1,
+            "WARNING": 4
+          },
+          "countsByClassification": {
+            "unsupported_mouse_display_server_error": 1,
+            "rgba_float_to_half_conversion_warning": 4
+          }
+        },
+        {
+          "processIdentifier": 21439,
+          "countsBySeverity": {
+            "ERROR": 1,
+            "WARNING": 4
+          },
+          "countsByClassification": {
+            "unsupported_mouse_display_server_error": 1,
+            "rgba_float_to_half_conversion_warning": 4
+          }
+        },
+        {
+          "processIdentifier": 22741,
+          "countsBySeverity": {
+            "ERROR": 1
+          },
+          "countsByClassification": {
+            "unsupported_mouse_display_server_error": 1
+          }
+        }
+      ],
+      "nativeLogEvents": [
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 2625,
+          "rawLineSha256": "4fb89db6c06578590ca64f38441cf03482455600e6bd3821118efbb8303c01fd",
+          "text": "2026-09-10 13:00:48.391315+0000 AuthorityHost[16084:51586] [ERROR] servers/display/display_server.cpp:536:mouse_get_position(): Mouse is not supported by this display server. Method/function failed. Returning: Point2i()",
+          "severity": "ERROR",
+          "classification": "unsupported_mouse_display_server_error",
+          "processIdentifier": 16084,
+          "threadIdentifier": 51586
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 172962,
+          "rawLineSha256": "04546d5d7ce78d4351bbaf498ad2b67601ad1978a1f03f53f08d17dc31df4d4c",
+          "text": "2026-09-10 13:02:36.938790+0000 AuthorityHost[19665:60801] [ERROR] servers/display/display_server.cpp:536:mouse_get_position(): Mouse is not supported by this display server. Method/function failed. Returning: Point2i()",
+          "severity": "ERROR",
+          "classification": "unsupported_mouse_display_server_error",
+          "processIdentifier": 19665,
+          "threadIdentifier": 60801
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 172978,
+          "rawLineSha256": "98dc80f3712cda9cfb9cb31ed31230a58e8bfc480cae70ebd94a3b64a4328647",
+          "text": "2026-09-10 13:02:37.511494+0000 AuthorityHost[19665:60801] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf.",
+          "severity": "WARNING",
+          "classification": "rgba_float_to_half_conversion_warning",
+          "processIdentifier": 19665,
+          "threadIdentifier": 60801
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 172979,
+          "rawLineSha256": "22235485ab036f7e5ff4dbf02cb2b6615176146a4f161062dcf6999b260581d9",
+          "text": "2026-09-10 13:02:37.511936+0000 AuthorityHost[19665:60801] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf.",
+          "severity": "WARNING",
+          "classification": "rgba_float_to_half_conversion_warning",
+          "processIdentifier": 19665,
+          "threadIdentifier": 60801
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 172980,
+          "rawLineSha256": "041c7cf8a15f754b5baaf8276d596ce835379cc2293051d6037b40071ee78084",
+          "text": "2026-09-10 13:02:37.527440+0000 AuthorityHost[19665:60801] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf.",
+          "severity": "WARNING",
+          "classification": "rgba_float_to_half_conversion_warning",
+          "processIdentifier": 19665,
+          "threadIdentifier": 60801
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 172981,
+          "rawLineSha256": "cfddb597ceadf10472887265cc8691570023321fbff1e1ab84ab2c9e9d2b639e",
+          "text": "2026-09-10 13:02:37.527628+0000 AuthorityHost[19665:60801] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf.",
+          "severity": "WARNING",
+          "classification": "rgba_float_to_half_conversion_warning",
+          "processIdentifier": 19665,
+          "threadIdentifier": 60801
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 185667,
+          "rawLineSha256": "870b0985d3305038a00e9ca9d637c441728f4faff5d856d7e5c2791a6e94215c",
+          "text": "2026-09-10 13:04:06.808908+0000 AuthorityHost[21439:65606] [ERROR] servers/display/display_server.cpp:536:mouse_get_position(): Mouse is not supported by this display server. Method/function failed. Returning: Point2i()",
+          "severity": "ERROR",
+          "classification": "unsupported_mouse_display_server_error",
+          "processIdentifier": 21439,
+          "threadIdentifier": 65606
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 185682,
+          "rawLineSha256": "77947154c17ca4bd2ac7677c5e9dc2abd4bd866d0fc3f1e2649524ab180f58f2",
+          "text": "2026-09-10 13:04:07.012765+0000 AuthorityHost[21439:65606] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf.",
+          "severity": "WARNING",
+          "classification": "rgba_float_to_half_conversion_warning",
+          "processIdentifier": 21439,
+          "threadIdentifier": 65606
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 185683,
+          "rawLineSha256": "a2338bd875472010c5c2e37f88edc29f34d6ed44b6e6ccc9dff68f43416500d6",
+          "text": "2026-09-10 13:04:07.012970+0000 AuthorityHost[21439:65606] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf.",
+          "severity": "WARNING",
+          "classification": "rgba_float_to_half_conversion_warning",
+          "processIdentifier": 21439,
+          "threadIdentifier": 65606
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 185684,
+          "rawLineSha256": "a70bb85bc0336c13e0ff5b02b1327c9044e961d9db84a7b60b35591d4564b64e",
+          "text": "2026-09-10 13:04:07.013146+0000 AuthorityHost[21439:65606] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf.",
+          "severity": "WARNING",
+          "classification": "rgba_float_to_half_conversion_warning",
+          "processIdentifier": 21439,
+          "threadIdentifier": 65606
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 185685,
+          "rawLineSha256": "6713aa7a959096c4312e6e89fa4b1736b448fc44cbeaebabc40c92898aec9340",
+          "text": "2026-09-10 13:04:07.013258+0000 AuthorityHost[21439:65606] [WARNING] drivers/gles3/storage/texture_storage.cpp:734:_get_gl_image_and_format(): Image format RGBAFloat not supported by hardware, converting to RGBAHalf. Image format RGBAFloat not supported by hardware, converting to RGBAHalf.",
+          "severity": "WARNING",
+          "classification": "rgba_float_to_half_conversion_warning",
+          "processIdentifier": 21439,
+          "threadIdentifier": 65606
+        },
+        {
+          "stream": "/root/projects/PartyDeck/artifacts/evidence-storage/34478720554-xcresult-decoded/app-stdout-stderr-001.log",
+          "line": 194486,
+          "rawLineSha256": "b0c1fc3e27937b67a57fd9b7112966bbbe19501ed2620d2a7041a375addb55ce",
+          "text": "2026-09-10 13:05:08.166242+0000 AuthorityHost[22741:69101] [ERROR] servers/display/display_server.cpp:536:mouse_get_position(): Mouse is not supported by this display server. Method/function failed. Returning: Point2i()",
+          "severity": "ERROR",
+          "classification": "unsupported_mouse_display_server_error",
+          "processIdentifier": 22741,
+          "threadIdentifier": 69101
+        }
+      ],
+      "jobLog": {
+        "path": "/tmp/partydeck-engine-ci/34478720554/job-102876625127.log",
+        "bytes": 403500,
+        "sha256": "736f3ec7ace43d042cb8995b24213b76d80d239ea24d9144c7b72dde8079a7c0"
+      },
+      "xctestCaseEvents": [
+        {
+          "line": 2139,
+          "rawLineSha256": "e27c268f087e6d1ae6e17ee20e029abf98a5a85a762e2242b290e07810717923",
+          "text": "2026-09-10T12:59:04.6464030Z Test Case '-[AuthorityHostUITests.AuthorityHostUITests testReferenceMatchIn2DAt200Percent]' started."
+        },
+        {
+          "line": 2160,
+          "rawLineSha256": "8ac68c829610364978a66ff7cff8b7ebe86ef5bb3376739d67e96b7ba8ab0c00",
+          "text": "2026-09-10T13:00:31.7542430Z Test Case '-[AuthorityHostUITests.AuthorityHostUITests testReferenceMatchIn2DAt200Percent]' failed (92.267 seconds)."
+        },
+        {
+          "line": 2171,
+          "rawLineSha256": "268ec8c62c587436c6edb7a2f51b982ef14dd18c85bab2d9c94a4fb6aa087cbb",
+          "text": "2026-09-10T13:00:38.4621510Z Test Case '-[AuthorityHostUITests.AuthorityHostUITests testReferenceMatchIn2D]' started."
+        },
+        {
+          "line": 3041,
+          "rawLineSha256": "733c03debcfdbe348b34c9c6df691d915947d7542791e800fa3612ede786eb9d",
+          "text": "2026-09-10T13:02:26.7484250Z Test Case '-[AuthorityHostUITests.AuthorityHostUITests testReferenceMatchIn2D]' passed (108.527 seconds)."
+        },
+        {
+          "line": 3042,
+          "rawLineSha256": "1ead794069cd7e5a979232cb61a3525ca58d32524dfc0f36e37b9e8c9e41571c",
+          "text": "2026-09-10T13:02:26.7541840Z Test Case '-[AuthorityHostUITests.AuthorityHostUITests testReferenceMatchIn3DAt200Percent]' started."
+        },
+        {
+          "line": 3123,
+          "rawLineSha256": "add94268aa24bb5b1e65351269ec7ce67cc01825a5f1a255b3e40a8071101f94",
+          "text": "2026-09-10T13:03:52.7573140Z Test Case '-[AuthorityHostUITests.AuthorityHostUITests testReferenceMatchIn3DAt200Percent]' failed (85.991 seconds)."
+        },
+        {
+          "line": 3134,
+          "rawLineSha256": "8545350ab618591e865be7f8a0d4acb15f820e37e3fa0d659944e81164e6f136",
+          "text": "2026-09-10T13:03:59.1236020Z Test Case '-[AuthorityHostUITests.AuthorityHostUITests testReferenceMatchIn3D]' started."
+        },
+        {
+          "line": 3196,
+          "rawLineSha256": "5d25d0d1af27b376ec26e8ecea92945b1251f1182463ce9452ed574affca2c69",
+          "text": "2026-09-10T13:04:56.0401540Z Test Case '-[AuthorityHostUITests.AuthorityHostUITests testReferenceMatchIn3D]' failed (56.787 seconds)."
+        },
+        {
+          "line": 3207,
+          "rawLineSha256": "ae7edb1e93c047f518bed42ed14ece627de6509c07ea2a005085e0cc0efc5b33",
+          "text": "2026-09-10T13:05:00.9987130Z Test Case '-[AuthorityHostUITests.AuthorityHostUITests testSecureTableRendererExit]' started."
+        },
+        {
+          "line": 3271,
+          "rawLineSha256": "34a060ee01ab1039a2bcea28e3b24097652e3c7d9d25ac4efb1bf44206c62171",
+          "text": "2026-09-10T13:05:17.3617500Z Test Case '-[AuthorityHostUITests.AuthorityHostUITests testSecureTableRendererExit]' passed (16.421 seconds)."
+        }
+      ],
+      "xctestFailureLines": [
+        {
+          "line": 2146,
+          "rawLineSha256": "8864a220b05fb12cf985060b7a5f3e259c6789387490e60160826b9887744fd5",
+          "text": "2026-09-10T13:00:14.8472020Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/AuthorityHostUITests/AuthorityHostUITests.swift:118: error: -[AuthorityHostUITests.AuthorityHostUITests testReferenceMatchIn2DAt200Percent] : Failed to launch <XCUIApplicationImpl: 0x10644e2c0 dev.partydeck.godot.iosauthority at /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/AuthorityDerivedData/Build/Products/Debug-iphonesimulator/AuthorityHost.app> via Xcode: Timed out while launching application via Xcode."
+        },
+        {
+          "line": 3121,
+          "rawLineSha256": "e3a09cb1143f0fb5254e0e4fbf6e79b6cc9ee759085a1af7f9161be4f94139b7",
+          "text": "2026-09-10T13:03:52.6579410Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/AuthorityHostUITests/AuthorityHostUITests.swift:449: error: -[AuthorityHostUITests.AuthorityHostUITests testReferenceMatchIn3DAt200Percent] : failed - The real renderer must report current bounded diagnostics."
+        },
+        {
+          "line": 3194,
+          "rawLineSha256": "69b8412e60691c4f08b7b386f0f046cc956c69bf9532c50a0f58943edf623549",
+          "text": "2026-09-10T13:04:55.5497120Z /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/AuthorityHostUITests/AuthorityHostUITests.swift:449: error: -[AuthorityHostUITests.AuthorityHostUITests testReferenceMatchIn3D] : failed - The real renderer must report current bounded diagnostics."
+        }
+      ],
+      "xctestGenericRestartLines": [
+        {
+          "line": 2166,
+          "rawLineSha256": "61b991c2fd8daa620fcc243d737cdc1fb41e239db6749cd5c5e9b8150c7dcb9e",
+          "text": "2026-09-10T13:00:38.0035730Z Restarting after unexpected exit, crash, or test timeout; summary will include totals from previous launches."
+        },
+        {
+          "line": 3129,
+          "rawLineSha256": "6ecef4fb05ade98b2d7d8c42ec5cc5b844ce9ed65487f19b491e9220de9ff081",
+          "text": "2026-09-10T13:03:59.0260700Z Restarting after unexpected exit, crash, or test timeout; summary will include totals from previous launches."
+        },
+        {
+          "line": 3202,
+          "rawLineSha256": "2884dc2187a29eaf3a46908358ca431a167fe4aabaf0dfab7e9275a55a8e9d04",
+          "text": "2026-09-10T13:05:00.8539110Z Restarting after unexpected exit, crash, or test timeout; summary will include totals from previous launches."
+        }
+      ],
+      "decoderCrashSignatureCandidateCount": 0,
+      "cleanNativeLogClaim": false,
+      "noCrashClaim": false
+    }
+  ],
+  "cleanNativeLogClaim": false,
+  "noCrashClaim": false
+}

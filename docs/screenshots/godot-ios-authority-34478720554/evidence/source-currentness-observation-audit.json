@@ -1,0 +1,262 @@
+{
+  "runId": 34478720554,
+  "headSha": "c6ea1dd9f7966517fbee87a06b633d01c432c24d",
+  "scope": "Exact source identity and bounded source observations only. No performance benefit, native success or fix of a prior stall follows from these observations.",
+  "sourceArchive": {
+    "path": "/tmp/partydeck-engine-ci/34478720554/source-archive.json",
+    "bytes": 713,
+    "sha256": "2d3520e67789330d6ac876ca6e2c5d28e0579ed65d6bc2de74a0d759c0a8714e"
+  },
+  "producerAudit": {
+    "path": "/tmp/partydeck-engine-ci/34478720554/producer-input-evidence-summary.json",
+    "bytes": 32118,
+    "sha256": "a428d09bec49876a84cb9f54febbbeb392fcaead76bc571180e6ee956c8f9b31"
+  },
+  "expectedNativeFreeze": {
+    "path": "/tmp/partydeck-engine-ci/34478720554/expected-native-freeze-v6.json",
+    "bytes": 8524,
+    "sha256": "7273afd091d9cca95396e061758635400af5705f2a10f01c0a693c6783c110a0"
+  },
+  "delta": {
+    "path": "/tmp/partydeck-engine-ci/34478720554/source-delta-from-34473325295.json",
+    "bytes": 12591,
+    "sha256": "bc3e1ebbcea21c3ddf4a82002188b8dadac98e5ae6f8240504df87f5751ded53"
+  },
+  "runtimeAndTestDiff": {
+    "path": "/tmp/partydeck-engine-ci/34478720554/native-runtime-and-retained-test-delta.patch",
+    "bytes": 1779,
+    "sha256": "224d4ef33773a1ca488d414a0f9218b1c5d66fd19d2ab863359edfe24385b990"
+  },
+  "observations": [
+    {
+      "source": {
+        "path": "/tmp/partydeck-engine-ci/34478720554/source-c6ea1dd/godot/ios-host/modules/partydeck_ios_probe/PDGodotRuntime.mm",
+        "bytes": 105121,
+        "sha256": "00e1dbdacbf97ff26e2a01fb001c85f439835f98dbb9e3e180513cdc1ed67f8c"
+      },
+      "startLine": 64,
+      "endLine": 69,
+      "officialSourceUrl": "https://github.com/Apdelrahman1911/PartyDeck/blob/c6ea1dd9f7966517fbee87a06b633d01c432c24d/godot/ios-host/modules/partydeck_ios_probe/PDGodotRuntime.mm#L64",
+      "finding": "Only the qualified PCK literal changed in the native runtime, independently compared with the previous archived source.",
+      "excerpt": "\n// This lifecycle is audited for the frozen trusted content, including its\n// imported resources. A different pack requires a new content/source review.\nstatic NSString *const PDQualifiedRetainedPackSHA256 = @\"d6adbba1b5cbd6a1ac3a5754e4294363eae70ae9540af4ba12040cd4cfff44e0\";\n\nstatic NSString *PDPackSHA256(NSString *path) {"
+    },
+    {
+      "source": {
+        "path": "/tmp/partydeck-engine-ci/34478720554/source-c6ea1dd/godot/ios-host/RetainedHostUITests/RetainedHostUITests.swift",
+        "bytes": 40569,
+        "sha256": "ca2f573379be62e2c82df38af31556d0961133af2480d20901d93ce63152951b"
+      },
+      "startLine": 93,
+      "endLine": 108,
+      "officialSourceUrl": "https://github.com/Apdelrahman1911/PartyDeck/blob/c6ea1dd9f7966517fbee87a06b633d01c432c24d/godot/ios-host/RetainedHostUITests/RetainedHostUITests.swift#L93",
+      "finding": "Dormant Home/activate acceptance now requires active and not backgrounded in the same returned dictionary, which is attached before the existing assertions and subsequent shell interaction.",
+      "excerpt": "        let beforeDormantHome = try await observeDormantShell(app, baseline: closed)\n        try await homeAndActivate(app)\n        let dormantReturned = try await wait(app, \"Dormant Home/activate must reach the real native owner.\") {\n            $0[\"state\"] as? String == \"dormant\" &&\n                self.number(\"applicationBackgroundCount\", $0) > self.number(\"applicationBackgroundCount\", beforeDormantHome) &&\n                self.flag(\"applicationActive\", self.native($0)) &&\n                !self.flag(\"applicationBackgrounded\", self.native($0))\n        }\n        attach(dormantReturned, \"Dormant Home/activate accepted native observation\")\n        try assertDormant(dormantReturned)\n        assertNoDormantWork(beforeDormantHome, dormantReturned)\n        XCTAssertTrue(flag(\"applicationActive\", native(dormantReturned)))\n        XCTAssertFalse(flag(\"applicationBackgrounded\", native(dormantReturned)))\n        _ = try await observeDormantShell(app, baseline: dormantReturned)\n        let next = try await enter(\"3d\", app)\n        XCTAssertNotEqual(next[\"presentationID\"] as? String, returned[\"presentationID\"] as? String)"
+    },
+    {
+      "source": {
+        "path": "/tmp/partydeck-engine-ci/34478720554/source-c6ea1dd/godot/ios-host/RetainedHostUITests/RetainedHostUITests.swift",
+        "bytes": 40569,
+        "sha256": "ca2f573379be62e2c82df38af31556d0961133af2480d20901d93ce63152951b"
+      },
+      "startLine": 351,
+      "endLine": 366,
+      "officialSourceUrl": "https://github.com/Apdelrahman1911/PartyDeck/blob/c6ea1dd9f7966517fbee87a06b633d01c432c24d/godot/ios-host/RetainedHostUITests/RetainedHostUITests.swift#L351",
+      "finding": "The next dormant interval uses that accepted dictionary as its baseline; this supports exact payload equality auditing.",
+      "excerpt": "    private func observeDormantShell(_ app: XCUIApplication, baseline: [String: Any]) async throws -> [String: Any] {\n        element(\"host-counter-button\", app).tap()\n        var value = try await wait(app, \"The native shell must respond while Godot is dormant.\") {\n            self.number(\"hostCounter\", $0) == self.number(\"hostCounter\", baseline) + 1\n        }\n        let minimum = max(0.8, decimal(\"audioObservationMinimumSeconds\", native(baseline)))\n        var observed = 0\n        repeat {\n            let previousPoll = number(\"pollCount\", value)\n            value = try await wait(app, \"Observe another real native-shell sample.\") { self.number(\"pollCount\", $0) > previousPoll }\n            try assertDormant(value)\n            assertNoDormantWork(baseline, value)\n            observed += 1\n        } while observed < 2 || decimal(\"observedUptime\", value) - decimal(\"observedUptime\", baseline) < minimum\n        attach([\"before\": baseline, \"after\": value, \"samples\": observed], \"Measured dormant shell interval\")\n        return value"
+    },
+    {
+      "source": {
+        "path": "/tmp/partydeck-engine-ci/34478720554/source-c6ea1dd/godot/ios-host/RetainedHostUITests/RetainedHostUITests.swift",
+        "bytes": 40569,
+        "sha256": "ca2f573379be62e2c82df38af31556d0961133af2480d20901d93ce63152951b"
+      },
+      "startLine": 507,
+      "endLine": 530,
+      "officialSourceUrl": "https://github.com/Apdelrahman1911/PartyDeck/blob/c6ea1dd9f7966517fbee87a06b633d01c432c24d/godot/ios-host/RetainedHostUITests/RetainedHostUITests.swift#L507",
+      "finding": "The existing 15-second default predicate wait and original last-rejected-value attachment remain unchanged.",
+      "excerpt": "    private func wait(_ app: XCUIApplication, _ message: String, timeout: TimeInterval = 15,\n                      predicate: ([String: Any]) -> Bool) async throws -> [String: Any] {\n        let startedAt = ProcessInfo.processInfo.systemUptime\n        let deadline = Date().addingTimeInterval(timeout)\n        var lastRejectedMeasurements: [String: Any] = [:]\n        while Date() < deadline {\n            let value = metrics(app)\n            if app.state == .notRunning || !(value[\"failure\"] as? String ?? \"\").isEmpty || flag(\"quarantined\", native(value)) || native(value)[\"state\"] as? String == \"failed\" {\n                capture(\"Actual retained owner failure\", app)\n                XCTFail(\"The retained owner or native application failed.\")\n                throw Failure.native\n            }\n            if predicate(value) { return value }\n            lastRejectedMeasurements = value\n            try await Task.sleep(nanoseconds: 150_000_000)\n        }\n        // Screenshot capture can wait on the app and observe a later frame.\n        // Keep the rejected value before requesting any further app work.\n        attach([\"timeoutSeconds\": timeout,\n                \"elapsedSeconds\": ProcessInfo.processInfo.systemUptime - startedAt,\n                \"measurements\": lastRejectedMeasurements], \"Last rejected retained wait observation\")\n        capture(\"Failed retained observation\", app)\n        XCTFail(message)\n        throw Failure.timeout"
+    },
+    {
+      "source": {
+        "path": "/tmp/partydeck-engine-ci/34478720554/source-c6ea1dd/godot/renderer/presentations/three_d/table.gd",
+        "bytes": 40691,
+        "sha256": "45ee2ac81cd371f13b16e2b29b47468cbd86f2cbe98c1a0f8ba55787609cdf40"
+      },
+      "startLine": 46,
+      "endLine": 61,
+      "officialSourceUrl": "https://github.com/Apdelrahman1911/PartyDeck/blob/c6ea1dd9f7966517fbee87a06b633d01c432c24d/godot/renderer/presentations/three_d/table.gd#L46",
+      "finding": "Tree entry resets demand tracking and connects the draw-boundary callback; regular table processing initially remains disabled.",
+      "excerpt": "func _enter_tree() -> void:\n\t_viewport_dirty = true\n\t_viewport_draw_pending = false\n\t_viewport_requested_signature.clear()\n\t_viewport_drawn_signature.clear()\n\tRenderingServer.frame_pre_draw.connect(_prepare_viewport_frame)\n\n\nfunc _ready() -> void:\n\tmouse_filter = Control.MOUSE_FILTER_IGNORE\n\t_make_stage()\n\t_feedback = AudioStreamPlayer.new()\n\t_feedback.add_to_group(\"partydeck_feedback\")\n\tadd_child(_feedback)\n\tresized.connect(_resize)\n\tset_process(false)"
+    },
+    {
+      "source": {
+        "path": "/tmp/partydeck-engine-ci/34478720554/source-c6ea1dd/godot/renderer/presentations/three_d/table.gd",
+        "bytes": 40691,
+        "sha256": "45ee2ac81cd371f13b16e2b29b47468cbd86f2cbe98c1a0f8ba55787609cdf40"
+      },
+      "startLine": 143,
+      "endLine": 159,
+      "officialSourceUrl": "https://github.com/Apdelrahman1911/PartyDeck/blob/c6ea1dd9f7966517fbee87a06b633d01c432c24d/godot/renderer/presentations/three_d/table.gd#L143",
+      "finding": "The 3D SubViewport is initialized with UPDATE_DISABLED.",
+      "excerpt": "\t_stage.size_flags_horizontal = Control.SIZE_EXPAND_FILL\n\t_stage.size_flags_vertical = Control.SIZE_EXPAND_FILL\n\t_stage.mouse_filter = Control.MOUSE_FILTER_IGNORE\n\t_stage.resized.connect(_request_target_update)\n\tadd_child(_stage)\n\t_viewport_container = SubViewportContainer.new()\n\t_viewport_container.stretch = true\n\t_viewport_container.mouse_filter = Control.MOUSE_FILTER_IGNORE\n\t_viewport_container.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)\n\t_stage.add_child(_viewport_container)\n\t_viewport = SubViewport.new()\n\t_viewport.size = Vector2i(640, 360)\n\t_viewport.own_world_3d = true\n\t_viewport.msaa_3d = Viewport.MSAA_2X\n\t_viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED\n\t_viewport_container.add_child(_viewport)\n\t_world = Node3D.new()"
+    },
+    {
+      "source": {
+        "path": "/tmp/partydeck-engine-ci/34478720554/source-c6ea1dd/godot/renderer/presentations/three_d/table.gd",
+        "bytes": 40691,
+        "sha256": "45ee2ac81cd371f13b16e2b29b47468cbd86f2cbe98c1a0f8ba55787609cdf40"
+      },
+      "startLine": 597,
+      "endLine": 631,
+      "officialSourceUrl": "https://github.com/Apdelrahman1911/PartyDeck/blob/c6ea1dd9f7966517fbee87a06b633d01c432c24d/godot/renderer/presentations/three_d/table.gd#L597",
+      "finding": "The draw-boundary callback requests UPDATE_ONCE for dirty, pending or changed content and normalizes idle frames to UPDATE_DISABLED. Consumption acknowledgment requires cached node ONCE and server DISABLED.",
+      "excerpt": "func _process(_delta: float) -> void:\n\t# Lay out fresh overlays before queued CanvasItem draws are flushed. The draw\n\t# callback also aligns their transforms with the current Tween pose.\n\tset_process(false)\n\t_position_targets()\n\n\nfunc _prepare_viewport_frame() -> void:\n\tif not is_inside_tree() or is_queued_for_deletion() or not is_instance_valid(_viewport) \\\n\t\tor not _viewport.is_inside_tree() or not is_instance_valid(_camera) or not is_instance_valid(_cards):\n\t\treturn\n\t# UPDATE_ONCE cannot draw an unusable target. Resizing can also discard its texture.\n\tif _viewport.size.x <= 1 or _viewport.size.y <= 1 or _viewport.view_count <= 0 \\\n\t\tor _stage.size.x < 1 or _stage.size.y < 1:\n\t\t_viewport_dirty = true\n\t\t_viewport_draw_pending = false\n\t\t_viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED\n\t\treturn\n\t# The node caches ONCE after the server consumes it. A container hide/show can\n\t# instead set the node and server to DISABLED/ALWAYS; that is not draw completion.\n\tif _viewport_draw_pending and _viewport.render_target_update_mode == SubViewport.UPDATE_ONCE \\\n\t\tand RenderingServer.viewport_get_update_mode(_viewport.get_viewport_rid()) == RenderingServer.VIEWPORT_UPDATE_DISABLED:\n\t\t_viewport_drawn_signature = _viewport_requested_signature\n\t\t_viewport_draw_pending = false\n\tvar signature := _viewport_frame_signature()\n\tif _viewport_dirty or _viewport_draw_pending or signature != _viewport_drawn_signature:\n\t\t_viewport_dirty = false\n\t\t_position_targets()\n\t\t_viewport_requested_signature = _viewport_frame_signature()\n\t\t_viewport_draw_pending = true\n\t\t_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE\n\telse:\n\t\t# SubViewportContainer re-enables ALWAYS on visibility changes and reparenting.\n\t\t# Normalize at the actual draw boundary without suppressing the root frame.\n\t\t_viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED"
+    },
+    {
+      "source": {
+        "path": "/tmp/partydeck-engine-ci/34478720554/source-c6ea1dd/godot/renderer/presentations/three_d/table.gd",
+        "bytes": 40691,
+        "sha256": "45ee2ac81cd371f13b16e2b29b47468cbd86f2cbe98c1a0f8ba55787609cdf40"
+      },
+      "startLine": 634,
+      "endLine": 652,
+      "officialSourceUrl": "https://github.com/Apdelrahman1911/PartyDeck/blob/c6ea1dd9f7966517fbee87a06b633d01c432c24d/godot/renderer/presentations/three_d/table.gd#L634",
+      "finding": "The demand signature samples viewport and stage geometry, camera transform and projection, and every card identity, transform and visibility; size changes mark it dirty.",
+      "excerpt": "func _viewport_frame_signature() -> Array:\n\tvar signature: Array = [_viewport.size, _viewport.view_count, _stage.size,\n\t\t_camera.get_camera_transform(), _camera.get_camera_projection()]\n\t# Sample every card through the final Tween pose, including covered cards that\n\t# have no hit binding. State changes separately invalidate materials and ornaments.\n\tfor card in _cards.get_children():\n\t\tsignature.append(card.get_instance_id())\n\t\tsignature.append(card.global_transform)\n\t\tsignature.append(card.is_visible_in_tree())\n\treturn signature\n\n\nfunc _request_target_update() -> void:\n\t_viewport_dirty = true\n\tset_process(true)\n\n\nfunc _resize() -> void:\n\tredraw_requested.emit()"
+    },
+    {
+      "source": {
+        "path": "/tmp/partydeck-engine-ci/34478720554/source-c6ea1dd/godot/renderer/presentations/three_d/table.gd",
+        "bytes": 40691,
+        "sha256": "45ee2ac81cd371f13b16e2b29b47468cbd86f2cbe98c1a0f8ba55787609cdf40"
+      },
+      "startLine": 948,
+      "endLine": 959,
+      "officialSourceUrl": "https://github.com/Apdelrahman1911/PartyDeck/blob/c6ea1dd9f7966517fbee87a06b633d01c432c24d/godot/renderer/presentations/three_d/table.gd#L948",
+      "finding": "Tree exit disconnects the draw callback and clears private state and interaction references.",
+      "excerpt": "func _exit_tree() -> void:\n\tRenderingServer.frame_pre_draw.disconnect(_prepare_viewport_frame)\n\tif is_instance_valid(_feedback):\n\t\t_feedback.stop()\n\t_state = {}\n\t_controller = null\n\t_lobby_requested = false\n\t_pending_sound = \"\"\n\t_bring_hand_requested = false\n\t_applied_revision = \"\"\n\t_focus_request.clear()\n\t_scroll_offsets.clear()"
+    },
+    {
+      "source": {
+        "path": "/tmp/partydeck-engine-ci/34478720554/source-c6ea1dd/godot/renderer/scripts/main.gd",
+        "bytes": 16303,
+        "sha256": "e8f4fa5ca26ef5ec7ea7f9c853c41788b04d10ab1fb6dba4ed0abe73dfebf4b6"
+      },
+      "startLine": 194,
+      "endLine": 221,
+      "officialSourceUrl": "https://github.com/Apdelrahman1911/PartyDeck/blob/c6ea1dd9f7966517fbee87a06b633d01c432c24d/godot/renderer/scripts/main.gd#L194",
+      "finding": "Existing same-generation live-scene currentness checks remain byte-identical to the preceding run.",
+      "excerpt": "\tif not _pending_ready.is_empty() and not controller.presentation_state().closed:\n\t\tvar ready := _pending_ready\n\t\t_pending_ready = \"\"\n\t\t_deliver_bridge_event(ready)\n\t# Ready delivery and scene callbacks can synchronously change state or detach\n\t# this lifetime. Never stamp their newer generation with the older bindings.\n\tif generation == _scene_generation and generation < MAX_SCENE_GENERATION \\\n\t\tand controller == applying_controller and _presentation == applying_presentation and _scene_target_live():\n\t\t_applied_scene_generation = generation\n\n\nfunc _invalidate_scene_state() -> void:\n\t_applied_scene_generation = -1\n\t# Saturate and keep observations noncurrent at exhaustion; never wrap a stamp.\n\tif _scene_generation < MAX_SCENE_GENERATION:\n\t\t_scene_generation += 1\n\n\nfunc _scene_target_live() -> bool:\n\treturn is_inside_tree() and not is_queued_for_deletion() and is_instance_valid(controller) \\\n\t\tand controller.is_inside_tree() and not controller.is_queued_for_deletion() \\\n\t\tand is_instance_valid(_presentation) and _presentation.is_inside_tree() \\\n\t\tand not _presentation.is_queued_for_deletion() and _presentation.get_parent() == self\n\n\nfunc _scene_state_is_applied() -> bool:\n\treturn _scene_target_live() and _scene_generation < MAX_SCENE_GENERATION \\\n\t\tand _applied_scene_generation == _scene_generation"
+    },
+    {
+      "source": {
+        "path": "/tmp/partydeck-engine-ci/34478720554/source-c6ea1dd/godot/renderer/tests/three_d_redraw_check.gd",
+        "bytes": 20952,
+        "sha256": "3ef5f9a49c8279aa39171cc90a91efbdf9313b2fcbace91b635444bc6172d287"
+      },
+      "startLine": 282,
+      "endLine": 314,
+      "officialSourceUrl": "https://github.com/Apdelrahman1911/PartyDeck/blob/c6ea1dd9f7966517fbee87a06b633d01c432c24d/godot/renderer/tests/three_d_redraw_check.gd#L282",
+      "finding": "The archived new desktop test samples actual server modes around forced draws and records viewport texture hashes. This source observation does not establish test execution.",
+      "excerpt": "func _observe_pre_draw() -> void:\n\tif not is_instance_valid(_viewport):\n\t\treturn\n\t_pre_draw_count += 1\n\t_pre_draw_mode = RenderingServer.viewport_get_update_mode(_viewport.get_viewport_rid())\n\tif _skip_next_viewport_draw:\n\t\t_skip_next_viewport_draw = false\n\t\tRenderingServer.viewport_set_size(_viewport.get_viewport_rid(), 0, 0, _viewport.view_count)\n\n\nfunc _draw(label: String, expected_before: int, read_texture: bool = true,\n\texpected_after: int = RenderingServer.VIEWPORT_UPDATE_DISABLED) -> String:\n\tvar before_count := _pre_draw_count\n\t_pre_draw_mode = -1\n\t# No awaits occur while automatic drawing is enabled. Verify the table leaves\n\t# root drawing enabled during every real frame, then resume manual scheduling.\n\tRenderingServer.render_loop_enabled = true\n\tRenderingServer.force_draw(false)\n\t_check(RenderingServer.render_loop_enabled, label + \": root drawing remains enabled\")\n\tRenderingServer.render_loop_enabled = false\n\tvar after_mode := RenderingServer.viewport_get_update_mode(_viewport.get_viewport_rid())\n\t_check(_pre_draw_count == before_count + 1 and _pre_draw_mode == expected_before,\n\t\tlabel + \": actual server mode before drawing matches demand\")\n\t_check(after_mode == expected_after, label + \": actual server mode after drawing matches consumption\")\n\tvar pixels := \"\"\n\tif read_texture:\n\t\tvar texture_image := _viewport.get_texture().get_image()\n\t\t_check(texture_image != null and not texture_image.is_empty(), label + \": actual viewport texture exists\")\n\t\tif texture_image != null and not texture_image.is_empty():\n\t\t\tpixels = _pixels_sha256(texture_image)\n\t_frames.append({\"label\": label, \"beforeMode\": _pre_draw_mode, \"afterMode\": after_mode,\n\t\t\"width\": _viewport.size.x, \"height\": _viewport.size.y, \"pixelSha256\": pixels})\n\treturn pixels"
+    },
+    {
+      "source": {
+        "path": "/tmp/partydeck-engine-ci/34478720554/source-c6ea1dd/godot/renderer/tests/three_d_redraw_check.gd",
+        "bytes": 20952,
+        "sha256": "3ef5f9a49c8279aa39171cc90a91efbdf9313b2fcbace91b635444bc6172d287"
+      },
+      "startLine": 373,
+      "endLine": 395,
+      "officialSourceUrl": "https://github.com/Apdelrahman1911/PartyDeck/blob/c6ea1dd9f7966517fbee87a06b633d01c432c24d/godot/renderer/tests/three_d_redraw_check.gd#L373",
+      "finding": "The archived desktop test includes terminal scene removal, disconnected draw callback and empty-Tween checks.",
+      "excerpt": "func _dispose() -> void:\n\tEngine.time_scale = _initial_time_scale\n\tvar table_id := _table.get_instance_id()\n\t_check(_main.receive_document(JSON.stringify({\"protocolVersion\": 1, \"presentationId\": _fixture.presentationId, \"type\": \"close\"})),\n\t\t\"Close is accepted\")\n\tawait _settle_layout()\n\t_check(not is_instance_valid(_table) and _main._presentation == null and _private_nodes_erased(), \"Close removes the actual scene and private nodes\")\n\tvar old_callbacks := 0\n\tfor connection in RenderingServer.frame_pre_draw.get_connections():\n\t\tif connection.callable.get_object_id() == table_id:\n\t\t\told_callbacks += 1\n\t_check(old_callbacks == 0, \"teardown disconnects the table's draw callback\")\n\t_check(not _scene_current(), \"terminal teardown does not claim a current applied scene\")\n\tRenderingServer.frame_pre_draw.disconnect(_observe_pre_draw)\n\tRenderingServer.force_draw(false)\n\troot.remove_child(_main)\n\t_main.queue_free()\n\t_main = null\n\t_table = null\n\t_viewport = null\n\tpaused = false\n\tawait _settle_layout()\n\t_check(get_processed_tweens().is_empty(), \"teardown leaves no card Tweens\")"
+    },
+    {
+      "source": {
+        "path": "/tmp/partydeck-engine-ci/34478720554/source-c6ea1dd/godot/renderer/tests/terminal_return_render_check.gd",
+        "bytes": 11835,
+        "sha256": "db2405dcb6f04e3fb1b48c50f695c6cded132cba0a908fe56717fee1bd79637b"
+      },
+      "startLine": 22,
+      "endLine": 41,
+      "officialSourceUrl": "https://github.com/Apdelrahman1911/PartyDeck/blob/c6ea1dd9f7966517fbee87a06b633d01c432c24d/godot/renderer/tests/terminal_return_render_check.gd#L22",
+      "finding": "The archived desktop terminal-return test covers both modes, pending-return refresh and cancellation; its declared limits exclude native scheduling and authority acceptance.",
+      "excerpt": "func _run() -> void:\n\tif not _output.is_absolute_path() or not _fixtures.is_absolute_path():\n\t\tpush_error(\"Absolute --check-output and --check-fixtures paths are required.\")\n\t\tquit(1)\n\t\treturn\n\troot.size = Vector2i(390, 844)\n\tfor mode in [\"2d\", \"3d\"]:\n\t\tawait _ordinary_intents(mode)\n\t\tawait _pending_then_refresh(mode, true)\n\t\tawait _pending_then_refresh(mode, false)\n\t\tfor cancellation in [\"host_background\", \"window_background\", \"close\", \"failure\", \"removal\"]:\n\t\t\tawait _cancel_pending(mode, cancellation)\n\tRenderingServer.render_loop_enabled = _initial_render_loop\n\tvar report := {\"result\": \"passed\" if _failures == 0 else \"failed\", \"checks\": _checks,\n\t\t\"godotVersion\": Engine.get_version_info().string,\n\t\t\"renderingMethod\": RenderingServer.get_current_rendering_method(),\n\t\t\"limitations\": \"Actual desktop scenes and frame counters; no Android JNI, EGL scheduling deadline or host authority acceptance is simulated.\"}\n\tDirAccess.make_dir_recursive_absolute(_output)\n\tFileAccess.open(_output.path_join(\"report.json\"), FileAccess.WRITE).store_string(JSON.stringify(report, \"\\t\"))\n\tprint(\"Terminal return rendering checks: %d passed, %d failed.\" % [_checks.size() - _failures, _failures])"
+    }
+  ],
+  "checks": [
+    {
+      "check": "archived v6 renderer source identity: godot/renderer/README.md",
+      "passed": true
+    },
+    {
+      "check": "archived v6 renderer source identity: godot/renderer/presentations/three_d/table.gd",
+      "passed": true
+    },
+    {
+      "check": "archived v6 renderer source identity: godot/renderer/presentations/two_d/table.gd",
+      "passed": true
+    },
+    {
+      "check": "archived v6 renderer source identity: godot/renderer/scripts/main.gd",
+      "passed": true
+    },
+    {
+      "check": "archived v6 renderer source identity: godot/renderer/scripts/renderer_controller.gd",
+      "passed": true
+    },
+    {
+      "check": "archived v6 renderer source identity: godot/renderer/tests/native_bridge_check.gd",
+      "passed": true
+    },
+    {
+      "check": "archived v6 renderer source identity: godot/renderer/tests/terminal_return_render_check.gd",
+      "passed": true
+    },
+    {
+      "check": "archived v6 renderer source identity: godot/renderer/tests/terminal_return_render_check.gd.uid",
+      "passed": true
+    },
+    {
+      "check": "archived v6 renderer source identity: godot/renderer/tests/three_d_redraw_check.gd",
+      "passed": true
+    },
+    {
+      "check": "archived v6 renderer source identity: godot/renderer/tests/three_d_redraw_check.gd.uid",
+      "passed": true
+    },
+    {
+      "check": "ordered upstream patch set remains exactly coreaudio-dormancy and main-loop-access",
+      "passed": true
+    },
+    {
+      "check": "optional startup mouse patch absent from archived patch set",
+      "passed": true
+    },
+    {
+      "check": "runtime change is exactly one qualified PCK SHA literal replacement",
+      "passed": true
+    },
+    {
+      "check": "other native module sources are unchanged",
+      "passed": true
+    },
+    {
+      "check": "retained test change is exactly active/backgrounded acceptance predicate and accepted-value attachment",
+      "passed": true
+    },
+    {
+      "check": "default 15-second wait unchanged",
+      "passed": true
+    },
+    {
+      "check": "main scene-currentness and controller sources unchanged",
+      "passed": true
+    }
+  ],
+  "optionalStartupMousePatchIncluded": false,
+  "threeDDemandOptimizationIncluded": true,
+  "nativeExecutionEvaluatedHere": false,
+  "desktopTestsExecutedHere": false
+}

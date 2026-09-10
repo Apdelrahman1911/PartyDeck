@@ -1,0 +1,157 @@
+{
+  "runId": 34473325295,
+  "headSha": "0f666e0ab7fdce63d5fa668442dae1c9fda86a1d",
+  "scope": "Source facts and run-input identity only. No performance benefit, runtime success or fix of a prior 3D stall follows from these observations.",
+  "sourceArchive": {
+    "path": "/tmp/partydeck-engine-ci/34473325295/source-archive.json",
+    "bytes": 713,
+    "sha256": "00d3de53e748e57a347207ac1f240c7c17ca3261fad2f5785946a6dd9233865b"
+  },
+  "producerAudit": {
+    "path": "/tmp/partydeck-engine-ci/34473325295/producer-input-evidence-summary.json",
+    "bytes": 31476,
+    "sha256": "ca746cd14ed23f914798d434662ba55163022f087531d33d29cb6fea67dd0fda"
+  },
+  "delta": {
+    "path": "/tmp/partydeck-engine-ci/34473325295/source-delta-from-34464316979.json",
+    "bytes": 12565,
+    "sha256": "5040bea8856dc6f1b73ff64d2e0dc9e12d480c694b4f6b1ccf4ae808b43d927d"
+  },
+  "observations": [
+    {
+      "source": {
+        "path": "/tmp/partydeck-engine-ci/34473325295/source-0f666e0/godot/renderer/scripts/main.gd",
+        "bytes": 16303,
+        "sha256": "e8f4fa5ca26ef5ec7ea7f9c853c41788b04d10ab1fb6dba4ed0abe73dfebf4b6"
+      },
+      "startLine": 120,
+      "endLine": 136,
+      "officialSourceUrl": "https://github.com/Apdelrahman1911/PartyDeck/blob/0f666e0ab7fdce63d5fa668442dae1c9fda86a1d/godot/renderer/scripts/main.gd#L120",
+      "finding": "Reconcile requests invalidate the generation stamp before scheduling scene reconciliation.",
+      "excerpt": "func _request_reconcile() -> void:\n\t_invalidate_scene_state()\n\tif is_inside_tree() and not is_queued_for_deletion():\n\t\t_state_pending = true\n\t\tset_process(true)\n\n\nfunc _process(_delta: float) -> void:\n\tset_process(false)\n\tif not _state_pending or not is_inside_tree() or is_queued_for_deletion() \\\n\t\tor not is_instance_valid(controller):\n\t\treturn\n\t_state_pending = false\n\t# PROCESS_MODE_ALWAYS also drains Close/resume while SceneTree is paused.\n\t# No signal arguments are queued, so background bursts cannot retain old hands.\n\t_applied_scene_generation = -1\n\t_reconcile_state(controller.presentation_state(), _scene_generation)"
+    },
+    {
+      "source": {
+        "path": "/tmp/partydeck-engine-ci/34473325295/source-0f666e0/godot/renderer/scripts/main.gd",
+        "bytes": 16303,
+        "sha256": "e8f4fa5ca26ef5ec7ea7f9c853c41788b04d10ab1fb6dba4ed0abe73dfebf4b6"
+      },
+      "startLine": 194,
+      "endLine": 221,
+      "officialSourceUrl": "https://github.com/Apdelrahman1911/PartyDeck/blob/0f666e0ab7fdce63d5fa668442dae1c9fda86a1d/godot/renderer/scripts/main.gd#L194",
+      "finding": "Applied state is stamped only for the same generation, controller and live presentation after Ready delivery; exhaustion remains noncurrent.",
+      "excerpt": "\tif not _pending_ready.is_empty() and not controller.presentation_state().closed:\n\t\tvar ready := _pending_ready\n\t\t_pending_ready = \"\"\n\t\t_deliver_bridge_event(ready)\n\t# Ready delivery and scene callbacks can synchronously change state or detach\n\t# this lifetime. Never stamp their newer generation with the older bindings.\n\tif generation == _scene_generation and generation < MAX_SCENE_GENERATION \\\n\t\tand controller == applying_controller and _presentation == applying_presentation and _scene_target_live():\n\t\t_applied_scene_generation = generation\n\n\nfunc _invalidate_scene_state() -> void:\n\t_applied_scene_generation = -1\n\t# Saturate and keep observations noncurrent at exhaustion; never wrap a stamp.\n\tif _scene_generation < MAX_SCENE_GENERATION:\n\t\t_scene_generation += 1\n\n\nfunc _scene_target_live() -> bool:\n\treturn is_inside_tree() and not is_queued_for_deletion() and is_instance_valid(controller) \\\n\t\tand controller.is_inside_tree() and not controller.is_queued_for_deletion() \\\n\t\tand is_instance_valid(_presentation) and _presentation.is_inside_tree() \\\n\t\tand not _presentation.is_queued_for_deletion() and _presentation.get_parent() == self\n\n\nfunc _scene_state_is_applied() -> bool:\n\treturn _scene_target_live() and _scene_generation < MAX_SCENE_GENERATION \\\n\t\tand _applied_scene_generation == _scene_generation"
+    },
+    {
+      "source": {
+        "path": "/tmp/partydeck-engine-ci/34473325295/source-0f666e0/godot/ios-host/modules/partydeck_ios_probe/PDGodotRuntime.mm",
+        "bytes": 105121,
+        "sha256": "3270b219c3d66ba4a4cb12bab8a5f6460420d4c74416a9b75b39310faf8169e0"
+      },
+      "startLine": 286,
+      "endLine": 328,
+      "officialSourceUrl": "https://github.com/Apdelrahman1911/PartyDeck/blob/0f666e0ab7fdce63d5fa668442dae1c9fda86a1d/godot/ios-host/modules/partydeck_ios_probe/PDGodotRuntime.mm#L286",
+      "finding": "The native diagnostics schema requires and copies a typed sceneStateApplied Boolean.",
+      "excerpt": "static NSDictionary *PDSanitizedDiagnostics(NSDictionary *value, NSString *presentationID, NSString *mode) {\n\tif (!PDKeys(value, @[ @\"schemaVersion\", @\"requestId\", @\"sequence\", @\"presentationId\", @\"revision\", @\"presentationMode\",\n\t\t\t@\"coordinateSpace\", @\"foreground\", @\"sceneStateApplied\", @\"viewport\", @\"handConcealed\", @\"selectedCount\", @\"privateFaceCount\", @\"privateLabelCount\", @\"controls\" ]) ||\n\t\t\t!PDVersion(value[@\"schemaVersion\"]) || ![value[@\"presentationId\"] isEqual:presentationID] || ![value[@\"presentationMode\"] isEqual:mode] ||\n\t\t\t![value[@\"coordinateSpace\"] isEqual:@\"root_viewport\"] || !PDCounter(value[@\"requestId\"]) || !PDCounter(value[@\"sequence\"]) || !PDCounter(value[@\"revision\"]) ||\n\t\t\t!PDBoolean(value[@\"foreground\"]) || !PDBoolean(value[@\"sceneStateApplied\"]) || !PDBoolean(value[@\"handConcealed\"]) ||\n\t\t\t!PDNumberInRange(value[@\"selectedCount\"], 0, 3, YES) || !PDNumberInRange(value[@\"privateFaceCount\"], 0, 30, YES) ||\n\t\t\t!PDNumberInRange(value[@\"privateLabelCount\"], 0, 60, YES)) {\n\t\treturn nil;\n\t}\n\tNSDictionary *viewport = value[@\"viewport\"];\n\tNSArray *controls = value[@\"controls\"];\n\tif (!PDKeys(viewport, @[ @\"width\", @\"height\" ]) || !PDNumberInRange(viewport[@\"width\"], 1, 32768, NO) ||\n\t\t\t!PDNumberInRange(viewport[@\"height\"], 1, 32768, NO) || ![controls isKindOfClass:NSArray.class] || controls.count > 32) {\n\t\treturn nil;\n\t}\n\tNSArray<NSString *> *groups = @[ @\"partydeck_action_reveal\", @\"partydeck_action_hide\", @\"partydeck_action_play\",\n\t\t@\"partydeck_action_challenge\", @\"partydeck_action_next_round\", @\"partydeck_action_lobby\", @\"partydeck_action_exit\",\n\t\t@\"partydeck_action_lobby_confirm\", @\"partydeck_action_lobby_cancel\", @\"partydeck_hand_card\" ];\n\tNSMutableArray *safeControls = [NSMutableArray arrayWithCapacity:controls.count];\n\tfor (NSDictionary *control in controls) {\n\t\tif (!PDKeys(control, @[ @\"group\", @\"cardIndex\", @\"rect\", @\"clipRect\", @\"visible\", @\"enabled\", @\"selected\" ]) ||\n\t\t\t\t![groups containsObject:control[@\"group\"]] || !PDNumberInRange(control[@\"cardIndex\"], -1, 4, YES) ||\n\t\t\t\t!PDBoolean(control[@\"visible\"]) || !PDBoolean(control[@\"enabled\"]) || !PDBoolean(control[@\"selected\"])) {\n\t\t\treturn nil;\n\t\t}\n\t\tNSArray *rect = PDDiagnosticRect(control[@\"rect\"]);\n\t\tNSArray *clip = PDDiagnosticRect(control[@\"clipRect\"]);\n\t\tif (!rect || !clip) {\n\t\t\treturn nil;\n\t\t}\n\t\t[safeControls addObject:@{ @\"group\": control[@\"group\"], @\"cardIndex\": @([control[@\"cardIndex\"] intValue]),\n\t\t\t@\"rect\": rect, @\"clipRect\": clip, @\"visible\": control[@\"visible\"], @\"enabled\": control[@\"enabled\"], @\"selected\": control[@\"selected\"] }];\n\t}\n\t// Copy only the fixed diagnostic schema. No arbitrary renderer string, card\n\t// value, or state document can enter the native receipt through this channel.\n\treturn @{ @\"schemaVersion\": @1, @\"requestId\": value[@\"requestId\"], @\"sequence\": value[@\"sequence\"],\n\t\t@\"presentationId\": presentationID, @\"revision\": value[@\"revision\"], @\"presentationMode\": mode,\n\t\t@\"coordinateSpace\": @\"root_viewport\", @\"foreground\": value[@\"foreground\"], @\"sceneStateApplied\": value[@\"sceneStateApplied\"],\n\t\t@\"handConcealed\": value[@\"handConcealed\"],\n\t\t@\"viewport\": @{ @\"width\": @([viewport[@\"width\"] doubleValue]), @\"height\": @([viewport[@\"height\"] doubleValue]) },\n\t\t@\"selectedCount\": @([value[@\"selectedCount\"] intValue]), @\"privateFaceCount\": @([value[@\"privateFaceCount\"] intValue]),\n\t\t@\"privateLabelCount\": @([value[@\"privateLabelCount\"] intValue]), @\"controls\": safeControls };"
+    },
+    {
+      "source": {
+        "path": "/tmp/partydeck-engine-ci/34473325295/source-0f666e0/godot/ios-host/modules/partydeck_ios_probe/PDGodotRuntime.mm",
+        "bytes": 105121,
+        "sha256": "3270b219c3d66ba4a4cb12bab8a5f6460420d4c74416a9b75b39310faf8169e0"
+      },
+      "startLine": 1118,
+      "endLine": 1123,
+      "officialSourceUrl": "https://github.com/Apdelrahman1911/PartyDeck/blob/0f666e0ab7fdce63d5fa668442dae1c9fda86a1d/godot/ios-host/modules/partydeck_ios_probe/PDGodotRuntime.mm#L1118",
+      "finding": "Concealed-current diagnostics require sceneStateApplied together with existing iteration, concealment, revision and foreground checks.",
+      "excerpt": "- (BOOL)hasConcealedCurrentDiagnostics {\n\treturn _rendererDiagnostics && [_rendererDiagnostics[@\"sceneStateApplied\"] boolValue] &&\n\t\t\t_concealedDiagnosticIteration > _lastStateMutationIteration &&\n\t\t\t[_rendererDiagnostics[@\"handConcealed\"] boolValue] && [_rendererDiagnostics[@\"selectedCount\"] intValue] == 0 &&\n\t\t\t[_rendererDiagnostics[@\"privateFaceCount\"] intValue] == 0 && [_rendererDiagnostics[@\"privateLabelCount\"] intValue] == 0 &&\n\t\t\t[_rendererDiagnostics[@\"revision\"] isEqual:_revision] && [_rendererDiagnostics[@\"foreground\"] boolValue];"
+    },
+    {
+      "source": {
+        "path": "/tmp/partydeck-engine-ci/34473325295/source-0f666e0/godot/ios-host/AuthorityHostUITests/AuthorityHostUITests.swift",
+        "bytes": 33404,
+        "sha256": "ce8dc5324fae078a6c5abdaa144973243b134689dddf9637753800c476e7b36a"
+      },
+      "startLine": 330,
+      "endLine": 342,
+      "officialSourceUrl": "https://github.com/Apdelrahman1911/PartyDeck/blob/0f666e0ab7fdce63d5fa668442dae1c9fda86a1d/godot/ios-host/AuthorityHostUITests/AuthorityHostUITests.swift#L330",
+      "finding": "The final touch read checks sceneStateApplied before native input.",
+      "excerpt": "                let latest = metrics(app)\n                try require(latest[\"revision\"] as? String == value[\"revision\"] as? String &&\n                    !flag(\"privacyCoverVisible\", native(latest)), \"Input must target the current uncovered authority view.\")\n                guard flag(\"sceneStateApplied\", diagnostics(latest)),\n                      let latestTarget = control(action, in: latest, cardIndex: cardIndex),\n                      NSDictionary(dictionary: target).isEqual(to: latestTarget), viewportSize(latest) == viewport else {\n                    unsettledObservations += 1\n                    value = try await currentDiagnostics(app, after: value)\n                    continue\n                }\n                value = latest\n                attachGeometry(action, value: value, target: target)\n                surface.coordinate(withNormalizedOffset: CGVector(dx: rect.midX / viewport.width, dy: rect.midY / viewport.height)).tap()"
+    },
+    {
+      "source": {
+        "path": "/tmp/partydeck-engine-ci/34473325295/source-0f666e0/godot/ios-host/AuthorityHostUITests/AuthorityHostUITests.swift",
+        "bytes": 33404,
+        "sha256": "ce8dc5324fae078a6c5abdaa144973243b134689dddf9637753800c476e7b36a"
+      },
+      "startLine": 407,
+      "endLine": 450,
+      "officialSourceUrl": "https://github.com/Apdelrahman1911/PartyDeck/blob/0f666e0ab7fdce63d5fa668442dae1c9fda86a1d/godot/ios-host/AuthorityHostUITests/AuthorityHostUITests.swift#L407",
+      "finding": "Current diagnostics require the applied-state flag; failed waits preserve the last rejected value before later capture.",
+      "excerpt": "    private func currentDiagnostics(_ app: XCUIApplication, after: [String: Any]? = nil, foreground: Bool = true,\n                                    timeout: TimeInterval = 15, predicate: ([String: Any]) -> Bool = { _ in true }) async throws -> [String: Any] {\n        try await waitSnapshot(app, \"The real renderer must report current bounded diagnostics.\", timeout: timeout) { value in\n            let diagnostic = self.diagnostics(value)\n            let newer = after == nil || self.counter(\"sequence\", diagnostic) > self.counter(\"sequence\", self.diagnostics(after!))\n            return value[\"lifecycle\"] as? String == \"READY\" && !diagnostic.isEmpty && newer &&\n                self.flag(\"sceneStateApplied\", diagnostic) &&\n                diagnostic[\"revision\"] as? String == value[\"revision\"] as? String &&\n                self.flag(\"foreground\", diagnostic) == foreground && self.flag(\"foreground\", value) == foreground &&\n                (!foreground || (self.flag(\"renderLoopActive\", self.native(value)) && !self.flag(\"privacyCoverVisible\", self.native(value)) &&\n                    self.number(\"iterations\", self.native(value)) >= 3)) && predicate(value)\n        }\n    }\n\n    @MainActor\n    private func waitSnapshot(_ app: XCUIApplication, _ message: String, timeout: TimeInterval = 15,\n                              predicate: ([String: Any]) -> Bool) async throws -> [String: Any] {\n        let startedAt = ProcessInfo.processInfo.systemUptime\n        let deadline = Date().addingTimeInterval(timeout)\n        var lastRejectedMeasurements: [String: Any] = [:]\n        while Date() < deadline {\n            let value = metrics(app)\n            if app.state == .notRunning {\n                capture(\"Actual authority application stopped\", app)\n                XCTFail(\"The native authority application stopped during the test.\")\n                throw Failure.nativeFailure\n            }\n            if value[\"failureCode\"] != nil || native(value)[\"state\"] as? String == \"failed\" {\n                capture(\"Failed authority runtime\", app)\n                XCTFail(\"The native authority owner reported a terminal failure.\")\n                throw Failure.nativeFailure\n            }\n            if predicate(value) { return value }\n            lastRejectedMeasurements = value\n            try await Task.sleep(nanoseconds: 150_000_000)\n        }\n        // A later capture can show a newer diagnostic than the rejected read.\n        // Preserve the observation that exhausted the unchanged wait deadline.\n        attachJSON([\"timeoutSeconds\": timeout,\n                    \"elapsedSeconds\": ProcessInfo.processInfo.systemUptime - startedAt,\n                    \"measurements\": lastRejectedMeasurements], name: \"Last rejected authority wait observation\")\n        capture(\"Failed authority wait\", app)\n        XCTFail(message)\n        throw Failure.waitTimedOut"
+    },
+    {
+      "source": {
+        "path": "/tmp/partydeck-engine-ci/34473325295/source-0f666e0/godot/ios-host/AuthorityHostUITests/AuthorityHostUITests.swift",
+        "bytes": 33404,
+        "sha256": "ce8dc5324fae078a6c5abdaa144973243b134689dddf9637753800c476e7b36a"
+      },
+      "startLine": 504,
+      "endLine": 527,
+      "officialSourceUrl": "https://github.com/Apdelrahman1911/PartyDeck/blob/0f666e0ab7fdce63d5fa668442dae1c9fda86a1d/godot/ios-host/AuthorityHostUITests/AuthorityHostUITests.swift#L504",
+      "finding": "Metrics use a StaticText query and record that query duration.",
+      "excerpt": "    private func metrics(_ app: XCUIApplication) -> [String: Any] {\n        let applicationState = app.state\n        // Querying accessibility while the application is stopped or suspended\n        // can fail before its last foreground measurements can be attached.\n        guard applicationState == .runningForeground else {\n            return [\"observedApplicationState\": applicationState.rawValue]\n        }\n        // AuthorityScreen emits this identifier on Text, and the native AX\n        // record identifies it as StaticText. Keep unrelated element types out\n        // of this frequent query; freshness still comes from currentDiagnostics.\n        // https://developer.apple.com/documentation/xcuiautomation/xcuielementtypequeryprovider/statictexts\n        let queryStartedAt = ProcessInfo.processInfo.systemUptime\n        let queriedValue = app.staticTexts.matching(identifier: \"authority-metrics\").firstMatch.value\n        let querySeconds = ProcessInfo.processInfo.systemUptime - queryStartedAt\n        guard let document = queriedValue as? String,\n              let bytes = document.data(using: .utf8),\n              var value = try? JSONSerialization.jsonObject(with: bytes) as? [String: Any] else {\n            return [\"observedApplicationState\": applicationState.rawValue,\n                    \"observedMetricsQuerySeconds\": querySeconds]\n        }\n        value[\"observedApplicationState\"] = applicationState.rawValue\n        value[\"observedMetricsQuerySeconds\"] = querySeconds\n        lastObservedMetrics = value\n        return value"
+    },
+    {
+      "source": {
+        "path": "/tmp/partydeck-engine-ci/34473325295/source-0f666e0/godot/ios-host/RetainedHostUITests/RetainedHostUITests.swift",
+        "bytes": 40343,
+        "sha256": "5b76d03ec2898a8141bb7a1bc01777dbea2ac3f80ff138ce89642fe6cf740b0c"
+      },
+      "startLine": 449,
+      "endLine": 461,
+      "officialSourceUrl": "https://github.com/Apdelrahman1911/PartyDeck/blob/0f666e0ab7fdce63d5fa668442dae1c9fda86a1d/godot/ios-host/RetainedHostUITests/RetainedHostUITests.swift#L449",
+      "finding": "Retained touch-candidate evidence is attached before final currentness and cover checks; it is not an actual tap count.",
+      "excerpt": "            attach([\"action\": action, \"control\": target, \"metrics\": value], \"Measured real touch target\")\n            if flag(\"visible\", target) && clip.insetBy(dx: -0.5, dy: -0.5).contains(rect) {\n                try require(rect.width >= 44 && rect.height >= 44, \"The actual touch target must be at least 44 points.\")\n                let latest = metrics(app)\n                guard flag(\"sceneStateApplied\", renderer(latest)),\n                      latest[\"revision\"] as? String == revision, !flag(\"privacyCoverVisible\", native(latest)),\n                      let current = control(action, in: latest, cardIndex: cardIndex), NSDictionary(dictionary: target).isEqual(to: current) else { continue }\n                surface.coordinate(withNormalizedOffset: CGVector(dx: rect.midX / size.width, dy: rect.midY / size.height)).tap()\n                return value\n            }\n            try require(gestures < 8 && clip.width >= 32 && clip.height >= 32 && rect.width <= clip.width + 0.5 && rect.height <= clip.height + 0.5,\n                        \"A clipped control must fit its actual scroll area within the gesture bound.\")\n            let start: CGPoint"
+    },
+    {
+      "source": {
+        "path": "/tmp/partydeck-engine-ci/34473325295/source-0f666e0/godot/ios-host/RetainedHostUITests/RetainedHostUITests.swift",
+        "bytes": 40343,
+        "sha256": "5b76d03ec2898a8141bb7a1bc01777dbea2ac3f80ff138ce89642fe6cf740b0c"
+      },
+      "startLine": 488,
+      "endLine": 527,
+      "officialSourceUrl": "https://github.com/Apdelrahman1911/PartyDeck/blob/0f666e0ab7fdce63d5fa668442dae1c9fda86a1d/godot/ios-host/RetainedHostUITests/RetainedHostUITests.swift#L488",
+      "finding": "Retained current diagnostics require the applied-state flag; failed waits preserve their last rejected measurements.",
+      "excerpt": "    private func diagnostics(_ app: XCUIApplication, after: [String: Any]? = nil, foreground: Bool = true, timeout: TimeInterval = 15,\n                             predicate: ([String: Any]) -> Bool = { _ in true }) async throws -> [String: Any] {\n        try await wait(app, \"Observe current renderer diagnostics for the retained presentation.\", timeout: timeout) { value in\n            let scene = self.renderer(value)\n            let newer = after == nil || self.counter(\"sequence\", scene) > self.counter(\"sequence\", self.renderer(after!)) ||\n                value[\"presentationID\"] as? String != after?[\"presentationID\"] as? String\n            return value[\"lifecycle\"] as? String == \"READY\" && self.flag(\"readyConfirmed\", value) && !scene.isEmpty &&\n                self.flag(\"sceneStateApplied\", scene) && newer &&\n                scene[\"presentationId\"] as? String == value[\"presentationID\"] as? String &&\n                scene[\"revision\"] as? String == value[\"revision\"] as? String &&\n                self.flag(\"foreground\", scene) == foreground && self.flag(\"foreground\", value) == foreground &&\n                (!foreground || (self.flag(\"renderLoopActive\", self.native(value)) && !self.flag(\"privacyCoverVisible\", self.native(value)))) && predicate(value)\n        }\n    }\n\n    @MainActor\n    private func wait(_ app: XCUIApplication, _ message: String, timeout: TimeInterval = 15,\n                      predicate: ([String: Any]) -> Bool) async throws -> [String: Any] {\n        let startedAt = ProcessInfo.processInfo.systemUptime\n        let deadline = Date().addingTimeInterval(timeout)\n        var lastRejectedMeasurements: [String: Any] = [:]\n        while Date() < deadline {\n            let value = metrics(app)\n            if app.state == .notRunning || !(value[\"failure\"] as? String ?? \"\").isEmpty || flag(\"quarantined\", native(value)) || native(value)[\"state\"] as? String == \"failed\" {\n                capture(\"Actual retained owner failure\", app)\n                XCTFail(\"The retained owner or native application failed.\")\n                throw Failure.native\n            }\n            if predicate(value) { return value }\n            lastRejectedMeasurements = value\n            try await Task.sleep(nanoseconds: 150_000_000)\n        }\n        // Screenshot capture can wait on the app and observe a later frame.\n        // Keep the rejected value before requesting any further app work.\n        attach([\"timeoutSeconds\": timeout,\n                \"elapsedSeconds\": ProcessInfo.processInfo.systemUptime - startedAt,\n                \"measurements\": lastRejectedMeasurements], \"Last rejected retained wait observation\")\n        capture(\"Failed retained observation\", app)\n        XCTFail(message)\n        throw Failure.timeout"
+    },
+    {
+      "source": {
+        "path": "/tmp/partydeck-engine-ci/34473325295/source-0f666e0/godot/ios-host/RetainedHostUITests/RetainedHostUITests.swift",
+        "bytes": 40343,
+        "sha256": "5b76d03ec2898a8141bb7a1bc01777dbea2ac3f80ff138ce89642fe6cf740b0c"
+      },
+      "startLine": 571,
+      "endLine": 587,
+      "officialSourceUrl": "https://github.com/Apdelrahman1911/PartyDeck/blob/0f666e0ab7fdce63d5fa668442dae1c9fda86a1d/godot/ios-host/RetainedHostUITests/RetainedHostUITests.swift#L571",
+      "finding": "Retained metrics use a StaticText query and record its duration.",
+      "excerpt": "    private func metrics(_ app: XCUIApplication) -> [String: Any] {\n        guard app.state == .runningForeground else { return [\"observedApplicationState\": app.state.rawValue] }\n        // RetainedHost emits this identifier on Text; native AX records StaticText.\n        // A typed query does not remove the need for current native readiness.\n        // https://developer.apple.com/documentation/xcuiautomation/xcuielementtypequeryprovider/statictexts\n        let queryStartedAt = ProcessInfo.processInfo.systemUptime\n        let queriedValue = app.staticTexts.matching(identifier: \"retained-metrics\").firstMatch.value\n        let querySeconds = ProcessInfo.processInfo.systemUptime - queryStartedAt\n        guard let document = queriedValue as? String, let data = document.data(using: .utf8),\n              var value = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {\n            return [\"observedApplicationState\": app.state.rawValue,\n                    \"observedMetricsQuerySeconds\": querySeconds]\n        }\n        value[\"observedApplicationState\"] = app.state.rawValue\n        value[\"observedMetricsQuerySeconds\"] = querySeconds\n        lastForegroundObservation = value\n        return value"
+    },
+    {
+      "source": {
+        "path": "/tmp/partydeck-engine-ci/34473325295/source-0f666e0/godot/renderer/presentations/three_d/table.gd",
+        "bytes": 38153,
+        "sha256": "1f2c4951fb75fc7d718c68542129c7387dce7f1011220fe3df9edcce6e66b115"
+      },
+      "startLine": 117,
+      "endLine": 124,
+      "officialSourceUrl": "https://github.com/Apdelrahman1911/PartyDeck/blob/0f666e0ab7fdce63d5fa668442dae1c9fda86a1d/godot/renderer/presentations/three_d/table.gd#L117",
+      "finding": "Foreground 3D still selects UPDATE_WHEN_VISIBLE; this run does not contain the separate demand optimization.",
+      "excerpt": "\t\t_pending_sound = \"\"\n\tif _bring_hand_requested:\n\t\t_bring_hand_requested = false\n\t\t_bring_hand_into_view()\n\t_viewport.render_target_update_mode = SubViewport.UPDATE_WHEN_VISIBLE if state.foreground else SubViewport.UPDATE_ONCE\n\t_motion_frames = 12 if not state.reduceMotion and state.foreground else 1\n\tset_process(true)\n\t_last_page_phase = state.game.phase"
+    }
+  ],
+  "optionalStartupMousePatchIncluded": false,
+  "threeDDemandOptimizationIncluded": false,
+  "nativeExecutionEvaluatedHere": false
+}

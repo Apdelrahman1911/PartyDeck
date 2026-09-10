@@ -1,0 +1,627 @@
+{
+	"checks": [
+		{
+			"check": "An absent plugin has no optional method",
+			"passed": true
+		},
+		{
+			"check": "An ordinary object without the method is rejected",
+			"passed": true
+		},
+		{
+			"check": "Registry-only method is absent from Object: get_display_scale",
+			"passed": true
+		},
+		{
+			"check": "Registry-only method is discovered: get_display_scale",
+			"passed": true
+		},
+		{
+			"check": "Registry-only method is absent from Object: renderer_diagnostics",
+			"passed": true
+		},
+		{
+			"check": "Registry-only method is discovered: renderer_diagnostics",
+			"passed": true
+		},
+		{
+			"check": "An unregistered Java method is rejected",
+			"passed": true
+		},
+		{
+			"check": "Discovery queries the registered Java method names",
+			"passed": true
+		},
+		{
+			"check": "An ordinary density method is discovered",
+			"passed": true
+		},
+		{
+			"check": "An ordinary diagnostics method is discovered",
+			"passed": true
+		},
+		{
+			"check": "Ordinary methods take precedence over the Java registry",
+			"passed": true
+		},
+		{
+			"check": "2d: native launch waits for a frame before mounting or emitting Ready",
+			"passed": true
+		},
+		{
+			"check": "2d: native launch emits exactly Ready",
+			"passed": true
+		},
+		{
+			"check": "2d: discovered density is applied",
+			"passed": true
+		},
+		{
+			"check": "2d: logical viewport uses native density",
+			"passed": true
+		},
+		{
+			"check": "2d: requested presentation is instantiated",
+			"passed": true
+		},
+		{
+			"check": "2d: diagnostic request reaches the callback",
+			"passed": true
+		},
+		{
+			"check": "2d: ordinary mounted scene reports completed state application",
+			"passed": true
+		},
+		{
+			"check": "2d: initial diagnostics confirm private bindings are absent",
+			"passed": true
+		},
+		{
+			"check": "2d: diagnostic coordinates use the logical root viewport",
+			"passed": true
+		},
+		{
+			"check": "2d: invalid diagnostic request IDs are ignored",
+			"passed": true
+		},
+		{
+			"check": "2d: the local reveal control is attached",
+			"passed": true
+		},
+		{
+			"check": "2d: read-only diagnostics can observe local reveal",
+			"passed": true
+		},
+		{
+			"check": "2d: diagnostics remain callable while backgrounded",
+			"passed": true
+		},
+		{
+			"check": "2d: pending background diagnostics remain immediate and noncurrent",
+			"passed": true
+		},
+		{
+			"check": "2d: background commands synchronously conceal controller state and reject input",
+			"passed": true
+		},
+		{
+			"check": "2d: the next engine frame removes private scene bindings",
+			"passed": true
+		},
+		{
+			"check": "2d: local changes and diagnostics emit no authority intent",
+			"passed": true
+		},
+		{
+			"check": "2d: ordinary callback dispatch preserves Object precedence",
+			"passed": true
+		},
+		{
+			"check": "2d: native close reaches the controller",
+			"passed": true
+		},
+		{
+			"check": "2d: Close removes the scene while processing is paused",
+			"passed": true
+		},
+		{
+			"check": "2d: closed cleanup cannot report an applied presentation",
+			"passed": true
+		},
+		{
+			"check": "2d: launch has no applied scene before its first frame",
+			"passed": true
+		},
+		{
+			"check": "2d: a Ready callback cannot stamp its newer controller state as applied",
+			"passed": true
+		},
+		{
+			"check": "2d: the next ordinary application binds the reentrant revealed state",
+			"passed": true
+		},
+		{
+			"check": "2d: a layout redraw invalidates application even at the same authority revision",
+			"passed": true
+		},
+		{
+			"check": "2d: ordinary redraw can establish a new applied stamp",
+			"passed": true
+		},
+		{
+			"check": "2d: a state callback during actual scene construction invalidates the in-flight application",
+			"passed": true
+		},
+		{
+			"check": "2d: background reconciliation eventually applies the concealed bindings",
+			"passed": true
+		},
+		{
+			"check": "2d: an incomplete actual scene apply cannot stamp success",
+			"passed": true
+		},
+		{
+			"check": "2d: a later successful actual scene apply establishes currentness",
+			"passed": true
+		},
+		{
+			"check": "2d: generation exhaustion saturates without accepting an old or wrapped stamp",
+			"passed": true
+		},
+		{
+			"check": "A detached root has no applied scene stamp",
+			"passed": true
+		},
+		{
+			"check": "A detached root rejects bridge commands",
+			"passed": true
+		},
+		{
+			"check": "2d: removal during Ready delivery cannot restore an applied stamp after cleanup",
+			"passed": true
+		},
+		{
+			"check": "A detached root has no applied scene stamp",
+			"passed": true
+		},
+		{
+			"check": "A detached root rejects bridge commands",
+			"passed": true
+		},
+		{
+			"check": "2d: off-frame launch does not build a table or release Ready",
+			"passed": true
+		},
+		{
+			"check": "2d: the first engine frame mounts the table before Ready",
+			"passed": true
+		},
+		{
+			"check": "2d: local controller state changes immediately",
+			"passed": true
+		},
+		{
+			"check": "2d: revealing outside a frame does not mutate scene resources",
+			"passed": true
+		},
+		{
+			"check": "2d: the next engine frame binds the revealed hand",
+			"passed": true
+		},
+		{
+			"check": "2d: focus loss immediately closes privacy and input gates",
+			"passed": true
+		},
+		{
+			"check": "2d: focus loss drops private ranks from controller and table CPU snapshots",
+			"passed": true
+		},
+		{
+			"check": "2d: focus notification defers scene erasure to the engine frame",
+			"passed": true
+		},
+		{
+			"check": "2d: stale input callbacks cannot emit an action after focus loss",
+			"passed": true
+		},
+		{
+			"check": "2d: the first background frame erases bindings and pauses the table",
+			"passed": true
+		},
+		{
+			"check": "2d: a paused burst never rebuilds scene resources in command callbacks",
+			"passed": true
+		},
+		{
+			"check": "2d: only the latest concealed CPU snapshot survives a burst",
+			"passed": true
+		},
+		{
+			"check": "2d: always-processing reconciliation resumes with the latest concealed state",
+			"passed": true
+		},
+		{
+			"check": "2d: lobby input requests graphics without constructing them",
+			"passed": true
+		},
+		{
+			"check": "2d: the next frame constructs lobby confirmation",
+			"passed": true
+		},
+		{
+			"check": "2d: a new authority view is admitted before rendering",
+			"passed": true
+		},
+		{
+			"check": "2d: prior-view controls exist for the callback check",
+			"passed": true
+		},
+		{
+			"check": "2d: old controls cannot act or reveal at a newly received revision before its frame",
+			"passed": true
+		},
+		{
+			"check": "2d: lobby cancellation defers hierarchy mutation",
+			"passed": true
+		},
+		{
+			"check": "2d: the next frame removes lobby confirmation",
+			"passed": true
+		},
+		{
+			"check": "2d: a live playback exists before coalesced focus loss",
+			"passed": true
+		},
+		{
+			"check": "2d: a brief foreground loss still stops existing playback on the next frame",
+			"passed": true
+		},
+		{
+			"check": "2d: Close immediately clears live controller and table CPU data",
+			"passed": true
+		},
+		{
+			"check": "2d: Close rejects later commands without off-frame scene destruction",
+			"passed": true
+		},
+		{
+			"check": "2d: Close wins over an earlier queued reveal",
+			"passed": true
+		},
+		{
+			"check": "2d: later frames cannot recreate a closed table",
+			"passed": true
+		},
+		{
+			"check": "A detached root has no applied scene stamp",
+			"passed": true
+		},
+		{
+			"check": "A detached root rejects bridge commands",
+			"passed": true
+		},
+		{
+			"check": "2d: Close before the first frame prevents both mounting and Ready",
+			"passed": true
+		},
+		{
+			"check": "2d: initialization early exit cannot stamp scene application",
+			"passed": true
+		},
+		{
+			"check": "A detached root has no applied scene stamp",
+			"passed": true
+		},
+		{
+			"check": "A detached root rejects bridge commands",
+			"passed": true
+		},
+		{
+			"check": "2d: failed initialization suppresses the retained Ready event",
+			"passed": true
+		},
+		{
+			"check": "2d: initialization early exit cannot stamp scene application",
+			"passed": true
+		},
+		{
+			"check": "A detached root has no applied scene stamp",
+			"passed": true
+		},
+		{
+			"check": "A detached root rejects bridge commands",
+			"passed": true
+		},
+		{
+			"check": "3d: native launch waits for a frame before mounting or emitting Ready",
+			"passed": true
+		},
+		{
+			"check": "3d: native launch emits exactly Ready",
+			"passed": true
+		},
+		{
+			"check": "3d: discovered density is applied",
+			"passed": true
+		},
+		{
+			"check": "3d: logical viewport uses native density",
+			"passed": true
+		},
+		{
+			"check": "3d: requested presentation is instantiated",
+			"passed": true
+		},
+		{
+			"check": "3d: diagnostic request reaches the callback",
+			"passed": true
+		},
+		{
+			"check": "3d: ordinary mounted scene reports completed state application",
+			"passed": true
+		},
+		{
+			"check": "3d: initial diagnostics confirm private bindings are absent",
+			"passed": true
+		},
+		{
+			"check": "3d: diagnostic coordinates use the logical root viewport",
+			"passed": true
+		},
+		{
+			"check": "3d: invalid diagnostic request IDs are ignored",
+			"passed": true
+		},
+		{
+			"check": "3d: the local reveal control is attached",
+			"passed": true
+		},
+		{
+			"check": "3d: read-only diagnostics can observe local reveal",
+			"passed": true
+		},
+		{
+			"check": "3d: diagnostics remain callable while backgrounded",
+			"passed": true
+		},
+		{
+			"check": "3d: pending background diagnostics remain immediate and noncurrent",
+			"passed": true
+		},
+		{
+			"check": "3d: background commands synchronously conceal controller state and reject input",
+			"passed": true
+		},
+		{
+			"check": "3d: the next engine frame removes private scene bindings",
+			"passed": true
+		},
+		{
+			"check": "3d: local changes and diagnostics emit no authority intent",
+			"passed": true
+		},
+		{
+			"check": "3d: ordinary callback dispatch preserves Object precedence",
+			"passed": true
+		},
+		{
+			"check": "3d: native close reaches the controller",
+			"passed": true
+		},
+		{
+			"check": "3d: Close removes the scene while processing is paused",
+			"passed": true
+		},
+		{
+			"check": "3d: closed cleanup cannot report an applied presentation",
+			"passed": true
+		},
+		{
+			"check": "3d: launch has no applied scene before its first frame",
+			"passed": true
+		},
+		{
+			"check": "3d: a Ready callback cannot stamp its newer controller state as applied",
+			"passed": true
+		},
+		{
+			"check": "3d: the next ordinary application binds the reentrant revealed state",
+			"passed": true
+		},
+		{
+			"check": "3d: a layout redraw invalidates application even at the same authority revision",
+			"passed": true
+		},
+		{
+			"check": "3d: ordinary redraw can establish a new applied stamp",
+			"passed": true
+		},
+		{
+			"check": "3d: a state callback during actual scene construction invalidates the in-flight application",
+			"passed": true
+		},
+		{
+			"check": "3d: background reconciliation eventually applies the concealed bindings",
+			"passed": true
+		},
+		{
+			"check": "3d: generation exhaustion saturates without accepting an old or wrapped stamp",
+			"passed": true
+		},
+		{
+			"check": "A detached root has no applied scene stamp",
+			"passed": true
+		},
+		{
+			"check": "A detached root rejects bridge commands",
+			"passed": true
+		},
+		{
+			"check": "3d: removal during Ready delivery cannot restore an applied stamp after cleanup",
+			"passed": true
+		},
+		{
+			"check": "A detached root has no applied scene stamp",
+			"passed": true
+		},
+		{
+			"check": "A detached root rejects bridge commands",
+			"passed": true
+		},
+		{
+			"check": "3d: off-frame launch does not build a table or release Ready",
+			"passed": true
+		},
+		{
+			"check": "3d: the first engine frame mounts the table before Ready",
+			"passed": true
+		},
+		{
+			"check": "3d: local controller state changes immediately",
+			"passed": true
+		},
+		{
+			"check": "3d: revealing outside a frame does not mutate scene resources",
+			"passed": true
+		},
+		{
+			"check": "3d: the next engine frame binds the revealed hand",
+			"passed": true
+		},
+		{
+			"check": "3d: focus loss immediately closes privacy and input gates",
+			"passed": true
+		},
+		{
+			"check": "3d: focus loss drops private ranks from controller and table CPU snapshots",
+			"passed": true
+		},
+		{
+			"check": "3d: focus notification defers scene erasure to the engine frame",
+			"passed": true
+		},
+		{
+			"check": "3d: stale input callbacks cannot emit an action after focus loss",
+			"passed": true
+		},
+		{
+			"check": "3d: the first background frame erases bindings and pauses the table",
+			"passed": true
+		},
+		{
+			"check": "3d: a paused burst never rebuilds scene resources in command callbacks",
+			"passed": true
+		},
+		{
+			"check": "3d: only the latest concealed CPU snapshot survives a burst",
+			"passed": true
+		},
+		{
+			"check": "3d: always-processing reconciliation resumes with the latest concealed state",
+			"passed": true
+		},
+		{
+			"check": "3d: lobby input requests graphics without constructing them",
+			"passed": true
+		},
+		{
+			"check": "3d: the next frame constructs lobby confirmation",
+			"passed": true
+		},
+		{
+			"check": "3d: a new authority view is admitted before rendering",
+			"passed": true
+		},
+		{
+			"check": "3d: prior-view controls exist for the callback check",
+			"passed": true
+		},
+		{
+			"check": "3d: old controls cannot act or reveal at a newly received revision before its frame",
+			"passed": true
+		},
+		{
+			"check": "3d: lobby cancellation defers hierarchy mutation",
+			"passed": true
+		},
+		{
+			"check": "3d: the next frame removes lobby confirmation",
+			"passed": true
+		},
+		{
+			"check": "3d: history input defers its layout rebuild",
+			"passed": true
+		},
+		{
+			"check": "3d: history layout changes inside the next frame",
+			"passed": true
+		},
+		{
+			"check": "3d: a live playback exists before coalesced focus loss",
+			"passed": true
+		},
+		{
+			"check": "3d: a brief foreground loss still stops existing playback on the next frame",
+			"passed": true
+		},
+		{
+			"check": "3d: Close immediately clears live controller and table CPU data",
+			"passed": true
+		},
+		{
+			"check": "3d: Close rejects later commands without off-frame scene destruction",
+			"passed": true
+		},
+		{
+			"check": "3d: Close wins over an earlier queued reveal",
+			"passed": true
+		},
+		{
+			"check": "3d: later frames cannot recreate a closed table",
+			"passed": true
+		},
+		{
+			"check": "A detached root has no applied scene stamp",
+			"passed": true
+		},
+		{
+			"check": "A detached root rejects bridge commands",
+			"passed": true
+		},
+		{
+			"check": "3d: Close before the first frame prevents both mounting and Ready",
+			"passed": true
+		},
+		{
+			"check": "3d: initialization early exit cannot stamp scene application",
+			"passed": true
+		},
+		{
+			"check": "A detached root has no applied scene stamp",
+			"passed": true
+		},
+		{
+			"check": "A detached root rejects bridge commands",
+			"passed": true
+		},
+		{
+			"check": "3d: failed initialization suppresses the retained Ready event",
+			"passed": true
+		},
+		{
+			"check": "3d: initialization early exit cannot stamp scene application",
+			"passed": true
+		},
+		{
+			"check": "A detached root has no applied scene stamp",
+			"passed": true
+		},
+		{
+			"check": "A detached root rejects bridge commands",
+			"passed": true
+		}
+	],
+	"godotVersion": "4.7.2-stable (official)",
+	"limitations": "Desktop registry doubles and actual renderer scenes. Android JNI invocation and native readiness require the Android runner.",
+	"result": "passed"
+}

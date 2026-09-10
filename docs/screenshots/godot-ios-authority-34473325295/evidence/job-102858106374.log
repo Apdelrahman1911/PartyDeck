@@ -1,0 +1,612 @@
+﻿2026-09-10T11:49:33.7232450Z Current runner version: '2.337.0'
+2026-09-10T11:49:33.7252930Z ##[group]Runner Image Provisioner
+2026-09-10T11:49:33.7253550Z Hosted Compute Agent
+2026-09-10T11:49:33.7253910Z Version: 20260828.587
+2026-09-10T11:49:33.7254320Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-10T11:49:33.7254790Z Build Date: 2026-08-28T16:44:25Z
+2026-09-10T11:49:33.7255240Z Worker ID: {a75652dc-f153-4e19-bd75-c5a850a81dda}
+2026-09-10T11:49:33.7255700Z Azure Region: westus
+2026-09-10T11:49:33.7256060Z ##[endgroup]
+2026-09-10T11:49:33.7256960Z ##[group]Operating System
+2026-09-10T11:49:33.7257340Z macOS
+2026-09-10T11:49:33.7257660Z 26.6.2
+2026-09-10T11:49:33.7257980Z 25G83
+2026-09-10T11:49:33.7258290Z ##[endgroup]
+2026-09-10T11:49:33.7258630Z ##[group]Runner Image
+2026-09-10T11:49:33.7259000Z Image: macos-26-arm64
+2026-09-10T11:49:33.7259370Z Version: 20260831.0337.3
+2026-09-10T11:49:33.7260230Z Included Software: https://github.com/actions/runner-images/blob/macos-26-arm64/20260831.0337/images/macos/macos-26-arm64-Readme.md
+2026-09-10T11:49:33.7261360Z Image Release: https://github.com/actions/runner-images/releases/tag/macos-26-arm64%2F20260831.0337
+2026-09-10T11:49:33.7262010Z ##[endgroup]
+2026-09-10T11:49:33.7262770Z ##[group]GITHUB_TOKEN Permissions
+2026-09-10T11:49:33.7264180Z Contents: read
+2026-09-10T11:49:33.7264540Z Metadata: read
+2026-09-10T11:49:33.7264890Z ##[endgroup]
+2026-09-10T11:49:33.7266580Z Secret source: Actions
+2026-09-10T11:49:33.7267290Z Cache mode: write
+2026-09-10T11:49:33.7267900Z Prepare workflow directory
+2026-09-10T11:49:33.7825500Z Prepare all required actions
+2026-09-10T11:49:33.7958400Z Getting action download info
+2026-09-10T11:49:34.0982700Z Download action repository 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-09-10T11:49:34.5227120Z Download action repository 'actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6' (SHA:de7274f081f381c8f8158605e0321c36c376e2e6)
+2026-09-10T11:49:35.1844800Z Download action repository 'android-actions/setup-android@40fd30fb8d7440372e1316f5d1809ec01dcd3699' (SHA:40fd30fb8d7440372e1316f5d1809ec01dcd3699)
+2026-09-10T11:49:35.5134590Z Download action repository 'gradle/actions@9c971963bec38e04b3d30dcc455b5382be2fdbfb' (SHA:9c971963bec38e04b3d30dcc455b5382be2fdbfb)
+2026-09-10T11:49:36.5938410Z Complete job name: Compile the real Kotlin authority framework
+2026-09-10T11:49:36.6898590Z ##[group]Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+2026-09-10T11:49:36.6900550Z with:
+2026-09-10T11:49:36.6901220Z   persist-credentials: false
+2026-09-10T11:49:36.6902060Z   repository: Apdelrahman1911/PartyDeck
+2026-09-10T11:49:36.6909050Z   token: ***
+2026-09-10T11:49:36.6909720Z   ssh-strict: true
+2026-09-10T11:49:36.6910490Z   ssh-user: git
+2026-09-10T11:49:36.6911170Z   clean: true
+2026-09-10T11:49:36.6911800Z   sparse-checkout-cone-mode: true
+2026-09-10T11:49:36.6912530Z   fetch-depth: 1
+2026-09-10T11:49:36.6913160Z   fetch-tags: false
+2026-09-10T11:49:36.6914430Z   show-progress: true
+2026-09-10T11:49:36.6916090Z   lfs: false
+2026-09-10T11:49:36.6916780Z   submodules: false
+2026-09-10T11:49:36.6917420Z   set-safe-directory: true
+2026-09-10T11:49:36.6918140Z   allow-unsafe-pr-checkout: false
+2026-09-10T11:49:36.6920050Z env:
+2026-09-10T11:49:36.6920940Z   DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
+2026-09-10T11:49:36.6922020Z ##[endgroup]
+2026-09-10T11:49:37.2098370Z Syncing repository: Apdelrahman1911/PartyDeck
+2026-09-10T11:49:37.2100420Z ##[group]Getting Git version info
+2026-09-10T11:49:37.2101430Z Working directory is '/Users/runner/work/PartyDeck/PartyDeck'
+2026-09-10T11:49:37.2102970Z [command]/opt/homebrew/bin/git version
+2026-09-10T11:49:37.2530880Z git version 2.55.0
+2026-09-10T11:49:37.2547540Z ##[endgroup]
+2026-09-10T11:49:37.2562900Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/57bfc970-79fe-4241-b0c2-5377f1749b10/.gitconfig'
+2026-09-10T11:49:37.2568090Z Temporarily overriding HOME='/Users/runner/work/_temp/57bfc970-79fe-4241-b0c2-5377f1749b10' before making global git config changes
+2026-09-10T11:49:37.2573880Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-10T11:49:37.2578340Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/PartyDeck/PartyDeck
+2026-09-10T11:49:37.2700800Z Deleting the contents of '/Users/runner/work/PartyDeck/PartyDeck'
+2026-09-10T11:49:37.2705350Z ##[group]Determining repository object format
+2026-09-10T11:49:37.2708220Z ##[endgroup]
+2026-09-10T11:49:37.2709400Z ##[group]Initializing the repository
+2026-09-10T11:49:37.2710560Z [command]/opt/homebrew/bin/git init /Users/runner/work/PartyDeck/PartyDeck
+2026-09-10T11:49:37.3095430Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-09-10T11:49:37.3097180Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-09-10T11:49:37.3103040Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-09-10T11:49:37.3106120Z hint: call:
+2026-09-10T11:49:37.3107710Z hint:
+2026-09-10T11:49:37.3110680Z hint: 	git config --global init.defaultBranch <name>
+2026-09-10T11:49:37.3113190Z hint:
+2026-09-10T11:49:37.3115960Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-09-10T11:49:37.3117490Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-09-10T11:49:37.3118640Z hint:
+2026-09-10T11:49:37.3119400Z hint: 	git branch -m <name>
+2026-09-10T11:49:37.3120100Z hint:
+2026-09-10T11:49:37.3121090Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-09-10T11:49:37.3122780Z Initialized empty Git repository in /Users/runner/work/PartyDeck/PartyDeck/.git/
+2026-09-10T11:49:37.3125740Z [command]/opt/homebrew/bin/git remote add origin https://github.com/Apdelrahman1911/PartyDeck
+2026-09-10T11:49:37.3244230Z ##[endgroup]
+2026-09-10T11:49:37.3245410Z ##[group]Disabling automatic garbage collection
+2026-09-10T11:49:37.3250090Z [command]/opt/homebrew/bin/git config --local gc.auto 0
+2026-09-10T11:49:37.3441030Z ##[endgroup]
+2026-09-10T11:49:37.3513870Z ##[group]Setting up auth
+2026-09-10T11:49:37.3616700Z Removing SSH command configuration
+2026-09-10T11:49:37.3699330Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-10T11:49:37.3794780Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-10T11:49:37.5202650Z Removing HTTP extra header
+2026-09-10T11:49:37.5206040Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-10T11:49:37.5304760Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-10T11:49:37.6915290Z Removing includeIf entries pointing to credentials config files
+2026-09-10T11:49:37.7020280Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-10T11:49:37.7344790Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-10T11:49:37.8803670Z [command]/opt/homebrew/bin/git config --file /Users/runner/work/_temp/git-credentials-acc252af-fe80-4062-a112-f986f6d00614.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-09-10T11:49:37.8841700Z [command]/opt/homebrew/bin/git config --local includeIf.gitdir:/Users/runner/work/PartyDeck/PartyDeck/.git.path /Users/runner/work/_temp/git-credentials-acc252af-fe80-4062-a112-f986f6d00614.config
+2026-09-10T11:49:37.8844200Z [command]/opt/homebrew/bin/git config --local includeIf.gitdir:/Users/runner/work/PartyDeck/PartyDeck/.git/worktrees/*.path /Users/runner/work/_temp/git-credentials-acc252af-fe80-4062-a112-f986f6d00614.config
+2026-09-10T11:49:37.8846760Z [command]/opt/homebrew/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-acc252af-fe80-4062-a112-f986f6d00614.config
+2026-09-10T11:49:37.8900290Z [command]/opt/homebrew/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-acc252af-fe80-4062-a112-f986f6d00614.config
+2026-09-10T11:49:37.8980650Z ##[endgroup]
+2026-09-10T11:49:37.8981690Z ##[group]Fetching the repository
+2026-09-10T11:49:37.8984510Z [command]/opt/homebrew/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +0f666e0ab7fdce63d5fa668442dae1c9fda86a1d:refs/remotes/origin/main
+2026-09-10T11:49:44.4172190Z From https://github.com/Apdelrahman1911/PartyDeck
+2026-09-10T11:49:44.4172950Z  * [new ref]         0f666e0ab7fdce63d5fa668442dae1c9fda86a1d -> origin/main
+2026-09-10T11:49:44.4179940Z [command]/opt/homebrew/bin/git branch --list --remote origin/main
+2026-09-10T11:49:44.4268570Z   origin/main
+2026-09-10T11:49:44.4278380Z [command]/opt/homebrew/bin/git rev-parse refs/remotes/origin/main
+2026-09-10T11:49:44.4346110Z 0f666e0ab7fdce63d5fa668442dae1c9fda86a1d
+2026-09-10T11:49:44.4347840Z ##[endgroup]
+2026-09-10T11:49:44.4348310Z ##[group]Determining the checkout info
+2026-09-10T11:49:44.4348890Z ##[endgroup]
+2026-09-10T11:49:44.4352230Z [command]/opt/homebrew/bin/git sparse-checkout disable
+2026-09-10T11:49:44.4448410Z [command]/opt/homebrew/bin/git config --local --unset-all extensions.worktreeConfig
+2026-09-10T11:49:44.4531560Z ##[group]Checking out the ref
+2026-09-10T11:49:44.4532220Z [command]/opt/homebrew/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-09-10T11:49:45.6163320Z Updating files:  22% (1524/6814)
+2026-09-10T11:49:45.7221660Z Updating files:  23% (1568/6814)
+2026-09-10T11:49:45.7398110Z Updating files:  24% (1636/6814)
+2026-09-10T11:49:45.7672430Z Updating files:  25% (1704/6814)
+2026-09-10T11:49:45.8844460Z Updating files:  26% (1772/6814)
+2026-09-10T11:49:45.9649250Z Updating files:  27% (1840/6814)
+2026-09-10T11:49:45.9862690Z Updating files:  28% (1908/6814)
+2026-09-10T11:49:46.0022520Z Updating files:  29% (1977/6814)
+2026-09-10T11:49:46.0867770Z Updating files:  30% (2045/6814)
+2026-09-10T11:49:46.1203180Z Updating files:  31% (2113/6814)
+2026-09-10T11:49:46.3190530Z Updating files:  32% (2181/6814)
+2026-09-10T11:49:46.3357910Z Updating files:  33% (2249/6814)
+2026-09-10T11:49:46.3488650Z Updating files:  34% (2317/6814)
+2026-09-10T11:49:46.4020880Z Updating files:  35% (2385/6814)
+2026-09-10T11:49:46.4423890Z Updating files:  36% (2454/6814)
+2026-09-10T11:49:46.4774150Z Updating files:  37% (2522/6814)
+2026-09-10T11:49:46.4774800Z Updating files:  37% (2582/6814)
+2026-09-10T11:49:46.4981060Z Updating files:  38% (2590/6814)
+2026-09-10T11:49:46.5259140Z Updating files:  39% (2658/6814)
+2026-09-10T11:49:46.5565180Z Updating files:  40% (2726/6814)
+2026-09-10T11:49:46.5771010Z Updating files:  41% (2794/6814)
+2026-09-10T11:49:46.5937400Z Updating files:  42% (2862/6814)
+2026-09-10T11:49:46.6222350Z Updating files:  43% (2931/6814)
+2026-09-10T11:49:46.6508150Z Updating files:  44% (2999/6814)
+2026-09-10T11:49:46.6997760Z Updating files:  45% (3067/6814)
+2026-09-10T11:49:46.7202660Z Updating files:  46% (3135/6814)
+2026-09-10T11:49:46.7605260Z Updating files:  47% (3203/6814)
+2026-09-10T11:49:46.7811870Z Updating files:  48% (3271/6814)
+2026-09-10T11:49:46.8049860Z Updating files:  49% (3339/6814)
+2026-09-10T11:49:46.8266240Z Updating files:  50% (3407/6814)
+2026-09-10T11:49:46.8740590Z Updating files:  51% (3476/6814)
+2026-09-10T11:49:46.8989750Z Updating files:  52% (3544/6814)
+2026-09-10T11:49:46.9275420Z Updating files:  53% (3612/6814)
+2026-09-10T11:49:46.9586500Z Updating files:  54% (3680/6814)
+2026-09-10T11:49:46.9859090Z Updating files:  55% (3748/6814)
+2026-09-10T11:49:47.0162640Z Updating files:  56% (3816/6814)
+2026-09-10T11:49:47.0331690Z Updating files:  57% (3884/6814)
+2026-09-10T11:49:47.0463330Z Updating files:  58% (3953/6814)
+2026-09-10T11:49:47.0940870Z Updating files:  59% (4021/6814)
+2026-09-10T11:49:47.1204710Z Updating files:  60% (4089/6814)
+2026-09-10T11:49:47.1399360Z Updating files:  61% (4157/6814)
+2026-09-10T11:49:47.1757490Z Updating files:  62% (4225/6814)
+2026-09-10T11:49:47.1920880Z Updating files:  63% (4293/6814)
+2026-09-10T11:49:47.2073060Z Updating files:  64% (4361/6814)
+2026-09-10T11:49:47.2244680Z Updating files:  65% (4430/6814)
+2026-09-10T11:49:47.2404980Z Updating files:  66% (4498/6814)
+2026-09-10T11:49:47.2538940Z Updating files:  67% (4566/6814)
+2026-09-10T11:49:47.2666010Z Updating files:  68% (4634/6814)
+2026-09-10T11:49:47.2792610Z Updating files:  69% (4702/6814)
+2026-09-10T11:49:47.2933560Z Updating files:  70% (4770/6814)
+2026-09-10T11:49:47.3055340Z Updating files:  71% (4838/6814)
+2026-09-10T11:49:47.4170020Z Updating files:  72% (4907/6814)
+2026-09-10T11:49:47.4465440Z Updating files:  73% (4975/6814)
+2026-09-10T11:49:47.4837190Z Updating files:  74% (5043/6814)
+2026-09-10T11:49:47.6274940Z Updating files:  74% (5052/6814)
+2026-09-10T11:49:47.6370520Z Updating files:  75% (5111/6814)
+2026-09-10T11:49:47.8573180Z Updating files:  76% (5179/6814)
+2026-09-10T11:49:47.9023170Z Updating files:  77% (5247/6814)
+2026-09-10T11:49:47.9141550Z Updating files:  78% (5315/6814)
+2026-09-10T11:49:47.9486860Z Updating files:  79% (5384/6814)
+2026-09-10T11:49:47.9730540Z Updating files:  80% (5452/6814)
+2026-09-10T11:49:48.1132050Z Updating files:  81% (5520/6814)
+2026-09-10T11:49:48.1286300Z Updating files:  82% (5588/6814)
+2026-09-10T11:49:48.1412750Z Updating files:  83% (5656/6814)
+2026-09-10T11:49:48.1559340Z Updating files:  84% (5724/6814)
+2026-09-10T11:49:48.1937950Z Updating files:  85% (5792/6814)
+2026-09-10T11:49:48.2098000Z Updating files:  86% (5861/6814)
+2026-09-10T11:49:48.2275830Z Updating files:  87% (5929/6814)
+2026-09-10T11:49:48.2483150Z Updating files:  88% (5997/6814)
+2026-09-10T11:49:48.2675170Z Updating files:  89% (6065/6814)
+2026-09-10T11:49:48.2798870Z Updating files:  90% (6133/6814)
+2026-09-10T11:49:48.2999220Z Updating files:  91% (6201/6814)
+2026-09-10T11:49:48.3151610Z Updating files:  92% (6269/6814)
+2026-09-10T11:49:48.3480720Z Updating files:  93% (6338/6814)
+2026-09-10T11:49:48.3653360Z Updating files:  94% (6406/6814)
+2026-09-10T11:49:48.3822260Z Updating files:  95% (6474/6814)
+2026-09-10T11:49:48.3965710Z Updating files:  96% (6542/6814)
+2026-09-10T11:49:48.4153370Z Updating files:  97% (6610/6814)
+2026-09-10T11:49:48.4409970Z Updating files:  98% (6678/6814)
+2026-09-10T11:49:48.4564080Z Updating files:  99% (6746/6814)
+2026-09-10T11:49:48.4565000Z Updating files: 100% (6814/6814)
+2026-09-10T11:49:48.4565310Z Updating files: 100% (6814/6814), done.
+2026-09-10T11:49:48.4691400Z Switched to a new branch 'main'
+2026-09-10T11:49:48.4704730Z branch 'main' set up to track 'origin/main'.
+2026-09-10T11:49:48.4841640Z ##[endgroup]
+2026-09-10T11:49:48.5130050Z [command]/opt/homebrew/bin/git log -1 --format=%H
+2026-09-10T11:49:48.5259270Z 0f666e0ab7fdce63d5fa668442dae1c9fda86a1d
+2026-09-10T11:49:48.5273310Z ##[group]Removing auth
+2026-09-10T11:49:48.5273890Z Removing SSH command configuration
+2026-09-10T11:49:48.5278230Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-10T11:49:48.5373710Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-10T11:49:48.6814110Z Removing HTTP extra header
+2026-09-10T11:49:48.6821310Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-10T11:49:48.6916420Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-10T11:49:48.8025520Z Removing includeIf entries pointing to credentials config files
+2026-09-10T11:49:48.8032390Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-10T11:49:48.8073590Z includeif.gitdir:/Users/runner/work/PartyDeck/PartyDeck/.git.path
+2026-09-10T11:49:48.8074960Z includeif.gitdir:/Users/runner/work/PartyDeck/PartyDeck/.git/worktrees/*.path
+2026-09-10T11:49:48.8075960Z includeif.gitdir:/github/workspace/.git.path
+2026-09-10T11:49:48.8076700Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-09-10T11:49:48.8080050Z [command]/opt/homebrew/bin/git config --local --get-all includeif.gitdir:/Users/runner/work/PartyDeck/PartyDeck/.git.path
+2026-09-10T11:49:48.8179090Z /Users/runner/work/_temp/git-credentials-acc252af-fe80-4062-a112-f986f6d00614.config
+2026-09-10T11:49:48.8191320Z [command]/opt/homebrew/bin/git config --local --unset includeif.gitdir:/Users/runner/work/PartyDeck/PartyDeck/.git.path \/Users\/runner\/work\/_temp\/git\-credentials\-acc252af\-fe80\-4062\-a112\-f986f6d00614\.config
+2026-09-10T11:49:48.8342140Z [command]/opt/homebrew/bin/git config --local --get-all includeif.gitdir:/Users/runner/work/PartyDeck/PartyDeck/.git/worktrees/*.path
+2026-09-10T11:49:48.8421200Z /Users/runner/work/_temp/git-credentials-acc252af-fe80-4062-a112-f986f6d00614.config
+2026-09-10T11:49:48.8433090Z [command]/opt/homebrew/bin/git config --local --unset includeif.gitdir:/Users/runner/work/PartyDeck/PartyDeck/.git/worktrees/*.path \/Users\/runner\/work\/_temp\/git\-credentials\-acc252af\-fe80\-4062\-a112\-f986f6d00614\.config
+2026-09-10T11:49:48.8514300Z [command]/opt/homebrew/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-09-10T11:49:48.8584550Z /github/runner_temp/git-credentials-acc252af-fe80-4062-a112-f986f6d00614.config
+2026-09-10T11:49:48.8590730Z [command]/opt/homebrew/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-acc252af\-fe80\-4062\-a112\-f986f6d00614\.config
+2026-09-10T11:49:48.8665470Z [command]/opt/homebrew/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-09-10T11:49:48.8733330Z /github/runner_temp/git-credentials-acc252af-fe80-4062-a112-f986f6d00614.config
+2026-09-10T11:49:48.8739000Z [command]/opt/homebrew/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-acc252af\-fe80\-4062\-a112\-f986f6d00614\.config
+2026-09-10T11:49:48.8819470Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-10T11:49:48.9764050Z Removing credentials config '/Users/runner/work/_temp/git-credentials-acc252af-fe80-4062-a112-f986f6d00614.config'
+2026-09-10T11:49:48.9776120Z ##[endgroup]
+2026-09-10T11:49:49.0266710Z ##[group]Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6
+2026-09-10T11:49:49.0267080Z with:
+2026-09-10T11:49:49.0267210Z   distribution: temurin
+2026-09-10T11:49:49.0267360Z   java-version: 21
+2026-09-10T11:49:49.0267510Z   java-package: jdk
+2026-09-10T11:49:49.0267670Z   check-latest: false
+2026-09-10T11:49:49.0267820Z   force-download: false
+2026-09-10T11:49:49.0267970Z   set-default: true
+2026-09-10T11:49:49.0268110Z   server-id: github
+2026-09-10T11:49:49.0268280Z   mvn-repositories-include-central: true
+2026-09-10T11:49:49.0268520Z   mvn-repositories-prioritize-central: true
+2026-09-10T11:49:49.0268730Z   overwrite-settings: true
+2026-09-10T11:49:49.0268900Z   cache-read-only: false
+2026-09-10T11:49:49.0269060Z   job-status: success
+2026-09-10T11:49:49.0270980Z   token: ***
+2026-09-10T11:49:49.0271140Z   show-download-progress: false
+2026-09-10T11:49:49.0271320Z   problem-matcher: true
+2026-09-10T11:49:49.0271460Z env:
+2026-09-10T11:49:49.0271700Z   DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
+2026-09-10T11:49:49.0271960Z ##[endgroup]
+2026-09-10T11:49:49.1438380Z ##[group]Installed distributions
+2026-09-10T11:49:49.1528830Z Trying to resolve the latest version from remote
+2026-09-10T11:49:49.5525960Z Resolved latest version as 21.0.12+101.0.LTS
+2026-09-10T11:49:49.5626440Z Trying to download...
+2026-09-10T11:49:49.5729110Z Downloading Java 21.0.12+101.0.LTS (Temurin-Hotspot) from https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.12.1%2B1/OpenJDK21U-jdk_aarch64_mac_hotspot_21.0.12.1_1.tar.gz ...
+2026-09-10T11:49:51.6697100Z Verifying Java package signature...
+2026-09-10T11:49:53.4336220Z Extracting Java archive...
+2026-09-10T11:49:53.4494590Z [command]/usr/bin/tar xz -C /Users/runner/work/_temp/10cc8621-335d-40fc-b029-d5d67edff646 -f /Users/runner/work/_temp/f93a4276-928c-40f2-9dcc-da10d12b445a
+2026-09-10T11:49:54.4933210Z Java 21.0.12+101.0.LTS was downloaded
+2026-09-10T11:49:54.4934180Z Setting Java 21.0.12+101.0.LTS as the default
+2026-09-10T11:49:54.4943930Z 
+2026-09-10T11:49:54.4944410Z Java configuration:
+2026-09-10T11:49:54.4945410Z   Distribution: temurin
+2026-09-10T11:49:54.4946390Z   Version: 21.0.12+101.0.LTS
+2026-09-10T11:49:54.4947850Z   Path: /Users/runner/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-101.0.LTS/aarch64/Contents/Home
+2026-09-10T11:49:54.4949050Z 
+2026-09-10T11:49:54.4951420Z ##[endgroup]
+2026-09-10T11:49:54.5028820Z Creating settings.xml with server-id: github
+2026-09-10T11:49:54.5029200Z Creating toolchains.xml for JDK version 21 from temurin
+2026-09-10T11:49:54.5029510Z Writing to /Users/runner/.m2/settings.xml
+2026-09-10T11:49:54.5029780Z Writing to /Users/runner/.m2/toolchains.xml
+2026-09-10T11:49:54.5044700Z Configured MAVEN_ARGS to include -ntp to suppress Maven transfer progress logs. Set 'show-download-progress: true' to keep the download progress output.
+2026-09-10T11:49:54.5196520Z ##[group]Run android-actions/setup-android@40fd30fb8d7440372e1316f5d1809ec01dcd3699
+2026-09-10T11:49:54.5196870Z with:
+2026-09-10T11:49:54.5197110Z   packages: platform-tools platforms;android-37.1 build-tools;36.0.0
+2026-09-10T11:49:54.5197420Z   log-accepted-android-sdk-licenses: false
+2026-09-10T11:49:54.5197690Z   cmdline-tools-version: 14742923
+2026-09-10T11:49:54.5197920Z   accept-android-sdk-licenses: true
+2026-09-10T11:49:54.5198120Z env:
+2026-09-10T11:49:54.5198370Z   DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
+2026-09-10T11:49:54.5198980Z   JAVA_HOME: /Users/runner/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-101.0.LTS/aarch64/Contents/Home
+2026-09-10T11:49:54.5199690Z   JAVA_HOME_21_AARCH64: /Users/runner/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-101.0.LTS/aarch64/Contents/Home
+2026-09-10T11:49:54.5200120Z   MAVEN_ARGS: -ntp
+2026-09-10T11:49:54.5200290Z ##[endgroup]
+2026-09-10T11:49:54.6569610Z Found preinstalled sdkmanager in /Users/runner/Library/Android/sdk/cmdline-tools/latest with following source.properties:
+2026-09-10T11:49:54.6571250Z Pkg.Revision=16.0
+2026-09-10T11:49:54.6571780Z Pkg.Path=cmdline-tools;16.0
+2026-09-10T11:49:54.6572430Z Pkg.Desc=Android SDK Command-line Tools
+2026-09-10T11:49:54.6572890Z 
+2026-09-10T11:49:54.6573310Z Wrong version in preinstalled sdkmanager
+2026-09-10T11:49:54.6574630Z Downloading commandline tools from https://dl.google.com/android/repository/commandlinetools-mac-14742923_latest.zip
+2026-09-10T11:49:57.2326270Z [command]/usr/bin/unzip -o -q /Users/runner/work/_temp/aca1ef8b-d311-4b3e-aac1-49044e22eb1e
+2026-09-10T11:49:58.8890990Z Accepting Android SDK licenses
+2026-09-10T11:50:02.3786400Z [command]/Users/runner/Library/Android/sdk/cmdline-tools/20.0/bin/sdkmanager platform-tools
+2026-09-10T11:50:03.3736510Z Loading package information...                                                  
+2026-09-10T11:50:03.4404200Z Loading local repository...                                                     
+2026-09-10T11:50:03.4405200Z [                                       ] 3% Loading local repository...        
+2026-09-10T11:50:03.4437740Z [                                       ] 3% Fetch remote repository...         
+2026-09-10T11:50:03.6230150Z [=                                      ] 3% Fetch remote repository...         
+2026-09-10T11:50:03.8001740Z [=                                      ] 4% Fetch remote repository...         
+2026-09-10T11:50:03.8202540Z [=                                      ] 5% Fetch remote repository...         
+2026-09-10T11:50:03.8639100Z [==                                     ] 5% Fetch remote repository...         
+2026-09-10T11:50:03.9226630Z [==                                     ] 6% Fetch remote repository...         
+2026-09-10T11:50:03.9862030Z [==                                     ] 7% Fetch remote repository...         
+2026-09-10T11:50:03.9963870Z [==                                     ] 7% Computing updates...               
+2026-09-10T11:50:04.0067590Z [===                                    ] 8% Computing updates...               
+2026-09-10T11:50:04.0167260Z [===                                    ] 10% Computing updates...              
+2026-09-10T11:50:04.0270860Z [=======================================] 100% Computing updates...             
+2026-09-10T11:50:04.0295830Z 
+2026-09-10T11:50:04.0297790Z [command]/Users/runner/Library/Android/sdk/cmdline-tools/20.0/bin/sdkmanager platforms;android-37.1
+2026-09-10T11:50:05.0501790Z Loading package information...                                                  
+2026-09-10T11:50:05.1535590Z Loading local repository...                                                     
+2026-09-10T11:50:05.1640240Z [                                       ] 3% Loading local repository...        
+2026-09-10T11:50:05.1744080Z [                                       ] 3% Fetch remote repository...         
+2026-09-10T11:50:05.4795770Z [=                                      ] 3% Fetch remote repository...         
+2026-09-10T11:50:05.5330850Z [=                                      ] 4% Fetch remote repository...         
+2026-09-10T11:50:05.5689710Z [=                                      ] 5% Fetch remote repository...         
+2026-09-10T11:50:05.6767390Z [==                                     ] 5% Fetch remote repository...         
+2026-09-10T11:50:05.7181990Z [==                                     ] 6% Fetch remote repository...         
+2026-09-10T11:50:05.8390620Z [==                                     ] 7% Fetch remote repository...         
+2026-09-10T11:50:05.8493150Z [==                                     ] 7% Computing updates...               
+2026-09-10T11:50:05.8585640Z [===                                    ] 8% Computing updates...               
+2026-09-10T11:50:05.8598590Z [===                                    ] 10% Computing updates...              
+2026-09-10T11:50:05.8605380Z [=======================================] 100% Computing updates...             
+2026-09-10T11:50:05.8609000Z 
+2026-09-10T11:50:05.8954090Z [command]/Users/runner/Library/Android/sdk/cmdline-tools/20.0/bin/sdkmanager build-tools;36.0.0
+2026-09-10T11:50:06.7566090Z Loading package information...                                                  
+2026-09-10T11:50:06.8575770Z Loading local repository...                                                     
+2026-09-10T11:50:06.8678160Z [                                       ] 3% Loading local repository...        
+2026-09-10T11:50:06.8780900Z [                                       ] 3% Fetch remote repository...         
+2026-09-10T11:50:07.1982600Z [=                                      ] 3% Fetch remote repository...         
+2026-09-10T11:50:07.2855330Z [=                                      ] 4% Fetch remote repository...         
+2026-09-10T11:50:07.3258620Z [=                                      ] 5% Fetch remote repository...         
+2026-09-10T11:50:07.3702650Z [==                                     ] 5% Fetch remote repository...         
+2026-09-10T11:50:07.4325450Z [==                                     ] 6% Fetch remote repository...         
+2026-09-10T11:50:07.5158830Z [==                                     ] 7% Fetch remote repository...         
+2026-09-10T11:50:07.5266410Z [==                                     ] 7% Computing updates...               
+2026-09-10T11:50:07.5368160Z [===                                    ] 8% Computing updates...               
+2026-09-10T11:50:07.5470540Z [===                                    ] 10% Computing updates...              
+2026-09-10T11:50:07.5573920Z [=======================================] 100% Computing updates...             
+2026-09-10T11:50:07.5672820Z 
+2026-09-10T11:50:07.6471500Z ##[group]Run gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb
+2026-09-10T11:50:07.6471910Z with:
+2026-09-10T11:50:07.6472090Z   cache-provider: basic
+2026-09-10T11:50:07.6472250Z   cache-read-only: false
+2026-09-10T11:50:07.6472530Z   cache-disabled: false
+2026-09-10T11:50:07.6472750Z   cache-write-only: false
+2026-09-10T11:50:07.6473040Z   cache-overwrite-existing: false
+2026-09-10T11:50:07.6473250Z   cache-cleanup: on-success
+2026-09-10T11:50:07.6473520Z   gradle-home-cache-includes: caches
+notifications
+
+2026-09-10T11:50:07.6473840Z   add-job-summary: always
+2026-09-10T11:50:07.6474110Z   add-job-summary-as-pr-comment: never
+2026-09-10T11:50:07.6474410Z   dependency-graph: disabled
+2026-09-10T11:50:07.6474710Z   dependency-graph-report-dir: dependency-graph-reports
+2026-09-10T11:50:07.6475150Z   dependency-graph-continue-on-failure: true
+2026-09-10T11:50:07.6475480Z   build-scan-publish: false
+2026-09-10T11:50:07.6475790Z   validate-wrappers: true
+2026-09-10T11:50:07.6476070Z   allow-snapshot-wrappers: false
+2026-09-10T11:50:07.6476890Z   gradle-home-cache-strict-match: false
+2026-09-10T11:50:07.6477250Z   workflow-job-context: null
+2026-09-10T11:50:07.6479670Z   github-token: ***
+2026-09-10T11:50:07.6479890Z env:
+2026-09-10T11:50:07.6480190Z   DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
+2026-09-10T11:50:07.6480730Z   JAVA_HOME: /Users/runner/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-101.0.LTS/aarch64/Contents/Home
+2026-09-10T11:50:07.6481480Z   JAVA_HOME_21_AARCH64: /Users/runner/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-101.0.LTS/aarch64/Contents/Home
+2026-09-10T11:50:07.6481990Z   MAVEN_ARGS: -ntp
+2026-09-10T11:50:07.6482240Z   ANDROID_HOME: /Users/runner/Library/Android/sdk
+2026-09-10T11:50:07.6482550Z   ANDROID_SDK_ROOT: /Users/runner/Library/Android/sdk
+2026-09-10T11:50:07.6482800Z ##[endgroup]
+2026-09-10T11:50:08.3723920Z Gradle User Home already exists at /Users/runner/.gradle
+2026-09-10T11:50:08.3770410Z Merged default JDK locations into /Users/runner/.m2/toolchains.xml
+2026-09-10T11:50:08.3871960Z Basic Caching: This build uses the basic open-source caching provider. For faster builds and advanced features, consider switching to the Enhanced Caching provider. See https://github.com/gradle/actions/blob/main/DISTRIBUTION.md for details.
+2026-09-10T11:50:09.8159610Z Basic caching did not find an entry to restore. Will start with empty state.
+2026-09-10T11:50:09.9416730Z ##[group]All Gradle Wrapper jars are valid
+2026-09-10T11:50:09.9421450Z ✓ Found known Gradle Wrapper JAR files:
+2026-09-10T11:50:09.9423290Z   7a9ce74cff467ca1bf60a4fcd9f05185acceda4d0f382434d393e17864262c5d gradle/wrapper/gradle-wrapper.jar
+2026-09-10T11:50:09.9425170Z ##[endgroup]
+2026-09-10T11:50:09.9617090Z ##[group]Run bash godot/ios-host/build-authority.sh
+2026-09-10T11:50:09.9618460Z [36;1mbash godot/ios-host/build-authority.sh[0m
+2026-09-10T11:50:09.9620230Z [36;1mprintf '%s\n' "$GITHUB_SHA" > godot/ios-host/build/evidence/authority-source-commit.txt[0m
+2026-09-10T11:50:09.9759030Z shell: /bin/bash -e {0}
+2026-09-10T11:50:09.9759280Z env:
+2026-09-10T11:50:09.9759660Z   DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
+2026-09-10T11:50:09.9760200Z   JAVA_HOME: /Users/runner/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-101.0.LTS/aarch64/Contents/Home
+2026-09-10T11:50:09.9760850Z   JAVA_HOME_21_AARCH64: /Users/runner/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-101.0.LTS/aarch64/Contents/Home
+2026-09-10T11:50:09.9761340Z   MAVEN_ARGS: -ntp
+2026-09-10T11:50:09.9761560Z   ANDROID_HOME: /Users/runner/Library/Android/sdk
+2026-09-10T11:50:09.9761860Z   ANDROID_SDK_ROOT: /Users/runner/Library/Android/sdk
+2026-09-10T11:50:09.9762280Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-09-10T11:50:09.9762940Z   GRADLE_USER_HOME: /Users/runner/.gradle
+2026-09-10T11:50:09.9763200Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-09-10T11:50:09.9763620Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-09-10T11:50:09.9764010Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-09-10T11:50:09.9764290Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-09-10T11:50:09.9764510Z ##[endgroup]
+2026-09-10T11:50:14.8513240Z Fetching distribution.
+2026-09-10T11:50:14.8523340Z Downloading https://services.gradle.org/distributions/gradle-9.7.0-bin.zip
+2026-09-10T11:50:17.5393610Z ..............10%..............20%..............30%...............40%..............50%..............60%...............70%..............80%...............90%..............100%
+2026-09-10T11:50:20.1800770Z 
+2026-09-10T11:50:20.1902120Z Welcome to Gradle 9.7.0!
+2026-09-10T11:50:20.1999960Z 
+2026-09-10T11:50:20.2008450Z Here are the highlights of this release:
+2026-09-10T11:50:20.2010500Z  - Isolated Projects graduates to incubating
+2026-09-10T11:50:20.2011900Z  - Broader Configuration Cache compatibility
+2026-09-10T11:50:20.2013220Z  - More source locations in problem reports
+2026-09-10T11:50:20.2014710Z 
+2026-09-10T11:50:20.2015950Z For more details see https://docs.gradle.org/9.7.0/release-notes.html
+2026-09-10T11:50:20.2016620Z 
+2026-09-10T11:50:20.3506530Z To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.7.0/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+2026-09-10T11:50:21.6733880Z Daemon will be stopped at the end of the build 
+2026-09-10T11:51:19.0734660Z 
+2026-09-10T11:51:19.0983070Z > Configure project :bridge
+2026-09-10T11:51:19.1086120Z WARNING: The 'commonTest' source directory exists, but android host tests are not enabled. To enable android host tests, add `withHostTest {}` to your android target configuration in the Gradle build file.
+2026-09-10T11:51:19.1209950Z Add android.sync.suppressAgpWarnings=GENERIC to the gradle.properties file to suppress this warning.
+2026-09-10T11:51:20.3702050Z 
+2026-09-10T11:51:20.3703270Z > Configure project :core
+2026-09-10T11:51:20.3704830Z WARNING: The 'commonTest' source directory exists, but android host tests are not enabled. To enable android host tests, add `withHostTest {}` to your android target configuration in the Gradle build file.
+2026-09-10T11:51:20.3706270Z Add android.sync.suppressAgpWarnings=GENERIC to the gradle.properties file to suppress this warning.
+2026-09-10T11:51:21.0659550Z 
+2026-09-10T11:51:21.0663040Z > Configure project :games
+2026-09-10T11:51:21.0666690Z WARNING: The 'commonTest' source directory exists, but android host tests are not enabled. To enable android host tests, add `withHostTest {}` to your android target configuration in the Gradle build file.
+2026-09-10T11:51:21.0676060Z Add android.sync.suppressAgpWarnings=GENERIC to the gradle.properties file to suppress this warning.
+2026-09-10T11:51:23.2073110Z 
+2026-09-10T11:51:23.2074070Z > Task :core:kmpPartiallyResolvedDependenciesChecker
+2026-09-10T11:51:23.2074810Z > Task :core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-09-10T11:51:26.0838870Z 
+2026-09-10T11:51:26.0839980Z > Task :core:downloadKotlinNativeDistribution
+2026-09-10T11:51:26.0842350Z Kotlin/Native bundle directory /Users/runner/.konan/kotlin-native-prebuilt-macos-aarch64-2.4.20 is not empty. Native bundle files will be overwritten.
+2026-09-10T11:51:42.7400490Z Downloading native dependencies (LLVM, sysroot etc). This is a one-time action performed only on the first run of the compiler.
+2026-09-10T11:51:42.7402390Z Downloading dependency https://download.jetbrains.com/kotlin/native/resources/llvm/21-aarch64-macos/llvm-21-aarch64-macos-essentials-97.tar.gz to /Users/runner/.konan/dependencies/cache/llvm-21-aarch64-macos-essentials-97.tar.gz
+2026-09-10T11:51:43.7786340Z Done.
+2026-09-10T11:51:43.7789540Z Extracting dependency: /Users/runner/.konan/dependencies/cache/llvm-21-aarch64-macos-essentials-97.tar.gz into /Users/runner/.konan/dependencies
+2026-09-10T11:51:48.1555350Z Downloading dependency https://download.jetbrains.com/kotlin/native/libffi-3.3-1-macos-arm64.tar.gz to /Users/runner/.konan/dependencies/cache/libffi-3.3-1-macos-arm64.tar.gz
+2026-09-10T11:51:48.2478850Z Done.
+2026-09-10T11:51:48.2480750Z Extracting dependency: /Users/runner/.konan/dependencies/cache/libffi-3.3-1-macos-arm64.tar.gz into /Users/runner/.konan/dependencies
+2026-09-10T11:51:51.3527870Z 
+2026-09-10T11:51:51.3530600Z > Task :bridge:kmpPartiallyResolvedDependenciesChecker
+2026-09-10T11:52:02.7826830Z > Task :core:compileKotlinIosSimulatorArm64
+2026-09-10T11:52:02.7930890Z > Task :core:exportCrossCompilationMetadataForIosSimulatorArm64ApiElements
+2026-09-10T11:52:04.8989470Z > Task :games:kmpPartiallyResolvedDependenciesChecker
+2026-09-10T11:52:04.9101160Z > Task :games:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-09-10T11:52:04.9205570Z > Task :games:downloadKotlinNativeDistribution
+2026-09-10T11:52:07.2444750Z > Task :games:compileKotlinIosSimulatorArm64
+2026-09-10T11:52:07.3754690Z > Task :games:exportCrossCompilationMetadataForIosSimulatorArm64ApiElements
+2026-09-10T11:52:07.3856590Z > Task :bridge:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-09-10T11:52:07.3958210Z > Task :bridge:downloadKotlinNativeDistribution
+2026-09-10T11:52:11.3785060Z > Task :bridge:compileKotlinIosSimulatorArm64
+2026-09-10T11:52:41.3822230Z > Task :bridge:linkDebugFrameworkIosSimulatorArm64
+2026-09-10T11:52:42.4967060Z w: The number of threads 4 is more than the number of processors 3
+2026-09-10T11:52:42.7353420Z gradle/actions: Writing build results to /Users/runner/work/_temp/.gradle-actions/build-results/__run-1789041026176.json
+2026-09-10T11:52:42.7454560Z 
+2026-09-10T11:52:42.7478460Z BUILD SUCCESSFUL in 2m 27s
+2026-09-10T11:52:42.7479820Z 12 actionable tasks: 12 executed
+2026-09-10T11:52:42.8600840Z Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.7.0/userguide/configuration_cache_enabling.html
+2026-09-10T11:52:43.1803060Z /Users/runner/work/PartyDeck/PartyDeck/godot/qualification/build/modules/bridge/bin/iosSimulatorArm64/debugFramework/PartyDeckGodotBridge.framework/Info.plist: OK
+2026-09-10T11:52:45.3536280Z All nine required facade/mode declarations exist in the actual generated header.
+2026-09-10T11:52:51.8955960Z Retained the compiled Kotlin framework and its actual Objective-C export header.
+2026-09-10T11:52:51.9478420Z Prepare all required actions
+2026-09-10T11:52:51.9479010Z Getting action download info
+2026-09-10T11:52:52.2526090Z Download action repository 'actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a' (SHA:043fb46d1a93c77aae656e7c1c64a875d1fc6a0a)
+2026-09-10T11:52:52.6261360Z ##[group]Run ./.github/actions/upload-artifact
+2026-09-10T11:52:52.6261740Z with:
+2026-09-10T11:52:52.6262520Z   name: godot-ios-host-framework
+2026-09-10T11:52:52.6263360Z   path: godot/ios-host/build/evidence/**
+godot/ios-host/build/artifacts/**
+
+2026-09-10T11:52:52.6264010Z   if-no-files-found: warn
+2026-09-10T11:52:52.6264260Z   retention-days: 14
+2026-09-10T11:52:52.6264550Z env:
+2026-09-10T11:52:52.6264840Z   DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
+2026-09-10T11:52:52.6265510Z   JAVA_HOME: /Users/runner/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-101.0.LTS/aarch64/Contents/Home
+2026-09-10T11:52:52.6266320Z   JAVA_HOME_21_AARCH64: /Users/runner/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-101.0.LTS/aarch64/Contents/Home
+2026-09-10T11:52:52.6266910Z   MAVEN_ARGS: -ntp
+2026-09-10T11:52:52.6267120Z   ANDROID_HOME: /Users/runner/Library/Android/sdk
+2026-09-10T11:52:52.6267410Z   ANDROID_SDK_ROOT: /Users/runner/Library/Android/sdk
+2026-09-10T11:52:52.6267690Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-09-10T11:52:52.6268030Z   GRADLE_USER_HOME: /Users/runner/.gradle
+2026-09-10T11:52:52.6268270Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-09-10T11:52:52.6268620Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-09-10T11:52:52.6270060Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-09-10T11:52:52.6270360Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-09-10T11:52:52.6270630Z ##[endgroup]
+2026-09-10T11:52:52.6359310Z ##[start-action display=Upload artifact;id=__self.first]
+2026-09-10T11:52:52.6401460Z ##[group]Run actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+2026-09-10T11:52:52.6401780Z with:
+2026-09-10T11:52:52.6401960Z   name: godot-ios-host-framework
+2026-09-10T11:52:52.6402280Z   path: godot/ios-host/build/evidence/**
+godot/ios-host/build/artifacts/**
+
+2026-09-10T11:52:52.6402610Z   retention-days: 14
+2026-09-10T11:52:52.6402800Z   if-no-files-found: warn
+2026-09-10T11:52:52.6402990Z   compression-level: 6
+2026-09-10T11:52:52.6403150Z   overwrite: false
+2026-09-10T11:52:52.6403310Z   include-hidden-files: false
+2026-09-10T11:52:52.6403490Z   archive: true
+2026-09-10T11:52:52.6403620Z env:
+2026-09-10T11:52:52.6403840Z   DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
+2026-09-10T11:52:52.6404320Z   JAVA_HOME: /Users/runner/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-101.0.LTS/aarch64/Contents/Home
+2026-09-10T11:52:52.6404910Z   JAVA_HOME_21_AARCH64: /Users/runner/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-101.0.LTS/aarch64/Contents/Home
+2026-09-10T11:52:52.6405310Z   MAVEN_ARGS: -ntp
+2026-09-10T11:52:52.6405500Z   ANDROID_HOME: /Users/runner/Library/Android/sdk
+2026-09-10T11:52:52.6405770Z   ANDROID_SDK_ROOT: /Users/runner/Library/Android/sdk
+2026-09-10T11:52:52.6406020Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-09-10T11:52:52.6406260Z   GRADLE_USER_HOME: /Users/runner/.gradle
+2026-09-10T11:52:52.6406480Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-09-10T11:52:52.6406830Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-09-10T11:52:52.6407200Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-09-10T11:52:52.6407460Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-09-10T11:52:52.6407660Z ##[endgroup]
+2026-09-10T11:52:53.2235760Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-09-10T11:52:53.2238110Z The least common ancestor is /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build. This will be the root directory of the artifact
+2026-09-10T11:52:53.2239900Z With the provided path, there will be 13 files uploaded
+2026-09-10T11:52:53.2241980Z Artifact name is valid!
+2026-09-10T11:52:53.2242390Z Root directory input is valid!
+2026-09-10T11:52:53.5446210Z Uploading artifact: godot-ios-host-framework.zip
+2026-09-10T11:52:53.5464580Z Beginning upload of artifact content to blob storage
+2026-09-10T11:52:54.7154190Z Uploaded bytes 8388608
+2026-09-10T11:52:54.7659420Z Uploaded bytes 8511360
+2026-09-10T11:52:54.8112130Z Finished uploading artifact content to blob storage!
+2026-09-10T11:52:54.8213310Z SHA256 digest of uploaded artifact is 813da900762adf1b80e98fa918a8bfdc8683347a6b3ca084bcbbbfd72dc17dbd
+2026-09-10T11:52:54.8313950Z Finalizing artifact upload
+2026-09-10T11:52:55.1195170Z Artifact godot-ios-host-framework successfully finalized. Artifact ID 10150543644
+2026-09-10T11:52:55.1196100Z Artifact godot-ios-host-framework has been successfully uploaded! Final size is 8511360 bytes. Artifact ID is 10150543644
+2026-09-10T11:52:55.1197060Z Artifact download URL: https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34473325295/artifacts/10150543644
+2026-09-10T11:52:55.1256170Z ##[end-action id=__self.first;outcome=success;conclusion=success;duration_ms=2488]
+2026-09-10T11:52:55.1259780Z ##[start-action display=Wait before the single upload retry;id=__self.__run]
+2026-09-10T11:52:55.1264950Z ##[end-action id=__self.__run;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-09-10T11:52:55.1266830Z ##[start-action display=Retry artifact upload;id=__self.retry]
+2026-09-10T11:52:55.1279070Z ##[end-action id=__self.retry;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-09-10T11:52:55.1280950Z ##[start-action display=Require a successful upload attempt;id=__self.__run_2]
+2026-09-10T11:52:55.1300500Z ##[end-action id=__self.__run_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-09-10T11:52:55.1672210Z Post job cleanup.
+2026-09-10T11:52:55.5023240Z In post-action step
+2026-09-10T11:52:55.5033370Z Basic Caching: This build uses the basic open-source caching provider. For faster builds and advanced features, consider switching to the Enhanced Caching provider. See https://github.com/gradle/actions/blob/main/DISTRIBUTION.md for details.
+2026-09-10T11:52:55.5308980Z [command]/opt/homebrew/bin/gtar --posix -cf cache.tzst --exclude cache.tzst -P -C /Users/runner/work/PartyDeck/PartyDeck --files-from manifest.txt --delay-directory-restore --use-compress-program zstdmt
+2026-09-10T11:53:00.8121090Z Sent 0 of 693806645 (0.0%), 0.0 MBs/sec
+2026-09-10T11:53:01.8135820Z Sent 0 of 693806645 (0.0%), 0.0 MBs/sec
+2026-09-10T11:53:02.8208190Z Sent 67108864 of 693806645 (9.7%), 21.3 MBs/sec
+2026-09-10T11:53:03.8225940Z Sent 134217728 of 693806645 (19.3%), 31.9 MBs/sec
+2026-09-10T11:53:04.8227970Z Sent 469762048 of 693806645 (67.7%), 89.4 MBs/sec
+2026-09-10T11:53:05.8243640Z Sent 626697781 of 693806645 (90.3%), 99.4 MBs/sec
+2026-09-10T11:53:06.1373590Z Sent 693806645 of 693806645 (100.0%), 104.6 MBs/sec
+2026-09-10T11:53:06.8885470Z Basic caching saved entry with key: setup-java-macOS-arm64-gradle-d10129ad46c2426e1d48e71e5beafd008c5ee36aff33f1b2f656787e25cdf096
+2026-09-10T11:53:06.8888400Z ##[group]Generating Job Summary
+2026-09-10T11:53:06.8888860Z 
+2026-09-10T11:53:06.8888990Z 
+2026-09-10T11:53:06.8889270Z <table>
+2026-09-10T11:53:06.8889860Z     <tr>
+2026-09-10T11:53:06.8891160Z         <th>Gradle Root Project</th>
+2026-09-10T11:53:06.8891980Z         <th>Requested Tasks</th>
+2026-09-10T11:53:06.8892370Z         <th>Gradle Version</th>
+2026-09-10T11:53:06.8892760Z         <th>Build Outcome</th>
+2026-09-10T11:53:06.8895480Z         <th>Build&nbsp;Scan®</th>
+2026-09-10T11:53:06.8896140Z     </tr>
+2026-09-10T11:53:06.8896430Z     <tr>
+2026-09-10T11:53:06.8897100Z         <td>PartyDeckGodotQualification</td>
+2026-09-10T11:53:06.8897710Z         <td>:bridge:linkDebugFrameworkIosSimulatorArm64</td>
+2026-09-10T11:53:06.8898300Z         <td align='center'>9.7.0</td>
+2026-09-10T11:53:06.8898910Z         <td align='center'>:white_check_mark:</td>
+2026-09-10T11:53:06.8900170Z         <td><a href="https://scans.gradle.com" rel="nofollow" target="_blank"><img src="https://img.shields.io/badge/Not%20published-lightgrey" alt="Build Scan not published" /></a></td>
+2026-09-10T11:53:06.8901150Z     </tr>
+2026-09-10T11:53:06.8901360Z </table>
+2026-09-10T11:53:06.8901670Z     
+2026-09-10T11:53:06.8902040Z ============================
+2026-09-10T11:53:06.8903290Z <h4>Gradle State Caching - 🛡️ Basic</h4>
+2026-09-10T11:53:06.8903650Z 
+2026-09-10T11:53:06.8905130Z **[Basic Caching](https://github.com/gradle/actions/blob/main/docs/setup-gradle.md#basic-caching)** uses the basic open-source caching provider. For faster builds and advanced features, consider the **[Enhanced Caching](https://github.com/gradle/actions/blob/main/docs/setup-gradle.md#enhanced-caching)** provider.
+2026-09-10T11:53:06.8906370Z 
+2026-09-10T11:53:06.8906590Z <details>
+2026-09-10T11:53:06.8907210Z <summary>Entries: 0 restored, 1 saved - Expand for more details</summary>
+2026-09-10T11:53:06.8907650Z 
+2026-09-10T11:53:06.8909110Z [Cache was enabled](https://github.com/gradle/actions/blob/main/docs/setup-gradle.md#caching-build-state-between-jobs) — Gradle User Home was restored from the cache and saved for use by subsequent jobs.
+2026-09-10T11:53:06.8911530Z 
+2026-09-10T11:53:06.8911760Z <pre>
+2026-09-10T11:53:06.8912210Z Entry: Gradle User Home
+2026-09-10T11:53:06.8913060Z     Requested Key : setup-java-macOS-arm64-gradle-d10129ad46c2426e1d48e71e5beafd008c5ee36aff33f1b2f656787e25cdf096
+2026-09-10T11:53:06.8913770Z     Restored  Key : 
+2026-09-10T11:53:06.8914180Z               Size: 
+2026-09-10T11:53:06.8914510Z               Time: 
+2026-09-10T11:53:06.8914950Z               (Entry not restored: no match found)
+2026-09-10T11:53:06.8924050Z     Saved     Key : setup-java-macOS-arm64-gradle-d10129ad46c2426e1d48e71e5beafd008c5ee36aff33f1b2f656787e25cdf096
+2026-09-10T11:53:06.8925340Z               Size: 
+2026-09-10T11:53:06.8925760Z               Time: 
+2026-09-10T11:53:06.8926020Z               (Entry saved)
+2026-09-10T11:53:06.8926330Z </pre>
+2026-09-10T11:53:06.8926570Z </details>
+2026-09-10T11:53:06.8926710Z 
+2026-09-10T11:53:06.8927550Z ##[endgroup]
+2026-09-10T11:53:06.8927910Z Completed post-action step
+2026-09-10T11:53:06.9288100Z Post job cleanup.
+2026-09-10T11:53:07.4258800Z Post job cleanup.
+2026-09-10T11:53:07.5965800Z [command]/opt/homebrew/bin/git version
+2026-09-10T11:53:07.6356950Z git version 2.55.0
+2026-09-10T11:53:07.6379240Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/f7293fbb-a1bc-4080-90f8-29926d6e489d/.gitconfig'
+2026-09-10T11:53:07.6390140Z Temporarily overriding HOME='/Users/runner/work/_temp/f7293fbb-a1bc-4080-90f8-29926d6e489d' before making global git config changes
+2026-09-10T11:53:07.6391330Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-10T11:53:07.6394870Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/PartyDeck/PartyDeck
+2026-09-10T11:53:07.6558010Z Removing SSH command configuration
+2026-09-10T11:53:07.6563940Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-10T11:53:07.6649050Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-10T11:53:07.7773670Z Removing HTTP extra header
+2026-09-10T11:53:07.7775400Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-10T11:53:07.7851920Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-10T11:53:07.8784610Z Removing includeIf entries pointing to credentials config files
+2026-09-10T11:53:07.8788440Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-10T11:53:07.8871420Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-10T11:53:08.0370140Z Cleaning up orphan processes

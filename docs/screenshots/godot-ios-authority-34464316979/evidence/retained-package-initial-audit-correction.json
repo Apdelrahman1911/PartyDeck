@@ -1,0 +1,19 @@
+{
+  "scope": "Local auditor correction only; original artifacts and completed input receipt unchanged.",
+  "initialScript": {
+    "path": "/tmp/partydeck-engine-ci/audit-ios-retained-inputs-34464316979.py",
+    "sha256": "a516b21592c9b62c815769a4cdd1568a146f29ae71406948c4df13454937af6e"
+  },
+  "observedError": "AssertionError: all five required native/Kotlin owner symbols are defined in linked executable",
+  "cause": "The initial checker counted symbolic debugging entries alongside actual definitions and expected exactly five records. The original binary has five non-STAB definitions plus three matching STAB records.",
+  "correction": "Exclude records whose n_type has N_STAB bits (0xe0) from the definition check, per the preserved Apple nlist.h. Preserve excluded records in the successor package receipt.",
+  "successorScript": {
+    "path": "/tmp/partydeck-engine-ci/audit-ios-retained-package-34464316979.py",
+    "sha256": "ce4ec28f0f623ed85c7c2c293228dad7c448130543791024c77ad8701a9d931d"
+  },
+  "originalInputReceipt": {
+    "path": "/tmp/partydeck-engine-ci/34464316979/retained-input-evidence-summary.json",
+    "sha256": "d4755315d84de891fbc573b4928271dac5bb7085c15ace1238d7df280e15335b"
+  },
+  "formatReferences": "/tmp/partydeck-engine-ci/34464316979/research/macho/references.json"
+}

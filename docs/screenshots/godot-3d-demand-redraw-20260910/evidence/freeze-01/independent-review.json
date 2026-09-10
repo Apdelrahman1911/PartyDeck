@@ -1,0 +1,80 @@
+{
+  "baseHead": "0f666e0ab7fdce63d5fa668442dae1c9fda86a1d",
+  "candidate": "three-d-demand-redraw-v1/iteration-03",
+  "conclusion": "No source-level blocker found in the candidate 1 to 3 delta. Approve this exact candidate for integration and packed acceptance; native retained-host latency and production qualification remain unproven.",
+  "deltaFindings": [
+    "The duplicate candidate-1 _exit_tree definition is gone; draw disconnection now occurs in the existing cleanup. The initial source review missed that parser blocker; the retained failed import remains authoritative for candidate 1.",
+    "Candidate 3 re-enables one _process target-positioning pass after _render or stage resize. That pass disables itself before positioning and introduces no fixed animation frame budget.",
+    "Pinned CanvasItem::queue_redraw defers drawing; SceneTree processes nodes and flushes messages before Tweens; Main flushes messages before RenderingServer drawing. The early requested pass initializes overlay geometry before that flush, and pre_draw tracks current Tween transforms.",
+    "apply_state, store_state, _controls_current, _position_targets, _prepare_viewport_frame, and _viewport_frame_signature are unchanged from candidate 1. Current controller/revision guards and ONCE consumption/retry policy remain intact.",
+    "Retained root main.gd equals the current shared source. Applied-scene generation requires a live mounted target, matching non-exhausted generation, unchanged controller/presentation and successful apply; diagnostics explicitly distinguish state application from later layout/draw completion.",
+    "The native hasConcealedCurrentDiagnostics gate still requires sceneStateApplied, a diagnostic after the last mutation, concealed hand, zero private/selected counts, matching revision and foreground. Candidate patch changes no native gate or deadline.",
+    "Iteration 2 failed first revealed/selected root overlay pixel comparisons. Those two checks are byte-unchanged and pass in iteration 3 after the requested layout pass.",
+    "The harness correction replaces an invalid assumption that Viewport node size can remain 0 by 0: pinned Viewport::_set_size clamps it to 2 by 2. Actual render-server zero-size skipped-ONCE retry remains tested, and actual node view_count 0 plus same-size texture recovery is additionally tested.",
+    "Focused evidence includes unchanged idle textures, root compositing while 3D is idle, covered-card invalidation, final Tween pose and target placement, resize, container hide/show normalization, immediate private-node/selection removal, paused concealment, resume, reduced motion and teardown disconnection."
+  ],
+  "inputs": [
+    {
+      "path": "/tmp/partydeck-three-d-demand-redraw-v1/iteration-03/three-d-demand-redraw.patch",
+      "sha256": "5e59bf2c6ae56424ffa39e034827019b33066be35499a00765ab5ef1e6282911"
+    },
+    {
+      "path": "/tmp/partydeck-three-d-demand-redraw-v1/iteration-03/proposed/godot/renderer/presentations/three_d/table.gd",
+      "sha256": "45ee2ac81cd371f13b16e2b29b47468cbd86f2cbe98c1a0f8ba55787609cdf40"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/three-d-demand-redraw-20260910/iteration-03/input-manifest.json",
+      "sha256": "6013c7c7723a6eaddccd015f256df901a33de643944cfba6cbbafda34a71e918"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/three-d-demand-redraw-20260910/iteration-03/redraw-receipt.json",
+      "sha256": "12b03175021346275fd66ac5c961186a9f074fd238ca7ce7552e6010bd1c43c9"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/three-d-demand-redraw-20260910/iteration-03/redraw/report.json",
+      "sha256": "f1c87e06819351241462cfbfd70e1ae2c294b4a2cb335a2d0a61a3d369a82786"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/three-d-demand-redraw-20260910/iteration-03/redraw.log",
+      "sha256": "d4825f9cf2a85ac66999e9e750fd4fbb0fc08035030366bfc676e28d59caabc6"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/three-d-demand-redraw-20260910/iteration-03/source/godot/renderer/tests/three_d_redraw_check.gd",
+      "sha256": "3ef5f9a49c8279aa39171cc90a91efbdf9313b2fcbace91b635444bc6172d287"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/three-d-demand-redraw-20260910/iteration-03/source/godot/renderer/scripts/main.gd",
+      "sha256": "e8f4fa5ca26ef5ec7ea7f9c853c41788b04d10ab1fb6dba4ed0abe73dfebf4b6"
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/ios-host/modules/partydeck_ios_probe/PDGodotRuntime.mm",
+      "sha256": "3270b219c3d66ba4a4cb12bab8a5f6460420d4c74416a9b75b39310faf8169e0"
+    },
+    {
+      "path": "/tmp/partydeck-ios-retained-host-diagnosis-v1/candidate-03-upstream/scene-main-scene_tree.cpp",
+      "sha256": "eed6dbff323344efff19f2de6763705aff062a76e00fd7cbe42a4ee849b7e5a4"
+    },
+    {
+      "path": "/tmp/partydeck-ios-retained-host-diagnosis-v1/candidate-03-upstream/scene-main-canvas_item.cpp",
+      "sha256": "7abbd605dd2babf8771857852966b0ed0efb95c7f7da0a433a7495f6d7da137d"
+    },
+    {
+      "path": "/tmp/partydeck-ios-retained-host-diagnosis-v1/candidate-03-upstream/main-main.cpp",
+      "sha256": "1831257f5c8eb0707d278f04b21b1e4b3ba863f8dca5cab36022d4b19e36b8c1"
+    }
+  ],
+  "limits": [
+    "No native timing or retained-host deadline improvement is established.",
+    "No device graphics, snapshot privacy, audio, sustained performance, or mobile accessibility result follows from this software-rendered focused run.",
+    "Root owns packed acceptance and the affected native rerun; retain previous native failures and unchanged deadlines."
+  ],
+  "retainedEvidence": {
+    "checks": 306,
+    "execution": "Godot 4.7.2, Xvfb, OpenGL Compatibility, Mesa llvmpipe; exit 0; Dummy audio; 0 PNGs written",
+    "failedChecks": [],
+    "manifestFilesRehashed": 155,
+    "manifestMismatches": []
+  },
+  "reviewScope": "Read-only source and retained focused evidence review. No Gradle, Godot, native executable or duplicate render run performed by this reviewer.",
+  "reviewer": "app_controller"
+}
