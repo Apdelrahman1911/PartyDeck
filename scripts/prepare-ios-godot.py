@@ -165,10 +165,44 @@ def checked_inputs(args: argparse.Namespace) -> dict:
 
 def stage(args: argparse.Namespace, inputs: dict) -> None:
     destination = args.output.absolute()
-    if destination.name != "PartyDeckGodotInputs" or destination.is_symlink():
-        raise RuntimeError("Use the ordinary generated PartyDeckGodotInputs directory.")
-    if destination.exists() and not (destination / "inputs.json").is_file():
-        raise RuntimeError("Refusing to replace an unrecognized native input directory.")
+
+    def path_kind(path: Path) -> str:
+        if path.is_symlink():
+            return "symlink"
+        if path.is_dir():
+            return "nonempty-directory" if any(path.iterdir()) else "empty-directory"
+        if path.is_file():
+            return "regular-file"
+        return "other" if path.exists() else "missing"
+
+    def check_destination() -> None:
+        if destination.name != "PartyDeckGodotInputs" or destination.is_symlink():
+            raise RuntimeError(
+                "Use the ordinary generated PartyDeckGodotInputs directory. "
+                f"Destination kind: {path_kind(destination)}."
+            )
+        if not destination.exists():
+            return
+        if destination.is_dir():
+            marker = destination / "inputs.json"
+            # Preserve ordinary receipt-marker ownership for generated refreshes.
+            if not marker.is_symlink() and marker.is_file():
+                return
+            children = [(path.name, path_kind(path)) for path in sorted(destination.iterdir())]
+            # Declared build outputs can have their parent directories created
+            # before this phase. Accept only the empty directories we generate.
+            if all(name in {"artifacts", "ProbeResources"} and kind == "empty-directory"
+                   for name, kind in children):
+                return
+            details = ", ".join(f"{json.dumps(name[:80])}: {kind}" for name, kind in children[:8])
+            if len(children) > 8:
+                details += f", ... ({len(children) - 8} more entries)"
+            details = f"directory children: [{details}]"
+        else:
+            details = f"destination kind: {path_kind(destination)}"
+        raise RuntimeError(f"Refusing to replace an unrecognized native input directory; {details}.")
+
+    check_destination()
     destination.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix=".partydeck-godot-", dir=destination.parent) as temporary:
         prepared = Path(temporary) / "PartyDeckGodotInputs"
@@ -200,6 +234,7 @@ def stage(args: argparse.Namespace, inputs: dict) -> None:
             for path in sorted(resources.rglob("*")) if path.is_file()
         }
         write_json(prepared / "inputs.json", inputs)
+        check_destination()
         if destination.exists():
             shutil.rmtree(destination)
         prepared.rename(destination)
