@@ -153,7 +153,7 @@ func _make_stage() -> void:
 	_viewport = SubViewport.new()
 	_viewport.size = Vector2i(640, 360)
 	_viewport.own_world_3d = true
-	_viewport.msaa_3d = Viewport.MSAA_2X
+	_viewport.msaa_3d = Viewport.MSAA_DISABLED
 	_viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
 	_viewport_container.add_child(_viewport)
 	_world = Node3D.new()
