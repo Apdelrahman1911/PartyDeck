@@ -1,0 +1,490 @@
+diff --git a/drivers/coreaudio/audio_driver_coreaudio.h b/drivers/coreaudio/audio_driver_coreaudio.h
+index 08c4ec475f9835cc5ecce3f50a6b4b043be3ec88..52e2708f3f95a970750375f15bc4ffd6da1cb07d 100644
+--- a/drivers/coreaudio/audio_driver_coreaudio.h
++++ b/drivers/coreaudio/audio_driver_coreaudio.h
+@@ -45,7 +45,22 @@ class AudioDriverCoreAudio : public AudioDriver {
+ 	AudioComponentInstance audio_unit = nullptr;
+ 	AudioComponentInstance input_unit = nullptr;
+ 
++#ifdef IOS_ENABLED
++	static_assert(std::atomic<bool>::is_always_lock_free);
++	static_assert(std::atomic<uint32_t>::is_always_lock_free);
++	static_assert(std::atomic<uint64_t>::is_always_lock_free);
++	static_assert(std::atomic<OSStatus>::is_always_lock_free);
++	std::atomic<bool> active = false;
++	std::atomic<uint64_t> partydeck_output_callback_entries = 0;
++	std::atomic<uint32_t> partydeck_output_callbacks_in_flight = 0;
++	std::atomic<uint64_t> partydeck_start_attempts = 0;
++	std::atomic<uint64_t> partydeck_stop_attempts = 0;
++	std::atomic<OSStatus> partydeck_last_start_status = noErr;
++	std::atomic<OSStatus> partydeck_last_stop_status = noErr;
++	std::atomic<uint64_t> partydeck_stopped_start_attempt = 0;
++#else
+ 	bool active = false;
++#endif
+ 	Mutex mutex;
+ 
+ 	String output_device_name = "Default";
+@@ -90,6 +105,28 @@ class AudioDriverCoreAudio : public AudioDriver {
+ 	void finish_input_device();
+ 
+ public:
++#ifdef IOS_ENABLED
++	struct PartyDeckOutputState {
++		bool observed_on_main_thread;
++		bool output_unit_present;
++		bool input_unit_present;
++		bool active;
++		uint64_t output_callback_entries;
++		uint32_t output_callbacks_in_flight;
++		uint64_t start_attempts;
++		uint64_t stop_attempts;
++		OSStatus last_start_status;
++		OSStatus last_stop_status;
++		uint64_t stopped_start_attempt;
++	};
++	using PartyDeckRetirement = AudioServer::PartyDeckRetirement;
++
++	// The native owner serializes unit lifetime and these calls on the main thread.
++	PartyDeckOutputState get_partydeck_output_state() const;
++	// Caller must stop successfully first and exclude all engine/list producers.
++	Error partydeck_retire_closed_playbacks(PartyDeckRetirement &r_result);
++#endif
++
+ 	virtual const char *get_name() const override {
+ 		return "CoreAudio";
+ 	}
+diff --git a/drivers/coreaudio/audio_driver_coreaudio.mm b/drivers/coreaudio/audio_driver_coreaudio.mm
+index fbd73c8d73d712bfb03c94c9c02357db5a3b2813..9b1eefab413502b65fdf05b622808f307000e101 100644
+--- a/drivers/coreaudio/audio_driver_coreaudio.mm
++++ b/drivers/coreaudio/audio_driver_coreaudio.mm
+@@ -37,6 +37,10 @@
+ #include "core/math/math_funcs_binary.h"
+ #include "core/os/os.h"
+ 
++#ifdef IOS_ENABLED
++#include "core/os/thread.h"
++#endif
++
+ #define kOutputBus 0
+ #define kInputBus 1
+ 
+@@ -91,6 +95,10 @@ Error AudioDriverCoreAudio::init() {
+ 
+ 	OSStatus result = AudioComponentInstanceNew(comp, &audio_unit);
+ 	ERR_FAIL_COND_V(result != noErr, FAILED);
++#ifdef IOS_ENABLED
++	// A previous unit's successful stop does not qualify a newly created unit.
++	partydeck_stopped_start_attempt.store(0);
++#endif
+ 
+ #ifdef MACOS_ENABLED
+ 	AudioObjectPropertyAddress prop;
+@@ -194,6 +202,16 @@ OSStatus AudioDriverCoreAudio::output_callback(void *inRefCon,
+ 		AudioBufferList *ioData) {
+ 	AudioDriverCoreAudio *ad = static_cast<AudioDriverCoreAudio *>(inRefCon);
+ 
++#ifdef IOS_ENABLED
++	// Account for every entry, including the silence/try_lock failure path.
++	ad->partydeck_output_callbacks_in_flight.fetch_add(1);
++	ad->partydeck_output_callback_entries.fetch_add(1);
++	struct PartyDeckCallbackExit {
++		std::atomic<uint32_t> *in_flight;
++		~PartyDeckCallbackExit() { in_flight->fetch_sub(1); }
++	} callback_exit{ &ad->partydeck_output_callbacks_in_flight };
++#endif
++
+ 	if (!ad->active || !ad->try_lock()) {
+ 		for (unsigned int i = 0; i < ioData->mNumberBuffers; i++) {
+ 			AudioBuffer *abuf = &ioData->mBuffers[i];
+@@ -271,7 +289,13 @@ OSStatus AudioDriverCoreAudio::input_callback(void *inRefCon,
+ 
+ void AudioDriverCoreAudio::start() {
+ 	if (!active && audio_unit != nullptr) {
++#ifdef IOS_ENABLED
++		partydeck_start_attempts.fetch_add(1);
++#endif
+ 		OSStatus result = AudioOutputUnitStart(audio_unit);
++#ifdef IOS_ENABLED
++		partydeck_last_start_status.store(result);
++#endif
+ 		if (result != noErr) {
+ 			ERR_PRINT("AudioOutputUnitStart failed, code: " + itos(result));
+ 		} else {
+@@ -282,15 +306,104 @@ void AudioDriverCoreAudio::start() {
+ 
+ void AudioDriverCoreAudio::stop() {
+ 	if (active) {
++#ifdef IOS_ENABLED
++		partydeck_stop_attempts.fetch_add(1);
++#endif
+ 		OSStatus result = AudioOutputUnitStop(audio_unit);
++#ifdef IOS_ENABLED
++		partydeck_last_stop_status.store(result);
++#endif
+ 		if (result != noErr) {
+ 			ERR_PRINT("AudioOutputUnitStop failed, code: " + itos(result));
+ 		} else {
+ 			active = false;
++#ifdef IOS_ENABLED
++			partydeck_stopped_start_attempt.store(partydeck_start_attempts.load());
++#endif
+ 		}
+ 	}
+ }
+ 
++#ifdef IOS_ENABLED
++AudioDriverCoreAudio::PartyDeckOutputState AudioDriverCoreAudio::get_partydeck_output_state() const {
++	PartyDeckOutputState state = {};
++	// Unit pointers are owned by the serialized native/main-thread lifecycle.
++	if (!Thread::is_main_thread()) {
++		return state;
++	}
++	state.observed_on_main_thread = true;
++	state.output_unit_present = audio_unit != nullptr;
++	state.input_unit_present = input_unit != nullptr;
++	state.active = active.load();
++	state.output_callback_entries = partydeck_output_callback_entries.load();
++	state.output_callbacks_in_flight = partydeck_output_callbacks_in_flight.load();
++	state.start_attempts = partydeck_start_attempts.load();
++	state.stop_attempts = partydeck_stop_attempts.load();
++	state.last_start_status = partydeck_last_start_status.load();
++	state.last_stop_status = partydeck_last_stop_status.load();
++	state.stopped_start_attempt = partydeck_stopped_start_attempt.load();
++	return state;
++}
++
++Error AudioDriverCoreAudio::partydeck_retire_closed_playbacks(PartyDeckRetirement &r_result) {
++	r_result = {};
++	if (!Thread::is_main_thread()) {
++		return ERR_INVALID_PARAMETER;
++	}
++	AudioServer *server = AudioServer::get_singleton();
++	if (server == nullptr || AudioDriver::get_singleton() != this || bool(GLOBAL_GET("audio/driver/enable_input"))) {
++		return ERR_UNAVAILABLE;
++	}
++	const auto stopped = [](const PartyDeckOutputState &p_state) {
++		return p_state.observed_on_main_thread && p_state.output_unit_present && !p_state.input_unit_present &&
++				!p_state.active && p_state.output_callbacks_in_flight == 0 && p_state.start_attempts != 0 &&
++				p_state.stop_attempts != 0 && p_state.last_stop_status == noErr &&
++				p_state.stopped_start_attempt == p_state.start_attempts;
++	};
++	const PartyDeckOutputState before = get_partydeck_output_state();
++	if (!stopped(before)) {
++		return ERR_BUSY;
++	}
++	{
++		// AudioOutputUnitStop has already returned. Never stop or wait while locked.
++		MutexLock driver_lock(mutex);
++		const PartyDeckOutputState locked = get_partydeck_output_state();
++		if (AudioDriver::get_singleton() != this || AudioServer::get_singleton() != server ||
++				bool(GLOBAL_GET("audio/driver/enable_input")) || !stopped(locked) ||
++				locked.output_callback_entries != before.output_callback_entries ||
++				locked.start_attempts != before.start_attempts || locked.stop_attempts != before.stop_attempts) {
++			return ERR_BUSY;
++		}
++		Error error = server->_partydeck_retire_closed_playbacks(r_result);
++		if (error != OK) {
++			return error;
++		}
++		samples_in.fill(0);
++		r_result.driver_buffer_neutral = true;
++		for (int32_t sample : samples_in) {
++			if (sample != 0) {
++				r_result.driver_buffer_neutral = false;
++				break;
++			}
++		}
++	}
++	// All iterators and the driver lock are gone before normal unref/destruction.
++	Error error = server->_partydeck_cleanup_retired_playbacks(r_result);
++	const PartyDeckOutputState after = get_partydeck_output_state();
++	r_result.driver_quiescent = AudioDriver::get_singleton() == this && AudioServer::get_singleton() == server &&
++			!bool(GLOBAL_GET("audio/driver/enable_input")) && !server->input_device_active &&
++			stopped(after) && after.output_callback_entries == before.output_callback_entries &&
++			after.start_attempts == before.start_attempts && after.stop_attempts == before.stop_attempts;
++	if (!r_result.driver_quiescent) {
++		return ERR_BUSY;
++	}
++	if (error != OK) {
++		return error;
++	}
++	return r_result.driver_buffer_neutral ? OK : ERR_INVALID_DATA;
++}
++#endif
++
+ int AudioDriverCoreAudio::get_mix_rate() const {
+ 	return mix_rate;
+ }
+@@ -321,6 +434,10 @@ void AudioDriverCoreAudio::finish() {
+ 	if (audio_unit) {
+ 		OSStatus result;
+ 
++#ifdef IOS_ENABLED
++		// The output stop may synchronize with callbacks; keep it outside mutex.
++		stop();
++#endif
+ 		lock();
+ 
+ 		AURenderCallbackStruct callback;
+@@ -330,6 +447,7 @@ void AudioDriverCoreAudio::finish() {
+ 			ERR_PRINT("AudioUnitSetProperty failed");
+ 		}
+ 
++#ifndef IOS_ENABLED
+ 		if (active) {
+ 			result = AudioOutputUnitStop(audio_unit);
+ 			if (result != noErr) {
+@@ -338,6 +456,7 @@ void AudioDriverCoreAudio::finish() {
+ 
+ 			active = false;
+ 		}
++#endif
+ 
+ 		result = AudioUnitUninitialize(audio_unit);
+ 		if (result != noErr) {
+@@ -360,6 +479,11 @@ void AudioDriverCoreAudio::finish() {
+ 		if (result != noErr) {
+ 			ERR_PRINT("AudioComponentInstanceDispose failed");
+ 		}
++#ifdef IOS_ENABLED
++		if (result == noErr) {
++			active = false;
++		}
++#endif
+ 
+ 		audio_unit = nullptr;
+ 		unlock();
+diff --git a/servers/audio/audio_server.cpp b/servers/audio/audio_server.cpp
+index 98bb2cebd94299cd2d87bc1ca5fd4d5c73ab1807..d9f2f8b4d529af3bbe4583f431e0eefd2dff23f4 100644
+--- a/servers/audio/audio_server.cpp
++++ b/servers/audio/audio_server.cpp
+@@ -44,6 +44,11 @@
+ #include "servers/audio/audio_stream.h"
+ #include "servers/audio/effects/audio_effect_compressor.h"
+ 
++#ifdef IOS_ENABLED
++#include "core/os/thread.h"
++#include "scene/resources/audio_stream_wav.h"
++#endif
++
+ #ifdef TOOLS_ENABLED
+ #define MARK_EDITED set_edited(true);
+ #else
+@@ -741,6 +746,168 @@ void AudioServer::_delete_stream_playback_list_node(AudioStreamPlaybackListNode
+ 	});
+ }
+ 
++#ifdef IOS_ENABLED
++Error AudioServer::_partydeck_retire_closed_playbacks(PartyDeckRetirement &r_result) {
++	if (!Thread::is_main_thread()) {
++		return ERR_INVALID_PARAMETER;
++	}
++	if (input_device_active || !sample_playback_list.is_empty() || buses.size() != 1 || buses[0] == nullptr ||
++			buses[0]->name != SNAME("Master") || bus_map.size() != 1 || !bus_map.has(SNAME("Master")) ||
++			bus_map[SNAME("Master")] != buses[0]) {
++		return ERR_UNAVAILABLE;
++	}
++	Bus *bus = buses[0];
++	if (!bus->effects.is_empty() || bus->solo || bus->bypass || bus->volume_db != 0.0f || bus->send != StringName()) {
++		return ERR_UNAVAILABLE;
++	}
++	if (channel_count < 1 || channel_count > MAX_CHANNELS_PER_BUS || bus->channels.size() != channel_count ||
++			buffer_size == 0 || mix_buffer.size() != buffer_size + LOOKAHEAD_BUFFER_SIZE || temp_buffer.size() != channel_count) {
++		return ERR_INVALID_DATA;
++	}
++	for (int channel_index = 0; channel_index < channel_count; channel_index++) {
++		if (!bus->channels[channel_index].effect_instances.is_empty()) {
++			return ERR_UNAVAILABLE;
++		}
++		if (bus->channels[channel_index].buffer.size() != buffer_size || temp_buffer[channel_index].size() != buffer_size) {
++			return ERR_INVALID_DATA;
++		}
++	}
++	{
++		// These temporary iterators end before the first logical deletion.
++		const bool callbacks_present = mix_callback_list.begin() != nullptr || update_callback_list.begin() != nullptr ||
++				listener_changed_callback_list.begin() != nullptr;
++		if (callbacks_present) {
++			return ERR_UNAVAILABLE;
++		}
++	}
++	AudioStreamPlaybackListNode *candidates[64] = {};
++	uint32_t candidate_count = 0;
++	{
++		// This caps only the live preflight, not work already in SafeList graveyards.
++		for (AudioStreamPlaybackListNode *playback : playback_list) {
++			if (candidate_count == 64) {
++				return ERR_UNAVAILABLE;
++			}
++			if (playback == nullptr || playback->stream_playback.is_null() || playback->prev_bus_details == nullptr ||
++					playback->bus_details.load() == nullptr || playback->prev_bus_details == playback->bus_details.load()) {
++				return ERR_INVALID_DATA;
++			}
++			const AudioStreamPlaybackListNode::PlaybackState state = playback->state.load();
++			if (state != AudioStreamPlaybackListNode::FADE_OUT_TO_DELETION && state != AudioStreamPlaybackListNode::AWAITING_DELETION) {
++				return ERR_BUSY;
++			}
++			const Ref<AudioStreamPlayback> &stream = playback->stream_playback;
++			if (stream->get_class_name() != AudioStreamPlaybackWAV::get_class_static() || stream->get_script_instance() != nullptr ||
++					stream->get_is_sample() || stream->get_sample_playback().is_valid()) {
++				return ERR_UNAVAILABLE;
++			}
++			candidates[candidate_count++] = playback;
++		}
++	}
++	r_result.live_playbacks_before = candidate_count;
++	r_result.preflight_passed = true;
++	// The owner excludes lock-free producers as well as engine/update scopes.
++	// Keep the existing deletion helper and its one-time ownership rules intact.
++	for (uint32_t index = 0; index < candidate_count; index++) {
++		_delete_stream_playback_list_node(candidates[index]);
++		r_result.unlinked_playbacks++;
++	}
++	for (int channel_index = 0; channel_index < channel_count; channel_index++) {
++		Bus::Channel &channel = bus->channels.write[channel_index];
++		channel.buffer.fill(AudioFrame(0, 0));
++		channel.used = false;
++		channel.active = false;
++		channel.peak_volume = AudioFrame(AUDIO_MIN_PEAK_DB, AUDIO_MIN_PEAK_DB);
++		channel.last_mix_with_audio = 0;
++		temp_buffer.write[channel_index].fill(AudioFrame(0, 0));
++	}
++	bus->soloed = false;
++	bus->index_cache = 0;
++	mix_buffer.fill(AudioFrame(0, 0));
++	to_mix = 0;
++	r_result.server_buffers_neutral = _partydeck_buffers_neutral();
++	return r_result.server_buffers_neutral ? OK : ERR_INVALID_DATA;
++}
++
++Error AudioServer::_partydeck_cleanup_retired_playbacks(PartyDeckRetirement &r_result) {
++	if (!Thread::is_main_thread() || !r_result.preflight_passed) {
++		return ERR_INVALID_PARAMETER;
++	}
++	// Caller has released the driver mutex. Successful cleanup runs every queued
++	// destructor; unlink count alone does not establish playback retirement.
++	r_result.playback_cleanup_succeeded = playback_list.maybe_cleanup();
++	if (r_result.playback_cleanup_succeeded) {
++		r_result.retired_playbacks = r_result.unlinked_playbacks;
++	}
++	const bool mix_cleaned = mix_callback_list.maybe_cleanup();
++	const bool update_cleaned = update_callback_list.maybe_cleanup();
++	const bool listener_cleaned = listener_changed_callback_list.maybe_cleanup();
++	r_result.callback_cleanup_succeeded = mix_cleaned && update_cleaned && listener_cleaned;
++	if (r_result.playback_cleanup_succeeded && r_result.callback_cleanup_succeeded) {
++		{
++			for (AudioStreamPlaybackBusDetails *details : bus_details_graveyard_frame_old) {
++				bus_details_graveyard_frame_old.erase(details, [](AudioStreamPlaybackBusDetails *p_details) { delete p_details; });
++			}
++		}
++		{
++			for (AudioStreamPlaybackBusDetails *details : bus_details_graveyard) {
++				bus_details_graveyard.erase(details, [](AudioStreamPlaybackBusDetails *p_details) { delete p_details; });
++			}
++		}
++		// Unlike update's single generation transfer, drain both stopped generations.
++		// No SafeList iterator survives to either destructor pass.
++		r_result.bus_details_cleanup_succeeded = bus_details_graveyard.maybe_cleanup();
++		r_result.old_bus_details_cleanup_succeeded = bus_details_graveyard_frame_old.maybe_cleanup();
++	}
++	r_result.playbacks_remaining = playback_list.begin() != nullptr;
++	r_result.callbacks_remaining = mix_callback_list.begin() != nullptr || update_callback_list.begin() != nullptr ||
++			listener_changed_callback_list.begin() != nullptr;
++	r_result.bus_details_remaining = bus_details_graveyard.begin() != nullptr || bus_details_graveyard_frame_old.begin() != nullptr;
++	r_result.sample_playbacks_remaining = !sample_playback_list.is_empty();
++	r_result.server_buffers_neutral = _partydeck_buffers_neutral();
++	r_result.residuals_observed = true;
++	return r_result.playback_cleanup_succeeded && r_result.callback_cleanup_succeeded &&
++				r_result.bus_details_cleanup_succeeded && r_result.old_bus_details_cleanup_succeeded &&
++				!r_result.playbacks_remaining && !r_result.callbacks_remaining && !r_result.bus_details_remaining &&
++				!r_result.sample_playbacks_remaining && r_result.server_buffers_neutral ?
++			OK : ERR_BUSY;
++}
++
++bool AudioServer::_partydeck_buffers_neutral() const {
++	if (to_mix != 0 || buses.size() != 1 || buses[0] == nullptr) {
++		return false;
++	}
++	const Bus *bus = buses[0];
++	if (bus->soloed || bus->index_cache != 0) {
++		return false;
++	}
++	for (const Bus::Channel &channel : bus->channels) {
++		if (channel.used || channel.active || channel.last_mix_with_audio != 0 ||
++				channel.peak_volume.left != AUDIO_MIN_PEAK_DB || channel.peak_volume.right != AUDIO_MIN_PEAK_DB) {
++			return false;
++		}
++		for (const AudioFrame &frame : channel.buffer) {
++			if (frame.left != 0.0f || frame.right != 0.0f) {
++				return false;
++			}
++		}
++	}
++	for (const AudioFrame &frame : mix_buffer) {
++		if (frame.left != 0.0f || frame.right != 0.0f) {
++			return false;
++		}
++	}
++	for (const Vector<AudioFrame> &buffer : temp_buffer) {
++		for (const AudioFrame &frame : buffer) {
++			if (frame.left != 0.0f || frame.right != 0.0f) {
++				return false;
++			}
++		}
++	}
++	return true;
++}
++#endif
++
+ bool AudioServer::thread_has_channel_mix_buffer(int p_bus, int p_buffer) const {
+ 	if (p_bus < 0 || p_bus >= buses.size()) {
+ 		return false;
+diff --git a/servers/audio/audio_server.h b/servers/audio/audio_server.h
+index efb0a58e1cc4cab257fa1bbf4be0184303f2e234..c169e9c4308541a5ee1ae25e1f08c12b15c7dd07 100644
+--- a/servers/audio/audio_server.h
++++ b/servers/audio/audio_server.h
+@@ -205,6 +205,28 @@ public:
+ 
+ 	typedef void (*AudioCallback)(void *p_userdata);
+ 
++#ifdef IOS_ENABLED
++	// Native-owner observations only; intentionally not exposed through ClassDB.
++	struct PartyDeckRetirement {
++		uint32_t live_playbacks_before;
++		uint32_t unlinked_playbacks;
++		uint32_t retired_playbacks;
++		bool preflight_passed;
++		bool playback_cleanup_succeeded;
++		bool callback_cleanup_succeeded;
++		bool bus_details_cleanup_succeeded;
++		bool old_bus_details_cleanup_succeeded;
++		bool residuals_observed;
++		bool playbacks_remaining;
++		bool callbacks_remaining;
++		bool bus_details_remaining;
++		bool sample_playbacks_remaining;
++		bool server_buffers_neutral;
++		bool driver_buffer_neutral;
++		bool driver_quiescent;
++	};
++#endif
++
+ private:
+ 	uint64_t mix_time = 0;
+ 	int mix_size = 0;
+@@ -347,6 +369,14 @@ private:
+ 	friend class AudioDriver;
+ 	void _driver_process(int p_frames, int32_t *p_buffer);
+ 
++#ifdef IOS_ENABLED
++	friend class AudioDriverCoreAudio;
++	// The driver gates and locks the first phase, then unlocks before cleanup.
++	Error _partydeck_retire_closed_playbacks(PartyDeckRetirement &r_result);
++	Error _partydeck_cleanup_retired_playbacks(PartyDeckRetirement &r_result);
++	bool _partydeck_buffers_neutral() const;
++#endif
++
+ 	LocalVector<Ref<AudioSamplePlayback>> sample_playback_list;
+ 
+ protected:
