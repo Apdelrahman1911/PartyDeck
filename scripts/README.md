@@ -287,7 +287,23 @@ To request the separate production Godot qualification in GitHub Actions:
 gh workflow run validate.yml --ref main -f platform=ios -f ios_godot_session=true
 ```
 
-The input defaults to false; omit it for the baseline. When true, the Simulator
+For a focused regression of the two production sessions on current sources:
+
+```sh
+gh workflow run validate.yml --ref main -f platform=ios-godot-production
+```
+
+This explicit platform choice enables the qualification profile and builds the
+current renderer, native Simulator engine and production Kotlin framework. It
+runs the same two session cases with unchanged checks and deadlines. Shared
+native, ordinary app/interop, UIKit layout and unsigned-device validation are
+excluded from this focused run. Full Validate remains required for final
+qualification. Focused outputs use the distinct
+`ios-focused-production-reports-and-simulator-app` artifact, including a scope
+log, the original session XCResult, attachments and packaged application.
+
+For the full `platform=ios` run, the session input defaults to false; omit it for
+the baseline. When true, the Simulator
 job first completes the baseline suite, then runs
 `validate-ios-godot-session.sh` in a separate build/result directory. It selects
 exactly these two cases in `PartyDeckUITests/PartyDeckGodotSessionUITests`:
@@ -350,6 +366,7 @@ Evidence is uploaded with a 14-day retention period:
 | `ios-shared-native-reports` | Module `build/reports` and `build/test-results`, plus `build/ci/ios/*.json`; uploaded before app compilation |
 | `ios-reports-and-simulator-app` | `build/ci/ios/`: baseline `PartyDeck.xcresult`, `interop/`, `attachments/`, logs, link/input receipts and `PartyDeck-simulator.app.tar.gz`; native receipts in `godot/ios-host/build/evidence/` |
 | `ios-reports-and-simulator-app` (requested session check) | `build/ci/ios/godot-session/`: activation files, `PartyDeckGodotSessions.xcresult`, `attachments/`, `result.json`, logs, link/input receipts and `PartyDeck-session-simulator.app.tar.gz` |
+| `ios-focused-production-reports-and-simulator-app` | The same original session evidence, native/link/input receipts and packaged app, plus `build/ci/ios/focused-production-scope.log`; excludes the baseline and device suites |
 | `ios-unsigned-release-device-app` | `build/ci/ios/`: Release logs/link receipts/maps, `device-activation/` when requested, and `PartyDeck-device-unsigned.app.tar.gz`; native receipts in `godot/ios-host/build/device-release/evidence/` |
 
 Preserve or move a prior `build/ci/ios/PartyDeck.xcresult` before repeating the
@@ -367,7 +384,8 @@ Apple simulator tests. Both workflows pass the selected simulator UDID explicitl
 to every native test task, so an unrelated newer installed runtime is not chosen.
 
 The Validate workflow runs both platforms for normal pushes and pull requests.
-Manual runs accept `platform=all` (default), `android`, or `ios`, for example:
+Manual runs accept `platform=all` (default), `android`, `ios`, or the focused
+`ios-godot-production` selection described above, for example:
 
 ```sh
 gh workflow run validate.yml --ref main -f platform=android
