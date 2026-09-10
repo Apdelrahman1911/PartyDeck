@@ -102,7 +102,7 @@ class GodotGameActivity : FragmentActivity(), GodotHost, PartyDeckBridgePlugin.L
     private val startupTimeout = Runnable { if (!ready && !closing) fail("renderer_ready_timeout") }
     private val closeFallback = Runnable {
         if (!destroying) {
-            facts.put("closeSignalAcknowledged", false)
+            Log.i(EvidenceRecorder.TAG, "Close fallback elapsed_ms=${SystemClock.elapsedRealtime()}")
             destroyEngine()
         }
     }
@@ -542,7 +542,7 @@ class GodotGameActivity : FragmentActivity(), GodotHost, PartyDeckBridgePlugin.L
         // bridge invalidation are synchronous; upstream destruction follows after this bound.
         main.postDelayed(closeFallback, 250)
         plugin?.close(closeDocument) {
-            facts.put("closeSignalAcknowledged", true)
+            Log.i(EvidenceRecorder.TAG, "Close main callback elapsed_ms=${SystemClock.elapsedRealtime()}")
             destroyEngine()
         }
     }
@@ -602,6 +602,10 @@ class GodotGameActivity : FragmentActivity(), GodotHost, PartyDeckBridgePlugin.L
 
     private fun evidenceDocument(): String {
         evidenceRevision += 1
+        // Queue disposal or a late main callback cannot erase a native barrier that ran.
+        // Conversely, admission, timeout and process death are never delivery evidence.
+        val closeSignal = plugin?.closeSignalObservation()
+        facts.put("closeSignalAcknowledged", closeSignal?.acknowledged == true)
         val view = authority.view
         val publicState = JSONObject()
             .put("phase", view.phase.name)

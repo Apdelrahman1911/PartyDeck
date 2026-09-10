@@ -109,6 +109,15 @@ evidence write precedes killing **only** `:godot`; the chooser remains alive.
 No engine restart in an existing process is claimed. Activity recreation ends
 the transient comparison instead of restoring a stale Fragment/session.
 
+The plugin records Close delivery only when its render-queue barrier after the
+actual native signal runs. This atomic observation survives disposal and does
+not depend on when the main thread receives its notification. Final evidence
+samples that observation after the renderer-exit wait; queue admission, fallback
+and process death cannot acknowledge an undelivered Close. The retained process
+log records elapsed-time observations for the request, dispatch start, native
+barrier, main callback and fallback without changing the host JSON schema. A
+missing barrier remains unacknowledged even when the process has exited.
+
 The public Godot plugin API cannot cancel the final JNI signal Runnable already
 queued inside `emitSignal()`. At most one such emission is in flight; closed
 authority gates reject its callbacks, the native cover stays up, and the process

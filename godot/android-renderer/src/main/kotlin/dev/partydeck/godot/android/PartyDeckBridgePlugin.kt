@@ -2,6 +2,8 @@ package dev.partydeck.godot.android
 
 import android.os.Handler
 import android.os.Looper
+import android.os.SystemClock
+import android.util.Log
 import dev.partydeck.games.EngineEventBody
 import dev.partydeck.games.MAX_ENGINE_PAYLOAD_BYTES
 import dev.partydeck.godot.bridge.LastLightWireCodec
@@ -52,6 +54,10 @@ class PartyDeckBridgePlugin(
     private val renderedFrames = AtomicLong(0)
     private val afterDraw = AtomicReference<DrawContinuation?>(null)
     val nativeTerminating = AtomicBoolean(false)
+    private val signalDispatch = NativeSignalDispatch(
+        schedule = { task -> engine.runOnRenderThread { task() } },
+        nowMillis = SystemClock::elapsedRealtime,
+    )
     private val incoming = BoundedDispatchQueue<Inbound>(
         capacity = 32,
         schedule = { task -> main.post { task() } },
@@ -71,19 +77,28 @@ class PartyDeckBridgePlugin(
         schedule = { task -> engine.runOnRenderThread { task() } },
         consume = { output, done ->
             if (active.get() || output is Outbound.Close) {
-                when (output) {
-                    is Outbound.Command -> emitSignal("command_received", output.document)
-                    is Outbound.Close -> emitSignal("command_received", output.document)
-                    is Outbound.Diagnostics -> emitSignal("diagnostics_requested", output.requestId)
-                }
-                // emitSignal queues a second Runnable in Godot 4.7.2. Acknowledge after
-                // that Runnable so a stalled engine cannot accumulate native emissions.
-                engine.runOnRenderThread {
-                    done()
-                    if (output is Outbound.Command && output.afterDelivery != null) {
-                        main.post { if (active.get()) output.afterDelivery.invoke() }
-                    }
-                }
+                signalDispatch.dispatch(
+                    terminalClose = output is Outbound.Close,
+                    emit = {
+                        when (output) {
+                            is Outbound.Command -> emitSignal("command_received", output.document)
+                            is Outbound.Close -> {
+                                Log.i(TAG, "Close dispatch started elapsed_ms=${signalDispatch.closeObservation.dispatchStartedElapsedRealtimeMs}")
+                                emitSignal("command_received", output.document)
+                            }
+                            is Outbound.Diagnostics -> emitSignal("diagnostics_requested", output.requestId)
+                        }
+                    },
+                    afterNativeSignal = {
+                        if (output is Outbound.Close) {
+                            Log.i(TAG, "Close native barrier elapsed_ms=${signalDispatch.closeObservation.nativeBarrierElapsedRealtimeMs}")
+                        }
+                        done()
+                        if (output is Outbound.Command && output.afterDelivery != null) {
+                            main.post { if (active.get()) output.afterDelivery.invoke() }
+                        }
+                    },
+                )
             } else done()
         },
         onFailure = { fail("outbound_backpressure_or_dispatch") },
@@ -198,6 +213,8 @@ class PartyDeckBridgePlugin(
 
     fun close(document: String, afterDelivery: () -> Unit) {
         if (!active.getAndSet(false)) return
+        signalDispatch.closeRequested()
+        Log.i(TAG, "Close requested elapsed_ms=${signalDispatch.closeObservation.requestedElapsedRealtimeMs}")
         inputGate.setEnabled(false)
         initialLaunch.set(null)
         afterDraw.set(null)
@@ -205,6 +222,9 @@ class PartyDeckBridgePlugin(
         diagnosticsExpected.set(false)
         outgoing.finish(Outbound.Close(document)) { main.post { afterDelivery() } }
     }
+
+    /** Actual native signal-barrier observation, independent of main-thread callback delivery. */
+    fun closeSignalObservation(): CloseSignalObservation = signalDispatch.closeObservation
 
     fun dispose() {
         active.set(false)
@@ -231,6 +251,7 @@ class PartyDeckBridgePlugin(
     }
 
     companion object {
+        private const val TAG = "PartyDeckGodotBridge"
         const val MAX_DIAGNOSTICS_BYTES = 16_384
 
         fun withinUtf8Limit(document: String, limit: Int): Boolean =
