@@ -1,0 +1,60 @@
+{
+  "command": [
+    "flock",
+    "/tmp/partydeck-godot.lock",
+    "xvfb-run",
+    "-a",
+    "-s",
+    "-screen 0 1600x1200x24",
+    "/opt/partydeck-godot/godot",
+    "--path",
+    "/root/projects/PartyDeck/godot/renderer",
+    "--rendering-method",
+    "gl_compatibility",
+    "--audio-driver",
+    "Dummy",
+    "--script",
+    "res://tests/three_d_scene_check.gd",
+    "--",
+    "--manual-bridge",
+    "--check-fixture=/root/projects/PartyDeck/godot/bridge/fixtures/launch-3d.json",
+    "--check-output=/tmp/partydeck-3d-20260910-v6/large-text",
+    "--check-width=320",
+    "--check-height=740",
+    "--check-text-scale=2",
+    "--check-lobby=false"
+  ],
+  "exitCode": 0,
+  "viewport": [
+    320,
+    740
+  ],
+  "textScale": 2,
+  "fixtureSha256": "d099a9ff543d5409925a3afb669780dd702f20bdd886cf530c431d546af99407",
+  "sourceBefore": {
+    "project.godot": "14e8414e3bd9349559c31a204dc5f845cb98c21f5feb3726cb6c0bbd3f9d78a2",
+    "main.tscn": "0eaba43494ffa3e8f46b30712564e609938bbeb18daa690b5b1a68249334536f",
+    "scripts/main.gd": "de60c455f59ad22d9c9b8e6ffe011f2ee3f488adf297b8737910728f1e7b6e09",
+    "scripts/renderer_controller.gd": "4891269ee70a642e92e1871346ce135b2ee00c7f2b09166f96d0b1890f24de51",
+    "scripts/strict_json.gd": "0696e5741c915c42c5b386dd27b6ed3611f3b7a3780d8fb8e0fabd88d6f2f4b3",
+    "scripts/view_validator.gd": "0ea110b7851614644c36ab97536433d19fadfd026a92e2f156cdaf1aa4e206ba",
+    "presentations/three_d/table.gd": "b8a7e705a5384c02c6423d5f977b11a92f815e2b869ede11f292abb00475b222",
+    "presentations/three_d/card_3d.gd": "5c11c95a545cb4143cc38b5ebef5b8eb737a7f434e3c0567c0638dbbcf97680d",
+    "presentations/three_d/table.tscn": "90e347f9fd7c5283ddab1b31b09afd86cf6343ea5f49e612cf95be31480b417a",
+    "tests/three_d_scene_check.gd": "25b5bb59ef8bccb9cbaa03b8dcbdee5d55190505ff088ad558c4e8b6f301e0ce",
+    "assets/manifest.json": "37480b580dd95d88e39605f40f6062fb30a96a6fe529b25eb1a593ef77d2280e"
+  },
+  "sourceAfter": {
+    "project.godot": "14e8414e3bd9349559c31a204dc5f845cb98c21f5feb3726cb6c0bbd3f9d78a2",
+    "main.tscn": "0eaba43494ffa3e8f46b30712564e609938bbeb18daa690b5b1a68249334536f",
+    "scripts/main.gd": "de60c455f59ad22d9c9b8e6ffe011f2ee3f488adf297b8737910728f1e7b6e09",
+    "scripts/renderer_controller.gd": "4891269ee70a642e92e1871346ce135b2ee00c7f2b09166f96d0b1890f24de51",
+    "scripts/strict_json.gd": "0696e5741c915c42c5b386dd27b6ed3611f3b7a3780d8fb8e0fabd88d6f2f4b3",
+    "scripts/view_validator.gd": "0ea110b7851614644c36ab97536433d19fadfd026a92e2f156cdaf1aa4e206ba",
+    "presentations/three_d/table.gd": "b8a7e705a5384c02c6423d5f977b11a92f815e2b869ede11f292abb00475b222",
+    "presentations/three_d/card_3d.gd": "5c11c95a545cb4143cc38b5ebef5b8eb737a7f434e3c0567c0638dbbcf97680d",
+    "presentations/three_d/table.tscn": "90e347f9fd7c5283ddab1b31b09afd86cf6343ea5f49e612cf95be31480b417a",
+    "tests/three_d_scene_check.gd": "25b5bb59ef8bccb9cbaa03b8dcbdee5d55190505ff088ad558c4e8b6f301e0ce",
+    "assets/manifest.json": "37480b580dd95d88e39605f40f6062fb30a96a6fe529b25eb1a593ef77d2280e"
+  }
+}

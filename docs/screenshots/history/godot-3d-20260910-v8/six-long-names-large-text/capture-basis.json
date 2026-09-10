@@ -1,0 +1,52 @@
+{
+  "command": [
+    "flock",
+    "/tmp/partydeck-godot.lock",
+    "xvfb-run",
+    "-a",
+    "-s",
+    "-screen 0 1600x1200x24",
+    "/opt/partydeck-godot/godot",
+    "--path",
+    "/root/projects/PartyDeck/godot/renderer",
+    "--audio-driver",
+    "Dummy",
+    "--script",
+    "res://tests/three_d_scene_check.gd",
+    "--",
+    "--manual-bridge",
+    "--check-fixture=/tmp/partydeck-godot-edge-fixtures/six-long-names-3d.json",
+    "--check-output=/tmp/partydeck-3d-20260910-v8/six-long-names-large-text",
+    "--check-width=320",
+    "--check-height=740",
+    "--check-text-scale=2",
+    "--check-lobby=true"
+  ],
+  "exitCode": 1,
+  "sourceBefore": {
+    "project.godot": "14e8414e3bd9349559c31a204dc5f845cb98c21f5feb3726cb6c0bbd3f9d78a2",
+    "main.tscn": "0eaba43494ffa3e8f46b30712564e609938bbeb18daa690b5b1a68249334536f",
+    "scripts/main.gd": "de60c455f59ad22d9c9b8e6ffe011f2ee3f488adf297b8737910728f1e7b6e09",
+    "scripts/renderer_controller.gd": "4891269ee70a642e92e1871346ce135b2ee00c7f2b09166f96d0b1890f24de51",
+    "presentations/three_d/table.gd": "e8c572afb18e7b592c0a257643b6d99d4a8b5ab6544e4c43a5a77c9099c665e8",
+    "presentations/three_d/card_3d.gd": "5c11c95a545cb4143cc38b5ebef5b8eb737a7f434e3c0567c0638dbbcf97680d",
+    "presentations/three_d/table.tscn": "90e347f9fd7c5283ddab1b31b09afd86cf6343ea5f49e612cf95be31480b417a",
+    "tests/three_d_scene_check.gd": "a48f3b26ac743ffe2404c2e929f27326199231f3e89ba1e9bdc6fe56599e6e56"
+  },
+  "sourceAfter": {
+    "project.godot": "14e8414e3bd9349559c31a204dc5f845cb98c21f5feb3726cb6c0bbd3f9d78a2",
+    "main.tscn": "0eaba43494ffa3e8f46b30712564e609938bbeb18daa690b5b1a68249334536f",
+    "scripts/main.gd": "de60c455f59ad22d9c9b8e6ffe011f2ee3f488adf297b8737910728f1e7b6e09",
+    "scripts/renderer_controller.gd": "4891269ee70a642e92e1871346ce135b2ee00c7f2b09166f96d0b1890f24de51",
+    "presentations/three_d/table.gd": "e8c572afb18e7b592c0a257643b6d99d4a8b5ab6544e4c43a5a77c9099c665e8",
+    "presentations/three_d/card_3d.gd": "5c11c95a545cb4143cc38b5ebef5b8eb737a7f434e3c0567c0638dbbcf97680d",
+    "presentations/three_d/table.tscn": "90e347f9fd7c5283ddab1b31b09afd86cf6343ea5f49e612cf95be31480b417a",
+    "tests/three_d_scene_check.gd": "a48f3b26ac743ffe2404c2e929f27326199231f3e89ba1e9bdc6fe56599e6e56"
+  },
+  "fixtureSha256": "888bc8cb14dbd2d2b01c283a22f5b3acb24396b9fbbefb09cfb3eb89fcb0fb62",
+  "viewport": [
+    320,
+    740
+  ],
+  "textScale": 2
+}
