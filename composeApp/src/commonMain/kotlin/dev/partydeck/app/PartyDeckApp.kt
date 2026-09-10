@@ -26,6 +26,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -34,10 +35,13 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.partydeck.app.controller.AppScreen
 import dev.partydeck.app.controller.AppUiState
 import dev.partydeck.app.controller.PartyDeckController
+import dev.partydeck.app.controller.PresentationLifecycle
 import dev.partydeck.app.controller.RecoveryAction
 import dev.partydeck.app.ui.game.GameplayScreen
 import dev.partydeck.app.ui.game.playerName
 import dev.partydeck.app.ui.shell.ConnectionBanner
+import dev.partydeck.app.ui.shell.EmbeddedPresentationCover
+import dev.partydeck.app.ui.shell.GameplayPresentationPicker
 import dev.partydeck.app.ui.shell.HomeScreen
 import dev.partydeck.app.ui.shell.HostJoinScreen
 import dev.partydeck.app.ui.shell.HowToPlayScreen
@@ -51,6 +55,7 @@ import dev.partydeck.app.ui.theme.DeckButton
 import dev.partydeck.app.ui.theme.PartyDeckColors
 import dev.partydeck.app.ui.theme.PartyDeckTheme
 import dev.partydeck.app.ui.theme.LocalReduceMotion
+import dev.partydeck.core.CardId
 import dev.partydeck.games.PartyDeckGames
 import dev.partydeck.resources.*
 import dev.partydeck.session.SessionPhase
@@ -64,14 +69,22 @@ fun PartyDeckApp(
     modifier: Modifier = Modifier,
 ) {
     val state by controller.state.collectAsStateWithLifecycle()
+    val fontScale = LocalDensity.current.fontScale
+    LaunchedEffect(controller, fontScale) {
+        controller.setPresentationTextScale(fontScale.toDouble())
+    }
     PartyDeckTheme(reduceMotion = state.effectiveReduceMotion) {
         val snackbars = remember { SnackbarHostState() }
         val copiedMessage = stringResource(Res.string.shell_invitation_copied)
+        val fallbackMessage = stringResource(Res.string.presentation_fallback)
         LaunchedEffect(state.notice?.occurrenceId) {
             if (state.notice != null) {
                 snackbars.showSnackbar(copiedMessage)
                 controller.dismissNotice()
             }
+        }
+        LaunchedEffect(state.presentation.fallbackReason) {
+            if (state.presentation.fallbackReason != null) snackbars.showSnackbar(fallbackMessage)
         }
         val onRecover = {
             when (state.problem?.recovery) {
@@ -204,19 +217,18 @@ private fun SessionScreen(state: AppUiState, controller: PartyDeckController, on
                         { controller.navigate(AppScreen.SETTINGS) },
                     )
                 }
-                GameplayScreen(
-                    view = game,
-                    isHost = session.selfPlayerId == session.hostPlayerId,
-                    canSendAction = state.canSendSessionAction,
-                    pendingAction = state.pendingAction,
-                    privateContentVisible = state.isForeground,
-                    canAdvanceRound = session.controls.canAdvanceRound,
-                    canReturnToLobby = session.controls.canReturnToLobby,
+                GameplayPresentationPicker(
+                    state = state.presentation,
+                    onSelect = { controller.selectPresentation(it) },
+                    modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth(),
+                )
+                SessionGameSurface(
+                    state = state,
+                    onUseCompose = controller::useComposePresentation,
                     onPlay = controller::playCards,
                     onChallenge = controller::challenge,
                     onNextRound = controller::nextRound,
                     onReturnToLobby = controller::returnToLobby,
-                    privacyEpoch = state.privacyEpoch,
                     modifier = Modifier.weight(1f).fillMaxWidth(),
                 )
             }
@@ -236,6 +248,43 @@ private fun SessionScreen(state: AppUiState, controller: PartyDeckController, on
             DeckButton(stringResource(Res.string.shell_return_home), controller::leaveSession, Modifier.fillMaxWidth())
         }
         null -> SessionLoadingScreen(onBack = { controller.requestBack() })
+    }
+}
+
+/** The same session and pending receipt drive both the native cover and the standard fallback. */
+@Composable
+internal fun SessionGameSurface(
+    state: AppUiState,
+    onUseCompose: () -> Unit,
+    onPlay: (List<CardId>) -> Unit,
+    onChallenge: () -> Unit,
+    onNextRound: () -> Unit,
+    onReturnToLobby: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val session = state.session ?: return
+    val game = session.game ?: return
+    when (state.presentation.lifecycle) {
+        PresentationLifecycle.OPENING, PresentationLifecycle.ACTIVE -> EmbeddedPresentationCover(
+            lifecycle = state.presentation.lifecycle,
+            onUseCompose = onUseCompose,
+            modifier = modifier,
+        )
+        PresentationLifecycle.COMPOSE, PresentationLifecycle.CLOSING -> GameplayScreen(
+            view = game,
+            isHost = session.selfPlayerId == session.hostPlayerId,
+            canSendAction = state.canSendSessionAction,
+            pendingAction = state.pendingAction,
+            privateContentVisible = state.isForeground && !state.isBackgrounded,
+            canAdvanceRound = session.controls.canAdvanceRound,
+            canReturnToLobby = session.controls.canReturnToLobby,
+            onPlay = onPlay,
+            onChallenge = onChallenge,
+            onNextRound = onNextRound,
+            onReturnToLobby = onReturnToLobby,
+            privacyEpoch = state.privacyEpoch,
+            modifier = modifier,
+        )
     }
 }
 

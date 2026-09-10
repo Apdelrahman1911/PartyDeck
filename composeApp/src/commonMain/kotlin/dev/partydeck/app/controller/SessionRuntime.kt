@@ -39,7 +39,8 @@ internal data class RuntimeSnapshot(
 internal interface SessionRuntime {
     val state: StateFlow<RuntimeSnapshot>
     fun start()
-    suspend fun send(intent: ClientIntent): CommandReceipt
+    /** Submit against the session revision captured with the view that authorized this action. */
+    suspend fun send(intent: ClientIntent, expectedRevision: Long): CommandReceipt
     suspend fun leave()
     fun setForeground(value: Boolean)
     fun retry()

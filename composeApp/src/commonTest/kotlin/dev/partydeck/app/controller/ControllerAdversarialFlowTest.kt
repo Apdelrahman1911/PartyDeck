@@ -57,7 +57,7 @@ class ControllerAdversarialFlowTest {
         try {
             val before = assertNotNull(client.runtime.state.value.view)
             val selected = assertNotNull(before.game).yourHand.first().id
-            val request = async { runCatching { client.runtime.send(ClientIntent.PlayCards(listOf(selected))) } }
+            val request = async { runCatching { client.runtime.send(ClientIntent.PlayCards(listOf(selected)), before.revision) } }
             runCurrent()
             val command = client.first.commands().single()
             assertEquals(before.revision, command.expectedRevision)
@@ -66,7 +66,7 @@ class ControllerAdversarialFlowTest {
             runCurrent()
             assertFalse(request.isCompleted, "An acknowledgement released controls before the changed hand arrived")
             assertEquals(before, client.runtime.state.value.view)
-            val blocked = runCatching { client.runtime.send(ClientIntent.Challenge) }.exceptionOrNull()
+            val blocked = runCatching { client.runtime.send(ClientIntent.Challenge, before.revision) }.exceptionOrNull()
             assertEquals(UiProblemCode.ACTION_REJECTED, assertIs<RuntimeFailure>(blocked).code)
             assertEquals(1, client.first.commands().size)
 
@@ -83,7 +83,7 @@ class ControllerAdversarialFlowTest {
             // A repeated welcome on an admitted link must not rewind the private command counter.
             client.first.server(welcome(after, nextCommandId = command.commandId))
             runCurrent()
-            val nextRequest = async { runCatching { client.runtime.send(ClientIntent.Challenge) } }
+            val nextRequest = async { runCatching { client.runtime.send(ClientIntent.Challenge, after.revision) } }
             runCurrent()
             val next = client.first.commands().last()
             assertEquals(command.commandId + 1, next.commandId)
@@ -103,7 +103,11 @@ class ControllerAdversarialFlowTest {
         val client = connectClient()
         try {
             val before = assertNotNull(client.runtime.state.value.view)
-            val request = async { runCatching { client.runtime.send(ClientIntent.PlayCards(listOf(assertNotNull(before.game).yourHand.first().id))) } }
+            val request = async {
+                runCatching {
+                    client.runtime.send(ClientIntent.PlayCards(listOf(assertNotNull(before.game).yourHand.first().id)), before.revision)
+                }
+            }
             runCurrent()
             val command = client.first.commands().single()
             val after = client.fixture.afterOwnPlay(before.revision + 1)
@@ -163,7 +167,11 @@ class ControllerAdversarialFlowTest {
         val client = connectClient(nextCommandId = 7)
         try {
             val before = assertNotNull(client.runtime.state.value.view)
-            val request = async { runCatching { client.runtime.send(ClientIntent.PlayCards(listOf(assertNotNull(before.game).yourHand.first().id))) } }
+            val request = async {
+                runCatching {
+                    client.runtime.send(ClientIntent.PlayCards(listOf(assertNotNull(before.game).yourHand.first().id)), before.revision)
+                }
+            }
             runCurrent()
             assertEquals(7L, client.first.commands().single().commandId)
             client.runtime.setForeground(false)
@@ -193,7 +201,7 @@ class ControllerAdversarialFlowTest {
             assertEquals(1, replacement.clientMessages().size, "Resume resent the old gameplay intent")
             assertFalse(replacement.closed, "Cleanup from the old loop closed its replacement")
 
-            val nextRequest = async { runCatching { client.runtime.send(ClientIntent.Challenge) } }
+            val nextRequest = async { runCatching { client.runtime.send(ClientIntent.Challenge, restored.revision) } }
             runCurrent()
             val command = replacement.commands().single()
             assertEquals(8L, command.commandId)
@@ -215,7 +223,11 @@ class ControllerAdversarialFlowTest {
             val before = assertNotNull(client.runtime.state.value.view)
             val replacement = FakeConnection("ack-timeout-replacement")
             client.transport.enqueue(replacement)
-            val request = async { runCatching { client.runtime.send(ClientIntent.PlayCards(listOf(assertNotNull(before.game).yourHand.first().id))) } }
+            val request = async {
+                runCatching {
+                    client.runtime.send(ClientIntent.PlayCards(listOf(assertNotNull(before.game).yourHand.first().id)), before.revision)
+                }
+            }
             runCurrent()
             assertEquals(1, client.first.commands().size)
             assertFalse(request.isCompleted)
@@ -251,7 +263,7 @@ class ControllerAdversarialFlowTest {
                 val beforeGame = assertNotNull(before.game)
                 assertTrue(beforeGame.yourHand.isNotEmpty())
                 val intent = if (acknowledgedLeave) ClientIntent.Leave else ClientIntent.PlayCards(listOf(beforeGame.yourHand.first().id))
-                val request = async { runCatching { client.runtime.send(intent) } }
+                val request = async { runCatching { client.runtime.send(intent, before.revision) } }
                 runCurrent()
                 val command = client.first.commands().single()
                 val receipt = CommandReceipt(command.commandId, before.revision + 1)
@@ -301,7 +313,8 @@ class ControllerAdversarialFlowTest {
             val admitted = remote.serverMessages().filterIsInstance<ServerMessage.Welcome>().single()
             remote.client(ClientMessage.Command(invitation.sessionId, 1, admitted.view.revision, ClientIntent.SetReady(true)))
             runCurrent()
-            val start = async { runtime.send(ClientIntent.StartGame) }
+            val startRevision = assertNotNull(runtime.state.value.view).revision
+            val start = async { runtime.send(ClientIntent.StartGame, startRevision) }
             runCurrent()
             assertNull(start.await().error)
             assertTrue(assertNotNull(runtime.state.value.view).pausedPlayerIds.isEmpty())

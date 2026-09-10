@@ -35,6 +35,7 @@ class PartyDeckController(
     private val services: PlatformServices,
     private val transportFactory: LanTransportFactory,
     parentScope: CoroutineScope,
+    presentationHost: EmbeddedPresentationHost = EmbeddedPresentationHost.None,
 ) {
     private val job = SupervisorJob(parentScope.coroutineContext[Job])
     private val scope = CoroutineScope(parentScope.coroutineContext + job)
@@ -50,6 +51,7 @@ class PartyDeckController(
     private var runtime: SessionRuntime? = null
     private var runtimeCollector: Job? = null
     private var commandJob: Job? = null
+    private var commandReservation: Any? = null
     private var feedbackJob: Job? = null
     private var sessionGeneration = 0L
     private var scanRequest = 0L
@@ -57,14 +59,30 @@ class PartyDeckController(
     private var overlayReturn = AppScreen.HOME
     private var closed = false
     private var feedbackClosed = false
+    private val presentations = EmbeddedPresentationCoordinator(
+        scope = scope,
+        host = presentationHost,
+        currentState = { state.value },
+        sessionGeneration = { sessionGeneration },
+        newPresentationId = services::secureToken,
+        publish = { presentation, conceal ->
+            mutableState.update {
+                it.copy(presentation = presentation, privacyEpoch = if (conceal) it.privacyEpoch + 1 else it.privacyEpoch)
+            }
+        },
+        submit = ::submitPresentation,
+        requestExit = { requestBack() },
+    )
 
     init {
+        presentations.start()
         scope.launch(start = CoroutineStart.UNDISPATCHED) {
             try {
                 awaitCancellation()
             } finally {
                 withContext(NonCancellable) {
                     closed = true
+                    presentations.close()
                     clearSessionState()
                     closeFeedback()
                     preferenceWriter?.join()
@@ -89,6 +107,7 @@ class PartyDeckController(
                     mutableState.update {
                         it.copy(displayName = if (displayNameEdited) it.displayName else name, settings = settings)
                     }
+                    presentations.update()
                 }
             } catch (cancelled: CancellationException) {
                 throw cancelled
@@ -116,6 +135,7 @@ class PartyDeckController(
         val current = state.value
         if (current.session != null && screen in setOf(AppScreen.HOME, AppScreen.HOST, AppScreen.JOIN)) {
             mutableState.update { it.copy(leaveConfirmationRequested = true) }
+            presentations.update()
             return
         }
         if (screen == AppScreen.SETTINGS || screen == AppScreen.HOW_TO) {
@@ -126,6 +146,7 @@ class PartyDeckController(
             abandonRuntime()
         }
         mutableState.update { it.copy(screen = screen, problem = null, notice = null) }
+        presentations.update()
     }
 
     /** False only at Home, allowing the native owner to perform its normal Back behavior. */
@@ -135,6 +156,7 @@ class PartyDeckController(
             AppScreen.HOME -> false
             AppScreen.SESSION -> {
                 mutableState.update { it.copy(leaveConfirmationRequested = true) }
+                presentations.update()
                 true
             }
             AppScreen.SETTINGS, AppScreen.HOW_TO -> {
@@ -142,6 +164,7 @@ class PartyDeckController(
                     overlayReturn.takeUnless { it == AppScreen.SESSION } ?: AppScreen.HOME
                 }
                 mutableState.update { it.copy(screen = destination, problem = null) }
+                presentations.update()
                 true
             }
             AppScreen.HOST, AppScreen.JOIN -> {
@@ -154,6 +177,30 @@ class PartyDeckController(
 
     fun dismissLeaveConfirmation() {
         mutableState.update { it.copy(leaveConfirmationRequested = false) }
+        presentations.update()
+    }
+
+    fun selectPresentation(presentation: GameplayPresentation): Boolean =
+        !closed && presentations.select(presentation)
+
+    fun useComposePresentation() { selectPresentation(GameplayPresentation.COMPOSE) }
+
+    fun requestPresentationExit(presentationId: String) {
+        if (!closed) presentations.exit(presentationId)
+    }
+
+    /** Apply each new native privacy generation after its foreground/background facts. */
+    fun refreshPresentationLifecycle(presentationId: String) {
+        if (!closed && presentations.owns(presentationId)) presentations.update()
+    }
+
+    /** Platform font scale is bounded by the existing renderer preferences schema. */
+    fun setPresentationTextScale(value: Double) {
+        if (closed || !value.isFinite()) return
+        val scale = value.coerceIn(1.0, 2.0)
+        if (state.value.presentationTextScale == scale) return
+        mutableState.update { it.copy(presentationTextScale = scale) }
+        presentations.update()
     }
 
     fun setDisplayName(value: String) {
@@ -177,6 +224,7 @@ class PartyDeckController(
         preferenceRevision++
         latestPreferences = settings
         mutableState.update { it.copy(settings = settings) }
+        presentations.update()
         preferenceWrites.trySend(PreferenceWrite(preferenceRevision, settings))
     }
 
@@ -266,6 +314,7 @@ class PartyDeckController(
                         problem = problem,
                     )
                 }
+                presentations.update()
                 if (active && previous.connection.status == ConnectionStatus.CONNECTED) {
                     playSessionFeedback(previous.session, snapshot.view, generation)
                 }
@@ -275,34 +324,62 @@ class PartyDeckController(
         next.start()
     }
 
-    fun setReady(value: Boolean) = submit(PendingAction.READY, ClientIntent.SetReady(value))
-    fun startGame() = submit(PendingAction.START_GAME, ClientIntent.StartGame)
-    fun playCards(cardIds: List<CardId>) = submit(PendingAction.PLAY_CARDS, ClientIntent.PlayCards(cardIds.toList()))
-    fun challenge() = submit(PendingAction.CHALLENGE, ClientIntent.Challenge)
-    fun nextRound() = submit(PendingAction.NEXT_ROUND, ClientIntent.AdvanceRound)
-    fun returnToLobby() = submit(PendingAction.RETURN_TO_LOBBY, ClientIntent.ReturnToLobby)
-    fun kickPlayer(playerId: PlayerId) = submit(PendingAction.KICK_PLAYER, ClientIntent.KickPlayer(playerId))
+    fun setReady(value: Boolean) { submit(PendingAction.READY, ClientIntent.SetReady(value)) }
+    fun startGame() { submit(PendingAction.START_GAME, ClientIntent.StartGame) }
+    fun playCards(cardIds: List<CardId>) { submit(PendingAction.PLAY_CARDS, ClientIntent.PlayCards(cardIds.toList())) }
+    fun challenge() { submit(PendingAction.CHALLENGE, ClientIntent.Challenge) }
+    fun nextRound() { submit(PendingAction.NEXT_ROUND, ClientIntent.AdvanceRound) }
+    fun returnToLobby() { submit(PendingAction.RETURN_TO_LOBBY, ClientIntent.ReturnToLobby) }
+    fun kickPlayer(playerId: PlayerId) { submit(PendingAction.KICK_PLAYER, ClientIntent.KickPlayer(playerId)) }
 
-    private fun submit(action: PendingAction, intent: ClientIntent) {
-        val currentRuntime = runtime ?: return
-        if (closed || !state.value.isForeground || !state.value.canSendSessionAction) return
+    private fun submitPresentation(submission: PresentationSubmission): Boolean {
+        val session = state.value.session ?: return false
+        if (!presentations.owns(submission.presentationId) || submission.sessionGeneration != sessionGeneration ||
+            session.sessionId != submission.sessionId || session.selfPlayerId != submission.recipient ||
+            session.revision != submission.expectedRevision || state.value.screen != AppScreen.SESSION
+        ) return false
+        val action = when (submission.intent) {
+            is ClientIntent.PlayCards -> PendingAction.PLAY_CARDS
+            ClientIntent.Challenge -> PendingAction.CHALLENGE
+            ClientIntent.AdvanceRound -> PendingAction.NEXT_ROUND
+            ClientIntent.ReturnToLobby -> PendingAction.RETURN_TO_LOBBY
+            else -> return false
+        }
+        return submit(action, submission.intent, submission.expectedRevision)
+    }
+
+    private fun submit(action: PendingAction, intent: ClientIntent, expectedRevision: Long? = null): Boolean {
+        val currentRuntime = runtime ?: return false
+        val before = state.value
+        if (closed || !before.canSendSessionAction || before.leaveConfirmationRequested) return false
+        val revision = expectedRevision ?: before.session?.revision ?: return false
         val generation = sessionGeneration
+        val reservation = Any()
+        commandReservation = reservation
         mutableState.update { it.copy(pendingAction = action, problem = null) }
+        presentations.update()
         commandJob = scope.launch {
             try {
-                val receipt = currentRuntime.send(intent)
-                if (generation == sessionGeneration) receipt.error?.let { showProblem(it.toUiProblem()) }
+                val receipt = currentRuntime.send(intent, revision)
+                if (generation == sessionGeneration && commandReservation === reservation) {
+                    receipt.error?.let { showProblem(it.toUiProblem()) }
+                }
             } catch (cancelled: CancellationException) {
                 throw cancelled
             } catch (error: Exception) {
-                if (generation == sessionGeneration && !closed) {
+                if (generation == sessionGeneration && commandReservation === reservation && !closed) {
                     val failure = error.toRuntimeFailure()
                     showProblem(failure.code, failure.recovery)
                 }
             } finally {
-                if (generation == sessionGeneration && !closed) mutableState.update { it.copy(pendingAction = null) }
+                if (generation == sessionGeneration && commandReservation === reservation && !closed) {
+                    commandReservation = null
+                    mutableState.update { it.copy(pendingAction = null) }
+                    presentations.update()
+                }
             }
         }
+        return true
     }
 
     fun retryConnection() {
@@ -340,9 +417,11 @@ class PartyDeckController(
 
     private fun detachRuntime(): SessionRuntime? {
         sessionGeneration++
+        presentations.update()
         scanRequest++
         commandJob?.cancel()
         commandJob = null
+        commandReservation = null
         feedbackJob?.cancel()
         feedbackJob = null
         runtimeCollector?.cancel()
@@ -361,6 +440,7 @@ class PartyDeckController(
                 isScanningInvitation = false,
             )
         }
+        presentations.update()
     }
 
     private fun clearSessionState() {
@@ -378,6 +458,7 @@ class PartyDeckController(
                 isScanningInvitation = false,
             )
         }
+        presentations.update()
     }
 
     fun setForeground(value: Boolean) {
@@ -385,6 +466,7 @@ class PartyDeckController(
         mutableState.update {
             it.copy(isForeground = value, privacyEpoch = if (!value) it.privacyEpoch + 1 else it.privacyEpoch)
         }
+        presentations.update()
         if (!value) feedbackJob?.cancel()
         try {
             services.feedback.setForeground(value)
@@ -408,6 +490,7 @@ class PartyDeckController(
         if (closed || state.value.isBackgrounded == value) return
         if (value && state.value.isForeground) setForeground(false)
         mutableState.update { it.copy(isBackgrounded = value) }
+        presentations.update()
         updateRuntimeActivity()
     }
 
@@ -421,7 +504,10 @@ class PartyDeckController(
     }
 
     fun setSystemReduceMotion(value: Boolean) {
-        if (!closed) mutableState.update { it.copy(systemReduceMotion = value) }
+        if (!closed) {
+            mutableState.update { it.copy(systemReduceMotion = value) }
+            presentations.update()
+        }
     }
 
     fun copyInvitation() {
@@ -532,6 +618,7 @@ class PartyDeckController(
     fun close() {
         if (closed) return
         closed = true
+        presentations.close()
         detachRuntime()?.close()
         clearSessionState()
         closeFeedback()

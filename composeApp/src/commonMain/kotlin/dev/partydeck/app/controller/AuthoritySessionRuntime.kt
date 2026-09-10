@@ -166,12 +166,12 @@ internal class AuthoritySessionRuntime(
         }
     }
 
-    override suspend fun send(intent: ClientIntent): CommandReceipt {
+    override suspend fun send(intent: ClientIntent, expectedRevision: Long): CommandReceipt {
         if (closed || state.value.connection != ConnectionStatus.CONNECTED) {
             throw RuntimeFailure(UiProblemCode.CONNECTION_LOST, RecoveryAction.RETRY_CONNECTION)
         }
         val reply = CompletableDeferred<CommandReceipt>(job)
-        events.send(AuthorityEvent.LocalCommand(intent, reply))
+        events.send(AuthorityEvent.LocalCommand(intent, expectedRevision, reply))
         return reply.await()
     }
 
@@ -179,7 +179,10 @@ internal class AuthoritySessionRuntime(
         if (closed) return
         if (state.value.connection == ConnectionStatus.CONNECTED) {
             withTimeoutOrNull(1_500) {
-                send(ClientIntent.EndSession)
+                // Teardown uses the authority revision when its turn in the queue arrives.
+                val reply = CompletableDeferred<CommandReceipt>(job)
+                events.send(AuthorityEvent.EndSession(reply))
+                reply.await()
                 retiringWriters.toList().forEach { it.join() }
             }
         }
@@ -197,18 +200,10 @@ internal class AuthoritySessionRuntime(
     private suspend fun handle(event: AuthorityEvent) {
         val current = checkNotNull(authority)
         when (event) {
-            is AuthorityEvent.LocalCommand -> {
-                try {
-                    val receipt = localCommand(localHost, event.intent)
-                    if (practice && event.intent == ClientIntent.ReturnToLobby && receipt.accepted) {
-                        readyPracticeSeats()
-                    }
-                    event.reply.complete(receipt)
-                } catch (failure: Exception) {
-                    event.reply.completeExceptionally(failure)
-                    throw failure
-                }
-            }
+            is AuthorityEvent.LocalCommand -> completeLocalCommand(event.intent, event.expectedRevision, event.reply)
+            is AuthorityEvent.EndSession -> completeLocalCommand(
+                ClientIntent.EndSession, checkNotNull(localHost.view).revision, event.reply,
+            )
             is AuthorityEvent.Connected -> addRemotePeer(event.connection)
             is AuthorityEvent.Message -> {
                 if (remotePeers.containsKey(event.connectionId)) {
@@ -252,12 +247,33 @@ internal class AuthoritySessionRuntime(
         }
     }
 
-    private fun localCommand(seat: LocalSeat, intent: ClientIntent): CommandReceipt {
+    private fun completeLocalCommand(
+        intent: ClientIntent,
+        expectedRevision: Long,
+        reply: CompletableDeferred<CommandReceipt>,
+    ) {
+        try {
+            val receipt = localCommand(localHost, intent, expectedRevision)
+            if (practice && intent == ClientIntent.ReturnToLobby && receipt.accepted) {
+                readyPracticeSeats()
+            }
+            reply.complete(receipt)
+        } catch (failure: Exception) {
+            reply.completeExceptionally(failure)
+            throw failure
+        }
+    }
+
+    /** Called only by the serial owner; trusted startup and bot actions use its current revision. */
+    private fun localCommand(
+        seat: LocalSeat,
+        intent: ClientIntent,
+        expectedRevision: Long = checkNotNull(seat.view).revision,
+    ): CommandReceipt {
         val current = checkNotNull(authority)
-        val view = checkNotNull(seat.view)
         val commandId = seat.nextCommandId++
         val result = current.handle(seat.peer, ClientMessage.Command(
-            current.sessionId, commandId, view.revision, intent,
+            current.sessionId, commandId, expectedRevision, intent,
         ))
         dispatch(result)
         return result.deliveries.asSequence()
@@ -426,7 +442,12 @@ internal class AuthoritySessionRuntime(
     }
 
     private sealed interface AuthorityEvent {
-        data class LocalCommand(val intent: ClientIntent, val reply: CompletableDeferred<CommandReceipt>) : AuthorityEvent
+        data class LocalCommand(
+            val intent: ClientIntent,
+            val expectedRevision: Long,
+            val reply: CompletableDeferred<CommandReceipt>,
+        ) : AuthorityEvent
+        data class EndSession(val reply: CompletableDeferred<CommandReceipt>) : AuthorityEvent
         data class Connected(val connection: LanConnection) : AuthorityEvent
         data class Message(val connectionId: String, val message: ClientMessage) : AuthorityEvent
         data class Disconnected(val connectionId: String) : AuthorityEvent

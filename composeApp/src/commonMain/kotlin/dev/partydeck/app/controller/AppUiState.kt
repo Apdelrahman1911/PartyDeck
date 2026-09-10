@@ -78,6 +78,8 @@ data class AppUiState(
     val joinAddress: String = "",
     val settings: AppSettings = AppSettings(),
     val systemReduceMotion: Boolean = false,
+    val presentationTextScale: Double = 1.0,
+    val presentation: GameplayPresentationState = GameplayPresentationState(),
     val isForeground: Boolean = true,
     val isBackgrounded: Boolean = false,
     val privacyEpoch: Long = 0,

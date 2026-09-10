@@ -260,7 +260,7 @@ internal class ClientSessionRuntime(
         }
     }
 
-    override suspend fun send(intent: ClientIntent): CommandReceipt {
+    override suspend fun send(intent: ClientIntent, expectedRevision: Long): CommandReceipt {
         val link = activeLink
         val seat = credentials
         val view = state.value.view
@@ -273,7 +273,7 @@ internal class ClientSessionRuntime(
             throw RuntimeFailure(UiProblemCode.ACTION_REJECTED)
         }
         val command = ClientMessage.Command(
-            invitation.sessionId, seat.nextCommandId++, view.revision, intent,
+            invitation.sessionId, seat.nextCommandId++, expectedRevision, intent,
         )
         val request = PendingCommand(command.commandId, link, CompletableDeferred(job))
         pending = request
@@ -308,7 +308,8 @@ internal class ClientSessionRuntime(
         if (!closed && state.value.connection == ConnectionStatus.CONNECTED) {
             withTimeoutOrNull(1_500) {
                 repeat(2) {
-                    val receipt = send(ClientIntent.Leave)
+                    val revision = state.value.view?.revision ?: return@withTimeoutOrNull
+                    val receipt = send(ClientIntent.Leave, revision)
                     if (receipt.error != SessionError.STALE_REVISION) return@withTimeoutOrNull
                 }
             }
