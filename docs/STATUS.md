@@ -1,6 +1,6 @@
 # PartyDeck status report
 
-**Snapshot: 2026-09-10, 03:30 UTC.** The original Compose application passed its
+**Snapshot: 2026-09-10, 04:24 UTC.** The original Compose application passed its
 refreshed Android and iOS baseline in
 [run 34428798269](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34428798269),
 at `15ab6408d16c04941d133214b03d4e8c6c42ced9`. This includes the Rules→Practice
@@ -14,7 +14,7 @@ the native Godot hosts still have implementation and runtime qualification work.
 weighted milestone calculation below: 80.5%, rounded to 81%. It is not code
 coverage, a reliability guarantee, or an estimate of time remaining. Refreshed
 baseline qualification has now passed; hardware, API 36 and publisher gates
-remain. A residual screenshot framing issue is tracked separately below.
+remain. The Rules screenshot framing follow-up also passes independent review.
 
 | Workstream | Weight | Completion | Meaning and remaining limit |
 | --- | ---: | ---: | --- |
@@ -65,8 +65,8 @@ are outside the agreed first-release scope.
 
 All results below refer to `15ab640` and the actual assertions executed in
 [run 34428798269](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34428798269).
-The workflow completed successfully. Independent Android review is complete;
-independent iOS test-evidence review is continuing after artifact collection.
+The workflow completed successfully. Independent Android and iOS test-evidence
+reviews are complete.
 The refreshed device-package differential review passes: all 75 resources, six
 privacy manifests, notices and metadata are unchanged; only executable bytes
 change. Actual compiled controller code and release-link logs tie the new
@@ -83,15 +83,14 @@ binary to the navigation fix. No signature/provisioning/test payload is present.
 | Native iOS UI | **3 tests passed:** Settings, actual hosting/invitation, and playable practice with reveal/select/hide/play/leave; eight original screenshots retained |
 | iOS builds | Simulator test app and optimized unsigned ARM64 device app built; release Kotlin framework task executed, minimum iOS 15 and iPhoneOS 26.4 metadata verified |
 
-The Rules labels are readable and all four actual navigation routes pass.
-**Three of four CTA captures show the complete button.** The optimized normal
-capture clips about ten pixels from its rounded bottom; UIAutomator reports the
-parent already clamped to the scroll edge. This is a capture-readiness limitation,
-not evidence that scrolling or the functional route is broken. The harness now
-requires a small visible gap from the viewport edge, with eleven passing host
-regressions. Its Android recapture is running in
-[34432935952](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34432935952)
-at `8d8d429`; original images remain unchanged.
+The Rules labels and actual navigation routes pass at both text scales. The
+original optimized normal capture clipped its button's lower border; that image
+remains preserved. **The follow-up is now fixed and verified:**
+[Android recapture 34432935952](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34432935952)
+at `8d8d429` passes all 118 tests and both APK flows. Independent review confirms
+all four complete button borders/labels, 63 pixels of bottom clearance, the
+exact executed checker, and four Rules→game→confirmed leave→Home routes. The
+harness's eleven host regressions also pass.
 
 Exact artifacts from the refreshed baseline:
 
@@ -115,9 +114,9 @@ evidence; earlier images or package hashes are not relabeled as current.
 | Authority bridge | Recipient-safe versioned codec, real rules authority, bounded events/revisions/lifetimes; common tests and all 20 iOS bridge tests pass | Native host event round trips and actual Swift factory/gameplay execution |
 | 2D renderer | Final packed desktop match passes: 42 authority snapshots, 21 renderer events, two player plays, two challenges, thirteen continuations, winner/lobby/fresh entry and clean exit | Native input, lifecycle, text scaling and accessibility |
 | 3D renderer | Same complete desktop match and identical authority trace; corrected winner rank, narrow/large-text layout and touch handling; deferred-scroll teardown race fixed and boundary-tested | Native input and lifecycle checks |
-| Android host | Real official AAR, chooser, owned engine process, bounded bridge, privacy cover; packages built/audited; Java discovery and exit-wake fixes committed with seven passing host tests | Four native cases rerunning in 34433457249; current package audit |
+| Android host | Real official AAR, chooser, owned engine process, bounded bridge and privacy cover; all four cases reach native Ready; 2D/100% reaches a real winner and positively confirmed engine teardown | Full gate failed on test timing, post-winner confirmation expectations, 200% scroll overshoot and shader-warning classification; corrections and package audit underway |
 | iOS diagnostic host | All five actual diagnostic lifecycle tests pass in 34431377938: rendering, foreground loss/resume, touch exit, deferred cleanup and initialization boundaries | Actual Last Light gameplay, repeat entry/dormancy and physical-device qualification remain separate |
-| iOS authority host | Actual ARM64 framework/header verified and Swift module import compiled; native Swift caller, bounded diagnostics and gameplay tests are being implemented | Compile/link caller and execute four reference matches plus secure-default exit; repeat entry/dormancy remains unresolved |
+| iOS authority host | Actual Swift caller links against the verified framework and engine; secure-default launch and real renderer Exit pass in 34434392993 | Four reference match cases fail at app/diagnostic/geometry/background checks and are being diagnosed; repeated entry/dormancy implementation remains open |
 | Delivery | Both desktop previews run; matched screenshots and original failures published; Android packages retain exact notices and alignment | Playable native previews for both modes, production shell/LAN integration and mobile accessibility |
 
 The previously accepted deterministic pack is 1,542,328 bytes, SHA-256
@@ -139,8 +138,17 @@ tests**. All four native cases failed before Ready with the actual message
 recorded density 1.75; pinned-source review found that Android Java methods use
 `has_java_method`, while the renderer checked only `Object.has_method`. The
 3D/200% case additionally emitted the upstream renderer-exit timeout; native
-destroy-return flags do not override that failure. Both fixes are pushed at `bf77ea7` and are being exercised in
-[34433457249](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34433457249).
+destroy-return flags do not override that failure. Both fixes are pushed at `bf77ea7`. The next run,
+[34433457249](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34433457249),
+passes 27 JUnit cases, 54 checker tests and 41 packed boundary assertions. All
+four native cases reach Ready. 2D/100% completes the real match and returns to
+the chooser with positive render-thread/engine termination logs, but its mode
+gate hits the deadline while incorrectly expecting a post-winner confirmation.
+2D/200% repeatedly overshoots a scrolled action. Both 3D checks fail on a verified
+shader-cache fallback warning logged at Android error priority. The narrow
+warning classifier fix is pushed at `2334382` with 60 passing host tests; the
+other checker corrections are underway. These partial results do not qualify
+the full native suite.
 
 [iOS diagnostic run 34428221586](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34428221586)
 at `a04f22b` linked and ran five tests: **one passed, four failed**. Actual stderr
@@ -154,7 +162,13 @@ touch-generated Exit and checked cleanup. Closed initialized cases release
 the view/controller and OS singleton, stop the loop, and restore the prior
 idle-timer policy. The reopen assertion confirms refusal after full cleanup;
 it does not qualify another game entry. This diagnostic gate remains separate
-from the new real-authority gameplay host.
+from the new real-authority gameplay host. That host and parallel input builds
+are pushed at `a8dbb19`. In
+[34434392993](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34434392993),
+the Swift caller links and the secure-default renderer-exit test passes. Four
+reference match tests fail at distinct app-running, diagnostics, geometry and
+background assertions. Actual process logs and measurements are being audited
+before classifying their causes; no full native iOS match is accepted yet.
 
 ## Remaining release work
 
@@ -164,18 +178,16 @@ from the new real-authority gameplay host.
    Production integration still needs the existing LAN shell and accessible
    native controls: Godot desktop accessibility does not supply mobile
    TalkBack/VoiceOver support.
-2. **Finish independent refreshed iOS audit and Rules recapture.** The original
-   app suites pass; these follow-ups narrow package and screenshot claims.
-3. **Qualify Android API 36.** Standard runner attempts have failed during empty
+2. **Qualify Android API 36.** Standard runner attempts have failed during empty
    emulator preparation before installation. API 35 passes do not qualify API
    36; physical or suitable alternative runner evidence remains necessary.
-4. **Execute physical-device release validation.** Android↔iPhone and
+3. **Execute physical-device release validation.** Android↔iPhone and
    same-platform LAN matches/rematches with two-to-six players; camera/QR,
    permission denial/recovery, real sharing/clipboard, network loss/reconnect,
    host loss, background/lock/privacy/process death; supported minimum/current
    OS, TalkBack/VoiceOver, large text, phone/tablet/orientation; release launch,
    frame pacing, memory, battery and network use. Hardware is unavailable here.
-5. **Complete publisher/store setup.** Publisher name, public privacy URL and
+4. **Complete publisher/store setup.** Publisher name, public privacy URL and
    support contact; Android signing identity and Apple team/provisioning; Play
    Console/App Store Connect listings, disclosures and submission; signed
    testing-track/TestFlight installation. These details were already requested.
@@ -185,9 +197,9 @@ from the new real-authority gameplay host.
 ## Published deliverables
 
 - Source and coherent milestones are pushed to the repository.
-- [Screenshot gallery](screenshots/README.md): **672 original app/renderer PNGs**,
-  **938 evidence files**, four linked artwork proofs and **1,615 verified
-  checksums**, published at `75a5899`. Newer batches are not included until pushed.
+- [Screenshot gallery](screenshots/README.md): **837 original app/renderer PNGs**,
+  **1,155 evidence files**, four linked artwork proofs and **1,997 verified
+  checksums**, published at `0c0f0e2`. Newer batches are not included until pushed.
 - [Main build instructions](../README.md), [validation scripts](../scripts/README.md),
   [iOS instructions](../iosApp/README.md), and
   [both desktop Godot preview commands](../godot/comparison/README.md).

@@ -1,31 +1,80 @@
 # Release qualification
 
-Review date: **2026-09-09**. This records executed evidence and remaining
+Review date: **2026-09-10**. This records executed evidence and remaining
 acceptance work for PartyDeck's first release. Source inspection, JVM rendering,
 mobile runtime tests, physical-network tests, and distribution signing are
 recorded separately.
 
 ## Current decision
 
-**Not yet qualified for public distribution.** iOS shared-native and XCTest
-validation, simulator execution, and optimized unsigned device-package inspection
-passed at **`987d380967149d80d8ba5761e206ecdf7386af25`** in
+**Not yet qualified for public distribution.** Independent inspection of the
+refreshed Compose baseline's optimized unsigned iOS device package passed at
+**`15ab6408d16c04941d133214b03d4e8c6c42ced9`** in
+[run 34428798269](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34428798269).
+Current implementation and native-runtime qualification are tracked in
+[STATUS.md](STATUS.md). Physical-device multiplayer, accessibility/performance
+measurements, production signing, store validation, and publisher review of
+the DNG commercial terms remain open.
+
+## Refreshed Compose iOS device package
+
+The independently inspected artifacts from **15ab640 / run 34428798269** are:
+
+| Artifact | Bytes | SHA-256 |
+| --- | ---: | --- |
+| Optimized unsigned device app, `.tar.gz` | 15,624,845 | `d77f59a8272803879a31ed6b56fb32db7d1ab4ae8deae940f7874e871e10b89f` |
+| Packaged `PartyDeck` executable | 50,360,472 | `611a9d4669fd07e07ae6314fdd99ca719fbe02544534700fd3d9053eace38b75` |
+
+All **14 package-review checks passed**. Compared with the accepted `987d380`
+device app, the file set remains **118 files / 51,902,947 bytes**; only the
+executable changed. The other **117 files** are byte-identical. All **75**
+font/audio/license resources match the inspected repository source, including
+the complete **258,067-byte** notice aggregate, SHA-256
+`d5c47822bd82a0f2b775b1f8c76863a4e5d5de7fbe6ca1aa1ad2713794a32066`.
+All **six privacy manifests** and the entire `Info.plist` are unchanged; the
+app privacy manifest also matches source.
+
+The app remains one **ARM64** executable with minimum **iOS 15.0**, built with **iOS SDK
+26.4 / Xcode 26.4.1**, identifier `dev.partydeck.app`, version **1.0.0 / 1**.
+Imported libraries and inspected privacy-related imports are unchanged. No
+Mach-O code signature, `_CodeSignature`, provisioning profile, test bundle,
+key-container file, or inspected test-fixture marker was found. The Swift lock
+is byte-identical, retaining Certificates **1.20.0**, Crypto **4.5.2**, and
+ASN.1 **1.7.2**. The new link map retains **1,635 live DNG symbols across 58
+objects**, so the DNG publisher gate remains open.
+
+The shipping controller changed at `15ab640`: its source sets
+`AppScreen.SESSION` during practice startup. Both link maps and executable
+symbol tables identify the live `PartyDeckController.startAuthority#internal`
+body, which changed from **2,856 to 3,512 bytes**. Retained CI logs establish
+the exact checkout, `:composeApp:linkReleaseFrameworkIosArm64`, and successful
+Release device build with `CODE_SIGNING_ALLOWED=NO`. This establishes that the
+changed controller body is linked into the inspected package.
+
+The receipt is
+`/tmp/partydeck-release-qa/final-15ab640/ios/device-audit-summary.json`;
+`device-package-review.json` and `device-binary-and-controller-review.json` in
+the same directory preserve the detailed comparisons and linked function
+hashes. This review did not rerun native tests or execute the device app.
+Runtime behavior, Apple codesign validation, publisher signing, and physical
+device qualification remain separate evidence. This acceptance applies to the
+exact Compose artifact above; it does not qualify replacement engine packages.
+
+## Earlier Compose baseline evidence
+
+The following gate table, package tables, and earlier executed evidence are
+historical records. iOS shared-native and XCTest validation, simulator execution,
+and optimized unsigned device-package inspection passed at
+**`987d380967149d80d8ba5761e206ecdf7386af25`** in
 [run 34398824935](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34398824935).
 Android build/tests/package inspection passed there, but its emulator failed
 before app installation. The Android-only follow-up at
 **`6bb4dd7d28026443c0d4b286afbbf75ef127ec19`**, in
 [run 34402895350](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34402895350),
-also failed during empty-AVD preparation. Android runtime remains unqualified
-while the next graphics configuration is checked.
-Physical-device multiplayer, accessibility/performance measurements, production
-signing, store validation, and publisher review of the DNG commercial terms
-remain open.
+also failed during empty-AVD preparation. Android runtime was unqualified at
+that checkpoint; later outcomes are tracked in [STATUS.md](STATUS.md).
 
-These qualification commits change tests, automation, and documentation; the
-shipping source is unchanged from the independently audited production milestone
-**`c73a659221f94a5ba7eeafa38a4b7a0754a54265`**.
-
-| Gate | Current evidence |
+| Gate | Historical evidence at 987d380 |
 | --- | --- |
 | Game/session correctness | 117 Android/JVM and 82 iOS shared-native tests passed in the preserved CI reports; independent behavioral review is in [game-review.md](game-review.md) |
 | Android application | Build/lint and optimized package inspection passed; full debug/optimized runtime qualification remains open |
@@ -89,7 +138,11 @@ CI artifacts and local copies are qualification evidence, not public releases.
   entitlement requirements and must be reviewed if introduced. **The simulator
   does not support local-network privacy testing.** [4]
 
-## Executed evidence
+## Executed evidence at the earlier Compose baseline
+
+Unless a different revision is named, this section records **987d380 / run
+34398824935**. Its test counts and runtime outcomes do not establish those of
+the refreshed Compose baseline or replacement engine packages.
 
 ### Automated tests and presentation
 
@@ -120,7 +173,8 @@ reboot. The reviewer verified changed kernel boot IDs, empty PartyDeck presence
 checks, retained failure trees/images/logs, and refusal of another recovery.
 **Neither APK was installed.** The follow-up Android-only run above also failed
 before installation. Its graphics change reduced shader initialization time,
-but a System UI startup ANR remained; the next graphics configuration is pending.
+but a System UI startup ANR remained. These failures preceded later runtime work
+tracked in [STATUS.md](STATUS.md).
 
 Earlier `c73a659` execution of a disposable-test-signed optimized APK passed
 practice reveal/select/hide, background-return concealment, one-card play,
@@ -175,7 +229,7 @@ recorded the actual Simulator and Release device builds:
 Package records, resource hashes, Mach-O inventories, and final link-map checks
 are retained under `/tmp/partydeck-release-qa/final-987d380/ios/`. The earlier
 `c73a659` iOS run passed narrower tests/builds but lost its artifact upload;
-current uploaded bundles supersede that inspection gap.
+the uploaded `987d380` bundles closed that historical inspection gap.
 
 ### Android package inspection and signing
 
