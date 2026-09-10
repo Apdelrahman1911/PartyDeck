@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "scope": "Godot engine notices, its retained Mozilla CA bundle source, and the Android NDK C++ runtime notice. Shared asset and Android host dependency notices are maintained separately.",
+  "godot": {
+    "release": "4.7.2-stable",
+    "source_repository": "https://github.com/godotengine/godot",
+    "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "android_library": {
+      "coordinate": "org.godotengine:godot:4.7.2.stable",
+      "bytes": 103251267,
+      "sha256": "8791eecfe7c96a4de2d188a0bccfe9b83b92589a5a6825847473416a990e8629"
+    },
+    "ca_bundle_retention": {
+      "library": "libgodot_android.so",
+      "abis": ["arm64-v8a", "armeabi-v7a", "x86", "x86_64"],
+      "verification": "A 130566-byte zlib stream in each ABI library decompresses to the exact 225076-byte source included as GODOT_CA_BUNDLE_SOURCE.txt.",
+      "source_sha256": "33a22c7286f7752131636a11fb9feb3fb12ecd02f1a9b3e54e5901349d37362e"
+    }
+  },
+  "android_ndk": {
+    "release": "r29",
+    "package_revision": "29.0.14206865",
+    "archive": {
+      "url": "https://dl.google.com/android/repository/android-ndk-r29-linux.zip",
+      "bytes": 783549481,
+      "sha1": "87e2bb7e9be5d6a1c6cdf5ec40dd4e0c6d07c30b",
+      "sha256": "4abbbcdc842f3d4879206e9695d52709603e52dd68d3c1fff04b3b5e7a308ecf",
+      "verification": "Archive size and SHA-1 match Google's official SDK repository metadata; SHA-256 was independently computed.",
+      "repository_metadata_url": "https://dl.google.com/android/repository/repository2-3.xml"
+    },
+    "runtime": {
+      "library": "libc++_shared.so",
+      "verification": "All four Android library copies have the same build IDs and ELF LOAD bytes as the official NDK r29 prebuilts, except ELF section-table header fields altered by stripping. Whole-file hashes differ because the Android library copies are stripped.",
+      "build_ids": {
+        "arm64-v8a": "ba615e4ff75bc2d8ba1eee93f983e02bc427c433",
+        "armeabi-v7a": "4dcbebec34af5743a8ca1c37483a5c82c8f665e4",
+        "x86": "31f820ad49515e490ef8d3fb596f4c81bef5e0b3",
+        "x86_64": "3013104c45517f8ad33d82df55191b7cec21204d"
+      },
+      "retained_elf_note": {
+        "ndk_release": "r28",
+        "build": "13004108",
+        "interpretation": "This older note is retained in the prebuilt C++ runtimes shipped with the verified NDK r29 package; package provenance is NDK r29."
+      }
+    }
+  },
+  "upstream_files": [
+    {
+      "file": "GODOT_LICENSE.txt",
+      "upstream_path": "LICENSE.txt",
+      "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+      "source_url": "https://raw.githubusercontent.com/godotengine/godot/ed1daf0bf001b61586d9930840f2f1394092c079/LICENSE.txt",
+      "bytes": 1149,
+      "sha256": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80",
+      "content_changed": false
+    },
+    {
+      "file": "GODOT_COPYRIGHT.txt",
+      "upstream_path": "COPYRIGHT.txt",
+      "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+      "source_url": "https://raw.githubusercontent.com/godotengine/godot/ed1daf0bf001b61586d9930840f2f1394092c079/COPYRIGHT.txt",
+      "bytes": 100108,
+      "sha256": "cb1980c88089573bcacd7221d777c689bb8bbd778799f24c27fca0fe5f774d6d",
+      "content_changed": false
+    },
+    {
+      "file": "GODOT_CA_BUNDLE_SOURCE.txt",
+      "upstream_path": "thirdparty/certs/ca-bundle.crt",
+      "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+      "source_url": "https://raw.githubusercontent.com/godotengine/godot/ed1daf0bf001b61586d9930840f2f1394092c079/thirdparty/certs/ca-bundle.crt",
+      "bytes": 225076,
+      "sha256": "33a22c7286f7752131636a11fb9feb3fb12ecd02f1a9b3e54e5901349d37362e",
+      "content_changed": false,
+      "distribution_change": "Filename extension changed from .crt to .txt; all source bytes are preserved.",
+      "attribution": "Mozilla Contributors",
+      "license": "MPL-2.0",
+      "license_text_file": "GODOT_COPYRIGHT.txt",
+      "source_availability_notice": "GODOT_CA_CERTIFICATES_SOURCE.txt"
+    },
+    {
+      "file": "ANDROID_NDK_LLVM_NOTICE.txt",
+      "archive_member": "android-ndk-r29/toolchains/llvm/prebuilt/linux-x86_64/NOTICE",
+      "source_repository": "https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86",
+      "source_commit": "568b941cf0c249b9c2a1f853e94a29f0e6291c59",
+      "upstream_path": "clang-r563880c/NOTICE",
+      "source_url": "https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+/568b941cf0c249b9c2a1f853e94a29f0e6291c59/clang-r563880c/NOTICE?format=TEXT",
+      "source_transport": "The Gitiles TEXT response is base64-encoded; decode it without text normalization to obtain the notice bytes.",
+      "bytes": 130424,
+      "sha256": "f96f763beb66a7ba7a667647fc64c0226ace875e590c831fdd9579ec1c1d91e1",
+      "content_changed": false,
+      "verification": "The decoded pinned AOSP notice and the official NDK r29 archive member are byte-identical."
+    }
+  ]
+}

@@ -32,6 +32,25 @@ def check_sources() -> dict:
     notices = json.loads((ASSETS / "software_notice_sources.json").read_text())
     runtime = json.loads((ASSETS / "licenses/runtime/software_notice_sources.json").read_text())
     notices += runtime
+    godot_source_root = ROOT / "godot/android-host/src/main/assets/notices"
+    godot_prefix = godot_source_root.relative_to(ROOT).as_posix() + "/"
+    godot = [source for source in notices if source["file"].startswith(godot_prefix)]
+    expected_godot_sources = {source["file"] for source in godot}
+    actual_godot_sources = {
+        path.relative_to(ROOT).as_posix()
+        for path in godot_source_root.rglob("*") if path.is_file()
+    }
+    require(bool(actual_godot_sources), "Missing canonical Godot notices")
+    require(len(godot) == len(expected_godot_sources), "Duplicate Godot notice source")
+    require(actual_godot_sources == expected_godot_sources,
+            f"Godot notice source inventory differs: {sorted(actual_godot_sources ^ expected_godot_sources)}")
+    for source in godot:
+        relative = Path(source["file"]).relative_to(godot_source_root.relative_to(ROOT))
+        require(source.get("resource_file") == f"godot/{relative.as_posix()}",
+                f"Godot notice resource must preserve its original filename: {source['file']}")
+        if "canonical_reuse" in source:
+            require((ROOT / source["canonical_reuse"]).read_bytes() == (ROOT / source["file"]).read_bytes(),
+                    f"Godot notice differs from its original canonical source: {source['file']}")
     aggregate = (RESOURCES / "files/licenses/third_party_notices.txt").read_bytes()
     font_details = []
     notice_hashes = set()
@@ -71,6 +90,13 @@ def check_sources() -> dict:
         for path in runtime_root.rglob("*") if path.is_file()
     }
     require(actual_runtime == expected_runtime, f"Runtime notice resource inventory differs: {sorted(actual_runtime ^ expected_runtime)}")
+    expected_godot = {source["resource_file"] for source in godot}
+    actual_godot = {
+        path.relative_to(RESOURCES / "files/licenses").as_posix()
+        for path in (RESOURCES / "files/licenses/godot").rglob("*") if path.is_file()
+    }
+    require(actual_godot == expected_godot,
+            f"Godot notice resource inventory differs: {sorted(actual_godot ^ expected_godot)}")
     acknowledgments = [source for source in runtime if source["resource_file"] == "runtime/required_acknowledgments.txt"]
     require(len(acknowledgments) == 1, "Missing required native acknowledgment source")
     acknowledgment_bytes = (ROOT / acknowledgments[0]["file"]).read_bytes()
@@ -82,6 +108,8 @@ def check_sources() -> dict:
         "distinct_notice_texts": len(notice_hashes),
         "runtime_notice_resources": len(actual_runtime),
         "runtime_resources_match_manifest": True,
+        "godot_notice_resources": len(actual_godot),
+        "godot_resources_match_canonical_inventory": True,
         "required_acknowledgments_prominent": True,
         "aggregate_bytes": len(aggregate),
         "aggregate_sha256": sha256(aggregate).hexdigest(),

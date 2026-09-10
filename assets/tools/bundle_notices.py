@@ -25,6 +25,9 @@ def main() -> None:
         raise ValueError("Runtime notices must include exactly one required acknowledgment file")
     notices = acknowledgments + notices + [source for source in runtime if source["resource_file"] != ACKNOWLEDGMENTS]
     introduction = (
+        "Godot Engine: Godot Engine contributors, Juan Linietsky, and Ariel Manzur. "
+        "MIT License. Engine notices, Android C++ runtime notices, and the bundled "
+        "Mozilla CA certificate source are reproduced below.\n\n"
         "Fraunces: The Fraunces Project Authors. Design by Undercase Type, "
         "Phaedra Charles, and Flavia Zimbardi. SIL Open Font License 1.1.\n\n"
         "Manrope: The Manrope Project Authors. Design by Mikhail Sharanda. "

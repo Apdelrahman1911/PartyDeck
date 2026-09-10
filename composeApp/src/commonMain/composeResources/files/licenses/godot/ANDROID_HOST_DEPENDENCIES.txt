@@ -1,0 +1,68 @@
+Android host runtime dependencies
+
+The following 41 distinct external artifacts were resolved for the Godot Android
+comparison host release runtime. This is the input inventory before Android
+shrinking; it does not claim that every class remains in the final application.
+PartyDeck core, games and bridge code are internal project modules.
+
+Godot Engine 4.7.2.stable: see GODOT_LICENSE.txt, GODOT_COPYRIGHT.txt,
+ANDROID_NDK_LLVM_NOTICE.txt and the GODOT_CA_CERTIFICATES_SOURCE.txt source notice.
+
+AndroidX libraries — Apache License 2.0 (ANDROIDX_APACHE_2.txt):
+  androidx.activity:activity-ktx:1.8.1
+  androidx.activity:activity:1.8.1
+  androidx.annotation:annotation-experimental:1.4.0
+  androidx.annotation:annotation-jvm:1.8.1
+  androidx.arch.core:core-common:2.2.0
+  androidx.arch.core:core-runtime:2.2.0
+  androidx.collection:collection-ktx:1.1.0
+  androidx.collection:collection:1.1.0
+  androidx.concurrent:concurrent-futures:1.1.0
+  androidx.core:core-ktx:1.9.0
+  androidx.core:core:1.9.0
+  androidx.customview:customview:1.0.0
+  androidx.documentfile:documentfile:1.1.0
+  androidx.fragment:fragment-ktx:1.8.6
+  androidx.fragment:fragment:1.8.6
+  androidx.lifecycle:lifecycle-common:2.6.1
+  androidx.lifecycle:lifecycle-livedata-core-ktx:2.6.1
+  androidx.lifecycle:lifecycle-livedata-core:2.6.1
+  androidx.lifecycle:lifecycle-livedata:2.6.1
+  androidx.lifecycle:lifecycle-runtime-ktx:2.6.1
+  androidx.lifecycle:lifecycle-runtime:2.6.1
+  androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1
+  androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1
+  androidx.lifecycle:lifecycle-viewmodel:2.6.1
+  androidx.loader:loader:1.0.0
+  androidx.profileinstaller:profileinstaller:1.3.1
+  androidx.savedstate:savedstate-ktx:1.2.1
+  androidx.savedstate:savedstate:1.2.1
+  androidx.startup:startup-runtime:1.1.1
+  androidx.tracing:tracing:1.0.0
+  androidx.versionedparcelable:versionedparcelable:1.1.1
+  androidx.viewpager:viewpager:1.0.0
+
+Kotlin standard library 2.4.20 — KOTLIN_APACHE_2.txt and KOTLIN_COPYRIGHT.txt.
+Its additional runtime source notices and author credits are retained in
+KOTLIN_THREETENBP_BSD.txt, KOTLIN_BOOST_LICENSE.txt and
+ANDROID_HOST_EXTRA_NOTICES.txt.
+
+kotlinx.coroutines 1.11.0 — Apache License 2.0 (KOTLINX_COROUTINES_LICENSE.txt):
+  org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0
+  org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.11.0
+
+kotlinx.serialization 1.11.0 — Apache License 2.0
+(KOTLINX_SERIALIZATION_LICENSE.txt):
+  org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.11.0
+  org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.11.0
+
+Additional JVM libraries — Apache License 2.0 (KOTLIN_APACHE_2.txt):
+  org.jetbrains:annotations:23.0.0
+  org.jspecify:jspecify:1.0.0
+  com.google.guava:listenablefuture:1.0
+Their published source copyright/permission blocks are preserved in
+ANDROID_HOST_EXTRA_NOTICES.txt. Listenablefuture inherits its Apache 2.0
+declaration from the published guava-parent:26.0-android POM.
+
+Font and artwork notices are provided separately. Build plugins, test-only
+dependencies and compiler distributions are outside this runtime inventory.
