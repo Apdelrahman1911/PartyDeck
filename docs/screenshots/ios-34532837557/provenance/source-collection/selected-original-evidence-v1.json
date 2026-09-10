@@ -1,0 +1,230 @@
+{
+  "runId": 34532837557,
+  "headSha": "e4871e165f949c600ddd89b13e74d06fc34d2e04",
+  "attempt": 1,
+  "reviewedAtUtc": "2026-09-10T22:37:26.969564+00:00",
+  "originalNativeJobLog": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34532837557/job-103057688066.log",
+    "bytes": 3231470,
+    "sha256": "a3a20be634d3c83a819620f6f50ab49a848bf5858994fcb0bd10874de6c410b5"
+  },
+  "originalLogByteExcerpt": {
+    "originalOneBasedFirstLine": 12145,
+    "originalOneBasedLastLine": 12244,
+    "exactBytesIncludingOriginalLineTerminators": true,
+    "excerpt": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34532837557/focused-native-failure-context-original.log",
+      "bytes": 9999,
+      "sha256": "b9bebe59008e4cd6836cf177540869cf534e81e06664462cd9abf0fa3fb7890c"
+    }
+  },
+  "originalSummary": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34532837557/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/test-summary.json",
+    "bytes": 1590,
+    "sha256": "82194cff6cbc132efea73d219d83db264df5356051e2c2f858fdd91b2569e603"
+  },
+  "originalFailure": {
+    "failureText": "Failed to get matching snapshot: No matches found for first query match sequence: `Descendants matching type Any` -> `Elements matching predicate '\"godot-session-status\" IN identifiers'`, given input App element pid: 49189",
+    "targetName": "PartyDeckUITests",
+    "testIdentifier": 1,
+    "testIdentifierString": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+    "testIdentifierURL": "test://com.apple.xcode/PartyDeck/PartyDeckUITests/PartyDeckGodotSessionUITests/testProduction2DPracticeSession",
+    "testName": "testProduction2DPracticeSession()"
+  },
+  "frozenSource": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-e4871e1/source-e4871e1/iosApp/PartyDeckUITests/PartyDeckGodotSessionUITests.swift",
+    "bytes": 46547,
+    "sha256": "ec28d783a221a31af0fa6730d4dda734a1fad3c291e7938bc4916677babe62ab"
+  },
+  "sourceObservationRead": {
+    "firstLine": 514,
+    "lastLine": 521,
+    "lines": [
+      "    @MainActor",
+      "    private func read(_ app: XCUIApplication) throws -> Observation? {",
+      "        guard app.state == .runningForeground else { return nil }",
+      "        // Native chrome owns the value while modal; the SwiftUI badge owns it on Standard/Home.",
+      "        let nativeStatus = element(\"godot-session-status\", app)",
+      "        let node = nativeStatus.exists ? nativeStatus : element(\"partydeck-session-qualification\", app)",
+      "        guard node.exists, let text = node.value as? String, !text.isEmpty else { return nil }",
+      "        guard let data = text.data(using: .utf8), data.count <= 32768,"
+    ]
+  },
+  "selectedOriginalAttachments": [
+    {
+      "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+      "exportMetadata": {
+        "configurationName": "Test Scheme Action",
+        "deviceId": "6762BD8F-E960-4E21-B8DB-9D43947B47AF",
+        "deviceName": "iPhone 17",
+        "exportedFileName": "C6EE2E29-6E57-4784-9BC6-0B7A76B20CE5.json",
+        "isAssociatedWithFailure": false,
+        "suggestedHumanReadableName": "2d same session Standard return latest sanitized observation_0_2B05810A-D108-446D-BD11-6CD5A3DE3777.json",
+        "timestamp": 1789077671.08
+      },
+      "original": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34532837557/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/C6EE2E29-6E57-4784-9BC6-0B7A76B20CE5.json",
+        "bytes": 1847,
+        "sha256": "0d35b2aea8db3b0bfc02f4d6378ca70c4524ef278700388ccca269c2707a5398"
+      },
+      "mediaDirectlyViewedByCollector": false
+    },
+    {
+      "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+      "exportMetadata": {
+        "configurationName": "Test Scheme Action",
+        "deviceId": "6762BD8F-E960-4E21-B8DB-9D43947B47AF",
+        "deviceName": "iPhone 17",
+        "exportedFileName": "65CD601F-0143-4553-AF50-C722297CA134.json",
+        "isAssociatedWithFailure": false,
+        "suggestedHumanReadableName": "2d real Standard authority accepted NEXT_ROUND latest sanitized observation_0_CD67E0D1-AB80-4BCB-8273-F04F702FB3F5.json",
+        "timestamp": 1789077679.952
+      },
+      "original": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34532837557/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/65CD601F-0143-4553-AF50-C722297CA134.json",
+        "bytes": 1842,
+        "sha256": "1975ebe5451e5adeac973b0243788df7a80f1f31557304b1e645557d9288cf64"
+      },
+      "mediaDirectlyViewedByCollector": false
+    },
+    {
+      "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+      "exportMetadata": {
+        "configurationName": "Test Scheme Action",
+        "deviceId": "6762BD8F-E960-4E21-B8DB-9D43947B47AF",
+        "deviceName": "iPhone 17",
+        "exportedFileName": "E4CF15E8-A74D-4205-B234-12ABCFF007D5.txt",
+        "isAssociatedWithFailure": true,
+        "suggestedHumanReadableName": "Element Debug Description_0_0DF11C6A-A1BD-4687-B0C3-09D0E212D046.txt",
+        "timestamp": 1789077689.691
+      },
+      "original": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34532837557/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/E4CF15E8-A74D-4205-B234-12ABCFF007D5.txt",
+        "bytes": 431,
+        "sha256": "a6ef99c178a2324d00baed533a2b4d6aced8d9ed7ce2257382294a16864027c1"
+      },
+      "mediaDirectlyViewedByCollector": false
+    },
+    {
+      "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+      "exportMetadata": {
+        "configurationName": "Test Scheme Action",
+        "deviceId": "6762BD8F-E960-4E21-B8DB-9D43947B47AF",
+        "deviceName": "iPhone 17",
+        "exportedFileName": "260EDA7D-DDC8-4663-A572-5C40645F1662.txt",
+        "isAssociatedWithFailure": true,
+        "suggestedHumanReadableName": "App UI hierarchy for dev.partydeck_0_839E51F9-2823-41AA-96BB-2D6858E17FD5.app",
+        "timestamp": 1789077689.718
+      },
+      "original": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34532837557/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/260EDA7D-DDC8-4663-A572-5C40645F1662.txt",
+        "bytes": 4395,
+        "sha256": "15dc0332d6702de95a550033b9208b42e18da1a4e83689b4a9e934309d8c7021"
+      },
+      "mediaDirectlyViewedByCollector": false
+    },
+    {
+      "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+      "exportMetadata": {
+        "configurationName": "Test Scheme Action",
+        "deviceId": "6762BD8F-E960-4E21-B8DB-9D43947B47AF",
+        "deviceName": "iPhone 17",
+        "exportedFileName": "FC554C45-775E-4FC7-AD82-7075782E9146",
+        "isAssociatedWithFailure": true,
+        "suggestedHumanReadableName": "UI Snapshot 2026-09-10 at 10.01.29 PM",
+        "timestamp": 1789077689.718
+      },
+      "original": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34532837557/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/FC554C45-775E-4FC7-AD82-7075782E9146",
+        "bytes": 22888,
+        "sha256": "0ba9ac49d77b2c2b18347798be645356ff9949f46590fcf303cdb53702b91d2f"
+      },
+      "mediaDirectlyViewedByCollector": false
+    },
+    {
+      "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+      "exportMetadata": {
+        "configurationName": "Test Scheme Action",
+        "deviceId": "6762BD8F-E960-4E21-B8DB-9D43947B47AF",
+        "deviceName": "iPhone 17",
+        "exportedFileName": "99AF59C5-7A66-46E7-A0F1-7428847B8C69.png",
+        "isAssociatedWithFailure": false,
+        "suggestedHumanReadableName": "Actual production Leave confirmation_0_551E0176-2F16-4F2C-999A-0FD809247BFC.png",
+        "timestamp": 1789077692.513
+      },
+      "original": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34532837557/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/99AF59C5-7A66-46E7-A0F1-7428847B8C69.png",
+        "bytes": 249192,
+        "sha256": "afb7e84f6ba31ab477b8a7f46d319bb6606fa707ac248e92edca3a79620710a1"
+      },
+      "mediaDirectlyViewedByCollector": false
+    },
+    {
+      "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+      "exportMetadata": {
+        "configurationName": "Test Scheme Action",
+        "deviceId": "6762BD8F-E960-4E21-B8DB-9D43947B47AF",
+        "deviceName": "iPhone 17",
+        "exportedFileName": "7486CFB2-6A92-4624-A1DD-D559864588AE.json",
+        "isAssociatedWithFailure": false,
+        "suggestedHumanReadableName": "Actual production Leave confirmation latest sanitized observation_0_85B4C183-49B8-417D-B8DB-AF0B8BCDE024.json",
+        "timestamp": 1789077692.514
+      },
+      "original": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34532837557/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/7486CFB2-6A92-4624-A1DD-D559864588AE.json",
+        "bytes": 1842,
+        "sha256": "e1ee28c92ecbc9d9a8a8162861b268eecec79692c3b9a14b6038d4c5235ba1d6"
+      },
+      "mediaDirectlyViewedByCollector": false
+    },
+    {
+      "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+      "exportMetadata": {
+        "configurationName": "Test Scheme Action",
+        "deviceId": "6762BD8F-E960-4E21-B8DB-9D43947B47AF",
+        "deviceName": "iPhone 17",
+        "exportedFileName": "1FAA2CD2-6B72-4E2D-84CA-C05B53EE6289.png",
+        "isAssociatedWithFailure": false,
+        "suggestedHumanReadableName": "3d production smoke cleanup complete_0_9F76E5B7-2810-41DD-BD40-E35390E80A11.png",
+        "timestamp": 1789078199.759
+      },
+      "original": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34532837557/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/1FAA2CD2-6B72-4E2D-84CA-C05B53EE6289.png",
+        "bytes": 299186,
+        "sha256": "5bb34c311815338602bbd69cdb07907fdbacf54f29d0ab1ba8f54c25cb65ca3a"
+      },
+      "mediaDirectlyViewedByCollector": false
+    },
+    {
+      "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+      "exportMetadata": {
+        "configurationName": "Test Scheme Action",
+        "deviceId": "6762BD8F-E960-4E21-B8DB-9D43947B47AF",
+        "deviceName": "iPhone 17",
+        "exportedFileName": "4B7BA06B-97DF-4935-A5FA-712BA092E288.json",
+        "isAssociatedWithFailure": false,
+        "suggestedHumanReadableName": "3d production smoke cleanup complete latest sanitized observation_0_076052A6-173E-48BB-915D-31E68F11D4DC.json",
+        "timestamp": 1789078199.76
+      },
+      "original": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34532837557/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/4B7BA06B-97DF-4935-A5FA-712BA092E288.json",
+        "bytes": 1843,
+        "sha256": "135a79fda651e587523050c87542cd145d0c54041fd48a26f0a8e67e4e6eb9bf"
+      },
+      "mediaDirectlyViewedByCollector": false
+    }
+  ],
+  "failureAssociatedHierarchyFacts": {
+    "godotSessionStatusAbsent": true,
+    "swiftUiQualificationBadgePresent": true,
+    "leaveConfirmPresent": true,
+    "leaveCancelPresent": true
+  },
+  "customProductionSmokeFailureObservationAttachments": 0,
+  "limits": [
+    "The later Leave JSON is the test's cached lastDocument; screenshot timing does not guarantee a new observation.",
+    "The original log's generic runner restart line does not establish an app crash, exit reason, or native cause.",
+    "2D is failed and 3D passed. No full-Validate, physical-device, shipping, performance or crash qualification is added.",
+    "Selected images are indexed and hash verified; the collector has not directly viewed any media."
+  ]
+}

@@ -1,10 +1,10 @@
 # Screenshot review gallery
 
-This collection preserves **3,559 original app and renderer captures**, including failed attempts, and links to **four existing asset proofs**. Click a collection, then any thumbnail to open the full PNG. Every record includes its original filename, scenario, platform, pixel dimensions and full SHA-256; [manifest.json](manifest.json) also records source locations, exact revisions where known, CI runs, receipts and duplicate-source aliases.
+This collection preserves **3,677 original app and renderer captures**, including failed attempts, and links to **four existing asset proofs**. Click a collection, then any thumbnail to open the full PNG. Every record includes its original filename, scenario, platform, pixel dimensions and full SHA-256; [manifest.json](manifest.json) also records source locations, exact revisions where known, CI runs, receipts and duplicate-source aliases.
 
-This batch preserves 126 additional originals: **9 directly viewed by review_design, 2 prior direct views by assets, 36 exact reviewed published-byte matches and 79 explicitly unviewed**. Unviewed originals carry no visual acceptance. All original identities remain separate, including failed cases and identical bytes. 4 original MP4s remain unviewed/undecoded.
+This batch preserves **118 additional originals**: **15 directly viewed by review_design, 10 attributed peer direct views, five reviewed identical-byte matches and 88 explicitly unviewed**. It retains four distinct JVM iterations and the complete focused iOS attachment set. Unviewed originals carry no visual acceptance; identical bytes never merge capture identities. The focused iOS MP4 remains unviewed/undecoded.
 
-An additional **13 supplemental images** comprise [nine decoded launch-video frames](supplemental/ios-34478720554-launch-video/README.md) and [four existing adaptive review sheets](supplemental/android-adaptive-34485033488-review-sheets/README.md). They are separate from the original PNG total.
+An additional **246 supplemental images** comprise [233 full-size Android video derivatives](supplemental/android-34528538284-debug-font-2.0-video/README.md), [nine earlier decoded launch-video frames](supplemental/ios-34478720554-launch-video/README.md) and [four existing adaptive review sheets](supplemental/android-adaptive-34485033488-review-sheets/README.md). The 233 new frame identities are covered by 122 direct views and 111 verified byte matches. They remain separate from the original PNG total; their three original Android MP4s and decode/clock evidence are preserved. [Batch source and review summary](provenance/20260910-3677/review-summary.json).
 
 [Open the published first batch](first-batch/README.md) for the 125 initially published native, shared-UI and first desktop 2D views. The collection pages below add complete source records and original-filename mappings without duplicating those images.
 
@@ -12,6 +12,12 @@ Use the latest native and shared-UI collections for current review. Earlier capt
 
 | Current preserved collection | Images | Evidence scope |
 | --- | ---: | --- |
+| [Compose final affected fixtures](compose-standard-large-text-20260910/affected-layout-final-passed/README.md) | 41 | Nine JVM cases pass, including six-seat reachability; three changed direct peer views, one reviewed byte match and 37 unviewed originals. |
+| [Compose strict natural visibility — corrected pass](compose-standard-large-text-20260910/fixture-passed-v3/README.md) | 2 | Both no-scroll whole-Reveal checks pass; full Show hand fits. JVM-only scope. |
+| [Compose strict natural visibility — preserved failure](compose-standard-large-text-20260910/fixture-failed-v2/README.md) | 2 | Both cases fail before correction; Reveal y780–856 exceeds the 662dp viewport. |
+| [Compose focused fixtures before correction](compose-standard-large-text-20260910/passed-focused-tests/README.md) | 41 | Nine cases pass, while the reviewed initial large-text Reveal is below the viewport; fallback was explicitly scrolled. |
+| [Focused production iOS — CI 34532837557](ios-34532837557/README.md) | 32 | Exact new PCK; 3D passes, 2D fails at Leave. Fifteen direct views, three reviewed byte matches and 14 unviewed captures. Later 3D lower actions still clip. |
+| [Android debug font 2.0 — three decoded recordings](supplemental/android-34528538284-debug-font-2.0-video/README.md) | 233 supplements | All decoded identities reviewed directly or by identical bytes. No private faces observed; old-PCK scope, offscreen controls and no per-frame input-clock mapping. |
 | [iOS ordinary — CI 34520365907](ios-34520365907/ordinary/README.md) | 10 | Nine cases and five unfiltered .all audits pass. All ten original PNGs remain explicitly unviewed. |
 | [Android API 35 debug — CI 34515669045](android-34515669045/debug/README.md) | 31 | Ordinary smoke passes; originals retain exact published-byte matches or explicit unviewed status. |
 | [Android API 35 optimized, test signed — CI 34515669045](android-34515669045/optimized-test-signed/README.md) | 31 | Ordinary smoke passes; native and visual-review limits remain separate. |

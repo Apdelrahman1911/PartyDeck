@@ -1,0 +1,3053 @@
+{
+  "attempt": 1,
+  "clips": [
+    {
+      "checkerRecordedVideoValidation": {
+        "bytes": 287377,
+        "duration_seconds": 48.250267,
+        "file": "3d-landscape-rotation.mp4",
+        "frames": 88,
+        "height": 720,
+        "metadata": [
+          {
+            "kind": "winscope_legacy",
+            "sample_bytes": 724,
+            "sample_sha256": "130c661957002e7a4b1b739e9af40696a50be2ff753e49df3ce3add382810720",
+            "stream_index": 1,
+            "track_id": 2,
+            "video_frames": 88
+          },
+          {
+            "kind": "winscope_v2",
+            "sample_bytes": 736,
+            "sample_sha256": "7472197150e893d98a2dd08464417b1f4133037ad16207b73276cb004a8759bf",
+            "stream_index": 2,
+            "track_id": 3,
+            "video_frames": 88
+          }
+        ],
+        "pixel_privacy": "Review required; decode success does not establish cover order or privacy.",
+        "sha256": "ef36ffcd7d072f3af98899bd8d4ac534beb080f35e57c72eca3a6dc86d5fe8c9",
+        "width": 1600
+      },
+      "checkpoints": [
+        {
+          "identity": {
+            "name": "/system/bin/screenrecord",
+            "pid": 17004,
+            "start_ticks": 110129,
+            "uid": 2000
+          },
+          "label": "native-entry-completed",
+          "output_bytes": 145779,
+          "utc": "2026-09-10T21:17:31.470+00:00"
+        },
+        {
+          "identity": {
+            "name": "/system/bin/screenrecord",
+            "pid": 17004,
+            "start_ticks": 110129,
+            "uid": 2000
+          },
+          "label": "before-held-input",
+          "output_bytes": 148763,
+          "utc": "2026-09-10T21:17:33.563+00:00"
+        },
+        {
+          "identity": {
+            "name": "/system/bin/screenrecord",
+            "pid": 17004,
+            "start_ticks": 110129,
+            "uid": 2000
+          },
+          "label": "concealed-return-and-up-completed",
+          "output_bytes": 285655,
+          "utc": "2026-09-10T21:18:08.137+00:00"
+        }
+      ],
+      "deviceClockSummary": {
+        "afterConcealedClockOriginal": {
+          "bytes": 85265,
+          "crc32": "3d796017",
+          "matchesCollectorInventory": true,
+          "matchesResultInventory": true,
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0029-after-concealed-return-clock.log",
+          "sha256": "05adcd9c79920122bb6417189363abaeb819fde11270bfa0024ef9396f3e5658"
+        },
+        "concealedReturnRemainingLowerBoundNs": 23941000000,
+        "concealedXmlOriginal": {
+          "bytes": 15003,
+          "crc32": "1276148e",
+          "matchesCollectorInventory": true,
+          "matchesResultInventory": true,
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/3d-landscape-concealed-before-up.xml",
+          "sha256": "3c7ededf997c3b8ff4ff481e7092131f3a29839468ca9363e92375d62a49541f"
+        },
+        "downTimeNs": 1116169000000,
+        "earliestScheduledUpNs": 1146169000000,
+        "heldTransportEndedUtc": "2026-09-10T21:18:03.609+00:00",
+        "heldTransportReturnCode": 0,
+        "preRotationRemainingLowerBoundNs": 29768000000,
+        "scope": "Recorded InputDispatcher timing receipt; not yet mapped to video frame timestamps."
+      },
+      "growthObservedSeconds": 1.8346625209999274,
+      "growthObservedUtc": "2026-09-10T21:17:20.542+00:00",
+      "metadata": {
+        "bytes": 5254,
+        "crc32": "ef25fe96",
+        "matchesCollectorInventory": true,
+        "matchesResultInventory": true,
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/3d-landscape-rotation.json",
+        "sha256": "bf58faa0094f065087b3ec7ea70052709a9136888f452ed6835eb63db343e44c"
+      },
+      "name": "3d-landscape-rotation",
+      "observations": [
+        {
+          "bounds": [
+            150,
+            186,
+            826,
+            286
+          ],
+          "name": "held-control",
+          "point": [
+            488,
+            236
+          ],
+          "scope": "Continuous touch on native Standard table control; no Back or card-drag coverage.",
+          "stage": "3d-landscape.held-rotation",
+          "utc": "2026-09-10T21:17:33.489+00:00",
+          "xml": {
+            "file": "observations/3d-landscape-held-control.xml",
+            "sha256": "714c8130e1b1ede502c44e0c43dee6a88a13a6877b43e9d42be3981d26c4001b"
+          }
+        },
+        {
+          "name": "before-held-touch",
+          "raw": {
+            "file": "observations/0025-before-held-touch.log",
+            "sha256": "0637ceaf9d72faab5c3d6e46153e03b5e8249f9f882113894d9d59a7b53ea9e2"
+          },
+          "stage": "3d-landscape.held-rotation",
+          "utc": "2026-09-10T21:17:33.507+00:00"
+        },
+        {
+          "argv": [
+            "adb",
+            "-s",
+            "emulator-5554",
+            "shell",
+            "input",
+            "touchscreen",
+            "-d",
+            "0",
+            "swipe",
+            "488",
+            "236",
+            "488",
+            "236",
+            "30000"
+          ],
+          "duration_ms": 30000,
+          "ended_utc": "2026-09-10T21:18:03.609+00:00",
+          "held": {
+            "device_id": -1,
+            "down_time_ns": 1116169000000,
+            "evidence": "Matching live target touch and connection motion memento with no pending outbound input",
+            "input_frame": [
+              0,
+              0,
+              720,
+              1600
+            ],
+            "input_window_name": "8c964b8 dev.partydeck.app/dev.partydeck.app.godot.SessionGodotActivity",
+            "point": [
+              488,
+              236
+            ],
+            "pointer_id": 0,
+            "renderer_pid": 17141,
+            "uid": 10150
+          },
+          "name": "held-input-start",
+          "pre_rotation_deadline": {
+            "earliest_up_ns": 1146169000000,
+            "remaining_lower_bound_ns": 29768000000
+          },
+          "return_before_up": {
+            "clock": {
+              "name": "after-concealed-return-clock",
+              "raw": {
+                "file": "observations/0029-after-concealed-return-clock.log",
+                "sha256": "05adcd9c79920122bb6417189363abaeb819fde11270bfa0024ef9396f3e5658"
+              },
+              "stage": "3d-landscape.held-rotation",
+              "utc": "2026-09-10T21:17:39.643+00:00"
+            },
+            "deadline": {
+              "earliest_up_ns": 1146169000000,
+              "remaining_lower_bound_ns": 23941000000
+            },
+            "statePrefix": "states/00276",
+            "utc": "2026-09-10T21:17:39.644+00:00",
+            "xml": {
+              "file": "observations/3d-landscape-concealed-before-up.xml",
+              "sha256": "3c7ededf997c3b8ff4ff481e7092131f3a29839468ca9363e92375d62a49541f"
+            }
+          },
+          "returncode": 0,
+          "stage": "3d-landscape.held-rotation",
+          "target_observation": {
+            "name": "held-target",
+            "raw": {
+              "file": "observations/0027-held-target.log",
+              "sha256": "83aa9013936836bdacc7c42f30644b73404a7ff6c97f04850dff72cab82336b2"
+            },
+            "stage": "3d-landscape.held-rotation",
+            "utc": "2026-09-10T21:17:33.817+00:00"
+          },
+          "utc": "2026-09-10T21:17:33.563+00:00"
+        },
+        {
+          "name": "held-target",
+          "raw": {
+            "file": "observations/0027-held-target.log",
+            "sha256": "83aa9013936836bdacc7c42f30644b73404a7ff6c97f04850dff72cab82336b2"
+          },
+          "stage": "3d-landscape.held-rotation",
+          "utc": "2026-09-10T21:17:33.817+00:00"
+        },
+        {
+          "name": "held-rotation-request",
+          "rotation": 0,
+          "stage": "3d-landscape.held-rotation",
+          "utc": "2026-09-10T21:17:33.927+00:00"
+        },
+        {
+          "name": "after-concealed-return-clock",
+          "raw": {
+            "file": "observations/0029-after-concealed-return-clock.log",
+            "sha256": "05adcd9c79920122bb6417189363abaeb819fde11270bfa0024ef9396f3e5658"
+          },
+          "stage": "3d-landscape.held-rotation",
+          "utc": "2026-09-10T21:17:39.643+00:00"
+        },
+        {
+          "changes": {
+            "height_dp": {
+              "after": 914,
+              "before": 411
+            },
+            "orientation": {
+              "after": "port",
+              "before": "land"
+            },
+            "width_dp": {
+              "after": 411,
+              "before": 914
+            },
+            "window_size": {
+              "after": [
+                720,
+                1600
+              ],
+              "before": [
+                1600,
+                720
+              ]
+            }
+          },
+          "clock": {
+            "name": "after-concealed-return-clock",
+            "raw": {
+              "file": "observations/0029-after-concealed-return-clock.log",
+              "sha256": "05adcd9c79920122bb6417189363abaeb819fde11270bfa0024ef9396f3e5658"
+            },
+            "stage": "3d-landscape.held-rotation",
+            "utc": "2026-09-10T21:17:39.643+00:00"
+          },
+          "deadline": {
+            "earliest_up_ns": 1146169000000,
+            "remaining_lower_bound_ns": 23941000000
+          },
+          "name": "concealed-before-up",
+          "stage": "3d-landscape.held-rotation",
+          "state": {
+            "display": {
+              "display_id": 0,
+              "focused_app": {
+                "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+                "display_id": 0,
+                "record_id": "138778788",
+                "task_id": 8,
+                "user_id": 0
+              },
+              "landscape": 1,
+              "portrait": 0,
+              "rotation": 0,
+              "seascape": 3,
+              "size": [
+                720,
+                1600
+              ],
+              "window": {
+                "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+                "input_name": "86027c8 dev.partydeck.app/dev.partydeck.app.MainActivity",
+                "title": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+                "user_id": 0,
+                "window_id": "86027c8"
+              }
+            },
+            "ended_utc": "2026-09-10T21:17:37.605+00:00",
+            "foreground": {
+              "app_pid": 2993,
+              "client_visible": true,
+              "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+              "configuration": {
+                "bounds": [
+                  0,
+                  0,
+                  720,
+                  1600
+                ],
+                "density_dpi": 280,
+                "display_rotation": 0,
+                "font_scale": 2.0,
+                "height_dp": 914,
+                "layout_direction": "ldltr",
+                "orientation": "port",
+                "width_dp": 411,
+                "window_size": [
+                  720,
+                  1600
+                ],
+                "windowing_mode": "fullscreen"
+              },
+              "display_id": 0,
+              "lifecycle_state": "RESUMED",
+              "process_name": "dev.partydeck.app",
+              "record_id": "138778788",
+              "task_id": 8,
+              "user_id": 0,
+              "visible": true,
+              "visible_requested": true,
+              "window": {
+                "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+                "input_name": "86027c8 dev.partydeck.app/dev.partydeck.app.MainActivity",
+                "title": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+                "user_id": 0,
+                "window_id": "86027c8"
+              }
+            },
+            "original_log_prefix": "states/00276",
+            "renderer_pids": [],
+            "sampling": "Sequential Activity, WM and process reads; unmatched focus is unattributed.",
+            "shell_pids": [
+              2993
+            ],
+            "started_utc": "2026-09-10T21:17:37.516+00:00"
+          },
+          "utc": "2026-09-10T21:17:39.644+00:00",
+          "xml": {
+            "file": "observations/3d-landscape-concealed-before-up.xml",
+            "sha256": "3c7ededf997c3b8ff4ff481e7092131f3a29839468ca9363e92375d62a49541f"
+          }
+        }
+      ],
+      "observerJoinedUtc": "2026-09-10T21:17:31.415+00:00",
+      "original": {
+        "bytes": 287377,
+        "crc32": "eb530575",
+        "matchesCollectorInventory": true,
+        "matchesResultInventory": true,
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/3d-landscape-rotation.mp4",
+        "sha256": "ef36ffcd7d072f3af98899bd8d4ac534beb080f35e57c72eca3a6dc86d5fe8c9"
+      },
+      "originalObservationJsonFiles": [
+        "observations/0024-held-control.json",
+        "observations/0025-before-held-touch.json",
+        "observations/0026-held-input-start.json",
+        "observations/0027-held-target.json",
+        "observations/0028-held-rotation-request.json",
+        "observations/0029-after-concealed-return-clock.json",
+        "observations/0030-concealed-before-up.json",
+        "observations/3d-landscape-held-input-result.json"
+      ],
+      "priority": 1,
+      "recordedEndUtc": "2026-09-10T21:18:10.646+00:00",
+      "recordedScopeStatus": "passed",
+      "recordedStartUtc": "2026-09-10T21:16:55.936+00:00",
+      "recordedStatus": "captured-review-required",
+      "relevantCaptures": [
+        {
+          "ended_utc": "2026-09-10T21:17:18.684+00:00",
+          "name": "3d-landscape-initial-selector",
+          "screenshot": {
+            "file": "captures/3d-landscape-initial-selector.png",
+            "height": 720,
+            "sha256": "301f237bc6680bec073be10b2fc5ddc8f8f5ee7e6d2c63b178b34eff243f396c",
+            "width": 1600
+          },
+          "screenshot_received_utc": "2026-09-10T21:17:18.583+00:00",
+          "screenshot_started_utc": "2026-09-10T21:17:18.420+00:00",
+          "stage": "3d-landscape.initial-landscape",
+          "started_utc": "2026-09-10T21:17:16.318+00:00",
+          "ui": {
+            "file": "captures/3d-landscape-initial-selector.xml",
+            "received_utc": "2026-09-10T21:17:18.420+00:00",
+            "sequence": 399,
+            "sha256": "4a1a05efbdb351cac8fdd88c33705f64b4e9028fc44f0ed48c935826f212fc1f"
+          }
+        },
+        {
+          "ended_utc": "2026-09-10T21:17:31.037+00:00",
+          "name": "3d-landscape-initial-native-ready",
+          "screenshot": {
+            "file": "captures/3d-landscape-initial-native-ready.png",
+            "height": 720,
+            "sha256": "f573ebdac1b8ec8e2decd8b832bc1957c8d30d6ba981cf676ec8660cd1e1f0e9",
+            "width": 1600
+          },
+          "screenshot_received_utc": "2026-09-10T21:17:30.937+00:00",
+          "screenshot_started_utc": "2026-09-10T21:17:30.773+00:00",
+          "stage": "3d-landscape.initial-landscape",
+          "started_utc": "2026-09-10T21:17:28.659+00:00",
+          "ui": {
+            "file": "captures/3d-landscape-initial-native-ready.xml",
+            "received_utc": "2026-09-10T21:17:30.772+00:00",
+            "sequence": 403,
+            "sha256": "714c8130e1b1ede502c44e0c43dee6a88a13a6877b43e9d42be3981d26c4001b"
+          }
+        },
+        {
+          "ended_utc": "2026-09-10T21:18:08.082+00:00",
+          "name": "3d-landscape-after-up",
+          "screenshot": {
+            "file": "captures/3d-landscape-after-up.png",
+            "height": 1600,
+            "sha256": "6e2ec9a50b99b3fdbd7a975b7774d05125f236ca8697d25b211856c4d7b4e000",
+            "width": 720
+          },
+          "screenshot_received_utc": "2026-09-10T21:18:07.984+00:00",
+          "screenshot_started_utc": "2026-09-10T21:18:07.822+00:00",
+          "stage": "3d-landscape.held-rotation",
+          "started_utc": "2026-09-10T21:18:05.715+00:00",
+          "ui": {
+            "file": "captures/3d-landscape-after-up.xml",
+            "received_utc": "2026-09-10T21:18:07.821+00:00",
+            "sequence": 408,
+            "sha256": "3c7ededf997c3b8ff4ff481e7092131f3a29839468ca9363e92375d62a49541f"
+          }
+        }
+      ],
+      "stage": "3d-landscape.held-rotation",
+      "startupOriginHostMonotonicSeconds": 1326.881560046
+    },
+    {
+      "actual": {
+        "display": {
+          "display_id": 0,
+          "focused_app": {
+            "component": "com.android.settings/com.android.settings.Settings$DisplaySettingsActivity",
+            "display_id": 0,
+            "record_id": "156489425",
+            "task_id": 9,
+            "user_id": 0
+          },
+          "landscape": 1,
+          "portrait": 0,
+          "rotation": 1,
+          "seascape": 3,
+          "size": [
+            1600,
+            720
+          ],
+          "window": {
+            "component": "com.android.settings/com.android.settings.Settings$DisplaySettingsActivity",
+            "input_name": "c198ada com.android.settings/com.android.settings.Settings$DisplaySettingsActivity",
+            "title": "com.android.settings/com.android.settings.Settings$DisplaySettingsActivity",
+            "user_id": 0,
+            "window_id": "c198ada"
+          }
+        },
+        "ended_utc": "2026-09-10T21:11:29.086+00:00",
+        "foreground": {
+          "app_pid": 1292,
+          "client_visible": true,
+          "component": "com.android.settings/com.android.settings.Settings$DisplaySettingsActivity",
+          "configuration": {
+            "bounds": [
+              835,
+              0,
+              1600,
+              720
+            ],
+            "density_dpi": 280,
+            "display_rotation": 1,
+            "font_scale": 2.0,
+            "height_dp": 411,
+            "layout_direction": "ldltr",
+            "orientation": "land",
+            "width_dp": 437,
+            "window_size": [
+              765,
+              720
+            ],
+            "windowing_mode": "multi-window"
+          },
+          "display_id": 0,
+          "lifecycle_state": "RESUMED",
+          "process_name": "com.android.settings",
+          "record_id": "156489425",
+          "task_id": 9,
+          "user_id": 0,
+          "visible": true,
+          "visible_requested": true,
+          "window": {
+            "component": "com.android.settings/com.android.settings.Settings$DisplaySettingsActivity",
+            "input_name": "c198ada com.android.settings/com.android.settings.Settings$DisplaySettingsActivity",
+            "title": "com.android.settings/com.android.settings.Settings$DisplaySettingsActivity",
+            "user_id": 0,
+            "window_id": "c198ada"
+          }
+        },
+        "original_log_prefix": "states/00189",
+        "renderer_pids": [],
+        "sampling": "Sequential Activity, WM and process reads; unmatched focus is unattributed.",
+        "shell_pids": [
+          2993
+        ],
+        "started_utc": "2026-09-10T21:11:28.710+00:00"
+      },
+      "checkerRecordedVideoValidation": {
+        "bytes": 292322,
+        "duration_seconds": 15.622333,
+        "file": "2d-split-entry.mp4",
+        "frames": 80,
+        "height": 720,
+        "metadata": [
+          {
+            "kind": "winscope_legacy",
+            "sample_bytes": 660,
+            "sample_sha256": "4df67a39106f64597e2f33dafa8ddc81b112dba70891b4c2b0031bd88fca0231",
+            "stream_index": 1,
+            "track_id": 2,
+            "video_frames": 80
+          },
+          {
+            "kind": "winscope_v2",
+            "sample_bytes": 672,
+            "sample_sha256": "efb8dd26ef588ec7a26e46f25ac28200e8f9abc875327a89fae38e762c5e239b",
+            "stream_index": 2,
+            "track_id": 3,
+            "video_frames": 80
+          }
+        ],
+        "pixel_privacy": "Review required; decode success does not establish cover order or privacy.",
+        "sha256": "24e634e7b34a182f9aaa6f59bf06b37aaca7c4a1c68d2c5aa0e6805d2ff8d853",
+        "width": 1600
+      },
+      "checkpoints": [
+        {
+          "identity": {
+            "name": "/system/bin/screenrecord",
+            "pid": 11997,
+            "start_ticks": 73830,
+            "uid": 2000
+          },
+          "label": "before-split-entry-request",
+          "output_bytes": 143198,
+          "utc": "2026-09-10T21:11:27.444+00:00"
+        },
+        {
+          "identity": {
+            "name": "/system/bin/screenrecord",
+            "pid": 11997,
+            "start_ticks": 73830,
+            "uid": 2000
+          },
+          "label": "split-entry-and-concealed-return-observed",
+          "output_bytes": 288914,
+          "utc": "2026-09-10T21:11:32.405+00:00"
+        }
+      ],
+      "growthObservedSeconds": 1.7943121750000728,
+      "growthObservedUtc": "2026-09-10T21:11:17.496+00:00",
+      "metadata": {
+        "bytes": 4965,
+        "crc32": "526c61d9",
+        "matchesCollectorInventory": true,
+        "matchesResultInventory": true,
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-split-entry.json",
+        "sha256": "dc5ac3a03821f6c3e2f98d8da800d2483dac9399a1834c86ab468f8d994304f7"
+      },
+      "name": "2d-split-entry",
+      "observations": [
+        {
+          "name": "rotation-request",
+          "requested_rotation": 1,
+          "stage": "2d-split.entry-after-ready",
+          "utc": "2026-09-10T21:09:47.583+00:00"
+        },
+        {
+          "name": "companion-resolved",
+          "raw": {
+            "file": "observations/0020-companion-resolved.log",
+            "sha256": "185e1a91ee418e6db0ae93ee66cdc2b07266b1bddca6a90703174abac3881525"
+          },
+          "stage": "2d-split.entry-after-ready",
+          "utc": "2026-09-10T21:09:48.416+00:00"
+        },
+        {
+          "companion_task": 9,
+          "name": "split-entry-request",
+          "native_pid": 12139,
+          "stage": "2d-split.entry-after-ready",
+          "utc": "2026-09-10T21:11:27.393+00:00"
+        }
+      ],
+      "observerJoinedUtc": "2026-09-10T21:11:27.393+00:00",
+      "original": {
+        "bytes": 292322,
+        "crc32": "b9e12594",
+        "matchesCollectorInventory": true,
+        "matchesResultInventory": true,
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-split-entry.mp4",
+        "sha256": "24e634e7b34a182f9aaa6f59bf06b37aaca7c4a1c68d2c5aa0e6805d2ff8d853"
+      },
+      "originalObservationJsonFiles": [
+        "observations/0019-rotation-request.json",
+        "observations/0020-companion-resolved.json",
+        "observations/0021-split-entry-request.json"
+      ],
+      "priority": 2,
+      "recordedEndUtc": "2026-09-10T21:11:34.991+00:00",
+      "recordedScopeStatus": "passed",
+      "recordedStartUtc": "2026-09-10T21:10:55.746+00:00",
+      "recordedStatus": "captured-review-required",
+      "relevantCaptures": [
+        {
+          "ended_utc": "2026-09-10T21:11:15.679+00:00",
+          "name": "2d-split-full-selector",
+          "screenshot": {
+            "file": "captures/2d-split-full-selector.png",
+            "height": 720,
+            "sha256": "72043ac74d7354c6658e05f32a56d3d2d7ce41f57899f28e6374f3f449282a87",
+            "width": 1600
+          },
+          "screenshot_received_utc": "2026-09-10T21:11:15.583+00:00",
+          "screenshot_started_utc": "2026-09-10T21:11:15.420+00:00",
+          "stage": "2d-split.entry-after-ready",
+          "started_utc": "2026-09-10T21:11:13.327+00:00",
+          "ui": {
+            "file": "captures/2d-split-full-selector.xml",
+            "received_utc": "2026-09-10T21:11:15.420+00:00",
+            "sequence": 257,
+            "sha256": "a9fe3954d1c9c85b75d3af11640d589b6fca3aa00a9ede3094ebe421b2eb7326"
+          }
+        },
+        {
+          "ended_utc": "2026-09-10T21:11:27.023+00:00",
+          "name": "2d-split-full-native-ready",
+          "screenshot": {
+            "file": "captures/2d-split-full-native-ready.png",
+            "height": 720,
+            "sha256": "5bb43299c8ace6e458820bc55787035996f2ed5cd6cc96222b6e164d0a05d4f0",
+            "width": 1600
+          },
+          "screenshot_received_utc": "2026-09-10T21:11:26.929+00:00",
+          "screenshot_started_utc": "2026-09-10T21:11:26.774+00:00",
+          "stage": "2d-split.entry-after-ready",
+          "started_utc": "2026-09-10T21:11:24.691+00:00",
+          "ui": {
+            "file": "captures/2d-split-full-native-ready.xml",
+            "received_utc": "2026-09-10T21:11:26.774+00:00",
+            "sequence": 261,
+            "sha256": "714c8130e1b1ede502c44e0c43dee6a88a13a6877b43e9d42be3981d26c4001b"
+          }
+        },
+        {
+          "ended_utc": "2026-09-10T21:11:32.353+00:00",
+          "name": "2d-split-entry-concealed",
+          "screenshot": {
+            "file": "captures/2d-split-entry-concealed.png",
+            "height": 720,
+            "sha256": "12ea60092a3338105e8ea9aed341ef9014e33d78c773146688e57f72fda39c89",
+            "width": 1600
+          },
+          "screenshot_received_utc": "2026-09-10T21:11:32.256+00:00",
+          "screenshot_started_utc": "2026-09-10T21:11:32.099+00:00",
+          "stage": "2d-split.entry-after-ready",
+          "started_utc": "2026-09-10T21:11:29.963+00:00",
+          "ui": {
+            "file": "captures/2d-split-entry-concealed.xml",
+            "received_utc": "2026-09-10T21:11:32.098+00:00",
+            "sequence": 262,
+            "sha256": "a2cd7e24fefab0e9ca65e753c4a46c37959a2abeb949fbe091c9a00ad743b3df"
+          }
+        }
+      ],
+      "stage": "2d-split.entry-after-ready",
+      "startupOriginHostMonotonicSeconds": 963.876116491
+    },
+    {
+      "checkerRecordedVideoValidation": {
+        "bytes": 285679,
+        "duration_seconds": 13.869333,
+        "file": "2d-split-exit.mp4",
+        "frames": 65,
+        "height": 720,
+        "metadata": [
+          {
+            "kind": "winscope_legacy",
+            "sample_bytes": 540,
+            "sample_sha256": "f6b27a68298935d7de289a6069499b6def0d2d4094a9837ebffd21dd91a84c59",
+            "stream_index": 1,
+            "track_id": 2,
+            "video_frames": 65
+          },
+          {
+            "kind": "winscope_v2",
+            "sample_bytes": 552,
+            "sample_sha256": "a89d3fe54ed2dc4bcac0b03a99515ef41d8dfae67098b393bd08851aefa99b0f",
+            "stream_index": 2,
+            "track_id": 3,
+            "video_frames": 65
+          }
+        ],
+        "pixel_privacy": "Review required; decode success does not establish cover order or privacy.",
+        "sha256": "4f7f26627ce249b4e6c3fb18ced127461c819c993b12094b15b0e8ede0d69453",
+        "width": 1600
+      },
+      "checkpoints": [
+        {
+          "identity": {
+            "name": "/system/bin/screenrecord",
+            "pid": 13965,
+            "start_ticks": 87637,
+            "uid": 2000
+          },
+          "label": "before-split-exit-request",
+          "output_bytes": 172709,
+          "utc": "2026-09-10T21:13:44.603+00:00"
+        },
+        {
+          "identity": {
+            "name": "/system/bin/screenrecord",
+            "pid": 13965,
+            "start_ticks": 87637,
+            "uid": 2000
+          },
+          "label": "split-exit-and-concealed-return-observed",
+          "output_bytes": 283423,
+          "utc": "2026-09-10T21:13:48.736+00:00"
+        }
+      ],
+      "fullscreen_return": {
+        "display": {
+          "display_id": 0,
+          "focused_app": {
+            "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+            "display_id": 0,
+            "record_id": "138778788",
+            "task_id": 8,
+            "user_id": 0
+          },
+          "landscape": 1,
+          "portrait": 0,
+          "rotation": 1,
+          "seascape": 3,
+          "size": [
+            1600,
+            720
+          ],
+          "window": {
+            "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+            "input_name": "1869a5f dev.partydeck.app/dev.partydeck.app.MainActivity",
+            "title": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+            "user_id": 0,
+            "window_id": "1869a5f"
+          }
+        },
+        "ended_utc": "2026-09-10T21:13:46.341+00:00",
+        "foreground": {
+          "app_pid": 2993,
+          "client_visible": true,
+          "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+          "configuration": {
+            "bounds": [
+              0,
+              0,
+              1600,
+              720
+            ],
+            "density_dpi": 280,
+            "display_rotation": 1,
+            "font_scale": 2.0,
+            "height_dp": 411,
+            "layout_direction": "ldltr",
+            "orientation": "land",
+            "width_dp": 914,
+            "window_size": [
+              1600,
+              720
+            ],
+            "windowing_mode": "fullscreen"
+          },
+          "display_id": 0,
+          "lifecycle_state": "RESUMED",
+          "process_name": "dev.partydeck.app",
+          "record_id": "138778788",
+          "task_id": 8,
+          "user_id": 0,
+          "visible": true,
+          "visible_requested": true,
+          "window": {
+            "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+            "input_name": "1869a5f dev.partydeck.app/dev.partydeck.app.MainActivity",
+            "title": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+            "user_id": 0,
+            "window_id": "1869a5f"
+          }
+        },
+        "original_log_prefix": "states/00222",
+        "renderer_pids": [],
+        "sampling": "Sequential Activity, WM and process reads; unmatched focus is unattributed.",
+        "shell_pids": [
+          2993
+        ],
+        "started_utc": "2026-09-10T21:13:46.259+00:00"
+      },
+      "growthObservedSeconds": 1.7883507680001003,
+      "growthObservedUtc": "2026-09-10T21:13:35.560+00:00",
+      "metadata": {
+        "bytes": 4961,
+        "crc32": "00e17b4c",
+        "matchesCollectorInventory": true,
+        "matchesResultInventory": true,
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-split-exit.json",
+        "sha256": "6b4a05ffceb60bc1a858962055020aab75d02657d499f82fd4250040b68c103b"
+      },
+      "name": "2d-split-exit",
+      "native_split": {
+        "display": {
+          "display_id": 0,
+          "focused_app": {
+            "component": "dev.partydeck.app/dev.partydeck.app.godot.SessionGodotActivity",
+            "display_id": 0,
+            "record_id": "126734592",
+            "task_id": 8,
+            "user_id": 0
+          },
+          "landscape": 1,
+          "portrait": 0,
+          "rotation": 1,
+          "seascape": 3,
+          "size": [
+            1600,
+            720
+          ],
+          "window": {
+            "component": "dev.partydeck.app/dev.partydeck.app.godot.SessionGodotActivity",
+            "input_name": "8a8758d dev.partydeck.app/dev.partydeck.app.godot.SessionGodotActivity",
+            "title": "dev.partydeck.app/dev.partydeck.app.godot.SessionGodotActivity",
+            "user_id": 0,
+            "window_id": "8a8758d"
+          }
+        },
+        "ended_utc": "2026-09-10T21:13:44.547+00:00",
+        "foreground": {
+          "app_pid": 14111,
+          "client_visible": true,
+          "component": "dev.partydeck.app/dev.partydeck.app.godot.SessionGodotActivity",
+          "configuration": {
+            "bounds": [
+              0,
+              0,
+              817,
+              720
+            ],
+            "density_dpi": 280,
+            "display_rotation": 1,
+            "font_scale": 2.0,
+            "height_dp": 411,
+            "layout_direction": "ldltr",
+            "orientation": "land",
+            "width_dp": 467,
+            "window_size": [
+              817,
+              720
+            ],
+            "windowing_mode": "multi-window"
+          },
+          "display_id": 0,
+          "lifecycle_state": "RESUMED",
+          "process_name": "dev.partydeck.app:godot",
+          "record_id": "126734592",
+          "task_id": 8,
+          "user_id": 0,
+          "visible": true,
+          "visible_requested": true,
+          "window": {
+            "component": "dev.partydeck.app/dev.partydeck.app.godot.SessionGodotActivity",
+            "input_name": "8a8758d dev.partydeck.app/dev.partydeck.app.godot.SessionGodotActivity",
+            "title": "dev.partydeck.app/dev.partydeck.app.godot.SessionGodotActivity",
+            "user_id": 0,
+            "window_id": "8a8758d"
+          }
+        },
+        "original_log_prefix": "states/00218",
+        "renderer_pids": [
+          14111
+        ],
+        "sampling": "Sequential Activity, WM and process reads; unmatched focus is unattributed.",
+        "shell_pids": [
+          2993
+        ],
+        "started_utc": "2026-09-10T21:13:44.458+00:00"
+      },
+      "observations": [
+        {
+          "name": "split-exit-request",
+          "requested_task": 8,
+          "stage": "2d-split.stable-split-launch-exit",
+          "utc": "2026-09-10T21:13:44.547+00:00"
+        }
+      ],
+      "observerJoinedUtc": "2026-09-10T21:13:44.547+00:00",
+      "original": {
+        "bytes": 285679,
+        "crc32": "c72031f5",
+        "matchesCollectorInventory": true,
+        "matchesResultInventory": true,
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-split-exit.mp4",
+        "sha256": "4f7f26627ce249b4e6c3fb18ced127461c819c993b12094b15b0e8ede0d69453"
+      },
+      "originalObservationJsonFiles": [
+        "observations/0022-split-exit-request.json"
+      ],
+      "priority": 3,
+      "recordedEndUtc": "2026-09-10T21:13:51.065+00:00",
+      "recordedScopeStatus": "passed",
+      "recordedStartUtc": "2026-09-10T21:13:13.763+00:00",
+      "recordedStatus": "captured-review-required",
+      "relevantCaptures": [
+        {
+          "ended_utc": "2026-09-10T21:13:33.749+00:00",
+          "name": "2d-split-pane-selector",
+          "screenshot": {
+            "file": "captures/2d-split-pane-selector.png",
+            "height": 720,
+            "sha256": "c14d700e2da65bf9c1fca7172a3704b3e0b05e5390dbb9c629af2c8376dc3482",
+            "width": 1600
+          },
+          "screenshot_received_utc": "2026-09-10T21:13:33.648+00:00",
+          "screenshot_started_utc": "2026-09-10T21:13:33.488+00:00",
+          "stage": "2d-split.stable-split-launch-exit",
+          "started_utc": "2026-09-10T21:13:31.347+00:00",
+          "ui": {
+            "file": "captures/2d-split-pane-selector.xml",
+            "received_utc": "2026-09-10T21:13:33.487+00:00",
+            "sequence": 310,
+            "sha256": "ceec852b3693d4d0baa7c984f957b4b7ca847559bfc13606fa65177839d0819a"
+          }
+        },
+        {
+          "ended_utc": "2026-09-10T21:13:44.088+00:00",
+          "name": "2d-split-pane-native-ready",
+          "screenshot": {
+            "file": "captures/2d-split-pane-native-ready.png",
+            "height": 720,
+            "sha256": "f077434d303e91e8bd89f67326dac2298ddeb249175e90fbf8a45153d059a6f1",
+            "width": 1600
+          },
+          "screenshot_received_utc": "2026-09-10T21:13:43.935+00:00",
+          "screenshot_started_utc": "2026-09-10T21:13:43.754+00:00",
+          "stage": "2d-split.stable-split-launch-exit",
+          "started_utc": "2026-09-10T21:13:41.653+00:00",
+          "ui": {
+            "file": "captures/2d-split-pane-native-ready.xml",
+            "received_utc": "2026-09-10T21:13:43.753+00:00",
+            "sequence": 313,
+            "sha256": "98da51a825b9d8cdeaec410149e0dd45452be9a27b6e65bb5817e6deb10ee070"
+          }
+        },
+        {
+          "ended_utc": "2026-09-10T21:13:48.685+00:00",
+          "name": "2d-split-exit-concealed",
+          "screenshot": {
+            "file": "captures/2d-split-exit-concealed.png",
+            "height": 720,
+            "sha256": "229e0ff99580046fa946785a8257896c944844f4d3ecd9c1bf848022328b0eb5",
+            "width": 1600
+          },
+          "screenshot_received_utc": "2026-09-10T21:13:48.590+00:00",
+          "screenshot_started_utc": "2026-09-10T21:13:48.437+00:00",
+          "stage": "2d-split.stable-split-launch-exit",
+          "started_utc": "2026-09-10T21:13:46.341+00:00",
+          "ui": {
+            "file": "captures/2d-split-exit-concealed.xml",
+            "received_utc": "2026-09-10T21:13:48.437+00:00",
+            "sequence": 314,
+            "sha256": "eed0134e0434220c523fc8d12f19f60f7d3d9943e46ad97baf70825d341ec718"
+          }
+        }
+      ],
+      "stage": "2d-split.stable-split-launch-exit",
+      "startupOriginHostMonotonicSeconds": 1101.945837007
+    },
+    {
+      "checkerRecordedVideoValidation": {
+        "bytes": 281354,
+        "duration_seconds": 47.683922,
+        "file": "2d-landscape-rotation.mp4",
+        "frames": 98,
+        "height": 720,
+        "metadata": [
+          {
+            "kind": "winscope_legacy",
+            "sample_bytes": 804,
+            "sample_sha256": "9f17e95b31a0e7c6d3136faec0d738f31dc3ae39e88014f54777a2b77594ff95",
+            "stream_index": 1,
+            "track_id": 2,
+            "video_frames": 98
+          },
+          {
+            "kind": "winscope_v2",
+            "sample_bytes": 816,
+            "sample_sha256": "94bb9fe8db89422f6f0a91c7c8b348be6005bf0709bca1a1821646fd42260184",
+            "stream_index": 2,
+            "track_id": 3,
+            "video_frames": 98
+          }
+        ],
+        "pixel_privacy": "Review required; decode success does not establish cover order or privacy.",
+        "sha256": "7af4c22451618dd1c18f372b74689b43d785b0e0b557608960ffd69d207a7e82",
+        "width": 1600
+      },
+      "checkpoints": [
+        {
+          "identity": {
+            "name": "/system/bin/screenrecord",
+            "pid": 4185,
+            "start_ticks": 16406,
+            "uid": 2000
+          },
+          "label": "native-entry-completed",
+          "output_bytes": 168422,
+          "utc": "2026-09-10T21:01:53.651+00:00"
+        },
+        {
+          "identity": {
+            "name": "/system/bin/screenrecord",
+            "pid": 4185,
+            "start_ticks": 16406,
+            "uid": 2000
+          },
+          "label": "before-held-input",
+          "output_bytes": 172554,
+          "utc": "2026-09-10T21:01:55.743+00:00"
+        },
+        {
+          "identity": {
+            "name": "/system/bin/screenrecord",
+            "pid": 4185,
+            "start_ticks": 16406,
+            "uid": 2000
+          },
+          "label": "concealed-return-and-up-completed",
+          "output_bytes": 279478,
+          "utc": "2026-09-10T21:02:30.340+00:00"
+        }
+      ],
+      "deviceClockSummary": {
+        "afterConcealedClockOriginal": {
+          "bytes": 83914,
+          "crc32": "9185a233",
+          "matchesCollectorInventory": true,
+          "matchesResultInventory": true,
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0008-after-concealed-return-clock.log",
+          "sha256": "5285c02c5881e3186bab68aec453696d15f3151418dcf5880e6ddbb6d6f367bf"
+        },
+        "concealedReturnRemainingLowerBoundNs": 23616000000,
+        "concealedXmlOriginal": {
+          "bytes": 15001,
+          "crc32": "ba8b993a",
+          "matchesCollectorInventory": true,
+          "matchesResultInventory": true,
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/2d-landscape-concealed-before-up.xml",
+          "sha256": "a81e9cb82b1c447fa79a9f73f7284b5e32c4b0f3659f7ade1bace1036d36be3a"
+        },
+        "downTimeNs": 178376000000,
+        "earliestScheduledUpNs": 208376000000,
+        "heldTransportEndedUtc": "2026-09-10T21:02:25.813+00:00",
+        "heldTransportReturnCode": 0,
+        "preRotationRemainingLowerBoundNs": 29839000000,
+        "scope": "Recorded InputDispatcher timing receipt; not yet mapped to video frame timestamps."
+      },
+      "growthObservedSeconds": 1.8066178980000132,
+      "growthObservedUtc": "2026-09-10T21:01:43.255+00:00",
+      "metadata": {
+        "bytes": 5236,
+        "crc32": "dc27dae0",
+        "matchesCollectorInventory": true,
+        "matchesResultInventory": true,
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-landscape-rotation.json",
+        "sha256": "5af35fc3c26d616ba0be86b6e0e91af61d04cff7ce6be28e24da61700fa7f5a0"
+      },
+      "name": "2d-landscape-rotation",
+      "observations": [
+        {
+          "bounds": [
+            150,
+            186,
+            826,
+            286
+          ],
+          "name": "held-control",
+          "point": [
+            488,
+            236
+          ],
+          "scope": "Continuous touch on native Standard table control; no Back or card-drag coverage.",
+          "stage": "2d-landscape.held-rotation",
+          "utc": "2026-09-10T21:01:55.671+00:00",
+          "xml": {
+            "file": "observations/2d-landscape-held-control.xml",
+            "sha256": "714c8130e1b1ede502c44e0c43dee6a88a13a6877b43e9d42be3981d26c4001b"
+          }
+        },
+        {
+          "name": "before-held-touch",
+          "raw": {
+            "file": "observations/0004-before-held-touch.log",
+            "sha256": "62c7b8adcbbcefa842332bb58b82faa3c18dbf815f9358bc064f2f7436ba0490"
+          },
+          "stage": "2d-landscape.held-rotation",
+          "utc": "2026-09-10T21:01:55.689+00:00"
+        },
+        {
+          "argv": [
+            "adb",
+            "-s",
+            "emulator-5554",
+            "shell",
+            "input",
+            "touchscreen",
+            "-d",
+            "0",
+            "swipe",
+            "488",
+            "236",
+            "488",
+            "236",
+            "30000"
+          ],
+          "duration_ms": 30000,
+          "ended_utc": "2026-09-10T21:02:25.813+00:00",
+          "held": {
+            "device_id": -1,
+            "down_time_ns": 178376000000,
+            "evidence": "Matching live target touch and connection motion memento with no pending outbound input",
+            "input_frame": [
+              0,
+              0,
+              720,
+              1600
+            ],
+            "input_window_name": "78f92bc dev.partydeck.app/dev.partydeck.app.godot.SessionGodotActivity",
+            "point": [
+              488,
+              236
+            ],
+            "pointer_id": 0,
+            "renderer_pid": 4340,
+            "uid": 10150
+          },
+          "name": "held-input-start",
+          "pre_rotation_deadline": {
+            "earliest_up_ns": 208376000000,
+            "remaining_lower_bound_ns": 29839000000
+          },
+          "return_before_up": {
+            "clock": {
+              "name": "after-concealed-return-clock",
+              "raw": {
+                "file": "observations/0008-after-concealed-return-clock.log",
+                "sha256": "5285c02c5881e3186bab68aec453696d15f3151418dcf5880e6ddbb6d6f367bf"
+              },
+              "stage": "2d-landscape.held-rotation",
+              "utc": "2026-09-10T21:02:02.147+00:00"
+            },
+            "deadline": {
+              "earliest_up_ns": 208376000000,
+              "remaining_lower_bound_ns": 23616000000
+            },
+            "statePrefix": "states/00031",
+            "utc": "2026-09-10T21:02:02.149+00:00",
+            "xml": {
+              "file": "observations/2d-landscape-concealed-before-up.xml",
+              "sha256": "a81e9cb82b1c447fa79a9f73f7284b5e32c4b0f3659f7ade1bace1036d36be3a"
+            }
+          },
+          "returncode": 0,
+          "stage": "2d-landscape.held-rotation",
+          "target_observation": {
+            "name": "held-target",
+            "raw": {
+              "file": "observations/0006-held-target.log",
+              "sha256": "ca7e0c79ea34afb26a51f6b174933aaacfe9a2a84ef5dd0f74a794cdd2f43a7d"
+            },
+            "stage": "2d-landscape.held-rotation",
+            "utc": "2026-09-10T21:01:55.927+00:00"
+          },
+          "utc": "2026-09-10T21:01:55.744+00:00"
+        },
+        {
+          "name": "held-target",
+          "raw": {
+            "file": "observations/0006-held-target.log",
+            "sha256": "ca7e0c79ea34afb26a51f6b174933aaacfe9a2a84ef5dd0f74a794cdd2f43a7d"
+          },
+          "stage": "2d-landscape.held-rotation",
+          "utc": "2026-09-10T21:01:55.927+00:00"
+        },
+        {
+          "name": "held-rotation-request",
+          "rotation": 0,
+          "stage": "2d-landscape.held-rotation",
+          "utc": "2026-09-10T21:01:56.083+00:00"
+        },
+        {
+          "name": "after-concealed-return-clock",
+          "raw": {
+            "file": "observations/0008-after-concealed-return-clock.log",
+            "sha256": "5285c02c5881e3186bab68aec453696d15f3151418dcf5880e6ddbb6d6f367bf"
+          },
+          "stage": "2d-landscape.held-rotation",
+          "utc": "2026-09-10T21:02:02.147+00:00"
+        },
+        {
+          "changes": {
+            "height_dp": {
+              "after": 914,
+              "before": 411
+            },
+            "orientation": {
+              "after": "port",
+              "before": "land"
+            },
+            "width_dp": {
+              "after": 411,
+              "before": 914
+            },
+            "window_size": {
+              "after": [
+                720,
+                1600
+              ],
+              "before": [
+                1600,
+                720
+              ]
+            }
+          },
+          "clock": {
+            "name": "after-concealed-return-clock",
+            "raw": {
+              "file": "observations/0008-after-concealed-return-clock.log",
+              "sha256": "5285c02c5881e3186bab68aec453696d15f3151418dcf5880e6ddbb6d6f367bf"
+            },
+            "stage": "2d-landscape.held-rotation",
+            "utc": "2026-09-10T21:02:02.147+00:00"
+          },
+          "deadline": {
+            "earliest_up_ns": 208376000000,
+            "remaining_lower_bound_ns": 23616000000
+          },
+          "name": "concealed-before-up",
+          "stage": "2d-landscape.held-rotation",
+          "state": {
+            "display": {
+              "display_id": 0,
+              "focused_app": {
+                "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+                "display_id": 0,
+                "record_id": "138778788",
+                "task_id": 8,
+                "user_id": 0
+              },
+              "landscape": 1,
+              "portrait": 0,
+              "rotation": 0,
+              "seascape": 3,
+              "size": [
+                720,
+                1600
+              ],
+              "window": {
+                "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+                "input_name": "4068d17 dev.partydeck.app/dev.partydeck.app.MainActivity",
+                "title": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+                "user_id": 0,
+                "window_id": "4068d17"
+              }
+            },
+            "ended_utc": "2026-09-10T21:02:00.078+00:00",
+            "foreground": {
+              "app_pid": 2993,
+              "client_visible": true,
+              "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+              "configuration": {
+                "bounds": [
+                  0,
+                  0,
+                  720,
+                  1600
+                ],
+                "density_dpi": 280,
+                "display_rotation": 0,
+                "font_scale": 2.0,
+                "height_dp": 914,
+                "layout_direction": "ldltr",
+                "orientation": "port",
+                "width_dp": 411,
+                "window_size": [
+                  720,
+                  1600
+                ],
+                "windowing_mode": "fullscreen"
+              },
+              "display_id": 0,
+              "lifecycle_state": "RESUMED",
+              "process_name": "dev.partydeck.app",
+              "record_id": "138778788",
+              "task_id": 8,
+              "user_id": 0,
+              "visible": true,
+              "visible_requested": true,
+              "window": {
+                "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+                "input_name": "4068d17 dev.partydeck.app/dev.partydeck.app.MainActivity",
+                "title": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+                "user_id": 0,
+                "window_id": "4068d17"
+              }
+            },
+            "original_log_prefix": "states/00031",
+            "renderer_pids": [],
+            "sampling": "Sequential Activity, WM and process reads; unmatched focus is unattributed.",
+            "shell_pids": [
+              2993
+            ],
+            "started_utc": "2026-09-10T21:01:59.954+00:00"
+          },
+          "utc": "2026-09-10T21:02:02.149+00:00",
+          "xml": {
+            "file": "observations/2d-landscape-concealed-before-up.xml",
+            "sha256": "a81e9cb82b1c447fa79a9f73f7284b5e32c4b0f3659f7ade1bace1036d36be3a"
+          }
+        }
+      ],
+      "observerJoinedUtc": "2026-09-10T21:01:53.601+00:00",
+      "original": {
+        "bytes": 281354,
+        "crc32": "f0133124",
+        "matchesCollectorInventory": true,
+        "matchesResultInventory": true,
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-landscape-rotation.mp4",
+        "sha256": "7af4c22451618dd1c18f372b74689b43d785b0e0b557608960ffd69d207a7e82"
+      },
+      "originalObservationJsonFiles": [
+        "observations/0003-held-control.json",
+        "observations/0004-before-held-touch.json",
+        "observations/0005-held-input-start.json",
+        "observations/0006-held-target.json",
+        "observations/0007-held-rotation-request.json",
+        "observations/0008-after-concealed-return-clock.json",
+        "observations/0009-concealed-before-up.json",
+        "observations/2d-landscape-held-input-result.json"
+      ],
+      "priority": 4,
+      "recordedEndUtc": "2026-09-10T21:02:32.982+00:00",
+      "recordedScopeStatus": "passed",
+      "recordedStartUtc": "2026-09-10T21:01:21.465+00:00",
+      "recordedStatus": "captured-review-required",
+      "relevantCaptures": [
+        {
+          "ended_utc": "2026-09-10T21:01:41.426+00:00",
+          "name": "2d-landscape-initial-selector",
+          "screenshot": {
+            "file": "captures/2d-landscape-initial-selector.png",
+            "height": 720,
+            "sha256": "5104bdf45f173fe44fc465e5681b2fd0e27479efcddbcbf33cf470888d1ef0e7",
+            "width": 1600
+          },
+          "screenshot_received_utc": "2026-09-10T21:01:41.331+00:00",
+          "screenshot_started_utc": "2026-09-10T21:01:41.173+00:00",
+          "stage": "2d-landscape.initial-landscape",
+          "started_utc": "2026-09-10T21:01:39.078+00:00",
+          "ui": {
+            "file": "captures/2d-landscape-initial-selector.xml",
+            "received_utc": "2026-09-10T21:01:41.172+00:00",
+            "sequence": 43,
+            "sha256": "80fdafb940f7e6709a751648c31f1dca700ab03e8de6afc49f2b05f1050a63f4"
+          }
+        },
+        {
+          "ended_utc": "2026-09-10T21:01:53.232+00:00",
+          "name": "2d-landscape-initial-native-ready",
+          "screenshot": {
+            "file": "captures/2d-landscape-initial-native-ready.png",
+            "height": 720,
+            "sha256": "d730b2c6f04ede816ab2a16e3cceb3b8e87a78d6b323e4acc8df41534e81f319",
+            "width": 1600
+          },
+          "screenshot_received_utc": "2026-09-10T21:01:53.128+00:00",
+          "screenshot_started_utc": "2026-09-10T21:01:52.966+00:00",
+          "stage": "2d-landscape.initial-landscape",
+          "started_utc": "2026-09-10T21:01:50.866+00:00",
+          "ui": {
+            "file": "captures/2d-landscape-initial-native-ready.xml",
+            "received_utc": "2026-09-10T21:01:52.965+00:00",
+            "sequence": 47,
+            "sha256": "714c8130e1b1ede502c44e0c43dee6a88a13a6877b43e9d42be3981d26c4001b"
+          }
+        },
+        {
+          "ended_utc": "2026-09-10T21:02:30.287+00:00",
+          "name": "2d-landscape-after-up",
+          "screenshot": {
+            "file": "captures/2d-landscape-after-up.png",
+            "height": 1600,
+            "sha256": "131ee4dc7152a300a8a577093db8ba27155e6b374fa913c658b1b80453f7f1cd",
+            "width": 720
+          },
+          "screenshot_received_utc": "2026-09-10T21:02:30.187+00:00",
+          "screenshot_started_utc": "2026-09-10T21:02:30.023+00:00",
+          "stage": "2d-landscape.held-rotation",
+          "started_utc": "2026-09-10T21:02:27.918+00:00",
+          "ui": {
+            "file": "captures/2d-landscape-after-up.xml",
+            "received_utc": "2026-09-10T21:02:30.023+00:00",
+            "sequence": 52,
+            "sha256": "a81e9cb82b1c447fa79a9f73f7284b5e32c4b0f3659f7ade1bace1036d36be3a"
+          }
+        }
+      ],
+      "stage": "2d-landscape.held-rotation",
+      "startupOriginHostMonotonicSeconds": 389.622421996
+    },
+    {
+      "checkerRecordedVideoValidation": {
+        "bytes": 264692,
+        "duration_seconds": 47.419233,
+        "file": "2d-seascape-rotation.mp4",
+        "frames": 88,
+        "height": 720,
+        "metadata": [
+          {
+            "kind": "winscope_legacy",
+            "sample_bytes": 724,
+            "sample_sha256": "d37fb29c1acae8f991791ff98a99f257841f6b9a8c013f1835cfdf650cbc21a6",
+            "stream_index": 1,
+            "track_id": 2,
+            "video_frames": 88
+          },
+          {
+            "kind": "winscope_v2",
+            "sample_bytes": 736,
+            "sample_sha256": "b3031dc5ae26f74ca393f015a82aeb4a6b3183441ff76d762bff42e2a4927cd6",
+            "stream_index": 2,
+            "track_id": 3,
+            "video_frames": 88
+          }
+        ],
+        "pixel_privacy": "Review required; decode success does not establish cover order or privacy.",
+        "sha256": "f361e696350b7929d9e401352023d8947e53254f5c16405837fe52b47a973225",
+        "width": 1600
+      },
+      "checkpoints": [
+        {
+          "identity": {
+            "name": "/system/bin/screenrecord",
+            "pid": 8195,
+            "start_ticks": 45969,
+            "uid": 2000
+          },
+          "label": "native-entry-completed",
+          "output_bytes": 156526,
+          "utc": "2026-09-10T21:06:48.989+00:00"
+        },
+        {
+          "identity": {
+            "name": "/system/bin/screenrecord",
+            "pid": 8195,
+            "start_ticks": 45969,
+            "uid": 2000
+          },
+          "label": "before-held-input",
+          "output_bytes": 159474,
+          "utc": "2026-09-10T21:06:51.084+00:00"
+        },
+        {
+          "identity": {
+            "name": "/system/bin/screenrecord",
+            "pid": 8195,
+            "start_ticks": 45969,
+            "uid": 2000
+          },
+          "label": "concealed-return-and-up-completed",
+          "output_bytes": 262874,
+          "utc": "2026-09-10T21:07:25.647+00:00"
+        }
+      ],
+      "deviceClockSummary": {
+        "afterConcealedClockOriginal": {
+          "bytes": 83902,
+          "crc32": "257ce264",
+          "matchesCollectorInventory": true,
+          "matchesResultInventory": true,
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0016-after-concealed-return-clock.log",
+          "sha256": "215e3783e52f44b6ad6823e697e49217744804edcb3a1469527d71e2c1d42c39"
+        },
+        "concealedReturnRemainingLowerBoundNs": 25989000000,
+        "concealedXmlOriginal": {
+          "bytes": 14637,
+          "crc32": "cc9390f4",
+          "matchesCollectorInventory": true,
+          "matchesResultInventory": true,
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/2d-seascape-concealed-before-up.xml",
+          "sha256": "630d341c56c8aa6e2f9be8a508b053106e798a1de6e5c3a4a00545a642b39985"
+        },
+        "downTimeNs": 473711000000,
+        "earliestScheduledUpNs": 503711000000,
+        "heldTransportEndedUtc": "2026-09-10T21:07:21.139+00:00",
+        "heldTransportReturnCode": 0,
+        "preRotationRemainingLowerBoundNs": 29789000000,
+        "scope": "Recorded InputDispatcher timing receipt; not yet mapped to video frame timestamps."
+      },
+      "growthObservedSeconds": 1.7850959480000483,
+      "growthObservedUtc": "2026-09-10T21:06:38.867+00:00",
+      "metadata": {
+        "bytes": 5230,
+        "crc32": "e07af360",
+        "matchesCollectorInventory": true,
+        "matchesResultInventory": true,
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-seascape-rotation.json",
+        "sha256": "cdcc53fd9b67f61f2c1c2fa1da2ee32efa14df4bc7086915a4c6d31fc25464e5"
+      },
+      "name": "2d-seascape-rotation",
+      "observations": [
+        {
+          "bounds": [
+            98,
+            186,
+            774,
+            286
+          ],
+          "name": "held-control",
+          "point": [
+            436,
+            236
+          ],
+          "scope": "Continuous touch on native Standard table control; no Back or card-drag coverage.",
+          "stage": "2d-seascape.held-rotation",
+          "utc": "2026-09-10T21:06:51.007+00:00",
+          "xml": {
+            "file": "observations/2d-seascape-held-control.xml",
+            "sha256": "2746bff12d6c1197a90d096f9fc696c8dacc9181799507a9d36af5949025406c"
+          }
+        },
+        {
+          "name": "before-held-touch",
+          "raw": {
+            "file": "observations/0012-before-held-touch.log",
+            "sha256": "b56508e77025640b334245cb398b8b7d9356bcffa44cd401d93c3bc4c78248a1"
+          },
+          "stage": "2d-seascape.held-rotation",
+          "utc": "2026-09-10T21:06:51.026+00:00"
+        },
+        {
+          "argv": [
+            "adb",
+            "-s",
+            "emulator-5554",
+            "shell",
+            "input",
+            "touchscreen",
+            "-d",
+            "0",
+            "swipe",
+            "436",
+            "236",
+            "436",
+            "236",
+            "30000"
+          ],
+          "duration_ms": 30000,
+          "ended_utc": "2026-09-10T21:07:21.139+00:00",
+          "held": {
+            "device_id": -1,
+            "down_time_ns": 473711000000,
+            "evidence": "Matching live target touch and connection motion memento with no pending outbound input",
+            "input_frame": [
+              0,
+              0,
+              720,
+              1600
+            ],
+            "input_window_name": "cd64de2 dev.partydeck.app/dev.partydeck.app.godot.SessionGodotActivity",
+            "point": [
+              436,
+              236
+            ],
+            "pointer_id": 0,
+            "renderer_pid": 8340,
+            "uid": 10150
+          },
+          "name": "held-input-start",
+          "pre_rotation_deadline": {
+            "earliest_up_ns": 503711000000,
+            "remaining_lower_bound_ns": 29789000000
+          },
+          "return_before_up": {
+            "clock": {
+              "name": "after-concealed-return-clock",
+              "raw": {
+                "file": "observations/0016-after-concealed-return-clock.log",
+                "sha256": "215e3783e52f44b6ad6823e697e49217744804edcb3a1469527d71e2c1d42c39"
+              },
+              "stage": "2d-seascape.held-rotation",
+              "utc": "2026-09-10T21:06:55.117+00:00"
+            },
+            "deadline": {
+              "earliest_up_ns": 503711000000,
+              "remaining_lower_bound_ns": 25989000000
+            },
+            "statePrefix": "states/00110",
+            "utc": "2026-09-10T21:06:55.118+00:00",
+            "xml": {
+              "file": "observations/2d-seascape-concealed-before-up.xml",
+              "sha256": "630d341c56c8aa6e2f9be8a508b053106e798a1de6e5c3a4a00545a642b39985"
+            }
+          },
+          "returncode": 0,
+          "stage": "2d-seascape.held-rotation",
+          "target_observation": {
+            "name": "held-target",
+            "raw": {
+              "file": "observations/0014-held-target.log",
+              "sha256": "06778b82837d80a61603f2be985225651a97a0b4b12efdb12be06fc12112ed96"
+            },
+            "stage": "2d-seascape.held-rotation",
+            "utc": "2026-09-10T21:06:51.318+00:00"
+          },
+          "utc": "2026-09-10T21:06:51.084+00:00"
+        },
+        {
+          "name": "held-target",
+          "raw": {
+            "file": "observations/0014-held-target.log",
+            "sha256": "06778b82837d80a61603f2be985225651a97a0b4b12efdb12be06fc12112ed96"
+          },
+          "stage": "2d-seascape.held-rotation",
+          "utc": "2026-09-10T21:06:51.318+00:00"
+        },
+        {
+          "name": "held-rotation-request",
+          "rotation": 0,
+          "stage": "2d-seascape.held-rotation",
+          "utc": "2026-09-10T21:06:51.421+00:00"
+        },
+        {
+          "name": "after-concealed-return-clock",
+          "raw": {
+            "file": "observations/0016-after-concealed-return-clock.log",
+            "sha256": "215e3783e52f44b6ad6823e697e49217744804edcb3a1469527d71e2c1d42c39"
+          },
+          "stage": "2d-seascape.held-rotation",
+          "utc": "2026-09-10T21:06:55.117+00:00"
+        },
+        {
+          "changes": {
+            "height_dp": {
+              "after": 914,
+              "before": 411
+            },
+            "orientation": {
+              "after": "port",
+              "before": "land"
+            },
+            "width_dp": {
+              "after": 411,
+              "before": 914
+            },
+            "window_size": {
+              "after": [
+                720,
+                1600
+              ],
+              "before": [
+                1600,
+                720
+              ]
+            }
+          },
+          "clock": {
+            "name": "after-concealed-return-clock",
+            "raw": {
+              "file": "observations/0016-after-concealed-return-clock.log",
+              "sha256": "215e3783e52f44b6ad6823e697e49217744804edcb3a1469527d71e2c1d42c39"
+            },
+            "stage": "2d-seascape.held-rotation",
+            "utc": "2026-09-10T21:06:55.117+00:00"
+          },
+          "deadline": {
+            "earliest_up_ns": 503711000000,
+            "remaining_lower_bound_ns": 25989000000
+          },
+          "name": "concealed-before-up",
+          "stage": "2d-seascape.held-rotation",
+          "state": {
+            "display": {
+              "display_id": 0,
+              "focused_app": {
+                "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+                "display_id": 0,
+                "record_id": "138778788",
+                "task_id": 8,
+                "user_id": 0
+              },
+              "landscape": 1,
+              "portrait": 0,
+              "rotation": 0,
+              "seascape": 3,
+              "size": [
+                720,
+                1600
+              ],
+              "window": {
+                "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+                "input_name": "f343cdc dev.partydeck.app/dev.partydeck.app.MainActivity",
+                "title": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+                "user_id": 0,
+                "window_id": "f343cdc"
+              }
+            },
+            "ended_utc": "2026-09-10T21:06:53.050+00:00",
+            "foreground": {
+              "app_pid": 2993,
+              "client_visible": true,
+              "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+              "configuration": {
+                "bounds": [
+                  0,
+                  0,
+                  720,
+                  1600
+                ],
+                "density_dpi": 280,
+                "display_rotation": 0,
+                "font_scale": 2.0,
+                "height_dp": 914,
+                "layout_direction": "ldltr",
+                "orientation": "port",
+                "width_dp": 411,
+                "window_size": [
+                  720,
+                  1600
+                ],
+                "windowing_mode": "fullscreen"
+              },
+              "display_id": 0,
+              "lifecycle_state": "RESUMED",
+              "process_name": "dev.partydeck.app",
+              "record_id": "138778788",
+              "task_id": 8,
+              "user_id": 0,
+              "visible": true,
+              "visible_requested": true,
+              "window": {
+                "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+                "input_name": "f343cdc dev.partydeck.app/dev.partydeck.app.MainActivity",
+                "title": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+                "user_id": 0,
+                "window_id": "f343cdc"
+              }
+            },
+            "original_log_prefix": "states/00110",
+            "renderer_pids": [],
+            "sampling": "Sequential Activity, WM and process reads; unmatched focus is unattributed.",
+            "shell_pids": [
+              2993
+            ],
+            "started_utc": "2026-09-10T21:06:52.756+00:00"
+          },
+          "utc": "2026-09-10T21:06:55.118+00:00",
+          "xml": {
+            "file": "observations/2d-seascape-concealed-before-up.xml",
+            "sha256": "630d341c56c8aa6e2f9be8a508b053106e798a1de6e5c3a4a00545a642b39985"
+          }
+        }
+      ],
+      "observerJoinedUtc": "2026-09-10T21:06:48.931+00:00",
+      "original": {
+        "bytes": 264692,
+        "crc32": "79f9295a",
+        "matchesCollectorInventory": true,
+        "matchesResultInventory": true,
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-seascape-rotation.mp4",
+        "sha256": "f361e696350b7929d9e401352023d8947e53254f5c16405837fe52b47a973225"
+      },
+      "originalObservationJsonFiles": [
+        "observations/0011-held-control.json",
+        "observations/0012-before-held-touch.json",
+        "observations/0013-held-input-start.json",
+        "observations/0014-held-target.json",
+        "observations/0015-held-rotation-request.json",
+        "observations/0016-after-concealed-return-clock.json",
+        "observations/0017-concealed-before-up.json",
+        "observations/2d-seascape-held-input-result.json"
+      ],
+      "priority": 5,
+      "recordedEndUtc": "2026-09-10T21:07:28.175+00:00",
+      "recordedScopeStatus": "passed",
+      "recordedStartUtc": "2026-09-10T21:06:14.548+00:00",
+      "recordedStatus": "captured-review-required",
+      "relevantCaptures": [
+        {
+          "ended_utc": "2026-09-10T21:06:37.061+00:00",
+          "name": "2d-seascape-initial-selector",
+          "screenshot": {
+            "file": "captures/2d-seascape-initial-selector.png",
+            "height": 720,
+            "sha256": "cc8325544449f2635c8a51e4149076dc1a10c3978115be89a6327dc4edefbbd7",
+            "width": 1600
+          },
+          "screenshot_received_utc": "2026-09-10T21:06:36.964+00:00",
+          "screenshot_started_utc": "2026-09-10T21:06:36.805+00:00",
+          "stage": "2d-seascape.initial-landscape",
+          "started_utc": "2026-09-10T21:06:34.715+00:00",
+          "ui": {
+            "file": "captures/2d-seascape-initial-selector.xml",
+            "received_utc": "2026-09-10T21:06:36.805+00:00",
+            "sequence": 154,
+            "sha256": "b57cfb214f4e17bea080985e079ff8b941fb98dd932b4dfa4fe4d0e747669d26"
+          }
+        },
+        {
+          "ended_utc": "2026-09-10T21:06:48.560+00:00",
+          "name": "2d-seascape-initial-native-ready",
+          "screenshot": {
+            "file": "captures/2d-seascape-initial-native-ready.png",
+            "height": 720,
+            "sha256": "e7e28a5f8c9d74fe3da268ca851d9a45c3c3a1a41623bc6474c78cfc1d6bf0cf",
+            "width": 1600
+          },
+          "screenshot_received_utc": "2026-09-10T21:06:48.462+00:00",
+          "screenshot_started_utc": "2026-09-10T21:06:48.308+00:00",
+          "stage": "2d-seascape.initial-landscape",
+          "started_utc": "2026-09-10T21:06:46.215+00:00",
+          "ui": {
+            "file": "captures/2d-seascape-initial-native-ready.xml",
+            "received_utc": "2026-09-10T21:06:48.308+00:00",
+            "sequence": 158,
+            "sha256": "2746bff12d6c1197a90d096f9fc696c8dacc9181799507a9d36af5949025406c"
+          }
+        },
+        {
+          "ended_utc": "2026-09-10T21:07:25.596+00:00",
+          "name": "2d-seascape-after-up",
+          "screenshot": {
+            "file": "captures/2d-seascape-after-up.png",
+            "height": 1600,
+            "sha256": "872f3d0d069e2401ec47818872a35c65a2619f0abdc802fb4cbadedf4fa6999a",
+            "width": 720
+          },
+          "screenshot_received_utc": "2026-09-10T21:07:25.505+00:00",
+          "screenshot_started_utc": "2026-09-10T21:07:25.339+00:00",
+          "stage": "2d-seascape.held-rotation",
+          "started_utc": "2026-09-10T21:07:23.239+00:00",
+          "ui": {
+            "file": "captures/2d-seascape-after-up.xml",
+            "received_utc": "2026-09-10T21:07:25.339+00:00",
+            "sequence": 162,
+            "sha256": "630d341c56c8aa6e2f9be8a508b053106e798a1de6e5c3a4a00545a642b39985"
+          }
+        }
+      ],
+      "stage": "2d-seascape.held-rotation",
+      "startupOriginHostMonotonicSeconds": 685.256084906
+    }
+  ],
+  "collectorReceipts": [
+    {
+      "bytes": 1226,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1.integrity.json",
+      "sha256": "81b180bcaa2e38f92b06dc96d5e576a38d35a5c0355eff76c22279de674fc3c7"
+    },
+    {
+      "bytes": 708604,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1.files.json",
+      "sha256": "2727a34df53a403caaad13c8200eb7685318f7d6194749e4414112e044a20857"
+    },
+    {
+      "bytes": 750948,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1.archive-members.json",
+      "sha256": "7c07b360447fa69c55ff1dd6690c440a912b46866f12d7252b9be96e097966e7"
+    }
+  ],
+  "consumer": "android-adaptive-api36-debug-font-2.0-34528538284-1",
+  "decodeExecutedByThisAgent": false,
+  "expectedPckBytes": 1549560,
+  "expectedPckSha256": "557b2297bed133a433acc25efa4837462465dd4e06da659ae5a4cbd792f77fe0",
+  "headSha": "8030efe1c56e7885ed1fd3bd5140bb8ff82fcc57",
+  "imagesViewedByThisAgent": false,
+  "issuedUtc": "2026-09-10T21:58:22.615628+00:00",
+  "originalFileReceipts": {
+    "captures/2d-landscape-after-up.json": {
+      "bytes": 9463,
+      "crc32": "11de78fb",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-landscape-after-up.json",
+      "sha256": "c561d1fff059ff1918d059c300faa723181853cdf0e7e1560b5c389f31d7b765"
+    },
+    "captures/2d-landscape-after-up.png": {
+      "bytes": 122447,
+      "crc32": "5662d8ac",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-landscape-after-up.png",
+      "sha256": "131ee4dc7152a300a8a577093db8ba27155e6b374fa913c658b1b80453f7f1cd"
+    },
+    "captures/2d-landscape-after-up.xml": {
+      "bytes": 15001,
+      "crc32": "ba8b993a",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-landscape-after-up.xml",
+      "sha256": "a81e9cb82b1c447fa79a9f73f7284b5e32c4b0f3659f7ade1bace1036d36be3a"
+    },
+    "captures/2d-landscape-initial-native-ready.json": {
+      "bytes": 11767,
+      "crc32": "cc726ea2",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-landscape-initial-native-ready.json",
+      "sha256": "26b53e59780a8a3be06bab5bf0a5ff50d57e5990c3c76f505dc6549d5a193c66"
+    },
+    "captures/2d-landscape-initial-native-ready.png": {
+      "bytes": 85473,
+      "crc32": "e7447d05",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-landscape-initial-native-ready.png",
+      "sha256": "d730b2c6f04ede816ab2a16e3cceb3b8e87a78d6b323e4acc8df41534e81f319"
+    },
+    "captures/2d-landscape-initial-native-ready.xml": {
+      "bytes": 5221,
+      "crc32": "7f6910fe",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-landscape-initial-native-ready.xml",
+      "sha256": "714c8130e1b1ede502c44e0c43dee6a88a13a6877b43e9d42be3981d26c4001b"
+    },
+    "captures/2d-landscape-initial-selector.json": {
+      "bytes": 9491,
+      "crc32": "1921762d",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-landscape-initial-selector.json",
+      "sha256": "38f95991df2ca4b1bf5affc1b516f8333636edd7a3d37405befdaea73e287d19"
+    },
+    "captures/2d-landscape-initial-selector.png": {
+      "bytes": 48958,
+      "crc32": "095e801f",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-landscape-initial-selector.png",
+      "sha256": "5104bdf45f173fe44fc465e5681b2fd0e27479efcddbcbf33cf470888d1ef0e7"
+    },
+    "captures/2d-landscape-initial-selector.xml": {
+      "bytes": 8628,
+      "crc32": "a9bb44c7",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-landscape-initial-selector.xml",
+      "sha256": "80fdafb940f7e6709a751648c31f1dca700ab03e8de6afc49f2b05f1050a63f4"
+    },
+    "captures/2d-seascape-after-up.json": {
+      "bytes": 9460,
+      "crc32": "c67fe68d",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-seascape-after-up.json",
+      "sha256": "5498f526471ad2167928f1bad88150e314df0627723ca5b0ecef9463fa5d6fb7"
+    },
+    "captures/2d-seascape-after-up.png": {
+      "bytes": 120645,
+      "crc32": "3ba5a819",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-seascape-after-up.png",
+      "sha256": "872f3d0d069e2401ec47818872a35c65a2619f0abdc802fb4cbadedf4fa6999a"
+    },
+    "captures/2d-seascape-after-up.xml": {
+      "bytes": 14637,
+      "crc32": "cc9390f4",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-seascape-after-up.xml",
+      "sha256": "630d341c56c8aa6e2f9be8a508b053106e798a1de6e5c3a4a00545a642b39985"
+    },
+    "captures/2d-seascape-initial-native-ready.json": {
+      "bytes": 11772,
+      "crc32": "93ec8ecd",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-seascape-initial-native-ready.json",
+      "sha256": "7b426918fe38c1fff2a8d932f355693e3eb6550f3d25e96cfc33454bb2eddc7e"
+    },
+    "captures/2d-seascape-initial-native-ready.png": {
+      "bytes": 76827,
+      "crc32": "7c2b7595",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-seascape-initial-native-ready.png",
+      "sha256": "e7e28a5f8c9d74fe3da268ca851d9a45c3c3a1a41623bc6474c78cfc1d6bf0cf"
+    },
+    "captures/2d-seascape-initial-native-ready.xml": {
+      "bytes": 5208,
+      "crc32": "2769823a",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-seascape-initial-native-ready.xml",
+      "sha256": "2746bff12d6c1197a90d096f9fc696c8dacc9181799507a9d36af5949025406c"
+    },
+    "captures/2d-seascape-initial-selector.json": {
+      "bytes": 9488,
+      "crc32": "ec5d6dac",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-seascape-initial-selector.json",
+      "sha256": "86897648b5c09df56d1685d3a6cfd97a7a7178e6607b8b39458eca8b8903e0ae"
+    },
+    "captures/2d-seascape-initial-selector.png": {
+      "bytes": 50019,
+      "crc32": "e77d3cd5",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-seascape-initial-selector.png",
+      "sha256": "cc8325544449f2635c8a51e4149076dc1a10c3978115be89a6327dc4edefbbd7"
+    },
+    "captures/2d-seascape-initial-selector.xml": {
+      "bytes": 8626,
+      "crc32": "df0dcefd",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-seascape-initial-selector.xml",
+      "sha256": "b57cfb214f4e17bea080985e079ff8b941fb98dd932b4dfa4fe4d0e747669d26"
+    },
+    "captures/2d-split-entry-concealed.json": {
+      "bytes": 11263,
+      "crc32": "f4321714",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-split-entry-concealed.json",
+      "sha256": "25d2468f200349f1154415e836bcea79c65eac5bc39a06660e0b99f6810e903e"
+    },
+    "captures/2d-split-entry-concealed.png": {
+      "bytes": 94518,
+      "crc32": "f12a9975",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-split-entry-concealed.png",
+      "sha256": "12ea60092a3338105e8ea9aed341ef9014e33d78c773146688e57f72fda39c89"
+    },
+    "captures/2d-split-entry-concealed.xml": {
+      "bytes": 9647,
+      "crc32": "ee2e9bf3",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-split-entry-concealed.xml",
+      "sha256": "a2cd7e24fefab0e9ca65e753c4a46c37959a2abeb949fbe091c9a00ad743b3df"
+    },
+    "captures/2d-split-exit-concealed.json": {
+      "bytes": 11267,
+      "crc32": "98bc1b41",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-split-exit-concealed.json",
+      "sha256": "60cf1089f5c0d7f17acf882c243a09dec64e8766a219d5217ae9f8900c543080"
+    },
+    "captures/2d-split-exit-concealed.png": {
+      "bytes": 69770,
+      "crc32": "2d9a88e0",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-split-exit-concealed.png",
+      "sha256": "229e0ff99580046fa946785a8257896c944844f4d3ecd9c1bf848022328b0eb5"
+    },
+    "captures/2d-split-exit-concealed.xml": {
+      "bytes": 10364,
+      "crc32": "6fad27ee",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-split-exit-concealed.xml",
+      "sha256": "eed0134e0434220c523fc8d12f19f60f7d3d9943e46ad97baf70825d341ec718"
+    },
+    "captures/2d-split-full-native-ready.json": {
+      "bytes": 13549,
+      "crc32": "18d9aad3",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-split-full-native-ready.json",
+      "sha256": "474565a92b0d091a04a1e0afe97f39f62e37d973c27f0fa690715523dc0e83ae"
+    },
+    "captures/2d-split-full-native-ready.png": {
+      "bytes": 77167,
+      "crc32": "b6b2265e",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-split-full-native-ready.png",
+      "sha256": "5bb43299c8ace6e458820bc55787035996f2ed5cd6cc96222b6e164d0a05d4f0"
+    },
+    "captures/2d-split-full-native-ready.xml": {
+      "bytes": 5221,
+      "crc32": "7f6910fe",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-split-full-native-ready.xml",
+      "sha256": "714c8130e1b1ede502c44e0c43dee6a88a13a6877b43e9d42be3981d26c4001b"
+    },
+    "captures/2d-split-full-selector.json": {
+      "bytes": 11257,
+      "crc32": "90a6b95e",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-split-full-selector.json",
+      "sha256": "1645b1f77e7fe9769f14593b0db476f9dc165f9b949735c1640ebaaaae772c2d"
+    },
+    "captures/2d-split-full-selector.png": {
+      "bytes": 48555,
+      "crc32": "e9ac59cc",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-split-full-selector.png",
+      "sha256": "72043ac74d7354c6658e05f32a56d3d2d7ce41f57899f28e6374f3f449282a87"
+    },
+    "captures/2d-split-full-selector.xml": {
+      "bytes": 8628,
+      "crc32": "6d46cb93",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-split-full-selector.xml",
+      "sha256": "a9fe3954d1c9c85b75d3af11640d589b6fca3aa00a9ede3094ebe421b2eb7326"
+    },
+    "captures/2d-split-pane-native-ready.json": {
+      "bytes": 13556,
+      "crc32": "8047826f",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-split-pane-native-ready.json",
+      "sha256": "4894900c5b0c600040930d5ee8b0afb780b7ebb0559263538971fcaa3094da2c"
+    },
+    "captures/2d-split-pane-native-ready.png": {
+      "bytes": 78937,
+      "crc32": "8dc1d19c",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-split-pane-native-ready.png",
+      "sha256": "f077434d303e91e8bd89f67326dac2298ddeb249175e90fbf8a45153d059a6f1"
+    },
+    "captures/2d-split-pane-native-ready.xml": {
+      "bytes": 4833,
+      "crc32": "34a7cca2",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-split-pane-native-ready.xml",
+      "sha256": "98da51a825b9d8cdeaec410149e0dd45452be9a27b6e65bb5817e6deb10ee070"
+    },
+    "captures/2d-split-pane-selector.json": {
+      "bytes": 11264,
+      "crc32": "0a1959fa",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-split-pane-selector.json",
+      "sha256": "7c92fa989dc95bde61f97c5ab782951925cc630904d6e9989d081cc664031996"
+    },
+    "captures/2d-split-pane-selector.png": {
+      "bytes": 73890,
+      "crc32": "99d3c93d",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-split-pane-selector.png",
+      "sha256": "c14d700e2da65bf9c1fca7172a3704b3e0b05e5390dbb9c629af2c8376dc3482"
+    },
+    "captures/2d-split-pane-selector.xml": {
+      "bytes": 8607,
+      "crc32": "f273ce3f",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/2d-split-pane-selector.xml",
+      "sha256": "ceec852b3693d4d0baa7c984f957b4b7ca847559bfc13606fa65177839d0819a"
+    },
+    "captures/3d-landscape-after-up.json": {
+      "bytes": 11254,
+      "crc32": "881159c8",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/3d-landscape-after-up.json",
+      "sha256": "345a48d22d7eff55f035e645a7be8d909e0166775a413cff927036b5c9fb871b"
+    },
+    "captures/3d-landscape-after-up.png": {
+      "bytes": 124372,
+      "crc32": "8679c902",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/3d-landscape-after-up.png",
+      "sha256": "6e2ec9a50b99b3fdbd7a975b7774d05125f236ca8697d25b211856c4d7b4e000"
+    },
+    "captures/3d-landscape-after-up.xml": {
+      "bytes": 15003,
+      "crc32": "1276148e",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/3d-landscape-after-up.xml",
+      "sha256": "3c7ededf997c3b8ff4ff481e7092131f3a29839468ca9363e92375d62a49541f"
+    },
+    "captures/3d-landscape-initial-native-ready.json": {
+      "bytes": 13574,
+      "crc32": "77db45a7",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/3d-landscape-initial-native-ready.json",
+      "sha256": "27d38c47d1a4d5290f2a420a6dc48df533238e3514c18a63b371e23e8c1db2f8"
+    },
+    "captures/3d-landscape-initial-native-ready.png": {
+      "bytes": 92786,
+      "crc32": "846d47e0",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/3d-landscape-initial-native-ready.png",
+      "sha256": "f573ebdac1b8ec8e2decd8b832bc1957c8d30d6ba981cf676ec8660cd1e1f0e9"
+    },
+    "captures/3d-landscape-initial-native-ready.xml": {
+      "bytes": 5221,
+      "crc32": "7f6910fe",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/3d-landscape-initial-native-ready.xml",
+      "sha256": "714c8130e1b1ede502c44e0c43dee6a88a13a6877b43e9d42be3981d26c4001b"
+    },
+    "captures/3d-landscape-initial-selector.json": {
+      "bytes": 11282,
+      "crc32": "92c64d03",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/3d-landscape-initial-selector.json",
+      "sha256": "39c8d2c36aa8a650a633ee2c47544c0c5c4d368af1b733755a7d0e90574da1c9"
+    },
+    "captures/3d-landscape-initial-selector.png": {
+      "bytes": 48696,
+      "crc32": "74a08091",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/3d-landscape-initial-selector.png",
+      "sha256": "301f237bc6680bec073be10b2fc5ddc8f8f5ee7e6d2c63b178b34eff243f396c"
+    },
+    "captures/3d-landscape-initial-selector.xml": {
+      "bytes": 8191,
+      "crc32": "c7de944e",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/captures/3d-landscape-initial-selector.xml",
+      "sha256": "4a1a05efbdb351cac8fdd88c33705f64b4e9028fc44f0ed48c935826f212fc1f"
+    },
+    "godot-adaptive-result.json": {
+      "bytes": 1955059,
+      "crc32": "84b9f7fb",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": null,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/godot-adaptive-result.json",
+      "sha256": "5902af2d47b961e5f1c70f0820acb434e220a63e417fd78908e25082dd0c766a"
+    },
+    "observations/0003-held-control.json": {
+      "bytes": 452,
+      "crc32": "47116db4",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0003-held-control.json",
+      "sha256": "0b8463476be9da7a441b702af058f9603750a54edacd0383eea416e8ce82897c"
+    },
+    "observations/0004-before-held-touch.json": {
+      "bytes": 269,
+      "crc32": "a4ca1c19",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0004-before-held-touch.json",
+      "sha256": "cc15b72dbc69b6b26fdea52ba66ec84f21650952aa6fefb531d46f5ffb131723"
+    },
+    "observations/0004-before-held-touch.log": {
+      "bytes": 86510,
+      "crc32": "09fcde9c",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0004-before-held-touch.log",
+      "sha256": "62c7b8adcbbcefa842332bb58b82faa3c18dbf815f9358bc064f2f7436ba0490"
+    },
+    "observations/0005-held-input-start.json": {
+      "bytes": 837,
+      "crc32": "d65e2705",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0005-held-input-start.json",
+      "sha256": "bfa984732d9f4e8e7b92ff8da30cde81cccf29b5ce8491fc9211a407052abf86"
+    },
+    "observations/0006-held-target.json": {
+      "bytes": 257,
+      "crc32": "a00203f9",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0006-held-target.json",
+      "sha256": "906df64f00594f4e62f05ee9dfc1d3717089195f2edd2244ddf92decfb8d86e8"
+    },
+    "observations/0006-held-target.log": {
+      "bytes": 88714,
+      "crc32": "08d97dc3",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0006-held-target.log",
+      "sha256": "ca7e0c79ea34afb26a51f6b174933aaacfe9a2a84ef5dd0f74a794cdd2f43a7d"
+    },
+    "observations/0007-held-rotation-request.json": {
+      "bytes": 138,
+      "crc32": "9fa569b8",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0007-held-rotation-request.json",
+      "sha256": "5fcba989a914d8f69ec6f71c0adcb12a989438ae05b7a9be194465511feaa054"
+    },
+    "observations/0008-after-concealed-return-clock.json": {
+      "bytes": 291,
+      "crc32": "6d8caee5",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0008-after-concealed-return-clock.json",
+      "sha256": "6c1fcd3f56ff60395195baa656ffd27ca387f3353f802d02dd055744b2d0c8cc"
+    },
+    "observations/0008-after-concealed-return-clock.log": {
+      "bytes": 83914,
+      "crc32": "9185a233",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0008-after-concealed-return-clock.log",
+      "sha256": "5285c02c5881e3186bab68aec453696d15f3151418dcf5880e6ddbb6d6f367bf"
+    },
+    "observations/0009-concealed-before-up.json": {
+      "bytes": 5305,
+      "crc32": "8bd9aa97",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0009-concealed-before-up.json",
+      "sha256": "c06db953d43b19e46179f0917f2904e08103059844e3d7aa7afdb476e063415c"
+    },
+    "observations/0011-held-control.json": {
+      "bytes": 449,
+      "crc32": "2abb4298",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0011-held-control.json",
+      "sha256": "4d96ffa307c89d3ebe29ac45a4b22a9d4427d0744e3d0d0b65c1d2b3e3daadde"
+    },
+    "observations/0012-before-held-touch.json": {
+      "bytes": 268,
+      "crc32": "453c8289",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0012-before-held-touch.json",
+      "sha256": "f8f86ab1b1eb81614de1ebfd0425892496c14bf7b6132e2519483974b303a71a"
+    },
+    "observations/0012-before-held-touch.log": {
+      "bytes": 86369,
+      "crc32": "7365a27a",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0012-before-held-touch.log",
+      "sha256": "b56508e77025640b334245cb398b8b7d9356bcffa44cd401d93c3bc4c78248a1"
+    },
+    "observations/0013-held-input-start.json": {
+      "bytes": 833,
+      "crc32": "a640fc1b",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0013-held-input-start.json",
+      "sha256": "b85997a2be3a88894d46270ff04b97788f004ddbcb3bf774903f149eb2117a60"
+    },
+    "observations/0014-held-target.json": {
+      "bytes": 256,
+      "crc32": "22128ccd",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0014-held-target.json",
+      "sha256": "2a0d85e93f8d422409512e5c0186f6df34933d7499343eee3f19efac7d35f416"
+    },
+    "observations/0014-held-target.log": {
+      "bytes": 88585,
+      "crc32": "947d9fc8",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0014-held-target.log",
+      "sha256": "06778b82837d80a61603f2be985225651a97a0b4b12efdb12be06fc12112ed96"
+    },
+    "observations/0015-held-rotation-request.json": {
+      "bytes": 137,
+      "crc32": "6578ebb9",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0015-held-rotation-request.json",
+      "sha256": "1f030c74aaa7f8b4455ddb5cc99b6089e6768f9dc6929a415fff6f014b12c578"
+    },
+    "observations/0016-after-concealed-return-clock.json": {
+      "bytes": 290,
+      "crc32": "3bda549e",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0016-after-concealed-return-clock.json",
+      "sha256": "ceff15e7b5102f94c31410ced0ea62a7d4462dde250b9dacf27d63bc7ec91476"
+    },
+    "observations/0016-after-concealed-return-clock.log": {
+      "bytes": 83902,
+      "crc32": "257ce264",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0016-after-concealed-return-clock.log",
+      "sha256": "215e3783e52f44b6ad6823e697e49217744804edcb3a1469527d71e2c1d42c39"
+    },
+    "observations/0017-concealed-before-up.json": {
+      "bytes": 5302,
+      "crc32": "e59b0fe7",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0017-concealed-before-up.json",
+      "sha256": "0f20c43650e5409b5a7b2ace0e669a807ddfb1ab05a0985a76c981b6528a41af"
+    },
+    "observations/0019-rotation-request.json": {
+      "bytes": 143,
+      "crc32": "721bc950",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0019-rotation-request.json",
+      "sha256": "5aac16d3c234ebbb8a35fd715759d2b063bef8e93ae2c6d3c8785ef1fa2e7628"
+    },
+    "observations/0020-companion-resolved.json": {
+      "bytes": 271,
+      "crc32": "1595bcdc",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0020-companion-resolved.json",
+      "sha256": "a96aa0d947303b5b8c03cedb75d4bc3fa4cb1add96ea29162613ea56869b5925"
+    },
+    "observations/0020-companion-resolved.log": {
+      "bytes": 130,
+      "crc32": "5c12eee2",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0020-companion-resolved.log",
+      "sha256": "185e1a91ee418e6db0ae93ee66cdc2b07266b1bddca6a90703174abac3881525"
+    },
+    "observations/0021-split-entry-request.json": {
+      "bytes": 165,
+      "crc32": "aff1b687",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0021-split-entry-request.json",
+      "sha256": "a61761e3ae1179da949d32ef1dda703d04777a29d195c8e8183ecbcf90e60830"
+    },
+    "observations/0022-split-exit-request.json": {
+      "bytes": 148,
+      "crc32": "e5e5215f",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0022-split-exit-request.json",
+      "sha256": "6dd459053349660e25babbe796117bbf9bf1b6716876b0de67e3b71ac30a92b5"
+    },
+    "observations/0024-held-control.json": {
+      "bytes": 452,
+      "crc32": "513e3e0f",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0024-held-control.json",
+      "sha256": "9baf706168d55f585973620944957871c960f4f00c0a360627c800f2a6557cb4"
+    },
+    "observations/0025-before-held-touch.json": {
+      "bytes": 269,
+      "crc32": "c2c288df",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0025-before-held-touch.json",
+      "sha256": "b4e5838629f2c6ec157dac0babdabd31f5d83d28e45afb7ca8e0fab5d39f621c"
+    },
+    "observations/0025-before-held-touch.log": {
+      "bytes": 87677,
+      "crc32": "e0c2a9f7",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0025-before-held-touch.log",
+      "sha256": "0637ceaf9d72faab5c3d6e46153e03b5e8249f9f882113894d9d59a7b53ea9e2"
+    },
+    "observations/0026-held-input-start.json": {
+      "bytes": 837,
+      "crc32": "c6adf93e",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0026-held-input-start.json",
+      "sha256": "27f9752794aba06936c594a8572ef09cbb711851a09ef7623533e99f3a17c1b1"
+    },
+    "observations/0027-held-target.json": {
+      "bytes": 257,
+      "crc32": "b8763722",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0027-held-target.json",
+      "sha256": "85a4263c3c10fab84d0de0a79b9afc3ecb93ec8fc7f3b609c35d0b35d616e9b0"
+    },
+    "observations/0027-held-target.log": {
+      "bytes": 89889,
+      "crc32": "257022aa",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0027-held-target.log",
+      "sha256": "83aa9013936836bdacc7c42f30644b73404a7ff6c97f04850dff72cab82336b2"
+    },
+    "observations/0028-held-rotation-request.json": {
+      "bytes": 138,
+      "crc32": "555d4095",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0028-held-rotation-request.json",
+      "sha256": "c7ff827be4789e8426340ccd7c79baa89b1032bf2318183998dc3dc8c601e117"
+    },
+    "observations/0029-after-concealed-return-clock.json": {
+      "bytes": 291,
+      "crc32": "f1ee7090",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0029-after-concealed-return-clock.json",
+      "sha256": "414af1bf38fff6610cdca57f70e890324a770eb811fd99c9f10742de2f636523"
+    },
+    "observations/0029-after-concealed-return-clock.log": {
+      "bytes": 85265,
+      "crc32": "3d796017",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0029-after-concealed-return-clock.log",
+      "sha256": "05adcd9c79920122bb6417189363abaeb819fde11270bfa0024ef9396f3e5658"
+    },
+    "observations/0030-concealed-before-up.json": {
+      "bytes": 6201,
+      "crc32": "5727e8ea",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0030-concealed-before-up.json",
+      "sha256": "4850c3133ccf62a950abc435e8066d3d4f03174db5a5345fc582406b2ee11d74"
+    },
+    "observations/2d-landscape-concealed-before-up.xml": {
+      "bytes": 15001,
+      "crc32": "ba8b993a",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/2d-landscape-concealed-before-up.xml",
+      "sha256": "a81e9cb82b1c447fa79a9f73f7284b5e32c4b0f3659f7ade1bace1036d36be3a"
+    },
+    "observations/2d-landscape-held-control.xml": {
+      "bytes": 5221,
+      "crc32": "7f6910fe",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/2d-landscape-held-control.xml",
+      "sha256": "714c8130e1b1ede502c44e0c43dee6a88a13a6877b43e9d42be3981d26c4001b"
+    },
+    "observations/2d-landscape-held-input-result.json": {
+      "bytes": 7505,
+      "crc32": "46d56e2d",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/2d-landscape-held-input-result.json",
+      "sha256": "ca1cac81f1c4e3f00854fcea2f6c4412d1127e2393cf367437c8356b1ebc9297"
+    },
+    "observations/2d-seascape-concealed-before-up.xml": {
+      "bytes": 14637,
+      "crc32": "cc9390f4",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/2d-seascape-concealed-before-up.xml",
+      "sha256": "630d341c56c8aa6e2f9be8a508b053106e798a1de6e5c3a4a00545a642b39985"
+    },
+    "observations/2d-seascape-held-control.xml": {
+      "bytes": 5208,
+      "crc32": "2769823a",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/2d-seascape-held-control.xml",
+      "sha256": "2746bff12d6c1197a90d096f9fc696c8dacc9181799507a9d36af5949025406c"
+    },
+    "observations/2d-seascape-held-input-result.json": {
+      "bytes": 7497,
+      "crc32": "8d773e8b",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/2d-seascape-held-input-result.json",
+      "sha256": "c5edede469b50b3fa3f7d13c521a6e3234ae31812fb230b6059322d85589cf7d"
+    },
+    "observations/3d-landscape-concealed-before-up.xml": {
+      "bytes": 15003,
+      "crc32": "1276148e",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/3d-landscape-concealed-before-up.xml",
+      "sha256": "3c7ededf997c3b8ff4ff481e7092131f3a29839468ca9363e92375d62a49541f"
+    },
+    "observations/3d-landscape-held-control.xml": {
+      "bytes": 5221,
+      "crc32": "7f6910fe",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/3d-landscape-held-control.xml",
+      "sha256": "714c8130e1b1ede502c44e0c43dee6a88a13a6877b43e9d42be3981d26c4001b"
+    },
+    "observations/3d-landscape-held-input-result.json": {
+      "bytes": 8470,
+      "crc32": "39691b4f",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/3d-landscape-held-input-result.json",
+      "sha256": "2e54108610cbea4a6dcab529364468c75598a24f0bf9abb61384dd0f4b5b3db3"
+    },
+    "states/00031-activity.log": {
+      "bytes": 30979,
+      "crc32": "5251a873",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/states/00031-activity.log",
+      "sha256": "56e78e5697039f82425c0a4e801d14acbc05c494e22fd09bb31b70d57a15c8b5"
+    },
+    "states/00031-processes.log": {
+      "bytes": 11440,
+      "crc32": "4099bb20",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/states/00031-processes.log",
+      "sha256": "98bf1a72cb89b190c771b909171887ce49de8cb0c4555212ca3b68b0faffb17b"
+    },
+    "states/00031-window.log": {
+      "bytes": 19762,
+      "crc32": "46c25dfe",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/states/00031-window.log",
+      "sha256": "d5f7ff921e8b8b6e4ed539e0c182d49a8d18474036d9a4154076fc8bc148e40e"
+    },
+    "states/00031.json": {
+      "bytes": 3920,
+      "crc32": "24423cf0",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/states/00031.json",
+      "sha256": "5bceb7e95a2e71e75e3772f029e32a3dcd9b78f5e2704ef305aac621b942485a"
+    },
+    "states/00110-activity.log": {
+      "bytes": 31757,
+      "crc32": "9145e481",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/states/00110-activity.log",
+      "sha256": "a885c005232137b6d087b105706cbd224172597e36da6d9cb2346c8e57656c6c"
+    },
+    "states/00110-processes.log": {
+      "bytes": 10930,
+      "crc32": "04f80b03",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/states/00110-processes.log",
+      "sha256": "54d1200238f2fe9035859ca277acd635d18148a299cbbc410644e3b4bdbe7c8b"
+    },
+    "states/00110-window.log": {
+      "bytes": 20537,
+      "crc32": "4533e502",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/states/00110-window.log",
+      "sha256": "93f259da0ec9bcb16f2e20b8a8ca421d97911fde8b13cb88dea574e415b37c67"
+    },
+    "states/00110.json": {
+      "bytes": 3920,
+      "crc32": "bfa6b5f1",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/states/00110.json",
+      "sha256": "91f06726fd0c4f1b54ebc10c0ca895317cecb9ef52551f0ecedfdba704ec2607"
+    },
+    "states/00189-activity.log": {
+      "bytes": 38085,
+      "crc32": "e4260c75",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/states/00189-activity.log",
+      "sha256": "b3fcaa3a7b41ed382cbfcb075ce4afc34ad61d9aaf0f45b3a65f298d1102ea02"
+    },
+    "states/00189-processes.log": {
+      "bytes": 10779,
+      "crc32": "13c249f2",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/states/00189-processes.log",
+      "sha256": "7adbb4947ffa85096807e18c37503ff49e40110026ac5e646b691d23866f0c2e"
+    },
+    "states/00189-window.log": {
+      "bytes": 21700,
+      "crc32": "d57dbc3e",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/states/00189-window.log",
+      "sha256": "063621f4569e71d928362a8e0326d03abb349ea0d0cd3e0367709cca27d358fa"
+    },
+    "states/00189.json": {
+      "bytes": 4989,
+      "crc32": "1bba139c",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/states/00189.json",
+      "sha256": "6646f9e921a4b20a198d6e97afc6907ab968143f724592d54559a8bf22ee03b1"
+    },
+    "states/00218-activity.log": {
+      "bytes": 42527,
+      "crc32": "3481cd39",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/states/00218-activity.log",
+      "sha256": "1e9f5b48d7fbc23b54b7f381bdb8e154374bfbd3c697905fe7de48a8e650b5ec"
+    },
+    "states/00218-processes.log": {
+      "bytes": 10852,
+      "crc32": "f9d4eca0",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/states/00218-processes.log",
+      "sha256": "5d33ed1e586cff22e3a30aa3349e6b85ad33272f561349dedd65f186cba95a92"
+    },
+    "states/00218-window.log": {
+      "bytes": 21765,
+      "crc32": "8c9a48be",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/states/00218-window.log",
+      "sha256": "f1ae90b25323c9d5cfd49251eb96d6b16fb47800a4a4a1db256f8d84e928f925"
+    },
+    "states/00218.json": {
+      "bytes": 5809,
+      "crc32": "9e02d5ed",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/states/00218.json",
+      "sha256": "7957c11c756b298b249b0ebb7132e9f1060c140f410aa68b9444c9a9e8baa81e"
+    },
+    "states/00222-activity.log": {
+      "bytes": 36965,
+      "crc32": "07013fa3",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/states/00222-activity.log",
+      "sha256": "8f2f19eea707d41e6dce805031668d3af806670130afae907f221a613ae4b61a"
+    },
+    "states/00222-processes.log": {
+      "bytes": 10853,
+      "crc32": "b97e1d26",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/states/00222-processes.log",
+      "sha256": "127383b8174a7af82c01da52574490ac7eac77685e1f236fccfabc2bcfb32577"
+    },
+    "states/00222-window.log": {
+      "bytes": 21101,
+      "crc32": "aa1387c1",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/states/00222-window.log",
+      "sha256": "f8873fcd978105b41d7ec15e2e5e7a5fa2a5b3649e42215e6c29c847b4cbcb8e"
+    },
+    "states/00222.json": {
+      "bytes": 4749,
+      "crc32": "b6cedadc",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/states/00222.json",
+      "sha256": "9118c0aa1bb59a40888540b47e63d3e3632560ffc29c264c65a60d7d80a4676a"
+    },
+    "states/00276-activity.log": {
+      "bytes": 37419,
+      "crc32": "decbcce6",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/states/00276-activity.log",
+      "sha256": "418da563e079bc6ac8673cfa0dda0909e7d544852d421396845d3561374325c6"
+    },
+    "states/00276-processes.log": {
+      "bytes": 10882,
+      "crc32": "0ed660cb",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/states/00276-processes.log",
+      "sha256": "41f19731eb5dada2f06fcdcf5ab06d8815421a82035da410cfa8e2a21ffdca30"
+    },
+    "states/00276-window.log": {
+      "bytes": 21568,
+      "crc32": "dc0dff12",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/states/00276-window.log",
+      "sha256": "42507dbcece7d8b9604a1b154a72a9807209716fa28051e83db755e4c3a84df2"
+    },
+    "states/00276.json": {
+      "bytes": 4749,
+      "crc32": "6fb073a5",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/states/00276.json",
+      "sha256": "1d8774067c215c7e8307ad7132c2dc9b716a2375f47cd76d76627e4e5cdeff79"
+    },
+    "videos/2d-landscape-rotation.decode.log": {
+      "bytes": 0,
+      "crc32": "00000000",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-landscape-rotation.decode.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "videos/2d-landscape-rotation.ffprobe.json": {
+      "bytes": 627,
+      "crc32": "4cc50e69",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-landscape-rotation.ffprobe.json",
+      "sha256": "e740791b1bfb4be68066bd95f1a37a593d8491c886a279e237bc6fb681411e82"
+    },
+    "videos/2d-landscape-rotation.ffprobe.log": {
+      "bytes": 0,
+      "crc32": "00000000",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-landscape-rotation.ffprobe.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "videos/2d-landscape-rotation.json": {
+      "bytes": 5236,
+      "crc32": "dc27dae0",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-landscape-rotation.json",
+      "sha256": "5af35fc3c26d616ba0be86b6e0e91af61d04cff7ce6be28e24da61700fa7f5a0"
+    },
+    "videos/2d-landscape-rotation.mp4": {
+      "bytes": 281354,
+      "crc32": "f0133124",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-landscape-rotation.mp4",
+      "sha256": "7af4c22451618dd1c18f372b74689b43d785b0e0b557608960ffd69d207a7e82"
+    },
+    "videos/2d-seascape-rotation.decode.log": {
+      "bytes": 0,
+      "crc32": "00000000",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-seascape-rotation.decode.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "videos/2d-seascape-rotation.ffprobe.json": {
+      "bytes": 627,
+      "crc32": "5a5aa941",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-seascape-rotation.ffprobe.json",
+      "sha256": "e6c8bd8739c0d0413084eec1c598493964a1c00192acc02e39b532a62bad8e50"
+    },
+    "videos/2d-seascape-rotation.ffprobe.log": {
+      "bytes": 0,
+      "crc32": "00000000",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-seascape-rotation.ffprobe.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "videos/2d-seascape-rotation.json": {
+      "bytes": 5230,
+      "crc32": "e07af360",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-seascape-rotation.json",
+      "sha256": "cdcc53fd9b67f61f2c1c2fa1da2ee32efa14df4bc7086915a4c6d31fc25464e5"
+    },
+    "videos/2d-seascape-rotation.mp4": {
+      "bytes": 264692,
+      "crc32": "79f9295a",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-seascape-rotation.mp4",
+      "sha256": "f361e696350b7929d9e401352023d8947e53254f5c16405837fe52b47a973225"
+    },
+    "videos/2d-split-entry.decode.log": {
+      "bytes": 0,
+      "crc32": "00000000",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-split-entry.decode.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "videos/2d-split-entry.ffprobe.json": {
+      "bytes": 627,
+      "crc32": "3f9b594c",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-split-entry.ffprobe.json",
+      "sha256": "396042bbd657c9f1cd612c8fb71c22c570bb068229845371eed1c3cebdebb923"
+    },
+    "videos/2d-split-entry.ffprobe.log": {
+      "bytes": 0,
+      "crc32": "00000000",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-split-entry.ffprobe.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "videos/2d-split-entry.json": {
+      "bytes": 4965,
+      "crc32": "526c61d9",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-split-entry.json",
+      "sha256": "dc5ac3a03821f6c3e2f98d8da800d2483dac9399a1834c86ab468f8d994304f7"
+    },
+    "videos/2d-split-entry.mp4": {
+      "bytes": 292322,
+      "crc32": "b9e12594",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-split-entry.mp4",
+      "sha256": "24e634e7b34a182f9aaa6f59bf06b37aaca7c4a1c68d2c5aa0e6805d2ff8d853"
+    },
+    "videos/2d-split-exit.decode.log": {
+      "bytes": 0,
+      "crc32": "00000000",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-split-exit.decode.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "videos/2d-split-exit.ffprobe.json": {
+      "bytes": 627,
+      "crc32": "733808a1",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-split-exit.ffprobe.json",
+      "sha256": "5806092db8344829b1edb8431691678b4768728bdf1c27e7d7aeb7c085d59588"
+    },
+    "videos/2d-split-exit.ffprobe.log": {
+      "bytes": 0,
+      "crc32": "00000000",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-split-exit.ffprobe.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "videos/2d-split-exit.json": {
+      "bytes": 4961,
+      "crc32": "00e17b4c",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-split-exit.json",
+      "sha256": "6b4a05ffceb60bc1a858962055020aab75d02657d499f82fd4250040b68c103b"
+    },
+    "videos/2d-split-exit.mp4": {
+      "bytes": 285679,
+      "crc32": "c72031f5",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/2d-split-exit.mp4",
+      "sha256": "4f7f26627ce249b4e6c3fb18ced127461c819c993b12094b15b0e8ede0d69453"
+    },
+    "videos/3d-landscape-rotation.decode.log": {
+      "bytes": 0,
+      "crc32": "00000000",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/3d-landscape-rotation.decode.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "videos/3d-landscape-rotation.ffprobe.json": {
+      "bytes": 627,
+      "crc32": "f3e4fa7c",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/3d-landscape-rotation.ffprobe.json",
+      "sha256": "30a1e4126c49ff7323acf985cf85ab0388476c225c8485254f881d81744830f3"
+    },
+    "videos/3d-landscape-rotation.ffprobe.log": {
+      "bytes": 0,
+      "crc32": "00000000",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/3d-landscape-rotation.ffprobe.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "videos/3d-landscape-rotation.json": {
+      "bytes": 5254,
+      "crc32": "ef25fe96",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/3d-landscape-rotation.json",
+      "sha256": "bf58faa0094f065087b3ec7ea70052709a9136888f452ed6835eb63db343e44c"
+    },
+    "videos/3d-landscape-rotation.mp4": {
+      "bytes": 287377,
+      "crc32": "eb530575",
+      "matchesCollectorInventory": true,
+      "matchesResultInventory": true,
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/3d-landscape-rotation.mp4",
+      "sha256": "ef36ffcd7d072f3af98899bd8d4ac534beb080f35e57c72eca3a6dc86d5fe8c9"
+    }
+  },
+  "owner": "/root/android_platform",
+  "pixelPrivacyAcceptance": false,
+  "result": {
+    "bytes": 1955059,
+    "crc32": "84b9f7fb",
+    "matchesCollectorInventory": true,
+    "matchesResultInventory": null,
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/godot-adaptive-result.json",
+    "sha256": "5902af2d47b961e5f1c70f0820acb434e220a63e417fd78908e25082dd0c766a"
+  },
+  "runId": 34528538284,
+  "schemaVersion": 1,
+  "scope": "Original-file and observation association for root-authorized separate visual review; no media decoded or images viewed by this agent.",
+  "source": {
+    "bytes": 76377,
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-8030efe/source-8030efe/scripts/smoke_android_godot_adaptive.py",
+    "sha256": "794b4b436ee837617482227ef218133a8eae904181e34073faa000d8a3d240a9"
+  },
+  "sourceBinding": {
+    "bytes": 8402,
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-8030efe/android-source-pack-binding.json",
+    "sha256": "963e38edb50e54c8f4dd3dfdb6eb2faa9f7fb52a30f2ded9d1d4c1b29b0ba7cb"
+  },
+  "timestampCautions": [
+    "OriginalRecording.__init__ sets started_utc at source line 250; recorder launch/startup origin is later at lines 273-279. started_utc is not first-frame time.",
+    "Host UTC state/capture/observation intervals are sequential and do not establish a video-frame/device-clock mapping.",
+    "Accepted Winscope validation at source lines 86-198 binds MP4 track identity, payload hashes and frame counts; this receipt does not decode absolute timestamp values.",
+    "Split request observations precede live checkpoints and record intent; actual paired/fullscreen state samples and resulting captures are retained separately.",
+    "Recorded container/decode success and passed native checks do not establish observed pixels or full privacy. Future visual review must state exactly which frames/crops were viewed.",
+    "No evidence is transferred to current main, the new PCK, unreached scopes, or the two failed held rotations."
+  ]
+}

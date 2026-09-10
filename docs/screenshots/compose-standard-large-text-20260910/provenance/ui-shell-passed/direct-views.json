@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "reviewed_at_utc": "2026-09-10T22:41:25.446645+00:00",
+  "reviewer": "ui_shell",
+  "status": "targeted_jvm_natural_visibility_pass_reviewed",
+  "scope": "Actual root-executed JVM Compose 411dp by 662dp content, density1, fontScale2, fresh and Standard-return cases. No Godot PCK/native runtime.",
+  "manifest": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/standard-large-text-root-integration-20260910/fixture-passed-v3/manifest.json",
+    "sha256": "146f15b5addd11b001ebbc994378e065fa4a813e011743ffa05f3870cbdf8663"
+  },
+  "images": [
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/standard-large-text-root-integration-20260910/fixture-passed-v3/ui-snapshots/standard-return-font2-2648639793381465649/returned-concealed.png",
+      "sha256": "3e4e4ab066a72ec9aa5d2acad03f6dedef94cb17d963cdfa389c773dca02b9ea",
+      "bytes": 35137,
+      "size_px": [
+        411,
+        662
+      ],
+      "view_method": "independently rehashed exact duplicate of the directly viewed fresh original",
+      "scroll_context": "no scroll, tap or focus operation before capture",
+      "caption": "Genuine Show hand is fully inside the large-text viewport below Your hand and 5 cards. Turn/rank/current claim stay visible above it. The illustration and explanatory copy follow the control and continue below the viewport in the same scroll flow. No private card face is shown."
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/standard-large-text-root-integration-20260910/fixture-passed-v3/ui-snapshots/standard-return-font2-8789779573886536011/fresh-concealed.png",
+      "sha256": "3e4e4ab066a72ec9aa5d2acad03f6dedef94cb17d963cdfa389c773dca02b9ea",
+      "bytes": 35137,
+      "size_px": [
+        411,
+        662
+      ],
+      "view_method": "direct view of this immutable original",
+      "scroll_context": "no scroll, tap or focus operation before capture",
+      "caption": "Genuine Show hand is fully inside the large-text viewport below Your hand and 5 cards. Turn/rank/current claim stay visible above it. The illustration and explanatory copy follow the control and continue below the viewport in the same scroll flow. No private card face is shown."
+    }
+  ],
+  "junit": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/standard-large-text-root-integration-20260910/fixture-passed-v3/test-results/jvmTest/TEST-dev.partydeck.app.StandardReturnLayoutTest.xml",
+    "sha256": "bf247e11a9c7d6dbde5d010f484d6d2b1bb22856689b52b4f8871dab0006e66f",
+    "bytes": 632,
+    "suite": {
+      "name": "StandardReturnLayoutTest[jvm]",
+      "tests": "2",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-09-10T22:34:34.974Z",
+      "hostname": "oblien",
+      "time": "1.493"
+    },
+    "cases": [
+      "standardReturnShowsTheWholeConcealedHandControlWithoutScrolling[jvm]",
+      "freshLargeTextTableShowsTheWholeConcealedHandControlWithoutScrolling[jvm]"
+    ]
+  },
+  "product_source_bindings": [
+    {
+      "path": "composeApp/src/commonMain/kotlin/dev/partydeck/app/ui/game/GameplayScreen.kt",
+      "sha256": "7be35a72979b54d899a2737890e32b76f63cb8d78210ac2c50638abe396bae83"
+    },
+    {
+      "path": "composeApp/src/commonMain/kotlin/dev/partydeck/app/ui/game/GameTable.kt",
+      "sha256": "a05774978784199433f1e31c5719e19c1792355a05322b23a4661da345be5f29"
+    },
+    {
+      "path": "composeApp/src/commonMain/kotlin/dev/partydeck/app/ui/game/PrivateHand.kt",
+      "sha256": "e3a088c6aa3769625cd7e2f9a163cc3a72a090069a4d04cddf04529196714174"
+    }
+  ],
+  "test_source": {
+    "path": "composeApp/src/jvmTest/kotlin/dev/partydeck/app/StandardReturnLayoutTest.kt",
+    "sha256": "a55824658bd888811784bcbabfdfa6663005b4317393513c51e2c1d93b00529b",
+    "identical_to_initial_fixture_except_four_equivalent_DpRect_accessor_replacements": true,
+    "bounds_enabled_minimum_size_no_private_nodes_and_no_scroll_requirements_unchanged": true
+  },
+  "conclusion": "The genuine Reveal now visibly fits in both preserved no-scroll states, consistent with both strict layout assertions passing. Current public context and the hand heading/count remain unchanged above it; the longer explanatory content follows the control.",
+  "prior_failure_review": "/tmp/partydeck-standard-large-text-current-view-review-ui-shell-20260910-v1/direct-views.json",
+  "limitations": [
+    "Only these two targeted natural-visibility cases have completed after the PrivateHand correction at review time. The broader gameplay/presentation rerun remains separate.",
+    "No original Android pre-UP pixel/XML observation is reconstructed.",
+    "JVM font scale2 is not Android nonlinear-font pixel parity.",
+    "Real native held-input acceptance still requires the unchanged Android lifecycle/privacy predicate."
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "recordedUtc": "2026-09-10T22:39:48.852221+00:00",
+  "owner": "/root/review_design",
+  "runId": 34528538284,
+  "headSha": "8030efe1c56e7885ed1fd3bd5140bb8ff82fcc57",
+  "files": [
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/3d-landscape-held-control.xml",
+      "bytes": 5221,
+      "sha256": "714c8130e1b1ede502c44e0c43dee6a88a13a6877b43e9d42be3981d26c4001b",
+      "mtimeNs": 1789076597555186858,
+      "relativeRuntimePath": "observations/3d-landscape-held-control.xml",
+      "physicalAlias": "/dev/shm/partydeck-evidence-20260910/34528538284/extracted/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/3d-landscape-held-control.xml"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0027-held-target.log",
+      "bytes": 89889,
+      "sha256": "83aa9013936836bdacc7c42f30644b73404a7ff6c97f04850dff72cab82336b2",
+      "mtimeNs": 1789076596298186933,
+      "relativeRuntimePath": "observations/0027-held-target.log",
+      "physicalAlias": "/dev/shm/partydeck-evidence-20260910/34528538284/extracted/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/0027-held-target.log"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34528538284/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/3d-landscape-concealed-before-up.xml",
+      "bytes": 15003,
+      "sha256": "3c7ededf997c3b8ff4ff481e7092131f3a29839468ca9363e92375d62a49541f",
+      "mtimeNs": 1789076597503186861,
+      "relativeRuntimePath": "observations/3d-landscape-concealed-before-up.xml",
+      "physicalAlias": "/dev/shm/partydeck-evidence-20260910/34528538284/extracted/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/observations/3d-landscape-concealed-before-up.xml"
+    }
+  ],
+  "observedXmlTarget": {
+    "hierarchyRotation": 1,
+    "class": "android.widget.Button",
+    "text": "Standard table",
+    "contentDescription": "Standard table. Continue this game with screen-reader controls.",
+    "enabled": true,
+    "clickable": true,
+    "bounds": [
+      150,
+      186,
+      826,
+      286
+    ],
+    "center": [
+      488,
+      236
+    ],
+    "resourceIdPresent": false,
+    "selector": "text fallback"
+  },
+  "heldInputProof": {
+    "window": "8c964b8 ...SessionGodotActivity",
+    "pid": 17141,
+    "uid": 10150,
+    "pointer": 0,
+    "downTimeNs": 1116169000000,
+    "clock": "InputDispatcher CLOCK_MONOTONIC",
+    "commandSuppliedByAndroidReviewer": "touchscreen display 0 swipe 488 236 488 236 30000"
+  },
+  "laterXml": {
+    "hierarchyRotation": 0,
+    "resourceId": "game-reveal-hand",
+    "enabled": true,
+    "clickable": true,
+    "bounds": [
+      63,
+      1472,
+      657,
+      1556
+    ]
+  },
+  "limits": [
+    "The intended held target was Standard table. This scope does not test a card drag, Show hand hold or Back.",
+    "Pixel review observes a lighter Standard table button; target identity comes from separate input/XML evidence.",
+    "Display 0 and the clone display have different geometry/transforms. No cross-display mapping is inferred from the highlight.",
+    "XML node bounds and visible clipped pixels are distinct evidence.",
+    "Media timestamps are not bounded against InputDispatcher CLOCK_MONOTONIC; no per-frame before-UP assertion is made."
+  ]
+}

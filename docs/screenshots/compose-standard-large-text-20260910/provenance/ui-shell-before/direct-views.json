@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "reviewed_at_utc": "2026-09-10T22:35:54.138350+00:00",
+  "reviewer": "ui_shell",
+  "scope": "Direct visual review of completed current-source JVM Compose outputs before the later PrivateHand control-order correction. No Godot PCK or native runtime is used by these tests.",
+  "source_bindings_for_reviewed_outputs": [
+    {
+      "path": "composeApp/src/commonMain/kotlin/dev/partydeck/app/ui/game/GameplayScreen.kt",
+      "sha256": "7be35a72979b54d899a2737890e32b76f63cb8d78210ac2c50638abe396bae83"
+    },
+    {
+      "path": "composeApp/src/commonMain/kotlin/dev/partydeck/app/ui/game/GameTable.kt",
+      "sha256": "a05774978784199433f1e31c5719e19c1792355a05322b23a4661da345be5f29"
+    },
+    {
+      "path": "composeApp/src/commonMain/kotlin/dev/partydeck/app/ui/game/PrivateHand.kt",
+      "sha256": "68d7ecd74bb052c87ac0551d2104c20438893f751861d507e4a66cf0941bf408"
+    }
+  ],
+  "manifests": [
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/standard-large-text-root-integration-20260910/passed-focused-tests/manifest.json",
+      "sha256": "cfcb3aa0ee0d5c6bafcbca2c7724b984c88ba909e3ae62839ec39d6b5b635d50"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/standard-large-text-root-integration-20260910/fixture-failed-v2/manifest.json",
+      "sha256": "6c9d68d1e2dd33a64b181cc5182b090468175f71048b63437e593ba672194f1a"
+    }
+  ],
+  "executed_results": {
+    "existing_gameplay_presentation_tests": {
+      "tests": 9,
+      "failures": 0,
+      "errors": 0
+    },
+    "corrected_natural_visibility_fixture": {
+      "tests": 2,
+      "failures": 2,
+      "errors": 0
+    }
+  },
+  "views": [
+    {
+      "id": "focused-initial-concealed",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/standard-large-text-root-integration-20260910/passed-focused-tests/ui-snapshots/game-large-text-concealed.png",
+      "sha256": "7fa79fe0ff6c901766abfff5ed0492f19ed61c6484d8afc6cf6f14d42019da39",
+      "bytes": 35131,
+      "size_px": [
+        320,
+        740
+      ],
+      "view_method": "directly viewed source PNG; immutable copy rehashed equal to viewed bytes",
+      "scroll_context": "initial_unscrolled",
+      "notes": "Initial fresh capture before Reveal is scrolled into view. Turn/rank/open-round instruction precede the concealed hand. Hand heading and top of its panel are visible; Reveal is outside this 320 \u00d7 740 image. No private cards are displayed."
+    },
+    {
+      "id": "focused-shown-hand",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/standard-large-text-root-integration-20260910/passed-focused-tests/ui-snapshots/game-large-text-hand.png",
+      "sha256": "08366ccd75db286cbe71f8515b0337dda390dd73a514524797099eff2b22ab1b",
+      "bytes": 33427,
+      "size_px": [
+        320,
+        740
+      ],
+      "view_method": "directly viewed source PNG; immutable copy rehashed equal to viewed bytes",
+      "scroll_context": "after_reveal_and_scroll",
+      "notes": "Captured after revealing and bringing card 0 into view. Hide hand and the selected-count line are readable, and the first large card rows are distinct. Lower rows continue below the scroll viewport. This is a deliberate scrolled state."
+    },
+    {
+      "id": "focused-selected-hand",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/standard-large-text-root-integration-20260910/passed-focused-tests/ui-snapshots/game-large-text-selected.png",
+      "sha256": "7ff0c7afaf38fb337cb92968c69d196bac4b3eef2c777996d752e0afb1358db5",
+      "bytes": 30298,
+      "size_px": [
+        320,
+        740
+      ],
+      "view_method": "directly viewed source PNG; immutable copy rehashed equal to viewed bytes",
+      "scroll_context": "after_selection_and_scroll",
+      "notes": "Captured after scrolling to and selecting the fifth card. The count reads 1 of 3 selected and the selected card has a check mark; Hide hand remains visible. The public instruction tail is clipped at the scroll viewport top as expected for this captured scroll position."
+    },
+    {
+      "id": "focused-return-concealed",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/standard-large-text-root-integration-20260910/passed-focused-tests/ui-snapshots/presentation-1789078268668/fallback-concealed-large-text.png",
+      "sha256": "a323ecdc66de8f398c20481f1f9e4236779c68c07199ea5a92c7aa049a642b0d",
+      "bytes": 41154,
+      "size_px": [
+        320,
+        740
+      ],
+      "view_method": "directly viewed source PNG; immutable copy rehashed equal to viewed bytes",
+      "scroll_context": "after_explicit_scroll_to_reveal",
+      "notes": "Captured after the existing test explicitly performs ScrollTo on Reveal. The Show hand label is visible at the bottom edge and explanatory text wraps without exposing card faces. This image is post-scroll visibility evidence; it has no recorded full-control bounds and cannot qualify natural return visibility."
+    },
+    {
+      "id": "natural-fresh-failed",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/standard-large-text-root-integration-20260910/fixture-failed-v2/ui-snapshots/standard-return-font2-3094935607218232296/fresh-concealed.png",
+      "sha256": "c600d0099006d1d881f587d78da1866d12680ca1977f7c574edbf75d311c751b",
+      "bytes": 37937,
+      "size_px": [
+        411,
+        662
+      ],
+      "view_method": "directly viewed this immutable original",
+      "scroll_context": "no input or scrolling before capture",
+      "notes": "Round 2, Moxie current claim, turn/rank and hand count are readable. The concealed panel begins near y536 and its explanatory copy extends below the viewport. Reveal is absent from the image. Authentic JUnit records full Reveal bounds [36,780,375,856] against viewport [0,0,411,662] for this case; the whole-control assertion failed."
+    },
+    {
+      "id": "natural-return-failed",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/standard-large-text-root-integration-20260910/fixture-failed-v2/ui-snapshots/standard-return-font2-10570808284129180959/returned-concealed.png",
+      "sha256": "c600d0099006d1d881f587d78da1866d12680ca1977f7c574edbf75d311c751b",
+      "bytes": 37937,
+      "size_px": [
+        411,
+        662
+      ],
+      "view_method": "independently rehashed exact duplicate of the directly viewed fresh PNG",
+      "scroll_context": "no input or scrolling before capture",
+      "notes": "Round 2, Moxie current claim, turn/rank and hand count are readable. The concealed panel begins near y536 and its explanatory copy extends below the viewport. Reveal is absent from the image. Authentic JUnit records full Reveal bounds [36,780,375,856] against viewport [0,0,411,662] for this case; the whole-control assertion failed."
+    }
+  ],
+  "review_conclusion": "The current context-first layout and scrolled hand states are readable, with no new visible overlap or lost private-control semantics in the inspected completed images. Initial natural Reveal visibility remains unfulfilled in the new executed 411 \u00d7 662 fixture. The large-text explanatory panel pushes the genuine button beyond the viewport; this finding motivated the separate frozen PrivateHand correction.",
+  "limitations": [
+    "The old fallback image was captured only after explicit ScrollTo.",
+    "Current JVM font-scale-2 pixels are not Android nonlinear-font pixel parity.",
+    "No existing or new JVM image establishes original Android pre-UP visibility, renderer retirement, or native-held acceptance.",
+    "The later PrivateHand correction and its rerun are outside this review; no corrected-layout pass is claimed."
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "recordedUtc": "2026-09-10T22:22:08.445270+00:00",
+  "clip": "3d-landscape-rotation",
+  "original": {
+    "name": "3d-landscape-rotation",
+    "originalPath": "/dev/shm/partydeck-evidence-20260910/34528538284/extracted/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/3d-landscape-rotation.mp4",
+    "sha256": "ef36ffcd7d072f3af98899bd8d4ac534beb080f35e57c72eca3a6dc86d5fe8c9",
+    "bytes": 287377,
+    "decodedFrameCount": 88,
+    "width": 1600,
+    "height": 720,
+    "originalReceiptPath": "/dev/shm/partydeck-evidence-20260910/34528538284/extracted/android-adaptive-api36-debug-font-2.0-34528538284-1/godot-adaptive/runtime/videos/3d-landscape-rotation.json",
+    "source_mtime_ns": 1789076690150181339,
+    "source_mtime_utc": "2026-09-10T21:44:50.150181+00:00"
+  },
+  "directViews": 44,
+  "reviewedByteIdenticalFrames": 44,
+  "decodedFrameIdentities": 88,
+  "decodedFrameCoverage": "All 88 decoded frame identities are covered by 44 original-size direct views plus 44 byte-identical matches. This is decoded-recording coverage, not proof that every rendered device frame was captured.",
+  "visiblePrivateCardFaces": false,
+  "allFramePrivacyQualification": false,
+  "beforeUpFrameMappingEstablished": false,
+  "scope": "Native Standard table held during rotation; excludes card dragging and Back. Input target supplied by Android separately from observed pixel highlight.",
+  "keyFrames": [
+    {
+      "frameNumber": 38,
+      "frameIndex": 37,
+      "pts": 724780,
+      "ptsSeconds": "8.053111",
+      "state": "ready_concealed_landscape"
+    },
+    {
+      "frameNumber": 49,
+      "frameIndex": 48,
+      "pts": 1335544,
+      "ptsSeconds": "14.839378",
+      "state": "ready_landscape_host_button_highlight"
+    },
+    {
+      "frameNumber": 56,
+      "frameIndex": 55,
+      "pts": 1394525,
+      "ptsSeconds": "15.494722",
+      "state": "ready_landscape_host_button_highlight"
+    },
+    {
+      "frameNumber": 57,
+      "frameIndex": 56,
+      "pts": 1399155,
+      "ptsSeconds": "15.546167",
+      "state": "rotation_intermediate"
+    },
+    {
+      "frameNumber": 58,
+      "frameIndex": 57,
+      "pts": 1406044,
+      "ptsSeconds": "15.622711",
+      "state": "portrait_closing_with_privacy_cover"
+    },
+    {
+      "frameNumber": 67,
+      "frameIndex": 66,
+      "pts": 1484662,
+      "ptsSeconds": "16.496244",
+      "state": "portrait_privacy_cover"
+    },
+    {
+      "frameNumber": 70,
+      "frameIndex": 69,
+      "pts": 1499328,
+      "ptsSeconds": "16.659200",
+      "state": "standard_portrait_concealed"
+    },
+    {
+      "frameNumber": 88,
+      "frameIndex": 87,
+      "pts": 4338792,
+      "ptsSeconds": "48.208800",
+      "state": "standard_portrait_concealed"
+    }
+  ],
+  "findings": [
+    "No private card faces are visible in any covered decoded PNG.",
+    "At font 2.0 in the initial native landscape pane, only game header/turn/claim content is visible; the hand and lower game actions are below the viewport.",
+    "A lighter native host Standard table button appears before the recorded rotation; Android identifies Standard table as the intended held target.",
+    "Rotation includes a sideways intermediate frame, then a centered portrait closing screen with privacy cover, then a concealed Standard portrait return. Black side areas are in the original fixed-size recording.",
+    "Media PTS has not been mapped to InputDispatcher CLOCK_MONOTONIC; no per-frame before-UP deadline assertion.",
+    "No claim transfers to current main/new PCK, card dragging, Back, failed rotations or unrecorded pixels."
+  ]
+}
