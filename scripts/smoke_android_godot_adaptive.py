@@ -8,7 +8,7 @@ separate execution/review. No app test hooks or direct private Activity launch.
 """
 
 import argparse
-from contextlib import contextmanager
+from contextlib import ExitStack, contextmanager, nullcontext
 import hashlib
 import importlib.util
 import json
@@ -20,6 +20,7 @@ import shutil
 import subprocess
 import struct
 import sys
+import threading
 import time
 import uuid
 
@@ -30,7 +31,7 @@ from adaptive_observations import (
 )
 
 
-SESSION_SHA256 = "7e9e1cfeba1676ad82b621597c3d26e9e39355cfcabff563e24cdb118b70d097"
+SESSION_SHA256 = "610971b22dc8ee60d62fa4e213224833cdd43fb0fa533c0fdd5fa39227a39fc4"
 UI_SHA256 = "831b57634a0cee99a466e6820059bb55209a26db3723b2ffff703b2ee0f60836"
 SESSION_DEPENDENCIES = {'android_godot_session_observation.py': '4a9340d49e69d596d2d6ed3cfd12b69eb567ab0fb49fed0fa49a643dfc877a8f', 'android_godot_activation.py': '5f5650fbabd934f904ceaf9e5b7705f5c91bfde999fb2bb03ad28062e91e61f9', 'adaptive_observations.py': '8b636b7f2687d6ddc0bca37624e678c3f1779a2df9537062088fd1e203a481c5'}
 
@@ -240,11 +241,25 @@ class OriginalRecording:
                      f"{self.width}x{self.height}", self.remote]
         self.process, self.identity, self.handles = None, None, []
         self.path_available, self.started_successfully = False, False
+        self.launch_attempted, self.finished = False, False
+        self.observer, self.observer_joined = None, False
+        self.observer_start_returned = False
+        self.startup_started, self.startup_deadline = None, None
+        self.startup_error, self.startup_error_reported = None, False
+        self.baseline_or_done, self.startup_done, self.cancel_startup, self.observer_release = (threading.Event() for _ in range(4))
         self.entry = dict(name=name, status="starting", started_utc=smoke.session.utc_now(),
                           argv=self.argv, canvas=list(dimensions), projection="Original fixed canvas; Android updates full-display projection on rotation.")
         smoke.videos.append(self.entry)
 
     def start(self):
+        self.launch()
+        self.observe_startup()
+        self.await_started()
+
+    def launch(self):
+        require(not self.launch_attempted and not self.finished, "A recording may be launched only once.")
+        require(not getattr(self.smoke, "input_incomplete", False), "Cannot set up recording during incomplete input.")
+        self.launch_attempted = True
         require(self.width > 0 and self.height > 0 and self.width % 2 == self.height % 2 == 0,
                 "Screenrecord canvas requires observed positive even dimensions.")
         require(self.smoke.command("shell", "test", "-e", self.remote).returncode == 1,
@@ -257,48 +272,159 @@ class OriginalRecording:
             self.handles.append((self.smoke.output / "videos" / f"{self.name}.{extension}").open("xb"))
         self.process = subprocess.Popen(["adb", "-s", self.smoke.serial, "shell", *self.argv],
                                         stdout=self.handles[0], stderr=self.handles[1])
-        startup_started = time.monotonic()
-        deadline = startup_started + 8
-        self.entry.update(startup_timeout_seconds=8, startup_observations=[])
+        self.startup_started = time.monotonic()
+        self.startup_deadline = self.startup_started + 8
+        self.entry.update(startup_timeout_seconds=8, startup_observations=[],
+                          startup_origin_monotonic_seconds=self.startup_started,
+                          startup_deadline_monotonic_seconds=self.startup_deadline)
+
+    def start_before_choice(self):
+        """Release the existing choice after a baseline sample, never as admission."""
+        require(not self.launch_attempted and self.observer is None and not self.finished,
+                "A recording observer may be started only once.")
+        require(not getattr(self.smoke, "input_incomplete", False), "Cannot set up recording during incomplete input.")
+        self.entry["startup_setup"] = "existing-production-native-choice"
+        # Publish ownership before start(): an interrupt can escape start after
+        # it launches a worker. No recorder exists until start returns, and the
+        # gated target cannot poll until this launch succeeds.
+        self.observer = threading.Thread(target=self.observe_when_launched, name="partydeck-recorder-startup", daemon=False)
+        try:
+            self.observer.start()
+            self.observer_start_returned = True
+            self.launch()
+        except BaseException:
+            self.cancel_startup.set()
+            raise
+        finally:
+            self.observer_release.set()
+        self.baseline_or_done.wait(timeout=max(0, self.startup_deadline - time.monotonic()))
+        # Recorder unavailability belongs to the held check. An ordinary native
+        # entry still runs once, with the original fresh choice/Ready checks.
+        if self.startup_done.is_set() and self.startup_error is not None and not isinstance(self.startup_error, Unavailable):
+            self.await_started()
+
+    def observe_when_launched(self):
+        self.observer_release.wait()
+        if self.cancel_startup.is_set() or self.startup_started is None:
+            self.startup_done.set()
+            self.baseline_or_done.set()
+            return
+        self.observe_startup()
+
+    def startup_remaining(self):
+        if self.cancel_startup.is_set():
+            raise Unavailable("Recorder startup observation was cancelled before growth was proved.")
+        remaining = self.startup_deadline - time.monotonic()
+        if remaining <= 0:
+            raise Unavailable("Recorder startup observation reached its original eight-second deadline.")
+        return remaining
+
+    def observe_startup(self):
+        # This observer owns only recorder reads and its startup receipt. UI,
+        # input, native readiness and cleanup stay on the foreground thread.
+        try:
+            self.observe_growth()
+        except subprocess.TimeoutExpired:
+            self.entry["startup_command_timeout"] = True
+            self.startup_error = Unavailable("Recorder startup read exceeded its remaining eight-second budget.")
+        except BaseException as error:
+            self.startup_error = error
+        finally:
+            if not self.started_successfully:
+                self.entry["startup_unavailable_condition"] = "growth-not-observed" if self.identity is not None else "identity-not-observed"
+            self.entry["startup_observer_ended_seconds"] = time.monotonic() - self.startup_started
+            self.startup_done.set()
+            self.baseline_or_done.set()
+
+    def observe_growth(self):
         previous_size = None
-        while time.monotonic() < deadline:
+        while time.monotonic() < self.startup_deadline:
+            self.startup_remaining()
             if self.process.poll() is not None:
                 raise Unavailable("Device screenrecord could not keep the requested original recording running.")
             candidates = []
-            for pid in self.smoke.pids("screenrecord"):
-                raw = self.smoke.command("exec-out", "cat", f"/proc/{pid}/cmdline", binary=True)
+            for pid in self.smoke.pids("screenrecord", timeout=self.startup_remaining()):
+                raw = self.smoke.command("exec-out", "cat", f"/proc/{pid}/cmdline", binary=True, timeout=self.startup_remaining())
+                if self.identity is not None and pid == self.identity["pid"] and raw.returncode == 0:
+                    require(raw.stdout == b"\0".join(item.encode() for item in self.argv) + b"\0",
+                            "Owned recorder command changed during startup.")
                 if raw.returncode != 0 or raw.stdout != b"\0".join(item.encode() for item in self.argv) + b"\0":
                     continue
-                status = self.smoke.adb("shell", "cat", f"/proc/{pid}/status")
-                stat = self.smoke.adb("shell", "cat", f"/proc/{pid}/stat")
+                status = self.smoke.adb("shell", "cat", f"/proc/{pid}/status", timeout=self.startup_remaining())
+                stat = self.smoke.adb("shell", "cat", f"/proc/{pid}/stat", timeout=self.startup_remaining())
                 candidates.append(self.smoke.session.parse_proc_identity(pid, self.argv[0], self.uid, raw.stdout, status, stat))
             require(len(candidates) <= 1, "Multiple exact owned recorders; refusing ambiguous cleanup.")
-            observation = dict(identity_query_ended_seconds=time.monotonic() - startup_started,
-                               identity=candidates[0] if candidates else None, output_bytes=None)
+            observation = dict(identity_query_ended_seconds=time.monotonic() - self.startup_started,
+                                identity=candidates[0] if candidates else None, output_bytes=None)
             if len(self.entry["startup_observations"]) < 32:
                 self.entry["startup_observations"].append(observation)
             else:
                 self.entry["startup_observations_truncated"] = True
             if candidates:
+                require(self.identity is None or self.identity == candidates[0], "Owned recorder lifetime changed during startup.")
                 self.identity = candidates[0]
-                current = self.smoke.command("shell", "stat", "-c", "%s", self.remote)
+                current = self.smoke.command("shell", "stat", "-c", "%s", self.remote, timeout=self.startup_remaining())
                 observation["size_query_returncode"] = current.returncode
-                observation["size_query_ended_seconds"] = time.monotonic() - startup_started
+                observation["size_query_ended_seconds"] = time.monotonic() - self.startup_started
                 if current.returncode == 0 and current.stdout.strip().isdigit():
                     current_size = int(current.stdout.strip())
                     observation["output_bytes"] = current_size
+                    # Subprocess creation/teardown can overrun its timeout. Only
+                    # a read completed inside the original budget may qualify.
+                    if observation["size_query_ended_seconds"] >= 8 or self.cancel_startup.is_set():
+                        break
+                    require(previous_size is None or current_size >= previous_size, "Original recording output shrank during startup.")
+                    if current_size > 0 and not self.baseline_or_done.is_set():
+                        self.entry["startup_baseline_observed_seconds"] = observation["size_query_ended_seconds"]
+                        self.baseline_or_done.set()
                     if previous_size is not None and current_size > previous_size > 0:
+                        if self.process.poll() is not None:
+                            raise Unavailable("Owned recording transport ended before growth admission.")
                         self.started_successfully = True
                         self.entry.update(status="recording", identity=self.identity, growth_observed_utc=self.smoke.session.utc_now(),
-                                          initial_file_sizes=[previous_size, current_size])
+                                          initial_file_sizes=[previous_size, current_size],
+                                          growth_observed_seconds=observation["size_query_ended_seconds"])
                         return
                     previous_size = current_size
-            time.sleep(0.25)
-        self.entry["startup_unavailable_condition"] = "growth-not-observed" if self.identity is not None else "identity-not-observed"
+            time.sleep(min(0.25, max(0, self.startup_deadline - time.monotonic())))
         raise Unavailable("Cannot prove the exact recorder identity and growing original output on this device.")
 
+    def join_startup(self, cancel=False):
+        if cancel:
+            self.cancel_startup.set()
+            self.observer_release.set()
+        if self.observer is not None and not self.observer_joined:
+            # The extra second permits thread/subprocess teardown only. It
+            # cannot admit growth after the fixed startup deadline.
+            join_deadline = max(time.monotonic(), self.startup_deadline or 0) + 1
+            if not self.observer_start_returned:
+                self.startup_done.wait(timeout=max(0, join_deadline - time.monotonic()))
+                require(self.startup_done.is_set(), "Observer start completion is unproved; refusing concurrent cleanup or input.")
+            self.observer.join(timeout=max(0, join_deadline - time.monotonic()))
+            require(not self.observer.is_alive(), "Recorder startup observer did not stop; refusing concurrent cleanup or input.")
+            self.observer_joined = True
+            self.entry["startup_observer_joined_utc"] = self.smoke.session.utc_now()
+
+    def await_started(self):
+        self.join_startup()
+        if self.startup_error is not None:
+            self.startup_error_reported = True
+            raise self.startup_error
+        require(self.startup_done.is_set() and self.started_successfully,
+                "Recorder has no completed positive-growth startup proof.")
+
     def finish(self):
+        if self.finished:
+            return
+        # No stop signal, handle close, pull, UI guard or path cleanup may race
+        # a startup observer, including when native entry raises before Ready.
+        self.join_startup(cancel=True)
+        self.finished = True
         errors = []
+        if self.startup_error is not None:
+            self.entry["startup_error"] = self.smoke.session.ui.redacted(str(self.startup_error))
+            if not isinstance(self.startup_error, Unavailable) and not self.startup_error_reported:
+                errors.append(self.startup_error)
         completed = self.process is None
         try:
             if self.process is not None and self.process.poll() is None and self.identity is not None:
@@ -371,6 +497,9 @@ class OriginalRecording:
             raise errors[0]
 
     def checkpoint(self, label):
+        require(self.observer is None or self.observer_joined, "Recorder checkpoint precedes startup observer join.")
+        require(self.started_successfully and self.process is not None and self.process.poll() is None,
+                "Owned recording transport is not live at the transition checkpoint.")
         require(self.identity is not None, "Recorder checkpoint lacks owned process identity.")
         pid = self.identity["pid"]
         raw = self.smoke.adb("exec-out", "cat", f"/proc/{pid}/cmdline", binary=True)
@@ -381,8 +510,12 @@ class OriginalRecording:
         identity = self.smoke.session.parse_proc_identity(pid, self.argv[0], self.uid, raw, status, stat)
         require(identity == self.identity, "Recorder lifetime changed before the transition checkpoint.")
         size = self.smoke.adb("shell", "stat", "-c", "%s", self.remote).strip()
-        require(size.isdigit() and int(size) >= self.entry["initial_file_sizes"][-1],
-                "Original recording output disappeared before the transition checkpoint.")
+        minimum_size = self.entry["initial_file_sizes"][-1]
+        if self.entry.get("checkpoints"):
+            minimum_size = max(minimum_size, self.entry["checkpoints"][-1]["output_bytes"])
+        require(size.isdigit() and int(size) >= minimum_size,
+                "Original recording output disappeared or shrank before the transition checkpoint.")
+        require(self.process.poll() is None, "Owned recording transport ended during the transition checkpoint.")
         self.entry.setdefault("checkpoints", []).append(dict(label=label, utc=self.smoke.session.utc_now(),
                                                              identity=identity, output_bytes=int(size)))
 
@@ -510,11 +643,12 @@ class AdaptiveScenarios:
             raise Unavailable("System screenrecord help/capability query failed.")
 
     @contextmanager
-    def recording(self, name, state):
+    def recording(self, name, state, *, defer_start=False):
         clip = OriginalRecording(self, name, state["display"]["size"])
         primary_error = None
         try:
-            clip.start()
+            if not defer_start:
+                clip.start()
             yield clip
         except BaseException as error:
             primary_error = error
@@ -522,7 +656,7 @@ class AdaptiveScenarios:
         finally:
             try:
                 clip.finish()
-            except Exception as error:
+            except BaseException as error:
                 self.cleanup_errors.append(f"{name}: {self.session.ui.redacted(str(error))}")
                 if primary_error is None:
                     raise
@@ -555,7 +689,13 @@ class AdaptiveScenarios:
             self.session.ui.node_bounds(marker), self.viewport(marker)
         ) is not None
 
-    def rotate_while_held(self, pid, before, portrait_rotation, prefix):
+    def rotate_while_held(self, pid, before, portrait_rotation, prefix, *, recording=None):
+        prepared_recording = recording is not None
+        if prepared_recording:
+            recording.await_started()
+            require([recording.width, recording.height] == before["display"]["size"],
+                    "Recorder canvas differs from the observed native display before held input.")
+            recording.checkpoint("native-entry-completed")
         controls = self.dump_ui()
         require(self.native_controls(controls) is not None, "Held-input entry lacks real native Ready/chrome.")
         control = self.find_action(controls, "native-standard-table", "Standard table")
@@ -574,7 +714,9 @@ class AdaptiveScenarios:
         pre_clock = input_clock(raw)
         arguments = ["adb", "-s", self.serial, "shell", "input", "touchscreen", "-d", "0", "swipe",
                      str(point[0]), str(point[1]), str(point[0]), str(point[1]), str(self.hold_ms)]
-        with self.recording(prefix + "-rotation", before) as recording:
+        with (nullcontext(recording) if prepared_recording else self.recording(prefix + "-rotation", before)) as recording:
+            if prepared_recording:
+                recording.checkpoint("before-held-input")
             with (self.output / "observations" / f"{prefix}-input.stdout.log").open("xb") as stdout, (self.output / "observations" / f"{prefix}-input.stderr.log").open("xb") as stderr:
                 process = subprocess.Popen(arguments, stdout=stdout, stderr=stderr)
                 self.input_incomplete = True
@@ -667,16 +809,21 @@ class AdaptiveScenarios:
 
     def landscape_scenario(self, mode, direction):
         prefix = f"{mode}-{direction}"
-        with self.check(prefix + ".initial-landscape") as entry:
-            display = self.state()["display"]
-            self.set_rotation(display[direction], self.session.MAIN_COMPONENT, "land")
-            baseline = self.begin_practice(prefix + "-baseline")
-            pid, task, _ = self.enter_native(mode, prefix + "-initial")
-            native = self.stable_activity(self.session.NATIVE_COMPONENT, "land", display[direction], "fullscreen")
-            entry.update(baseline=baseline, renderer_pid=pid, task_id=task, actual=native)
-        with self.check(prefix + ".held-rotation") as entry:
-            entry["gesture"] = self.rotate_while_held(pid, native, display["portrait"], prefix)
-            entry["observable_continuity"] = self.require_concealed_return(baseline, prefix + "-rotation-return")
+        with ExitStack() as lifetime:
+            with self.check(prefix + ".initial-landscape") as entry:
+                display = self.state()["display"]
+                landscape = self.set_rotation(display[direction], self.session.MAIN_COMPONENT, "land")
+                baseline = self.begin_practice(prefix + "-baseline")
+                recording = lifetime.enter_context(self.recording(prefix + "-rotation", landscape, defer_start=True))
+                pid, task, _ = self.enter_native(mode, prefix + "-initial", before_choice=recording.start_before_choice)
+                native = self.stable_activity(self.session.NATIVE_COMPONENT, "land", display[direction], "fullscreen")
+                entry.update(baseline=baseline, renderer_pid=pid, task_id=task, actual=native)
+            with self.check(prefix + ".held-rotation") as entry:
+                # Transfer the sole cleanup owner into this check. It receives
+                # the original held exception and finishes before continuity UI.
+                with lifetime.pop_all():
+                    entry["gesture"] = self.rotate_while_held(pid, native, display["portrait"], prefix, recording=recording)
+                entry["observable_continuity"] = self.require_concealed_return(baseline, prefix + "-rotation-return")
         # If the narrow held-input capability was unavailable before rotation,
         # recover through actual UI and keep its unsupported outcome. Recovery
         # is never counted as a held-input or adaptive success.

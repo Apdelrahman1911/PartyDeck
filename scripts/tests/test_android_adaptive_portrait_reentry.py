@@ -86,7 +86,16 @@ class PortraitScenarioReplay(session.GodotSessionSmoke):
         self.hand_shown = self.card_selected = True
         return copy.deepcopy(self.baseline)
 
-    def enter_native(self, mode, prefix):
+    @contextmanager
+    def recording(self, name, state, *, defer_start=False):
+        class PreparedRecording:
+            def start_before_choice(self):
+                pass
+        yield PreparedRecording()
+
+    def enter_native(self, mode, prefix, *, before_choice=None):
+        if before_choice is not None:
+            before_choice()
         if not self.hand_shown or not self.card_selected:
             raise RuntimeError("Native re-entry requires a fresh visible card selection")
         self.component = session.NATIVE_COMPONENT
@@ -95,7 +104,7 @@ class PortraitScenarioReplay(session.GodotSessionSmoke):
         self.hand_shown = self.card_selected = False
         return self.renderer_pid, 8, None
 
-    def rotate_while_held(self, pid, native, rotation, prefix):
+    def rotate_while_held(self, pid, native, rotation, prefix, *, recording=None):
         if not self.recorder_available and not self.unavailable_after_rotation:
             raise runner.Unavailable("Synthetic recorder startup unavailable")
         self.component, self.renderer_pid = session.MAIN_COMPONENT, None

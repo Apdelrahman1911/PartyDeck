@@ -140,7 +140,7 @@ class StartupObservationTests(unittest.TestCase):
             self.fail(f"Unexpected host-only recorder command: {args}")
 
         smoke = types.SimpleNamespace(output=output, serial="host-only", videos=[], command=command,
-            pids=lambda name: [777] if has_identity else [], adb=lambda *args: "2000" if args == ("shell", "id", "-u") else "source-shaped synthetic process record",
+            pids=lambda name, **kwargs: [777] if has_identity else [], adb=lambda *args, **kwargs: "2000" if args == ("shell", "id", "-u") else "source-shaped synthetic process record",
             session=types.SimpleNamespace(utc_now=lambda: "host-only-time", parse_proc_identity=lambda *args: dict(identity)))
         recorder = runner.OriginalRecording(smoke, "startup", [1600, 720])
         self.addCleanup(lambda: [handle.close() for handle in recorder.handles])

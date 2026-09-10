@@ -528,8 +528,8 @@ class GodotSessionSmoke(ui.AndroidSmoke):
         (self.output / "last-ui.xml").write_bytes(raw)
         return root
 
-    def pids(self, name):
-        result = self.command("shell", "pidof", name)
+    def pids(self, name, *, timeout=20):
+        result = self.command("shell", "pidof", name, timeout=timeout)
         return parse_pidof(result.returncode, result.stdout, result.stderr)
 
     def read_process_table(self):
@@ -1093,13 +1093,15 @@ class GodotSessionSmoke(ui.AndroidSmoke):
             lambda root: self.presentation_choice(root, mode), scroll="down",
         )
 
-    def enter_native(self, mode, prefix, ready=True):
+    def enter_native(self, mode, prefix, ready=True, *, before_choice=None):
         self.wait_activity(MAIN_COMPONENT, child_absent=True)
         self.tap_action("presentation-picker", "Table style", scroll="up")
         self.wait_until("Expected the production Table style dialog", self.presentation_picker)
         self.wait_for_presentation_choice(mode)
         self.capture_evidence(f"{prefix}-selector", MAIN_COMPONENT, ui_assertion=lambda root: require(
             self.presentation_choice(root, mode) is not None, "The requested picker row changed before capture."))
+        if before_choice is not None:
+            before_choice()
         self.tap_node(self.wait_for_presentation_choice(mode), f"presentation-choice-godot_{mode}")
         state = self.wait_activity(NATIVE_COMPONENT)
         require(len(state["renderer_pids"]) == 1, "Native Activity has no sole renderer process.")
