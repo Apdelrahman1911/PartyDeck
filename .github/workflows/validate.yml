@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       platform:
-        description: Platforms to validate for this manual run
+        description: Platforms or focused iOS production Godot sessions to validate for this manual run
         required: true
         type: choice
         default: all
@@ -15,6 +15,7 @@ on:
           - all
           - android
           - ios
+          - ios-godot-production
       android_api:
         description: Android runtime API (API 35 and API 36 have separate qualification evidence)
         required: true
@@ -137,7 +138,7 @@ jobs:
 
   ios-renderer-pack:
     name: Export the shared iOS renderer pack
-    if: ${{ github.event_name != 'workflow_dispatch' || inputs.platform == 'all' || inputs.platform == 'ios' }}
+    if: ${{ github.event_name != 'workflow_dispatch' || inputs.platform == 'all' || inputs.platform == 'ios' || inputs.platform == 'ios-godot-production' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
@@ -180,9 +181,9 @@ jobs:
           if-no-files-found: warn
 
   ios:
-    name: iOS native tests and app smoke
+    name: ${{ inputs.platform == 'ios-godot-production' && 'Focused iOS production Godot sessions' || 'iOS native tests and app smoke' }}
     needs: [ios-renderer-pack]
-    if: ${{ github.event_name != 'workflow_dispatch' || inputs.platform == 'all' || inputs.platform == 'ios' }}
+    if: ${{ github.event_name != 'workflow_dispatch' || inputs.platform == 'all' || inputs.platform == 'ios' || inputs.platform == 'ios-godot-production' }}
     runs-on: macos-26
     timeout-minutes: 180
     env:
@@ -234,10 +235,11 @@ jobs:
           xcodebuild -showsdks
           xcrun simctl help
       - name: Run native shared tests and link device framework
+        if: ${{ inputs.platform != 'ios-godot-production' }}
         timeout-minutes: 35
         run: ./scripts/validate-ios-shared.sh
       - name: Preserve native shared test evidence before app compilation
-        if: always()
+        if: ${{ always() && inputs.platform != 'ios-godot-production' }}
         uses: ./.github/actions/upload-artifact
         with:
           name: ios-shared-native-reports
@@ -276,7 +278,7 @@ jobs:
           key: ${{ steps.native-engine-cache.outputs.cache-primary-key }}
       - name: Build and test the iOS Simulator application
         id: ios-app
-        if: ${{ !cancelled() && steps.apple-toolchain.outcome == 'success' && steps.renderer-pack.outcome == 'success' && steps.native-engine.outcome == 'success' }}
+        if: ${{ !cancelled() && inputs.platform != 'ios-godot-production' && steps.apple-toolchain.outcome == 'success' && steps.renderer-pack.outcome == 'success' && steps.native-engine.outcome == 'success' }}
         timeout-minutes: 40
         env:
           PARTYDECK_IOS_SIMULATOR_GODOT_ENGINE_ROOT: ${{ github.workspace }}/godot/ios-host/build
@@ -296,11 +298,31 @@ jobs:
           PARTYDECK_IOS_GODOT_SESSION_SMOKE: '1'
           PARTYDECK_IOS_SIMULATOR_GODOT_ENGINE_ROOT: ${{ github.workspace }}/godot/ios-host/build
         run: bash scripts/validate-ios-godot-session.sh
+      - name: Exercise the focused production Godot practice sessions
+        if: ${{ !cancelled() && inputs.platform == 'ios-godot-production' && steps.apple-toolchain.outcome == 'success' && steps.renderer-pack.outcome == 'success' && steps.native-engine.outcome == 'success' }}
+        timeout-minutes: 45
+        shell: bash
+        env:
+          PARTYDECK_IOS_GODOT_SESSION_SMOKE: '1'
+          PARTYDECK_IOS_SIMULATOR_GODOT_ENGINE_ROOT: ${{ github.workspace }}/godot/ios-host/build
+        run: |
+          mkdir -p build/ci/ios
+          {
+            printf '%s\n' 'Focused iOS production Godot session evidence'
+            printf 'Source revision: %s\n' "$GITHUB_SHA"
+            printf '%s\n' \
+              'Runs exactly the real production 2D and 3D session XCTest cases.' \
+              'Uses the current-run renderer pack, native Simulator engine, and production Kotlin framework build.' \
+              'Scope excludes shared native, ordinary app/interop, UIKit layout, and unsigned-device validation.' \
+              'Full Validate remains required for final qualification.'
+          } | tee build/ci/ios/focused-production-scope.log >> "$GITHUB_STEP_SUMMARY"
+          bash scripts/validate-ios-godot-session.sh \
+            2>&1 | tee build/ci/ios/focused-production-session.log
       - name: Upload iOS reports and simulator app
         if: always()
         uses: ./.github/actions/upload-artifact
         with:
-          name: ios-reports-and-simulator-app
+          name: ${{ inputs.platform == 'ios-godot-production' && 'ios-focused-production-reports-and-simulator-app' || 'ios-reports-and-simulator-app' }}
           path: |
             build/ci/ios/*.log
             build/ci/ios/*.json
