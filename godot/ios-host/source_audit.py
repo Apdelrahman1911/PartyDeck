@@ -17,6 +17,8 @@ SOURCES = {
     "platform/ios/detect.py": ['"supported": ["metal", "mono"]', 'env["metal"] = False', 'env["vulkan"] = False'],
     "platform/ios/SCsub": ['"main_ios.mm"', "combine_libs_apple_embedded"],
     "platform/ios/main_ios.mm": ["int apple_embedded_main(int argc, char **argv)", "void apple_embedded_finish()", "delete os;"],
+    "drivers/apple_embedded/main_utilities.mm": ["char path[512]", "r_args[p_argc] = nullptr", "godot_cmdline"],
+    "main/main.cpp": ["Error Main::setup2", "_start_success = true", "ERR_FAIL_COND(!_start_success)", "int Main::start()"],
     "core/extension/libgodot.h": ["libgodot_create_godot_instance", "libgodot_destroy_godot_instance"],
     "drivers/apple_embedded/app.swift": ["UIViewControllerRepresentable", "@main", "GDTAppDelegateService.viewController = viewController"],
     "drivers/apple_embedded/godot_view_controller.h": ["@interface GDTViewController : UIViewController", "propagateUIPreferencesToRootViewController"],
@@ -24,6 +26,9 @@ SOURCES = {
     "drivers/apple_embedded/godot_view_apple_embedded.mm": ["CFRunLoopRunInMode", "[self.renderer renderOnView:self]"],
     "drivers/apple_embedded/display_server_apple_embedded.mm": ["GDTAppDelegateService.viewController.godotView", "initializeRenderingForDriver"],
     "drivers/apple_embedded/godot_view_renderer.mm": ["Main::setup2()", "OS_AppleEmbedded::get_singleton()->start()", "OS_AppleEmbedded::get_singleton()->iterate()"],
+    "drivers/apple_embedded/os_apple_embedded.mm": ["main_loop->initialize()", "audio_driver.stop()", "audio_driver.start()", "handle_application_pause"],
+    "platform/ios/godot_view_ios.mm": ["@implementation GDTViewIOS", "GDTOpenGLLayer layer", "initializeDisplayLayer"],
+    "platform/ios/display_layer_ios.mm": ["@implementation GDTOpenGLLayer", "presentRenderbuffer", "setCurrentContext:nil"],
     "platform/macos/libgodot_macos.mm": ["Only one Godot Instance may be created.", "When Godot Engine supports reinitialization"],
 }
 

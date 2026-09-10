@@ -1,4 +1,4 @@
-// A compile-time source probe, not an EmbeddedGameFactory or a runtime success signal.
+// Compile-time API signature checks, not a runtime success signal.
 // The exact upstream sources and lifecycle limits are recorded in ../../README.md.
 #include "register_types.h"
 
@@ -24,22 +24,4 @@ static_assert(std::is_same_v<decltype(&apple_embedded_finish), AppleFinish>);
 __attribute__((used)) static AppleBootstrap bootstrap_reference = &apple_embedded_main;
 __attribute__((used)) static AppleFinish finish_reference = &apple_embedded_finish;
 
-@interface PDGodotHostViewController : GDTViewController
-@end
-
-@implementation PDGodotHostViewController
-
-- (void)propagateUIPreferencesToRootViewController {
-    // The host owns its root controller. Upstream otherwise replaces methods on
-    // that controller's class, affecting views outside the engine presentation.
-}
-
-@end
-
-void initialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
-    // Runtime host wiring is a separate execution gate. No engine, native view,
-    // success event, or game registration is created by this source-only probe.
-}
-
-void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
-}
+// PDGodotRuntime.mm owns the actual source-coupled host and module singleton.

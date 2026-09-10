@@ -1,9 +1,11 @@
 # iOS native Godot probe
 
-This isolated experiment targets a SwiftUI-owned native Godot view. It does not
-modify `iosApp`, register an `EmbeddedGameFactory`, or qualify KMP integration.
-The first stage compiles the exact engine and a native surface source probe;
-an executable host and real rendering/input/lifecycle checks are a separate gate.
+This isolated experiment hosts an actual Godot view inside a SwiftUI application.
+It does not modify `iosApp`, register an `EmbeddedGameFactory`, or qualify KMP
+integration. The pinned engine compilation passed in
+[run 34415851126](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34415851126).
+The executable host and five lifecycle tests are implemented; their native
+execution remains a separate gate until a successful test receipt exists.
 
 ## Verified source boundary
 
@@ -21,14 +23,15 @@ findings were checked against that exact source on 2026-09-09.
 `GDTAppDelegateService.viewController`. The stock view controller also replaces
 methods on its root controller's class in
 `propagateUIPreferencesToRootViewController`. The source probe subclasses that
-actual controller and overrides this declared hook so a future host can keep
+actual controller and overrides this declared hook so the native host keeps
 its own UI policy. This is a source-coupled experiment, not a public Godot
 embedding guarantee.
 
 `GDTView.drawView` drains `CFRunLoopRunInMode` before calling its renderer. A
 navigation callback can therefore re-enter the host while a draw is on the
-stack. A runtime host needs an explicit draw-scope guard and deferred teardown;
-main-thread confinement alone is insufficient. `apple_embedded_finish` calls
+stack. The runtime wraps that actual private draw selector, guards engine and
+callback scopes, and defers queued work until all scopes have returned.
+`apple_embedded_finish` calls
 `Main::cleanup`, deletes its static OS pointer, and does not clear that pointer.
 Cleanup must run exactly once after a completed initialization, with rendering
 stopped. Initialization failure and a close during initialization need separate
@@ -36,11 +39,45 @@ handling. The desktop LibGodot implementation explicitly retains its instance
 guard because engine reinitialization is not supported there. Repeated iOS
 entry after cleanup remains unqualified.
 
-No upstream source patch is applied by the first stage. A future surface API
-would need changes to iOS bootstrap, the global view lookup, view-loop lifetime,
-and parent-controller policy. The open native-window proposal is not an API
-available in this release. Any such change must be recorded as a maintained
-patch with its own initialization, cleanup, input, audio, resize, and scene tests.
+No upstream source patch is applied. This host remains coupled to iOS bootstrap,
+the global view lookup, the private draw selector, and controller policy. The
+open native-window proposal is not an API available in this release.
+
+## Executable host and lifecycle boundary
+
+`PDGodotRuntime.h` exposes only Foundation/UIKit types to the SwiftUI host.
+The host owns `@main` and its application delegate. After its container appears,
+the runtime calls the actual `apple_embedded_main`, attaches a `GDTViewIOS`
+subclass, checks `Main::setup2(false)`, then checks `Main::start()` and initializes
+the resulting main loop. A renderer using `OS_AppleEmbedded::iterate()` drives
+the real view. The diagnostic scene is ordinary GDScript; only it emits Ready.
+
+The module registers the real `PartyDeckBridge` singleton before scene
+initialization. It supplies `get_launch_document`, `command_received`, and
+`renderer_event`, with the frozen version-one envelope and decimal-string
+counters. Strict JSON preflight rejects duplicate decoded keys, invalid UTF-8
+or surrogates, nonstandard syntax, over 16 levels, and over 4,096 values.
+Documents are capped at 65,536 UTF-8 bytes, events at 4,096 bytes, commands at
+16 entries/262,144 bytes, and events at 16 entries. No payload is logged.
+All native access belongs to the main thread; one pending drain avoids an
+unbounded dispatch queue. The common authority adapter still must validate
+GameView semantics, recipient ownership, controls, and actions.
+
+Foreground loss immediately installs an opaque UIKit cover and hides the
+underlying accessibility content. A loss is retained even if resume arrives
+before the safe drain. Godot receives concealment before resuming; the cover
+leaves only after a later completed frame. Queued intents retain their foreground
+generation and are checked again against foreground and current revision before
+delivery. Close installs the same cover, stops scheduling frames, and performs
+cleanup exactly once outside draw, engine, and callback scopes.
+
+Cancellation before bootstrap creates no engine. A close during initialization
+waits for the checked setup boundary. If setup fails before `Main::setup2`
+succeeds, the runtime stops the view and quarantines the process; it does **not**
+guess that forced cleanup is safe. Successful setup permits normal cleanup,
+even when the scene has not started. The process guard refuses a second engine
+construction. Quarantined initialization failure and unsupported re-entry
+prevent qualification as a shipping `EmbeddedGameFactory`.
 
 ## Reproducible engine stage
 
@@ -70,16 +107,43 @@ All generated files stay under `godot/ios-host/build`:
 - `scons-cache`: reusable SCons object cache, keyed by the pinned source/toolchain/build inputs.
 - `evidence`: source audit, tool versions, build log, archive hash/size, and symbol inventory.
 - `artifacts/libpartydeck_godot_ios_probe.a`: combined native archive for the later host link.
+- `artifacts/libpartydeck_godot_camera.a`: the auxiliary archive required by the iOS camera module.
 
-The engine stage checks for the actual iOS bootstrap/finish symbols and probe
-view-controller class. Its receipt explicitly records
+The engine stage checks defined iOS bootstrap/finish symbols and the native
+runtime/controller classes. Its receipt explicitly records
 `ios_runtime_executed: false` and `kmp_factory_qualified: false`.
 
-The manual workflow's future `test` stage must compile and launch a separate
-SwiftUI application, render a real Godot scene inside its child view, exercise
-native input and the frozen bridge, pause/resume, and observe cleanup while the
-host remains responsive. Until that harness is present, requesting `test`
-fails after engine compilation rather than reporting an execution pass.
+On the same runner, execute the host gate:
+
+```sh
+bash godot/ios-host/build-probe.sh test
+```
+
+The wrapper retains the auxiliary camera archive, prepares an authority fixture
+and a real diagnostic scene, compiles the SwiftUI host, and runs five XCTest
+cases: rendering/pause/background/native touch/exit/reopen refusal; close inside
+the actual draw run loop; immediate foreground loss/resume; cancellation before
+bootstrap; and close inside the checked initialization boundary. Measurements
+include actual iteration counts, layer class, render-loop state, OS/singleton
+disappearance, cleanup count/depth, and weak view/controller release. The tests
+also check host responsiveness after cleanup. The diagnostic supplies malformed
+and replayed bridge events before its real Ready/Exit round trip.
+
+The host uses ordinary selective archive linking. Its link map and symbol audit
+must show the host's entry point without pulling Godot's export-owned SwiftUI
+app. `build/artifacts` retains the Simulator app, XCTest result, screenshots,
+and measurement attachments, including artifacts from failed test runs. A
+successful `native-host-result.json` requires all five actual XCTest cases to
+start once and pass. Source checks or compilation cannot create that receipt.
+
+The optional `PARTYDECK_GODOT_PROBE_PCK=/absolute/path/partydeck-last-light.pck`
+input bundles the shared pack after its companion receipt is verified with
+`godot/tools/renderer.py check-pack`. Launching the built host with `--scene=2d`
+or `--scene=3d` selects the corresponding real Last Light fixture presentation.
+Those are projected snapshots, not a KMP authority/session loop. The default
+five-test gate uses the clearly labeled diagnostic and does not qualify Last
+Light gameplay, private-card pixel timing, device Metal, physical audio, or
+engine reinitialization.
 
 ## Sources
 

@@ -86,16 +86,24 @@ if len(archives) != 1:
     raise SystemExit(f"Expected one combined Simulator engine archive, found {[p.name for p in archives]}")
 destination = artifacts / "libpartydeck_godot_ios_probe.a"
 shutil.copy2(archives[0], destination)
-digest = hashlib.sha256()
-with destination.open("rb") as archive:
-    for block in iter(lambda: archive.read(1024 * 1024), b""):
-        digest.update(block)
+
+def receipt(path):
+    digest = hashlib.sha256()
+    with path.open("rb") as archive:
+        for block in iter(lambda: archive.read(1024 * 1024), b""):
+            digest.update(block)
+    return {"artifact": path.name, "sha256": digest.hexdigest(), "bytes": path.stat().st_size}
+
+camera = [p for p in (source / "bin").glob("libgodot_camera.ios.*.a") if "simulator" in p.name and "arm64" in p.name]
+if len(camera) != 1:
+    raise SystemExit(f"Expected one auxiliary camera archive, found {[p.name for p in camera]}")
+camera_destination = artifacts / "libpartydeck_godot_camera.a"
+shutil.copy2(camera[0], camera_destination)
 result = {
     "engine_commit": sys.argv[4],
     "upstream_archive": archives[0].name,
-    "artifact": destination.name,
-    "sha256": digest.hexdigest(),
-    "bytes": destination.stat().st_size,
+    **receipt(destination),
+    "auxiliary_archives": [{**receipt(camera_destination), "upstream_archive": camera[0].name}],
     "stage": "engine_compile_only",
     "ios_runtime_executed": False,
     "kmp_factory_qualified": False,
@@ -109,15 +117,16 @@ python3 - "$PARTYDECK_PROBE_EVIDENCE/engine-symbols.log" <<'PY'
 from pathlib import Path
 import sys
 symbols = Path(sys.argv[1]).read_text()
-for required in ("apple_embedded_main", "apple_embedded_finish", "PDGodotHostViewController"):
-    if required not in symbols:
-        raise SystemExit(f"The compiled archive is missing the expected native source probe symbol: {required}")
+defined = {
+    fields[-1] for line in symbols.splitlines()
+    if len(fields := line.split()) >= 3 and fields[-2] in {"T", "S", "D", "B", "R"}
+}
+for required in ("__Z19apple_embedded_mainiPPc", "__Z21apple_embedded_finishv",
+                 "_OBJC_CLASS_$_PDGodotHostViewController", "_OBJC_CLASS_$_PDGodotRuntime"):
+    if required not in defined:
+        raise SystemExit(f"The compiled archive is missing a defined native probe symbol: {required}")
 PY
 
 if [[ "$PARTYDECK_PROBE_STAGE" == test ]]; then
-  if [[ ! -f "$PARTYDECK_PROBE_ROOT/test-probe.sh" ]]; then
-    printf '%s\n' 'Native engine compilation finished; the executable host stage has not been installed yet.' >&2
-    exit 1
-  fi
   bash "$PARTYDECK_PROBE_ROOT/test-probe.sh"
 fi

@@ -1,0 +1,21 @@
+config_version=5
+
+[application]
+config/name="PartyDeck iOS lifecycle diagnostic"
+run/main_scene="res://main.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+boot_splash/show_image=false
+
+[display]
+window/size/viewport_width=390
+window/size/viewport_height=480
+window/stretch/mode="canvas_items"
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/default_filters/use_nearest_mipmap_filter=false
+environment/defaults/default_clear_color=Color(0.06, 0.11, 0.10, 1)
+
+[audio]
+driver/enable_input=false
