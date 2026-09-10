@@ -13,8 +13,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.toAwtImage
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsEnabled
@@ -151,6 +154,11 @@ class GameplayLayoutTest {
         authority = (engine.apply(authority, GameAction.Challenge(authority.turnPlayerId!!)) as GameDecision.Applied).state
         runOnUiThread { view = engine.viewFor(authority, viewer) }
         capture("round-result")
+        val firstVerdict = if (view.roundOutcome!!.truthful) "The claim was true." else "Bluff caught."
+        assertEquals(
+            LiveRegionMode.Polite,
+            onNodeWithText(firstVerdict).fetchSemanticsNode().config[SemanticsProperties.LiveRegion],
+        )
         onNodeWithTag("game-next-round").bringIntoView().performClick()
         assertEquals(true, continued)
 
@@ -159,6 +167,10 @@ class GameplayLayoutTest {
         assertEquals(2, view.roundNumber)
         assertEquals(1, view.roundOutcome!!.roundNumber)
         onNodeWithText("Round 1 reveal").bringIntoView().performClick()
+        assertFalse(
+            onNodeWithText(firstVerdict).fetchSemanticsNode().config.contains(SemanticsProperties.LiveRegion),
+            "Opening an earlier round's history must not announce another result",
+        )
         scrollTextToTop("ROUND 1")
         capture("previous-reveal")
         scrollTextToTop("REVEALED CARDS")
@@ -198,10 +210,38 @@ class GameplayLayoutTest {
         }
         assertTrue(capturedEliminated, "The real match must expose an eliminated viewer before the winner")
         runOnUiThread { view = engine.viewFor(authority, viewer) }
-        onNodeWithText("Alexandria Longname wins.").assertIsDisplayed()
+        val winnerText = "Alexandria Longname wins."
+        onNodeWithText(winnerText).assertIsDisplayed()
+        val winnerNodeId = onNodeWithText(winnerText).fetchSemanticsNode().id
+        fun assertStableWinnerAnnouncement() {
+            val winner = onNodeWithText(winnerText).fetchSemanticsNode()
+            assertEquals(
+                winnerNodeId, winner.id,
+                "Controls and history must retain the same named-winner announcement node",
+            )
+            assertEquals(listOf(winnerText), winner.config[SemanticsProperties.Text].map { it.text })
+            assertTrue(winner.config.contains(SemanticsProperties.Heading))
+            assertEquals(LiveRegionMode.Polite, winner.config[SemanticsProperties.LiveRegion])
+            onAllNodes(SemanticsMatcher.keyIsDefined(SemanticsProperties.LiveRegion)).assertCountEquals(1)
+        }
+        assertStableWinnerAnnouncement()
         onNodeWithTag("game-rematch").assertIsDisplayed()
         capture("winner")
-        onNodeWithTag("game-rematch").performClick()
+        runOnUiThread { canSend = false; pending = PendingAction.RETURN_TO_LOBBY }
+        onNodeWithTag("game-rematch").assertIsNotEnabled()
+        assertStableWinnerAnnouncement()
+        runOnUiThread { canSend = true; pending = null }
+        onNodeWithTag("game-final-reveal").bringIntoView().performClick()
+        val finalVerdict = if (view.roundOutcome!!.truthful) "The claim was true." else "Bluff caught."
+        assertFalse(
+            onNodeWithText(finalVerdict).fetchSemanticsNode().config.contains(SemanticsProperties.LiveRegion),
+            "Opening the final reveal must not announce another result",
+        )
+        assertStableWinnerAnnouncement()
+        onNodeWithTag("game-final-reveal").bringIntoView().performClick()
+        onNodeWithText(finalVerdict).assertDoesNotExist()
+        assertStableWinnerAnnouncement()
+        onNodeWithTag("game-rematch").bringIntoView().performClick()
         assertEquals(true, rematched)
     }
 

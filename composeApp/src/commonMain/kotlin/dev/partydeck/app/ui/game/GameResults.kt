@@ -398,7 +398,10 @@ private fun WinnerSummary(view: GameView, largeText: Boolean, shortLandscape: Bo
             style = if (largeText) MaterialTheme.typography.titleLarge else MaterialTheme.typography.displaySmall,
             color = PartyDeckColors.Paper,
             textAlign = textAlign,
-            modifier = Modifier.semantics { heading() },
+            modifier = Modifier.semantics {
+                heading()
+                liveRegion = LiveRegionMode.Polite
+            },
         )
         if (!largeText) {
             Text(
