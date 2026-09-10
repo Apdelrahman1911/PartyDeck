@@ -1,7 +1,18 @@
 package dev.partydeck.godot.bridge
 
+import dev.partydeck.games.MAX_ENGINE_PAYLOAD_BYTES
+
 /** A schema error contains a bounded explanation, never the rejected private document. */
 class BridgeFormatException(message: String) : IllegalArgumentException(message)
+
+/**
+ * Strict JSON preflight for platform messages before a platform JSON parser runs.
+ * This checks syntax and resource bounds; callers must still validate their message schema.
+ */
+fun validateBoundedJson(document: String, maxBytes: Int) {
+    require(maxBytes in 1..MAX_ENGINE_PAYLOAD_BYTES) { "Invalid JSON byte limit." }
+    StrictJson.validate(document, maxBytes)
+}
 
 internal fun wireRequire(condition: Boolean, message: String) {
     if (!condition) throw BridgeFormatException(message)
