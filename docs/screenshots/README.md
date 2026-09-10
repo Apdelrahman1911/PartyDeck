@@ -1,6 +1,6 @@
 # Screenshot review gallery
 
-This collection preserves **325 original app and renderer captures** and links to **four existing asset proofs**. Click a collection, then any thumbnail to open the full PNG. Every record includes its original filename, scenario, platform, pixel dimensions and full SHA-256; [manifest.json](manifest.json) also records source locations, exact revisions where known, CI runs, receipts and duplicate-source aliases.
+This collection preserves **380 original app and renderer captures** and links to **four existing asset proofs**. Click a collection, then any thumbnail to open the full PNG. Every record includes its original filename, scenario, platform, pixel dimensions and full SHA-256; [manifest.json](manifest.json) also records source locations, exact revisions where known, CI runs, receipts and duplicate-source aliases.
 
 [Open the published first batch](first-batch/README.md) for the 125 initially published native, shared-UI and first desktop 2D views. The collection pages below add complete source records and original-filename mappings without duplicating those images.
 
@@ -22,10 +22,14 @@ Use the latest native and shared-UI collections for current review. Earlier capt
 
 ## Godot prototype iterations
 
-These are actual Godot-rendered images. Iteration 01 uses synthetic structural data; iterations 02–03 mostly use frozen Kotlin-authority projections, with an explicitly synthetic lobby-permission fixture in iteration 03. The 3D v1–v4 captures use authority-derived static data and retain their camera, layout and winner-display failures. Static checks do not establish authority-accepted gameplay or native mobile accessibility. Every original in these reviewed batches is retained.
+These are actual Godot-rendered images. Iteration 01 uses synthetic structural data; later 2D iterations mostly use frozen Kotlin-authority projections, with an explicitly synthetic lobby-permission input where labeled. The 3D v1–v5 captures use authority-derived static data and retain both visual failures and later corrections. Desktop emulated-touch traces are labeled separately from native input. Static checks do not establish authority-accepted gameplay or native mobile accessibility. Every original in these reviewed batches is retained.
 
 | Collection | Images | Stage |
 | --- | ---: | --- |
+| [Godot 2D — iteration 07, six-seat layout and emulated hand drag](godot-2d-iteration-07/README.md) | 14 | Corrected 1280 × 800 layout and successful emulated hand drag; 900 × 740 Reveal clipping and failed 200% action drag retained. |
+| [Godot 2D — iteration 06, header-width correction](godot-2d-iteration-06/README.md) | 5 | Header fixed; Reveal still below the initial viewport and diagnostic hand drag fails. |
+| [Godot 2D — iteration 05, proof reflow and edge states](godot-2d-iteration-05/README.md) | 12 | Proof labels, forced challenge, observer and winner; failed desktop header and incomplete gesture probe retained. |
+| [Godot 2D — iteration 04, compact confirmation and edge fixtures](godot-2d-iteration-04/README.md) | 7 | 200% confirmation corrected; eliminated spectator and failed three-card proof wrapping preserved. |
 | [Godot 2D — iteration 03, compact layouts and outcomes](godot-2d-iteration-03/README.md) | 29 | Reveal/selection visibility improved; round/winner/old-proof states retained. The 200% lobby confirmation fails initial-viewport visibility. |
 | [Godot 2D — iteration 02, authority-derived fixtures](godot-2d-iteration-02/README.md) | 16 | Desktop, phone, 200% text and short landscape; static renderer checks passed with recorded layout issues. |
 | [Godot 2D — iteration 01, desktop structural fixture](history/godot-2d-iteration-01/desktop/README.md) | 4 | Early desktop structural fixture; known selection indicator and scrolling issues. |
@@ -34,6 +38,7 @@ These are actual Godot-rendered images. Iteration 01 uses synthetic structural d
 | [Godot 3D — v2, Camera corrected; portrait layout still broken](history/godot-3d-20260910-v2/README.md) | 8 | Local input/privacy passed; portrait roster and Play placement fail visual review. |
 | [Godot 3D — v3, Portrait roster and Play visibility corrected](history/godot-3d-20260910-v3/README.md) | 4 | Portrait roster/Play improved; captions and selected markers still need correction. |
 | [Godot 3D — v4, captions improved; defects retained](history/godot-3d-20260910-v4/README.md) | 22 | Large-text markers/back control, narrow hit overlap and wrong winner emblem fail visual review. Six runtime receipts pass; portrait is report-only. |
+| [Godot 3D — v5, corrected winner and larger controls](godot-3d-20260910-v5/README.md) | 17 | Crown/final explanation and target overlap corrected; compact scrolled context and focus-outline limits remain. Five retained runtime receipts pass. |
 
 ## Earlier reviewed captures
 

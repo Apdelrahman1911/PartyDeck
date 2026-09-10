@@ -1,0 +1,49 @@
+{
+  "command": [
+    "flock",
+    "/tmp/partydeck-godot.lock",
+    "xvfb-run",
+    "-a",
+    "-s",
+    "-screen 0 1600x1200x24",
+    "/opt/partydeck-godot/godot",
+    "--path",
+    "/tmp/partydeck-3d-v5-preparation/project",
+    "--rendering-method",
+    "gl_compatibility",
+    "--audio-driver",
+    "Dummy",
+    "--script",
+    "res://tests/three_d_scene_check.gd",
+    "--",
+    "--manual-bridge",
+    "--check-fixture=/root/projects/PartyDeck/godot/bridge/fixtures/launch-3d.json",
+    "--check-output=/tmp/partydeck-3d-20260910-v5/narrow",
+    "--check-width=320",
+    "--check-height=568",
+    "--check-text-scale=1"
+  ],
+  "exitCode": 0,
+  "viewport": [
+    320,
+    568
+  ],
+  "textScale": 1,
+  "fixtureSha256": "d099a9ff543d5409925a3afb669780dd702f20bdd886cf530c431d546af99407",
+  "sourceBefore": {
+    "project.godot": "14e8414e3bd9349559c31a204dc5f845cb98c21f5feb3726cb6c0bbd3f9d78a2",
+    "scripts/main.gd": "de60c455f59ad22d9c9b8e6ffe011f2ee3f488adf297b8737910728f1e7b6e09",
+    "scripts/renderer_controller.gd": "4891269ee70a642e92e1871346ce135b2ee00c7f2b09166f96d0b1890f24de51",
+    "presentations/three_d/table.gd": "c4dd033d49072427e223f3d6d38a54ea0228beb2057b67753d1885661fc8971d",
+    "presentations/three_d/card_3d.gd": "5c11c95a545cb4143cc38b5ebef5b8eb737a7f434e3c0567c0638dbbcf97680d",
+    "tests/three_d_scene_check.gd": "c19febf450b6bfc01e01c9f8dfde517a416619537069685d0157e895858f12e6"
+  },
+  "sourceAfter": {
+    "project.godot": "14e8414e3bd9349559c31a204dc5f845cb98c21f5feb3726cb6c0bbd3f9d78a2",
+    "scripts/main.gd": "de60c455f59ad22d9c9b8e6ffe011f2ee3f488adf297b8737910728f1e7b6e09",
+    "scripts/renderer_controller.gd": "4891269ee70a642e92e1871346ce135b2ee00c7f2b09166f96d0b1890f24de51",
+    "presentations/three_d/table.gd": "c4dd033d49072427e223f3d6d38a54ea0228beb2057b67753d1885661fc8971d",
+    "presentations/three_d/card_3d.gd": "5c11c95a545cb4143cc38b5ebef5b8eb737a7f434e3c0567c0638dbbcf97680d",
+    "tests/three_d_scene_check.gd": "c19febf450b6bfc01e01c9f8dfde517a416619537069685d0157e895858f12e6"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "result": "failed",
+  "kind": "temporary-emulated-touch-drag-probe",
+  "failure": "Emulated touch drag did not scroll cleanly without selecting a card.",
+  "knownInvocation": {
+    "width": 390,
+    "height": 844,
+    "textScale": 1,
+    "backend": "Xvfb / Mesa llvmpipe / OpenGL Compatibility"
+  },
+  "probeSha256": "09561b3482b1abab541ca8fb54e76c82d357f12eceb59dc2790a42f56e323720",
+  "captures": [
+    "01-concealed.png"
+  ],
+  "qualification": "The uninstrumented probe returned failure before a report was written. It does not identify whether scrolling, selection, touch availability, or coordinates caused the failure. Native finger-scroll is not qualified."
+}
