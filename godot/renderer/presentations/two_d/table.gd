@@ -121,6 +121,7 @@ func _build() -> void:
 	_body_scroll = ScrollContainer.new()
 	_body_scroll.name = "TableScroll"
 	_body_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_body_scroll.scroll_deadzone = 8
 	_body_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_body_scroll.follow_focus = true
 	_page.add_child(_body_scroll)
@@ -183,6 +184,7 @@ func _build() -> void:
 	_hand_section.add_child(_hand_title)
 	_cover_panel = PanelContainer.new()
 	_cover_panel.name = "HandCover"
+	_cover_panel.mouse_filter = Control.MOUSE_FILTER_PASS
 	_cover_panel.add_theme_stylebox_override("panel", DeckStyle.box(DeckStyle.SURFACE, DeckStyle.OUTLINE, 1, 18))
 	_hand_section.add_child(_cover_panel)
 	var cover_row := HBoxContainer.new()
@@ -208,6 +210,7 @@ func _build() -> void:
 	_hand_scroll = ScrollContainer.new()
 	_hand_scroll.name = "HandScroll"
 	_hand_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_hand_scroll.scroll_deadzone = 8
 	_hand_scroll.follow_focus = true
 	_hand_section.add_child(_hand_scroll)
 	_hand_row = HBoxContainer.new()
@@ -495,6 +498,7 @@ func _relayout(refresh_cards: bool = true) -> void:
 	_margin.add_theme_constant_override("margin_right", margin)
 	_margin.add_theme_constant_override("margin_top", 8 if short_window else 12)
 	_margin.add_theme_constant_override("margin_bottom", 8 if short_window else 12)
+	_body.add_theme_constant_override("separation", 12 if size.y < 800 else 20)
 	_board_row.vertical = narrow
 	_body.move_child(_hand_section if short_window else _board_row, 0)
 	_body.move_child(_rule, 1)
@@ -520,9 +524,13 @@ func _relayout(refresh_cards: bool = true) -> void:
 	elif lobby_parent == _header:
 		_header.move_child(_lobby, _hide.get_index())
 	_lobby.size_flags_horizontal = Control.SIZE_SHRINK_END if lobby_parent == _header else Control.SIZE_EXPAND_FILL
-	_seat_panel.custom_minimum_size.x = 0 if narrow else 326
+	_lobby.custom_minimum_size.x = 180 * _text_scale if lobby_parent == _header else 56
+	var wide_seat_columns := 3 if _seat_nodes.size() > 4 else 2
+	_seat_panel.custom_minimum_size.x = 0 if narrow else (494 if wide_seat_columns == 3 else 326)
 	_seat_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL if narrow else Control.SIZE_SHRINK_END
-	_seat_grid.columns = 1 if _text_scale >= 1.5 else (3 if narrow and size.x >= 520 else 2)
+	_seat_grid.columns = 1 if large_text else (3 if size.x >= 520 else 2)
+	if not narrow:
+		_seat_grid.columns = wide_seat_columns
 	_actions.vertical = size.x < 680 or _text_scale >= 1.5
 	_brand.visible = not (narrow and large_text)
 	_header_space.visible = not _brand.visible
@@ -573,6 +581,7 @@ func _request_lobby() -> void:
 	_lobby_dialog.add_child(center)
 	_dialog_scroll = ScrollContainer.new()
 	_dialog_scroll.follow_focus = true
+	_dialog_scroll.scroll_deadzone = 8
 	_dialog_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	_fit_lobby_dialog()
 	center.add_child(_dialog_scroll)

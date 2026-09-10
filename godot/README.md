@@ -62,9 +62,27 @@ flock /tmp/partydeck-gradle.lock ./gradlew -p godot/qualification projects
 flock /tmp/partydeck-gradle.lock ./gradlew -p godot/qualification :bridge:jvmTest
 ```
 
-Runnable preview and APK packaging commands will be added after the actual
-scenes/hosts are built and exercised. These setup commands do not yet establish
-that either renderer is playable.
+Both real presentations now complete the same full desktop match, including
+challenge outcomes, winner, lobby return and a fresh entry. Their complete
+authority traces match. Run either presentation interactively with the
+[desktop comparison launcher](comparison/README.md); its `--presentation 2d`
+and `--presentation 3d` options select the same rules with different graphics.
+The [renderer instructions](renderer/README.md) explain scene checks and
+[export tooling](tools/README.md) verifies the packed inputs.
+
+The [Android comparison host](android-host/README.md) builds an installable APK
+with separate **Play Last Light · 2D** and **Play Last Light · 3D** choices. It
+has real local practice and an explicit repeatable reference match. Its native
+runtime qualification is still in progress; it does not yet integrate the
+shipping application's LAN sessions. The [iOS probe](ios-host/README.md) and
+[Swift-facing authority](bridge/IOS_FACADE.md) have separate native validation
+gates before a playable iOS comparison can be delivered.
+
+All inspected screenshots are published in the
+[review gallery](../docs/screenshots/README.md), with original image files,
+source/evidence links, and labeled failed or superseded iterations. Current
+progress and remaining production gates are recorded in
+[the status report](../docs/STATUS.md).
 
 ## Acceptance
 

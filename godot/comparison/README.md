@@ -81,7 +81,7 @@ software-rendered frames demonstrate input/bridge behavior and appearance;
 native device accessibility, suspension, touch feel, GPU performance and LAN
 behavior still need their own qualification.
 
-## Recorded desktop qualification
+## Initial packed milestone
 
 The packed comparison completed successfully on 2026-09-10 from 00:47:44 to
 00:48:15 UTC, using the installed launcher after `:comparison:installDist`:
@@ -128,6 +128,37 @@ Earlier `first-real-2d-input` evidence remains preserved as an iteration that
 passed gameplay assertions but reported a shutdown error. Its old `passed`
 field does not qualify clean shutdown. The matched packed run above includes
 the corrected quit-reply drain and process-exit checks.
+
+## Final packed renderer qualification
+
+The final renderer updates passed the same real-input comparison on 2026-09-10,
+from 02:01:32 to 02:02:03 UTC:
+
+```sh
+godot/qualification/build/modules/comparison/install/partydeck-godot-compare/bin/partydeck-godot-compare \
+  --godot /opt/partydeck-godot/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64 \
+  --pack godot/qualification/build/renderer/partydeck-last-light.pck \
+  --presentation both --seed 2 --size 430x932 --xvfb \
+  --output godot/qualification/build/comparison/matched-packed-v5-20260910
+```
+
+Both presentations again completed 42 identical authority snapshots, two viewer
+plays, two viewer challenges, thirteen continuations, lobby return, fresh entry
+and Exit. Each produced 21 renderer events and 11 PNGs, then exited with code 0.
+Both complete logs contain no engine/script errors; all 22 image hashes match
+their receipts. The full authority trace SHA-256 remains
+`79b5b2a6415a365d531da3488b7b87f1b2309f2b1208899ee5b4618da16be674`.
+
+The exact tested final PCK SHA-256 is
+`0b3de6b276d15972708cfc7919d7f2f5bf2aefe8a05afb8859357e7139057d37`.
+The source commit was `19501a23606c44ffd94eba3b24855a239e703a74` with a dirty
+working tree; the stable source fingerprint was
+`642422de487b33a6dc2951d8a9a178c5a40737bf0e80bb6831fa197116cda515`.
+The report and every receipt retain these values. The gallery owner received
+all 22 final PNGs and receipts for independent review and publication. The
+initial PCK, receipt and logs were archived before replacement under
+`godot/qualification/build/renderer/milestone-6457270`; earlier screenshots and
+reports remain in their original run directories.
 
 ## Local probe boundary
 

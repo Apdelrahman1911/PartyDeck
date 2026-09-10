@@ -13,6 +13,9 @@ func _initialize() -> void:
 		if argument.begins_with("--check-") and "=" in argument:
 			var parts := argument.substr(8).split("=", true, 1)
 			_options[parts[0]] = parts[1]
+	if _options.get("touch-drag", "false") == "true":
+		Input.emulate_touch_from_mouse = true
+		ProjectSettings.set_setting("input_devices/pointing/emulate_touch_from_mouse", true)
 	_run.call_deferred()
 
 func _run() -> void:
@@ -58,10 +61,14 @@ func _run() -> void:
 		_fail("The public resolved-card proof is incomplete.")
 		return
 	if state.game.get("phase") == "PLAYING" and not state.game.get("yourHand", []).is_empty():
+		if _options.get("touch-drag", "false") == "true" and not await _check_page_drag():
+			return
 		if not await _click("partydeck_action_reveal"):
 			return
 		if get_nodes_in_group("partydeck_private_face").size() != state.game.yourHand.size():
 			_fail("The revealed scene does not contain every own-hand card.")
+			return
+		if _options.get("touch-drag", "false") == "true" and not await _check_hand_drag():
 			return
 		if bool(state.game.availableActions.canPlay):
 			if not await _click("partydeck_hand_card", 0):
@@ -189,6 +196,84 @@ func _capture(label: String) -> void:
 	_observations.append({"capture": output_path, "diagnostics": diagnostics})
 	FileAccess.open(_output.path_join(label + ".json"), FileAccess.WRITE).store_string(JSON.stringify(diagnostics, "\t"))
 
+func _check_page_drag() -> bool:
+	var scroll: ScrollContainer = _main.find_child("TableScroll", true, false)
+	var reveal: Button = get_first_node_in_group("partydeck_action_reveal")
+	scroll.ensure_control_visible(reveal)
+	await _settle()
+	var before := scroll.scroll_vertical
+	if not DisplayServer.is_touchscreen_available() or scroll.get_v_scroll_bar().max_value - scroll.get_v_scroll_bar().page <= before:
+		_fail("Touch drag check requires a touchscreen-emulated window and vertically scrollable page.")
+		return false
+	await _pointer_drag(reveal.get_global_rect().get_center(), Vector2(0, -80), 4)
+	var after := scroll.scroll_vertical
+	_observations.append({"input": "emulated-touch-page-drag", "before": before, "after": after, "handVisible": _main.controller.presentation_state().handVisible, "eventCount": _events.size()})
+	if after <= before or _main.controller.presentation_state().handVisible or _events.size() != 1:
+		_fail("Dragging on Reveal did not scroll without activating the button.")
+		return false
+	return true
+
+func _check_hand_drag() -> bool:
+	var scroll: ScrollContainer = _main.find_child("HandScroll", true, false)
+	var card: Button = get_first_node_in_group("partydeck_hand_card")
+	scroll.ensure_control_visible(card)
+	await _settle()
+	if scroll.get_h_scroll_bar().max_value <= scroll.get_h_scroll_bar().page:
+		_fail("Hand drag check requires an overflowing hand.")
+		return false
+	# A small amount of finger movement must still count as a tap.
+	var before := scroll.scroll_horizontal
+	await _pointer_drag(card.get_global_rect().get_center(), Vector2(-2, 1), 1)
+	_observations.append({"input": "emulated-touch-small-tap", "before": before, "after": scroll.scroll_horizontal, "selectedCount": _main.controller.presentation_state().selectedCardIds.size()})
+	if _main.controller.presentation_state().selectedCardIds.size() != 1 or scroll.scroll_horizontal != before:
+		_fail("Small tap movement scrolled or failed to select the card.")
+		return false
+	if not await _click("partydeck_hand_card", int(card.get_meta("card_index"))):
+		return false
+	if not _main.controller.presentation_state().selectedCardIds.is_empty():
+		_fail("The second tap did not deselect the card.")
+		return false
+	var body_scroll: ScrollContainer = _main.find_child("TableScroll", true, false)
+	var rect := scroll.get_global_rect().intersection(body_scroll.get_global_rect()).intersection(root.get_visible_rect())
+	var start := rect.position + rect.size * Vector2(0.8, 0.45)
+	await _pointer_drag(start, Vector2(-180, 0), 6)
+	var after := scroll.scroll_horizontal
+	_observations.append({"input": "emulated-touch-hand-drag", "before": before, "after": after, "selectedCount": _main.controller.presentation_state().selectedCardIds.size()})
+	if after <= before or not _main.controller.presentation_state().selectedCardIds.is_empty():
+		_fail("Hand drag did not scroll without selecting a card.")
+		return false
+	return true
+
+func _pointer_drag(start: Vector2, distance: Vector2, steps: int) -> void:
+	var hover := InputEventMouseMotion.new()
+	hover.position = start
+	hover.global_position = start
+	Input.parse_input_event(hover)
+	await process_frame
+	var down := InputEventMouseButton.new()
+	down.position = start
+	down.global_position = start
+	down.button_index = MOUSE_BUTTON_LEFT
+	down.button_mask = MOUSE_BUTTON_MASK_LEFT
+	down.pressed = true
+	Input.parse_input_event(down)
+	await process_frame
+	for step in range(1, steps + 1):
+		var motion := InputEventMouseMotion.new()
+		motion.position = start + distance * float(step) / steps
+		motion.global_position = motion.position
+		motion.relative = distance / steps
+		motion.button_mask = MOUSE_BUTTON_MASK_LEFT
+		Input.parse_input_event(motion)
+		await process_frame
+	var up := InputEventMouseButton.new()
+	up.position = start + distance
+	up.global_position = up.position
+	up.button_index = MOUSE_BUTTON_LEFT
+	up.pressed = false
+	Input.parse_input_event(up)
+	await _settle()
+
 func _private_nodes_erased() -> bool:
 	return get_nodes_in_group("partydeck_private_face").is_empty() \
 		and get_nodes_in_group("partydeck_private_label").is_empty() \
@@ -213,5 +298,7 @@ func _settle() -> void:
 	await create_timer(0.15).timeout
 
 func _fail(reason: String) -> void:
+	if not _output.is_empty() and DirAccess.dir_exists_absolute(_output):
+		FileAccess.open(_output.path_join("failure.json"), FileAccess.WRITE).store_string(JSON.stringify({"result": "failed", "reason": reason, "observations": _observations}, "\t"))
 	push_error(reason)
 	quit(1)

@@ -43,6 +43,7 @@ static func button(value: String, point_size: int = 18, accent: Color = CITRON, 
 	result.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	result.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	result.focus_mode = Control.FOCUS_ALL
+	result.mouse_filter = Control.MOUSE_FILTER_PASS
 	result.add_theme_font_override("font", font())
 	result.add_theme_font_size_override("font_size", point_size)
 	result.add_theme_color_override("font_color", PAPER if secondary else INK)

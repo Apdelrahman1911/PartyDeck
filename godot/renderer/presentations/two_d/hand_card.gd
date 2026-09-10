@@ -14,6 +14,8 @@ var _text_scale := 1.0
 
 func _ready() -> void:
 	focus_mode = Control.FOCUS_ALL
+	# Let the containing scroll area cancel a tap once a finger starts dragging.
+	mouse_filter = Control.MOUSE_FILTER_PASS
 	toggle_mode = true
 	mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	add_to_group("partydeck_hand_card")

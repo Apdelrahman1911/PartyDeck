@@ -1,5 +1,5 @@
 extends SceneTree
-## Focused 3D layout/privacy check. Run from source, outside exported renderer resources.
+## Focused 3D input/privacy check. Visual acceptance requires independent image review.
 ## Input is a recipient-safe launch fixture. This does not simulate or accept game actions.
 
 var _options := {}
@@ -7,12 +7,16 @@ var _main: Node
 var _output := ""
 var _observations: Array[Dictionary] = []
 var _events: Array[Dictionary] = []
+var _small_move_checked := false
 
 func _initialize() -> void:
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--check-") and "=" in argument:
 			var parts := argument.substr(8).split("=", true, 1)
 			_options[parts[0]] = parts[1]
+	if _options.get("touch-drag", "false") == "true":
+		Input.emulate_touch_from_mouse = true
+		ProjectSettings.set_setting("input_devices/pointing/emulate_touch_from_mouse", true)
 	_run.call_deferred()
 
 func _run() -> void:
@@ -57,11 +61,16 @@ func _run() -> void:
 	elif proof.size() != state.game.roundOutcome.revealedCards.size():
 		_fail("The public resolved-card proof is incomplete.")
 		return
-	if state.game.get("phase") == "PLAYING" and not state.game.get("yourHand", []).is_empty():
+	var forced: bool = state.game.get("forcedChallenge", false) and state.game.availableActions.canChallenge
+	if state.game.get("phase") == "PLAYING" and not state.game.get("yourHand", []).is_empty() and not forced:
 		if not await _click("partydeck_action_reveal"):
 			return
 		if get_nodes_in_group("partydeck_private_face").size() != state.game.yourHand.size():
 			_fail("The revealed scene does not contain every own-hand card.")
+			return
+		if not _hand_targets_are_separate():
+			return
+		if _options.get("touch-drag", "false") == "true" and not await _check_hand_drag():
 			return
 		if bool(state.game.availableActions.canPlay):
 			if not await _click("partydeck_hand_card", 0):
@@ -76,6 +85,24 @@ func _run() -> void:
 					_fail("The last real card click did not select its card.")
 					return
 		await _capture("02-revealed-selected")
+		if bool(state.game.availableActions.canPlay) and state.game.yourHand.size() >= 4:
+			if not await _click("partydeck_hand_card", 1):
+				return
+			var selected: Array = _main.controller.presentation_state().selectedCardIds.duplicate()
+			if selected.size() != 3 or not await _click("partydeck_hand_card", 2):
+				_fail("Could not establish the maximum three-card selection.")
+				return
+			var maximum: Dictionary = _main.controller.presentation_state()
+			if maximum.selectedCardIds != selected or maximum.status != "Choose up to 3 cards.":
+				_fail("A fourth card changed selection or omitted the count-only feedback.")
+				return
+			await _capture("02a-selection-limit")
+			if not await _click("partydeck_hand_card", state.game.yourHand.size() - 1):
+				return
+			if state.game.yourHand.back().id in _main.controller.presentation_state().selectedCardIds:
+				_fail("The final selected card could not be deselected.")
+				return
+			await _capture("02b-deselected-last")
 		if not await _click("partydeck_action_hide"):
 			return
 		if not _private_nodes_erased() or not _main.controller.presentation_state().selectedCardIds.is_empty():
@@ -96,6 +123,17 @@ func _run() -> void:
 	if _events.size() != 1 or _events[0].get("type") != "ready":
 		_fail("Reveal/select/cover/foreground emitted a gameplay event.")
 		return
+	if state.game.phase == "PLAYING" and state.game.roundOutcome != null:
+		if not await _click("partydeck_action_history"):
+			return
+		var previous_results := get_nodes_in_group("partydeck_public_result")
+		if previous_results.size() != 1 or int(previous_results[0].get_meta("round_number")) != int(state.game.roundOutcome.roundNumber):
+			_fail("Previous-round disclosure omitted its authoritative round identity.")
+			return
+		await _capture("04a-previous-round")
+		if not await _click("partydeck_action_history") or not get_nodes_in_group("partydeck_public_result").is_empty():
+			_fail("Previous-round disclosure did not close.")
+			return
 	if _options.get("lobby", "false") == "true":
 		if not state.controls.canReturnToLobby or state.game.phase == "FINISHED":
 			_fail("Lobby confirmation check requires a live match with native host permission.")
@@ -124,13 +162,13 @@ func _run() -> void:
 	if not _private_nodes_erased():
 		_fail("Close retained private card nodes.")
 		return
-	var report := {"result": "passed", "kind": "3d-scene-layout-and-privacy", "fixture": fixture_path,
+	var report := {"result": "passed", "kind": "3d-scene-input-and-privacy", "fixture": fixture_path,
 		"godotVersion": Engine.get_version_info().string,
 		"width": root.size.x, "height": root.size.y, "textScale": fixture.preferences.textScale,
 		"observations": _observations,
 		"limitations": "Static safe view only. No authority-accepted action or native accessibility is claimed."}
 	FileAccess.open(_output.path_join("report.json"), FileAccess.WRITE).store_string(JSON.stringify(report, "\t"))
-	print("3D scene layout/privacy check passed: ", _output)
+	print("3D scene input/privacy check passed: ", _output)
 	quit(0)
 
 func _click(group: String, index: int = -1) -> bool:
@@ -166,6 +204,16 @@ func _click(group: String, index: int = -1) -> bool:
 	down.pressed = true
 	Input.parse_input_event(down)
 	await process_frame
+	if group == "partydeck_hand_card" and not _small_move_checked and _options.get("touch-drag", "false") == "true":
+		point += Vector2(0, 2)
+		var tiny_motion := InputEventMouseMotion.new()
+		tiny_motion.position = point
+		tiny_motion.global_position = point
+		tiny_motion.relative = Vector2(0, 2)
+		tiny_motion.button_mask = MOUSE_BUTTON_MASK_LEFT
+		Input.parse_input_event(tiny_motion)
+		await process_frame
+		_small_move_checked = true
 	var up := InputEventMouseButton.new()
 	up.position = point
 	up.global_position = point
@@ -173,8 +221,36 @@ func _click(group: String, index: int = -1) -> bool:
 	up.pressed = false
 	Input.parse_input_event(up)
 	await _settle()
+	if group == "partydeck_hand_card" and not _card_stayed_visible(index):
+		_fail("Selection moved its card outside the visible scroll area.")
+		return false
 	_observations.append({"input": group, "cardIndex": index, "x": point.x, "y": point.y})
 	return true
+
+func _hand_targets_are_separate() -> bool:
+	var rectangles: Array[Rect2] = []
+	for control in JSON.parse_string(_main.diagnostics_document()).controls:
+		if control.group != "partydeck_hand_card":
+			continue
+		var rect := Rect2(control.rect[0], control.rect[1], control.rect[2], control.rect[3])
+		if rect.size.x < 48 or rect.size.y < 48:
+			_fail("A hand target is below the 48 × 48 scene-unit floor.")
+			return false
+		for previous in rectangles:
+			if rect.intersects(previous):
+				_fail("Adjacent hand-card hit regions overlap.")
+				return false
+		rectangles.append(rect)
+	return true
+
+func _card_stayed_visible(index: int) -> bool:
+	for control in JSON.parse_string(_main.diagnostics_document()).controls:
+		if control.group != "partydeck_hand_card" or int(control.cardIndex) != index:
+			continue
+		var rect := Rect2(control.rect[0], control.rect[1], control.rect[2], control.rect[3])
+		var clip := Rect2(control.clipRect[0], control.clipRect[1], control.clipRect[2], control.clipRect[3])
+		return bool(control.visible) and clip.encloses(rect)
+	return false
 
 func _capture(label: String) -> void:
 	await _settle()
@@ -213,5 +289,66 @@ func _settle() -> void:
 	await create_timer(0.15).timeout
 
 func _fail(reason: String) -> void:
+	if is_instance_valid(_main) and _output.is_absolute_path():
+		RenderingServer.force_draw()
+		root.get_texture().get_image().save_png(_output.path_join("failure.png"))
+		FileAccess.open(_output.path_join("failure-diagnostics.json"), FileAccess.WRITE).store_string(_main.diagnostics_document())
 	push_error(reason)
 	quit(1)
+
+func _check_hand_drag() -> bool:
+	var scroll: ScrollContainer = _main.find_child("TableBodyScroll", true, false)
+	if scroll == null or get_nodes_in_group("partydeck_hand_card").is_empty():
+		_fail("Touch drag check needs a scrollable hand layout.")
+		return false
+	var card: Control = get_nodes_in_group("partydeck_hand_card")[0]
+	scroll.ensure_control_visible(card)
+	await _settle()
+	var before := scroll.scroll_vertical
+	var maximum := scroll.get_v_scroll_bar().max_value - scroll.get_v_scroll_bar().page
+	var start := card.get_global_transform_with_canvas() * (card.size * 0.5)
+	var upward := minf(120, minf(maximum - before, start.y - 32))
+	var downward := minf(120, minf(before, root.get_visible_rect().end.y - start.y - 16))
+	var distance := -upward if upward >= downward else downward
+	if absf(distance) < 16:
+		_fail("The touch test has insufficient scroll room at this card.")
+		return false
+	var hover := InputEventMouseMotion.new()
+	hover.position = start
+	hover.global_position = start
+	Input.parse_input_event(hover)
+	await process_frame
+	var down := InputEventMouseButton.new()
+	down.position = start
+	down.global_position = start
+	down.button_index = MOUSE_BUTTON_LEFT
+	down.button_mask = MOUSE_BUTTON_MASK_LEFT
+	down.pressed = true
+	Input.parse_input_event(down)
+	await process_frame
+	for step in range(1, 7):
+		var motion := InputEventMouseMotion.new()
+		motion.position = start + Vector2(0, distance * step / 6.0)
+		motion.global_position = motion.position
+		motion.relative = Vector2(0, distance / 6.0)
+		motion.button_mask = MOUSE_BUTTON_MASK_LEFT
+		Input.parse_input_event(motion)
+		await process_frame
+	var up := InputEventMouseButton.new()
+	up.position = start + Vector2(0, distance)
+	up.global_position = up.position
+	up.button_index = MOUSE_BUTTON_LEFT
+	up.pressed = false
+	Input.parse_input_event(up)
+	await _settle()
+	var after := scroll.scroll_vertical
+	var observation := {"input": "emulated-touch-vertical-drag-on-card", "before": before, "after": after,
+		"distance": distance, "selectedCount": _main.controller.presentation_state().selectedCardIds.size(),
+		"touchscreenReported": DisplayServer.is_touchscreen_available(), "authorityEvents": _events.size()}
+	_observations.append(observation)
+	FileAccess.open(_output.path_join("gesture-diagnostics.json"), FileAccess.WRITE).store_string(JSON.stringify(observation, "\t"))
+	if abs(after - before) < 8 or not _main.controller.presentation_state().selectedCardIds.is_empty() or _events.size() != 1:
+		_fail("A vertical drag did not scroll cleanly without selecting or dispatching an action.")
+		return false
+	await _capture("01a-emulated-touch-drag")
+	return true

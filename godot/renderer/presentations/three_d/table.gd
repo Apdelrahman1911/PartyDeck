@@ -22,9 +22,15 @@ var _ornament: Node3D
 var _hits: Control
 var _card_bindings: Array = []
 var _feedback: AudioStreamPlayer
-var _confirm_lobby := false
 var _layout_pending := false
 var _motion_frames := 0
+var _scroll_offsets: Dictionary = {}
+var _history_visible := false
+var _lobby_dialog: PanelContainer
+var _last_public_cue := ""
+var _focus_request: Dictionary = {}
+var _context_pinned := false
+var _hand_toggle_in_header := false
 
 
 func _ready() -> void:
@@ -44,7 +50,13 @@ func bind(controller: Node) -> void:
 
 
 func _render(state: Dictionary) -> void:
+	var same_page: bool = not _state.is_empty() and not _state.game.is_empty() and not state.game.is_empty() \
+		and _state.game.phase == state.game.phase and _state.game.roundNumber == state.game.roundNumber
+	if not same_page:
+		_history_visible = false
 	_state = state
+	if _lobby_dialog != null and (state.closed or not state.foreground or not state.controls.canReturnToLobby):
+		_close_lobby_dialog()
 	if state.closed:
 		_feedback.stop()
 		_clear(_cards)
@@ -55,9 +67,10 @@ func _render(state: Dictionary) -> void:
 	if not state.foreground or not state.soundEnabled:
 		_feedback.stop()
 	if not state.foreground:
-		_confirm_lobby = false
-	_build_layout()
+		_history_visible = false
+	_build_layout(same_page)
 	_show_cards()
+	_public_sound()
 	_viewport.render_target_update_mode = SubViewport.UPDATE_WHEN_VISIBLE if state.foreground else SubViewport.UPDATE_ONCE
 	_motion_frames = 12 if not state.reduceMotion and state.foreground else 1
 	set_process(true)
@@ -122,7 +135,18 @@ func _make_stage() -> void:
 	_stage.add_child(_hits)
 
 
-func _build_layout() -> void:
+func _build_layout(preserve_scroll: bool = true) -> void:
+	_scroll_offsets.clear()
+	_focus_request.clear()
+	if preserve_scroll and is_instance_valid(_layout):
+		_remember_scrolls(_layout)
+		_remember_focus()
+	var wide: bool = size.x >= 700 and size.y < 540 and _state.textScale < 1.3
+	var large: bool = _state.textScale >= 1.3
+	var scrollable: bool = large or _history_visible or (size.x < 700 and size.y < 700)
+	_context_pinned = scrollable and not wide and _state.game.phase == "PLAYING"
+	_hand_toggle_in_header = (wide or scrollable) and _state.game.phase == "PLAYING" and not _state.game.yourHand.is_empty() \
+		and not (_state.game.forcedChallenge and _state.game.availableActions.canChallenge)
 	if _stage.get_parent() != null:
 		_stage.get_parent().remove_child(_stage)
 	if is_instance_valid(_layout):
@@ -142,15 +166,34 @@ func _build_layout() -> void:
 	var exit_button := _button("‹", "partydeck_action_exit", _controller.request_exit, true, false)
 	exit_button.custom_minimum_size.x = 48
 	exit_button.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	exit_button.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	exit_button.add_theme_font_size_override("font_size", 24)
+	exit_button.autowrap_mode = TextServer.AUTOWRAP_OFF
 	exit_button.accessibility_name = "Leave the table"
 	header.add_child(exit_button)
-	header.add_child(_label("Last Light", 18, false, PAPER))
+	var brand := _label("Last Light", 18, false, PAPER)
+	brand.add_theme_font_size_override("font_size", mini(22, int(18 * _state.textScale)))
+	brand.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	brand.visible = not (_hand_toggle_in_header and size.x < 500)
+	header.add_child(brand)
+	if size.x >= 700 and size.y < 540 and _state.textScale < 1.3 and _state.game.phase == "PLAYING":
+		var turn: String = "Your turn" if _state.game.viewerId == _state.game.turnPlayerId else "%s’s turn" % _name(_state.game.turnPlayerId)
+		header.add_child(_label(turn, 16, false, CITRON if _state.game.viewerId == _state.game.turnPlayerId else MUTED))
 	var round_label := _label("ROUND %d" % int(_state.game.roundNumber), 12, false, MUTED)
 	round_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	round_label.visible = not (_hand_toggle_in_header and size.x < 500)
 	header.add_child(round_label)
-	var wide: bool = size.x >= 700 and size.y < 540 and _state.textScale < 1.3
-	var large: bool = _state.textScale >= 1.3
-	var scrollable: bool = large or (size.x < 700 and size.y < 700)
+	if _hand_toggle_in_header:
+		header.add_child(_hand_toggle())
+	if _context_pinned:
+		var context := VBoxContainer.new()
+		context.add_theme_constant_override("separation", 3)
+		column.add_child(context)
+		context.add_child(_label("%s table · round %d" % [_rank(_state.game.tableRank), int(_state.game.roundNumber)], 16, false, PAPER))
+		var turn: String = "Your turn" if _state.game.viewerId == _state.game.turnPlayerId else "%s’s turn" % _name(_state.game.turnPlayerId)
+		context.add_child(_label(turn, 16, false, CITRON if _state.game.viewerId == _state.game.turnPlayerId else MUTED))
+		if _state.game.latestClaim != null:
+			context.add_child(_label(_claim_line(), 16, false, MUTED))
 	if wide:
 		var row := HBoxContainer.new()
 		row.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -158,6 +201,9 @@ func _build_layout() -> void:
 		column.add_child(row)
 		row.add_child(_stage)
 		var scroll := ScrollContainer.new()
+		scroll.name = "TableBodyScroll"
+		scroll.follow_focus = true
+		scroll.scroll_deadzone = 8
 		scroll.custom_minimum_size.x = minf(size.x * 0.43, 400)
 		scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 		row.add_child(scroll)
@@ -169,6 +215,9 @@ func _build_layout() -> void:
 		_hand_controls(sidebar, false)
 	elif scrollable:
 		var scroll := ScrollContainer.new()
+		scroll.name = "TableBodyScroll"
+		scroll.follow_focus = true
+		scroll.scroll_deadzone = 8
 		scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 		scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		column.add_child(scroll)
@@ -185,6 +234,10 @@ func _build_layout() -> void:
 		_stage.custom_minimum_size.y = 180
 		column.add_child(_stage)
 		_hand_controls(column, false)
+	_layout.visible = _lobby_dialog == null
+	if _lobby_dialog != null:
+		move_child(_lobby_dialog, get_child_count() - 1)
+	call_deferred("_restore_scrolls")
 
 
 func _public_info(parent: VBoxContainer, compact: bool) -> void:
@@ -194,52 +247,78 @@ func _public_info(parent: VBoxContainer, compact: bool) -> void:
 	parent.add_child(info)
 	if game.phase == "PLAYING":
 		var turn := "Your turn" if game.viewerId == game.turnPlayerId else "%s’s turn" % _name(game.turnPlayerId)
-		info.add_child(_label(turn, 16, false, CITRON if game.viewerId == game.turnPlayerId else MUTED))
-		info.add_child(_label("%s table" % _rank(game.tableRank), 30, true, PAPER))
+		if not compact and not _context_pinned:
+			info.add_child(_label(turn, 16, false, CITRON if game.viewerId == game.turnPlayerId else MUTED))
+		if not _context_pinned:
+			info.add_child(_label("%s table" % _rank(game.tableRank), 30, true, PAPER))
 		var claim = game.latestClaim
 		var claim_text := "Play 1–3 cards face down. Wilds always match."
 		if claim != null:
-			claim_text = "%s claimed %d %s. Challenge or play on." % [_name(claim.playerId), int(claim.cardCount), _rank(game.tableRank)]
-		info.add_child(_label(claim_text, 16, false, MUTED))
+			claim_text = _claim_line() + (" Only a challenge remains." if game.forcedChallenge else " Challenge or play on.")
+		if not _context_pinned or claim == null:
+			info.add_child(_label(claim_text, 16, false, MUTED))
 		_roster(info)
+		if game.roundOutcome != null:
+			info.add_child(_button("Hide last round" if _history_visible else "Last round · review reveal", "partydeck_action_history", _toggle_history,
+				_state.foreground, false))
+			if _history_visible:
+				info.add_child(_label("ROUND %d · PREVIOUS REVEAL" % int(game.roundOutcome.roundNumber), 12, false, MUTED))
+				_result_info(info, game.roundOutcome, true)
+				_proof_words(info, game.roundOutcome)
 	elif game.phase == "ROUND_ENDED":
 		_result_info(info, game.roundOutcome)
+		if _state.textScale >= 1.3:
+			_proof_words(info, game.roundOutcome)
 	else:
 		info.add_child(_label("LAST LIGHT STANDING", 12, false, CITRON))
 		info.add_child(_label("%s wins." % _name(game.winnerId), 30 if _state.textScale < 1.3 else 24, true, PAPER))
 		info.add_child(_label("The last light at the table.", 15, false, MUTED))
 		if game.roundOutcome != null:
 			info.add_child(_label("Final reveal · round %d" % int(game.roundOutcome.roundNumber), 13, false, MUTED))
+			_result_info(info, game.roundOutcome, true)
+			if _state.textScale >= 1.3:
+				_proof_words(info, game.roundOutcome)
 
 
-func _result_info(parent: VBoxContainer, outcome: Dictionary) -> void:
+func _result_info(parent: VBoxContainer, outcome: Dictionary, compact: bool = false) -> void:
 	parent.add_to_group("partydeck_public_result")
 	parent.set_meta("round_number", int(outcome.roundNumber))
 	var truthful: bool = outcome.truthful
-	parent.add_child(_label("The claim was true." if truthful else "Bluff caught.", 30, true, CITRON if truthful else COPPER))
+	parent.add_child(_label("The claim was true." if truthful else "Bluff caught.", 20 if compact else 30, true, CITRON if truthful else COPPER))
 	parent.add_child(_label("%s tested light %d. %s" % [_name(outcome.penalizedPlayerId), int(outcome.penaltyAttempt),
 		"Burned out." if outcome.burnedOut else "Still in."], 16, false, PAPER))
-	parent.add_child(_label("%s challenged %s’s %s claim." % [_name(outcome.challengerId), _name(outcome.claimantId),
-		_rank(outcome.tableRank)], 14, false, MUTED))
+	parent.add_child(_label("%s challenged %s’s %d-card %s claim." % [_name(outcome.challengerId), _name(outcome.claimantId),
+		outcome.revealedCards.size(), _rank(outcome.tableRank)], 16, false, MUTED))
+
+
+func _proof_words(parent: VBoxContainer, outcome: Dictionary) -> void:
+	for card in outcome.revealedCards:
+		var match_text: String = "Matches" if card.rank == "WILD" or card.rank == outcome.tableRank else "Doesn’t match"
+		parent.add_child(_label("%s · %s" % [_rank(card.rank), match_text], 16, false, PAPER))
 
 
 func _roster(parent: VBoxContainer) -> void:
 	var scroll := ScrollContainer.new()
+	scroll.name = "RosterScroll"
 	scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
-	scroll.custom_minimum_size.y = 48
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	scroll.follow_focus = true
+	scroll.scroll_deadzone = 8
+	scroll.custom_minimum_size.y = 60 * _state.textScale
 	parent.add_child(scroll)
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 22)
 	scroll.add_child(row)
 	for player in _state.game.players:
 		var seat := VBoxContainer.new()
-		seat.custom_minimum_size.x = 126
+		seat.custom_minimum_size.x = 126 * _state.textScale
 		seat.add_theme_constant_override("separation", 2)
 		row.add_child(seat)
 		var color := CITRON if player.id == _state.game.turnPlayerId else MUTED
 		seat.add_child(_label(_name(player.id), 14, false, color))
 		seat.add_child(_label("Out · watching" if player.eliminated else "%d cards · fuse %d/6" % [int(player.handCount), int(player.penaltyAttempts)], 13, false, MUTED))
+	if size.x < 900:
+		parent.add_child(_label("Swipe seats to see everyone →", 12, false, MUTED))
 
 
 func _hand_controls(parent: VBoxContainer, large: bool) -> void:
@@ -251,12 +330,15 @@ func _hand_controls(parent: VBoxContainer, large: bool) -> void:
 	parent.add_child(pane)
 	if game.phase == "PLAYING":
 		var viewer = _viewer()
-		if viewer == null or viewer.eliminated:
+		if viewer == null:
 			pane.add_child(_label("Stay for the showdown.", 24, true, PAPER))
-			pane.add_child(_label("You’re out of this match. Keep watching to see who keeps their last light.", 14, false, MUTED))
+			pane.add_child(_label("You’re watching this match. See who keeps their last light.", 16, false, MUTED))
+		elif viewer.eliminated:
+			pane.add_child(_label("Stay for the showdown.", 24, true, PAPER))
+			pane.add_child(_label("You’re out of this match. Keep watching to see who keeps their last light.", 16, false, MUTED))
 		elif game.forcedChallenge and actions.canChallenge:
 			pane.add_child(_label("One claim left.", 24, true, PAPER))
-			pane.add_child(_label("You’re the last player holding cards. Challenge the claim.", 14, false, MUTED))
+			pane.add_child(_label("You’re the last player holding cards. Challenge the claim.", 16, false, MUTED))
 		elif game.yourHand.is_empty():
 			pane.add_child(_label("Your last play can still be challenged." if game.latestClaim != null and game.latestClaim.playerId == game.viewerId else "You’re clear for this round.", 17, false, PAPER))
 		else:
@@ -265,8 +347,8 @@ func _hand_controls(parent: VBoxContainer, large: bool) -> void:
 			pane.add_child(hand_header)
 			hand_header.add_child(_label("Your hand · %d cards" % game.yourHand.size(), 16, false, PAPER))
 			var showing: bool = _state.handVisible
-			hand_header.add_child(_button("Hide hand" if showing else "Show hand", "partydeck_action_hide" if showing else "partydeck_action_reveal",
-				_controller.hide_hand if showing else _controller.reveal_hand, _state.foreground, false))
+			if not _hand_toggle_in_header:
+				hand_header.add_child(_hand_toggle())
 			if large and showing:
 				for index in range(game.yourHand.size()):
 					var card: Dictionary = game.yourHand[index]
@@ -301,6 +383,9 @@ func _hand_controls(parent: VBoxContainer, large: bool) -> void:
 			controls.canSendAction and controls.canReturnToLobby, true))
 	else:
 		pane.add_child(_label("Waiting for the host.", 16, false, MUTED))
+	if game.phase != "FINISHED" and controls.isHost and controls.canReturnToLobby:
+		pane.add_child(_button("Return to lobby", "partydeck_action_lobby", _request_lobby,
+			controls.canSendAction, false, COPPER))
 	if not _state.status.is_empty():
 		pane.add_child(_label(_state.status, 16, false, MUTED))
 
@@ -311,7 +396,7 @@ func _show_cards() -> void:
 	_clear(_hits)
 	_card_bindings.clear()
 	var game: Dictionary = _state.game
-	var rank: String = "STAR" if game.phase == "FINISHED" else game.tableRank
+	var rank: String = game.tableRank
 	_cylinder(0.67, 0.025, Vector3(0, 0.025, -0.45), CITRON, Vector3.ONE, _ornament)
 	var symbol := MeshInstance3D.new()
 	var plane := PlaneMesh.new()
@@ -355,7 +440,7 @@ func _add_card(card_data: Dictionary, index: int, count: int, face_up: bool, pri
 	_cards.add_child(card)
 	if not private_card:
 		card.add_to_group("partydeck_public_card")
-	card.position = Vector3((index - (count - 1) / 2.0) * 1.18, 0.36, depth)
+	card.position = Vector3((index - (count - 1) / 2.0) * 1.35, 0.36, depth)
 	card.rotation_degrees = Vector3(22, (index - (count - 1) / 2.0) * -3.5, 0)
 	var rank: String = card_data.get("rank", "") if face_up else ""
 	card.configure(rank, face_up, selected, private_card)
@@ -383,6 +468,8 @@ func _add_card(card_data: Dictionary, index: int, count: int, face_up: bool, pri
 		marker_style.content_margin_bottom = 1
 		marker.add_theme_stylebox_override("panel", marker_style)
 		var check := _label("✓", 16, false, INK)
+		check.add_theme_font_size_override("font_size", 16)
+		check.autowrap_mode = TextServer.AUTOWRAP_OFF
 		check.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		check.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		check.add_to_group("partydeck_private_label")
@@ -392,6 +479,7 @@ func _add_card(card_data: Dictionary, index: int, count: int, face_up: bool, pri
 	if private_card and _state.textScale < 1.3:
 		target = Button.new()
 		target.flat = true
+		target.mouse_filter = Control.MOUSE_FILTER_PASS
 		target.toggle_mode = true
 		target.disabled = not (_state.controls.canSendAction and _state.game.availableActions.canPlay)
 		target.set_pressed_no_signal(selected)
@@ -403,11 +491,12 @@ func _add_card(card_data: Dictionary, index: int, count: int, face_up: bool, pri
 			target.add_theme_stylebox_override(style, empty)
 		var focus := _style(Color.TRANSPARENT, CITRON)
 		focus.set_border_width_all(2)
+		focus.set_corner_radius_all(4)
 		target.add_theme_stylebox_override("focus", focus)
 		target.pressed.connect(_toggle_card.bind(card_data.id))
 		_hits.add_child(target)
 	var explanation: Label
-	if not private_card:
+	if not private_card and _state.textScale < 1.3:
 		explanation = _label("Wild · matches" if rank == "WILD" else ("Matches" if rank == table_rank else "Doesn’t match"), 13, false,
 			CITRON if rank == "WILD" or rank == table_rank else COPPER)
 		explanation.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -432,11 +521,13 @@ func _position_targets() -> void:
 			binding.marker.position = Vector2(bounds.get_center().x - 12, bounds.position.y - 12)
 			binding.marker.size = Vector2(24, 24)
 		if binding.target != null:
-			binding.target.position = bounds.position
-			binding.target.size = Vector2(maxf(48, bounds.size.x), maxf(48, bounds.size.y))
+			var hit_size := Vector2(maxf(48, bounds.size.x), maxf(48, bounds.size.y))
+			binding.target.position = bounds.get_center() - hit_size * 0.5
+			binding.target.size = hit_size
 		if binding.explanation != null:
-			binding.explanation.position = Vector2(bounds.position.x - 24, bounds.end.y + 30)
-			binding.explanation.size = Vector2(bounds.size.x + 48, 42 * _state.textScale)
+			var explanation_width := maxf(50, bounds.size.x + 4)
+			binding.explanation.position = Vector2(bounds.get_center().x - explanation_width * 0.5, bounds.end.y + 30)
+			binding.explanation.size = Vector2(explanation_width, 42 * _state.textScale)
 
 
 func _process(_delta: float) -> void:
@@ -462,6 +553,7 @@ func _apply_resize() -> void:
 func _button(text: String, group: String, action: Callable, enabled: bool, primary: bool, accent: Color = CITRON) -> Button:
 	var button := Button.new()
 	button.text = text
+	button.mouse_filter = Control.MOUSE_FILTER_PASS
 	button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	button.custom_minimum_size.y = maxf(52, 28 + 20 * _state.textScale)
 	button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -471,6 +563,8 @@ func _button(text: String, group: String, action: Callable, enabled: bool, prima
 	button.add_theme_color_override("font_color", INK if primary else accent)
 	button.add_theme_color_override("font_hover_color", INK if primary else accent)
 	button.add_theme_color_override("font_pressed_color", INK if primary else accent)
+	button.add_theme_color_override("font_hover_pressed_color", INK if primary else accent)
+	button.add_theme_color_override("font_focus_color", INK if primary else accent)
 	button.add_theme_color_override("font_disabled_color", MUTED)
 	button.add_theme_stylebox_override("normal", _style(accent if primary else SURFACE, accent if primary else OUTLINE))
 	button.add_theme_stylebox_override("hover", _style(accent.lightened(0.04) if primary else SURFACE.lightened(0.06), accent))
@@ -485,6 +579,7 @@ func _button(text: String, group: String, action: Callable, enabled: bool, prima
 func _label(text: String, point_size: int, editorial: bool, color: Color) -> Label:
 	var label := Label.new()
 	label.text = text
+	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	label.add_theme_font_override("font", load("res://assets/fonts/fraunces_semibold.ttf" if editorial else "res://assets/fonts/manrope_regular.ttf"))
@@ -556,7 +651,7 @@ func _toggle_card(id_value: String) -> void:
 
 
 func _play() -> void:
-	_sound("card_place")
+	_sound("ui_tap")
 	_controller.play_selected()
 
 
@@ -569,3 +664,194 @@ func _sound(cue: String) -> void:
 	if _state.soundEnabled and _state.foreground:
 		_feedback.stream = load("res://assets/audio/%s.wav" % cue)
 		_feedback.play()
+
+
+func _remember_scrolls(node: Node) -> void:
+	if node is ScrollContainer:
+		_scroll_offsets[str(node.name)] = Vector2i(node.scroll_horizontal, node.scroll_vertical)
+	for child in node.get_children():
+		_remember_scrolls(child)
+
+
+func _restore_scrolls() -> void:
+	if not is_inside_tree() or not is_instance_valid(_layout):
+		return
+	var requested_layout := _layout
+	await get_tree().process_frame
+	await get_tree().process_frame
+	if not is_instance_valid(requested_layout) or requested_layout != _layout:
+		return
+	_restore_scroll_node(_layout)
+	var focused_control: Control
+	if _lobby_dialog == null and not _focus_request.is_empty():
+		for node in get_tree().get_nodes_in_group(_focus_request.group):
+			if node is BaseButton and is_ancestor_of(node) and node.is_visible_in_tree() and not node.disabled \
+				and int(node.get_meta("card_index", -1)) == _focus_request.index:
+				node.grab_focus()
+				focused_control = node
+				break
+	if focused_control != null:
+		await get_tree().process_frame
+		if is_instance_valid(focused_control) and requested_layout == _layout:
+			_keep_control_inside_scroll(focused_control)
+
+
+func _keep_control_inside_scroll(control: Control) -> void:
+	var ancestor := control.get_parent()
+	while ancestor != null:
+		if ancestor is ScrollContainer:
+			var rect := control.get_global_transform_with_canvas() * Rect2(Vector2.ZERO, control.size)
+			var clip: Rect2 = ancestor.get_global_transform_with_canvas() * Rect2(Vector2.ZERO, ancestor.size)
+			clip = clip.intersection(get_viewport().get_visible_rect())
+			var delta := 0.0
+			if rect.position.y < clip.position.y + 8:
+				delta = floorf(rect.position.y - clip.position.y - 8)
+			elif rect.end.y > clip.end.y - 8:
+				delta = ceilf(rect.end.y - clip.end.y + 8)
+			ancestor.scroll_vertical += int(delta)
+		ancestor = ancestor.get_parent()
+
+
+func _restore_scroll_node(node: Node) -> void:
+	if node is ScrollContainer and _scroll_offsets.has(str(node.name)):
+		var offset: Vector2i = _scroll_offsets[str(node.name)]
+		node.scroll_horizontal = offset.x
+		node.scroll_vertical = offset.y
+	for child in node.get_children():
+		_restore_scroll_node(child)
+
+
+func _remember_focus() -> void:
+	var focused := get_viewport().gui_get_focus_owner()
+	if focused == null or not is_ancestor_of(focused):
+		return
+	for group in focused.get_groups():
+		if group == "partydeck_hand_card" or str(group).begins_with("partydeck_action_"):
+			var next_group: String = group
+			if group == "partydeck_action_reveal" and _state.handVisible:
+				next_group = "partydeck_action_hide"
+			elif group == "partydeck_action_hide" and not _state.handVisible:
+				next_group = "partydeck_action_reveal"
+			_focus_request = {"group": next_group, "index": int(focused.get_meta("card_index", -1))}
+			return
+
+
+func _toggle_history() -> void:
+	_history_visible = not _history_visible
+	_render(_state)
+
+
+func _request_lobby() -> void:
+	if _controller == null or not _state.controls.canReturnToLobby:
+		return
+	if _state.game.phase == "FINISHED":
+		_controller.return_to_lobby()
+		return
+	if _lobby_dialog != null:
+		return
+	_controller.hide_hand()
+	_layout.hide()
+	_lobby_dialog = PanelContainer.new()
+	_lobby_dialog.name = "LobbyConfirmation"
+	_lobby_dialog.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	var background := _style(INK, INK)
+	background.set_corner_radius_all(0)
+	background.content_margin_left = 24
+	background.content_margin_right = 24
+	background.content_margin_top = 24
+	background.content_margin_bottom = 24
+	_lobby_dialog.add_theme_stylebox_override("panel", background)
+	add_child(_lobby_dialog)
+	var scroll := ScrollContainer.new()
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	scroll.follow_focus = true
+	scroll.scroll_deadzone = 8
+	_lobby_dialog.add_child(scroll)
+	var content := VBoxContainer.new()
+	content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	content.add_theme_constant_override("separation", 20)
+	scroll.add_child(content)
+	content.add_child(_label("Return to lobby?", 22 if _state.textScale >= 1.3 else 30, true, PAPER))
+	content.add_child(_label("This ends the match for everyone.", 18, false, MUTED))
+	content.add_child(_button("Return to lobby", "partydeck_action_lobby_confirm", _confirm_return_to_lobby, true, false, COPPER))
+	var cancel := _button("Keep playing", "partydeck_action_lobby_cancel", _close_lobby_dialog, true, true)
+	content.add_child(cancel)
+	cancel.grab_focus()
+
+
+func _confirm_return_to_lobby() -> void:
+	_close_lobby_dialog()
+	_controller.return_to_lobby()
+
+
+func _close_lobby_dialog() -> void:
+	if _lobby_dialog == null:
+		return
+	remove_child(_lobby_dialog)
+	_lobby_dialog.queue_free()
+	_lobby_dialog = null
+	if is_instance_valid(_layout):
+		_layout.show()
+
+
+func _public_sound() -> void:
+	var game: Dictionary = _state.game
+	var claim_key: String = "none" if game.latestClaim == null else "%s:%d" % [game.latestClaim.playerId, int(game.latestClaim.cardCount)]
+	var signature := "%s:%d:%s" % [game.phase, int(game.roundNumber), claim_key]
+	var previous := _last_public_cue
+	_last_public_cue = signature
+	if previous.is_empty() or signature == previous or not _state.foreground:
+		return
+	if game.phase == "FINISHED":
+		_sound("victory")
+	elif game.phase == "ROUND_ENDED":
+		_sound("light_out" if game.roundOutcome.burnedOut else "safe")
+	elif game.latestClaim != null:
+		_sound("card_place")
+
+
+func _exit_tree() -> void:
+	if _controller != null and _controller.state_changed.is_connected(_render):
+		_controller.state_changed.disconnect(_render)
+	if is_instance_valid(_feedback):
+		_feedback.stop()
+	_state = {}
+	_focus_request.clear()
+	_scroll_offsets.clear()
+
+
+func _hand_toggle() -> Button:
+	var showing: bool = _state.handVisible
+	return _button("Hide hand" if showing else "Show hand", "partydeck_action_hide" if showing else "partydeck_action_reveal",
+		_controller.hide_hand if showing else _reveal_hand, _state.foreground, false)
+
+
+func _reveal_hand() -> void:
+	_controller.reveal_hand()
+	if _hand_toggle_in_header:
+		call_deferred("_bring_hand_into_view")
+
+
+func _bring_hand_into_view() -> void:
+	if not is_inside_tree():
+		return
+	var requested_layout := _layout
+	await get_tree().process_frame
+	await get_tree().process_frame
+	if not is_inside_tree() or not is_instance_valid(requested_layout) or requested_layout != _layout or not _state.get("handVisible", false):
+		return
+	for card in get_tree().get_nodes_in_group("partydeck_hand_card"):
+		if not is_ancestor_of(card):
+			continue
+		var ancestor := card.get_parent()
+		while ancestor != null:
+			if ancestor is ScrollContainer:
+				ancestor.ensure_control_visible(card)
+			ancestor = ancestor.get_parent()
+		return
+
+
+func _claim_line() -> String:
+	var claim: Dictionary = _state.game.latestClaim
+	var count := int(claim.cardCount)
+	return "%s claimed %d %s%s." % [_name(claim.playerId), count, _rank(_state.game.tableRank), "" if count == 1 else "s"]

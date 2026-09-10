@@ -2,6 +2,8 @@
 
 Status: **accepted within this bounded review scope, 2026-09-10**. Both findings below are fixed and covered by executed checks. Scope is the versioned renderer schema, Kotlin adapter, authority fixtures, and renderer controller behavior. Native rendering, native teardown, live multiplayer integration, and platform qualification require their separate evidence; this report does not establish production readiness.
 
+The final desktop artifact acceptance is recorded in the v5 follow-up below; earlier packed runs remain historical evidence.
+
 ## Existing authority and data contract
 
 The shipping source of truth remains `core` and `session`. `LastLightEngine.viewFor` creates the recipient projection; `HostAuthority` binds gameplay actions to an authenticated seat and validates the command revision. The isolated `QualificationAuthorityDriver` calls the real core engine and has no multiplayer/session integration. The renderer receives no `GameState` and does not decide a challenge outcome, penalty, elimination, redeal, or winner.
@@ -128,3 +130,18 @@ Artifact and audit provenance:
 - Report SHA-256: `e668179d24ce75b0fd472715abdf405be726764f69d6152485aff43c1adf8d46`.
 - Recorded source fingerprint: `26426170ab4341d7ff72b3b387b3f70f5938376d0285f216d102fb27689f9637`. UI owners edited presentation scripts/tests after the run. Replacing only those later files with their committed versions reproduced this exact fingerprint; no working file was changed for that reconstruction. The retained run therefore qualifies its recorded artifact, and later UI changes need fresh integration evidence.
 - Independent evidence audit: `/tmp/partydeck-matched-packed-review.py` and `/tmp/partydeck-matched-packed-review.json`; source reconstruction: `/tmp/partydeck-matched-source-reconstruction.json`.
+
+## Final matched packed artifact v5, 2026-09-10
+
+**Accepted within the desktop input/authority/closure scope.** The owner reran the same real-input scenario after the final presentation changes. This reviewer independently audited `godot/qualification/build/comparison/matched-packed-v5-20260910/report.json`, both mode results/logs, all 22 PNG files and receipts, input geometry, concealed/pending observations, fresh identities and trace contents. Covered-hand and winner captures from both modes were visually inspected. No full match was redundantly rerun by this reviewer.
+
+Each mode records 42 authority snapshots, 21 bridge events, two viewer plays, two viewer challenges, 13 continuations, 129 probe requests and 11 captures. Both actual traces are identical from revision 0 through 41, ending at a winner in round 14. All 42 recorded card/gameplay click points fall within the full visible control bounds. Both renderer exits are zero and both logs contain no engine/script error lines. The previously reviewed parser, validator, controller and main-script hashes remain unchanged.
+
+| Evidence | Independently verified SHA-256 |
+| --- | --- |
+| Canonical `partydeck-last-light.pck` | `0b3de6b276d15972708cfc7919d7f2f5bf2aefe8a05afb8859357e7139057d37` |
+| v5 `report.json` | `30f7f87a212757dc1284a4ed9105212315d07a3226148240848ff1dde75191af` |
+| Source fingerprint, 107 files | `642422de487b33a6dc2951d8a9a178c5a40737bf0e80bb6831fa197116cda515` |
+| Either complete authority trace | `79b5b2a6415a365d531da3488b7b87f1b2309f2b1208899ee5b4618da16be674` |
+
+The current source content directly reproduces the recorded fingerprint, including the frozen iOS facade and its separate reviewer test. The run records commit `19501a23606c44ffd94eba3b24855a239e703a74` with working changes; the content fingerprint identifies that exact source snapshot. `/tmp/partydeck-matched-packed-v5-review.py` and `/tmp/partydeck-matched-packed-v5-review.json` preserve this audit. Acceptance applies to the identified PCK and executed desktop behavior; repeat-export archive byte determinism and native-device qualification remain separate checks.
