@@ -47,6 +47,17 @@ def main() -> None:
         source = ROOT / "ProbeScene" / filename
         shutil.copy2(source, scene / filename)
         source_hashes[f"ProbeScene/{filename}"] = sha256(source)
+    # A real loader failure after setup2 exercises checked cleanup and host
+    # policy restoration. No native callback substitutes for Main::start.
+    missing_main = resources / "MissingMainScene"
+    missing_main.mkdir()
+    project_text = (ROOT / "ProbeScene" / "project.godot").read_text()
+    main_setting = 'run/main_scene="res://main.tscn"'
+    if project_text.count(main_setting) != 1:
+        raise SystemExit("The diagnostic's main-scene setting changed.")
+    failed_project = missing_main / "project.godot"
+    failed_project.write_text(project_text.replace(main_setting, 'run/main_scene="res://missing.tscn"'))
+    source_hashes["ProbeResources/MissingMainScene/project.godot"] = sha256(failed_project)
     shutil.copy2(fixture, resources / "Launch.json")
     shutil.copy2(manifest_path, resources / "fixture-manifest.json")
     license_root = ROOT.parent / "renderer" / "licenses"

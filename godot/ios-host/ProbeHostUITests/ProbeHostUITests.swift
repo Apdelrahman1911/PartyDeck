@@ -56,7 +56,7 @@ final class ProbeHostUITests: XCTestCase {
 
     @MainActor
     func testCloseInsideActualDrawRunLoopDefersCleanup() async throws {
-        let app = try await launchScene()
+        let app = try await launchScene(initialIdleTimerDisabled: true)
         element("close-during-draw", app).tap()
         try await assertClosed(app, expectedExitEvents: 0)
         XCTAssertEqual(number("closeRequestedDuringDraw", app), 1)
@@ -85,7 +85,7 @@ final class ProbeHostUITests: XCTestCase {
     @MainActor
     func testCloseBeforePresentationDoesNotConstructEngine() async throws {
         let app = XCUIApplication()
-        app.launchArguments = ["--close-before-start"]
+        app.launchArguments = ["--close-before-start", "--host-idle-timer=on"]
         app.launch()
         element("start-scene", app).tap()
         try await waitUntil("A cancelled presentation must close without bootstrapping.") {
@@ -95,6 +95,8 @@ final class ProbeHostUITests: XCTestCase {
         XCTAssertEqual(number("cleanupCount", app), 0)
         XCTAssertEqual(number("iterations", app), 0)
         XCTAssertFalse(flag("osSingletonPresent", app))
+        XCTAssertTrue(flag("previousIdleTimerDisabled", app))
+        assertIdleTimerRestored(app)
         element("host-counter-button", app).tap()
         XCTAssertEqual(number("hostCounter", app), 1)
         capture("Closed before engine construction", app)
@@ -103,7 +105,7 @@ final class ProbeHostUITests: XCTestCase {
     @MainActor
     func testCloseDuringInitializationUsesCheckedCleanupBoundary() async throws {
         let app = XCUIApplication()
-        app.launchArguments = ["--close-during-initialization"]
+        app.launchArguments = ["--close-during-initialization", "--host-idle-timer=off"]
         app.launch()
         element("start-scene", app).tap()
         try await assertClosed(app, expectedExitEvents: 0)
@@ -111,12 +113,30 @@ final class ProbeHostUITests: XCTestCase {
         XCTAssertEqual(number("closeRequestedDuringInitialization", app), 1)
         XCTAssertEqual(number("readyEvents", app), 0)
         XCTAssertEqual(number("iterations", app), 0)
+        XCTAssertFalse(flag("previousIdleTimerDisabled", app))
+        XCTAssertTrue(flag("idleTimerDisabledAfterSetup", app))
         capture("Closed during checked initialization", app)
+
+        // A second, fresh process reaches the real missing-scene loader error
+        // after setup2. This is not a simulated native failure result.
+        app.terminate()
+        app.launchArguments = ["--missing-main-scene", "--host-idle-timer=on"]
+        app.launch()
+        element("start-scene", app).tap()
+        try await assertClosed(app, expectedExitEvents: 0, expectedState: "failed")
+        XCTAssertTrue(flag("setup2Succeeded", app))
+        XCTAssertEqual(metrics(app)["failure"] as? String, "MAIN_START_FAILED")
+        XCTAssertTrue(flag("previousIdleTimerDisabled", app))
+        XCTAssertTrue(flag("idleTimerDisabledAfterSetup", app))
+        XCTAssertEqual(number("readyEvents", app), 0)
+        XCTAssertEqual(number("iterations", app), 0)
+        capture("Real scene-load failure restored shell policy", app)
     }
 
     @MainActor
-    private func launchScene() async throws -> XCUIApplication {
+    private func launchScene(initialIdleTimerDisabled: Bool = false) async throws -> XCUIApplication {
         let app = XCUIApplication()
+        app.launchArguments = [initialIdleTimerDisabled ? "--host-idle-timer=on" : "--host-idle-timer=off"]
         app.launch()
         XCTAssertTrue(element("start-scene", app).waitForExistence(timeout: 15))
         element("start-scene", app).tap()
@@ -125,13 +145,17 @@ final class ProbeHostUITests: XCTestCase {
             self.number("iterations", app) >= 3 &&
             self.flag("renderLoopActive", app)
         }
+        XCTAssertTrue(flag("idleTimerPolicyCaptured", app))
+        XCTAssertEqual(flag("previousIdleTimerDisabled", app), initialIdleTimerDisabled)
+        XCTAssertTrue(flag("idleTimerDisabledAfterSetup", app))
+        XCTAssertTrue(flag("idleTimerDisabled", app))
         return app
     }
 
     @MainActor
-    private func assertClosed(_ app: XCUIApplication, expectedExitEvents: Int) async throws {
+    private func assertClosed(_ app: XCUIApplication, expectedExitEvents: Int, expectedState: String = "closed") async throws {
         try await waitUntil("Close must destroy the OS singleton, stop iteration, and release the native view.", timeout: 30) {
-            self.metrics(app)["state"] as? String == "closed" &&
+            self.metrics(app)["state"] as? String == expectedState &&
             self.flag("viewReleased", app) && self.flag("controllerReleased", app)
         }
         XCTAssertEqual(number("cleanupCount", app), 1)
@@ -143,12 +167,20 @@ final class ProbeHostUITests: XCTestCase {
         XCTAssertFalse(flag("quarantined", app))
         XCTAssertEqual(number("queuedCommands", app), 0)
         XCTAssertEqual(number("queuedEvents", app), 0)
+        assertIdleTimerRestored(app)
         let finalIterations = number("iterations", app)
         let hostCounter = number("hostCounter", app)
         element("host-counter-button", app).tap()
         XCTAssertEqual(number("hostCounter", app), hostCounter + 1)
         try await Task.sleep(nanoseconds: 600_000_000)
         XCTAssertEqual(number("iterations", app), finalIterations)
+    }
+
+    @MainActor
+    private func assertIdleTimerRestored(_ app: XCUIApplication) {
+        XCTAssertTrue(flag("idleTimerPolicyCaptured", app))
+        XCTAssertTrue(flag("idleTimerPolicyRestored", app))
+        XCTAssertEqual(flag("idleTimerDisabled", app), flag("previousIdleTimerDisabled", app))
     }
 
     @MainActor

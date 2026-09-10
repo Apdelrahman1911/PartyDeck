@@ -39,6 +39,12 @@ handling. The desktop LibGodot implementation explicitly retains its instance
 guard because engine reinitialization is not supported there. Repeated iOS
 entry after cleanup remains unqualified.
 
+The display-server constructor also changes `UIApplication.idleTimerDisabled`.
+Preparation captures the shell's actual value, and every terminal drain restores
+it, including cancellation before bootstrap and initialization failure. The
+tests measure both prior values, rather than assuming the host always permits
+screen sleep.
+
 No upstream source patch is applied. This host remains coupled to iOS bootstrap,
 the global view lookup, the private draw selector, and controller policy. The
 open native-window proposal is not an API available in this release.
@@ -123,9 +129,11 @@ The wrapper retains the auxiliary camera archive, prepares an authority fixture
 and a real diagnostic scene, compiles the SwiftUI host, and runs five XCTest
 cases: rendering/pause/background/native touch/exit/reopen refusal; close inside
 the actual draw run loop; immediate foreground loss/resume; cancellation before
-bootstrap; and close inside the checked initialization boundary. Measurements
+bootstrap; and close inside the checked initialization boundary, followed by a
+fresh process with a real missing-main-scene loader failure. Measurements
 include actual iteration counts, layer class, render-loop state, OS/singleton
-disappearance, cleanup count/depth, and weak view/controller release. The tests
+disappearance, cleanup count/depth, weak view/controller release, and restoration
+of the shell's previous idle-timer policy. The tests
 also check host responsiveness after cleanup. The diagnostic supplies malformed
 and replayed bridge events before its real Ready/Exit round trip.
 
@@ -136,6 +144,16 @@ and measurement attachments, including artifacts from failed test runs. A
 successful `native-host-result.json` requires all five actual XCTest cases to
 start once and pass. Source checks or compilation cannot create that receipt.
 
+The link in [run 34425278588](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34425278588)
+identified four required platform glue symbols. Godot's reduced SDL 3.2.28 source
+set omits the UIKit video file that defines `SDL_IsIPad` and `SDL_IsAppleTV`.
+The custom module extracts those two real `UIDevice.userInterfaceIdiom` queries
+from the exact SDL commit named by Godot, retaining the original notice and
+source hash. It also supplies the Apple exporter's empty-list initialization
+hooks: this host selects no `.gdip` export plugins. The actual `PartyDeckBridge`
+engine module registers independently through Godot's module lifecycle. Native
+linking and execution with this glue remain unverified until a later test run.
+
 The optional `PARTYDECK_GODOT_PROBE_PCK=/absolute/path/partydeck-last-light.pck`
 input bundles the shared pack after its companion receipt is verified with
 `godot/tools/renderer.py check-pack`. Launching the built host with `--scene=2d`
@@ -144,6 +162,30 @@ Those are projected snapshots, not a KMP authority/session loop. The default
 five-test gate uses the clearly labeled diagnostic and does not qualify Last
 Light gameplay, private-card pixel timing, device Metal, physical audio, or
 engine reinitialization.
+
+## Kotlin authority framework handoff
+
+The real qualification authority exposes its Swift-facing contract in
+[`IOS_FACADE.md`](../bridge/IOS_FACADE.md). The standalone host does not yet
+consume that framework. After setting up JDK 21 and the Android SDK needed to
+configure the isolated KMP build, the selected ARM64 macOS/Xcode runner can
+produce the framework and its actual export header independently of Godot:
+
+```sh
+bash godot/ios-host/build-authority.sh
+```
+
+The script runs `:bridge:linkDebugFrameworkIosSimulatorArm64` in
+`godot/qualification`, retains a framework archive under `build/artifacts`, and
+copies the generated Objective-C header and module map into `build/evidence`.
+It requires all nine facade/mode declarations in that actual header and
+typechecks an import-only Swift source against the Simulator framework. The
+receipt records binary/header hashes, the requested ARM64 architecture, and
+module-import success separately from host/runtime qualification.
+Framework compilation, Swift host compilation, and an actual authority-driven
+gameplay run remain distinct gates. This step is implemented but has not yet
+executed on macOS; its exported Swift names must be checked against the retained
+header before wiring the native event owner.
 
 ## Sources
 
@@ -158,6 +200,8 @@ engine reinitialization.
 - [Desktop LibGodot instance guard](https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/platform/macos/libgodot_macos.mm).
 - [Official iOS compilation guide](https://github.com/godotengine/godot-docs/blob/stable/engine_details/development/compiling/compiling_for_ios.rst).
 - [Official custom-module build guide](https://github.com/godotengine/godot-docs/blob/stable/engine_details/engine_api/custom_modules_in_cpp.rst).
+- [SDL 3.2.28 UIKit device queries](https://github.com/libsdl-org/SDL/blob/7f3ae3d57459e59943a4ecfefc8f6277ec6bf540/src/video/uikit/SDL_uikitvideo.m).
+- [Godot's generated Apple export-plugin hooks](https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/editor/export/editor_export_platform_apple_embedded.cpp).
 - [SCons wheel metadata](https://pypi.org/pypi/scons/4.11.1/json).
 - [Open iOS view proposal](https://github.com/godotengine/godot-proposals/issues/1473).
 - [Open native-window proposal](https://github.com/godotengine/godot-proposals/issues/14435).

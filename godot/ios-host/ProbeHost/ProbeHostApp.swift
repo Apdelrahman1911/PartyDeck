@@ -36,6 +36,16 @@ final class ProbeModel: ObservableObject {
     private var applicationActive = true
     private var reopenDenied = false
 
+    init() {
+        // Explicit qualification inputs exercise both possible shell policies.
+        // Ordinary launches retain UIKit's actual current value.
+        switch ProcessInfo.processInfo.arguments.first(where: { $0.hasPrefix("--host-idle-timer=") }) ?? "" {
+        case "--host-idle-timer=on": UIApplication.shared.isIdleTimerDisabled = true
+        case "--host-idle-timer=off": UIApplication.shared.isIdleTimerDisabled = false
+        default: break
+        }
+    }
+
     var sceneName: String {
         switch requestedScene {
         case "2d": return "Last Light 2D fixture"
@@ -128,6 +138,9 @@ final class ProbeModel: ObservableObject {
                 throw ProbeError.missingPack
             }
             return (resources.path, pack.path, document)
+        }
+        if ProcessInfo.processInfo.arguments.contains("--missing-main-scene") {
+            return (resources.appendingPathComponent("ProbeResources/MissingMainScene").path, nil, document)
         }
         return (resources.appendingPathComponent("ProbeScene").path, nil, document)
     }

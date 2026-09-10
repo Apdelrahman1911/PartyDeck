@@ -173,6 +173,7 @@ static BOOL PDIntent(NSDictionary *object) {
 	BOOL _prepared, _bootstrapAttempted, _bootstrapSucceeded, _setup2Succeeded, _started;
 	BOOL _foreground, _appliedForeground, _lifecycleApplied, _closeRequested, _closed, _quarantined;
 	BOOL _drainScheduled, _eventTerminal, _readySeen, _closeOnNextDraw, _pendingForegroundLoss, _closeAfterSetup;
+	BOOL _idleTimerPolicyCaptured, _idleTimerPolicyRestored, _previousIdleTimerDisabled, _idleTimerDisabledAfterSetup;
 }
 - (void)startInContainer;
 - (BOOL)canDraw;
@@ -373,6 +374,10 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 			(!packPath && ![NSFileManager.defaultManager isReadableFileAtPath:[projectPath stringByAppendingPathComponent:@"project.godot"]])) {
 		return PDReject(error, @"The bundled Godot project or pack is unavailable.");
 	}
+	// DisplayServerAppleEmbedded changes this UIKit policy during setup. The
+	// shell's actual previous value belongs to this presentation's lifetime.
+	_previousIdleTimerDisabled = UIApplication.sharedApplication.idleTimerDisabled;
+	_idleTimerPolicyCaptured = YES;
 	_prepared = YES;
 	_projectPath = [projectPath copy];
 	_packPath = [packPath copy];
@@ -437,6 +442,7 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 		// The actual setupProjectData stage, with its Error result checked.
 		// The attached native surface exists before any display-server setup.
 		_setup2Succeeded = Main::setup2(false) == OK;
+		_idleTimerDisabledAfterSetup = UIApplication.sharedApplication.idleTimerDisabled;
 		if (_closeAfterSetup) {
 			[self close];
 		}
@@ -701,6 +707,12 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 			_godotController = nil;
 		}
 		_launchDocument = nil;
+		// Restore even for cancellation before bootstrap or quarantined setup
+		// failure. This UIKit property does not depend on a surviving engine.
+		if (_idleTimerPolicyCaptured) {
+			UIApplication.sharedApplication.idleTimerDisabled = _previousIdleTimerDisabled;
+			_idleTimerPolicyRestored = UIApplication.sharedApplication.idleTimerDisabled == _previousIdleTimerDisabled;
+		}
 		[_privacyCover removeFromSuperview];
 		_privacyCover = nil;
 		self.eventHandler = nil;
@@ -801,6 +813,9 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 		@"foreground": @(_foreground), @"quarantined": @(_quarantined),
 		@"privacyCoverVisible": @(_privacyCover != nil), @"pendingForegroundLoss": @(_pendingForegroundLoss),
 		@"privacyCoverCount": @(_privacyCoverCount),
+		@"idleTimerPolicyCaptured": @(_idleTimerPolicyCaptured), @"idleTimerPolicyRestored": @(_idleTimerPolicyRestored),
+		@"previousIdleTimerDisabled": @(_previousIdleTimerDisabled), @"idleTimerDisabledAfterSetup": @(_idleTimerDisabledAfterSetup),
+		@"idleTimerDisabled": @(UIApplication.sharedApplication.idleTimerDisabled),
 		@"renderingLayerClass": _renderingLayerClass ?: @"", @"reinitializationQualified": @NO,
 		@"kmpFactoryQualified": @NO
 	};

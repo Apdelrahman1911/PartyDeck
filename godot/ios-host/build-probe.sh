@@ -122,7 +122,10 @@ defined = {
     if len(fields := line.split()) >= 3 and fields[-2] in {"T", "S", "D", "B", "R"}
 }
 for required in ("__Z19apple_embedded_mainiPPc", "__Z21apple_embedded_finishv",
-                 "_OBJC_CLASS_$_PDGodotHostViewController", "_OBJC_CLASS_$_PDGodotRuntime"):
+                 "_OBJC_CLASS_$_PDGodotHostViewController", "_OBJC_CLASS_$_PDGodotRuntime",
+                 "_SDL_IsIPad", "_SDL_IsAppleTV",
+                 "__Z39godot_apple_embedded_plugins_initializev",
+                 "__Z41godot_apple_embedded_plugins_deinitializev"):
     if required not in defined:
         raise SystemExit(f"The compiled archive is missing a defined native probe symbol: {required}")
 PY
