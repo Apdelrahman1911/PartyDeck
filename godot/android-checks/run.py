@@ -13,7 +13,7 @@ import time
 import zipfile
 
 from evidence import (
-    CheckFailure, HostTrace, Rect, accepted_intent, active, completed_teardown, concealed,
+    CheckFailure, HostTrace, Rect, accepted_intent, active, completed_diagnostics, completed_teardown, concealed,
     control_named, counter, healthy, local_transition, parse_document, read_png, require,
     require_rendered_pixels, scroll_gesture, touch_point, validate_host,
 )
@@ -32,6 +32,7 @@ EXIT_SECONDS = 25
 CLEANUP_SECONDS = 180
 MAX_SCROLLS = 16
 MAX_MATCH_ACTIONS = 300
+MAX_PENDING_DIAGNOSTIC_REFRESHES = 4
 REFERENCE_COUNTS = {"play": 2, "challenge": 2, "advance_round": 13}
 
 # Reuse the checked device preparation/dump/input helpers without editing the
@@ -346,19 +347,44 @@ class Qualification:
             time.sleep(min(0.2, max(0, deadline - time.monotonic())))
         raise CheckFailure(f"{self.device.stage}: {description} within {seconds} seconds.")
 
+    def wait_applied_diagnostics(self, description, predicate=lambda _: True, seconds=ACTION_SECONDS,
+                                 request_after=-1, sequence_after=-1):
+        # Keep the original observation window. Any follow-up UI acquisition
+        # and adb command share it through Device.timeout as well.
+        stage_deadline = self.device.deadline
+        deadline = min(time.monotonic() + seconds, stage_deadline)
+        self.device.deadline = deadline
+        try:
+            for followups in range(MAX_PENDING_DIAGNOSTIC_REFRESHES + 1):
+                value = self.wait_host(description, lambda item: completed_diagnostics(item)
+                                       and counter(item["diagnostics"]["requestId"], "request") > request_after
+                                       and counter(item["diagnostics"]["sequence"], "sequence") > sequence_after
+                                       and (not item["diagnostics"]["sceneStateApplied"] or predicate(item)),
+                                       seconds=seconds)
+                remaining = deadline - time.monotonic()
+                require(remaining > 0, f"{self.device.stage}: {description} within {seconds} seconds.")
+                if active(value):
+                    return value
+                require(followups < MAX_PENDING_DIAGNOSTIC_REFRESHES,
+                        "Scene application remained pending after the bounded diagnostic responses.")
+                # Only a newer, matching, healthy pending response permits a
+                # follow-up. Stale/missing replies and unmet applied-state
+                # predicates stay in wait_host and never cause another tap.
+                request_after = counter(value["diagnostics"]["requestId"], "request")
+                sequence_after = counter(value["diagnostics"]["sequence"], "sequence")
+                self.device.native_tap("refresh_diagnostics", seconds=remaining)
+        finally:
+            self.device.deadline = stage_deadline
+
     def refresh(self, description, predicate=lambda _: True, after=None):
-        ready = self.wait_host("Expected a current completed diagnostic response", active)
+        ready = self.wait_host("Expected a current completed diagnostic response", completed_diagnostics)
         old = after or ready
         requested = max(counter(ready["diagnostics"]["requestId"], "request"),
                         counter(old["diagnostics"]["requestId"], "request"))
         sequence = max(counter(ready["diagnostics"]["sequence"], "sequence"),
                        counter(old["diagnostics"]["sequence"], "sequence"))
-        # Exactly one visible native request; no blind repeated Refresh tapping.
         self.device.native_tap("refresh_diagnostics")
-        return self.wait_host(description, lambda value: active(value)
-                              and counter(value["diagnostics"]["requestId"], "request") > requested
-                              and counter(value["diagnostics"]["sequence"], "sequence") > sequence
-                              and predicate(value))
+        return self.wait_applied_diagnostics(description, predicate, request_after=requested, sequence_after=sequence)
 
     def setup(self, apk, font_scale):
         self.device.deadline = time.monotonic() + SETUP_SECONDS
@@ -427,7 +453,7 @@ class Qualification:
             time.sleep(min(0.2, max(0, deadline - time.monotonic())))
         require(self.trace is not None, "The native chooser did not create fresh host evidence within the entry bound.")
         remaining = max(0.01, deadline - time.monotonic())
-        value = self.wait_host("Expected actual native setup, Ready, first view and frame delivery", active, seconds=remaining)
+        value = self.wait_applied_diagnostics("Expected actual native setup, Ready, first view and frame delivery", seconds=remaining)
         require(value["capturePolicy"] == "recents_disabled", "The native host did not disable Recents screenshots.")
         require(concealed(value["diagnostics"]), "New presentation retained a private face, label or selection.")
         require(value["publicState"]["canPlay"] and value["publicState"]["viewerHandCount"] == 5,

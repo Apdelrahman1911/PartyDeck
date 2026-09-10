@@ -215,6 +215,231 @@ class DriverReplayTest(unittest.TestCase):
         value.chooser_pid = 999
         return value
 
+    def response_trace(self, initial, responses):
+        qualification = self.qualification(initial)
+        observations = [initial] + responses
+
+        def read_host(allow_missing=False):
+            value = observations[min(len(qualification.device.taps), len(observations) - 1)]
+            if isinstance(value, Exception):
+                raise value
+            return copy.deepcopy(value)
+
+        qualification.device.read_host = read_host
+        return qualification
+
+    def entry_trace(self, initial, response):
+        qualification = self.qualification(initial)
+        qualification.mode_result = {}
+        native_tap = qualification.device.native_tap
+
+        def launch_or_refresh(tag, **kwargs):
+            if tag.startswith("launch_"):
+                qualification.device.engine_alive = True
+            native_tap(tag, **kwargs)
+
+        qualification.device.native_tap = launch_or_refresh
+        qualification.device.read_host = lambda allow_missing=False: copy.deepcopy(
+            response if "refresh_diagnostics" in qualification.device.taps else initial)
+        return qualification
+
+    def test_entry_pending_response_can_be_observed_without_relaxing_ready_or_scene_gates(self):
+        pending = host()
+        pending["diagnostics"]["sceneStateApplied"] = False
+        applied = refreshed()
+        qualification = self.entry_trace(pending, applied)
+        with mock.patch.object(runner, "EngineLog"):
+            value = qualification.enter("2d", "pending-entry")
+        self.assertEqual(value, applied)
+        self.assertTrue(active(value))
+        self.assertEqual(qualification.device.taps, ["launch_2d", "refresh_diagnostics"])
+        self.assertEqual(qualification.device.deadline, 60)
+        local_transition(pending, value)
+
+    def test_entry_pending_followup_preserves_the_original_entry_deadline(self):
+        pending = host()
+        pending["diagnostics"]["sceneStateApplied"] = False
+        qualification = self.entry_trace(pending, refreshed())
+        read_host = qualification.device.read_host
+        observations = 0
+
+        def delayed_entry(allow_missing=False):
+            nonlocal observations
+            observations += 1
+            if observations == 2:
+                self.clock.sleep(44.7)
+            return read_host(allow_missing)
+
+        qualification.device.read_host = delayed_entry
+        with mock.patch.object(runner, "EngineLog"), self.assertRaisesRegex(CheckFailure, "within 44.9 seconds"):
+            qualification.enter("2d", "pending-entry")
+        self.assertEqual(qualification.device.taps, ["launch_2d", "refresh_diagnostics"])
+        self.assertLessEqual(self.clock.now, 45.3)
+        self.assertEqual(qualification.device.deadline, 60)
+
+    def test_saved_pending_response_can_request_one_fresh_applied_observation(self):
+        initial = host()
+        initial["diagnostics"]["sceneStateApplied"] = False
+        qualification = self.response_trace(initial, [refreshed()])
+        value = qualification.refresh("applied scene")
+        self.assertTrue(active(value))
+        self.assertEqual(qualification.device.taps, ["refresh_diagnostics"])
+        self.assertEqual(qualification.device.deadline, 60)
+        local_transition(initial, value)
+
+    def test_matching_pending_response_permits_only_an_observation_followup(self):
+        initial = host()
+        pending = refreshed(initial)
+        pending["diagnostics"]["sceneStateApplied"] = False
+        applied = refreshed(pending)
+        applied["diagnostics"]["sceneStateApplied"] = True
+        qualification = self.response_trace(initial, [pending, applied])
+        value = qualification.refresh("applied scene")
+        self.assertEqual(value, applied)
+        self.assertEqual(qualification.device.taps, ["refresh_diagnostics"] * 2)
+        self.assertEqual(qualification.device.deadline, 60)
+        local_transition(initial, value)
+        observed = [json.loads(line) for line in (self.output / "host-observations.log").read_text().splitlines()]
+        self.assertIn(pending, observed)
+        self.assertEqual(observed[-1], applied)
+
+    def test_replayed_pending_response_cannot_trigger_another_followup(self):
+        pending = refreshed()
+        pending["diagnostics"]["sceneStateApplied"] = False
+        qualification = self.response_trace(host(), [pending, pending])
+        with self.assertRaisesRegex(CheckFailure, "within 30 seconds"):
+            qualification.refresh("applied scene")
+        self.assertEqual(qualification.device.taps, ["refresh_diagnostics"] * 2)
+        self.assertLessEqual(self.clock.now, 30.3)
+        self.assertEqual(qualification.device.deadline, 60)
+
+    def test_missing_stale_or_unready_pending_evidence_never_permits_a_followup(self):
+        for defect in ("missing_diagnostic", "request", "sequence", "revision", "cover", "foreground_frame"):
+            with self.subTest(defect=defect):
+                self.clock.now = 0
+                pending = refreshed()
+                pending["diagnostics"]["sceneStateApplied"] = False
+                if defect == "missing_diagnostic":
+                    del pending["diagnostics"]
+                elif defect == "request":
+                    pending["diagnostics"]["requestId"] = "1"
+                elif defect == "sequence":
+                    pending["diagnostics"]["sequence"] = "0"
+                elif defect == "revision":
+                    pending["revision"] = "1"
+                elif defect == "cover":
+                    pending["coverVisible"] = True
+                else:
+                    pending["foregroundFrameReady"] = False
+                qualification = self.response_trace(host(), [pending])
+                with self.assertRaisesRegex(CheckFailure, "within 30 seconds"):
+                    qualification.refresh("applied scene")
+                self.assertEqual(qualification.device.taps, ["refresh_diagnostics"])
+                self.assertLessEqual(self.clock.now, 30.3)
+                self.assertEqual(qualification.device.deadline, 60)
+
+    def test_missing_saved_response_does_not_start_diagnostic_tapping(self):
+        initial = host()
+        del initial["diagnostics"]
+        qualification = self.response_trace(initial, [])
+        with self.assertRaisesRegex(CheckFailure, "within 30 seconds"):
+            qualification.refresh("applied scene")
+        self.assertEqual(qualification.device.taps, [])
+
+    def test_native_timeout_wrong_lifetime_or_missing_file_is_not_retried(self):
+        for defect in ("timeout", "lifetime", "file"):
+            with self.subTest(defect=defect):
+                pending = refreshed()
+                pending["diagnostics"]["sceneStateApplied"] = False
+                if defect == "timeout":
+                    pending["diagnosticsTimedOut"] = True
+                    error = "diagnostic request timed out"
+                elif defect == "lifetime":
+                    pending["enginePid"] = 4321
+                    error = "another native lifetime"
+                else:
+                    pending = CheckFailure("Could not read the real app-private host evidence")
+                    error = "Could not read"
+                qualification = self.response_trace(host(), [pending])
+                with self.assertRaisesRegex(CheckFailure, error):
+                    qualification.refresh("applied scene")
+                self.assertEqual(qualification.device.taps, ["refresh_diagnostics"])
+                self.assertEqual(qualification.device.deadline, 60)
+
+    def test_applied_response_must_still_satisfy_the_original_observation_predicate(self):
+        pending = refreshed()
+        pending["diagnostics"]["sceneStateApplied"] = False
+        applied = refreshed(pending)
+        applied["diagnostics"].update(sceneStateApplied=True, privateFaceCount=1)
+        qualification = self.response_trace(host(), [pending, applied])
+        with self.assertRaisesRegex(CheckFailure, "within 30 seconds"):
+            qualification.refresh("concealed scene", lambda item: concealed(item["diagnostics"]))
+        self.assertEqual(qualification.device.taps, ["refresh_diagnostics"] * 2)
+        self.assertLessEqual(self.clock.now, 30.3)
+
+    def test_distinct_pending_responses_have_a_finite_request_bound(self):
+        observations = []
+        value = host()
+        for _ in range(runner.MAX_PENDING_DIAGNOSTIC_REFRESHES + 1):
+            value = refreshed(value)
+            value["diagnostics"]["sceneStateApplied"] = False
+            observations.append(value)
+        qualification = self.response_trace(host(), observations)
+        with self.assertRaisesRegex(CheckFailure, "bounded diagnostic responses"):
+            qualification.refresh("applied scene")
+        self.assertEqual(qualification.device.taps,
+                         ["refresh_diagnostics"] * (runner.MAX_PENDING_DIAGNOSTIC_REFRESHES + 1))
+        self.assertLess(self.clock.now, 30)
+        self.assertEqual(qualification.device.deadline, 60)
+
+    def test_followup_cannot_reset_the_original_response_deadline(self):
+        pending = refreshed()
+        pending["diagnostics"]["sceneStateApplied"] = False
+        applied = refreshed(pending)
+        applied["diagnostics"]["sceneStateApplied"] = True
+        qualification = self.response_trace(host(), [pending, applied])
+        read_host = qualification.device.read_host
+
+        def delayed_response(allow_missing=False):
+            if len(qualification.device.taps) == 1:
+                self.clock.sleep(29.8)
+            return read_host(allow_missing)
+
+        qualification.device.read_host = delayed_response
+        budgets = []
+        native_tap = qualification.device.native_tap
+
+        def record_budget(tag, **kwargs):
+            budgets.append((qualification.device.deadline, kwargs.get("seconds")))
+            native_tap(tag, **kwargs)
+
+        qualification.device.native_tap = record_budget
+        with self.assertRaisesRegex(CheckFailure, "within 30 seconds"):
+            qualification.refresh("applied scene")
+        self.assertEqual(qualification.device.taps, ["refresh_diagnostics"] * 2)
+        self.assertAlmostEqual(budgets[1][0], 30.1)
+        self.assertLessEqual(budgets[1][1], 0.11)
+        self.assertLessEqual(self.clock.now, 30.3)
+        self.assertEqual(qualification.device.deadline, 60)
+
+    def test_pending_response_at_expired_deadline_cannot_trigger_a_followup(self):
+        pending = refreshed()
+        pending["diagnostics"]["sceneStateApplied"] = False
+        qualification = self.response_trace(host(), [pending])
+        read_host = qualification.device.read_host
+
+        def late_response(allow_missing=False):
+            if qualification.device.taps:
+                self.clock.sleep(30)
+            return read_host(allow_missing)
+
+        qualification.device.read_host = late_response
+        with self.assertRaisesRegex(CheckFailure, "within 30 seconds"):
+            qualification.refresh("applied scene")
+        self.assertEqual(qualification.device.taps, ["refresh_diagnostics"])
+        self.assertLessEqual(self.clock.now, 30.3)
+        self.assertEqual(qualification.device.deadline, 60)
+
     def test_fresh_correlated_response_follows_one_visible_native_request(self):
         qualification = self.qualification(refreshed())
         value = qualification.refresh("fresh response")

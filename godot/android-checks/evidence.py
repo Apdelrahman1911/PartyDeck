@@ -322,7 +322,8 @@ def healthy(value):
             "The real bridge or authority rejected a renderer submission.")
 
 
-def active(value):
+def completed_diagnostics(value):
+    # A matching native response can precede the scene's next state application.
     diagnostic = value.get("diagnostics")
     surface = value.get("engineSurface")
     return (value["lifecycle"] == "active" and all(value[name] for name in (
@@ -330,11 +331,15 @@ def active(value):
         and not value["coverVisible"] and not value["bridgeClosed"]
         and counter(value["receivedEvents"], "received events") > 0
         and counter(value["submittedCommands"], "submitted commands") > 0
-        and diagnostic is not None and diagnostic["foreground"] and diagnostic["sceneStateApplied"]
+        and diagnostic is not None and diagnostic["foreground"]
         and surface is not None and surface["width"] > 0 and surface["height"] > 0
         and diagnostic["requestId"] == value["diagnosticsRequested"]
         and diagnostic["revision"] == value["revision"]
         and counter(diagnostic["requestId"], "request ID") > 0)
+
+
+def active(value):
+    return completed_diagnostics(value) and value["diagnostics"]["sceneStateApplied"]
 
 
 class HostTrace:
