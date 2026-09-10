@@ -11,7 +11,17 @@ cd "$PARTYDECK_ROOT"
 PARTYDECK_IOS_OUTPUT="$PARTYDECK_ROOT/build/ci/ios"
 mkdir -p "$PARTYDECK_IOS_OUTPUT"
 
-# CI runs this after Debug XCTest succeeds and its evidence upload is attempted.
+# Reuse explicitly supplied, receipt-checked native artifacts, or build this variant.
+# The PCK must already be exported from the current shared renderer sources.
+PARTYDECK_IOS_GODOT_PACK="${PARTYDECK_IOS_GODOT_PACK:-$PARTYDECK_ROOT/godot/qualification/build/renderer/partydeck-last-light.pck}"
+python3 godot/tools/renderer.py check-pack --pack "$PARTYDECK_IOS_GODOT_PACK"
+if [[ -z "${PARTYDECK_IOS_DEVICE_GODOT_ENGINE_ROOT:-}" ]]; then
+  bash godot/ios-host/build-probe.sh engine device-release
+  PARTYDECK_IOS_DEVICE_GODOT_ENGINE_ROOT="$PARTYDECK_ROOT/godot/ios-host/build/device-release"
+fi
+PARTYDECK_IOS_GODOT_LINK_MAP="$PARTYDECK_IOS_OUTPUT/PartyDeck-Release-iphoneos-LinkMap-arm64.txt"
+
+# CI runs this in parallel with Simulator validation after the shared pack is ready.
 # Release includes optimized Kotlin/Swift and device-only scanner/native code.
 xcodebuild build \
   -project iosApp/PartyDeck.xcodeproj \
@@ -21,6 +31,9 @@ xcodebuild build \
   -destination 'generic/platform=iOS' \
   -derivedDataPath "$PARTYDECK_IOS_OUTPUT/DeviceDerivedData" \
   -clonedSourcePackagesDirPath "$PARTYDECK_IOS_OUTPUT/SourcePackages" \
+  PARTYDECK_GODOT_ENGINE_ROOT="$PARTYDECK_IOS_DEVICE_GODOT_ENGINE_ROOT" \
+  PARTYDECK_GODOT_PACK="$PARTYDECK_IOS_GODOT_PACK" \
+  PARTYDECK_GODOT_LINK_MAP="$PARTYDECK_IOS_GODOT_LINK_MAP" \
   CODE_SIGNING_ALLOWED=NO \
   LD_GENERATE_MAP_FILE=YES \
   2>&1 | tee "$PARTYDECK_IOS_OUTPUT/xcodebuild-device.log"
@@ -33,5 +46,10 @@ if ":composeApp:linkReleaseFrameworkIosArm64" not in Path(sys.argv[1]).read_text
 PY
 PARTYDECK_DEVICE_APP="$PARTYDECK_IOS_OUTPUT/DeviceDerivedData/Build/Products/Release-iphoneos/PartyDeck.app"
 test -d "$PARTYDECK_DEVICE_APP"
+python3 scripts/prepare-ios-godot.py verify-app \
+  --app "$PARTYDECK_DEVICE_APP" \
+  --inputs "$PARTYDECK_IOS_OUTPUT/DeviceDerivedData/Build/Products/Release-iphoneos/PartyDeckGodotInputs/inputs.json" \
+  --link-map "$PARTYDECK_IOS_GODOT_LINK_MAP" \
+  --output "$PARTYDECK_IOS_OUTPUT/godot-production-link-Release-iphoneos.json"
 tar -czf "$PARTYDECK_IOS_OUTPUT/PartyDeck-device-unsigned.app.tar.gz" \
   -C "$(dirname -- "$PARTYDECK_DEVICE_APP")" PartyDeck.app

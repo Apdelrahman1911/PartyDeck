@@ -64,7 +64,7 @@ static const BOOL PDSDLEnabled = NO;
 
 // This lifecycle is audited for the frozen trusted content, including its
 // imported resources. A different pack requires a new content/source review.
-static NSString *const PDQualifiedRetainedPackSHA256 = @"0440dc8a1e099031eb7e0a08304411908e8580f932673599f149d2088c0e7afe";
+static NSString *const PDQualifiedRetainedPackSHA256 = @"8f24944d61b0430cfec4a32bb1d03d2c7da9f55918264e9cfcded1c675d21539";
 
 static NSString *PDPackSHA256(NSString *path) {
 	NSDictionary *attributes = [NSFileManager.defaultManager attributesOfItemAtPath:path error:nil];
@@ -1848,9 +1848,9 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 			[self quarantineRetained:@"RETAINED_SERVICE_SUSPENSION_FAILED"];
 			return;
 		}
-		OS_AppleEmbedded::get_singleton()->delete_main_loop();
+		OS_AppleEmbedded::get_singleton()->partydeck_delete_main_loop();
 		SceneTree *freshTree = memnew(SceneTree);
-		OS_AppleEmbedded::get_singleton()->set_main_loop(freshTree);
+		OS_AppleEmbedded::get_singleton()->partydeck_set_main_loop(freshTree);
 		PDConfigureFreshTree(freshTree);
 		freshTree->initialize();
 		_emptyTree = YES;

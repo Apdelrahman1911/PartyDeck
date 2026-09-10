@@ -51,8 +51,10 @@ reinitialization, secure heap/GPU erasure or a shipping KMP factory.
    Scene/GPU teardown requires an active application and the retained native
    EAGL context; a background close covers and stops services immediately, then
    waits for activation before issuing OpenGL work.
-3. Use the pinned `OS_AppleEmbedded::delete_main_loop()` to finalize and delete
-   the complete old SceneTree. Immediately install and initialize an empty fresh
+3. Use the maintained [iOS-only main-loop access wrappers](patches/main-loop-access.patch)
+   to call the pinned private `OS_AppleEmbedded` delete/set operations. Finalize
+   and delete the complete old SceneTree before constructing its replacement.
+   Immediately install and initialize an empty fresh
    SceneTree with the same fixed root-window settings and native-owned quit
    policy. The native view/layer stays alive and registered with the display
    server. There is no null-main-loop interval across asynchronous turns.

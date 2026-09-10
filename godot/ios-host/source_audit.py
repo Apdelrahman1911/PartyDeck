@@ -13,12 +13,18 @@ TAG = "4.7.2-stable"
 COMMIT = "ed1daf0bf001b61586d9930840f2f1394092c079"
 REPOSITORY = "https://github.com/godotengine/godot.git"
 ROOT = Path(__file__).resolve().parent
-PATCH_FILES = {
-    "drivers/coreaudio/audio_driver_coreaudio.h",
-    "drivers/coreaudio/audio_driver_coreaudio.mm",
-    "servers/audio/audio_server.h",
-    "servers/audio/audio_server.cpp",
+PATCH_FILES_BY_NAME = {
+    "coreaudio-dormancy": {
+        "drivers/coreaudio/audio_driver_coreaudio.h",
+        "drivers/coreaudio/audio_driver_coreaudio.mm",
+        "servers/audio/audio_server.h",
+        "servers/audio/audio_server.cpp",
+    },
+    "main-loop-access": {
+        "drivers/apple_embedded/os_apple_embedded.h",
+    },
 }
+PATCH_FILES = set().union(*PATCH_FILES_BY_NAME.values())
 
 SOURCES = {
     "SConstruct": ["Library builds unsupported", 'env.Append(CPPDEFINES=["LIBGODOT_ENABLED"])', '"disable_path_overrides"', 'env.Append(CPPDEFINES=["OVERRIDE_PATH_ENABLED"])', 'BoolVariable("sdl", "Enable the SDL3 input driver", True)'],
@@ -39,6 +45,8 @@ SOURCES = {
     "drivers/apple_embedded/display_server_apple_embedded.mm": ["GDTAppDelegateService.viewController.godotView", "initializeRenderingForDriver", "screen_set_keep_on(keep_screen_on)", "[UIApplication sharedApplication].idleTimerDisabled = p_enable;", "* screen_get_max_scale()", "return screen_get_scale(DisplayServerEnums::SCREEN_OF_MAIN_WINDOW);"],
     "platform/ios/display_server_ios.mm": ["float DisplayServerIOS::screen_get_scale(int p_screen) const", "return [UIScreen mainScreen].scale;"],
     "drivers/apple_embedded/godot_view_renderer.mm": ["Main::setup2()", "OS_AppleEmbedded::get_singleton()->start()", "OS_AppleEmbedded::get_singleton()->iterate()"],
+    "core/os/os.h": ["friend class Main;", "virtual void set_main_loop(MainLoop *p_main_loop) = 0;", "virtual void delete_main_loop() = 0;"],
+    "drivers/apple_embedded/os_apple_embedded.h": ["virtual void set_main_loop(MainLoop *p_main_loop) override;", "virtual void delete_main_loop() override;", "static OS_AppleEmbedded *get_singleton();"],
     "drivers/apple_embedded/os_apple_embedded.mm": ["main_loop->initialize()", "audio_driver.stop()", "audio_driver.start()", "handle_application_pause", "void OS_AppleEmbedded::delete_main_loop()", "main_loop = nullptr;", "#ifdef SDL_ENABLED"],
     "scene/main/scene_tree.cpp": ["void SceneTree::initialize()", "void SceneTree::finalize()", "SceneTree::~SceneTree()", "timers.clear();", "tweens.clear();"],
     "scene/main/window.cpp": ["MAIN_WINDOW_ID", "window_set_input_event_callback"],
@@ -66,44 +74,53 @@ def regular_file(path: Path) -> bytes:
     return path.read_bytes()
 
 
-def patch_inventory(source: Path, apply_patches: bool) -> dict:
-    manifest_path = ROOT / "patches/coreaudio-dormancy.json"
-    manifest_bytes = regular_file(manifest_path)
-    manifest = json.loads(manifest_bytes)
-    if (manifest.get("schemaVersion") != 1 or manifest.get("baseCommit") != COMMIT
-            or manifest.get("baseVersion") != TAG or manifest.get("patchFile") != "coreaudio-dormancy.patch"):
-        raise RuntimeError("The maintained audio patch does not identify this pinned engine.")
-    patch_path = manifest_path.parent / manifest["patchFile"]
-    if sha256(regular_file(patch_path)) != manifest.get("patchSha256"):
-        raise RuntimeError("The maintained audio patch differs from its provenance.")
-    files = manifest.get("files", [])
-    if len(files) != len(PATCH_FILES) or {item.get("path") for item in files} != PATCH_FILES:
-        raise RuntimeError("Only the four reviewed audio files may be patched.")
-    for item in files:
-        original = subprocess.check_output(["git", "-C", str(source), "show", f"HEAD:{item['path']}"])
-        if sha256(original) != item.get("originalSha256"):
-            raise RuntimeError(f"The patch's pristine source differs: {item['path']}")
+def patch_inventory(source: Path, apply_patches: bool) -> list:
     changed = set(subprocess.check_output(["git", "-c", "core.filemode=true", "-C", str(source), "diff", "--name-only", "HEAD", "--"], text=True).splitlines())
     if changed - PATCH_FILES:
         raise RuntimeError(f"Unexpected tracked upstream modifications: {sorted(changed - PATCH_FILES)}")
-    current = {item["path"]: sha256(regular_file(source / item["path"])) for item in files}
-    pristine = all(current[item["path"]] == item["originalSha256"] for item in files)
-    patched = all(current[item["path"]] == item["patchedSha256"] for item in files)
-    if not pristine and not patched:
-        raise RuntimeError("The audio source is neither pristine nor the complete reviewed patch.")
-    if apply_patches and pristine:
+    inventories = []
+    for name, expected_files in PATCH_FILES_BY_NAME.items():
+        manifest_path = ROOT / "patches" / f"{name}.json"
+        manifest_bytes = regular_file(manifest_path)
+        manifest = json.loads(manifest_bytes)
+        if (manifest.get("schemaVersion") != 1 or manifest.get("baseCommit") != COMMIT
+                or manifest.get("baseVersion") != TAG or manifest.get("patchFile") != f"{name}.patch"
+                or manifest.get("platformGuard") != "IOS_ENABLED"):
+            raise RuntimeError(f"The maintained {name} patch does not identify this pinned iOS engine.")
+        patch_path = manifest_path.parent / manifest["patchFile"]
+        if sha256(regular_file(patch_path)) != manifest.get("patchSha256"):
+            raise RuntimeError(f"The maintained {name} patch differs from its provenance.")
+        files = manifest.get("files", [])
+        if len(files) != len(expected_files) or {item.get("path") for item in files} != expected_files:
+            raise RuntimeError(f"Only the reviewed {name} files may be patched.")
+        for item in files:
+            original = subprocess.check_output(["git", "-C", str(source), "show", f"HEAD:{item['path']}"])
+            if sha256(original) != item.get("originalSha256"):
+                raise RuntimeError(f"The patch's pristine source differs: {item['path']}")
+        current = {item["path"]: sha256(regular_file(source / item["path"])) for item in files}
+        pristine = all(current[item["path"]] == item["originalSha256"] for item in files)
+        patched = all(current[item["path"]] == item["patchedSha256"] for item in files)
+        if not pristine and not patched:
+            raise RuntimeError(f"The {name} source is neither pristine nor the complete reviewed patch.")
+        inventories.append(({
+            "name": name, "base_commit": COMMIT,
+            "patch_sha256": manifest["patchSha256"], "manifest_sha256": sha256(manifest_bytes),
+            "applied": patched, "files": files,
+        }, patch_path, pristine))
+    if apply_patches and any(pristine for _, _, pristine in inventories):
         if source == (ROOT / "build/upstream").resolve():
             raise RuntimeError("The shared build/upstream checkout is a read-only reference; patch an isolated engine checkout.")
-        subprocess.run(["git", "-C", str(source), "apply", "--check", "--whitespace=error", str(patch_path)], check=True)
-        subprocess.run(["git", "-C", str(source), "apply", "--whitespace=error", str(patch_path)], check=True)
-        patched = all(sha256(regular_file(source / item["path"])) == item["patchedSha256"] for item in files)
-        if not patched:
-            raise RuntimeError("Applying the reviewed audio patch did not produce the exact recorded bytes.")
-    return {
-        "name": "coreaudio-dormancy", "base_commit": COMMIT,
-        "patch_sha256": manifest["patchSha256"], "manifest_sha256": sha256(manifest_bytes),
-        "applied": patched, "files": files,
-    }
+        # Validate every requested patch before changing the isolated checkout.
+        for _, patch_path, pristine in inventories:
+            if pristine:
+                subprocess.run(["git", "-C", str(source), "apply", "--check", "--whitespace=error", str(patch_path)], check=True)
+        for receipt, patch_path, pristine in inventories:
+            if pristine:
+                subprocess.run(["git", "-C", str(source), "apply", "--whitespace=error", str(patch_path)], check=True)
+                receipt["applied"] = all(sha256(regular_file(source / item["path"])) == item["patchedSha256"] for item in receipt["files"])
+                if not receipt["applied"]:
+                    raise RuntimeError(f"Applying the reviewed {receipt['name']} patch did not produce the exact recorded bytes.")
+    return [receipt for receipt, _, _ in inventories]
 
 
 def inspect(source: Path, apply_patches: bool = False, require_pristine: bool = False, require_no_untracked: bool = False) -> dict:
@@ -118,8 +135,8 @@ def inspect(source: Path, apply_patches: bool = False, require_pristine: bool = 
     untracked = subprocess.check_output(untracked_args).decode().rstrip("\0").split("\0")
     if untracked != [""]:
         raise RuntimeError(f"Unexpected untracked upstream inputs: {untracked[:20]}")
-    patch = patch_inventory(source, apply_patches)
-    if require_pristine and patch["applied"]:
+    patches = patch_inventory(source, apply_patches)
+    if require_pristine and any(patch["applied"] for patch in patches):
         raise RuntimeError("The shared engine reference must remain pristine.")
     findings = []
     for relative, required in SOURCES.items():
@@ -143,7 +160,7 @@ def inspect(source: Path, apply_patches: bool = False, require_pristine: bool = 
         "ios_native_surface": "internal_GDTView_source_candidate",
         "ios_runtime_executed": False,
         "kmp_factory_qualified": False,
-        "upstream_patches": [patch],
+        "upstream_patches": patches,
         "required_template_option": "disable_path_overrides=no",
         "exported_apple_plugins": [],
         "required_input_option": "sdl=no",

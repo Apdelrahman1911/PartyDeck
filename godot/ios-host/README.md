@@ -53,8 +53,11 @@ screen sleep.
 The earlier terminal gate used unmodified upstream source. The current engine
 checkpoint applies the separately reviewed [four-file CoreAudio patch](patches/README.md)
 for actual stop/callback observations and retirement of closed WAV playbacks.
-Its deterministic patch and pristine/patched hashes are retained with every
-build. This host remains coupled to iOS bootstrap, the global view lookup, the
+The separate [iOS main-loop access patch](patches/main-loop-access.patch) adds
+two inline wrappers around the existing private virtual delete/set operations;
+the native owner deletes the old SceneTree before constructing and installing
+its replacement. Both patches and their pristine/patched hashes are retained
+with every build. This host remains coupled to iOS bootstrap, the global view lookup, the
 private draw selector and controller policy. The open native-window proposal
 is not an API available in this release.
 
@@ -109,10 +112,24 @@ export DEVELOPER_DIR=/Applications/Xcode_26.4.1.app/Contents/Developer
 bash godot/ios-host/build-probe.sh engine
 ```
 
+The default variant is `simulator-debug`. Build the separate optimized ARM64
+device archives with `bash godot/ios-host/build-probe.sh engine device-release`.
+Its artifacts, evidence, engine checkout, module snapshot and object cache live
+under `build/device-release`; the Simulator paths stay unchanged. Both variants
+use the pinned Compatibility renderer and explicit `lto=none`. Receipts identify
+the actual target and SDK. The device archive is compilation evidence and does
+not qualify physical-device behavior or signing.
+
+The manual **Godot iOS embedding probe** workflow offers the same `variant`
+choice. Separate runners can compile the variants in parallel; invocations
+sharing one checkout are serialized. Native XCTest execution currently requires
+`simulator-debug`, so the builder rejects `test device-release`.
+
 The wrapper verifies a pristine reference at the exact Git commit and creates
 a fresh isolated engine checkout for every invocation. It rejects untracked
 inputs, including ignored configuration/source files, then applies only the
-four reviewed audio-file changes. It captures the exact native module files in
+four reviewed audio-file changes and the iOS main-loop access header change.
+It captures the exact native module files in
 an immutable snapshot before compilation, installs the hash-pinned SCons 4.11.1
 wheel in its own virtual environment, and builds the
 ordinary iOS export-template static archive with the custom probe module and

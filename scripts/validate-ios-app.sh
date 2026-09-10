@@ -16,6 +16,16 @@ if [[ -e "$PARTYDECK_IOS_OUTPUT/PartyDeck.xcresult" ]]; then
   exit 1
 fi
 
+# Reuse explicitly supplied, receipt-checked native artifacts, or build this variant.
+# The PCK must already be exported from the current shared renderer sources.
+PARTYDECK_IOS_GODOT_PACK="${PARTYDECK_IOS_GODOT_PACK:-$PARTYDECK_ROOT/godot/qualification/build/renderer/partydeck-last-light.pck}"
+python3 godot/tools/renderer.py check-pack --pack "$PARTYDECK_IOS_GODOT_PACK"
+if [[ -z "${PARTYDECK_IOS_SIMULATOR_GODOT_ENGINE_ROOT:-}" ]]; then
+  bash godot/ios-host/build-probe.sh engine simulator-debug
+  PARTYDECK_IOS_SIMULATOR_GODOT_ENGINE_ROOT="$PARTYDECK_ROOT/godot/ios-host/build"
+fi
+PARTYDECK_IOS_GODOT_LINK_MAP="$PARTYDECK_IOS_OUTPUT/PartyDeck-Debug-iphonesimulator-LinkMap-arm64.txt"
+
 PARTYDECK_SIMULATOR_ID="$(python3 scripts/select-ios-simulator.py "$PARTYDECK_IOS_OUTPUT/simulator.json")"
 xcrun simctl bootstatus "$PARTYDECK_SIMULATOR_ID" -b
 
@@ -38,11 +48,19 @@ python3 scripts/run-ios-interop-tests.py \
   -derivedDataPath "$PARTYDECK_IOS_OUTPUT/DerivedData" \
   -clonedSourcePackagesDirPath "$PARTYDECK_IOS_OUTPUT/SourcePackages" \
   -resultBundlePath "$PARTYDECK_IOS_OUTPUT/PartyDeck.xcresult" \
+  PARTYDECK_GODOT_ENGINE_ROOT="$PARTYDECK_IOS_SIMULATOR_GODOT_ENGINE_ROOT" \
+  PARTYDECK_GODOT_PACK="$PARTYDECK_IOS_GODOT_PACK" \
+  PARTYDECK_GODOT_LINK_MAP="$PARTYDECK_IOS_GODOT_LINK_MAP" \
   CODE_SIGNING_ALLOWED=NO \
   LD_GENERATE_MAP_FILE=YES
 
 PARTYDECK_SIMULATOR_APP="$PARTYDECK_IOS_OUTPUT/DerivedData/Build/Products/Debug-iphonesimulator/PartyDeck.app"
 test -d "$PARTYDECK_SIMULATOR_APP"
+python3 scripts/prepare-ios-godot.py verify-app \
+  --app "$PARTYDECK_SIMULATOR_APP" \
+  --inputs "$PARTYDECK_IOS_OUTPUT/DerivedData/Build/Products/Debug-iphonesimulator/PartyDeckGodotInputs/inputs.json" \
+  --link-map "$PARTYDECK_IOS_GODOT_LINK_MAP" \
+  --output "$PARTYDECK_IOS_OUTPUT/godot-production-link-Debug-iphonesimulator.json"
 tar -czf "$PARTYDECK_IOS_OUTPUT/PartyDeck-simulator.app.tar.gz" \
   -C "$(dirname -- "$PARTYDECK_SIMULATOR_APP")" PartyDeck.app
 

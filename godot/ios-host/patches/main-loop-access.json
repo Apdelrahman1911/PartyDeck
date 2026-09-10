@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+  "baseVersion": "4.7.2-stable",
+  "upstreamRepository": "https://github.com/godotengine/godot",
+  "patchFile": "main-loop-access.patch",
+  "patchSha256": "896fe2da52c8d3e4f9d436c4d41808e5fbc567c268294baf898843c28dbbb3c6",
+  "platformGuard": "IOS_ENABLED",
+  "files": [
+    {
+      "path": "drivers/apple_embedded/os_apple_embedded.h",
+      "originalSha256": "c78457c745e3596edd355aaf2e23611a1f51c782ed25a701fb0d3e06dd3cd9e3",
+      "patchedSha256": "5b331a2008f22581320ec2301a269dcc6344814a3d985ffbb63df2107ba64dee",
+      "originalGitBlob": "d801a8652d63b31b2a24e037735314d7ad7a5117",
+      "patchedGitBlob": "b3e14db14a3a8d056948f3396227e1fc7a0a39cc"
+    }
+  ],
+  "validationScope": "Source access correction for observed Apple Clang errors. Wrapper calls preserve existing private virtual operations; Apple recompilation and retained runtime qualification remain pending."
+}

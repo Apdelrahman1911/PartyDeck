@@ -88,6 +88,10 @@ class IosAppHandle(
         if (!closed) controller.setSystemReduceMotion(value)
     }
 
+    fun setPresentationTextScale(value: Double) {
+        if (!closed) controller.setPresentationTextScale(value)
+    }
+
     /** Backgrounding only pauses the retained owner; this method ends it permanently. */
     fun close() {
         if (closed) return

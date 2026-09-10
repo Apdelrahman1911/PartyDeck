@@ -18,5 +18,6 @@ PARTYDECK_SIMULATOR_ID="$(python3 scripts/select-ios-simulator.py "$PARTYDECK_RO
   :session:iosSimulatorArm64Test --device "$PARTYDECK_SIMULATOR_ID" \
   :transport:iosSimulatorArm64Test --device "$PARTYDECK_SIMULATOR_ID" \
   :games:iosSimulatorArm64Test --device "$PARTYDECK_SIMULATOR_ID" \
+  :bridge:iosSimulatorArm64Test --device "$PARTYDECK_SIMULATOR_ID" \
   :composeApp:iosSimulatorArm64Test --device "$PARTYDECK_SIMULATOR_ID" \
   :composeApp:linkDebugFrameworkIosArm64

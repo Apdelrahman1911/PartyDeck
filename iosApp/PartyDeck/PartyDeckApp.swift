@@ -20,11 +20,17 @@ struct PartyDeckApp: App {
 private final class PartyDeckOwner: ObservableObject {
     let actions: NativeActions
     let handle: IosAppHandle
+    private let godotPort: GodotPresentationPort
+    private var godotRegistration: IosGodotRegistration?
     private var reduceMotionObserver: NSObjectProtocol?
+    private var contentSizeObserver: NSObjectProtocol?
 
     init() {
         actions = NativeActions()
         handle = IosAppHandle(transportFactory: IosLanTransportFactory(), nativeActions: actions)
+        godotPort = GodotPresentationPort(presenter: handle.viewController)
+        godotRegistration = handle.installGodotPort(port: godotPort)
+        godotPort.attachRegistration(godotRegistration)
         actions.presentingViewController = handle.viewController
         refreshAccessibility()
         reduceMotionObserver = NotificationCenter.default.addObserver(
@@ -34,10 +40,18 @@ private final class PartyDeckOwner: ObservableObject {
         ) { [weak self] _ in
             Task { @MainActor [weak self] in self?.refreshAccessibility() }
         }
+        contentSizeObserver = NotificationCenter.default.addObserver(
+            forName: UIContentSizeCategory.didChangeNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            Task { @MainActor [weak self] in self?.refreshAccessibility() }
+        }
     }
 
     func updateScenePhase(_ phase: ScenePhase) {
         let interactive = phase == .active
+        godotPort.setSceneLifecycle(foreground: interactive, backgrounded: phase == .background)
         actions.setForeground(interactive)
         handle.setForeground(value: interactive)
         handle.setBackgrounded(value: phase == .background)
@@ -46,21 +60,36 @@ private final class PartyDeckOwner: ObservableObject {
 
     func refreshAccessibility() {
         handle.setSystemReduceMotion(value: UIAccessibility.isReduceMotionEnabled)
+        let standardBody = UIFont.preferredFont(
+            forTextStyle: .body,
+            compatibleWith: UITraitCollection(preferredContentSizeCategory: .large)
+        ).pointSize
+        let preferredBody = UIFont.preferredFont(forTextStyle: .body).pointSize
+        handle.setPresentationTextScale(value: Double(preferredBody / standardBody))
     }
 
     deinit {
         if let reduceMotionObserver {
             NotificationCenter.default.removeObserver(reduceMotionObserver)
         }
+        if let contentSizeObserver {
+            NotificationCenter.default.removeObserver(contentSizeObserver)
+        }
         let retainedActions = actions
         let retainedHandle = handle
+        let retainedGodotPort = godotPort
+        let retainedGodotRegistration = godotRegistration
         if Thread.isMainThread {
-            retainedActions.close()
+            retainedGodotRegistration?.close()
             retainedHandle.close()
+            retainedGodotPort.shutdown()
+            retainedActions.close()
         } else {
             DispatchQueue.main.async {
-                retainedActions.close()
+                retainedGodotRegistration?.close()
                 retainedHandle.close()
+                retainedGodotPort.shutdown()
+                retainedActions.close()
             }
         }
     }

@@ -9,7 +9,7 @@ import shutil
 import subprocess
 import sys
 
-from source_audit import COMMIT, PATCH_FILES, TAG
+from source_audit import COMMIT, PATCH_FILES_BY_NAME, TAG
 
 
 ROOT = Path(__file__).resolve().parent
@@ -28,25 +28,27 @@ def file_receipt(path: Path) -> dict:
 
 
 def verify_engine_patch_receipt(engine: dict, patch_root: Path = ROOT / "patches") -> None:
-    manifest_path = patch_root / "coreaudio-dormancy.json"
-    manifest = json.loads(manifest_path.read_text())
-    if (manifest.get("schemaVersion") != 1 or manifest.get("baseCommit") != COMMIT
-            or manifest.get("baseVersion") != TAG or manifest.get("platformGuard") != "IOS_ENABLED"
-            or manifest.get("patchFile") != "coreaudio-dormancy.patch"):
-        raise SystemExit("The maintained audio patch does not identify the pinned iOS engine.")
-    files = manifest.get("files", [])
-    if len(files) != len(PATCH_FILES) or {item.get("path") for item in files} != PATCH_FILES:
-        raise SystemExit("The audio patch must contain exactly the four reviewed source files.")
-    if file_receipt(patch_root / manifest["patchFile"])["sha256"] != manifest.get("patchSha256"):
-        raise SystemExit("The maintained audio patch differs from its provenance.")
-    expected = [{
-        "name": "coreaudio-dormancy", "base_commit": COMMIT,
-        "patch_sha256": manifest["patchSha256"],
-        "manifest_sha256": file_receipt(manifest_path)["sha256"],
-        "applied": True, "files": files,
-    }]
+    expected = []
+    for name, expected_files in PATCH_FILES_BY_NAME.items():
+        manifest_path = patch_root / f"{name}.json"
+        manifest = json.loads(manifest_path.read_text())
+        if (manifest.get("schemaVersion") != 1 or manifest.get("baseCommit") != COMMIT
+                or manifest.get("baseVersion") != TAG or manifest.get("platformGuard") != "IOS_ENABLED"
+                or manifest.get("patchFile") != f"{name}.patch"):
+            raise SystemExit(f"The maintained {name} patch does not identify the pinned iOS engine.")
+        files = manifest.get("files", [])
+        if len(files) != len(expected_files) or {item.get("path") for item in files} != expected_files:
+            raise SystemExit(f"The {name} patch must contain exactly its reviewed source files.")
+        if file_receipt(patch_root / manifest["patchFile"])["sha256"] != manifest.get("patchSha256"):
+            raise SystemExit(f"The maintained {name} patch differs from its provenance.")
+        expected.append({
+            "name": name, "base_commit": COMMIT,
+            "patch_sha256": manifest["patchSha256"],
+            "manifest_sha256": file_receipt(manifest_path)["sha256"],
+            "applied": True, "files": files,
+        })
     if engine.get("upstream_patches") != expected:
-        raise SystemExit("Rebuild the native engine with the current reviewed iOS audio patch.")
+        raise SystemExit("Rebuild the native engine with every current reviewed iOS patch.")
     if engine.get("sdl_enabled") is not False or engine.get("native_input_scope") != "touch_and_hardware_keyboard":
         raise SystemExit("The native engine receipt must match the reviewed input-driver configuration.")
 

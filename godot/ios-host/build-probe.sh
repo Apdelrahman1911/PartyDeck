@@ -2,23 +2,48 @@
 set -euo pipefail
 
 PARTYDECK_PROBE_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-PARTYDECK_PROBE_BUILD="$PARTYDECK_PROBE_ROOT/build"
-PARTYDECK_PROBE_REFERENCE="$PARTYDECK_PROBE_BUILD/upstream"
+PARTYDECK_PROBE_BASE_BUILD="$PARTYDECK_PROBE_ROOT/build"
+PARTYDECK_PROBE_REFERENCE="$PARTYDECK_PROBE_BASE_BUILD/upstream"
+PARTYDECK_PROBE_STAGE="${1:-engine}"
+PARTYDECK_PROBE_VARIANT="${2:-simulator-debug}"
+case "$PARTYDECK_PROBE_VARIANT" in
+  simulator-debug)
+    PARTYDECK_PROBE_BUILD="$PARTYDECK_PROBE_BASE_BUILD"
+    PARTYDECK_PROBE_SDK=iphonesimulator
+    PARTYDECK_PROBE_CONFIGURATION=Debug
+    PARTYDECK_PROBE_TARGET=template_debug
+    PARTYDECK_PROBE_SIMULATOR=yes
+    ;;
+  device-release)
+    PARTYDECK_PROBE_BUILD="$PARTYDECK_PROBE_BASE_BUILD/device-release"
+    PARTYDECK_PROBE_SDK=iphoneos
+    PARTYDECK_PROBE_CONFIGURATION=Release
+    PARTYDECK_PROBE_TARGET=template_release
+    PARTYDECK_PROBE_SIMULATOR=no
+    ;;
+  *) printf '%s\n' 'Expected simulator-debug or device-release native inputs.' >&2; exit 2 ;;
+esac
 PARTYDECK_PROBE_EVIDENCE="$PARTYDECK_PROBE_BUILD/evidence"
 PARTYDECK_PROBE_ARTIFACTS="$PARTYDECK_PROBE_BUILD/artifacts"
-PARTYDECK_PROBE_STAGE="${1:-engine}"
 
 case "$PARTYDECK_PROBE_STAGE" in
   source|engine|test) ;;
-  *) printf '%s\n' 'Usage: build-probe.sh source|engine|test' >&2; exit 2 ;;
+  *) printf '%s\n' 'Usage: build-probe.sh source|engine|test [simulator-debug|device-release]' >&2; exit 2 ;;
 esac
 
+if [[ "$PARTYDECK_PROBE_STAGE" == test && "$PARTYDECK_PROBE_VARIANT" != simulator-debug ]]; then
+  printf '%s\n' 'The native probe XCTest targets currently execute on Simulator only.' >&2
+  exit 2
+fi
+
 mkdir -p "$PARTYDECK_PROBE_EVIDENCE" "$PARTYDECK_PROBE_ARTIFACTS"
-if ! mkdir "$PARTYDECK_PROBE_BUILD/.build-probe-lock"; then
+# Serialize invocations that share the upstream reference; parallel variants use
+# separate checkouts/runners. Their artifacts, evidence and caches stay separate.
+if ! mkdir "$PARTYDECK_PROBE_BASE_BUILD/.build-probe-lock"; then
   printf '%s\n' 'Another probe build owns the evidence/artifact paths, or its lock needs inspection.' >&2
   exit 1
 fi
-trap 'rmdir "$PARTYDECK_PROBE_BUILD/.build-probe-lock"' EXIT
+trap 'rmdir "$PARTYDECK_PROBE_BASE_BUILD/.build-probe-lock"' EXIT
 PARTYDECK_GODOT_TAG="$(python3 "$PARTYDECK_PROBE_ROOT/source_audit.py" --pin tag)"
 PARTYDECK_GODOT_COMMIT="$(python3 "$PARTYDECK_PROBE_ROOT/source_audit.py" --pin commit)"
 PARTYDECK_GODOT_REPOSITORY="$(python3 "$PARTYDECK_PROBE_ROOT/source_audit.py" --pin repository)"
@@ -72,7 +97,8 @@ if Path(sys.argv[1]).read_text().splitlines()[0] != "Xcode 26.4.1":
     raise SystemExit("This probe is pinned to Xcode 26.4.1.")
 PY
 xcodebuild -showsdks > "$PARTYDECK_PROBE_EVIDENCE/xcode-sdks.log"
-xcrun --sdk iphonesimulator clang --version > "$PARTYDECK_PROBE_EVIDENCE/clang-version.log"
+xcrun --sdk "$PARTYDECK_PROBE_SDK" clang --version > "$PARTYDECK_PROBE_EVIDENCE/clang-version.log"
+xcrun --sdk "$PARTYDECK_PROBE_SDK" --show-sdk-version > "$PARTYDECK_PROBE_EVIDENCE/sdk-version.log"
 
 if [[ ! -x "$PARTYDECK_PROBE_BUILD/venv/bin/python" ]]; then
   python3 -m venv "$PARTYDECK_PROBE_BUILD/venv"
@@ -90,8 +116,8 @@ PARTYDECK_PROBE_PYTHON="$PARTYDECK_PROBE_BUILD/venv/bin/python"
 (
   cd "$PARTYDECK_PROBE_SOURCE"
   PYTHONDONTWRITEBYTECODE=1 "$PARTYDECK_PROBE_PYTHON" -m SCons \
-    platform=ios target=template_debug arch=arm64 simulator=yes \
-    vulkan=no metal=no opengl3=yes sdl=no generate_bundle=no disable_path_overrides=no \
+    platform=ios target="$PARTYDECK_PROBE_TARGET" arch=arm64 simulator="$PARTYDECK_PROBE_SIMULATOR" \
+    vulkan=no metal=no opengl3=yes sdl=no lto=none generate_bundle=no disable_path_overrides=no \
     custom_modules="$PARTYDECK_PROBE_MODULES" redirect_build_objects=yes \
     cache_path="$PARTYDECK_PROBE_BUILD/scons-cache" \
     -j2
@@ -103,7 +129,8 @@ python3 "$PARTYDECK_PROBE_ROOT/source_audit.py" \
   --source "$PARTYDECK_PROBE_SOURCE" \
   --output "$PARTYDECK_PROBE_EVIDENCE/upstream-postbuild-audit.json"
 
-"$PARTYDECK_PROBE_PYTHON" - "$PARTYDECK_PROBE_SOURCE" "$PARTYDECK_PROBE_ARTIFACTS" "$PARTYDECK_PROBE_EVIDENCE" "$PARTYDECK_GODOT_COMMIT" <<'PY'
+"$PARTYDECK_PROBE_PYTHON" - "$PARTYDECK_PROBE_SOURCE" "$PARTYDECK_PROBE_ARTIFACTS" "$PARTYDECK_PROBE_EVIDENCE" "$PARTYDECK_GODOT_COMMIT" \
+  "$PARTYDECK_PROBE_TARGET" "$PARTYDECK_PROBE_SIMULATOR" "$PARTYDECK_PROBE_SDK" "$PARTYDECK_PROBE_CONFIGURATION" <<'PY'
 import hashlib
 import json
 from pathlib import Path
@@ -111,14 +138,18 @@ import shutil
 import sys
 
 source, artifacts, evidence = map(Path, sys.argv[1:4])
+target, simulator_flag, sdk, configuration = sys.argv[5:9]
+simulator = simulator_flag == "yes"
+suffix = ".simulator" if simulator else ""
 inputs = json.loads((evidence / "native-module-inputs.json").read_text())
 before = json.loads((evidence / "upstream-audit.json").read_text())
 after = json.loads((evidence / "upstream-postbuild-audit.json").read_text())
 if before["sources"] != after["sources"] or before["upstream_patches"] != after["upstream_patches"]:
     raise SystemExit("The audited engine sources changed during compilation.")
-archives = [p for p in (source / "bin").glob("libgodot.ios.*.a") if "simulator" in p.name and "arm64" in p.name]
+archives = [p for p in (source / "bin").glob("libgodot.ios.*.a")
+            if p.name == f"libgodot.ios.{target}.arm64{suffix}.a"]
 if len(archives) != 1:
-    raise SystemExit(f"Expected one combined Simulator engine archive, found {[p.name for p in archives]}")
+    raise SystemExit(f"Expected the {configuration}/{sdk} engine archive, found {[p.name for p in archives]}")
 destination = artifacts / "libpartydeck_godot_ios_probe.a"
 shutil.copy2(archives[0], destination)
 
@@ -129,7 +160,8 @@ def receipt(path):
             digest.update(block)
     return {"artifact": path.name, "sha256": digest.hexdigest(), "bytes": path.stat().st_size}
 
-camera = [p for p in (source / "bin").glob("libgodot_camera.ios.*.a") if "simulator" in p.name and "arm64" in p.name]
+camera = [p for p in (source / "bin").glob("libgodot_camera.ios.*.a")
+          if p.name == f"libgodot_camera.ios.{target}.arm64{suffix}.a"]
 if len(camera) != 1:
     raise SystemExit(f"Expected one auxiliary camera archive, found {[p.name for p in camera]}")
 camera_destination = artifacts / "libpartydeck_godot_camera.a"
@@ -141,9 +173,13 @@ result = {
     "auxiliary_archives": [{**receipt(camera_destination), "upstream_archive": camera[0].name}],
     "stage": "engine_compile_only",
     "platform": "ios",
-    "target": "template_debug",
+    "target": target,
+    "configuration": configuration,
+    "simulator": simulator,
     "architecture": "arm64",
-    "sdk": "iphonesimulator",
+    "sdk": sdk,
+    "sdk_version": (evidence / "sdk-version.log").read_text().strip(),
+    "lto": "none",
     "xcode_version": "26.4.1",
     "rendering_drivers": ["opengl3"],
     "path_overrides_enabled": True,

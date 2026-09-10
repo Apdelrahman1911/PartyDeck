@@ -8,4 +8,12 @@ IPHONEOS_DEPLOYMENT_TARGET = 15.0
 SWIFT_VERSION = 5.0
 ENABLE_USER_SCRIPT_SANDBOXING = NO
 
+// Native archives are built explicitly before Xcode; each configuration requires its own receipt.
+// The app target alone owns linking and the Objective-C bridge; test bundles inherit neither.
+PARTYDECK_GODOT_ENGINE_ROOT = $(SRCROOT)/../godot/ios-host/build/unsupported-configuration
+PARTYDECK_GODOT_ENGINE_ROOT[config=Debug][sdk=iphonesimulator*] = $(SRCROOT)/../godot/ios-host/build
+PARTYDECK_GODOT_ENGINE_ROOT[config=Release][sdk=iphoneos*] = $(SRCROOT)/../godot/ios-host/build/device-release
+PARTYDECK_GODOT_LINK_MAP = $(TARGET_TEMP_DIR)/PartyDeck-LinkMap-$(CONFIGURATION)-arm64.txt
+PARTYDECK_GODOT_PACK = $(SRCROOT)/../godot/qualification/build/renderer/partydeck-last-light.pck
+
 #include? "Signing.xcconfig"

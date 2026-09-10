@@ -1,0 +1,17 @@
+diff --git a/drivers/apple_embedded/os_apple_embedded.h b/drivers/apple_embedded/os_apple_embedded.h
+index d801a8652d63b31b2a24e037735314d7ad7a5117..b3e14db14a3a8d056948f3396227e1fc7a0a39cc 100644
+--- a/drivers/apple_embedded/os_apple_embedded.h
++++ b/drivers/apple_embedded/os_apple_embedded.h
+@@ -90,6 +90,12 @@
+ public:
+ 	static OS_AppleEmbedded *get_singleton();
+ 
++#ifdef IOS_ENABLED
++	// The retained native owner calls these only at its covered, audited safe drain.
++	void partydeck_delete_main_loop() { delete_main_loop(); }
++	void partydeck_set_main_loop(MainLoop *p_main_loop) { set_main_loop(p_main_loop); }
++#endif
++
+ 	OS_AppleEmbedded();
+ 	~OS_AppleEmbedded();
+ 
