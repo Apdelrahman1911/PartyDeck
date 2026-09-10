@@ -10,6 +10,8 @@ Platform contracts checked against Android android-16.0.0_r1 sources:
   frameworks/base/services/core/java/com/android/server/wm/Task.java
   frameworks/base/services/core/java/com/android/server/wm/RootWindowContainer.java
   frameworks/base/services/core/java/com/android/server/am/ActivityManagerShellCommand.java
+  frameworks/base/cmds/uiautomator/library/core-src/com/android/uiautomator/core/AccessibilityNodeInfoDumper.java
+  frameworks/base/cmds/uiautomator/cmds/uiautomator/src/com/android/commands/uiautomator/DumpCommand.java
   system/core/run-as/run-as.cpp; external/toybox/toys/lsb/pidof.c
   packages/apps/Launcher3/quickstep/res/layout/{overview_panel,fallback_recents_activity}.xml
 Toybox ps formatting also checked against android-15.0.0_r1 and android-16.0.0_r1:
@@ -47,6 +49,8 @@ NATIVE_COMPONENT = f"{PACKAGE}/{PACKAGE}.godot.SessionGodotActivity"
 READY = "Table ready."
 OPENING = "Opening table…"
 CARD = re.compile(r"^(Crown|Moon|Star|Wild)\. Card (\d+) of (\d+)\.$")
+CARD_TAG = re.compile(r"game-card-([0-9]+)")
+SELECTION_LIMIT = "Choose up to 3 cards."
 ACTIVITY_RECORD = re.compile(
     r"ActivityRecord\{[^{}\n]*?\bu(\d+) ([A-Za-z0-9_.]+/[A-Za-z0-9_.$]+) t(\d+)(?:[^{}\n]*)\}"
 )
@@ -189,16 +193,107 @@ def public_anchor(root, visible):
     return {"round": rounds[0], "table_rank": ranks[0], "turn": "Your turn"}
 
 
+def tagged_node(root, tag):
+    nodes = [node for node in root.iter("node") if node.get("package") == PACKAGE
+             and node.get("resource-id", "").rsplit("/", 1)[-1] == tag]
+    require(len(nodes) <= 1, f"Duplicate app-owned {tag} nodes cannot identify one control.")
+    return nodes[0] if nodes else None
+
+
+def card_sample(node, index):
+    # Original XML places the tagged checkable parent above its description.
+    # Do not guess a Checkbox class, action-label or state-description attribute.
+    require(type(index) is int and index >= 0, "Invalid private-card index.")
+    descriptions = [child.get("content-desc") for child in node.iter("node")
+                    if child.get("package") == PACKAGE and child.get("content-desc")] if node is not None else []
+    require(len(descriptions) == 1, "Card lacks one unambiguous indexed private-hand description.")
+    match = CARD.fullmatch(descriptions[0])
+    require(match is not None and int(match[2]) == index + 1 and int(match[3]) > index,
+            "Card rank, position or hand count is missing or inconsistent with its index.")
+    return {"index": index, "rank": match[1], "hand_count": int(match[3])}
+
+
+def card_toggle_sample(node, index):
+    sample = card_sample(node, index)
+    require(node.get("package") == PACKAGE and node.get("checkable") == "true"
+            and node.get("checked") in ("true", "false") and node.get("clickable") == "true"
+            and node.get("enabled") == "true", "Card does not expose an enabled checkable click control.")
+    checked = node.get("checked") == "true"
+    require(ui.selected(node) == checked, "Card exposes contradictory checked and selected states.")
+    return {**sample, "checked": checked, "checkable": True, "clickable": True}
+
+
 def first_card_sample(node):
-    # Compose can put the checkbox/tag on the parent and the spoken card
-    # description on a child (as in the retained real Android captures).
-    samples = {match.groups() for child in node.iter("node")
-               if child.get("package") == PACKAGE and (match := CARD.fullmatch(child.get("content-desc", "")))} if node is not None else set()
-    require(len(samples) == 1, "The first card lacks one unambiguous indexed private-hand description.")
-    rank, position, count = next(iter(samples))
-    require(int(position) == 1 and int(count) > 0,
-            "The first visible card lacks the expected indexed private-hand semantics.")
-    return {"index": 0, "rank": rank, "hand_count": int(count)}
+    return card_sample(node, 0)
+
+
+def require_card_selection(samples, expected, selected):
+    require(len(samples) == len(expected), "The complete expected hand was not observed.")
+    for index, (sample, prior) in enumerate(zip(samples, expected)):
+        require(sample["index"] == prior["index"] == index
+                and sample["rank"] == prior["rank"] and sample["hand_count"] == prior["hand_count"],
+                "A private-card label/order/count changed without a gameplay action.")
+        require(sample["checked"] == (index in selected), "The observed hand selection differs from the requested set.")
+
+
+def standard_action_outcome(root, visible, before):
+    # The UI consumes authority-owned recipient views. A click or an enabled
+    # button is not acceptance: require an actual changed view/public result.
+    require(tagged_node(root, "problem-panel") is None, "The Standard action raised a session problem.")
+    table = tagged_node(root, "game-table")
+    if table is None:
+        return None
+    public_texts = [node.get("text", "") for node in table.iter("node")
+                    if node.get("package") == PACKAGE and visible(node)]
+    visible_rounds = [int(match[1]) for text in public_texts if (match := re.fullmatch(r"ROUND ([0-9]+)", text))]
+    visible_ranks = [match[1] for text in public_texts if (match := re.fullmatch(r"(Crown|Moon|Star) table", text))]
+    require(not visible_rounds or visible_rounds == [before["public"]["round"]],
+            "Standard action changed the round without an Advance round action.")
+    require(not visible_ranks or visible_ranks == [before["public"]["table_rank"]],
+            "Standard action changed the table rank within its round.")
+    for tag in ("game-round-result", "game-winner"):
+        result = tagged_node(table, tag)
+        if result is None:
+            continue
+        texts = [node.get("text", "") for node in result.iter("node")
+                 if node.get("package") == PACKAGE and visible(node)]
+        rounds = [int(match[1]) for text in texts if (match := re.fullmatch(r"ROUND ([0-9]+)", text))]
+        if not rounds:
+            return None
+        require(rounds == [before["public"]["round"]], "Standard action reached an unrelated round/result.")
+        if tag == "game-round-result":
+            verdicts = [text for text in texts if text in ("Bluff caught.", "The claim was true.")]
+            challenges = [text for text in texts if re.fullmatch(r".+ challenged .+\.", text)]
+            claims = [text for text in texts if re.fullmatch(r".+ claimed [1-3] (?:Crown|Moon|Star)s?\.", text)]
+            if len(verdicts) == len(challenges) == len(claims) == 1:
+                return {"kind": "same-round public result", "round": rounds[0],
+                        "verdict": verdicts[0], "challenge": challenges[0], "claim": claims[0]}
+        else:
+            winners = [text for text in texts if re.fullmatch(r".+ wins\.", text)]
+            if len(winners) == 1 and "LAST LIGHT STANDING" in texts:
+                return {"kind": "same-round match result", "round": rounds[0], "winner": winners[0]}
+        return None
+    hand = tagged_node(table, "game-hand")
+    samples = []
+    if hand is not None:
+        for node in hand.iter("node"):
+            tag = node.get("resource-id", "").rsplit("/", 1)[-1]
+            match = CARD_TAG.fullmatch(tag)
+            if node.get("package") == PACKAGE and match and visible(node):
+                samples.append(card_sample(node, int(match[1])))
+    if not samples:
+        return None
+    require(len({sample["index"] for sample in samples}) == len(samples),
+            "Duplicate visible card indices cannot identify a changed recipient hand.")
+    counts = {sample["hand_count"] for sample in samples}
+    require(len(counts) == 1, "Visible private cards disagree on their post-action hand count.")
+    count = next(iter(counts))
+    require(count in (before["first_card"]["hand_count"], before["first_card"]["hand_count"] - 1),
+            "Standard one-card action produced an unexpected private-hand count.")
+    if count == before["first_card"]["hand_count"] - 1:
+        return {"kind": "recipient hand decreased by one", "before_count": count + 1,
+                "after_count": count, "visible_indexed_cards": samples}
+    return None
 
 
 def compare_continuity(before, after):
@@ -588,6 +683,222 @@ class GodotSessionSmoke(ui.AndroidSmoke):
             entry["installed_apk_sha256"] = installed_hash
             self.capture_evidence("home-cold", MAIN_COMPONENT)
 
+    def retain_standard_ui(self, name, observation):
+        require(re.fullmatch(r"[a-z0-9][a-z0-9-]*", name), "Unsafe Standard UI observation name.")
+        require(self.last_xml_bytes is not None and self.last_xml_time is not None,
+                "Standard observation has no fresh original UI bytes.")
+        path = self.output / f"captures/{name}.xml"
+        require(not path.exists(), "Standard observations must not overwrite original evidence.")
+        path.write_bytes(self.last_xml_bytes)
+        receipt = {"file": str(path.relative_to(self.output)), "sha256": sha256_file(path),
+                   "received_utc": self.last_xml_time, "sequence": self.ui_sequence,
+                   "stage": self.stage, "observation": observation,
+                   "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."}
+        self.observations.setdefault("standard_ui", {})[name] = receipt
+        self.write_json(f"captures/{name}.json", receipt)
+        return receipt
+
+    def card_control(self, root, index):
+        self.bind_ui(root)
+        hand = tagged_node(root, "game-hand")
+        node = tagged_node(root, f"game-card-{index}")
+        if node is None:
+            return None
+        require(hand is not None and node in set(hand.iter("node")), "Card is outside the private-hand group.")
+        if self.find_action(root, f"game-card-{index}") is not node:
+            return None
+        card_toggle_sample(node, index)
+        if not all(self.visible(child) for child in node.iter("node") if child.get("content-desc")):
+            return None
+        return node
+
+    def swipe_card_rail(self, root, index):
+        # The normal-text LazyRow is the scrollable descendant of game-hand
+        # containing real card nodes. The large-text vertical scroller is an
+        # ancestor instead. Never infer a resource ID or swipe a public rail.
+        hand = tagged_node(root, "game-hand")
+        if hand is None:
+            return False
+        rails = [node for node in hand.iter("node") if node.get("package") == PACKAGE
+                 and node.get("scrollable") == "true" and node.get("enabled") == "true"
+                 and any(CARD_TAG.fullmatch(child.get("resource-id", "").rsplit("/", 1)[-1])
+                         for child in node.iter("node"))]
+        require(len(rails) <= 1, "Multiple private-card rails cannot identify a safe scroll target.")
+        if not rails:
+            return False
+        rail = rails[0]
+        viewport = self.viewport(rail, include_self=True)
+        if viewport is None or viewport[2] - viewport[0] < 160 or viewport[3] - viewport[1] < 80:
+            return False
+        cards = [(int(match[1]), ui.node_bounds(node)) for node in rail.iter("node")
+                 if (match := CARD_TAG.fullmatch(node.get("resource-id", "").rsplit("/", 1)[-1]))]
+        target = next((bounds for number, bounds in cards if number == index), None)
+        left, top, right, bottom = viewport
+        clearance = ui.ACTION_VIEWPORT_CLEARANCE_PX
+        if target is not None:
+            if target[0] - left >= clearance and right - target[2] >= clearance:
+                return False  # Vertical clipping needs the enclosing scroller.
+            towards_start = target[0] - left < clearance
+        else:
+            towards_start = index < min(number for number, _ in cards)
+        first, last = left + (right - left) // 4, left + (right - left) * 3 // 4
+        start, end = (first, last) if towards_start else (last, first)
+        y = (top + bottom) // 2
+        self.record_input("swipe", f"game-hand-{'start' if towards_start else 'end'}", rail, viewport,
+                          {"start": [start, y], "end": [end, y], "duration_ms": 250})
+        self.adb("shell", "input", "swipe", str(start), str(y), str(end), str(y), "250")
+        return True
+
+    def wait_for_card(self, index, checked=None, scroll="down"):
+        swipes = 0
+        direction = scroll
+        previous = None
+        stationary = 0
+        reversed_direction = False
+
+        def reachable(root):
+            nonlocal swipes, direction, previous, stationary, reversed_direction
+            require(tagged_node(root, "problem-panel") is None, "Private-card interaction raised a session problem.")
+            node = self.card_control(root, index)
+            if node is not None:
+                return node if checked is None or card_toggle_sample(node, index)["checked"] == checked else None
+            if swipes >= 16:
+                return None
+            layout = ET.tostring(root)
+            stationary = stationary + 1 if layout == previous else 0
+            previous = layout
+            if stationary >= 2 and not reversed_direction:
+                direction = "up" if direction == "down" else "down"
+                reversed_direction = True
+            if not self.swipe_card_rail(root, index):
+                self.swipe(direction, root)
+            swipes += 1
+            return None
+
+        return self.wait_until(f"Expected fully reachable card {index + 1} with checked={checked}", reachable)
+
+    def observe_hand(self, prefix, expected=None, selected=frozenset()):
+        samples = []
+        for index in range(5):
+            node = self.wait_for_card(index, scroll="up" if index == 0 else "down")
+            sample = card_toggle_sample(node, index)
+            require(sample["hand_count"] == 5, "Standard hand checks require the observed five-card practice hand.")
+            samples.append(sample)
+            self.retain_standard_ui(f"{prefix}-card-{index + 1}", sample)
+        require_card_selection(samples, expected if expected is not None else samples, selected)
+        return samples
+
+    def toggle_hand_card(self, index, before, prefix):
+        node = self.wait_for_card(index, checked=before["checked"], scroll="up" if index == 0 else "down")
+        require(card_toggle_sample(node, index) == before, "Card changed before its requested toggle.")
+        self.retain_standard_ui(f"{prefix}-before", before)
+        self.tap_node(node, f"game-card-{index}")
+        node = self.wait_for_card(index, checked=not before["checked"])
+        after = card_toggle_sample(node, index)
+        require(after == {**before, "checked": not before["checked"]}, "Card label/count changed during selection.")
+        self.retain_standard_ui(f"{prefix}-after", after)
+        return after
+
+    def observe_selection_count(self, count, prefix):
+        def summary(root):
+            hand = tagged_node(root, "game-hand")
+            return hand is not None and any(node.get("text") == f"{count} of 3 selected" and self.visible(node)
+                                           for node in hand.iter("node") if node.get("package") == PACKAGE)
+
+        self.wait_until("Expected count-only selection summary", summary, scroll="up")
+        self.retain_standard_ui(f"{prefix}-count", {"selected": count, "maximum": 3})
+        label = "Select cards" if count == 0 else f"Play {count} {'card' if count == 1 else 'cards'}"
+
+        def play(root):
+            node = self.find_action(root, "game-play") if count else self.find(root, "game-play", enabled=False)
+            if node is None:
+                return None
+            texts = [child.get("text") for child in node.iter("node") if child.get("text")]
+            return node if texts == [label] else None
+
+        self.wait_until("Expected Play label/enabled state to match selection count", play, scroll="down")
+        self.retain_standard_ui(f"{prefix}-play", {"label": label, "enabled": count > 0})
+
+    def selection_limit_feedback(self, root):
+        hand = tagged_node(root, "game-hand")
+        if hand is None:
+            return None
+        private = {child for node in hand.iter("node")
+                   if CARD_TAG.fullmatch(node.get("resource-id", "").rsplit("/", 1)[-1])
+                   for child in node.iter("node")}
+        public_nodes = [node for node in hand.iter("node") if node not in private and node.get("package") == PACKAGE]
+        require(not any(re.search(r"\b(?:Crown|Moon|Star|Wild)\b", node.get(field, ""))
+                        for node in public_nodes for field in ("text", "content-desc")),
+                "Hand feedback/summary outside the private-card nodes exposes a rank.")
+        feedback = [node for node in public_nodes if node.get("text") == SELECTION_LIMIT]
+        require(len(feedback) <= 1, "Selection-limit feedback is duplicated.")
+        if not feedback or not self.visible(feedback[0]):
+            return None
+        require(not feedback[0].get("content-desc") and len(list(feedback[0])) == 0,
+                "Selection-limit feedback contains extra accessibility content.")
+        return {"text": SELECTION_LIMIT,
+                "limit": "XML verifies count-only text, not polite live-region delivery or TalkBack speech."}
+
+    def exercise_standard_hand(self, baseline, prefix):
+        expected = self.observe_hand(f"{prefix}-revealed")
+        require({key: expected[0][key] for key in ("index", "rank", "hand_count")} == baseline["first_card"],
+                "Full Standard hand observation changed the existing first-card baseline.")
+        fifth = self.toggle_hand_card(4, expected[4], f"{prefix}-fifth-select")
+        self.observe_selection_count(1, f"{prefix}-fifth-selected")
+        self.toggle_hand_card(4, fifth, f"{prefix}-fifth-deselect")
+        self.observe_selection_count(0, f"{prefix}-fifth-deselected")
+        for index in range(3):
+            self.toggle_hand_card(index, expected[index], f"{prefix}-select-{index + 1}")
+        self.observe_hand(f"{prefix}-three-selected", expected, {0, 1, 2})
+        self.observe_selection_count(3, f"{prefix}-three-selected")
+        fourth = self.wait_for_card(3, checked=False)
+        require(self.selection_limit_feedback(self.ui_root) is None, "Limit feedback appeared before the fourth attempt.")
+        self.retain_standard_ui(f"{prefix}-fourth-input", card_toggle_sample(fourth, 3))
+        self.tap_node(fourth, "game-card-3")
+        feedback = self.wait_until("Expected fourth-choice rejection feedback", self.selection_limit_feedback, scroll="down")
+        self.retain_standard_ui(f"{prefix}-fourth-feedback", feedback)
+        self.observe_hand(f"{prefix}-fourth-rejected", expected, {0, 1, 2})
+        self.observe_selection_count(3, f"{prefix}-fourth-rejected")
+        self.tap_action("game-hide-hand", scroll="up")
+        self.assert_concealed()
+        self.assert_no_private_semantics(self.ui_root)
+        self.retain_standard_ui(f"{prefix}-hidden", {"private_nodes": 0})
+        self.wait_for_tag("game-play", enabled=False, scroll="down")
+        self.retain_standard_ui(f"{prefix}-hidden-play-disabled", {"play_enabled": False})
+        self.tap_action("game-reveal-hand", scroll="up")
+        self.observe_hand(f"{prefix}-fresh-reveal", expected)
+        self.observe_selection_count(0, f"{prefix}-fresh-reveal")
+        return {"hand_count": 5, "reachable_card_indices": list(range(5)),
+                "fifth_card_selected_then_deselected": True,
+                "fourth_choice_preserved_selected_indices": [0, 1, 2], "feedback": feedback,
+                "hide_removed_private_nodes": True, "fresh_reveal_checked_indices": [],
+                "limit": "Coordinate activation and XML checkable/checked/label evidence; no TalkBack traversal, focus, speech or action-label evidence."}
+
+    def play_standard_card(self, baseline, prefix):
+        self.wait_activity(MAIN_COMPONENT, child_absent=True)
+        self.select_first_card(prefix)
+
+        def one_card_play(root):
+            require(tagged_node(root, "problem-panel") is None, "Standard selection raised a session problem.")
+            require(tagged_node(root, "game-round-result") is None and tagged_node(root, "game-winner") is None,
+                    "A result was already present before Standard Play.")
+            node = self.find_action(root, "game-play")
+            return node if node is not None and [child.get("text") for child in node.iter("node")
+                                                if child.get("text")] == ["Play 1 card"] else None
+
+        action = self.wait_until("Expected a fresh enabled Standard Play 1 card", one_card_play, scroll="down")
+        self.retain_standard_ui(f"{prefix}-input", {"label": "Play 1 card", "before": baseline})
+        self.tap_node(action, "game-play")
+        outcome = self.wait_until("Expected an authority-derived Standard play outcome",
+                                  lambda root: standard_action_outcome(root, self.visible, baseline), seconds=60, scroll="up")
+        receipt = self.retain_standard_ui(f"{prefix}-outcome", outcome)
+        self.wait_activity(MAIN_COMPONENT, child_absent=True)
+        self.capture_evidence(f"{prefix}-after-play", MAIN_COMPONENT, ui_assertion=lambda root: require(
+            tagged_node(root, "problem-panel") is None and tagged_node(root, "game-table") is not None,
+            "Standard game/session was lost after the observed play outcome."))
+        return {"action": "Play 1 card", "outcome": outcome, "outcome_xml": receipt,
+                "limit": "Changed recipient hand or same-round public result after a human-turn UI Play; no authority receipt/revision or full internal session identity is exposed."}
+
     def observe_match(self, prefix):
         anchor = self.wait_until("Expected a visible stable human-turn round/rank", lambda root: public_anchor(root, self.visible), scroll="up")
         self.capture_evidence(f"{prefix}-public", MAIN_COMPONENT, ui_assertion=lambda root: require(
@@ -602,8 +913,11 @@ class GodotSessionSmoke(ui.AndroidSmoke):
         return {"public": anchor, "first_card": sample}
 
     def select_first_card(self, prefix):
-        self.tap_action("game-card-0", scroll="up")
-        self.wait_until("Expected first card selection before switching", lambda root: ui.selected(self.find(root, "game-card-0")), scroll="up")
+        node = self.wait_for_card(0, checked=False, scroll="up")
+        before = card_toggle_sample(node, 0)
+        self.tap_node(node, "game-card-0")
+        node = self.wait_for_card(0, checked=True, scroll="up")
+        require(card_toggle_sample(node, 0) == {**before, "checked": True}, "First card changed while selecting it.")
         self.wait_for_action("game-play", scroll="down")
         self.capture_evidence(f"{prefix}-selected", MAIN_COMPONENT, ui_assertion=lambda root: require(
             self.find_action(root, "game-play") is not None, "Selected-card play action is no longer enabled."))
@@ -830,6 +1144,8 @@ class GodotSessionSmoke(ui.AndroidSmoke):
             self.assert_concealed()
             baseline = self.observe_match(f"{mode}-baseline")
             entry["baseline"] = baseline
+        with self.check(f"{mode}.standard-hand") as entry:
+            entry["accessibility_ui"] = self.exercise_standard_hand(baseline, f"{mode}-standard-hand")
             self.select_first_card(f"{mode}-baseline")
         with self.check(f"{mode}.native-entry") as entry:
             pid, task, _ = self.enter_native(mode, f"{mode}-entry")
@@ -862,8 +1178,18 @@ class GodotSessionSmoke(ui.AndroidSmoke):
             self.leave_dialog(f"{mode}-leave-cancel")
             self.tap_action("leave-cancel", "Stay at the table")
             entry["observable_continuity"] = self.require_concealed_return(baseline, f"{mode}-leave-cancel-return")
+        with self.check(f"{mode}.standard-action") as entry:
+            # Finish every no-gameplay continuity comparison before intentionally
+            # changing authority state. Bots may end the round or match after Play.
+            self.select_first_card(f"{mode}-action-entry")
+            self.enter_native(mode, f"{mode}-action-entry")
+            self.tap_action("native-standard-table", "Standard table", scroll=None)
+            entry["observable_continuity"] = self.require_concealed_return(baseline, f"{mode}-action-return")
+            entry["standard_play"] = self.play_standard_card(baseline, f"{mode}-standard-play")
         with self.check(f"{mode}.leave-end") as entry:
-            self.select_first_card(f"{mode}-leave-end")
+            # An accepted Play can produce ROUND_ENDED/FINISHED. Both retain the
+            # real presentation picker and native Leave; no new human turn or
+            # private-card selection is assumed for this final session teardown.
             pid, _, controls = self.enter_native(mode, f"{mode}-leave-end", ready=False)
             entry["status_when_leave_became_accessible"] = controls["status"]
             entry["opening_cancellation"] = ("Opening label observed before Leave input; binding timing is not observable."
@@ -955,6 +1281,8 @@ def main(argv=None):
               "limits": ["Native Ready/chrome is host bootstrap/lifecycle evidence, not engine gameplay.",
                          "Native and Recents pixel privacy requires review of the original captures.",
                          "Match continuity uses a surviving shell/task, public anchors and one indexed card/count; no internal session ID is exposed.",
+                         "Standard hand checks observe XML labels/checkable states and coordinate activation, not TalkBack traversal, focus, speech, action labels or live-region delivery.",
+                         "Standard Play acceptance is inferred from a changed recipient hand or same-round public result; no authority receipt or revision is exposed.",
                          "Pre-binding cancellation is not deterministically observable through production UI.",
                          "Single-device practice only; physical LAN, real-device/store signing and iOS are outside this check."]}
     failed = False

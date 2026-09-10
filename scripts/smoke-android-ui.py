@@ -246,7 +246,7 @@ class AndroidSmoke:
             lambda root: self.find_action(root, tag, fallback_text), seconds, scroll,
         )
 
-    def swipe(self, direction, root, timeout=10):
+    def swipe(self, direction, root, timeout=10, target_tags=()):
         self.bind_ui(root)
         # App scrolling must not turn a launcher/shade tree into a system gesture.
         candidates = [(node, self.viewport(node, include_self=True)) for node in root.iter("node")
@@ -254,6 +254,26 @@ class AndroidSmoke:
                       and node.get("enabled") != "false"]
         candidates = [(node, bounds) for node, bounds in candidates
                       if bounds is not None and bounds[3] - bounds[1] > 100]
+        for target_tag in target_tags:
+            # An offscreen tag may select its scroll pane, but must never be
+            # treated as visible or directly tapped on that basis.
+            targets = [node for node in root.iter("node")
+                       if node.get("package") == PACKAGE and
+                       (node.get("resource-id") == target_tag or
+                        node.get("resource-id", "").endswith("/" + target_tag))]
+            if len(targets) > 1:
+                raise RuntimeError("The requested scroll target is ambiguous.")
+            if targets:
+                ancestors = set()
+                ancestor = self.ui_parents.get(targets[0])
+                while ancestor is not None:
+                    ancestors.add(ancestor)
+                    ancestor = self.ui_parents.get(ancestor)
+                scoped = [candidate for candidate in candidates if candidate[0] in ancestors]
+                if not scoped:
+                    raise RuntimeError("The requested target has no current safe scroll pane.")
+                candidates = scoped
+                break
         if not candidates:
             return
         node, viewport = max(candidates, key=lambda candidate: (
@@ -486,7 +506,7 @@ class AndroidSmoke:
             self.reject_crash_dialog(root)
             if self.find(root, "game-play", enabled=None) is not None:
                 return
-            next_round = self.find(root, "game-next-round")
+            next_round = self.find_action(root, "game-next-round")
             if next_round is not None:
                 rounds += 1
                 if rounds > 8:
@@ -495,7 +515,7 @@ class AndroidSmoke:
             elif self.find(root, "game-winner", enabled=None) is not None:
                 raise RuntimeError("Practice ended before the human play could be exercised.")
             else:
-                self.swipe("down", root)
+                self.swipe("down", root, target_tags=("game-next-round", "game-play"))
             time.sleep(0.3)
         raise RuntimeError("Practice did not offer a human play within 120 seconds.")
 
