@@ -1,0 +1,151 @@
+{
+  "passed": false,
+  "modes": [
+    "2d"
+  ],
+  "serial": "emulator-5554",
+  "mode_results": [
+    {
+      "mode": "2d",
+      "passed": false,
+      "intent_counts": {
+        "play": 1,
+        "challenge": 1,
+        "advance_round": 3
+      },
+      "entries": [
+        {
+          "name": "match",
+          "presentation_id": "b8ecb506-7eeb-4351-8625-4be21cb0db9c",
+          "engine_pid": 3070,
+          "task_id": 8
+        }
+      ],
+      "background_privacy": {
+        "same_pid_and_presentation": true,
+        "native_cover_observed": true,
+        "resumed_private_bindings_and_selection_cleared": true,
+        "recents_capture_policy": "recents_disabled",
+        "recents_visual_review": "Required; inspect 06-recents-privacy.png. No pixel classifier proves privacy."
+      }
+    }
+  ],
+  "scope": "Real local-practice Godot Android input/lifecycle; no production session, TalkBack, physical LAN or store qualification.",
+  "limits_seconds": {
+    "setup": 600,
+    "per_mode": 600,
+    "cleanup": 180
+  },
+  "source_sha256": {
+    "run.py": "313e4107f7216cd5f4030b027e0e40fd1eab4c6613d88463e0d9c3702cfc86ae",
+    "evidence.py": "fa6fdcc4c23597aa4a5f546cb88b3c1a26da023ca2e655eb8c280b551a27ecd9",
+    "smoke-android-ui.py": "7d6cef007b3d4fb64c6aaaf2e55c3039dc02853332607ccba4a239bc8cd1e5f3"
+  },
+  "apk_sha256": "2957db8d5bff4fa7c02b9a4bedbab9a2ee474bfc289c47380e9ac94499c96fa0",
+  "apk_bytes": 314309880,
+  "embedded_pck_sha256": "6599f825a418f9d2a7049b3ba9325e8e0dcb474685262899079231b7ec955938",
+  "embedded_pck_bytes": 1542296,
+  "device": {
+    "sdk": 35,
+    "installed_apk_sha256": "2957db8d5bff4fa7c02b9a4bedbab9a2ee474bfc289c47380e9ac94499c96fa0",
+    "evidence_access": {
+      "method": "debug_run_as",
+      "uid": 10148
+    },
+    "chooser_pid": 2830,
+    "font_scale": "2.0",
+    "preferences": {
+      "reference_scenario": true,
+      "reduce_motion": true,
+      "sound_enabled": false
+    }
+  },
+  "error": "Command '['adb', '-s', 'emulator-5554', 'shell', 'run-as', 'dev.partydeck.godot.compare', 'cat', 'files/godot-qualification.json']' timed out after 0.017627884999910748 seconds",
+  "stage": "2d next_round reachability",
+  "steps": [
+    "Verified responsive Android launcher before app installation",
+    "Tapped reference_scenario",
+    "Tapped sound_enabled",
+    "Captured chooser",
+    "Tapped launch_2d",
+    "Verified real 2d match setup, Ready and concealed renderer",
+    "Captured 01-concealed",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Captured 02-revealed",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Captured 03-selected",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Captured 04-covered",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Captured 05-background-home",
+    "Captured 06-recents-privacy",
+    "Tapped refresh_diagnostics",
+    "Captured 07-resumed-concealed",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Captured 08-after-play",
+    "Captured 09-public-outcome",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Captured 10-next-round",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Captured 11-after-challenge",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics",
+    "Tapped refresh_diagnostics"
+  ]
+}

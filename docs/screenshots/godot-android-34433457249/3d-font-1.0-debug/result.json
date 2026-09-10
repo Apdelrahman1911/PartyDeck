@@ -1,0 +1,61 @@
+{
+  "passed": false,
+  "modes": [
+    "3d"
+  ],
+  "serial": "emulator-5554",
+  "mode_results": [
+    {
+      "mode": "3d",
+      "passed": false,
+      "intent_counts": {
+        "play": 0,
+        "challenge": 0,
+        "advance_round": 0
+      }
+    }
+  ],
+  "scope": "Real local-practice Godot Android input/lifecycle; no production session, TalkBack, physical LAN or store qualification.",
+  "limits_seconds": {
+    "setup": 600,
+    "per_mode": 600,
+    "cleanup": 180
+  },
+  "source_sha256": {
+    "run.py": "313e4107f7216cd5f4030b027e0e40fd1eab4c6613d88463e0d9c3702cfc86ae",
+    "evidence.py": "fa6fdcc4c23597aa4a5f546cb88b3c1a26da023ca2e655eb8c280b551a27ecd9",
+    "smoke-android-ui.py": "7d6cef007b3d4fb64c6aaaf2e55c3039dc02853332607ccba4a239bc8cd1e5f3"
+  },
+  "apk_sha256": "2957db8d5bff4fa7c02b9a4bedbab9a2ee474bfc289c47380e9ac94499c96fa0",
+  "apk_bytes": 314309880,
+  "embedded_pck_sha256": "6599f825a418f9d2a7049b3ba9325e8e0dcb474685262899079231b7ec955938",
+  "embedded_pck_bytes": 1542296,
+  "device": {
+    "sdk": 35,
+    "installed_apk_sha256": "2957db8d5bff4fa7c02b9a4bedbab9a2ee474bfc289c47380e9ac94499c96fa0",
+    "evidence_access": {
+      "method": "debug_run_as",
+      "uid": 10148
+    },
+    "chooser_pid": 2827,
+    "font_scale": "1.0",
+    "preferences": {
+      "reference_scenario": true,
+      "reduce_motion": true,
+      "sound_enabled": false
+    }
+  },
+  "error": "Godot reported an engine or resource error in the actual process log.",
+  "stage": "3d match entry",
+  "cleanup_errors": [
+    "engine logs: Godot reported an engine or resource error in the actual process log.",
+    "failure process 3074 log: Godot reported an engine or resource error in the actual process log."
+  ],
+  "steps": [
+    "Verified responsive Android launcher before app installation",
+    "Tapped reference_scenario",
+    "Tapped sound_enabled",
+    "Captured chooser",
+    "Tapped launch_3d"
+  ]
+}

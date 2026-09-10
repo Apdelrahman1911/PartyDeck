@@ -1,0 +1,81 @@
+{
+  "stage": "diagnostic_native_host_execution",
+  "executable_sha256": "ae1020f5dc0065d415c8a62c96ef1d1b132c709b58e331a653ee25525b5f2d68",
+  "native_tests": [
+    {
+      "case": "testCloseBeforePresentationDoesNotConstructEngine",
+      "status": "passed",
+      "seconds": 16.368
+    },
+    {
+      "case": "testCloseDuringInitializationUsesCheckedCleanupBoundary",
+      "status": "passed",
+      "seconds": 35.865
+    },
+    {
+      "case": "testCloseInsideActualDrawRunLoopDefersCleanup",
+      "status": "passed",
+      "seconds": 13.891
+    },
+    {
+      "case": "testImmediateForegroundLossAndResumeRestartsDrawing",
+      "status": "passed",
+      "seconds": 16.627
+    },
+    {
+      "case": "testRealScenePauseResumeInputExitAndReopenRefusal",
+      "status": "passed",
+      "seconds": 23.005
+    }
+  ],
+  "engine": {
+    "engine_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "upstream_archive": "libgodot.ios.template_debug.arm64.simulator.a",
+    "artifact": "libpartydeck_godot_ios_probe.a",
+    "sha256": "ebbb2fdd71976c7a3f2336409a8faaaac635a1c21c859d771f78ec72b36b1b24",
+    "bytes": 191511536,
+    "auxiliary_archives": [
+      {
+        "artifact": "libpartydeck_godot_camera.a",
+        "sha256": "a138a008561de3aa03d5db41b4596b0ba354dfbc6ea0e758f035d40ee390b8ba",
+        "bytes": 82392,
+        "upstream_archive": "libgodot_camera.ios.template_debug.arm64.simulator.a"
+      }
+    ],
+    "stage": "engine_compile_only",
+    "path_overrides_enabled": true,
+    "bootstrap_arguments": "native_owned_bundle_paths",
+    "ios_runtime_executed": false,
+    "kmp_factory_qualified": false
+  },
+  "resources": {
+    "stage": "host_resources_only",
+    "fixture_sha256": "c43b9b8d379b1dcc22311d269745da9e67c3904bae6251636ed8e9abcb22cbb3",
+    "fixture_manifest_sha256": "79b71d6dd1d9ff43fd667482f4323aec9a1bf7720d4964315cdb3dab1a68038e",
+    "fixture_authority": "LastLightEngine.start/viewFor/apply/advanceRound",
+    "diagnostic_sources": {
+      "ProbeScene/project.godot": "e0eaa6ea4d92d7d1786ae82e2523f6b1084262559c90490ee1dd59639aae93e7",
+      "ProbeScene/main.tscn": "1666abce420c16f190937a650fdea6ef2e57ad429ee321c5bee27ad03f8b2885",
+      "ProbeScene/main.gd": "59d6f9e57c3b15ac0393d7a6ed6fd75b212002097fc6e22da515c8cc6d7dc05b",
+      "ProbeResources/MissingMainScene/project.godot": "ccda6894238df7cc451cce666655fea1f48e4d676b9888e5cef27f527cc813c6"
+    },
+    "license_bundle_sha256": {
+      "ANDROID_NDK_LLVM_NOTICE.txt": "f96f763beb66a7ba7a667647fc64c0226ace875e590c831fdd9579ec1c1d91e1",
+      "GODOT_CA_BUNDLE_SOURCE.txt": "33a22c7286f7752131636a11fb9feb3fb12ecd02f1a9b3e54e5901349d37362e",
+      "GODOT_CA_CERTIFICATES_SOURCE.txt": "c68edd43fa15b39be0aa724eaf28cdfa9df22a83eb74f66614b93993bdcde1f7",
+      "GODOT_COPYRIGHT.txt": "cb1980c88089573bcacd7221d777c689bb8bbd778799f24c27fca0fe5f774d6d",
+      "GODOT_LICENSE.txt": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80",
+      "NOTICE_PROVENANCE.json": "c702de9b8f36aa7144902b816a74b8a4718dc34245bfbbe3cb056fed4f65f062",
+      "README.txt": "1ccab8a45f6dab1e3a9117b8f29c56fe67ec969b5c3083fe1a0027eabf3b9231"
+    },
+    "optional_shared_pack": null,
+    "ios_runtime_executed": false,
+    "kmp_factory_qualified": false
+  },
+  "ios_runtime_executed": true,
+  "diagnostic_scene_only": true,
+  "last_light_gameplay_qualified": false,
+  "reinitialization_qualified": false,
+  "kmp_factory_qualified": false,
+  "device_metal_qualified": false
+}

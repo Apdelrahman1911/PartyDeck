@@ -1,0 +1,153 @@
+{
+  "run": 34432935952,
+  "head": "8d8d429186bfa3fc895b943101a24c7aeb992163",
+  "tests": {
+    "transport": {
+      "tests": 18,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "session": {
+      "tests": 27,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "games": {
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "core": {
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "composeApp": {
+      "tests": 48,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "androidApp": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "artifacts": [
+    {
+      "path": "android-packages-and-shrinker-reports/androidApp/build/outputs/apk/debug/androidApp-debug.apk",
+      "bytes": 22645979,
+      "sha256": "6d5d798aa3ebc4a63442c2766ecc4974d1b34b2301db7eceb0341cd4a151c8c0"
+    },
+    {
+      "path": "android-packages-and-shrinker-reports/androidApp/build/outputs/apk/release/androidApp-release-unsigned.apk",
+      "bytes": 4522956,
+      "sha256": "e65d6c42f646ecd424d21d7b2915533e02f0b067f026bad5375a6b77271146ac"
+    },
+    {
+      "path": "android-packages-and-shrinker-reports/androidApp/build/outputs/bundle/release/androidApp-release.aab",
+      "bytes": 7655730,
+      "sha256": "98600159eb2a02910335f75cd643e39c49147b10466f40cb327c5fc40c6ea1cf"
+    },
+    {
+      "path": "android-packages-and-shrinker-reports/build/ci/android/packages/PartyDeck-release-ci-test-signed.apk",
+      "bytes": 4570535,
+      "sha256": "28b4322baa4548a5ac565f05bb7f6dd0de56980c493797b2abc422a7e1fa0f88"
+    }
+  ],
+  "variants": {
+    "debug": {
+      "passed": true,
+      "stage": null,
+      "error": null,
+      "apk_sha256": "6d5d798aa3ebc4a63442c2766ecc4974d1b34b2301db7eceb0341cd4a151c8c0",
+      "downloadedPackageMatchesExecuted": true,
+      "stageCaptures": 30,
+      "softImeCaptures": [
+        "join-name-soft-ime",
+        "large-text-join-name-soft-ime"
+      ],
+      "largeTextFontScale": 2.0,
+      "retainedLogcatAnrOrFatalMatches": [],
+      "diagnosticErrors": [],
+      "environmentRestoreErrors": []
+    },
+    "optimized-test-signed": {
+      "passed": true,
+      "stage": null,
+      "error": null,
+      "apk_sha256": "28b4322baa4548a5ac565f05bb7f6dd0de56980c493797b2abc422a7e1fa0f88",
+      "downloadedPackageMatchesExecuted": true,
+      "stageCaptures": 30,
+      "softImeCaptures": [
+        "join-name-soft-ime",
+        "large-text-join-name-soft-ime"
+      ],
+      "largeTextFontScale": 2.0,
+      "retainedLogcatAnrOrFatalMatches": [],
+      "diagnosticErrors": [],
+      "environmentRestoreErrors": []
+    }
+  },
+  "testTotals": {
+    "tests": 118,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "preparation": {
+    "serial": "emulator-5554",
+    "passed": true,
+    "reboot_attempted": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "passed": true,
+        "app_absent": true,
+        "recovery_allowed": false,
+        "boot_id": "9a5ee1dd-4bf4-46ac-8d9f-f1f132a22555",
+        "android_api": "35",
+        "steps": [
+          "Verified responsive Android launcher before app installation"
+        ]
+      }
+    ],
+    "scope": "Empty AVD preparation only; neither APK is installed or accepted by this phase."
+  },
+  "display": {
+    "expectedPhysicalSize": [
+      720,
+      1600
+    ],
+    "expectedDensityDpi": 280,
+    "logicalSizeDp": [
+      411.42857142857144,
+      914.2857142857143
+    ],
+    "expectedAndroidApi": 35,
+    "guestApiVerified": true,
+    "displayVerified": true,
+    "actualAndroidApi": 35,
+    "actualSizeOutput": "Physical size: 720x1600",
+    "actualDensityOutput": "Physical density: 280"
+  },
+  "runtimeVariants": {
+    "sameEmulatorBoot": true,
+    "debugExitCode": 0,
+    "optimizedTestSignedExitCode": 0,
+    "passed": true
+  },
+  "actualTestCases": 118,
+  "rulesCtaEvidence": "/tmp/partydeck-engine-ci/34432935952/rules-cta-evidence-summary.json",
+  "allFourRulesRoutesAndVisibleBordersVerified": true,
+  "inputRecords": {
+    "debug": 65,
+    "optimized-test-signed": 66
+  }
+}
