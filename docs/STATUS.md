@@ -1,20 +1,23 @@
 # PartyDeck status report
 
-**Snapshot: 2026-09-10, 11:19 UTC.** Source milestones are pushed through `bbf33f1`.
+**Snapshot: 2026-09-10, 12:10 UTC.** Source milestones are pushed through `0222e6f`.
 The original Compose application retains its successful refreshed Android/iOS
 baseline and separate API 36 qualification. Both desktop Godot presentations
-complete matches, and the latest Android comparison passes all four normal/200%
+complete matches, and the latest completed Android comparison passes all four normal/200%
 2D/3D cases and all twelve exit routes. Native iOS host qualification remains
 partial: retained tests pass two of three cases; authority tests pass two of five.
 
-Production integration has separate open gates. Android's explicit qualification
-build passes local tests, lint and packaging; its first production run passes
-both ordinary APK smokes but fails both native-session phases before the picker
-on process-list parsing. Both iOS native engines compile and all 139 shared tests
-pass. The staging correction now executes successfully, but both production iOS
-app builds fail because Xcode does not recognize the generated PartyDeckKit
-binary as a linker input. Implementation/runtime corrections and physical-device
-and publisher gates remain distinct.
+Production integration has separate open gates. Android's first qualification
+run passes both ordinary APK smokes but fails both native-session phases before
+the picker on process-list parsing. The correction passes 33 checker regressions
+and all 29 adaptive-runner regressions; its production and adaptive native runs
+are now executing in parallel with the refreshed full comparison.
+Both iOS native engines compile. The generated Kotlin linker dependency is now
+declared, and a new production run is testing that correction plus actual 2D/3D
+practice sessions. A parallel native-host run tests the newly exported scene
+currentness correction. Neither run has completed at this snapshot.
+Implementation/runtime corrections and physical-device and publisher gates remain
+distinct.
 **The app is not yet cleared for public distribution.**
 
 ## Completion percentages
@@ -71,9 +74,9 @@ The accepted Compose baseline runs independently of Godot. The new common
 controller can attach either renderer to the existing practice or LAN authority
 without creating another session. That common integration and both platform
 adapters are implemented and reviewed; their production runtime is still being
-qualified. Both shipping availability sets remain empty. An explicit Android build-time
-qualification profile now exposes selected native modes for testing; default
-shipping packages keep those modes unavailable. Compose remains the default
+qualified. Both shipping availability sets remain empty. Explicit Android and iOS
+build-time qualification profiles expose selected native modes for testing;
+default shipping packages keep those modes unavailable. Compose remains the default
 accessible fallback. Host migration and restoring a match after host process
 death remain outside the agreed first-release scope.
 
@@ -148,19 +151,28 @@ gameplay/lifecycle and physical-device behavior remain outside this result.
 | 3D renderer | Complete desktop match and matching authority trace; Android normal/200% native matches and all requested exits pass | Resolve both latest iOS control-observation failures; native visual/accessibility qualification |
 | Common production integration | Both presentations use the existing session authority; captured revisions/generations, Ready ordering, bounded cleanup, lobby return and concealed Compose fallback; 28 focused tests pass; source review complete | Qualify native adapters with real shell sessions |
 | Android runtime library | Shared official engine/plugin, bounded queues, covered-input generation rejection, PCK staging and R8 reflection rules; 17 focused tests pass; comparison Close barriers and process teardown pass all twelve routes | Production broker/renderer lifecycle, real app transitions and adaptive-window runtime qualification |
-| Android production host | Private shell-process broker and separate renderer Activity; explicit build-time qualification activation implemented; 50 local app tests, lint and APK/AAB packaging pass | Correct pre-picker process-list failure, then qualify debug/optimized native sessions, return, process death, re-entry and shell feedback |
+| Android production host | Private shell-process broker and separate renderer Activity; explicit build-time qualification activation implemented; both ordinary production-run APK smokes pass; process-list correction passes 33 host regressions | Execute corrected debug/optimized native sessions, return, process death, re-entry and shell feedback; execute the four-consumer API 36 adaptive workflow |
 | iOS diagnostic/authority host | Five earlier diagnostic lifecycle tests pass; real Swift authority caller links; latest normal 2D and secure renderer Exit pass | Latest 2D/200% and both 3D failures; complete native interaction/privacy qualification |
-| iOS production/retained engine | Reviewed dormancy/main-loop patches, Kotlin callback port with 11 portable tests, retained owner and Swift adapter integrated; retained Swift concurrency correction runs; both native engines compile; production staging succeeds | Declare the generated Kotlin linker input; rerun app builds/XCTest; resolve retained diagnostics failure and qualify production lifecycle |
+| iOS production/retained engine | Reviewed dormancy/main-loop patches, Kotlin callback port, retained owner and Swift adapter integrated; both native engines compile; production staging succeeds; generated Kotlin linker output declared; explicit qualification activation and two real production-session XCTest cases implemented and source-reviewed | Complete current app builds/XCTest and native-host reruns; resolve retained 3D stalls and qualify production lifecycle |
 | Delivery | Both desktop previews run; native successes and failures preserved; original screenshots published | Both qualified selectable native previews; production LAN/accessibility/performance qualification |
 
-The current exported pack is **1,547,096 bytes with 136 entries**, SHA-256
-`a47392b4ca50e0433e1f42043b9473b08e9641d24117e251a4ab88e11027e3db`.
-Its source/import/export and packed-scene checks pass. It includes the
-terminal-return correction exercised in the latest Android comparison, alongside
-frame-safe reconciliation, the compact 2D Reveal correction and the Android-only
-orientation override. The iOS orientation default is unchanged. Native landscape,
-rotation and split-screen qualification remain pending. Earlier packs and failed
-captures remain preserved; new exports do not inherit old native acceptance.
+The current exported pack is **1,548,520 bytes with 136 entries**, SHA-256
+`91eeb2fba17dd291564bf2e005f85c0924f813f044f945297f10b281e608b2e6`.
+Its import, source-scene, export and packed-scene checks pass. It adds
+generation-backed `sceneStateApplied` diagnostics: a Ready event or current
+revision alone cannot claim that the scene has actually applied that state.
+Android/iOS parsers require the strict Boolean, and iOS cover/input gates require
+it to be true. The exported pack passes **155 boundary and 216 terminal-return
+assertions (371 total)** under real Xvfb/OpenGL rendering. All **71 Android
+comparison host tests** pass and the Android host compiles. The integrated iOS
+observation compiles for Simulator ARM64 and passes **75 shared app tests**.
+
+This pack preserves the terminal-return, frame-safe reconciliation, compact 2D
+Reveal and Android orientation corrections. It has not inherited native
+acceptance from the previous `a47392b4…` pack. Native landscape, rotation and
+split-screen qualification remains pending. A separate 3D change will avoid
+continuously redrawing an unchanged foreground scene; it is still under focused
+render testing and is not included in this pack or the two active iOS runs.
 
 ### Android native comparison evidence
 
@@ -215,16 +227,42 @@ not added together as new coverage.
 
 [Production Validate 34467682627](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34467682627)
 at `b24655dfc0f9a99653682d876bbadeea5a2073d5` is **completed with failure**.
-Tests, lint and packaging succeed; both ordinary debug/optimized APK smokes pass
-(exit codes 0/0). Both native-session phases fail (1/1) during installation/emulator
-readiness with `Unrecognized Android ps PID/UID/NAME output`, before the picker.
-No native mode entry, session continuity, interruption or renderer-death acceptance
-is established. Full activation/package evidence auditing remains in progress.
+Tests, lint and packaging succeed: **228 JUnit tests across 39 reports and 46
+Python checker tests pass**, with zero lint errors and 11 warnings. Both ordinary
+debug/optimized APK smokes pass (exit codes 0/0). Both native-session phases fail
+(1/1) with `Unrecognized Android ps PID/UID/NAME output`, before the picker.
+Installation, installed-APK hash verification and cold launch had passed; the
+inherited readiness stage label does not establish an emulator boot failure.
+Independent auditing verifies qualification metadata for `2d,3d` in all four
+packages and unchanged payloads in the disposable-signed optimized APK. No native
+mode entry, session continuity, interruption or renderer-death acceptance is
+established. The original raw process-list output was not retained.
 
-The production session checker exercises actual picker entry, shell/session
-continuity, process identity, return, leave and renderer death. Its 25 host
-regressions previously passed independent review, but the real process-list
-failure now requires correction and rerun. Native Ready/chrome alone does not
+The corrected production session checker normalizes only header whitespace,
+keeps exact process names and numeric PID/UID requirements, and saves raw stdout,
+stderr and command status before parsing. Android 15/16 Toybox source establishes
+a padded-header incompatibility; absent original output prevents proving that
+exact header caused the failed run. All **33 session regressions and 29 composed
+adaptive regressions pass**. The new API 36 workflow builds once and runs four
+independent consumers: debug/optimized APKs at normal/200% text, both modes in
+each. It checks landscape, rotation during native-control touch, stable reentry
+and split-window geometry. Actual native execution is still required.
+
+Three fresh Android runs at `0222e6f` are now active with the new `91eeb2fb…`
+pack and strict scene-currentness checks:
+
+- [Production API 35 sessions: 34475047307](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34475047307).
+- [Four parallel API 36 adaptive consumers: 34475052568](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34475052568).
+- [Complete 2D/3D comparison: 34475057938](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34475057938).
+
+The comparison observer now requests at most four follow-up diagnostics after
+matching healthy pending responses. Fully applied state remains mandatory for
+input, and all follow-ups share the original deadlines. **83 host tests plus six
+independent boundary traces pass**. These host checks do not establish the actual
+native outcomes of the active run.
+
+The session checker exercises actual picker entry, shell/session continuity,
+process identity, return, leave and renderer death. Native Ready/chrome alone does not
 qualify in-engine gameplay, pixel privacy, card dragging, physical LAN or
 adaptive-window behavior. Qualification activation does not enable shipping modes.
 
@@ -232,12 +270,18 @@ adaptive-window behavior. Qualification activation does not enable shipping mode
 
 [Native-host run 34464316979](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34464316979)
 at `ea84bf49e799675c181545cc3511460b11e0e23d` compiles and executes both hosts
-with the current PCK. **Retained: two passed, one failed.** Background transitions
+with the previous `a47392b4…` PCK. **Retained: two passed, one failed.** Background transitions
 and repeated 2D/3D cases pass. The stale-Ready/close-completion case fails while
 waiting for current renderer diagnostics; it never reaches the old-handle probe.
-First-3D/main-loop/privacy diagnostics remain under investigation. No queue or
-epoch defect is established, and later uncovered snapshots do not replace the
-failed cached observation.
+The rejected sample waits **13.183 seconds for the main run loop** and still
+reports its privacy cover visible; the failure is not established as a queue or
+epoch defect. Later uncovered snapshots do not replace that rejected observation.
+The generation-backed scene-currentness fix and preserved rejected-observation
+attachments are now being exercised in
+[native-host run 34473325295](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34473325295)
+at `0f666e0`. All three producers pass with the exact new pack; both native
+consumer tests remain running at this snapshot. Existing deadlines and gameplay
+expectations remain unchanged.
 
 **Authority: two passed, three failed.** Normal 2D and secure renderer Exit pass;
 2D at 200% text fails an expected-revision comparison (42 versus 41), and both
@@ -270,22 +314,40 @@ the Python 3.9 compatibility correction and all nine recorded resource hashes.
 Both app builds then fail final `Ld`: Xcode reports the force-loaded PartyDeckKit
 binary as a missing build input under `composeApp/build/xcode-frameworks/Debug/iphonesimulator26.4`
 and `Release/iphoneos26.4`. Kotlin's pinned implementation confirms those paths;
-the Compile Kotlin script does not declare that generated output. A minimal
-build-dependency correction is under review. **Neither production app linkage
-nor XCTest passes.** Rerunning both app jobs remains required.
-Raw native archives and staged resource bytes were not uploaded; those audit
-checks are receipt-bound, not independent rehashes of absent files. Retained-host
+the Compile Kotlin script did not declare that generated output. The reviewed
+correction now declares the existing configuration/SDK-dependent framework binary
+as an output, preserving its path and both force-load flags. This is a build
+dependency fix; the original path was correct.
+
+[Production run 34473324178](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34473324178)
+at `0f666e0` tests the corrected device/Simulator builds. It also requests a
+separate qualification app after the ordinary shipping baseline, with exactly
+two real 2D/3D practice-session XCTest cases. Those tests use actual renderer
+input and accepted authority receipts, Standard-table continuity, leave
+cancel/confirm and new-session retained-engine reentry. The observation is
+compiled only for Debug qualification and exports public counters/enums, not
+private card identities or session secrets. All three independent source reviews
+pass. Explicit packaged activation selects qualification modes; shipping modes
+remain empty. All **139 shared native tests** and both engine compiles now pass
+in this run. App compilation and native runtime remain pending.
+
+In the preceding `34467184471` run, raw native archives and staged resource bytes
+were not uploaded; those audit checks are receipt-bound, not independent
+rehashes of absent files. Retained-host
 successes do not substitute for production app packaging/session qualification.
 Historical failures and review limits remain in
 [CI research](research/engine-ci.md) and [the review gallery](screenshots/README.md).
 
 ## Remaining release work
 
-1. **Finish Godot implementation and native qualification.** Correct the Android
-   process-list failure and rerun production debug/optimized native sessions;
+1. **Finish Godot implementation and native qualification.** Execute the corrected
+   Android process-list checker in production debug/optimized native sessions;
    qualify shell/IPC lifecycle, same-session return, process loss/re-entry and
-   sound/haptic continuity. Correct the iOS generated-input dependency, rerun app builds and
-   XCTest, and resolve retained diagnostics and authority scene/control failures.
+   sound/haptic continuity. Complete the iOS generated-input correction's app builds
+   and XCTest, and resolve retained diagnostics and authority scene/control failures.
+   Finish and test the 3D on-demand redraw change, export its pack, and repeat the
+   affected native cases. Execute the integrated bounded Android diagnostic
+   follow-up correction without relaxing current-scene or input acceptance.
    Complete actual native visual/privacy review and repeat affected app baselines.
    Both renderers remain in source for comparison. Android's adaptive orientation
    policy is implemented; native landscape, rotation and split-screen execution
@@ -310,7 +372,7 @@ Historical failures and review limits remain in
 
 ## Published deliverables
 
-- Source and coherent milestones are pushed through `bbf33f1`.
+- Source and coherent milestones are pushed through `0222e6f`.
 - [Screenshot gallery](screenshots/README.md): **1,584 original app/renderer PNGs**,
   including original failed attempts, with four linked artwork proofs. The
   latest extension adds 124 originals and is verified and published at
