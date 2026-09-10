@@ -1,0 +1,49 @@
+{
+  "command": [
+    "flock",
+    "/tmp/partydeck-godot.lock",
+    "xvfb-run",
+    "-a",
+    "-s",
+    "-screen 0 1600x1200x24",
+    "/opt/partydeck-godot/godot",
+    "--path",
+    "/root/projects/PartyDeck/godot/renderer",
+    "--rendering-method",
+    "gl_compatibility",
+    "--audio-driver",
+    "Dummy",
+    "--script",
+    "res://tests/three_d_scene_check.gd",
+    "--",
+    "--manual-bridge",
+    "--check-fixture=/root/projects/PartyDeck/godot/bridge/fixtures/launch-3d.json",
+    "--check-output=/tmp/partydeck-3d-20260910-v4/landscape",
+    "--check-width=844",
+    "--check-height=390",
+    "--check-text-scale=1"
+  ],
+  "exitCode": 0,
+  "viewport": [
+    844,
+    390
+  ],
+  "textScale": 1,
+  "fixtureSha256": "d099a9ff543d5409925a3afb669780dd702f20bdd886cf530c431d546af99407",
+  "sourceBefore": {
+    "godot/renderer/project.godot": "14e8414e3bd9349559c31a204dc5f845cb98c21f5feb3726cb6c0bbd3f9d78a2",
+    "godot/renderer/scripts/main.gd": "869ecb3e97377ea80f248cc91a962087119204abe1d1b9fe5918573ad977ecac",
+    "godot/renderer/scripts/renderer_controller.gd": "4891269ee70a642e92e1871346ce135b2ee00c7f2b09166f96d0b1890f24de51",
+    "godot/renderer/presentations/three_d/table.gd": "f81e2f8bcab3247ba4d0da5714c913db022ed286f3fbb0930bb587b3efcfc62c",
+    "godot/renderer/presentations/three_d/card_3d.gd": "5c11c95a545cb4143cc38b5ebef5b8eb737a7f434e3c0567c0638dbbcf97680d",
+    "godot/renderer/tests/three_d_scene_check.gd": "8ef246f3846df92a4a467ed74f9649235be9714a342c5ea0b8f0fa9999b94e84"
+  },
+  "sourceAfter": {
+    "godot/renderer/project.godot": "14e8414e3bd9349559c31a204dc5f845cb98c21f5feb3726cb6c0bbd3f9d78a2",
+    "godot/renderer/scripts/main.gd": "869ecb3e97377ea80f248cc91a962087119204abe1d1b9fe5918573ad977ecac",
+    "godot/renderer/scripts/renderer_controller.gd": "4891269ee70a642e92e1871346ce135b2ee00c7f2b09166f96d0b1890f24de51",
+    "godot/renderer/presentations/three_d/table.gd": "f81e2f8bcab3247ba4d0da5714c913db022ed286f3fbb0930bb587b3efcfc62c",
+    "godot/renderer/presentations/three_d/card_3d.gd": "5c11c95a545cb4143cc38b5ebef5b8eb737a7f434e3c0567c0638dbbcf97680d",
+    "godot/renderer/tests/three_d_scene_check.gd": "8ef246f3846df92a4a467ed74f9649235be9714a342c5ea0b8f0fa9999b94e84"
+  }
+}

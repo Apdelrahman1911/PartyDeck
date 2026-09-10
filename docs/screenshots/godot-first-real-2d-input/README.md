@@ -22,6 +22,8 @@ All 11 images were independently visually reviewed. Concealed, covered, inactive
 
 Scope remains desktop renderer gameplay. No native accessibility, native navigation screen, OS lifecycle protection, physical LAN or store-signing result is claimed. Only 2D ran here: `sameAuthorityTrace=false` means this is not a 2D/3D parity run. Sequence number 11 is absent because the renderer did not require a lobby confirmation screenshot; no missing frame is invented.
 
+A later [matched packed 2D/3D run](../godot-matched-packed-20260910/README.md) records clean exits and equal authority traces. It supersedes this run only for clean-runtime qualification; the original shutdown defect and all evidence here remain unchanged.
+
 | Original image | Scenario and provenance |
 | --- | --- |
 | <a href="2d/01-concealed.png"><img src="2d/01-concealed.png" alt="Initial concealed hand" width="168"></a> | **Initial concealed hand**<br>Godot 4.7.2 desktop 2D, real Kotlin authority, 430 × 932 viewport<br>Original: [01-concealed.png](2d/01-concealed.png)<br>430 × 932 px; text 1.0×; seed 2<br>SHA-256: <code>573c066bbb9a94a5b8ee38b27c5768b06fab0bf96506f91388d92b9ec6be069c</code><br>Authority revision: 0<br>View SHA-256: <code>edf527cc8ff21d8a5485008fc35d21e784dda2adb745e2c1188b9c6b08f447ca</code><br>[Original receipt](2d/01-concealed.receipt.json) |
