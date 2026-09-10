@@ -1,0 +1,7 @@
+Android run 34515669045 has 318 retained PNGs: 100 debug native captures, 86 optimized native captures, 62 ordinary UI captures, one emulator preparation capture, and 69 Compose UI snapshots. Its Android job passed; the combined workflow failed in the separate iOS native job.
+
+The [capture inventory](/root/projects/PartyDeck/artifacts/evidence-storage/34515669045/review/capture-inventory-v1.json) maps all 186 native capture records to original PNG/XML paths, existing verified hashes, timestamps, original capture sidecars, and before/after state pointers. It binds the original report manifest, completed integrity audit, exact derived-source freeze, and both original action reviews. No media bytes were opened, decoded, or rehashed while building it.
+
+All four current engine actions have a same-round public-result outcome. Current concealed-return, immediate outcome, and later Standard XMLs contain zero card nodes; remaining Standard-hand size and unchecked remaining cards are unobserved. The independent review preserves this limit separately from local renderer selection clearing.
+
+No image has been viewed by this collector, and no direct-original view receipt is claimed. The original Android report manifest contains no videos. Pixel privacy, TalkBack, adaptive layouts/fonts, physical devices/LAN, store signing, and iOS remain outside this inventory's qualification scope. Gallery review and publication belong to review_design.

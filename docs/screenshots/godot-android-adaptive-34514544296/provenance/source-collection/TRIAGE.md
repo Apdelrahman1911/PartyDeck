@@ -1,0 +1,24 @@
+Run **34514544296**, attempt **1**, concluded **failure** at exact head `286b7ff11b2441daad044b57fad6fc8b6be995d0`.
+
+The 96 planned adaptive scopes contain **28 passed, 4 failed, 12 unsupported, 52 not-reached**. 4 installations passed.
+
+| Consumer | Overall result | Named checks reached | First reported failure |
+| --- | --- | --- | --- |
+| debug / 1.0x | failed | 2d-landscape.held-rotation: unsupported; 2d-landscape.initial-landscape: passed; 2d-landscape.native-leave-home: passed; 2d-landscape.portrait-reentry-standard: passed; 2d-seascape.held-rotation: unsupported; 2d-seascape.initial-landscape: passed; 2d-seascape.native-leave-home: passed; 2d-seascape.portrait-reentry-standard: passed; 2d-split.entry-after-ready: unsupported; 2d-split.support: passed; 3d-landscape.initial-landscape: failed | Actual focused Activity configuration/window mode did not stabilize as requested. |
+| debug / 2.0x | failed | 2d-landscape.held-rotation: unsupported; 2d-landscape.initial-landscape: passed; 2d-landscape.native-leave-home: passed; 2d-landscape.portrait-reentry-standard: passed; 2d-seascape.held-rotation: unsupported; 2d-seascape.initial-landscape: passed; 2d-seascape.native-leave-home: passed; 2d-seascape.portrait-reentry-standard: passed; 2d-split.entry-after-ready: unsupported; 2d-split.support: passed; 3d-landscape.initial-landscape: failed | Actual focused Activity configuration/window mode did not stabilize as requested. |
+| optimized-test-signed / 1.0x | failed | 2d-landscape.held-rotation: unsupported; 2d-landscape.initial-landscape: passed; 2d-landscape.native-leave-home: passed; 2d-landscape.portrait-reentry-standard: passed; 2d-seascape.held-rotation: unsupported; 2d-seascape.initial-landscape: passed; 2d-seascape.native-leave-home: passed; 2d-seascape.portrait-reentry-standard: passed; 2d-split.entry-after-ready: unsupported; 2d-split.support: passed; 3d-landscape.initial-landscape: failed | Actual focused Activity configuration/window mode did not stabilize as requested. |
+| optimized-test-signed / 2.0x | failed | 2d-landscape.held-rotation: unsupported; 2d-landscape.initial-landscape: passed; 2d-landscape.native-leave-home: passed; 2d-landscape.portrait-reentry-standard: passed; 2d-seascape.held-rotation: unsupported; 2d-seascape.initial-landscape: passed; 2d-seascape.native-leave-home: passed; 2d-seascape.portrait-reentry-standard: passed; 2d-split.entry-after-ready: unsupported; 2d-split.support: passed; 3d-landscape.initial-landscape: failed | Actual focused Activity configuration/window mode did not stabilize as requested. |
+
+The audit records every reached and unreached 2D/3D scope separately.
+
+Named failed and unsupported checks are retained separately from overall recovery and cleanup failures. Stage labels do not substitute for observed Activity identity or establish a native 3D launch. Recorded MP4 validation establishes media structure/decoding only; startup-unavailable originals stay unavailable, and no recording establishes concealment timing or pixel privacy without its separate review.
+
+Independent verification covered **6 original ZIPs**, **5 original job logs**, **14,369 extracted files**, **1754 raw process receipts**, **1754 state JSON records**, **228 PNG/XML pairs** and **12 retained original MP4s**. Same-run producer inputs, installed APK bytes, all eight reviewed checker pins, producer/wrapper pins and exact source/parser bindings were checked.
+
+The source is a labeled derived exact-commit snapshot owned by game_domain and bound in source-reuse.json to complete remote commit/tree receipts, retained changed blob responses and frozen parent payloads. No new full archive of this commit is claimed. The 1,124 new or changed omitted gallery payloads have remote tree identities only; their bytes were not collected or independently hashed. Verified identical extracted APK copies use hardlinks while all original paths, content bytes and artifact ZIPs remain preserved.
+
+This adaptive workflow does not execute engine gameplay assertions. Production collector run 34515669045 is separate and uses its own source revision. No new Android/device/build execution or visual review was performed by this collector.
+
+[Originals audit](triage/originals-audit.json), [raw process audit](triage/raw-process-audit.json), [first errors](triage/first-failures.json), [source reuse](source-reuse.json), [storage receipt](triage/apk-storage-deduplication.json), and [publication mapping](triage/capture-publication-inventory.json) retain exact paths and hashes.
+
+All four first failures occur while preparing the initial 3D landscape scope after the unsupported 2D split-entry recording. No split-entry request was observed; final states retain the native Activity in fullscreen landscape. This does not establish a native 3D launch failure. The original cleanup errors and scenario failures remain recorded.

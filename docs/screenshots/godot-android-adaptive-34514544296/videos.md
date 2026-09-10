@@ -1,0 +1,20 @@
+# Original API 36 recording evidence
+
+[Android API 36 adaptive — CI 34514544296](README.md)
+
+All 12 original MP4s retain startup-unavailable-original-retained / growth-not-observed. No video was viewed or decoded for this publication, and no held/transition/privacy acceptance follows.
+
+| Original recording | Source case | Original status | Bytes and SHA-256 |
+| --- | --- | --- | --- |
+| [2d-landscape-rotation.mp4](debug/font-1.0/runtime/videos/2d-landscape-rotation.mp4) | android-adaptive-api36-debug-font-1.0-34514544296-1 | startup-unavailable-original-retained / growth-not-observed | 39,204 bytes<br><code>81dbbd49919da0abfd96cf8407ca0439fa4e590899a3b31bae170f8c341b01c2</code> |
+| [2d-seascape-rotation.mp4](debug/font-1.0/runtime/videos/2d-seascape-rotation.mp4) | android-adaptive-api36-debug-font-1.0-34514544296-1 | startup-unavailable-original-retained / growth-not-observed | 41,728 bytes<br><code>d73dbc3ccf0d0792b11cde9e0bee3768eadd74296cb98c05e5b76b23f4174bf8</code> |
+| [2d-split-entry.mp4](debug/font-1.0/runtime/videos/2d-split-entry.mp4) | android-adaptive-api36-debug-font-1.0-34514544296-1 | startup-unavailable-original-retained / growth-not-observed | 39,536 bytes<br><code>eb9ef40562fe51b27f07533c7f6d5b2f7519396123b3042ffd14bda55e1d0391</code> |
+| [2d-landscape-rotation.mp4](debug/font-2.0/runtime/videos/2d-landscape-rotation.mp4) | android-adaptive-api36-debug-font-2.0-34514544296-1 | startup-unavailable-original-retained / growth-not-observed | 40,543 bytes<br><code>b1f89815e538e1174402336fc9b0fbe5b9e403fda0fe0f1f46d4a48c45fbd621</code> |
+| [2d-seascape-rotation.mp4](debug/font-2.0/runtime/videos/2d-seascape-rotation.mp4) | android-adaptive-api36-debug-font-2.0-34514544296-1 | startup-unavailable-original-retained / growth-not-observed | 38,995 bytes<br><code>bdb3f941f58f1ab56f551b5963e957f6d2cd7fd52fb5c9f7122143c53f5db1a0</code> |
+| [2d-split-entry.mp4](debug/font-2.0/runtime/videos/2d-split-entry.mp4) | android-adaptive-api36-debug-font-2.0-34514544296-1 | startup-unavailable-original-retained / growth-not-observed | 34,892 bytes<br><code>b92fab135ee42461f11dc890bbd625562d572894a21b7932c38b56eeaddf4fbe</code> |
+| [2d-landscape-rotation.mp4](optimized-test-signed/font-1.0/runtime/videos/2d-landscape-rotation.mp4) | android-adaptive-api36-optimized-test-signed-font-1.0-34514544296-1 | startup-unavailable-original-retained / growth-not-observed | 42,936 bytes<br><code>ad36efd156388993a993bca2c8afc997d9619dc23a49b75a108becea015df73c</code> |
+| [2d-seascape-rotation.mp4](optimized-test-signed/font-1.0/runtime/videos/2d-seascape-rotation.mp4) | android-adaptive-api36-optimized-test-signed-font-1.0-34514544296-1 | startup-unavailable-original-retained / growth-not-observed | 41,628 bytes<br><code>c8c27b93dd0017fe9dbb9d5b32f585338751b24866cac4b84b4f993dc48864e5</code> |
+| [2d-split-entry.mp4](optimized-test-signed/font-1.0/runtime/videos/2d-split-entry.mp4) | android-adaptive-api36-optimized-test-signed-font-1.0-34514544296-1 | startup-unavailable-original-retained / growth-not-observed | 43,727 bytes<br><code>27bfb0c73fc718b9e45fb7f33a4e954baccec43c4d17700222d7c6e93277bf80</code> |
+| [2d-landscape-rotation.mp4](optimized-test-signed/font-2.0/runtime/videos/2d-landscape-rotation.mp4) | android-adaptive-api36-optimized-test-signed-font-2.0-34514544296-1 | startup-unavailable-original-retained / growth-not-observed | 41,752 bytes<br><code>c260f5c0ca02b37800a0df44e1f2369d3bda17b238bd6f6458f8a8850d6756ea</code> |
+| [2d-seascape-rotation.mp4](optimized-test-signed/font-2.0/runtime/videos/2d-seascape-rotation.mp4) | android-adaptive-api36-optimized-test-signed-font-2.0-34514544296-1 | startup-unavailable-original-retained / growth-not-observed | 39,084 bytes<br><code>9831f403e697a54ec03243a34cab8dafda073caa03dec09c9ce102a4ac2aac9c</code> |
+| [2d-split-entry.mp4](optimized-test-signed/font-2.0/runtime/videos/2d-split-entry.mp4) | android-adaptive-api36-optimized-test-signed-font-2.0-34514544296-1 | startup-unavailable-original-retained / growth-not-observed | 34,552 bytes<br><code>ab9251770673fbce2365fad52eca9a6e7575afbccff2d4ae5ac2b2ac081bea21</code> |

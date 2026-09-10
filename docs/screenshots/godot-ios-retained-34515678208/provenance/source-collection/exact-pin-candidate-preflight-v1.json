@@ -1,0 +1,49 @@
+{
+  "auditedAtUtc": "2026-09-10T18:47:16.155378+00:00",
+  "runId": 34515678208,
+  "headSha": "3616960b3162e658fd1a428a73b82f2a569f4d2a",
+  "sourceBefore": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-c058bdc/source-c058bdc/godot/ios-host/modules/partydeck_ios_probe/PDGodotRuntime.mm",
+    "bytes": 109043,
+    "sha256": "042ad5a42ae33a7696c38c448a0e5eef120d1c75a19ad3c29e5c516899913fc8"
+  },
+  "coordinatorCandidateSource": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/ios-exact-pack-pin-root-integration-20260910/diagnostic-PDGodotRuntime.mm",
+    "bytes": 109043,
+    "sha256": "11f2d522db027f7cd39f33ee17e843c5257b387ad69b5cf0e691b8453af4ca2a"
+  },
+  "coordinatorReceipts": [
+    {
+      "source": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/ios-exact-pack-pin-root-integration-20260910/proposed.json",
+        "bytes": 1360,
+        "sha256": "e874cce055a9227bf64fd695391a5244a6a7540d9b871385a56d470353dacfac"
+      },
+      "copy": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34515678208/coordinator-receipts/proposed.json",
+        "bytes": 1360,
+        "sha256": "e874cce055a9227bf64fd695391a5244a6a7540d9b871385a56d470353dacfac"
+      }
+    },
+    {
+      "source": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/ios-exact-pack-pin-root-integration-20260910/diagnostic.patch",
+        "bytes": 915,
+        "sha256": "c83a4f5e1120077decb5914ec342234103adc55c9dcfb90e5d044bb0ac238a2b"
+      },
+      "copy": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34515678208/coordinator-receipts/diagnostic.patch",
+        "bytes": 915,
+        "sha256": "c83a4f5e1120077decb5914ec342234103adc55c9dcfb90e5d044bb0ac238a2b"
+      }
+    }
+  ],
+  "onlyChangeIsExactHashLiteral": true,
+  "guardLogicByteIdenticalAfterReplacingLiteral": true,
+  "requiredPackSHA256": "c8d2b0989524c66715fd7469b7a8315a6fd2fb8563ec87bd2294d60b4ebbcd4a",
+  "oldRequiredPackSHA256": "d6adbba1b5cbd6a1ac3a5754e4294363eae70ae9540af4ba12040cd4cfff44e0",
+  "sourceDiff": "--- frozen-c058/PDGodotRuntime.mm\n+++ coordinator-3616960/PDGodotRuntime.mm\n@@ -137,7 +137,7 @@\n \n // This lifecycle is audited for the frozen trusted content, including its\n // imported resources. A different pack requires a new content/source review.\n-static NSString *const PDQualifiedRetainedPackSHA256 = @\"d6adbba1b5cbd6a1ac3a5754e4294363eae70ae9540af4ba12040cd4cfff44e0\";\n+static NSString *const PDQualifiedRetainedPackSHA256 = @\"c8d2b0989524c66715fd7469b7a8315a6fd2fb8563ec87bd2294d60b4ebbcd4a\";\n \n static NSString *PDPackSHA256(NSString *path) {\n \tNSDictionary *attributes = [NSFileManager.defaultManager attributesOfItemAtPath:path error:nil];\n",
+  "nativeProducerReceiptVerified": false,
+  "sharedExactCommitSourceVerified": false,
+  "scope": "Independent bounded coordinator-candidate check before producer artifacts are available. Exact single hash-literal replacement only. Actual rebuilt module/archive, candidate pack and runtime behavior still require collected receipts and execution evidence."
+}

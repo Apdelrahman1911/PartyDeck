@@ -1,0 +1,1273 @@
+Command line invocation:
+    /Applications/Xcode_26.4.1.app/Contents/Developer/usr/bin/xcodebuild test -project /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost.xcodeproj -scheme RetainedHost -configuration Debug -destination "platform=iOS Simulator,id=6762BD8F-E960-4E21-B8DB-9D43947B47AF" -derivedDataPath /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData -resultBundlePath /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/artifacts/RetainedHost.xcresult -parallel-testing-enabled NO CODE_SIGNING_ALLOWED=NO LD_MAP_FILE_PATH=/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/evidence/RetainedHost-LinkMap.txt
+
+Build settings from command line:
+    CODE_SIGNING_ALLOWED = NO
+    LD_MAP_FILE_PATH = /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/evidence/RetainedHost-LinkMap.txt
+
+Writing result bundle at path:
+	/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/artifacts/RetainedHost.xcresult
+
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (2 targets)
+    Target 'RetainedHostUITests' in project 'RetainedHost'
+        ➜ Explicit dependency on target 'RetainedHost' in project 'RetainedHost'
+    Target 'RetainedHost' in project 'RetainedHost' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+Build description signature: 5f9d46b180c38c4af3a897063015b641
+Build description path: /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/XCBuildData/5f9d46b180c38c4af3a897063015b641.xcbuilddata
+ClangStatCache /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/SDKStatCaches.noindex/iphonesimulator26.4-23E252-688ef53f1462e2c8f657fdc38a81448f893e4a944e4cdd9af1f5077e1341bc52.sdkstatcache
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost.xcodeproj
+    /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk -o /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/SDKStatCaches.noindex/iphonesimulator26.4-23E252-688ef53f1462e2c8f657fdc38a81448f893e4a944e4cdd9af1f5077e1341bc52.sdkstatcache
+
+ProcessInfoPlistFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHost.app/Info.plist /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/Info.plist (in target 'RetainedHost' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    builtin-infoPlistUtility /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHost/Info.plist -producttype com.apple.product-type.application -genpkginfo /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHost.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -o /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHost.app/Info.plist
+
+WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests.hmap (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests.hmap
+
+WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/empty-RetainedHostUITests.plist (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/empty-RetainedHostUITests.plist
+
+WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests.DependencyStaticMetadataFileList (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests.DependencyStaticMetadataFileList
+
+WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests.DependencyMetadataFileList (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests.DependencyMetadataFileList
+
+WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests-project-headers.hmap (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests-project-headers.hmap
+
+WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests-own-target-headers.hmap (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests-own-target-headers.hmap
+
+WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests-generated-files.hmap (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests-generated-files.hmap
+
+WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests-all-target-headers.hmap (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests-all-target-headers.hmap
+
+WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests-all-non-framework-target-headers.hmap (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests-all-non-framework-target-headers.hmap
+
+WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/ProductTypeInfoPlistAdditions.plist (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/ProductTypeInfoPlistAdditions.plist
+
+WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests_const_extract_protocols.json (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests_const_extract_protocols.json
+
+WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests.SwiftFileList (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests.SwiftFileList
+
+WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests.SwiftConstValuesFileList (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests.SwiftConstValuesFileList
+
+WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests.LinkFileList (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests.LinkFileList
+
+WriteAuxiliaryFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests-OutputFileMap.json (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    write-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests-OutputFileMap.json
+
+MkDir /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/PlugIns/RetainedHostUITests.xctest (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    /bin/mkdir -p /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/PlugIns/RetainedHostUITests.xctest
+
+CopySwiftLibs /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHost.app (in target 'RetainedHost' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    builtin-swiftStdLibTool --copy --verbose --scan-executable /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHost.app/RetainedHost --scan-folder /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHost.app/Frameworks --scan-folder /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHost.app/PlugIns --scan-folder /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHost.app/SystemExtensions --scan-folder /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHost.app/Extensions --scan-folder /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/artifacts/PartyDeckGodotBridge.framework --platform iphonesimulator --toolchain /var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v17.5.188.0.4CKHh1/Metal.xctoolchain --toolchain /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHost.app/Frameworks --strip-bitcode --strip-bitcode-tool /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHost.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os
+Ignoring --strip-bitcode because --sign was not passed
+
+SwiftDriver RetainedHostUITests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    builtin-SwiftDriver -- /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name RetainedHostUITests -Onone @/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests.SwiftFileList -module-alias Testing\=_Testing_Unavailable -plugin-path /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk -target arm64-apple-ios15.0-simulator -g -module-cache-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Index.noindex/DataStore -swift-version 6 -I /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator -F /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk/Developer/Library/Frameworks -parse-as-library -c -j3 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/SDKStatCaches.noindex/iphonesimulator26.4-23E252-688ef53f1462e2c8f657fdc38a81448f893e4a944e4cdd9af1f5077e1341bc52.sdkstatcache -output-file-map /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests_const_extract_protocols.json -Xcc -iquote -Xcc /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests-generated-files.hmap -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests-own-target-headers.hmap -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests-all-target-headers.hmap -Xcc -iquote -Xcc /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests-project-headers.hmap -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/DerivedSources-normal/arm64 -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/DerivedSources/arm64 -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/DerivedSources -emit-objc-header -emit-objc-header-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests-Swift.h -working-directory /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host -experimental-emit-module-separately -disable-cmo
+
+ProcessInfoPlistFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/PlugIns/RetainedHostUITests.xctest/Info.plist /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/empty-RetainedHostUITests.plist (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    builtin-infoPlistUtility /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/empty-RetainedHostUITests.plist -producttype com.apple.product-type.bundle.ui-testing -expandbuildsettings -format binary -platform iphonesimulator -additionalcontentfile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/ProductTypeInfoPlistAdditions.plist -o /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/PlugIns/RetainedHostUITests.xctest/Info.plist
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules/XCUIAutomation-97NLKBTVB8SF6GGNWKXBK34WF.pcm
+
+SwiftExplicitDependencyCompileModuleFromInterface arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules/XCUIAutomation-CAYKS4DYONI9.swiftmodule
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules/XCTest-VM4ARC36LCGJZ5Y7W50YEQO4.pcm
+
+SwiftExplicitDependencyCompileModuleFromInterface arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules/XCTest-1KGJORLKIERWY.swiftmodule
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ RetainedHostUITests (in target 'RetainedHostUITests' from project 'RetainedHost')
+
+SwiftCompile normal arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHostUITests/RetainedHostUITests.swift (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    
+
+SwiftCompile normal arm64 Compiling\ RetainedHostUITests.swift /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHostUITests/RetainedHostUITests.swift (in target 'RetainedHostUITests' from project 'RetainedHost')
+SwiftCompile normal arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHostUITests/RetainedHostUITests.swift (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for RetainedHostUITests (in target 'RetainedHostUITests' from project 'RetainedHost')
+
+SwiftDriver\ Compilation\ Requirements RetainedHostUITests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name RetainedHostUITests -Onone @/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests.SwiftFileList -module-alias Testing\=_Testing_Unavailable -plugin-path /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk -target arm64-apple-ios15.0-simulator -g -module-cache-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Index.noindex/DataStore -swift-version 6 -I /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator -F /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk/Developer/Library/Frameworks -parse-as-library -c -j3 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/SDKStatCaches.noindex/iphonesimulator26.4-23E252-688ef53f1462e2c8f657fdc38a81448f893e4a944e4cdd9af1f5077e1341bc52.sdkstatcache -output-file-map /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests_const_extract_protocols.json -Xcc -iquote -Xcc /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests-generated-files.hmap -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests-own-target-headers.hmap -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests-all-target-headers.hmap -Xcc -iquote -Xcc /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests-project-headers.hmap -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/DerivedSources-normal/arm64 -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/DerivedSources/arm64 -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/DerivedSources -emit-objc-header -emit-objc-header-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests-Swift.h -working-directory /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host -experimental-emit-module-separately -disable-cmo
+
+SwiftMergeGeneratedHeaders /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/DerivedSources/RetainedHostUITests-Swift.h /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests-Swift.h (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    builtin-swiftHeaderTool -arch arm64 /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests-Swift.h -o /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/DerivedSources/RetainedHostUITests-Swift.h
+
+Copy /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests.swiftmodule/arm64-apple-ios-simulator.swiftmodule /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests.swiftmodule (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -strip-unsigned-binaries -strip-deterministic -strip-tool /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -resolve-src-symlinks -rename /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests.swiftmodule /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests.swiftmodule/arm64-apple-ios-simulator.swiftmodule
+
+Copy /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests.swiftmodule/arm64-apple-ios-simulator.swiftdoc /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests.swiftdoc (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -strip-unsigned-binaries -strip-deterministic -strip-tool /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -resolve-src-symlinks -rename /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests.swiftdoc /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests.swiftmodule/arm64-apple-ios-simulator.swiftdoc
+
+Copy /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests.swiftmodule/arm64-apple-ios-simulator.abi.json /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests.abi.json (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -strip-unsigned-binaries -strip-deterministic -strip-tool /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -resolve-src-symlinks -rename /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests.abi.json /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests.swiftmodule/arm64-apple-ios-simulator.abi.json
+
+Copy /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests.swiftsourceinfo (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -strip-unsigned-binaries -strip-deterministic -strip-tool /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -resolve-src-symlinks -rename /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests.swiftsourceinfo /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo
+
+SwiftDriverJobDiscovery normal arm64 Compiling RetainedHostUITests.swift (in target 'RetainedHostUITests' from project 'RetainedHost')
+
+SwiftDriver\ Compilation RetainedHostUITests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    builtin-Swift-Compilation -- /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name RetainedHostUITests -Onone @/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests.SwiftFileList -module-alias Testing\=_Testing_Unavailable -plugin-path /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk -target arm64-apple-ios15.0-simulator -g -module-cache-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Index.noindex/DataStore -swift-version 6 -I /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator -F /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk/Developer/Library/Frameworks -parse-as-library -c -j3 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/SDKStatCaches.noindex/iphonesimulator26.4-23E252-688ef53f1462e2c8f657fdc38a81448f893e4a944e4cdd9af1f5077e1341bc52.sdkstatcache -output-file-map /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests_const_extract_protocols.json -Xcc -iquote -Xcc /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests-generated-files.hmap -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests-own-target-headers.hmap -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests-all-target-headers.hmap -Xcc -iquote -Xcc /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests-project-headers.hmap -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/DerivedSources-normal/arm64 -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/DerivedSources/arm64 -Xcc -I/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/DerivedSources -emit-objc-header -emit-objc-header-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests-Swift.h -working-directory /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host -experimental-emit-module-separately -disable-cmo
+
+Ld /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/PlugIns/RetainedHostUITests.xctest/RetainedHostUITests normal (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios15.0-simulator -bundle -isysroot /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk -Os -L/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -L/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator -L/Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator -iframework /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -iframework /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk/Developer/Library/Frameworks -filelist /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests.LinkFileList -Xlinker -rpath -Xlinker /usr/lib/swift -Xlinker -rpath -Xlinker @loader_path/Frameworks -Xlinker -rpath -Xlinker @executable_path/Frameworks -Xlinker -dead_strip -Xlinker -object_path_lto -Xlinker /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests_lto.o -rdynamic -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests_dependency_info.dat -fobjc-link-runtime -L/Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests.swiftmodule @/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests-linker-args.resp -Xlinker -needed_framework -Xlinker XCTest -framework XCTest -Xlinker -needed-lXCTestSwiftSupport -lXCTestSwiftSupport -o /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/PlugIns/RetainedHostUITests.xctest/RetainedHostUITests
+
+CopySwiftLibs /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/PlugIns/RetainedHostUITests.xctest (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    builtin-swiftStdLibTool --copy --verbose --scan-executable /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/PlugIns/RetainedHostUITests.xctest/RetainedHostUITests --scan-folder /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/PlugIns/RetainedHostUITests.xctest/Frameworks --scan-folder /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/PlugIns/RetainedHostUITests.xctest/PlugIns --scan-folder /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/PlugIns/RetainedHostUITests.xctest/SystemExtensions --scan-folder /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/PlugIns/RetainedHostUITests.xctest/Extensions --platform iphonesimulator --toolchain /var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v17.5.188.0.4CKHh1/Metal.xctoolchain --toolchain /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/PlugIns/RetainedHostUITests.xctest/Frameworks --strip-bitcode --scan-executable /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libXCTestSwiftSupport.dylib --strip-bitcode-tool /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os
+Ignoring --strip-bitcode because --sign was not passed
+
+ExtractAppIntentsMetadata (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v17.5.188.0.4CKHh1/Metal.xctoolchain --module-name RetainedHostUITests --sdk-root /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk --xcode-version 17E202 --platform-family iOS --deployment-target 15.0 --bundle-identifier dev.partydeck.godot.iosretained.UITests --output /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/PlugIns/RetainedHostUITests.xctest --target-triple arm64-apple-ios15.0-simulator --binary-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/PlugIns/RetainedHostUITests.xctest/RetainedHostUITests --dependency-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests_dependency_info.dat --stringsdata-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests.SwiftFileList --metadata-file-list /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests.DependencyMetadataFileList --static-metadata-file-list /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests.DependencyStaticMetadataFileList --swift-const-vals-list /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/Objects-normal/arm64/RetainedHostUITests.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --validate-assistant-intents --no-app-shortcuts-localization
+2026-09-10 18:48:21.813 appintentsmetadataprocessor[10437:35613] Starting appintentsmetadataprocessor export
+2026-09-10 18:48:21.836 appintentsmetadataprocessor[10437:35613] warning: Metadata extraction skipped. No AppIntents.framework dependency found.
+
+AppIntentsSSUTraining (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsnltrainingprocessor --infoplist-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/PlugIns/RetainedHostUITests.xctest/Info.plist --temp-dir-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/ssu --bundle-id dev.partydeck.godot.iosretained.UITests --product-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/PlugIns/RetainedHostUITests.xctest --extracted-metadata-path /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/PlugIns/RetainedHostUITests.xctest/Metadata.appintents --metadata-file-list /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Intermediates.noindex/RetainedHost.build/Debug-iphonesimulator/RetainedHostUITests.build/RetainedHostUITests.DependencyMetadataFileList --source-file /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/PlugIns/RetainedHostUITests.xctest/Info.plist --archive-ssu-assets
+2026-09-10 18:48:21.921 appintentsnltrainingprocessor[10439:35647] Parsing options for appintentsnltrainingprocessor
+2026-09-10 18:48:21.923 appintentsnltrainingprocessor[10439:35647] Starting AppIntents SSU YAML Generation
+2026-09-10 18:48:21.930 appintentsnltrainingprocessor[10439:35647] No AppShortcuts found - Skipping.
+
+MkDir /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    /bin/mkdir -p /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app
+
+CopyAndPreserveArchs /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/RetainedHostUITests-Runner (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Xcode/Agents/XCTRunner.app/XCTRunner -output /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/RetainedHostUITests-Runner -extract arm64
+
+CopyPlistFile /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/Info.plist /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Xcode/Agents/XCTRunner.app/Info.plist (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    builtin-copyPlist --validate --convert xml1 --macro-expansion WRAPPEDPRODUCTNAME RetainedHostUITests-Runner --macro-expansion WRAPPEDPRODUCTBUNDLEIDENTIFIER dev.partydeck.godot.iosretained.UITests.xctrunner --macro-expansion TESTPRODUCTNAME RetainedHostUITests --macro-expansion TESTPRODUCTBUNDLEIDENTIFIER dev.partydeck.godot.iosretained.UITests --copy-value UIDeviceFamily /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/PlugIns/RetainedHostUITests.xctest/Info.plist --outdir /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app -- /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Xcode/Agents/XCTRunner.app/Info.plist
+
+Copy /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/PkgInfo /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Xcode/Agents/XCTRunner.app/PkgInfo (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -strip-unsigned-binaries -strip-deterministic -strip-tool /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -resolve-src-symlinks /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Xcode/Agents/XCTRunner.app/PkgInfo /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app
+
+Copy /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/Frameworks/libXCTestSwiftSupport.dylib /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libXCTestSwiftSupport.dylib (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -strip-unsigned-binaries -strip-deterministic -strip-tool /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -resolve-src-symlinks /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libXCTestSwiftSupport.dylib /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/Frameworks
+warning: not stripping binary because it is signed: /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libXCTestSwiftSupport.dylib (in target 'RetainedHostUITests' from project 'RetainedHost')
+
+Copy /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/Frameworks/XCUnit.framework /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/XCUnit.framework (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -strip-unsigned-binaries -strip-deterministic -strip-tool /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -resolve-src-symlinks /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/XCUnit.framework /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/Frameworks
+warning: not stripping binary because it is signed: /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/XCUnit.framework/XCUnit (in target 'RetainedHostUITests' from project 'RetainedHost')
+
+Copy /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/Frameworks/XCUIAutomation.framework /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCUIAutomation.framework (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -strip-unsigned-binaries -strip-deterministic -strip-tool /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -resolve-src-symlinks /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCUIAutomation.framework /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/Frameworks
+warning: not stripping binary because it is signed: /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCUIAutomation.framework/XCUIAutomation (in target 'RetainedHostUITests' from project 'RetainedHost')
+
+Copy /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/Frameworks/XCTestSupport.framework /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/XCTestSupport.framework (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -strip-unsigned-binaries -strip-deterministic -strip-tool /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -resolve-src-symlinks /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/XCTestSupport.framework /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/Frameworks
+warning: not stripping binary because it is signed: /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/XCTestSupport.framework/XCTestSupport (in target 'RetainedHostUITests' from project 'RetainedHost')
+
+Copy /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/Frameworks/XCTestCore.framework /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/XCTestCore.framework (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -strip-unsigned-binaries -strip-deterministic -strip-tool /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -resolve-src-symlinks /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/XCTestCore.framework /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/Frameworks
+warning: not stripping binary because it is signed: /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/XCTestCore.framework/XCTestCore (in target 'RetainedHostUITests' from project 'RetainedHost')
+
+Copy /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/Frameworks/XCTest.framework /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -strip-unsigned-binaries -strip-deterministic -strip-tool /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -resolve-src-symlinks /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/Frameworks
+warning: not stripping binary because it is signed: /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/XCTest (in target 'RetainedHostUITests' from project 'RetainedHost')
+
+Copy /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/Frameworks/XCTAutomationSupport.framework /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/XCTAutomationSupport.framework (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -strip-unsigned-binaries -strip-deterministic -strip-tool /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -resolve-src-symlinks /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/XCTAutomationSupport.framework /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/Frameworks
+warning: not stripping binary because it is signed: /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/XCTAutomationSupport.framework/XCTAutomationSupport (in target 'RetainedHostUITests' from project 'RetainedHost')
+
+Copy /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/Frameworks/Testing.framework /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/Testing.framework (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -strip-unsigned-binaries -strip-deterministic -strip-tool /Applications/Xcode_26.4.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -resolve-src-symlinks /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/Testing.framework /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/Frameworks
+warning: not stripping binary because it is signed: /Applications/Xcode_26.4.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/Testing.framework/Testing (in target 'RetainedHostUITests' from project 'RetainedHost')
+
+RegisterExecutionPolicyException /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/PlugIns/RetainedHostUITests.xctest (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    builtin-RegisterExecutionPolicyException /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/PlugIns/RetainedHostUITests.xctest
+
+Touch /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/PlugIns/RetainedHostUITests.xctest (in target 'RetainedHostUITests' from project 'RetainedHost')
+    cd /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host
+    /usr/bin/touch -c /Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/DerivedData/Build/Products/Debug-iphonesimulator/RetainedHostUITests-Runner.app/PlugIns/RetainedHostUITests.xctest
+
+2026-09-10 18:51:18.295551+0000 RetainedHostUITests-Runner[16442:52399] [Default] Running tests...
+objc[16442]: Class UIAccessibilityLoaderWebShared is implemented in both /Library/Developer/CoreSimulator/Volumes/iOS_23E254a/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.4.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebCore.axbundle/WebCore (0x10a2fc310) and /Library/Developer/CoreSimulator/Volumes/iOS_23E254a/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.4.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebKit.axbundle/WebKit (0x10b3f8398). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+    t =      nans Interface orientation changed to Portrait
+Test Suite 'All tests' started at 2026-09-10 18:51:32.055.
+Test Suite 'RetainedHostUITests.xctest' started at 2026-09-10 18:51:32.059.
+Test Suite 'RetainedHostUITests' started at 2026-09-10 18:51:32.059.
+Test Case '-[RetainedHostUITests.RetainedHostUITests testActiveAndDormantBackgroundTransitionsStayConcealed]' started.
+    t =     0.00s Start Test at 2026-09-10 18:51:32.061
+    t =     1.66s Set Up
+    t =     1.90s Open dev.partydeck.godot.iosretained
+    t =     1.91s     Launch dev.partydeck.godot.iosretained
+2026-09-10 18:51:37.873 xcodebuild[8489:30551] [MT] IDELaunchParametersSnapshot: The operation couldn’t be completed. (DebuggerLLDB.DebuggerVersionStore.StoreError error 0.)
+2026-09-10 18:51:37.886 xcodebuild[8489:30551] [MT] IDELaunchParametersSnapshot: no debugger version
+    t =    18.29s         Setting up automation session
+    t =    19.18s         Wait for dev.partydeck.godot.iosretained to idle
+    t =    20.96s Waiting 15.0s for "retained-shell" Any to exist
+    t =    22.02s     Checking `Expect predicate `existsNoRetry == 1` for object "retained-shell" Any`
+    t =    22.02s         Checking existence of `"retained-shell" Any`
+    t =    22.35s Waiting 15.0s for "start-2d" Any to exist
+    t =    23.41s     Checking `Expect predicate `existsNoRetry == 1` for object "start-2d" Any`
+    t =    23.41s         Checking existence of `"start-2d" Any`
+    t =    23.46s Find the "start-2d" Any
+    t =    23.62s Tap "start-2d" Button
+    t =    23.62s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    23.63s     Find the "start-2d" Button
+    t =    23.66s     Check for interrupting elements affecting "start-2d" Button
+    t =    23.75s     Synthesize event
+    t =    24.21s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    25.73s Find the "retained-metrics" StaticText
+    t =    29.35s Find the "retained-metrics" StaticText
+    t =    30.14s Find the "retained-metrics" StaticText
+    t =    31.40s Find the "retained-metrics" StaticText
+    t =    31.87s Find the "retained-metrics" StaticText
+    t =    32.30s Find the "godot-surface" Any
+    t =    34.69s Find the "godot-surface" Other
+    t =    37.99s Find the "godot-surface" Other
+    t =    39.33s Added attachment named 'Measured real touch target'
+    t =    39.33s Press "godot-surface" Other[0.50, 0.66] for 0.1 seconds, then drag to "godot-surface" Other[0.50, 0.55] with velocity of 73.00 pixels per second, and then hold for 0.3 seconds 
+    t =    39.33s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    39.34s     Find the "godot-surface" Other
+    t =    39.54s     Check for interrupting elements affecting "godot-surface" Other
+    t =    39.73s     Synthesize event
+    t =    39.73s         Find the "godot-surface" Other
+    t =    39.95s         Find the "godot-surface" Other
+    t =    40.08s         Find the "godot-surface" Other
+    t =    40.35s         Find the "godot-surface" Other
+    t =    40.50s         Find the "godot-surface" Other
+    t =    42.47s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    42.48s Find the "retained-metrics" StaticText
+    t =    42.53s Find the "retained-metrics" StaticText
+    t =    42.73s Find the "retained-metrics" StaticText
+    t =    42.75s Find the "retained-metrics" StaticText
+    t =    42.93s Find the "retained-metrics" StaticText
+    t =    43.13s Find the "retained-metrics" StaticText
+    t =    43.32s Find the "retained-metrics" StaticText
+    t =    43.36s Find the "godot-surface" Any
+    t =    43.46s Find the "godot-surface" Other
+    t =    43.54s Find the "godot-surface" Other
+    t =    43.81s Added attachment named 'Measured real touch target'
+    t =    43.81s Find the "retained-metrics" StaticText
+    t =    43.91s Tap "godot-surface" Other[0.49, 0.73]
+    t =    43.92s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    43.92s     Find the "godot-surface" Other
+    t =    44.02s     Check for interrupting elements affecting "godot-surface" Other
+    t =    44.08s     Synthesize event
+    t =    44.08s         Find the "godot-surface" Other
+    t =    44.42s         Find the "godot-surface" Other
+    t =    44.67s         Find the "godot-surface" Other
+    t =    45.11s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    45.60s Find the "retained-metrics" StaticText
+    t =    46.42s Find the "retained-metrics" StaticText
+    t =    46.68s Find the "retained-metrics" StaticText
+    t =    47.13s Find the "retained-metrics" StaticText
+    t =    47.66s Find the "retained-metrics" StaticText
+    t =    48.21s Find the "godot-surface" Any
+    t =    48.90s Find the "godot-surface" Other
+    t =    49.36s Find the "godot-surface" Other
+    t =    50.31s Added attachment named 'Measured real touch target'
+    t =    50.31s Find the "retained-metrics" StaticText
+    t =    50.56s Tap "godot-surface" Other[0.18, 0.60]
+    t =    50.56s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    50.57s     Find the "godot-surface" Other
+    t =    50.76s     Check for interrupting elements affecting "godot-surface" Other
+    t =    50.90s     Synthesize event
+    t =    50.90s         Find the "godot-surface" Other
+    t =    51.14s         Find the "godot-surface" Other
+    t =    51.47s         Find the "godot-surface" Other
+    t =    52.38s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    52.59s Find the "retained-metrics" StaticText
+    t =    53.54s Find the Target Application 'dev.partydeck.godot.iosretained'
+    t =    53.80s Added attachment named 'Real reveal and card selection'
+    t =    53.80s Find the "retained-metrics" StaticText
+    t =    54.21s Added attachment named 'Real reveal and card selection measurements'
+    t =    54.21s Find the "retained-metrics" StaticText
+    t =    54.35s Tap "cycle-focus" Any
+    t =    54.35s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    54.35s     Find the "cycle-focus" Any
+    t =    54.47s     Check for interrupting elements affecting "cycle-focus" Button
+    t =    54.55s     Synthesize event
+    t =    54.89s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    54.93s Find the "retained-metrics" StaticText
+    t =    55.34s Find the "retained-metrics" StaticText
+    t =    55.41s Find the Target Application 'dev.partydeck.godot.iosretained'
+    t =    55.61s Added attachment named 'Coalesced native foreground loss and regain returned concealed'
+    t =    55.61s Find the "retained-metrics" StaticText
+    t =    55.67s Added attachment named 'Coalesced native foreground loss and regain returned concealed measurements'
+    t =    55.68s Find the "retained-metrics" StaticText
+    t =    55.76s Find the "retained-metrics" StaticText
+    t =    56.01s Find the "retained-metrics" StaticText
+    t =    56.27s Find the "retained-metrics" StaticText
+    t =    56.62s Find the "retained-metrics" StaticText
+    t =    56.92s Find the "godot-surface" Any
+    t =    57.01s Find the "godot-surface" Other
+    t =    57.11s Find the "godot-surface" Other
+    t =    57.15s Added attachment named 'Measured real touch target'
+    t =    57.15s Find the "retained-metrics" StaticText
+    t =    57.24s Tap "godot-surface" Other[0.49, 0.66]
+    t =    57.24s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    57.24s     Find the "godot-surface" Other
+    t =    57.32s     Check for interrupting elements affecting "godot-surface" Other
+    t =    57.37s     Synthesize event
+    t =    57.37s         Find the "godot-surface" Other
+    t =    57.82s         Find the "godot-surface" Other
+    t =    57.95s         Find the "godot-surface" Other
+    t =    58.30s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    58.45s Find the "retained-metrics" StaticText
+    t =    58.80s Find the "retained-metrics" StaticText
+    t =    58.87s Find the "retained-metrics" StaticText
+    t =    58.93s Find the "retained-metrics" StaticText
+    t =    59.12s Find the "retained-metrics" StaticText
+    t =    59.32s Find the "retained-metrics" StaticText
+    t =    59.38s Find the "godot-surface" Any
+    t =    59.52s Find the "godot-surface" Other
+    t =    59.69s Find the "godot-surface" Other
+    t =    59.75s Added attachment named 'Measured real touch target'
+    t =    59.75s Find the "retained-metrics" StaticText
+    t =    59.92s Tap "godot-surface" Other[0.18, 0.60]
+    t =    59.92s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    59.93s     Find the "godot-surface" Other
+    t =    60.01s     Check for interrupting elements affecting "godot-surface" Other
+    t =    60.08s     Synthesize event
+    t =    60.09s         Find the "godot-surface" Other
+    t =    60.21s         Find the "godot-surface" Other
+    t =    60.35s         Find the "godot-surface" Other
+    t =    60.73s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    60.79s Find the "retained-metrics" StaticText
+    t =    61.33s Find the "retained-metrics" StaticText
+    t =    61.50s Find the "retained-metrics" StaticText
+    t =    61.52s Find the Target Application 'dev.partydeck.godot.iosretained'
+    t =    61.67s Added attachment named 'Real reveal and card selection'
+    t =    61.67s Find the "retained-metrics" StaticText
+    t =    61.69s Added attachment named 'Real reveal and card selection measurements'
+    t =    61.69s Find the "retained-metrics" StaticText
+    t =    61.72s Tap "pause-table" Any
+    t =    61.72s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    61.72s     Find the "pause-table" Any
+    t =    61.74s     Check for interrupting elements affecting "pause-table" Button
+    t =    61.96s     Synthesize event
+    t =    62.26s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    62.30s Find the "retained-metrics" StaticText
+    t =    62.52s Find the "retained-metrics" StaticText
+    t =    62.73s Find the "retained-metrics" StaticText
+    t =    62.95s Find the "retained-metrics" StaticText
+    t =    63.00s Find the "retained-metrics" StaticText
+    t =    63.19s Find the "retained-metrics" StaticText
+    t =    63.40s Find the "retained-metrics" StaticText
+    t =    63.58s Find the "retained-metrics" StaticText
+    t =    63.76s Find the "retained-metrics" StaticText
+    t =    63.78s Tap "pause-table" Any
+    t =    63.78s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    63.79s     Find the "pause-table" Any
+    t =    63.80s     Check for interrupting elements affecting "pause-table" Button
+    t =    63.84s     Synthesize event
+    t =    64.17s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    64.26s Find the "retained-metrics" StaticText
+    t =    64.30s Find the "retained-metrics" StaticText
+    t =    64.34s Find the "retained-metrics" StaticText
+    t =    64.55s Find the "retained-metrics" StaticText
+    t =    64.75s Find the "retained-metrics" StaticText
+    t =    64.77s Find the "godot-surface" Any
+    t =    64.82s Find the "godot-surface" Other
+    t =    64.85s Find the "godot-surface" Other
+    t =    64.88s Added attachment named 'Measured real touch target'
+    t =    64.88s Find the "retained-metrics" StaticText
+    t =    64.89s Tap "godot-surface" Other[0.49, 0.66]
+    t =    64.90s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    64.90s     Find the "godot-surface" Other
+    t =    64.93s     Check for interrupting elements affecting "godot-surface" Other
+    t =    64.96s     Synthesize event
+    t =    64.96s         Find the "godot-surface" Other
+    t =    64.99s         Find the "godot-surface" Other
+    t =    65.05s         Find the "godot-surface" Other
+    t =    65.36s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    65.46s Find the "retained-metrics" StaticText
+    t =    65.66s Find the "retained-metrics" StaticText
+    t =    65.87s Find the "retained-metrics" StaticText
+    t =    66.05s Find the "retained-metrics" StaticText
+    t =    66.08s Find the "retained-metrics" StaticText
+    t =    66.10s Find the "retained-metrics" StaticText
+    t =    66.28s Find the "retained-metrics" StaticText
+    t =    66.45s Find the "retained-metrics" StaticText
+    t =    66.63s Find the "retained-metrics" StaticText
+    t =    66.65s Find the "godot-surface" Any
+    t =    66.70s Find the "godot-surface" Other
+    t =    66.75s Find the "godot-surface" Other
+    t =    66.78s Added attachment named 'Measured real touch target'
+    t =    66.78s Find the "retained-metrics" StaticText
+    t =    66.81s Tap "godot-surface" Other[0.18, 0.60]
+    t =    66.81s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    66.81s     Find the "godot-surface" Other
+    t =    66.85s     Check for interrupting elements affecting "godot-surface" Other
+    t =    66.88s     Synthesize event
+    t =    66.89s         Find the "godot-surface" Other
+    t =    66.92s         Find the "godot-surface" Other
+    t =    66.96s         Find the "godot-surface" Other
+    t =    67.30s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    67.46s Find the "retained-metrics" StaticText
+    t =    67.68s Find the "retained-metrics" StaticText
+    t =    67.85s Find the "retained-metrics" StaticText
+    t =    68.04s Find the "retained-metrics" StaticText
+    t =    68.07s Find the Target Application 'dev.partydeck.godot.iosretained'
+    t =    68.23s Added attachment named 'Real reveal and card selection'
+    t =    68.23s Find the "retained-metrics" StaticText
+    t =    68.26s Added attachment named 'Real reveal and card selection measurements'
+    t =    68.26s Find the "retained-metrics" StaticText
+    t =    68.27s Pressing Home button
+    t =    68.76s Find the Application 'com.apple.springboard'
+    t =    70.73s Checking existence of `"Safari" Icon`
+    t =    70.91s Find the "Safari" Icon
+    t =    71.53s Find the "Safari" Icon
+    t =    71.69s Find the "Safari" Icon
+    t =    71.78s Checking existence of `"Messages" Icon`
+    t =    71.89s Find the "Messages" Icon
+    t =    71.97s Find the "Messages" Icon
+    t =    72.04s Find the "Messages" Icon
+    t =    72.12s Get number of matches for: Descendants matching type Alert
+    t =    72.17s Added attachment named 'Actual Home state and dock observation'
+    t =    72.17s Requesting snapshot of accessibility hierarchy for app with pid 3121
+    t =    72.73s Requesting snapshot of accessibility hierarchy for app with pid 3121
+    t =    72.82s Added attachment named 'Actual SpringBoard hierarchy'
+    t =    73.09s Added attachment named 'Actual Home screen'
+    t =    73.09s Open dev.partydeck.godot.iosretained
+    t =    73.09s     Activate dev.partydeck.godot.iosretained
+    t =    73.46s         Wait for dev.partydeck.godot.iosretained to idle
+    t =    73.70s Find the "retained-metrics" StaticText
+    t =    74.39s Find the "retained-metrics" StaticText
+    t =    74.44s Find the Target Application 'dev.partydeck.godot.iosretained'
+    t =    74.66s Added attachment named 'Real background and resume kept the same authority concealed'
+    t =    74.66s Find the "retained-metrics" StaticText
+    t =    74.83s Added attachment named 'Real background and resume kept the same authority concealed measurements'
+    t =    74.83s Find the "retained-metrics" StaticText
+    t =    74.93s Find the "retained-metrics" StaticText
+    t =    75.27s Find the "retained-metrics" StaticText
+    t =    75.61s Find the "retained-metrics" StaticText
+    t =    75.76s Find the "godot-surface" Any
+    t =    76.05s Find the "godot-surface" Other
+    t =    76.29s Find the "godot-surface" Other
+    t =    76.81s Added attachment named 'Measured real touch target'
+    t =    76.81s Find the "retained-metrics" StaticText
+    t =    76.97s Tap "godot-surface" Other[0.15, 0.06]
+    t =    76.97s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    76.98s     Find the "godot-surface" Other
+    t =    77.17s     Check for interrupting elements affecting "godot-surface" Other
+    t =    77.32s     Synthesize event
+    t =    77.33s         Find the "godot-surface" Other
+    t =    77.60s         Find the "godot-surface" Other
+    t =    77.81s         Find the "godot-surface" Other
+    t =    78.31s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    78.33s Find the "retained-metrics" StaticText
+    t =    78.67s Find the "retained-metrics" StaticText
+    t =    78.89s Find the "retained-metrics" StaticText
+    t =    79.18s Find the "retained-metrics" StaticText
+    t =    79.44s Checking existence of `"retained-shell" Any`
+    t =    79.52s Checking existence of `"godot-surface" Any`
+    t =    79.69s Find the Target Application 'dev.partydeck.godot.iosretained'
+    t =    80.03s Added attachment named 'Whole recipient scene retired; retained services dormant'
+    t =    80.03s Find the "retained-metrics" StaticText
+    t =    80.21s Added attachment named 'Whole recipient scene retired; retained services dormant measurements'
+    t =    80.21s Tap "host-counter-button" Any
+    t =    80.21s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    80.21s     Find the "host-counter-button" Any
+    t =    80.27s     Check for interrupting elements affecting "host-counter-button" Button
+    t =    80.35s     Synthesize event
+    t =    80.69s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    80.70s Find the "retained-metrics" StaticText
+    t =    80.80s Find the "retained-metrics" StaticText
+    t =    80.88s Find the "retained-metrics" StaticText
+    t =    81.13s Find the "retained-metrics" StaticText
+    t =    81.20s Added attachment named 'Measured dormant shell interval'
+    t =    81.20s Pressing Home button
+    t =    81.74s Find the Application 'com.apple.springboard'
+    t =    82.10s Checking existence of `"Safari" Icon`
+    t =    82.37s Find the "Safari" Icon
+    t =    83.07s Find the "Safari" Icon
+    t =    83.33s Find the "Safari" Icon
+    t =    83.54s Checking existence of `"Messages" Icon`
+    t =    83.74s Find the "Messages" Icon
+    t =    83.88s Find the "Messages" Icon
+    t =    84.08s Find the "Messages" Icon
+    t =    84.25s Get number of matches for: Descendants matching type Alert
+    t =    84.31s Added attachment named 'Actual Home state and dock observation'
+    t =    84.31s Requesting snapshot of accessibility hierarchy for app with pid 3121
+    t =    85.05s Requesting snapshot of accessibility hierarchy for app with pid 3121
+    t =    85.21s Added attachment named 'Actual SpringBoard hierarchy'
+    t =    85.69s Added attachment named 'Actual Home screen'
+    t =    85.70s Open dev.partydeck.godot.iosretained
+    t =    85.70s     Activate dev.partydeck.godot.iosretained
+    t =    85.81s         Wait for dev.partydeck.godot.iosretained to idle
+    t =    85.82s Find the "retained-metrics" StaticText
+    t =    86.97s Find the "retained-metrics" StaticText
+    t =    87.06s Added attachment named 'Dormant Home/activate accepted native observation'
+    t =    87.06s Tap "host-counter-button" Any
+    t =    87.06s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    87.07s     Find the "host-counter-button" Any
+    t =    87.43s     Check for interrupting elements affecting "host-counter-button" Button
+    t =    87.69s     Synthesize event
+    t =    88.08s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    88.19s Find the "retained-metrics" StaticText
+    t =    88.38s Find the "retained-metrics" StaticText
+    t =    88.84s Find the "retained-metrics" StaticText
+    t =    88.93s Added attachment named 'Measured dormant shell interval'
+    t =    88.93s Waiting 15.0s for "start-3d" Any to exist
+    t =    89.95s     Checking `Expect predicate `existsNoRetry == 1` for object "start-3d" Any`
+    t =    89.96s         Checking existence of `"start-3d" Any`
+    t =    90.00s Find the "start-3d" Any
+    t =    90.05s Tap "start-3d" Button
+    t =    90.05s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    90.05s     Find the "start-3d" Button
+    t =    90.10s     Check for interrupting elements affecting "start-3d" Button
+    t =    90.16s     Synthesize event
+    t =    90.50s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    96.77s Find the "retained-metrics" StaticText
+    t =   101.05s Find the "retained-metrics" StaticText
+    t =   101.98s Find the "retained-metrics" StaticText
+    t =   102.01s Find the "retained-metrics" StaticText
+    t =   102.05s Find the "retained-metrics" StaticText
+    t =   102.26s Find the "retained-metrics" StaticText
+    t =   102.47s Find the "retained-metrics" StaticText
+    t =   102.69s Find the "retained-metrics" StaticText
+    t =   102.74s Find the "godot-surface" Any
+    t =   102.86s Find the "godot-surface" Other
+    t =   102.92s Find the "godot-surface" Other
+    t =   103.05s Added attachment named 'Measured real touch target'
+    t =   103.06s Find the "retained-metrics" StaticText
+    t =   103.17s Tap "godot-surface" Other[0.11, 0.07]
+    t =   103.17s     Wait for dev.partydeck.godot.iosretained to idle
+    t =   103.18s     Find the "godot-surface" Other
+    t =   103.34s     Check for interrupting elements affecting "godot-surface" Other
+    t =   103.46s     Synthesize event
+    t =   103.47s         Find the "godot-surface" Other
+    t =   103.68s         Find the "godot-surface" Other
+    t =   104.09s         Find the "godot-surface" Other
+    t =   105.16s     Wait for dev.partydeck.godot.iosretained to idle
+    t =   106.24s Find the "retained-metrics" StaticText
+    t =   106.89s Find the "retained-metrics" StaticText
+    t =   107.02s Checking existence of `"retained-shell" Any`
+    t =   107.12s Checking existence of `"godot-surface" Any`
+    t =   107.26s Find the Target Application 'dev.partydeck.godot.iosretained'
+    t =   107.46s Added attachment named 'Whole recipient scene retired; retained services dormant'
+    t =   107.46s Find the "retained-metrics" StaticText
+    t =   107.56s Added attachment named 'Whole recipient scene retired; retained services dormant measurements'
+    t =   107.56s Find the Target Application 'dev.partydeck.godot.iosretained'
+    t =   107.93s Added attachment named 'Dormant application lifecycle did not restart the engine services'
+    t =   107.93s Find the "retained-metrics" StaticText
+    t =   108.75s Added attachment named 'Dormant application lifecycle did not restart the engine services measurements'
+    t =   108.76s Tear Down
+Test Case '-[RetainedHostUITests.RetainedHostUITests testActiveAndDormantBackgroundTransitionsStayConcealed]' passed (111.587 seconds).
+Test Case '-[RetainedHostUITests.RetainedHostUITests testRepeated2DAnd3DKeepOneDormantEngine]' started.
+    t =     0.00s Start Test at 2026-09-10 18:53:23.650
+    t =     0.08s Set Up
+    t =     0.09s Open dev.partydeck.godot.iosretained
+    t =     0.09s     Launch dev.partydeck.godot.iosretained
+    t =     0.09s         Terminate dev.partydeck.godot.iosretained:17153
+2026-09-10 18:53:26.127 xcodebuild[8489:30551] [MT] IDELaunchParametersSnapshot: The operation couldn’t be completed. (DebuggerLLDB.DebuggerVersionStore.StoreError error 0.)
+2026-09-10 18:53:26.128 xcodebuild[8489:30551] [MT] IDELaunchParametersSnapshot: no debugger version
+    t =     3.53s         Setting up automation session
+    t =     6.21s         Wait for dev.partydeck.godot.iosretained to idle
+    t =     7.81s Waiting 15.0s for "retained-shell" Any to exist
+    t =     8.83s     Checking `Expect predicate `existsNoRetry == 1` for object "retained-shell" Any`
+    t =     8.83s         Checking existence of `"retained-shell" Any`
+    t =     8.91s Waiting 15.0s for "start-2d" Any to exist
+    t =     9.93s     Checking `Expect predicate `existsNoRetry == 1` for object "start-2d" Any`
+    t =     9.93s         Checking existence of `"start-2d" Any`
+    t =     9.98s Find the "start-2d" Any
+    t =    10.02s Tap "start-2d" Button
+    t =    10.03s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    10.03s     Find the "start-2d" Button
+    t =    10.09s     Check for interrupting elements affecting "start-2d" Button
+    t =    10.16s     Synthesize event
+    t =    10.48s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    11.55s Find the "retained-metrics" StaticText
+    t =    14.04s Find the "retained-metrics" StaticText
+    t =    14.48s Find the "retained-metrics" StaticText
+    t =    14.87s Find the "retained-metrics" StaticText
+    t =    14.91s Find the Target Application 'dev.partydeck.godot.iosretained'
+    t =    15.10s Added attachment named 'Entry 1: fresh concealed 2d'
+    t =    15.11s Find the "retained-metrics" StaticText
+    t =    15.15s Added attachment named 'Entry 1: fresh concealed 2d measurements'
+    t =    15.15s Find the "retained-metrics" StaticText
+    t =    15.17s Find the "retained-metrics" StaticText
+    t =    15.35s Find the "retained-metrics" StaticText
+    t =    15.55s Find the "retained-metrics" StaticText
+    t =    15.74s Find the "retained-metrics" StaticText
+    t =    15.78s Find the "godot-surface" Any
+    t =    15.86s Find the "godot-surface" Other
+    t =    15.92s Find the "godot-surface" Other
+    t =    15.98s Added attachment named 'Measured real touch target'
+    t =    15.98s Press "godot-surface" Other[0.50, 0.66] for 0.1 seconds, then drag to "godot-surface" Other[0.50, 0.55] with velocity of 73.00 pixels per second, and then hold for 0.3 seconds 
+    t =    15.98s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    15.98s     Find the "godot-surface" Other
+    t =    16.02s     Check for interrupting elements affecting "godot-surface" Other
+    t =    16.08s     Synthesize event
+    t =    16.08s         Find the "godot-surface" Other
+    t =    16.15s         Find the "godot-surface" Other
+    t =    16.20s         Find the "godot-surface" Other
+    t =    16.25s         Find the "godot-surface" Other
+    t =    16.29s         Find the "godot-surface" Other
+    t =    18.07s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    18.07s Find the "retained-metrics" StaticText
+    t =    18.15s Find the "retained-metrics" StaticText
+    t =    18.36s Find the "retained-metrics" StaticText
+    t =    18.42s Find the "retained-metrics" StaticText
+    t =    18.62s Find the "retained-metrics" StaticText
+    t =    18.82s Find the "retained-metrics" StaticText
+    t =    19.02s Find the "retained-metrics" StaticText
+    t =    19.11s Find the "godot-surface" Any
+    t =    19.22s Find the "godot-surface" Other
+    t =    19.28s Find the "godot-surface" Other
+    t =    19.35s Added attachment named 'Measured real touch target'
+    t =    19.35s Find the "retained-metrics" StaticText
+    t =    19.39s Tap "godot-surface" Other[0.49, 0.73]
+    t =    19.39s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    19.39s     Find the "godot-surface" Other
+    t =    19.46s     Check for interrupting elements affecting "godot-surface" Other
+    t =    19.50s     Synthesize event
+    t =    19.51s         Find the "godot-surface" Other
+    t =    19.58s         Find the "godot-surface" Other
+    t =    19.64s         Find the "godot-surface" Other
+    t =    20.01s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    20.56s Find the "retained-metrics" StaticText
+    t =    21.41s Find the "retained-metrics" StaticText
+    t =    21.48s Find the "retained-metrics" StaticText
+    t =    21.53s Find the "retained-metrics" StaticText
+    t =    21.72s Find the "retained-metrics" StaticText
+    t =    21.91s Find the "retained-metrics" StaticText
+    t =    22.11s Find the "retained-metrics" StaticText
+    t =    22.15s Find the "godot-surface" Any
+    t =    22.25s Find the "godot-surface" Other
+    t =    22.30s Find the "godot-surface" Other
+    t =    22.36s Added attachment named 'Measured real touch target'
+    t =    22.36s Find the "retained-metrics" StaticText
+    t =    22.39s Tap "godot-surface" Other[0.18, 0.60]
+    t =    22.39s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    22.39s     Find the "godot-surface" Other
+    t =    22.41s     Check for interrupting elements affecting "godot-surface" Other
+    t =    22.48s     Synthesize event
+    t =    22.48s         Find the "godot-surface" Other
+    t =    22.57s         Find the "godot-surface" Other
+    t =    22.61s         Find the "godot-surface" Other
+    t =    22.98s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    23.05s Find the "retained-metrics" StaticText
+    t =    23.27s Find the "retained-metrics" StaticText
+    t =    23.30s Find the Target Application 'dev.partydeck.godot.iosretained'
+    t =    23.46s Added attachment named 'Real reveal and card selection'
+    t =    23.47s Find the "retained-metrics" StaticText
+    t =    23.52s Added attachment named 'Real reveal and card selection measurements'
+    t =    23.52s Find the "retained-metrics" StaticText
+    t =    23.54s Find the "retained-metrics" StaticText
+    t =    23.72s Find the "retained-metrics" StaticText
+    t =    23.91s Find the "retained-metrics" StaticText
+    t =    24.11s Find the "retained-metrics" StaticText
+    t =    24.13s Find the "godot-surface" Any
+    t =    24.25s Find the "godot-surface" Other
+    t =    24.30s Find the "godot-surface" Other
+    t =    24.33s Added attachment named 'Measured real touch target'
+    t =    24.33s Find the "retained-metrics" StaticText
+    t =    24.36s Tap "godot-surface" Other[0.50, 0.84]
+    t =    24.36s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    24.36s     Find the "godot-surface" Other
+    t =    24.41s     Check for interrupting elements affecting "godot-surface" Other
+    t =    24.44s     Synthesize event
+    t =    24.44s         Find the "godot-surface" Other
+    t =    24.50s         Find the "godot-surface" Other
+    t =    24.54s         Find the "godot-surface" Other
+    t =    24.88s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    25.15s Find the "retained-metrics" StaticText
+    t =    25.37s Find the "retained-metrics" StaticText
+    t =    25.57s Find the "retained-metrics" StaticText
+    t =    25.76s Find the "retained-metrics" StaticText
+    t =    25.99s Find the "retained-metrics" StaticText
+    t =    26.06s Find the Target Application 'dev.partydeck.godot.iosretained'
+    t =    26.25s Added attachment named 'Real play accepted by the Kotlin authority'
+    t =    26.25s Find the "retained-metrics" StaticText
+    t =    26.34s Added attachment named 'Real play accepted by the Kotlin authority measurements'
+    t =    26.34s Find the "retained-metrics" StaticText
+    t =    26.36s Find the "retained-metrics" StaticText
+    t =    26.55s Find the "retained-metrics" StaticText
+    t =    26.60s Find the "godot-surface" Any
+    t =    26.71s Find the "godot-surface" Other
+    t =    26.80s Find the "godot-surface" Other
+    t =    26.87s Added attachment named 'Measured real touch target'
+    t =    26.87s Find the "retained-metrics" StaticText
+    t =    26.91s Tap "godot-surface" Other[0.15, 0.06]
+    t =    26.91s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    26.91s     Find the "godot-surface" Other
+    t =    26.99s     Check for interrupting elements affecting "godot-surface" Other
+    t =    27.04s     Synthesize event
+    t =    27.05s         Find the "godot-surface" Other
+    t =    27.11s         Find the "godot-surface" Other
+    t =    27.15s         Find the "godot-surface" Other
+    t =    27.50s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    27.52s Find the "retained-metrics" StaticText
+    t =    27.72s Find the "retained-metrics" StaticText
+    t =    27.93s Find the "retained-metrics" StaticText
+    t =    28.14s Find the "retained-metrics" StaticText
+    t =    28.32s Find the "retained-metrics" StaticText
+    t =    28.38s Checking existence of `"retained-shell" Any`
+    t =    28.42s Checking existence of `"godot-surface" Any`
+    t =    28.51s Find the Target Application 'dev.partydeck.godot.iosretained'
+    t =    28.71s Added attachment named 'Whole recipient scene retired; retained services dormant'
+    t =    28.71s Find the "retained-metrics" StaticText
+    t =    28.79s Added attachment named 'Whole recipient scene retired; retained services dormant measurements'
+    t =    28.79s Tap "host-counter-button" Any
+    t =    28.79s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    28.80s     Find the "host-counter-button" Any
+    t =    28.85s     Check for interrupting elements affecting "host-counter-button" Button
+    t =    28.92s     Synthesize event
+    t =    29.26s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    29.26s Find the "retained-metrics" StaticText
+    t =    29.31s Find the "retained-metrics" StaticText
+    t =    29.35s Find the "retained-metrics" StaticText
+    t =    29.54s Find the "retained-metrics" StaticText
+    t =    29.58s Added attachment named 'Measured dormant shell interval'
+    t =    29.58s Waiting 15.0s for "start-3d" Any to exist
+    t =    30.63s     Checking `Expect predicate `existsNoRetry == 1` for object "start-3d" Any`
+    t =    30.63s         Checking existence of `"start-3d" Any`
+    t =    30.68s Find the "start-3d" Any
+    t =    30.72s Tap "start-3d" Button
+    t =    30.72s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    30.72s     Find the "start-3d" Button
+    t =    30.75s     Check for interrupting elements affecting "start-3d" Button
+    t =    30.80s     Synthesize event
+    t =    31.11s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    41.57s Find the "retained-metrics" StaticText
+    t =    42.51s Find the "retained-metrics" StaticText
+    t =    42.71s Find the "retained-metrics" StaticText
+    t =    42.78s Find the Target Application 'dev.partydeck.godot.iosretained'
+    t =    42.96s Added attachment named 'Entry 2: fresh concealed 3d'
+    t =    42.96s Find the "retained-metrics" StaticText
+    t =    43.00s Added attachment named 'Entry 2: fresh concealed 3d measurements'
+    t =    43.00s Find the "retained-metrics" StaticText
+    t =    43.03s Find the "retained-metrics" StaticText
+    t =    43.21s Find the "retained-metrics" StaticText
+    t =    43.41s Find the "retained-metrics" StaticText
+    t =    43.60s Find the "retained-metrics" StaticText
+    t =    43.65s Find the "godot-surface" Any
+    t =    43.73s Find the "godot-surface" Other
+    t =    43.77s Find the "godot-surface" Other
+    t =    43.83s Added attachment named 'Measured real touch target'
+    t =    43.83s Find the "retained-metrics" StaticText
+    t =    43.85s Tap "godot-surface" Other[0.58, 0.07]
+    t =    43.85s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    43.86s     Find the "godot-surface" Other
+    t =    43.90s     Check for interrupting elements affecting "godot-surface" Other
+    t =    43.99s     Synthesize event
+    t =    44.00s         Find the "godot-surface" Other
+    t =    44.06s         Find the "godot-surface" Other
+    t =    44.11s         Find the "godot-surface" Other
+    t =    44.50s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    48.71s Find the "retained-metrics" StaticText
+    t =    49.57s Find the "retained-metrics" StaticText
+    t =    50.42s Find the "retained-metrics" StaticText
+    t =    50.71s Find the "retained-metrics" StaticText
+    t =    50.79s Find the "godot-surface" Any
+    t =    50.93s Find the "godot-surface" Other
+    t =    51.01s Find the "godot-surface" Other
+    t =    51.13s Added attachment named 'Measured real touch target'
+    t =    51.13s Find the "retained-metrics" StaticText
+    t =    51.22s Tap "godot-surface" Other[0.17, 0.65]
+    t =    51.22s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    51.22s     Find the "godot-surface" Other
+    t =    51.34s     Check for interrupting elements affecting "godot-surface" Other
+    t =    51.43s     Synthesize event
+    t =    51.43s         Find the "godot-surface" Other
+    t =    51.52s         Find the "godot-surface" Other
+    t =    51.60s         Find the "godot-surface" Other
+    t =    51.98s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    52.53s Find the "retained-metrics" StaticText
+    t =    56.47s Find the "retained-metrics" StaticText
+    t =    57.24s Find the "retained-metrics" StaticText
+    t =    57.89s Find the Target Application 'dev.partydeck.godot.iosretained'
+    t =    58.06s Added attachment named 'Real reveal and card selection'
+    t =    58.07s Find the "retained-metrics" StaticText
+    t =    58.13s Added attachment named 'Real reveal and card selection measurements'
+    t =    58.13s Find the "retained-metrics" StaticText
+    t =    58.16s Find the "retained-metrics" StaticText
+    t =    58.34s Find the "retained-metrics" StaticText
+    t =    58.52s Find the "retained-metrics" StaticText
+    t =    58.72s Find the "retained-metrics" StaticText
+    t =    58.91s Find the "retained-metrics" StaticText
+    t =    58.98s Find the "godot-surface" Any
+    t =    59.11s Find the "godot-surface" Other
+    t =    59.19s Find the "godot-surface" Other
+    t =    59.29s Added attachment named 'Measured real touch target'
+    t =    59.30s Find the "retained-metrics" StaticText
+    t =    59.32s Tap "godot-surface" Other[0.50, 0.88]
+    t =    59.32s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    59.32s     Find the "godot-surface" Other
+    t =    59.39s     Check for interrupting elements affecting "godot-surface" Other
+    t =    59.44s     Synthesize event
+    t =    59.45s         Find the "godot-surface" Other
+    t =    59.53s         Find the "godot-surface" Other
+    t =    59.59s         Find the "godot-surface" Other
+    t =    59.93s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    65.34s Find the "retained-metrics" StaticText
+    t =    69.12s Find the "retained-metrics" StaticText
+    t =    69.91s Find the "retained-metrics" StaticText
+    t =    70.03s Find the Target Application 'dev.partydeck.godot.iosretained'
+    t =    70.28s Added attachment named 'Real play accepted by the Kotlin authority'
+    t =    70.29s Find the "retained-metrics" StaticText
+    t =    70.39s Added attachment named 'Real play accepted by the Kotlin authority measurements'
+    t =    70.39s Find the "retained-metrics" StaticText
+    t =    70.46s Find the "retained-metrics" StaticText
+    t =    70.66s Find the "retained-metrics" StaticText
+    t =    70.88s Find the "retained-metrics" StaticText
+    t =    70.91s Find the "godot-surface" Any
+    t =    71.21s Find the "godot-surface" Other
+    t =    71.29s Find the "godot-surface" Other
+    t =    71.40s Added attachment named 'Measured real touch target'
+    t =    71.40s Find the "retained-metrics" StaticText
+    t =    71.46s Tap "godot-surface" Other[0.11, 0.07]
+    t =    71.46s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    71.46s     Find the "godot-surface" Other
+    t =    71.62s     Check for interrupting elements affecting "godot-surface" Other
+    t =    71.72s     Synthesize event
+    t =    71.73s         Find the "godot-surface" Other
+    t =    71.84s         Find the "godot-surface" Other
+    t =    71.92s         Find the "godot-surface" Other
+    t =    72.37s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    72.96s Find the "retained-metrics" StaticText
+    t =    73.32s Find the "retained-metrics" StaticText
+    t =    73.65s Find the "retained-metrics" StaticText
+    t =    73.89s Find the "retained-metrics" StaticText
+    t =    73.99s Checking existence of `"retained-shell" Any`
+    t =    74.07s Checking existence of `"godot-surface" Any`
+    t =    74.18s Find the Target Application 'dev.partydeck.godot.iosretained'
+    t =    74.37s Added attachment named 'Whole recipient scene retired; retained services dormant'
+    t =    74.37s Find the "retained-metrics" StaticText
+    t =    74.55s Added attachment named 'Whole recipient scene retired; retained services dormant measurements'
+    t =    74.55s Tap "host-counter-button" Any
+    t =    74.55s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    74.55s     Find the "host-counter-button" Any
+    t =    74.68s     Check for interrupting elements affecting "host-counter-button" Button
+    t =    74.79s     Synthesize event
+    t =    75.16s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    75.16s Find the "retained-metrics" StaticText
+    t =    75.31s Find the "retained-metrics" StaticText
+    t =    75.47s Find the "retained-metrics" StaticText
+    t =    75.73s Find the "retained-metrics" StaticText
+    t =    75.81s Added attachment named 'Measured dormant shell interval'
+    t =    75.81s Waiting 15.0s for "start-2d" Any to exist
+    t =    76.90s     Checking `Expect predicate `existsNoRetry == 1` for object "start-2d" Any`
+    t =    76.90s         Checking existence of `"start-2d" Any`
+    t =    77.04s Find the "start-2d" Any
+    t =    77.11s Tap "start-2d" Button
+    t =    77.12s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    77.12s     Find the "start-2d" Button
+    t =    77.20s     Check for interrupting elements affecting "start-2d" Button
+    t =    77.34s     Synthesize event
+    t =    77.73s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    77.83s Find the "retained-metrics" StaticText
+    t =    78.20s Find the "retained-metrics" StaticText
+    t =    78.49s Find the "retained-metrics" StaticText
+    t =    78.55s Find the Target Application 'dev.partydeck.godot.iosretained'
+    t =    78.74s Added attachment named 'Entry 3: fresh concealed 2d'
+    t =    78.75s Find the "retained-metrics" StaticText
+    t =    79.10s Added attachment named 'Entry 3: fresh concealed 2d measurements'
+    t =    79.10s Find the "retained-metrics" StaticText
+    t =    79.37s Find the "retained-metrics" StaticText
+    t =    79.60s Find the "godot-surface" Any
+    t =    79.77s Find the "godot-surface" Other
+    t =    79.87s Find the "godot-surface" Other
+    t =    79.99s Added attachment named 'Measured real touch target'
+    t =    79.99s Press "godot-surface" Other[0.50, 0.66] for 0.1 seconds, then drag to "godot-surface" Other[0.50, 0.55] with velocity of 73.00 pixels per second, and then hold for 0.3 seconds 
+    t =    79.99s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    80.03s     Find the "godot-surface" Other
+    t =    80.63s     Check for interrupting elements affecting "godot-surface" Other
+    t =    80.78s     Synthesize event
+    t =    80.83s         Find the "godot-surface" Other
+    t =    80.99s         Find the "godot-surface" Other
+    t =    81.10s         Find the "godot-surface" Other
+    t =    81.16s         Find the "godot-surface" Other
+    t =    81.33s         Find the "godot-surface" Other
+    t =    83.15s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    83.16s Find the "retained-metrics" StaticText
+    t =    83.22s Find the "retained-metrics" StaticText
+    t =    83.44s Find the "retained-metrics" StaticText
+    t =    83.48s Find the "retained-metrics" StaticText
+    t =    83.69s Find the "retained-metrics" StaticText
+    t =    83.87s Find the "retained-metrics" StaticText
+    t =    84.06s Find the "retained-metrics" StaticText
+    t =    84.24s Find the "retained-metrics" StaticText
+    t =    84.26s Find the "godot-surface" Any
+    t =    84.35s Find the "godot-surface" Other
+    t =    84.39s Find the "godot-surface" Other
+    t =    84.48s Added attachment named 'Measured real touch target'
+    t =    84.48s Find the "retained-metrics" StaticText
+    t =    84.51s Tap "godot-surface" Other[0.49, 0.73]
+    t =    84.51s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    84.51s     Find the "godot-surface" Other
+    t =    84.60s     Check for interrupting elements affecting "godot-surface" Other
+    t =    84.68s     Synthesize event
+    t =    84.69s         Find the "godot-surface" Other
+    t =    84.80s         Find the "godot-surface" Other
+    t =    84.89s         Find the "godot-surface" Other
+    t =    85.29s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    85.49s Find the "retained-metrics" StaticText
+    t =    85.90s Find the "retained-metrics" StaticText
+    t =    85.93s Find the "retained-metrics" StaticText
+    t =    85.96s Find the "retained-metrics" StaticText
+    t =    85.98s Find the "retained-metrics" StaticText
+    t =    86.17s Find the "retained-metrics" StaticText
+    t =    86.35s Find the "retained-metrics" StaticText
+    t =    86.53s Find the "retained-metrics" StaticText
+    t =    86.72s Find the "retained-metrics" StaticText
+    t =    86.74s Find the "godot-surface" Any
+    t =    86.80s Find the "godot-surface" Other
+    t =    86.84s Find the "godot-surface" Other
+    t =    86.90s Added attachment named 'Measured real touch target'
+    t =    86.90s Find the "retained-metrics" StaticText
+    t =    86.92s Tap "godot-surface" Other[0.18, 0.60]
+    t =    86.92s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    86.93s     Find the "godot-surface" Other
+    t =    87.03s     Check for interrupting elements affecting "godot-surface" Other
+    t =    87.08s     Synthesize event
+    t =    87.09s         Find the "godot-surface" Other
+    t =    87.28s         Find the "godot-surface" Other
+    t =    87.35s         Find the "godot-surface" Other
+    t =    87.71s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    87.93s Find the "retained-metrics" StaticText
+    t =    88.13s Find the "retained-metrics" StaticText
+    t =    88.16s Find the Target Application 'dev.partydeck.godot.iosretained'
+    t =    88.31s Added attachment named 'Real reveal and card selection'
+    t =    88.32s Find the "retained-metrics" StaticText
+    t =    88.34s Added attachment named 'Real reveal and card selection measurements'
+    t =    88.34s Find the "retained-metrics" StaticText
+    t =    88.38s Find the "retained-metrics" StaticText
+    t =    88.59s Find the "retained-metrics" StaticText
+    t =    88.61s Find the "godot-surface" Any
+    t =    88.69s Find the "godot-surface" Other
+    t =    88.78s Find the "godot-surface" Other
+    t =    88.83s Added attachment named 'Measured real touch target'
+    t =    88.83s Find the "retained-metrics" StaticText
+    t =    88.85s Tap "godot-surface" Other[0.50, 0.84]
+    t =    88.85s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    88.86s     Find the "godot-surface" Other
+    t =    88.94s     Check for interrupting elements affecting "godot-surface" Other
+    t =    88.98s     Synthesize event
+    t =    89.00s         Find the "godot-surface" Other
+    t =    89.09s         Find the "godot-surface" Other
+    t =    89.17s         Find the "godot-surface" Other
+    t =    89.58s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    89.88s Find the "retained-metrics" StaticText
+    t =    90.29s Find the "retained-metrics" StaticText
+    t =    90.47s Find the "retained-metrics" StaticText
+    t =    90.68s Find the "retained-metrics" StaticText
+    t =    90.93s Find the "retained-metrics" StaticText
+    t =    90.96s Find the Target Application 'dev.partydeck.godot.iosretained'
+    t =    91.14s Added attachment named 'Real play accepted by the Kotlin authority'
+    t =    91.15s Find the "retained-metrics" StaticText
+    t =    91.18s Added attachment named 'Real play accepted by the Kotlin authority measurements'
+    t =    91.18s Find the "retained-metrics" StaticText
+    t =    91.22s Find the "retained-metrics" StaticText
+    t =    91.44s Find the "retained-metrics" StaticText
+    t =    91.49s Find the "godot-surface" Any
+    t =    91.59s Find the "godot-surface" Other
+    t =    91.69s Find the "godot-surface" Other
+    t =    91.86s Added attachment named 'Measured real touch target'
+    t =    91.86s Find the "retained-metrics" StaticText
+    t =    91.98s Tap "godot-surface" Other[0.15, 0.06]
+    t =    91.98s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    91.99s     Find the "godot-surface" Other
+    t =    92.08s     Check for interrupting elements affecting "godot-surface" Other
+    t =    92.12s     Synthesize event
+    t =    92.12s         Find the "godot-surface" Other
+    t =    92.15s         Find the "godot-surface" Other
+    t =    92.20s         Find the "godot-surface" Other
+    t =    92.53s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    92.55s Find the "retained-metrics" StaticText
+    t =    92.75s Find the "retained-metrics" StaticText
+    t =    92.98s Find the "retained-metrics" StaticText
+    t =    93.16s Find the "retained-metrics" StaticText
+    t =    93.35s Find the "retained-metrics" StaticText
+    t =    93.37s Checking existence of `"retained-shell" Any`
+    t =    93.39s Checking existence of `"godot-surface" Any`
+    t =    93.42s Find the Target Application 'dev.partydeck.godot.iosretained'
+    t =    93.55s Added attachment named 'Whole recipient scene retired; retained services dormant'
+    t =    93.55s Find the "retained-metrics" StaticText
+    t =    93.59s Added attachment named 'Whole recipient scene retired; retained services dormant measurements'
+    t =    93.59s Tap "host-counter-button" Any
+    t =    93.59s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    93.59s     Find the "host-counter-button" Any
+    t =    93.61s     Check for interrupting elements affecting "host-counter-button" Button
+    t =    93.64s     Synthesize event
+    t =    93.94s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    93.95s Find the "retained-metrics" StaticText
+    t =    93.99s Find the "retained-metrics" StaticText
+    t =    94.02s Find the "retained-metrics" StaticText
+    t =    94.24s Find the "retained-metrics" StaticText
+    t =    94.28s Added attachment named 'Measured dormant shell interval'
+    t =    94.28s Waiting 15.0s for "start-3d" Any to exist
+    t =    95.33s     Checking `Expect predicate `existsNoRetry == 1` for object "start-3d" Any`
+    t =    95.33s         Checking existence of `"start-3d" Any`
+    t =    95.38s Find the "start-3d" Any
+    t =    95.44s Tap "start-3d" Button
+    t =    95.44s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    95.46s     Find the "start-3d" Button
+    t =    95.53s     Check for interrupting elements affecting "start-3d" Button
+    t =    95.58s     Synthesize event
+    t =    95.89s     Wait for dev.partydeck.godot.iosretained to idle
+    t =   101.33s Find the "retained-metrics" StaticText
+    t =   104.55s Find the "retained-metrics" StaticText
+    t =   105.49s Find the "retained-metrics" StaticText
+    t =   105.56s Find the Target Application 'dev.partydeck.godot.iosretained'
+    t =   105.81s Added attachment named 'Entry 4: fresh concealed 3d'
+    t =   105.81s Find the "retained-metrics" StaticText
+    t =   105.84s Added attachment named 'Entry 4: fresh concealed 3d measurements'
+    t =   105.84s Find the "retained-metrics" StaticText
+    t =   105.90s Find the "retained-metrics" StaticText
+    t =   106.10s Find the "retained-metrics" StaticText
+    t =   106.29s Find the "retained-metrics" StaticText
+    t =   106.35s Find the "godot-surface" Any
+    t =   106.41s Find the "godot-surface" Other
+    t =   106.48s Find the "godot-surface" Other
+    t =   106.55s Added attachment named 'Measured real touch target'
+    t =   106.55s Find the "retained-metrics" StaticText
+    t =   106.62s Tap "godot-surface" Other[0.58, 0.07]
+    t =   106.62s     Wait for dev.partydeck.godot.iosretained to idle
+    t =   106.62s     Find the "godot-surface" Other
+    t =   106.70s     Check for interrupting elements affecting "godot-surface" Other
+    t =   106.75s     Synthesize event
+    t =   106.75s         Find the "godot-surface" Other
+    t =   106.79s         Find the "godot-surface" Other
+    t =   106.85s         Find the "godot-surface" Other
+    t =   107.19s     Wait for dev.partydeck.godot.iosretained to idle
+    t =   111.83s Find the "retained-metrics" StaticText
+    t =   112.57s Find the "retained-metrics" StaticText
+    t =   112.61s Find the "retained-metrics" StaticText
+    t =   112.80s Find the "retained-metrics" StaticText
+    t =   112.84s Find the "godot-surface" Any
+    t =   112.88s Find the "godot-surface" Other
+    t =   112.91s Find the "godot-surface" Other
+    t =   112.96s Added attachment named 'Measured real touch target'
+    t =   112.96s Find the "retained-metrics" StaticText
+    t =   113.00s Tap "godot-surface" Other[0.17, 0.65]
+    t =   113.00s     Wait for dev.partydeck.godot.iosretained to idle
+    t =   113.00s     Find the "godot-surface" Other
+    t =   113.10s     Check for interrupting elements affecting "godot-surface" Other
+    t =   113.15s     Synthesize event
+    t =   113.16s         Find the "godot-surface" Other
+    t =   113.20s         Find the "godot-surface" Other
+    t =   113.27s         Find the "godot-surface" Other
+    t =   113.60s     Wait for dev.partydeck.godot.iosretained to idle
+    t =   117.55s Find the "retained-metrics" StaticText
+    t =   120.01s Find the "retained-metrics" StaticText
+    t =   120.54s Find the Target Application 'dev.partydeck.godot.iosretained'
+    t =   120.67s Added attachment named 'Real reveal and card selection'
+    t =   120.67s Find the "retained-metrics" StaticText
+    t =   120.71s Added attachment named 'Real reveal and card selection measurements'
+    t =   120.71s Find the "retained-metrics" StaticText
+    t =   120.75s Find the "retained-metrics" StaticText
+    t =   120.78s Find the "godot-surface" Any
+    t =   120.87s Find the "godot-surface" Other
+    t =   120.91s Find the "godot-surface" Other
+    t =   120.97s Added attachment named 'Measured real touch target'
+    t =   120.97s Find the "retained-metrics" StaticText
+    t =   121.00s Tap "godot-surface" Other[0.50, 0.88]
+    t =   121.00s     Wait for dev.partydeck.godot.iosretained to idle
+    t =   121.01s     Find the "godot-surface" Other
+    t =   121.05s     Check for interrupting elements affecting "godot-surface" Other
+    t =   121.09s     Synthesize event
+    t =   121.09s         Find the "godot-surface" Other
+    t =   121.13s         Find the "godot-surface" Other
+    t =   121.18s         Find the "godot-surface" Other
+    t =   121.50s     Wait for dev.partydeck.godot.iosretained to idle
+    t =   123.42s Find the "retained-metrics" StaticText
+    t =   123.62s Find the "retained-metrics" StaticText
+    t =   124.39s Find the "retained-metrics" StaticText
+    t =   125.18s Find the "retained-metrics" StaticText
+    t =   125.23s Find the Target Application 'dev.partydeck.godot.iosretained'
+    t =   125.40s Added attachment named 'Real play accepted by the Kotlin authority'
+    t =   125.40s Find the "retained-metrics" StaticText
+    t =   125.44s Added attachment named 'Real play accepted by the Kotlin authority measurements'
+    t =   125.44s Find the "retained-metrics" StaticText
+    t =   125.50s Find the "retained-metrics" StaticText
+    t =   125.69s Find the "retained-metrics" StaticText
+    t =   125.89s Find the "retained-metrics" StaticText
+    t =   125.95s Find the "godot-surface" Any
+    t =   126.03s Find the "godot-surface" Other
+    t =   126.09s Find the "godot-surface" Other
+    t =   126.19s Added attachment named 'Measured real touch target'
+    t =   126.19s Find the "retained-metrics" StaticText
+    t =   126.24s Tap "godot-surface" Other[0.11, 0.07]
+    t =   126.24s     Wait for dev.partydeck.godot.iosretained to idle
+    t =   126.25s     Find the "godot-surface" Other
+    t =   126.30s     Check for interrupting elements affecting "godot-surface" Other
+    t =   126.36s     Synthesize event
+    t =   126.37s         Find the "godot-surface" Other
+    t =   126.46s         Find the "godot-surface" Other
+    t =   126.51s         Find the "godot-surface" Other
+    t =   126.88s     Wait for dev.partydeck.godot.iosretained to idle
+    t =   127.49s Find the "retained-metrics" StaticText
+    t =   127.70s Find the "retained-metrics" StaticText
+    t =   127.89s Find the "retained-metrics" StaticText
+    t =   128.08s Find the "retained-metrics" StaticText
+    t =   128.28s Find the "retained-metrics" StaticText
+    t =   128.33s Checking existence of `"retained-shell" Any`
+    t =   128.36s Checking existence of `"godot-surface" Any`
+    t =   128.52s Find the Target Application 'dev.partydeck.godot.iosretained'
+    t =   128.72s Added attachment named 'Whole recipient scene retired; retained services dormant'
+    t =   128.72s Find the "retained-metrics" StaticText
+    t =   128.75s Added attachment named 'Whole recipient scene retired; retained services dormant measurements'
+    t =   128.75s Tap "host-counter-button" Any
+    t =   128.75s     Wait for dev.partydeck.godot.iosretained to idle
+    t =   128.75s     Find the "host-counter-button" Any
+    t =   128.78s     Check for interrupting elements affecting "host-counter-button" Button
+    t =   128.84s     Synthesize event
+    t =   129.16s     Wait for dev.partydeck.godot.iosretained to idle
+    t =   129.17s Find the "retained-metrics" StaticText
+    t =   129.21s Find the "retained-metrics" StaticText
+    t =   129.34s Find the "retained-metrics" StaticText
+    t =   129.61s Find the "retained-metrics" StaticText
+    t =   129.65s Added attachment named 'Measured dormant shell interval'
+    t =   129.65s Find the Target Application 'dev.partydeck.godot.iosretained'
+    t =   129.84s Added attachment named 'Four completed real entries in one retained engine process'
+    t =   129.85s Find the "retained-metrics" StaticText
+    t =   129.92s Added attachment named 'Four completed real entries in one retained engine process measurements'
+    t =   129.93s Tear Down
+Test Case '-[RetainedHostUITests.RetainedHostUITests testRepeated2DAnd3DKeepOneDormantEngine]' passed (130.345 seconds).
+Test Case '-[RetainedHostUITests.RetainedHostUITests testStaleFirstReadyAndCloseCompletionReentry]' started.
+    t =     0.00s Start Test at 2026-09-10 18:55:33.997
+    t =     0.12s Set Up
+    t =     0.12s Open dev.partydeck.godot.iosretained
+    t =     0.12s     Launch dev.partydeck.godot.iosretained
+    t =     0.12s         Terminate dev.partydeck.godot.iosretained:19664
+2026-09-10 18:55:35.221 xcodebuild[8489:30551] [MT] IDELaunchParametersSnapshot: The operation couldn’t be completed. (DebuggerLLDB.DebuggerVersionStore.StoreError error 0.)
+2026-09-10 18:55:35.221 xcodebuild[8489:30551] [MT] IDELaunchParametersSnapshot: no debugger version
+    t =    10.39s         Setting up automation session
+    t =    13.15s         Wait for dev.partydeck.godot.iosretained to idle
+    t =    15.15s Waiting 15.0s for "retained-shell" Any to exist
+    t =    16.20s     Checking `Expect predicate `existsNoRetry == 1` for object "retained-shell" Any`
+    t =    16.22s         Checking existence of `"retained-shell" Any`
+    t =    16.35s Waiting 15.0s for "start-2d" Any to exist
+    t =    17.39s     Checking `Expect predicate `existsNoRetry == 1` for object "start-2d" Any`
+    t =    17.39s         Checking existence of `"start-2d" Any`
+    t =    17.51s Find the "start-2d" Any
+    t =    17.59s Tap "start-2d" Button
+    t =    17.59s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    17.60s     Find the "start-2d" Button
+    t =    17.66s     Check for interrupting elements affecting "start-2d" Button
+    t =    17.77s     Synthesize event
+    t =    18.10s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    18.81s Find the "retained-metrics" StaticText
+    t =    21.81s Find the "retained-metrics" StaticText
+    t =    23.23s Find the "retained-metrics" StaticText
+    t =    23.48s Find the "retained-metrics" StaticText
+    t =    23.51s Tap "switch-table" Any
+    t =    23.51s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    23.52s     Find the "switch-table" Any
+    t =    23.75s     Check for interrupting elements affecting "switch-table" Button
+    t =    23.87s     Synthesize event
+    t =    24.20s     Wait for dev.partydeck.godot.iosretained to idle
+    t =    24.22s Find the "retained-metrics" StaticText
+    t =    24.60s Find the "retained-metrics" StaticText
+    t =    24.90s Find the "retained-metrics" StaticText
+    t =    25.19s Find the "retained-metrics" StaticText
+    t =    35.87s Find the "retained-metrics" StaticText
+    t =    37.62s Find the "retained-metrics" StaticText
+    t =    46.09s Added attachment named 'Last rejected retained wait observation'
+    t =    46.10s Find the Target Application 'dev.partydeck.godot.iosretained'
+    t =    46.70s Added attachment named 'Failed retained observation'
+    t =    46.70s Find the "retained-metrics" StaticText
+    t =    47.10s Added attachment named 'Failed retained observation measurements'
+/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHostUITests/RetainedHostUITests.swift:529: error: -[RetainedHostUITests.RetainedHostUITests testStaleFirstReadyAndCloseCompletionReentry] : failed - Observe current renderer diagnostics for the retained presentation.
+    t =    47.91s Tear Down
+Test Case '-[RetainedHostUITests.RetainedHostUITests testStaleFirstReadyAndCloseCompletionReentry]' failed (47.996 seconds).
+2026-09-10 18:56:21.992958+0000 RetainedHostUITests-Runner[16442:52399] [Default] Flushing outgoing messages to the IDE with timeout 600.00s
+2026-09-10 18:56:21.996678+0000 RetainedHostUITests-Runner[16442:53376] [Default] Received confirmation that IDE processed remaining outgoing messages
+2026-09-10 18:56:25.739494+0000 RetainedHostUITests-Runner[26412:77573] [Default] Running tests...
+    t =      nans Interface orientation changed to Portrait
+
+Restarting after unexpected exit, crash, or test timeout; summary will include totals from previous launches.
+
+Test Suite 'Selected tests' started at 2026-09-10 18:56:30.588.
+Test Suite 'RetainedHostUITests.xctest' started at 2026-09-10 18:56:30.591.
+Test Suite 'RetainedHostUITests' started at 2026-09-10 18:56:30.591.
+Test Suite 'RetainedHostUITests' passed at 2026-09-10 18:56:30.591.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'RetainedHostUITests.xctest' passed at 2026-09-10 18:56:30.592.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+Test Suite 'Selected tests' passed at 2026-09-10 18:56:30.592.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.005) seconds
+2026-09-10 18:57:12.736 xcodebuild[8489:30551] [MT] IDETestOperationsObserverDebug: 530.501 elapsed -- Testing started completed.
+2026-09-10 18:57:12.737 xcodebuild[8489:30551] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-09-10 18:57:12.737 xcodebuild[8489:30551] [MT] IDETestOperationsObserverDebug: 530.502 sec, +530.502 sec -- end
+
+Test session results, code coverage, and logs:
+	/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/build/retained-host-test/artifacts/RetainedHost.xcresult
+
+** TEST FAILED **
+
+Testing started

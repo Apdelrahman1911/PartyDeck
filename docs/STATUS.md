@@ -1,7 +1,7 @@
 # PartyDeck status report
 
 **Snapshot: 2026-09-10, 20:55 UTC.** Published main source is through `8030efe`;
-the published gallery is through `7ef426e`. Production and uninstrumented retained
+the published gallery includes the 3,433-original batch in this commit. Production and uninstrumented retained
 iOS runs use `c65e264`; later integrations do not inherit their results.
 Estimated completion of the original app release scope is **81%**. The added
 Godot scope has **3 of 6 acceptance groups complete (50%)**. These are different
@@ -149,7 +149,7 @@ from verified retained source; neither is a newly collected target-head archive.
 | Android native gameplay evidence | Qualification geometry and the real Reveal/card/Play checker are integrated. The current `0f00f17` / `557b2297…` original audit verifies one actual Play per mode/APK and immediate same-round Standard public results, with 198 stable sampled owner records and teardown | Preserve newer-source regression checks and complete adaptive/physical qualification. Local renderer state and sampled observations remain distinct from an internal authority receipt |
 | 2D initial phone layout | One-file Reveal-fit correction and canonical export are integrated. Twenty-two geometry cases, source and packed input/privacy/drag checks pass; the current `557b2297…` native API 36 run completes 2D Reveal/selection/Play in both APKs | Complete remaining adaptive visual/interaction and hardware acceptance. The existing 200% scrolling path remains; 3D source is unchanged on main |
 | 3D large-text scrolling | Independent audit verifies seven original images and 29 fully clipped-safe touch geometries. Tested controls remain reachable by native scrolling; no source patch is warranted by this evidence | Human usability and hardware acceptance remain separate |
-| Screenshots | 2,815 originals plus 13 supplements are pushed at `7ef426e`, with 10,361 evidence files, 13,181 checksum entries and 114 collections. All 3,230 publication delta paths were verified; preserved original bytes remain unchanged | Publish the next reviewed native-run batch with its actual failure/currentness context. Prepared adaptive/retained captures remain unpublished and are excluded from these totals |
+| Screenshots | 3,433 originals plus 13 supplements are published, with 14,123 evidence files, 17,561 checksum entries and 129 collections. All 4,413 paths in the latest delta were independently hash-verified; preserved original bytes remain unchanged | The 618 additions include 53 direct views, 84 prior published-byte matches and 481 explicitly unviewed originals. Seventeen new videos remain unviewed. Later retained/phase and current iOS production batches remain pending |
 
 Agents use **gpt-6-astra with max reasoning**. Android, iOS, checker,
 accessibility and rendering work proceeds concurrently with independent review.
@@ -172,8 +172,8 @@ input-currentness or timeout gate is relaxed for a pass.
 
 ## What still needs to be done to finish
 
-1. **Complete implementation and automated native qualification.** Integrate
-   approved Android recovery, finish recorder wiring and affected adaptive
+1. **Complete implementation and automated native qualification.** Qualify
+   the integrated Android recorder/recovery changes in affected adaptive
    cases, and resolve iOS Standard return and retained READY/re-entry failures.
    Current-pack Android production gameplay passes; current iOS logs reach
    accepted native Play but fail return. Complete current iOS production and
@@ -197,13 +197,13 @@ input-currentness or timeout gate is relaxed for a pass.
 
 ## Published deliverables
 
-- Main source milestones pushed through `8030efe`; the published gallery is at `7ef426e`.
+- Main source milestones pushed through `8030efe`; the published gallery includes the 3,433-original batch in this commit.
   Android adaptive retry `34528538284` is running. The separate `fa0fabb`
   startup-phase diagnostic completes 2/3 and remains unqualified.
-- [Screenshot gallery](screenshots/README.md): **2,815 original PNGs plus 13 supplemental images**,
-  with 10,361 evidence files, 13,181 checksum entries and 114 collections. The
-  next batch is being prepared with its actual run/failure context and is not
-  included in these published totals.
+- [Screenshot gallery](screenshots/README.md): **3,433 original PNGs plus 13 supplemental images**,
+  with 14,123 evidence files, 17,561 checksum entries and 129 collections. The
+  618-image addition preserves its actual run/failure and viewing context.
+  Later retained/phase and current iOS production evidence remains pending.
 - [Verified Android 2D/3D preview download](../godot/comparison/README.md),
   [main instructions](../README.md), [validation commands](../scripts/README.md)
   and [iOS setup](../iosApp/README.md).

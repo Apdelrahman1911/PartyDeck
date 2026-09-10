@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "stage": "native_uikit_shell_layout_named_test_evidence",
+  "source_revision": "0f00f17a398be96aef7bdb58d03074a9914f8232",
+  "source_files": [
+    {
+      "path": "scripts/validate-ios-godot-layout.sh",
+      "sha256": "0c59f62125aef9d413872dec4a90732400b09dda139b649b6c0d5943fae20330"
+    },
+    {
+      "path": "scripts/check-ios-godot-layout.py",
+      "sha256": "b35ce76b04efded3c8726eb739fd574cc5cbaa0542ebe2c9ba863530311a4bf7"
+    },
+    {
+      "path": "iosApp/PartyDeck/Godot/GodotPresentationViewController.swift",
+      "sha256": "fd3a474ef6238f3a573d343e6b8cbfd1058d44aa216208c94b1f3974221b733d"
+    },
+    {
+      "path": "iosApp/PartyDeckTests/GodotPresentationViewControllerTests.swift",
+      "sha256": "fad65fa69bb82a49bc7131dabe4e04ed8effc037ca45b63e858d875c76f9a0b2"
+    },
+    {
+      "path": "iosApp/PartyDeck.xcodeproj/project.pbxproj",
+      "sha256": "e1199eb4d640b4374afc296c356de6394118528114c3ec9b787b07fc67ea39bf"
+    },
+    {
+      "path": "iosApp/Configuration/App.xcconfig",
+      "sha256": "8f9f12105f909573fc080993264bc202dad2c7cf6b437293b30bb58071dcc295"
+    },
+    {
+      "path": "iosApp/PartyDeck/Info.plist",
+      "sha256": "b83321c5f3bcf8ee09e92a9f758f8c02f3b3b65adfe046daa9fc59a504d0b502"
+    },
+    {
+      "path": ".github/workflows/validate.yml",
+      "sha256": "47c9b1edbd36d90ef8dbcdd97ba3b698f73d9ea6a6e592a455d0b6a437391917"
+    }
+  ],
+  "expected_cases": [
+    "PartyDeckTests.GodotPresentationViewControllerTests/testNativeChildRemainsInsideTheHiddenAccessibilityContainer",
+    "PartyDeckTests.GodotPresentationViewControllerTests/testPortraitStageUsesAvailableHeightWithAccessibilityText",
+    "PartyDeckTests.GodotPresentationViewControllerTests/testPortraitStageUsesAvailableHeightWithStandardText"
+  ],
+  "started": [
+    "PartyDeckTests.GodotPresentationViewControllerTests/testNativeChildRemainsInsideTheHiddenAccessibilityContainer",
+    "PartyDeckTests.GodotPresentationViewControllerTests/testPortraitStageUsesAvailableHeightWithAccessibilityText",
+    "PartyDeckTests.GodotPresentationViewControllerTests/testPortraitStageUsesAvailableHeightWithStandardText"
+  ],
+  "finished": [
+    {
+      "case": "PartyDeckTests.GodotPresentationViewControllerTests/testNativeChildRemainsInsideTheHiddenAccessibilityContainer",
+      "status": "passed",
+      "seconds": "0.046"
+    },
+    {
+      "case": "PartyDeckTests.GodotPresentationViewControllerTests/testPortraitStageUsesAvailableHeightWithAccessibilityText",
+      "status": "passed",
+      "seconds": "0.039"
+    },
+    {
+      "case": "PartyDeckTests.GodotPresentationViewControllerTests/testPortraitStageUsesAvailableHeightWithStandardText",
+      "status": "passed",
+      "seconds": "0.131"
+    }
+  ],
+  "command_exit": 0,
+  "command_status": {
+    "native_test_exit_code": 0,
+    "test_log_exit_code": 0,
+    "attachments_export_exit_code": 0,
+    "summary_export_exit_code": 0,
+    "app_verification_exit_code": 0,
+    "app_archive_exit_code": 0
+  },
+  "build_settings_valid": true,
+  "xcresult_preserved": true,
+  "evidence_files": [
+    {
+      "path": "/Users/runner/work/PartyDeck/PartyDeck/build/ci/ios/godot-layout/test.log",
+      "sha256": "bdd051c4c5265a87fa5145abda0437dfd60619216e2c43c66677a3c7bf6763d3"
+    },
+    {
+      "path": "/Users/runner/work/PartyDeck/PartyDeck/build/ci/ios/godot-layout/test-summary.json",
+      "sha256": "69e078e20a0bc9214b0f7aac701a5030a5e3dbf1db97c4eba0f913a1deaa7e2b"
+    },
+    {
+      "path": "/Users/runner/work/PartyDeck/PartyDeck/build/ci/ios/godot-layout/build-settings.json",
+      "sha256": "6976e4d52e0bdce642a03d99399e4d1170acbfd7744029dddfe0cc50973f675d"
+    },
+    {
+      "path": "/Users/runner/work/PartyDeck/PartyDeck/build/ci/ios/godot-layout/command-status.json",
+      "sha256": "361c7b7e8023de9785ddc37df8ca8a736cb9f1a5ce30fa67c66952e1afcfb997"
+    },
+    {
+      "path": "/Users/runner/work/PartyDeck/PartyDeck/build/ci/ios/godot-layout/attachments/manifest.json",
+      "sha256": "ace810d7e2cbb4f8c40ce09dc8e191ae466adb4e1a7d49c59f2215b411d38b05"
+    }
+  ],
+  "native_layout_named_test_evidence_complete": true,
+  "production_engine_or_shipping_promotion": false,
+  "problems": []
+}
