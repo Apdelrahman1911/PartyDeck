@@ -194,6 +194,7 @@ class PartyDeckController(
             AuthoritySessionRuntime(scope, services, transportFactory, name, practice),
             PendingAction.HOST,
         )
+        if (practice) mutableState.update { it.copy(screen = AppScreen.SESSION) }
     }
 
     fun join() {

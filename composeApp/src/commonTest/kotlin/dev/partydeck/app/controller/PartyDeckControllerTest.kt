@@ -46,6 +46,53 @@ import kotlin.test.fail
 @OptIn(ExperimentalCoroutinesApi::class)
 class PartyDeckControllerTest {
     @Test
+    fun rulesPracticeOpensTheTablePreservesLiveRulesAndLeavesCleanly() = runTest {
+        val controller = PartyDeckController(ControllerTestServices(), NoNetworkForPractice(), this)
+        try {
+            controller.navigate(AppScreen.HOW_TO)
+            controller.startPractice()
+            runCurrent()
+            assertEquals(AppScreen.SESSION, controller.state.value.screen)
+            assertEquals(SessionMode.PRACTICE, controller.state.value.connection.mode)
+            val initial = assertNotNull(controller.state.value.session)
+            assertEquals(SessionPhase.GAME, initial.phase)
+            assertNotNull(initial.game)
+
+            reachOwnPlay(controller)
+            controller.playCards(listOf(assertNotNull(controller.state.value.session?.game).yourHand.first().id))
+            runCurrent()
+            val beforeBot = assertNotNull(controller.state.value.session)
+            controller.navigate(AppScreen.HOW_TO)
+            controller.startPractice()
+            advanceTimeBy(900)
+            runCurrent()
+            val duringRules = assertNotNull(controller.state.value.session)
+            assertEquals(initial.sessionId, duringRules.sessionId)
+            assertTrue(duringRules.revision > beforeBot.revision, "No actual authority update arrived while Rules was open")
+            assertEquals(AppScreen.HOW_TO, controller.state.value.screen)
+            assertTrue(controller.requestBack())
+            assertEquals(AppScreen.SESSION, controller.state.value.screen)
+            assertTrue(controller.requestBack())
+            assertTrue(controller.state.value.leaveConfirmationRequested)
+            controller.leaveSession()
+            runCurrent()
+            advanceTimeBy(60_000)
+            runCurrent()
+            assertEquals(AppScreen.HOME, controller.state.value.screen)
+            assertNull(controller.state.value.session)
+            assertNull(controller.state.value.invitation)
+            assertNull(controller.state.value.pendingAction)
+            assertNull(controller.state.value.problem)
+            assertEquals(ConnectionStatus.IDLE, controller.state.value.connection.status)
+            assertFalse(controller.state.value.leaveConfirmationRequested)
+        } finally {
+            controller.close()
+            runCurrent()
+            controller.awaitClosed()
+        }
+    }
+
+    @Test
     fun practicePlaysACompleteMatchUsingAuthorityAndReturnsToAReadyLobby() = runTest {
         val services = ControllerTestServices()
         val controller = PartyDeckController(services, NoNetworkForPractice(), this)

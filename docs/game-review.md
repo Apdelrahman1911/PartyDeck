@@ -42,6 +42,20 @@ One finding was fixed: permission denial during an admitted client's reconnect c
 
 The controller owner executed the focused `ClientDiscoveryFlowTest` class under the shared Gradle lock. This reviewer independently inspected the production change, regression, and resulting XML: **8 tests, 0 failures, 0 errors, 0 skipped**, suite time 0.258 seconds. `git diff --check` passed. No Gradle run was launched by this reviewer for this follow-up. No finding remains open within this review scope; native and physical-device qualification remain separate evidence.
 
+## Rules-to-practice navigation follow-up, 2026-09-10
+
+**Accepted for controller behavior.** The Rules screen's practice action reaches `startPractice` when no session exists; its live-session action uses Back to return to the current table. The fix explicitly selects `SESSION` after attaching practice. The existing start guard still prevents replacement of a live session, and the snapshot collector still preserves an open Rules or Settings overlay during authority updates.
+
+This reviewer inspected the owner's failing regression (`expected SESSION, actual HOW_TO`) and subsequent nine-test passing controller result, then independently executed only `rulesPracticeOpensTheTablePreservesLiveRulesAndLeavesCleanly` under the shared Gradle lock. **One test passed, zero failures/errors/skips**, suite time 0.250 seconds. The regression starts a real practice match from Rules, receives an actual bot/authority revision while Rules remains open, verifies duplicate start preserves session identity, then checks Back, leave confirmation and clean Home after sixty seconds of virtual time.
+
+```sh
+flock /tmp/partydeck-gradle.lock ./gradlew :composeApp:jvmTest \
+  --tests '*PartyDeckControllerTest.rulesPracticeOpensTheTablePreservesLiveRulesAndLeavesCleanly*' \
+  --console=plain
+```
+
+Gradle exited zero. Preserved independent XML: `/tmp/partydeck-rules-practice-review/independent.xml`, SHA-256 `3115972dbce7a75058dbb931c1fd084db7282ffe5aa214e17c289331cac492bb`. Owner red/green evidence remains at `/tmp/partydeck-rules-practice-regression/`. No new test or implementation change was needed from this reviewer. Actual Android CTA/input acceptance remains with its native execution owner.
+
 ## Findings and required decisions
 
 | Priority | Finding | Required behavior / status |

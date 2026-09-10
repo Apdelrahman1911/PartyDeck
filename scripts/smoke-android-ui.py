@@ -219,6 +219,25 @@ class AndroidSmoke:
             lambda root: self.find(root, tag, fallback_text, enabled), seconds, scroll,
         )
 
+    def find_action(self, root, tag, fallback_text=None):
+        label = self.find(root, tag, fallback_text)
+        action = label
+        while action is not None and action.get("clickable") != "true":
+            action = self.ui_parents.get(action)
+        # A text fallback can expose only the few pixels above a scroll edge.
+        # Require its complete enabled button, not that clipped text rectangle.
+        if (action is None or action.get("package") != PACKAGE
+                or action.get("enabled") == "false" or not self.visible(action)
+                or intersect_bounds(node_bounds(label), node_bounds(action)) != node_bounds(label)):
+            return None
+        return action
+
+    def wait_for_action(self, tag, fallback_text=None, scroll=None, seconds=45):
+        return self.wait_until(
+            f"Expected a fully visible enabled action {tag!r}",
+            lambda root: self.find_action(root, tag, fallback_text), seconds, scroll,
+        )
+
     def swipe(self, direction, root, timeout=10):
         self.bind_ui(root)
         # App scrolling must not turn a launcher/shade tree into a system gesture.
@@ -270,8 +289,11 @@ class AndroidSmoke:
     def back(self):
         self.adb("shell", "input", "keyevent", "KEYCODE_BACK")
 
-    def capture(self, name, ready_tag, fallback_text=None, scroll=None):
-        self.wait_for_tag(ready_tag, fallback_text, enabled=None, scroll=scroll)
+    def capture(self, name, ready_tag, fallback_text=None, scroll=None, action=False):
+        if action:
+            self.wait_for_action(ready_tag, fallback_text, scroll=scroll)
+        else:
+            self.wait_for_tag(ready_tag, fallback_text, enabled=None, scroll=scroll)
         if self.sensitive_surface:
             raise RuntimeError("Refusing to save a screenshot of a live invitation or system share preview.")
         screenshot = self.adb("exec-out", "screencap", "-p", binary=True)
@@ -408,11 +430,18 @@ class AndroidSmoke:
         self.tap("home-how-to", scroll="down")
         self.capture(f"{prefix}-intro", "rules-first-step", "Know the table.", scroll="down")
         self.capture(f"{prefix}-last-step", "rules-last-step", "Be the last light.", scroll="down")
-        self.wait_for_tag("rules-practice", "Try a practice table", scroll="down")
-        self.capture(f"{prefix}-practice-action", "rules-practice", "Try a practice table")
         self.back()
         self.wait_for_tag("home-practice", scroll="down")
-        self.record("Verified rules content and final practice action are reachable")
+        self.tap("home-how-to", scroll="down")
+        # Home has the same practice label; prove the second navigation arrived.
+        self.wait_for_tag("rules-first-step", "Know the table.", scroll="down")
+        self.capture(f"{prefix}-practice-action", "rules-practice", "Try a practice table", scroll="down", action=True)
+        self.tap_node(self.wait_for_action("rules-practice", "Try a practice table", scroll="down"), "rules-practice")
+        self.wait_for_tag("game-table", enabled=None)
+        self.capture(f"{prefix}-practice-entered", "game-table")
+        self.leave_table()
+        self.capture(f"{prefix}-returned-home", "home-practice", scroll="down")
+        self.record("Verified Rules Back, readable practice action, direct game entry and confirmed return Home")
 
     def settings_persistence(self):
         self.stage = "settings persistence"
