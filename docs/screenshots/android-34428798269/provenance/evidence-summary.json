@@ -1,0 +1,149 @@
+{
+  "run": 34428798269,
+  "head": "15ab6408d16c04941d133214b03d4e8c6c42ced9",
+  "tests": {
+    "transport": {
+      "tests": 18,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "session": {
+      "tests": 27,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "games": {
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "core": {
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "composeApp": {
+      "tests": 48,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "androidApp": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "artifacts": [
+    {
+      "path": "android-packages-and-shrinker-reports/androidApp/build/outputs/apk/debug/androidApp-debug.apk",
+      "bytes": 22645979,
+      "sha256": "fb5ab7ffc54d5f01cd7a93761c03f10743f4b5d3e6f8019f0486fddee0079d0b"
+    },
+    {
+      "path": "android-packages-and-shrinker-reports/androidApp/build/outputs/apk/release/androidApp-release-unsigned.apk",
+      "bytes": 4522956,
+      "sha256": "f37009743ac95ac23a4c202fde4e04dffa3df79ed7f6ce7c6f7c150949fac881"
+    },
+    {
+      "path": "android-packages-and-shrinker-reports/androidApp/build/outputs/bundle/release/androidApp-release.aab",
+      "bytes": 7655730,
+      "sha256": "87594789a265778df3f39f4876237a3bc8bfa9a60293e5a17393194be0000455"
+    },
+    {
+      "path": "android-packages-and-shrinker-reports/build/ci/android/packages/PartyDeck-release-ci-test-signed.apk",
+      "bytes": 4570535,
+      "sha256": "a0adb50939b13eb83b21e37bd0d0604aba309e3d106d1f0c38dd0746a7115724"
+    }
+  ],
+  "variants": {
+    "debug": {
+      "passed": true,
+      "stage": null,
+      "error": null,
+      "apk_sha256": "fb5ab7ffc54d5f01cd7a93761c03f10743f4b5d3e6f8019f0486fddee0079d0b",
+      "downloadedPackageMatchesExecuted": true,
+      "stageCaptures": 30,
+      "softImeCaptures": [
+        "join-name-soft-ime",
+        "large-text-join-name-soft-ime"
+      ],
+      "largeTextFontScale": 2.0,
+      "retainedLogcatAnrOrFatalMatches": [],
+      "diagnosticErrors": [],
+      "environmentRestoreErrors": []
+    },
+    "optimized-test-signed": {
+      "passed": true,
+      "stage": null,
+      "error": null,
+      "apk_sha256": "a0adb50939b13eb83b21e37bd0d0604aba309e3d106d1f0c38dd0746a7115724",
+      "downloadedPackageMatchesExecuted": true,
+      "stageCaptures": 30,
+      "softImeCaptures": [
+        "join-name-soft-ime",
+        "large-text-join-name-soft-ime"
+      ],
+      "largeTextFontScale": 2.0,
+      "retainedLogcatAnrOrFatalMatches": [],
+      "diagnosticErrors": [],
+      "environmentRestoreErrors": []
+    }
+  },
+  "testTotals": {
+    "tests": 118,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "preparation": {
+    "serial": "emulator-5554",
+    "passed": true,
+    "reboot_attempted": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "passed": true,
+        "app_absent": true,
+        "recovery_allowed": false,
+        "boot_id": "e088c46a-79ac-43c9-a3cf-fac387141ef9",
+        "android_api": "35",
+        "steps": [
+          "Verified responsive Android launcher before app installation"
+        ]
+      }
+    ],
+    "scope": "Empty AVD preparation only; neither APK is installed or accepted by this phase."
+  },
+  "display": {
+    "expectedPhysicalSize": [
+      720,
+      1600
+    ],
+    "expectedDensityDpi": 280,
+    "logicalSizeDp": [
+      411.42857142857144,
+      914.2857142857143
+    ],
+    "expectedAndroidApi": 35,
+    "guestApiVerified": true,
+    "displayVerified": true,
+    "actualAndroidApi": 35,
+    "actualSizeOutput": "Physical size: 720x1600",
+    "actualDensityOutput": "Physical density: 280"
+  },
+  "runtimeVariants": {
+    "sameEmulatorBoot": true,
+    "debugExitCode": 0,
+    "optimizedTestSignedExitCode": 0,
+    "passed": true
+  },
+  "rulesCtaAudit": "rules-cta-evidence-summary.json",
+  "preparationLogcatAnrOrFatalMatches": [],
+  "visualAcceptanceLimit": "All four Rules labels are readable and each real CTA route executes. Optimized normal button lower border remains clipped; only three complete button borders are shown."
+}
