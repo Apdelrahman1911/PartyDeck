@@ -514,10 +514,21 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
     @MainActor
     private func read(_ app: XCUIApplication) throws -> Observation? {
         guard app.state == .runningForeground else { return nil }
-        // Native chrome owns the value while modal; the SwiftUI badge owns it on Standard/Home.
-        let nativeStatus = element("godot-session-status", app)
-        let node = nativeStatus.exists ? nativeStatus : element("partydeck-session-qualification", app)
-        guard node.exists, let text = node.value as? String, !text.isEmpty else { return nil }
+        // Leave can remove native chrome between an existence check and a live value query.
+        // Select and read from one captured hierarchy, keeping native status ahead of the badge.
+        var pending: [any XCUIElementSnapshot] = [try app.snapshot()]
+        var node: (any XCUIElementSnapshot)?
+        while let snapshot = pending.popLast() {
+            if snapshot.identifier == "godot-session-status" {
+                node = snapshot
+                break
+            }
+            if snapshot.identifier == "partydeck-session-qualification" && node == nil {
+                node = snapshot
+            }
+            pending.append(contentsOf: snapshot.children.reversed())
+        }
+        guard let text = node?.value as? String, !text.isEmpty else { return nil }
         guard let data = text.data(using: .utf8), data.count <= 32768,
               let value = try? JSONDecoder().decode(Observation.self, from: data) else {
             throw Failure("Production qualification observation is malformed; missing values cannot pass a privacy assertion.")
