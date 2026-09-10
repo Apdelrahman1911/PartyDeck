@@ -43,7 +43,7 @@ jobs:
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: godot/ios-host/build/scons-cache
-          key: godot-ios-ed1daf0bf-xcode26.4.1-arm64-sim-gl-${{ hashFiles('godot/ios-host/modules/**', 'godot/ios-host/build-probe.sh') }}
+          key: godot-ios-ed1daf0bf-xcode26.4.1-arm64-sim-gl-${{ hashFiles('godot/ios-host/modules/**', 'godot/ios-host/build-probe.sh', 'godot/ios-host/source_audit.py', 'godot/ios-host/stage-engine-inputs.py', 'godot/ios-host/patches/**') }}
           restore-keys: |
             godot-ios-ed1daf0bf-xcode26.4.1-arm64-sim-gl-
       - name: Execute the requested probe stage

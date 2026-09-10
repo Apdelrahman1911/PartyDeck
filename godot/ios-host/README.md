@@ -6,9 +6,11 @@ integration. The pinned engine compilation passed in
 [run 34415851126](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34415851126).
 The executable diagnostic and all five lifecycle tests passed in
 [run 34431377938](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34431377938)
-at `4f7776aba5809330fdd0197623a03f7a45cba3a1`. The separate authority host is
-implemented below; its compilation and gameplay execution need their own
-receipts. Diagnostic success does not qualify Last Light gameplay or re-entry.
+at `4f7776aba5809330fdd0197623a03f7a45cba3a1`. The separate Swift authority caller
+compiled and linked in run `34434392993`. The next run, `34439760695`, passed
+both normal-text full matches and secure-default Exit; its two 200% text cases
+failed, so the complete authority gate remains open. Diagnostic success does
+not qualify Last Light gameplay or re-entry.
 
 ## Verified source boundary
 
@@ -48,9 +50,13 @@ it, including cancellation before bootstrap and initialization failure. The
 tests measure both prior values, rather than assuming the host always permits
 screen sleep.
 
-No upstream source patch is applied. This host remains coupled to iOS bootstrap,
-the global view lookup, the private draw selector, and controller policy. The
-open native-window proposal is not an API available in this release.
+The earlier terminal gate used unmodified upstream source. The current engine
+checkpoint applies the separately reviewed [four-file CoreAudio patch](patches/README.md)
+for actual stop/callback observations and retirement of closed WAV playbacks.
+Its deterministic patch and pristine/patched hashes are retained with every
+build. This host remains coupled to iOS bootstrap, the global view lookup, the
+private draw selector and controller policy. The open native-window proposal
+is not an API available in this release.
 
 ## Executable host and lifecycle boundary
 
@@ -103,8 +109,12 @@ export DEVELOPER_DIR=/Applications/Xcode_26.4.1.app/Contents/Developer
 bash godot/ios-host/build-probe.sh engine
 ```
 
-The wrapper verifies the exact Git commit and clean tracked sources, installs
-the hash-pinned SCons 4.11.1 wheel in its own virtual environment, and builds the
+The wrapper verifies a pristine reference at the exact Git commit and creates
+a fresh isolated engine checkout for every invocation. It rejects untracked
+inputs, including ignored configuration/source files, then applies only the
+four reviewed audio-file changes. It captures the exact native module files in
+an immutable snapshot before compilation, installs the hash-pinned SCons 4.11.1
+wheel in its own virtual environment, and builds the
 ordinary iOS export-template static archive with the custom probe module and
 two compiler jobs. It uses the Compatibility/OpenGL renderer; both official
 iOS compilation documentation and the pinned platform configuration limit the
@@ -112,19 +122,26 @@ Simulator to that renderer. This does not test device Metal or GPU performance.
 The supported `disable_path_overrides=no` option is required because this owned
 host supplies its bundled project/pack paths to `--path` and `--main-pack`.
 The custom module fails compilation if `OVERRIDE_PATH_ENABLED` is absent.
+It also requires `sdl=no`, excluding the SDL joystick/gamepad subsystem from
+this touch/hardware-keyboard host. The previous SDL-only device-query glue and
+its symbol requirements have been removed.
 The host constructs its argument list itself; it does not forward application
 launch arguments or allow `godot_cmdline` injection.
 
 All generated files stay under `godot/ios-host/build`:
 
-- `upstream`: dependency checkout and generated build objects.
+- `upstream`: pristine, read-only dependency reference.
+- `engine-checkouts/engine.*`: fresh patched engine checkout and its generated build objects.
+- `module-snapshots/<digest>/modules`: exact read-only native module files supplied to SCons.
 - `scons-cache`: reusable SCons object cache, keyed by the pinned source/toolchain/build inputs.
-- `evidence`: source audit, tool versions, build log, archive hash/size, and symbol inventory.
+- `evidence`: reference/source audits, pre-build module inventory, tool versions, build log, archive hash/size, and symbol inventory.
 - `artifacts/libpartydeck_godot_ios_probe.a`: combined native archive for the later host link.
 - `artifacts/libpartydeck_godot_camera.a`: the auxiliary archive required by the iOS camera module.
 
 The engine stage checks defined iOS bootstrap/finish symbols and the native
-runtime/controller classes. Its receipt explicitly records
+runtime/controller/owner/presentation classes. After compilation it rechecks the
+snapshot and patched source bytes; the archive receipt uses the captured
+pre-build module inventory. Its receipt explicitly records
 `ios_runtime_executed: false` and `kmp_factory_qualified: false`.
 
 On the same runner, execute the host gate:
@@ -155,11 +172,12 @@ start once and pass. Source checks or compilation cannot create that receipt.
 The link in [run 34425278588](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34425278588)
 identified four required platform glue symbols. Godot's reduced SDL 3.2.28 source
 set omits the UIKit video file that defines `SDL_IsIPad` and `SDL_IsAppleTV`.
-The custom module extracts those two real `UIDevice.userInterfaceIdiom` queries
+That earlier custom module extracted those two real `UIDevice.userInterfaceIdiom` queries
 from the exact SDL commit named by Godot, retaining the original notice and
 source hash. It also supplies the Apple exporter's empty-list initialization
 hooks: this host selects no `.gdip` export plugins. The actual `PartyDeckBridge`
-engine module registers independently through Godot's module lifecycle. Native
+engine module registers independently through Godot's module lifecycle. The
+current `sdl=no` build retains only the empty Apple export-plugin hooks. Native
 linking with this glue passed in
 [run 34428221586](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34428221586).
 All five diagnostic tests executed, but only cancellation before bootstrap
@@ -175,6 +193,22 @@ Actual bootstrap/setup2/start return codes are now retained (`-1` means that
 stage was not attempted), and failed waits preserve measurements before ending
 the test. No native scene-rendering or cleanup success is inferred from this
 failed run.
+
+## Retained engine checkpoint
+
+`PDGodotEngineOwner.h` adds a separate owner and disposable presentation handle;
+`PDGodotRuntime.close()` remains terminal. The retained owner keeps one native
+engine/controller/view/layer, replaces the entire SceneTree for each lifetime,
+and only grants another entry after a neutral empty-tree frame and an observed
+CoreAudio callback-free shell interval. Native/authority Ready confirmation,
+generation-bound delivery, lifecycle callbacks, input gating and deferred close
+completion are distinct operations. A failed suspension quarantines the owner.
+
+This source checkpoint does not constitute Apple compilation or same-process
+runtime qualification. The [retained contract](DORMANCY.md) records the fixed
+PCK/content limits, actual service observations, background rendering rule and
+separate evidence required. The original five diagnostic tests and five
+one-shot authority tests remain separate suites.
 
 The optional `PARTYDECK_GODOT_PROBE_PCK=/absolute/path/partydeck-last-light.pck`
 input bundles the shared pack after its companion receipt is verified with
