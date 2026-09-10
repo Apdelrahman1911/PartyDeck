@@ -5,7 +5,7 @@ PARTYDECK_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$PARTYDECK_ROOT"
 PARTYDECK_GRAPHICS_OUTPUT="$PARTYDECK_ROOT/build/ci/android"
 mkdir -p "$PARTYDECK_GRAPHICS_OUTPUT"
-PARTYDECK_GRAPHICS_PACKAGES=(xvfb libgl1 libegl1 libx11-6 libxi6 libxrender1 libxtst6)
+PARTYDECK_GRAPHICS_PACKAGES=(xvfb xauth libgl1 libgl1-mesa-dri libegl1 libx11-6 libxi6 libxrender1 libxtst6)
 PARTYDECK_MISSING_PACKAGES=()
 for PARTYDECK_PACKAGE in "${PARTYDECK_GRAPHICS_PACKAGES[@]}"; do
   PARTYDECK_PACKAGE_STATUS="$(dpkg-query --show '--showformat=${Status}' "$PARTYDECK_PACKAGE" 2>/dev/null || true)"
