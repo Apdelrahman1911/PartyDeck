@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Pinned Godot install, isolated renderer validation, PCK export, and previews."""
 
+from __future__ import annotations
+
 import argparse
 import configparser
 from datetime import datetime, timezone
