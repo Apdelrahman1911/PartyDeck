@@ -1,0 +1,118 @@
+{
+  "command": [
+    "flock",
+    "/tmp/partydeck-godot.lock",
+    "xvfb-run",
+    "-a",
+    "-s",
+    "-screen 0 1440x1100x24",
+    "/opt/partydeck-godot/godot",
+    "--path",
+    "/root/projects/PartyDeck/artifacts/evidence-storage/ios-msaa-disabled-root-validation-20260910/packed-check-378x655-text-2/empty-project",
+    "--main-pack",
+    "/root/projects/PartyDeck/artifacts/evidence-storage/ios-msaa-disabled-root-validation-20260910/attempt-2/partydeck-last-light.pck",
+    "--rendering-method",
+    "gl_compatibility",
+    "--audio-driver",
+    "Dummy",
+    "--script",
+    "/tmp/partydeck-ios-msaa-disabled-20260910/godot/renderer/tests/three_d_scene_check.gd",
+    "--",
+    "--manual-bridge",
+    "--check-fixture=/tmp/partydeck-ios-msaa-disabled-20260910/godot/bridge/fixtures/launch-3d.json",
+    "--check-output=/root/projects/PartyDeck/artifacts/evidence-storage/ios-msaa-disabled-root-validation-20260910/packed-check-378x655-text-2",
+    "--check-width=378",
+    "--check-height=655",
+    "--check-text-scale=2"
+  ],
+  "startedUtc": "2026-09-10T18:01:01.038734+00:00",
+  "inputs": [
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/ios-msaa-disabled-root-validation-20260910/attempt-2/partydeck-last-light.pck",
+      "sha256": "c8d2b0989524c66715fd7469b7a8315a6fd2fb8563ec87bd2294d60b4ebbcd4a"
+    },
+    {
+      "path": "/tmp/partydeck-ios-msaa-disabled-20260910/godot/renderer/tests/three_d_scene_check.gd",
+      "sha256": "5d36c98fc638ebeb28c906350950bb6e7b7e5f111d560e2c62461db0c5e3d32e"
+    },
+    {
+      "path": "/tmp/partydeck-ios-msaa-disabled-20260910/godot/bridge/fixtures/launch-3d.json",
+      "sha256": "d099a9ff543d5409925a3afb669780dd702f20bdd886cf530c431d546af99407"
+    }
+  ],
+  "scope": "Actual packed resources in empty project; local OpenGL input/privacy; not native qualification",
+  "exitCode": 0,
+  "completedUtc": "2026-09-10T18:01:06.772403+00:00",
+  "outputs": [
+    {
+      "path": "01-concealed.json",
+      "bytes": 1177,
+      "sha256": "91c6a95a3457f9dc522890c3c0aba27977f20de06f6a3c2504fa52362b8f678c"
+    },
+    {
+      "path": "01-concealed.png",
+      "bytes": 42645,
+      "sha256": "ec951b38c955858e9ade1bd644dd3276f2945a87ab3530ba1d7975fd524206ac"
+    },
+    {
+      "path": "02-revealed-selected.json",
+      "bytes": 2427,
+      "sha256": "ee911b0b2b01adca1e64ff12afe2a424b77a3e5b86c376170a911a556d78530b"
+    },
+    {
+      "path": "02-revealed-selected.png",
+      "bytes": 45844,
+      "sha256": "59fd99043020fe728f03df7552a5b5fb1a8f97feec52c3c7dee13e70e848dfab"
+    },
+    {
+      "path": "02a-selection-limit.json",
+      "bytes": 2427,
+      "sha256": "09e435f10afae6544c7764612c6b23bf946090fd1683fbdb6195e8a756200428"
+    },
+    {
+      "path": "02a-selection-limit.png",
+      "bytes": 47909,
+      "sha256": "e64165c77f4409b03fe5264dff789bc76f17b2b248e33d26c6fad79e6c5180c7"
+    },
+    {
+      "path": "02b-deselected-last.json",
+      "bytes": 2427,
+      "sha256": "184476f7520c4b422c473e57679973a291d215a76caab8314c4d8866b32b17b1"
+    },
+    {
+      "path": "02b-deselected-last.png",
+      "bytes": 45999,
+      "sha256": "8fa82bbbe7fb2c7abe0cdbfd083bc14563f4fe3cf50db4c9a897fdd965ffaf54"
+    },
+    {
+      "path": "03-covered-again.json",
+      "bytes": 1177,
+      "sha256": "0dbb200d0d58cbfea84eb03c545b44f12c96ebf740d9e88e1562fdc753648859"
+    },
+    {
+      "path": "03-covered-again.png",
+      "bytes": 56911,
+      "sha256": "01e5db86ad1c4331315d1c00145f17cf28e969ccc5c191bca6b7c08b2183d2d7"
+    },
+    {
+      "path": "04-resumed-covered.json",
+      "bytes": 1177,
+      "sha256": "2d6e65d326671c9090063379b193f67845cb19a708abadcf5e191125940d7b3f"
+    },
+    {
+      "path": "04-resumed-covered.png",
+      "bytes": 56330,
+      "sha256": "1e075dca2ebe8522629f00712413e3b5dcfea962b4c2a12531dd19bb5b4acc4d"
+    },
+    {
+      "path": "process.log",
+      "bytes": 784,
+      "sha256": "1b0d20b91e9c25b03d5fd6a61dd77563bf8fdb78b6f3d09d23390307cecd4949"
+    },
+    {
+      "path": "report.json",
+      "bytes": 15318,
+      "sha256": "87864f13cf6e34e99b4791fc370acb43c16a6bfed5b9bafb10f93312e3421500"
+    }
+  ]
+}

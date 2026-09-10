@@ -1,0 +1,47 @@
+{
+  "reviewer": "/root/ui_game",
+  "viewMethod": "tools.view_image",
+  "detail": "original",
+  "recordedUtc": "2026-09-10T18:49:31.574Z",
+  "actualOriginalViews": 4,
+  "notes": [
+    {
+      "directViewOrder": 94,
+      "visibleState": "Seascape Table style dialog with Standard table selected, 2D/3D choices and Done.",
+      "layout": "Shown title/radios/Done fit and are readable. Explanatory guidance is not in view; the modal occupies nearly the full short dimension.",
+      "privacy": "No individual card identities or invitation material readable.",
+      "findings": [
+        "selector-guidance-not-in-view"
+      ]
+    },
+    {
+      "directViewOrder": 95,
+      "visibleState": "Seascape Table ready with Standard table/Leave table, Show hand, Star round 1, Your turn and Orbit claimed 2 Stars.",
+      "layout": "Header controls and public claim fit; they occupy the captured height, with the native table/hand surface outside the visible viewport.",
+      "privacy": "No individual card identities are visible. Readiness chrome is not gameplay or transition-privacy proof.",
+      "findings": [
+        "table-surface-and-hand-not-in-view"
+      ]
+    },
+    {
+      "directViewOrder": 96,
+      "visibleState": "Seascape standard return showing Your hand, five cards and For your eyes only cover copy.",
+      "layout": "An earlier green text fragment is cut beneath Table style. The cover panel continues below the lower edge; only the upper outline of Show hand is visible, with its label outside the image.",
+      "privacy": "Cover copy/card-back illustration are visible without individual card identities. Source held-rotation remains unsupported.",
+      "findings": [
+        "preceding-copy-cut-at-upper-viewport",
+        "show-hand-action-below-viewport"
+      ]
+    },
+    {
+      "directViewOrder": 97,
+      "visibleState": "Seascape selection-cleared standard view with Show hand, Wild cards always match and disabled Select cards.",
+      "layout": "The concealment copy is clipped at the upper content boundary. Show hand is fully visible; the bottom part of Select cards is below the viewport.",
+      "privacy": "No individual card face/rank visible; a static concealed-hand view only.",
+      "findings": [
+        "concealment-copy-cut-at-upper-viewport",
+        "select-cards-button-partly-below-viewport"
+      ]
+    }
+  ]
+}

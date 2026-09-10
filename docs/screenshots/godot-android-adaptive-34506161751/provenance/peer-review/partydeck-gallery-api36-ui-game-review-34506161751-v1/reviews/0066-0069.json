@@ -1,0 +1,44 @@
+{
+  "reviewer": "/root/ui_game",
+  "viewMethod": "tools.view_image",
+  "detail": "original",
+  "recordedUtc": "2026-09-10T18:42:25.247Z",
+  "actualOriginalViews": 4,
+  "notes": [
+    {
+      "directViewOrder": 66,
+      "visibleState": "Portrait Leave the table? confirmation with explanation, orange Leave table and green Stay at the table.",
+      "layout": "Title, wrapped explanation and both choices are fully inside the modal; distinct destructive and stay actions, no visible truncation.",
+      "privacy": "No hand identities or invitation material visible.",
+      "findings": []
+    },
+    {
+      "directViewOrder": 67,
+      "visibleState": "Portrait PartyDeck home: Last Light description, player/Wi-Fi note, Host, Join, practice and How to play.",
+      "layout": "All shown home actions and copy fit with ample lower space; clear primary/secondary hierarchy and no visible clipping.",
+      "privacy": "Home contains no hand or invitation secrets.",
+      "findings": []
+    },
+    {
+      "directViewOrder": 68,
+      "visibleState": "Landscape standard table with Your turn, Star table, round 1 and Orbit claims 1 Star.",
+      "layout": "Large-font single-column content fills the landscape height. The explanation after the last claim is cut at the bottom viewport; hand/actions are not visible here.",
+      "privacy": "Only public turn/claim information is visible; no private hand shown.",
+      "findings": [
+        "public-explanation-cut-at-lower-viewport",
+        "hand-and-actions-not-in-view"
+      ]
+    },
+    {
+      "directViewOrder": 69,
+      "visibleState": "Landscape revealed-hand scroll position: Hide hand and two readable Star card rows.",
+      "layout": "The zero-selected count is clipped at the upper content boundary beneath Table style. Two card rows fit; the remaining hand and play actions are outside this viewport.",
+      "privacy": "Individual card identities are exposed in this revealed-hand capture; it must not be labeled concealed.",
+      "findings": [
+        "selection-count-cut-at-upper-viewport",
+        "partial-hand-viewport",
+        "revealed-hand-capture"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "reviewer": "/root/ui_game",
+  "viewMethod": "tools.view_image",
+  "detail": "original",
+  "recordedUtc": "2026-09-10T18:46:21.034Z",
+  "actualOriginalViews": 4,
+  "notes": [
+    {
+      "directViewOrder": 82,
+      "visibleState": "Portrait Table ready with Standard/Leave controls, Show hand, Star round/claim, horizontally scrollable seats and part of a 3D table with card backs.",
+      "layout": "Header/claim/Show hand fit. A neighboring seat's metadata is clipped at the horizontal viewport with an explicit Swipe seats cue. The 3D table and card backs are cut at the lower viewport; vertical scrollbar is visible.",
+      "privacy": "The table and hand show card backs; no individual rank/face is exposed in the visible native surface.",
+      "findings": [
+        "seat-metadata-partly-outside-horizontal-viewport",
+        "native-table-partly-below-viewport"
+      ]
+    },
+    {
+      "directViewOrder": 83,
+      "visibleState": "Portrait standard concealment panel with five cards, Show hand, disabled Select cards and Challenge Orbit.",
+      "layout": "Covered-hand copy, Show hand and Select cards fit. A trailing word from preceding content sits at the top; the lower portion of Challenge Orbit control extends below the viewport.",
+      "privacy": "No card identities visible in the covered-hand panel; static concealment only.",
+      "findings": [
+        "challenge-control-partly-below-viewport"
+      ]
+    },
+    {
+      "directViewOrder": 84,
+      "visibleState": "Portrait public Star table/round 1, Your turn, Orbit claim, player link and covered five-card hand.",
+      "layout": "Public labels/claim and cover copy are readable. Show hand is clipped at the lower viewport with the panel continuing below it.",
+      "privacy": "Individual hand identities remain concealed in the visible panel.",
+      "findings": [
+        "show-hand-action-partly-below-viewport"
+      ]
+    },
+    {
+      "directViewOrder": 85,
+      "visibleState": "Portrait revealed hand with zero selected, Hide hand, four readable card rows and the top edge of a fifth.",
+      "layout": "The preceding public explanation is cut beneath the fixed Table style header. Four card labels fit; the fifth card and action controls continue below the viewport.",
+      "privacy": "Four card identities are readable in this explicit reveal capture. Not concealment evidence.",
+      "findings": [
+        "preceding-copy-cut-at-upper-viewport",
+        "partial-hand-viewport",
+        "revealed-hand-capture"
+      ]
+    }
+  ]
+}

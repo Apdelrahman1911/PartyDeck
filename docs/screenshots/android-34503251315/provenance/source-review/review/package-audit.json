@@ -1,0 +1,545 @@
+{
+  "result": "pass",
+  "run_id": 34503251315,
+  "commit": "1cd34a36753ed0112e6684f6525592dab8ef2edb",
+  "packages": {
+    "debug": {
+      "artifact": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/android-packages-and-shrinker-reports/androidApp/build/outputs/apk/debug/androidApp-debug.apk",
+        "bytes": 334807627,
+        "sha256": "3dec070fb9d4dc61623ea2aa5279035e5e63d69e0c0f09914ccc8e31b5742d0a"
+      },
+      "commands": {
+        "manifest": {
+          "command": [
+            "/opt/android-sdk/build-tools/36.0.0/aapt2",
+            "dump",
+            "xmltree",
+            "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/android-packages-and-shrinker-reports/androidApp/build/outputs/apk/debug/androidApp-debug.apk",
+            "--file",
+            "AndroidManifest.xml"
+          ],
+          "exit_code": 0,
+          "stdout": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/package-tools/debug-manifest.stdout",
+            "bytes": 13428,
+            "sha256": "589ce88c644c393696b0580e67818bfd0e169c730aed7649fe5b3dfc335dea01"
+          },
+          "stderr": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/package-tools/debug-manifest.stderr",
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "badging": {
+          "command": [
+            "/opt/android-sdk/build-tools/36.0.0/aapt2",
+            "dump",
+            "badging",
+            "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/android-packages-and-shrinker-reports/androidApp/build/outputs/apk/debug/androidApp-debug.apk"
+          ],
+          "exit_code": 0,
+          "stdout": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/package-tools/debug-badging.stdout",
+            "bytes": 5045,
+            "sha256": "a05046e89fa676ee246f4d417025b6f294bed3ac6a44add0bba6772f4fb6f389"
+          },
+          "stderr": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/package-tools/debug-badging.stderr",
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "signature": {
+          "command": [
+            "/opt/android-sdk/build-tools/36.0.0/apksigner",
+            "verify",
+            "--verbose",
+            "--print-certs",
+            "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/android-packages-and-shrinker-reports/androidApp/build/outputs/apk/debug/androidApp-debug.apk"
+          ],
+          "exit_code": 0,
+          "stdout": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/package-tools/debug-signature.stdout",
+            "bytes": 955,
+            "sha256": "5c6a0004836b6ac283e0f189bd6db28fc4279f18f2a6468aedb7f71237692813"
+          },
+          "stderr": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/package-tools/debug-signature.stderr",
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "alignment": {
+          "command": [
+            "/opt/android-sdk/build-tools/36.0.0/zipalign",
+            "-c",
+            "-P",
+            "16",
+            "-v",
+            "4",
+            "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/android-packages-and-shrinker-reports/androidApp/build/outputs/apk/debug/androidApp-debug.apk"
+          ],
+          "exit_code": 0,
+          "stdout": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/package-tools/debug-alignment.stdout",
+            "bytes": 57173,
+            "sha256": "e2720f805ae555cc5ea4c59d7cce68346ef6443613ce6058f4ea65e11f37c6c6"
+          },
+          "stderr": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/package-tools/debug-alignment.stderr",
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        }
+      },
+      "pck": {
+        "path": "assets/partydeck-last-light.pck",
+        "sha256": "d6adbba1b5cbd6a1ac3a5754e4294363eae70ae9540af4ba12040cd4cfff44e0",
+        "bytes": 1549656,
+        "compression": 0,
+        "count": 1
+      },
+      "dex": [
+        {
+          "path": "classes.dex",
+          "bytes": 15259028,
+          "sha256": "2c1ac56773cab37ed8482c820d88991333b855363979f24233276db9174b53d0",
+          "class_definition_count": 9034
+        },
+        {
+          "path": "classes10.dex",
+          "bytes": 165452,
+          "sha256": "c2ddcaef7f6c12ca338ed3637f7c0fb389d932a769f3ee164bed7a25b074d412",
+          "class_definition_count": 249
+        },
+        {
+          "path": "classes11.dex",
+          "bytes": 82596,
+          "sha256": "48785a142daf9be3c750d2d8951956b3957d82e99b7364c764662043ce8e63ef",
+          "class_definition_count": 44
+        },
+        {
+          "path": "classes12.dex",
+          "bytes": 232500,
+          "sha256": "89f00d5451619d04d7d4511492d1154b36c47a5a2c30c2d7f4eeb300a9f6619b",
+          "class_definition_count": 123
+        },
+        {
+          "path": "classes13.dex",
+          "bytes": 119660,
+          "sha256": "dd1f12bfda939ab1bc61251d0f5d9cdf7355284c65884c623eb79aae256a2f66",
+          "class_definition_count": 761
+        },
+        {
+          "path": "classes14.dex",
+          "bytes": 16205420,
+          "sha256": "e67147c01565f9f6420928f4d8e0a95ca65ad62845d0727fadb9eb65bc67914d",
+          "class_definition_count": 8448
+        },
+        {
+          "path": "classes15.dex",
+          "bytes": 10893344,
+          "sha256": "78b904904c2817feba2dd674e9f0d054f230bd9668712cafb9b685ab8449200b",
+          "class_definition_count": 7460
+        },
+        {
+          "path": "classes16.dex",
+          "bytes": 5551144,
+          "sha256": "5f3b5670a107bd262456d6dbab93ccce08f97328daa0e48671b3092f9ef119c1",
+          "class_definition_count": 5673
+        },
+        {
+          "path": "classes2.dex",
+          "bytes": 238124,
+          "sha256": "ac40ccf0715a9099df4bc3f0a55b87892cc6faf054dc7dca4b8da04d357846ec",
+          "class_definition_count": 164
+        },
+        {
+          "path": "classes3.dex",
+          "bytes": 515552,
+          "sha256": "b0dc957c6dce8c4abbec853a4a1b3b95ad6dd7be68d570fe53f7c11393c43112",
+          "class_definition_count": 270
+        },
+        {
+          "path": "classes4.dex",
+          "bytes": 95412,
+          "sha256": "af6fe8cfa282587f48883b25801fb43c47d3749bcde0a8dc3fb8fcde51bd2677",
+          "class_definition_count": 68
+        },
+        {
+          "path": "classes5.dex",
+          "bytes": 51156,
+          "sha256": "985d5fe5377a04757606adf67ba5f248077e7313034cabc1153aa60e68a29f11",
+          "class_definition_count": 47
+        },
+        {
+          "path": "classes6.dex",
+          "bytes": 603208,
+          "sha256": "4567e84363e64a7d7c8abe6e7187066635ea7673d1c744dd1a808abb8091120b",
+          "class_definition_count": 277
+        },
+        {
+          "path": "classes7.dex",
+          "bytes": 98652,
+          "sha256": "cfc86731818afac9973483f228b3443b834c118536abeaa3f90bd8900ded9542",
+          "class_definition_count": 53
+        },
+        {
+          "path": "classes8.dex",
+          "bytes": 250156,
+          "sha256": "db5b5114e1fba36b914addff9cec5a73fe4f7bbb336f74a342d2e75a7d9a6c79",
+          "class_definition_count": 308
+        },
+        {
+          "path": "classes9.dex",
+          "bytes": 87640,
+          "sha256": "f8db1d24469da678a87dfcaac9a99cf3358d6a06cdf74b60223ecd639014d5dc",
+          "class_definition_count": 61
+        }
+      ],
+      "dex_class_definition_count": 33040,
+      "manifest": {
+        "package": "dev.partydeck.app",
+        "debuggable": "true",
+        "renderer": {
+          "name": "dev.partydeck.app.godot.SessionGodotActivity",
+          "exported": "false",
+          "process": ":godot",
+          "launchMode": "1",
+          "screenOrientation": "13",
+          "configChanges": "0x00001ff0",
+          "hardwareAccelerated": "true",
+          "resizeableActivity": "true"
+        },
+        "broker": {
+          "name": "dev.partydeck.app.godot.GodotSessionBrokerService",
+          "exported": "false"
+        }
+      },
+      "signer_certificate_sha256": [
+        "47d6a9ba3277041d88216d0107b77198f893f2a055c390458edd9d717c2c3799"
+      ],
+      "file_stable_through_inspection": true
+    },
+    "unsigned-release": {
+      "artifact": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/android-packages-and-shrinker-reports/androidApp/build/outputs/apk/release/androidApp-release-unsigned.apk",
+        "bytes": 316255235,
+        "sha256": "2751d7d92a5dcacc7b4bdeb7ad64927621238a225bdf425710f6126d8fb4ad27"
+      },
+      "commands": {
+        "manifest": {
+          "command": [
+            "/opt/android-sdk/build-tools/36.0.0/aapt2",
+            "dump",
+            "xmltree",
+            "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/android-packages-and-shrinker-reports/androidApp/build/outputs/apk/release/androidApp-release-unsigned.apk",
+            "--file",
+            "AndroidManifest.xml"
+          ],
+          "exit_code": 0,
+          "stdout": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/package-tools/unsigned-release-manifest.stdout",
+            "bytes": 13346,
+            "sha256": "a4e8a52bff3ec5bb4381b3a45de752a848d0bfc32db55edaf696f09d10262c40"
+          },
+          "stderr": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/package-tools/unsigned-release-manifest.stderr",
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "badging": {
+          "command": [
+            "/opt/android-sdk/build-tools/36.0.0/aapt2",
+            "dump",
+            "badging",
+            "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/android-packages-and-shrinker-reports/androidApp/build/outputs/apk/release/androidApp-release-unsigned.apk"
+          ],
+          "exit_code": 0,
+          "stdout": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/package-tools/unsigned-release-badging.stdout",
+            "bytes": 4833,
+            "sha256": "c05aa0db4e0c5a75dc9c981e434e898c3280bc34746f7baa69d5b0a7dd6223c5"
+          },
+          "stderr": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/package-tools/unsigned-release-badging.stderr",
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "signature": {
+          "command": [
+            "/opt/android-sdk/build-tools/36.0.0/apksigner",
+            "verify",
+            "--verbose",
+            "--print-certs",
+            "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/android-packages-and-shrinker-reports/androidApp/build/outputs/apk/release/androidApp-release-unsigned.apk"
+          ],
+          "exit_code": 1,
+          "stdout": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/package-tools/unsigned-release-signature.stdout",
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "stderr": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/package-tools/unsigned-release-signature.stderr",
+            "bytes": 52,
+            "sha256": "1413af210d1627fde4f14e31934eb5d9d031684e4f7a5c3371a74b3bdeb8764c"
+          }
+        },
+        "alignment": {
+          "command": [
+            "/opt/android-sdk/build-tools/36.0.0/zipalign",
+            "-c",
+            "-P",
+            "16",
+            "-v",
+            "4",
+            "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/android-packages-and-shrinker-reports/androidApp/build/outputs/apk/release/androidApp-release-unsigned.apk"
+          ],
+          "exit_code": 0,
+          "stdout": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/package-tools/unsigned-release-alignment.stdout",
+            "bytes": 33608,
+            "sha256": "38ee15d95a28cf1f6273d64e5b04b0fda764a860823b8782ea574466c81ca577"
+          },
+          "stderr": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/package-tools/unsigned-release-alignment.stderr",
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        }
+      },
+      "pck": {
+        "path": "assets/partydeck-last-light.pck",
+        "sha256": "d6adbba1b5cbd6a1ac3a5754e4294363eae70ae9540af4ba12040cd4cfff44e0",
+        "bytes": 1549656,
+        "compression": 0,
+        "count": 1
+      },
+      "dex": [
+        {
+          "path": "classes.dex",
+          "bytes": 4004036,
+          "sha256": "3e231f096df33383e76e8e3cf61172d6c92bb15cdef8fe77ec4db943ed962f02",
+          "class_definition_count": 4531
+        }
+      ],
+      "dex_class_definition_count": 4531,
+      "payload_inventory": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/package-tools/unsigned-release-payload-inventory.json",
+        "bytes": 82270,
+        "sha256": "d5d862737e7c3ad383fe1bc8974a2f7809e40cc16d3967b14f002797bd2a1336"
+      },
+      "manifest": {
+        "package": "dev.partydeck.app",
+        "debuggable": "false",
+        "renderer": {
+          "name": "dev.partydeck.app.godot.SessionGodotActivity",
+          "exported": "false",
+          "process": ":godot",
+          "launchMode": "1",
+          "screenOrientation": "13",
+          "configChanges": "0x00001ff0",
+          "hardwareAccelerated": "true",
+          "resizeableActivity": "true"
+        },
+        "broker": {
+          "name": "dev.partydeck.app.godot.GodotSessionBrokerService",
+          "exported": "false"
+        }
+      },
+      "signer_certificate_sha256": [],
+      "file_stable_through_inspection": true
+    },
+    "optimized-test-signed": {
+      "artifact": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/android-packages-and-shrinker-reports/build/ci/android/packages/PartyDeck-release-ci-test-signed.apk",
+        "bytes": 316306374,
+        "sha256": "6a316ee35b94dbd986e85ade8ded5ab4e17c5eb3eabe861588f5e0977bb94f69"
+      },
+      "commands": {
+        "manifest": {
+          "command": [
+            "/opt/android-sdk/build-tools/36.0.0/aapt2",
+            "dump",
+            "xmltree",
+            "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/android-packages-and-shrinker-reports/build/ci/android/packages/PartyDeck-release-ci-test-signed.apk",
+            "--file",
+            "AndroidManifest.xml"
+          ],
+          "exit_code": 0,
+          "stdout": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/package-tools/optimized-test-signed-manifest.stdout",
+            "bytes": 13346,
+            "sha256": "a4e8a52bff3ec5bb4381b3a45de752a848d0bfc32db55edaf696f09d10262c40"
+          },
+          "stderr": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/package-tools/optimized-test-signed-manifest.stderr",
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "badging": {
+          "command": [
+            "/opt/android-sdk/build-tools/36.0.0/aapt2",
+            "dump",
+            "badging",
+            "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/android-packages-and-shrinker-reports/build/ci/android/packages/PartyDeck-release-ci-test-signed.apk"
+          ],
+          "exit_code": 0,
+          "stdout": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/package-tools/optimized-test-signed-badging.stdout",
+            "bytes": 4833,
+            "sha256": "c05aa0db4e0c5a75dc9c981e434e898c3280bc34746f7baa69d5b0a7dd6223c5"
+          },
+          "stderr": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/package-tools/optimized-test-signed-badging.stderr",
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "signature": {
+          "command": [
+            "/opt/android-sdk/build-tools/36.0.0/apksigner",
+            "verify",
+            "--verbose",
+            "--print-certs",
+            "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/android-packages-and-shrinker-reports/build/ci/android/packages/PartyDeck-release-ci-test-signed.apk"
+          ],
+          "exit_code": 0,
+          "stdout": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/package-tools/optimized-test-signed-signature.stdout",
+            "bytes": 954,
+            "sha256": "dd7853a6a7ed2fde8cf771c2e4237b337b09df4c24e270f6343bcf56ebfa41ee"
+          },
+          "stderr": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/package-tools/optimized-test-signed-signature.stderr",
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "alignment": {
+          "command": [
+            "/opt/android-sdk/build-tools/36.0.0/zipalign",
+            "-c",
+            "-P",
+            "16",
+            "-v",
+            "4",
+            "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/android-packages-and-shrinker-reports/build/ci/android/packages/PartyDeck-release-ci-test-signed.apk"
+          ],
+          "exit_code": 0,
+          "stdout": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/package-tools/optimized-test-signed-alignment.stdout",
+            "bytes": 33750,
+            "sha256": "5d78d9800c02970e6f0178c3f225e8ae03f28b126f9cec405253f8ee252a3688"
+          },
+          "stderr": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/package-tools/optimized-test-signed-alignment.stderr",
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        }
+      },
+      "pck": {
+        "path": "assets/partydeck-last-light.pck",
+        "sha256": "d6adbba1b5cbd6a1ac3a5754e4294363eae70ae9540af4ba12040cd4cfff44e0",
+        "bytes": 1549656,
+        "compression": 0,
+        "count": 1
+      },
+      "dex": [
+        {
+          "path": "classes.dex",
+          "bytes": 4004036,
+          "sha256": "3e231f096df33383e76e8e3cf61172d6c92bb15cdef8fe77ec4db943ed962f02",
+          "class_definition_count": 4531
+        }
+      ],
+      "dex_class_definition_count": 4531,
+      "payload_inventory": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/package-tools/optimized-test-signed-payload-inventory.json",
+        "bytes": 82672,
+        "sha256": "9abfe3769f5c52e527564d8c9cb95630d36e72d3eb85972192c896a74c4ebd05"
+      },
+      "manifest": {
+        "package": "dev.partydeck.app",
+        "debuggable": "false",
+        "renderer": {
+          "name": "dev.partydeck.app.godot.SessionGodotActivity",
+          "exported": "false",
+          "process": ":godot",
+          "launchMode": "1",
+          "screenOrientation": "13",
+          "configChanges": "0x00001ff0",
+          "hardwareAccelerated": "true",
+          "resizeableActivity": "true"
+        },
+        "broker": {
+          "name": "dev.partydeck.app.godot.GodotSessionBrokerService",
+          "exported": "false"
+        }
+      },
+      "signer_certificate_sha256": [
+        "266c996195ed300fc8ae1bca84972eccda72dee446f8515b1ecc9c132e6c0751"
+      ],
+      "file_stable_through_inspection": true
+    },
+    "release-bundle": {
+      "artifact": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/android-packages-and-shrinker-reports/androidApp/build/outputs/bundle/release/androidApp-release.aab",
+        "bytes": 112657004,
+        "sha256": "768fd2c14238f2130734ffd5fd0e5f7401b5531c81b06867daffe0772d6dc8c7"
+      },
+      "commands": {},
+      "pck": {
+        "path": "base/assets/partydeck-last-light.pck",
+        "sha256": "d6adbba1b5cbd6a1ac3a5754e4294363eae70ae9540af4ba12040cd4cfff44e0",
+        "bytes": 1549656,
+        "compression": 8,
+        "count": 1
+      },
+      "dex": [
+        {
+          "path": "base/dex/classes.dex",
+          "bytes": 4004036,
+          "sha256": "3e231f096df33383e76e8e3cf61172d6c92bb15cdef8fe77ec4db943ed962f02",
+          "class_definition_count": 4531
+        }
+      ],
+      "dex_class_definition_count": 4531,
+      "file_stable_through_inspection": true
+    }
+  },
+  "runtime_signing_receipt": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/android-jvm-reports/build/ci/android/packages/runtime-package.json",
+    "bytes": 635,
+    "sha256": "134c9e68998f9eec0f8b4b659ab371473e56b73076cd5efdf5fa0d3f1b2eef3f"
+  },
+  "optimized_runtime_all_unsigned_payload_bytes_unchanged": true,
+  "compared_unsigned_payload_count": 550,
+  "runtime_extra_signature_entries": [
+    "META-INF/MANIFEST.MF",
+    "META-INF/PARTYDEC.RSA",
+    "META-INF/PARTYDEC.SF"
+  ],
+  "optimized_apk_is_not_debuggable": true,
+  "disposable_test_signing_certificate_matches_receipt": true,
+  "distribution_signed": false,
+  "ordinary_smoke_receipt_apk_hashes_match_actual_archives": true,
+  "same_expected_pck_in_all_four_archives": true,
+  "execution_scope": "Read-only package inspection; no app or Godot execution by reviewer.",
+  "audit_script": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/audit-scripts/audit-ci-packages.py",
+    "bytes": 9371,
+    "sha256": "f31b0deb34afb64e98b9ba7a2d31c0eb2ca76a67224a9d1c544d129a1103cd24"
+  },
+  "exact_source_inputs_audit": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/source-inputs-audit.json",
+    "bytes": 26491,
+    "sha256": "432323afb69e99330e871ab37586d469cbb71d80b6789e5228c179c8a9a7d83e"
+  }
+}

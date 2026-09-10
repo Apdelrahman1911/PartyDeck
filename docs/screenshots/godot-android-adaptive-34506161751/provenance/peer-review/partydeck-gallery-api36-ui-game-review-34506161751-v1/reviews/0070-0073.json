@@ -1,0 +1,43 @@
+{
+  "reviewer": "/root/ui_game",
+  "viewMethod": "tools.view_image",
+  "detail": "original",
+  "recordedUtc": "2026-09-10T18:43:31.846Z",
+  "actualOriginalViews": 4,
+  "notes": [
+    {
+      "directViewOrder": 70,
+      "visibleState": "Landscape standard table scrolled to You'll claim 1 Star, enabled Play 1 card and Challenge Orbit.",
+      "layout": "Both actions and claim text fit; only a thin bottom strip of the preceding card row is visible at the upper content boundary. Selection/card identity is outside this viewport.",
+      "privacy": "No individual card identity is readable in this viewport, although this is the source's selected-hand state.",
+      "findings": [
+        "preceding-card-row-mostly-above-viewport"
+      ]
+    },
+    {
+      "directViewOrder": 71,
+      "visibleState": "Landscape Table style modal with Standard table selected, 2D/3D radio choices and Done.",
+      "layout": "Title, choices and Done are readable; explanatory guidance is not in view. Modal occupies nearly the full landscape height without clipping its shown controls.",
+      "privacy": "Only presentation choices and dimmed underlying UI are visible; no card identity is readable.",
+      "findings": [
+        "selector-guidance-not-in-view"
+      ]
+    },
+    {
+      "directViewOrder": 72,
+      "visibleState": "Landscape Table ready screen with Standard table/Leave table controls, Last Light, round 1, Show hand, Star table, Your turn and Orbit claimed 1 Star.",
+      "layout": "Top controls and claim labels fit. The large-text header/public information consumes the visible height; the 3D table surface and hand are not visible in this still.",
+      "privacy": "Show hand is offered and no individual card identities are visible. Readiness text does not establish engine gameplay or transition privacy.",
+      "findings": [
+        "table-surface-and-hand-not-in-view"
+      ]
+    },
+    {
+      "directViewOrder": 73,
+      "visibleState": "Landscape standard table scrolled to five-card concealment panel with For your eyes only and Show hand.",
+      "layout": "The full concealment panel and Show hand control fit; preceding hand heading and following play controls are outside the viewport.",
+      "privacy": "No individual card face/rank is visible in the concealed-hand snapshot. The held-rotation scope remains unsupported.",
+      "findings": []
+    }
+  ]
+}

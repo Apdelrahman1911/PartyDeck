@@ -1,0 +1,66 @@
+--- a/godot/renderer/presentations/two_d/table.gd
++++ b/godot/renderer/presentations/two_d/table.gd
+@@ -309,16 +309,17 @@
+ 	_cover_panel.visible = not hand_visible
+ 	_hand_scroll.visible = hand_visible
+ 	_reveal.disabled = hand.is_empty() or not foreground or closed
+-	_cover_art.visible = _text_scale < 1.5 and size.x >= 420
++	var compact_cover := _text_scale >= 1.5 or _compact_phone_layout()
++	_cover_art.visible = not compact_cover and size.x >= 420
+ 	_cover_title.text = tr("%d cards. Yours to keep close.") % hand.size()
+-	if _text_scale >= 1.5:
++	if compact_cover:
+ 		_cover_title.text = tr("%d cards, covered.") % hand.size()
+ 	if not foreground:
+ 		_cover_title.text = tr("Your hand is covered.")
+ 	elif hand.is_empty():
+ 		_cover_title.text = tr("Your hand is empty.")
+ 	_cover_description.text = tr("Wait for the next deal. The table is still playing.") if hand.is_empty() else tr("Keep them close. Reveal when you’re ready.")
+-	_cover_description.visible = _text_scale < 1.5 or hand.is_empty()
++	_cover_description.visible = not compact_cover or hand.is_empty()
+ 	_reveal.visible = not hand.is_empty()
+ 	_update_public_table(game, foreground, closed)
+ 	_update_seats(game)
+@@ -381,7 +382,7 @@
+ 	var rank := str(game.get("tableRank", ""))
+ 	var outcome: Dictionary = game.get("roundOutcome", {}) if game.get("roundOutcome") != null else {}
+ 	var resolved := phase in ["ROUND_ENDED", "FINISHED"] and not outcome.is_empty() and int(outcome.get("roundNumber", -1)) == int(game.get("roundNumber", 0))
+-	_surface.visible = not resolved and not closed and _text_scale < 1.5
++	_surface.visible = not resolved and not closed and _text_scale < 1.5 and not _compact_phone_layout()
+ 	_proof_row.visible = resolved and not closed
+ 	_outcome.visible = resolved and not closed
+ 	_claim.visible = true
+@@ -524,6 +525,11 @@
+ 	var base := 88.0 if size.y < 500 else (104.0 if size.x < 700 else (112.0 if size.y < 900 else 128.0))
+ 	return maxf(base, 76.0 * _text_scale)
+ 
++func _compact_phone_layout() -> bool:
++	# Keep rank, claim and the whole Reveal control above the fixed phone actions.
++	# Short landscape already puts the hand first; large text keeps its scroll layout.
++	return size.x < 860 and size.y >= 500 and size.y < 800 and _text_scale < 1.5
++
+ func _relayout(refresh_cards: bool = true) -> void:
+ 	if not _built:
+ 		return
+@@ -540,7 +546,7 @@
+ 	_body.move_child(_hand_section if short_window else _board_row, 0)
+ 	_body.move_child(_rule, 1)
+ 	_body.move_child(_board_row if short_window else _hand_section, 2)
+-	_hand_title.visible = not short_window
++	_hand_title.visible = not short_window and not _compact_phone_layout()
+ 	_hand_section.add_theme_constant_override("separation", 6 if short_window else 8)
+ 	var seat_parent: Node = _body if narrow else _board_row
+ 	if _seat_panel.get_parent() != seat_parent:
+@@ -588,11 +594,8 @@
+ 		button.add_theme_font_size_override("font_size", int(17 * _text_scale))
+ 		button.custom_minimum_size.y = 56
+ 	var surface_height := 136 if short_window else (148 if narrow else 152)
+-	if narrow and not short_window and not large_text and size.y < 800:
+-		# Leave room for the concealed hand above the fixed actions.
+-		surface_height = 124
+ 	_surface.custom_minimum_size.y = surface_height
+-	_cover_art.visible = _text_scale < 1.5 and size.x >= 420
++	_cover_art.visible = _text_scale < 1.5 and not _compact_phone_layout() and size.x >= 420
+ 	if _dialog_scroll != null:
+ 		_fit_lobby_dialog()
+ 	if refresh_cards and not _state.is_empty():

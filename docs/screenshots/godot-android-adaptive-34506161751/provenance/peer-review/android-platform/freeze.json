@@ -1,0 +1,626 @@
+{
+  "utc": "2026-09-10T17:56:04.910362+00:00",
+  "rule": "Immutable candidate and receipts; follow-up corrections require a new version.",
+  "status": "source-ready-independent-review-pending",
+  "source_revision": "d06f83aa8f6905be515faf0f58690634714e5a2d",
+  "base_ui_sha256": "fc208dfbb04356eff921f5388996afc06eecff53ceb8347e621508eba7c85741",
+  "base_adaptive_sha256": "21fa988315c16e150b600666b07c760ed02be045b4095cfe40f6dc2564274e09",
+  "candidate_ui_sha256": "831b57634a0cee99a466e6820059bb55209a26db3723b2ffff703b2ee0f60836",
+  "candidate_adaptive_sha256": "a70612b984101324325602d530f0097a3104dcf229940f4500065aaa7100c5fd",
+  "candidate_producer_sha256": "d99fa42e94a5896461b177074add54425588851a030325bfc82d6d1a0734c7cb",
+  "patch": {
+    "path": "android-targeted-waits.patch",
+    "sha256": "cd1fa6c323aa4b399d5c36da0f57f5096b0a64665f48df186df7c69016e70dcf",
+    "bytes": 131297
+  },
+  "validation": {
+    "path": "validation.json",
+    "sha256": "c9a7bef2d59eca46cd2817ff5352c8614ff89b829200be6c56569557ed322be8",
+    "bytes": 2422
+  },
+  "report": {
+    "path": "REPORT.md",
+    "sha256": "4984c15b952aaaf7ec14b9e6e0346dd956acc64b0f7af73c8b6f6cf56e90eb36",
+    "bytes": 3770
+  },
+  "changed_files": [
+    "scripts/android_godot_adaptive_inputs.py",
+    "scripts/smoke-android-ui.py",
+    "scripts/smoke_android_godot_adaptive.py",
+    "scripts/tests/fixtures/android-targeted-wait-34506161751/debug-clipped.xml",
+    "scripts/tests/fixtures/android-targeted-wait-34506161751/debug-visible-disabled.xml",
+    "scripts/tests/fixtures/android-targeted-wait-34506161751/debug-visible-enabled.xml",
+    "scripts/tests/fixtures/android-targeted-wait-34506161751/optimized-test-signed-clipped.xml",
+    "scripts/tests/fixtures/android-targeted-wait-34506161751/optimized-test-signed-visible-disabled.xml",
+    "scripts/tests/fixtures/android-targeted-wait-34506161751/optimized-test-signed-visible-enabled.xml",
+    "scripts/tests/fixtures/android-targeted-wait-34506161751/originals.json",
+    "scripts/tests/test_android_adaptive_portrait_reentry.py",
+    "scripts/tests/test_android_standard_accessibility.py",
+    "scripts/tests/test_android_targeted_waits.py"
+  ],
+  "candidate_files": [
+    {
+      "path": "docs/screenshots/android-34432935952/debug/practice-selected.xml",
+      "base_sha256": "3223ee91c429288a8a0d670a9cfea132e7dfdf8850e56cba2b73bdc37b8e4eac",
+      "sha256": "3223ee91c429288a8a0d670a9cfea132e7dfdf8850e56cba2b73bdc37b8e4eac",
+      "bytes": 22158,
+      "changed": false
+    },
+    {
+      "path": "scripts/adaptive_observations.py",
+      "base_sha256": "f7f7a40f6b539b6925ef681564ca14b62a7fda7ec59bf8c30fffcfe30ba121a2",
+      "sha256": "f7f7a40f6b539b6925ef681564ca14b62a7fda7ec59bf8c30fffcfe30ba121a2",
+      "bytes": 18515,
+      "changed": false
+    },
+    {
+      "path": "scripts/android_godot_activation.py",
+      "base_sha256": "5f5650fbabd934f904ceaf9e5b7705f5c91bfde999fb2bb03ad28062e91e61f9",
+      "sha256": "5f5650fbabd934f904ceaf9e5b7705f5c91bfde999fb2bb03ad28062e91e61f9",
+      "bytes": 3077,
+      "changed": false
+    },
+    {
+      "path": "scripts/android_godot_adaptive_inputs.py",
+      "base_sha256": "0f7380cbb5fd289d2077664138637680aabd49608b6fe4cee4b6fd7a729790aa",
+      "sha256": "d99fa42e94a5896461b177074add54425588851a030325bfc82d6d1a0734c7cb",
+      "bytes": 12069,
+      "changed": true
+    },
+    {
+      "path": "scripts/android_godot_session_observation.py",
+      "base_sha256": "4a9340d49e69d596d2d6ed3cfd12b69eb567ab0fb49fed0fa49a643dfc877a8f",
+      "sha256": "4a9340d49e69d596d2d6ed3cfd12b69eb567ab0fb49fed0fa49a643dfc877a8f",
+      "bytes": 18546,
+      "changed": false
+    },
+    {
+      "path": "scripts/smoke-android-emulator.sh",
+      "base_sha256": "1746e4fabbf78457c0328bdffa6b50da5c78d765562dc1eb0771c6c8c7d623f0",
+      "sha256": "1746e4fabbf78457c0328bdffa6b50da5c78d765562dc1eb0771c6c8c7d623f0",
+      "bytes": 22199,
+      "changed": false
+    },
+    {
+      "path": "scripts/smoke-android-godot-session.py",
+      "base_sha256": "7e9e1cfeba1676ad82b621597c3d26e9e39355cfcabff563e24cdb118b70d097",
+      "sha256": "7e9e1cfeba1676ad82b621597c3d26e9e39355cfcabff563e24cdb118b70d097",
+      "bytes": 92486,
+      "changed": false
+    },
+    {
+      "path": "scripts/smoke-android-ui.py",
+      "base_sha256": "fc208dfbb04356eff921f5388996afc06eecff53ceb8347e621508eba7c85741",
+      "sha256": "831b57634a0cee99a466e6820059bb55209a26db3723b2ffff703b2ee0f60836",
+      "bytes": 39400,
+      "changed": true
+    },
+    {
+      "path": "scripts/smoke_android_godot_adaptive.py",
+      "base_sha256": "21fa988315c16e150b600666b07c760ed02be045b4095cfe40f6dc2564274e09",
+      "sha256": "a70612b984101324325602d530f0097a3104dcf229940f4500065aaa7100c5fd",
+      "bytes": 57503,
+      "changed": true
+    },
+    {
+      "path": "scripts/tests/fixtures/android-landscape/debug-final-34485033488.xml",
+      "base_sha256": "12e54aaadcb882965368ceecd8ef30de0870066ecfb9606dc2f23c41e51b1d41",
+      "sha256": "12e54aaadcb882965368ceecd8ef30de0870066ecfb9606dc2f23c41e51b1d41",
+      "bytes": 17205,
+      "changed": false
+    },
+    {
+      "path": "scripts/tests/fixtures/android-landscape/optimized-test-signed-final-34485033488.xml",
+      "base_sha256": "f6349943d95f06b2383bb4e9205ca7347a420497033c9da26d5f11e0a60d0f40",
+      "sha256": "f6349943d95f06b2383bb4e9205ca7347a420497033c9da26d5f11e0a60d0f40",
+      "bytes": 17170,
+      "changed": false
+    },
+    {
+      "path": "scripts/tests/fixtures/android-landscape/originals.json",
+      "base_sha256": "e3a162390ab740aada1867e9ca913abd6873a364b8df2d1f487e350c6a4a928d",
+      "sha256": "e3a162390ab740aada1867e9ca913abd6873a364b8df2d1f487e350c6a4a928d",
+      "bytes": 1092,
+      "changed": false
+    },
+    {
+      "path": "scripts/tests/fixtures/android-picker-34475047307.xml",
+      "base_sha256": "a63cdeb42eb34c60fba2bcdc6f20e0583bf97e0db23a12cbb9b7b90ba2cb6f7e",
+      "sha256": "a63cdeb42eb34c60fba2bcdc6f20e0583bf97e0db23a12cbb9b7b90ba2cb6f7e",
+      "bytes": 8370,
+      "changed": false
+    },
+    {
+      "path": "scripts/tests/fixtures/android-standard/large-text-play-action-34456441354.xml",
+      "base_sha256": "3eaf036cf9d3802b7abf8441e5d0d9d71fa3c07bb888345227a21a97c1e2d584",
+      "sha256": "3eaf036cf9d3802b7abf8441e5d0d9d71fa3c07bb888345227a21a97c1e2d584",
+      "bytes": 16078,
+      "changed": false
+    },
+    {
+      "path": "scripts/tests/fixtures/android-standard/large-text-private-hand-34456441354.xml",
+      "base_sha256": "9b71644f46f7d2a408cf8bd8c836d1d8c0aeba4c042484975bf3ac63b4b10ba3",
+      "sha256": "9b71644f46f7d2a408cf8bd8c836d1d8c0aeba4c042484975bf3ac63b4b10ba3",
+      "bytes": 16391,
+      "changed": false
+    },
+    {
+      "path": "scripts/tests/fixtures/android-standard/originals.json",
+      "base_sha256": "a988155277afeca8950daa8044901324a7386faf88705040c7b3f21d2f0f1260",
+      "sha256": "a988155277afeca8950daa8044901324a7386faf88705040c7b3f21d2f0f1260",
+      "bytes": 2003,
+      "changed": false
+    },
+    {
+      "path": "scripts/tests/fixtures/android-standard/round-after-play-34456441354.xml",
+      "base_sha256": "665c4aeea24f59e5ad9e2e55d1b09e5751d6dd7d45a6fbffa770452107dd0eeb",
+      "sha256": "665c4aeea24f59e5ad9e2e55d1b09e5751d6dd7d45a6fbffa770452107dd0eeb",
+      "bytes": 14340,
+      "changed": false
+    },
+    {
+      "path": "scripts/tests/fixtures/android-standard/session-selected-34475047307.xml",
+      "base_sha256": "a33e514ccd3200cb635cd5a5d22f5921717b3e554965711ce110dd5eaea9dc2c",
+      "sha256": "a33e514ccd3200cb635cd5a5d22f5921717b3e554965711ce110dd5eaea9dc2c",
+      "bytes": 22165,
+      "changed": false
+    },
+    {
+      "path": "scripts/tests/fixtures/android-standard/session-unselected-34475047307.xml",
+      "base_sha256": "64a3f5cf467f29ef312b29b641836b9327edf4962f1b4189bffce22febf50f5c",
+      "sha256": "64a3f5cf467f29ef312b29b641836b9327edf4962f1b4189bffce22febf50f5c",
+      "bytes": 22171,
+      "changed": false
+    },
+    {
+      "path": "scripts/tests/fixtures/android-targeted-wait-34506161751/debug-clipped.xml",
+      "base_sha256": null,
+      "sha256": "457b3aaeedab531611fd6f1ae98905d055302782055158af0a2fa1dfeb30ab25",
+      "bytes": 17565,
+      "changed": true
+    },
+    {
+      "path": "scripts/tests/fixtures/android-targeted-wait-34506161751/debug-visible-disabled.xml",
+      "base_sha256": null,
+      "sha256": "2264064f110f80d481bdb4d8ca5f0a95958ed3b4a6e707975bbe2e388814844b",
+      "bytes": 17579,
+      "changed": true
+    },
+    {
+      "path": "scripts/tests/fixtures/android-targeted-wait-34506161751/debug-visible-enabled.xml",
+      "base_sha256": null,
+      "sha256": "342c2feaaa4114531a57361fe99945ed05d430c1504f97050efe653ea4b2d19c",
+      "bytes": 23906,
+      "changed": true
+    },
+    {
+      "path": "scripts/tests/fixtures/android-targeted-wait-34506161751/optimized-test-signed-clipped.xml",
+      "base_sha256": null,
+      "sha256": "9dcbda5b7a4269c64a1ffeb0ea8b4d5710898ecfa1f6c5c98ace5bad0fa2db35",
+      "bytes": 16454,
+      "changed": true
+    },
+    {
+      "path": "scripts/tests/fixtures/android-targeted-wait-34506161751/optimized-test-signed-visible-disabled.xml",
+      "base_sha256": null,
+      "sha256": "14c76071bef1f354a3ce9757a3a8e670b6a95fb4c1ed41119b756d947a473c32",
+      "bytes": 16104,
+      "changed": true
+    },
+    {
+      "path": "scripts/tests/fixtures/android-targeted-wait-34506161751/optimized-test-signed-visible-enabled.xml",
+      "base_sha256": null,
+      "sha256": "876a23264e7fd3c905cf7d4d88b5ddc1b36aad2654cedc64304d4014d65a98d0",
+      "bytes": 22431,
+      "changed": true
+    },
+    {
+      "path": "scripts/tests/fixtures/android-targeted-wait-34506161751/originals.json",
+      "base_sha256": null,
+      "sha256": "b83520eee812e13d7169690543d73ffc2290788535cfeeb582a5db40cb82d252",
+      "bytes": 2775,
+      "changed": true
+    },
+    {
+      "path": "scripts/tests/test_android_adaptive_portrait_reentry.py",
+      "base_sha256": "4ca50fefffa642c5b724e1e05e6e647dc96a448664181be49049003058d69922",
+      "sha256": "719c81dad8887c37e7dac274624f37c1b81892845667cebcf016a8dd60876ce2",
+      "bytes": 10689,
+      "changed": true
+    },
+    {
+      "path": "scripts/tests/test_android_engine_gameplay.py",
+      "base_sha256": "d4cdec6444f4b7dd8240e5b8ae5b1f1ee26717ebac61efc68f92944ae7eb9f83",
+      "sha256": "d4cdec6444f4b7dd8240e5b8ae5b1f1ee26717ebac61efc68f92944ae7eb9f83",
+      "bytes": 19196,
+      "changed": false
+    },
+    {
+      "path": "scripts/tests/test_android_godot_activation.py",
+      "base_sha256": "975686caad41f585f230d85cb967d760ecb2ce0095179a186c9aeb4eee6b88ed",
+      "sha256": "975686caad41f585f230d85cb967d760ecb2ce0095179a186c9aeb4eee6b88ed",
+      "bytes": 12363,
+      "changed": false
+    },
+    {
+      "path": "scripts/tests/test_android_godot_adaptive.py",
+      "base_sha256": "6957820999d38c86bc4b6df47287be29637b0f7ca51dd5c9bb721438d704f840",
+      "sha256": "6957820999d38c86bc4b6df47287be29637b0f7ca51dd5c9bb721438d704f840",
+      "bytes": 38394,
+      "changed": false
+    },
+    {
+      "path": "scripts/tests/test_android_godot_adaptive_inputs.py",
+      "base_sha256": "697c6bb444a75303ff6a18f0ab57048c83a2dce45fb16624787a4c29643fb94b",
+      "sha256": "697c6bb444a75303ff6a18f0ab57048c83a2dce45fb16624787a4c29643fb94b",
+      "bytes": 3640,
+      "changed": false
+    },
+    {
+      "path": "scripts/tests/test_android_godot_session.py",
+      "base_sha256": "77aa9c7dee4147141c61d95266d7bb6cdab0e3287fc3e41b9ed23a207bbf756e",
+      "sha256": "77aa9c7dee4147141c61d95266d7bb6cdab0e3287fc3e41b9ed23a207bbf756e",
+      "bytes": 38641,
+      "changed": false
+    },
+    {
+      "path": "scripts/tests/test_android_screenrecord_metadata.py",
+      "base_sha256": "71a7603a07cddbbf997584f1843c5cee951df6d1d09208df5ec97cd10abccfcf",
+      "sha256": "71a7603a07cddbbf997584f1843c5cee951df6d1d09208df5ec97cd10abccfcf",
+      "bytes": 10921,
+      "changed": false
+    },
+    {
+      "path": "scripts/tests/test_android_smoke_rules.py",
+      "base_sha256": "9e931c76dbb0766a3826c7c1dad5273cb62193955eb5515b9d0e56418ba220ce",
+      "sha256": "9e931c76dbb0766a3826c7c1dad5273cb62193955eb5515b9d0e56418ba220ce",
+      "bytes": 12424,
+      "changed": false
+    },
+    {
+      "path": "scripts/tests/test_android_smoke_scrolling.py",
+      "base_sha256": "f38231a1f2411aff335735e0e161820494abb98a06e29d0027a2e47680863988",
+      "sha256": "f38231a1f2411aff335735e0e161820494abb98a06e29d0027a2e47680863988",
+      "bytes": 17463,
+      "changed": false
+    },
+    {
+      "path": "scripts/tests/test_android_standard_accessibility.py",
+      "base_sha256": "ad9f03cef98d88f4b3d30e053c13d66147ffdb0c753d92a3e1751938c9e7de26",
+      "sha256": "912f5aee60e063d771aff486e157f01ac2769de05cd751d7b7a7cfdcb8ba6d78",
+      "bytes": 22855,
+      "changed": true
+    },
+    {
+      "path": "scripts/tests/test_android_targeted_waits.py",
+      "base_sha256": null,
+      "sha256": "874223557958d69c491d2a687c3c034083dc9ed4aafa93e851df1fb17b681a99",
+      "bytes": 8092,
+      "changed": true
+    },
+    {
+      "path": "scripts/validate-android.sh",
+      "base_sha256": "7a890a3c99d8c2a3ed3e6bc76697a8df6e44e0bcc8958b669f524d67088cfe7d",
+      "sha256": "7a890a3c99d8c2a3ed3e6bc76697a8df6e44e0bcc8958b669f524d67088cfe7d",
+      "bytes": 1239,
+      "changed": false
+    }
+  ],
+  "supporting_files": [
+    {
+      "path": "REPORT.md",
+      "sha256": "4984c15b952aaaf7ec14b9e6e0346dd956acc64b0f7af73c8b6f6cf56e90eb36",
+      "bytes": 3770
+    },
+    {
+      "path": "android-targeted-waits.patch",
+      "sha256": "cd1fa6c323aa4b399d5c36da0f57f5096b0a64665f48df186df7c69016e70dcf",
+      "bytes": 131297
+    },
+    {
+      "path": "baseline-sensitivity.json",
+      "sha256": "c6820cd94567b8edb9d7c888c8e2dfbba0b258d6df7d47ac5c0251a3f999965b",
+      "bytes": 1031
+    },
+    {
+      "path": "exact-head-base-verification.json",
+      "sha256": "6f963d70cbee6d9d2d0b5e5fb102603cff94930f43d546cddc83bad2f79e3bc0",
+      "bytes": 2651
+    },
+    {
+      "path": "exact-head-source/scripts/adaptive_observations.py",
+      "sha256": "f7f7a40f6b539b6925ef681564ca14b62a7fda7ec59bf8c30fffcfe30ba121a2",
+      "bytes": 18515
+    },
+    {
+      "path": "exact-head-source/scripts/android_godot_activation.py",
+      "sha256": "5f5650fbabd934f904ceaf9e5b7705f5c91bfde999fb2bb03ad28062e91e61f9",
+      "bytes": 3077
+    },
+    {
+      "path": "exact-head-source/scripts/android_godot_adaptive_inputs.py",
+      "sha256": "0f7380cbb5fd289d2077664138637680aabd49608b6fe4cee4b6fd7a729790aa",
+      "bytes": 12069
+    },
+    {
+      "path": "exact-head-source/scripts/android_godot_session_observation.py",
+      "sha256": "4a9340d49e69d596d2d6ed3cfd12b69eb567ab0fb49fed0fa49a643dfc877a8f",
+      "bytes": 18546
+    },
+    {
+      "path": "exact-head-source/scripts/smoke-android-emulator.sh",
+      "sha256": "1746e4fabbf78457c0328bdffa6b50da5c78d765562dc1eb0771c6c8c7d623f0",
+      "bytes": 22199
+    },
+    {
+      "path": "exact-head-source/scripts/smoke-android-godot-session.py",
+      "sha256": "7e9e1cfeba1676ad82b621597c3d26e9e39355cfcabff563e24cdb118b70d097",
+      "bytes": 92486
+    },
+    {
+      "path": "exact-head-source/scripts/smoke-android-ui.py",
+      "sha256": "fc208dfbb04356eff921f5388996afc06eecff53ceb8347e621508eba7c85741",
+      "bytes": 39285
+    },
+    {
+      "path": "exact-head-source/scripts/smoke_android_godot_adaptive.py",
+      "sha256": "21fa988315c16e150b600666b07c760ed02be045b4095cfe40f6dc2564274e09",
+      "bytes": 57503
+    },
+    {
+      "path": "exact-head-source/scripts/tests/test_android_engine_gameplay.py",
+      "sha256": "d4cdec6444f4b7dd8240e5b8ae5b1f1ee26717ebac61efc68f92944ae7eb9f83",
+      "bytes": 19196
+    },
+    {
+      "path": "exact-head-source/scripts/tests/test_android_godot_session.py",
+      "sha256": "77aa9c7dee4147141c61d95266d7bb6cdab0e3287fc3e41b9ed23a207bbf756e",
+      "bytes": 38641
+    },
+    {
+      "path": "exact-head-source-api/scripts__adaptive_observations.py.json",
+      "sha256": "85d43c390b838ccfd4fcffb469264a2aebac6b37252fcb13a76cb3f1e2336f3f",
+      "bytes": 26663
+    },
+    {
+      "path": "exact-head-source-api/scripts__android_godot_activation.py.json",
+      "sha256": "a55e4800928194e1f2a0657de33919685b0c2274c41a69981986195ecb2442ae",
+      "bytes": 5413
+    },
+    {
+      "path": "exact-head-source-api/scripts__android_godot_adaptive_inputs.py.json",
+      "sha256": "cd4625e60ee922546026e60b6dbbb5e0b16ac55c4a27c957d69a5d718c16b736",
+      "bytes": 17837
+    },
+    {
+      "path": "exact-head-source-api/scripts__android_godot_session_observation.py.json",
+      "sha256": "5f23ad0c6f54d767a02c99beb0d5f3a894bd92e1b5ffdc357023e0b62580a8e0",
+      "bytes": 26789
+    },
+    {
+      "path": "exact-head-source-api/scripts__smoke-android-emulator.sh.json",
+      "sha256": "3efc8779425f52f03709f74ecbd32402f7f52ef04ed766af45ae239312439c27",
+      "bytes": 31746
+    },
+    {
+      "path": "exact-head-source-api/scripts__smoke-android-godot-session.py.json",
+      "sha256": "b8ba3796edad549efd7894b788954f620bcb342119a38a214b58bf955f0f7336",
+      "bytes": 128621
+    },
+    {
+      "path": "exact-head-source-api/scripts__smoke-android-ui.py.json",
+      "sha256": "c92c3fbf40d4e077bae5a7cac542694c05162b46fe7ff4ce3e2544ae823239e0",
+      "bytes": 55242
+    },
+    {
+      "path": "exact-head-source-api/scripts__smoke_android_godot_adaptive.py.json",
+      "sha256": "10166d7d8e831a677871ce36a5180758c6a99f36f289237eac59c3cc51396c42",
+      "bytes": 80428
+    },
+    {
+      "path": "exact-head-source-api/scripts__tests__test_android_engine_gameplay.py.json",
+      "sha256": "eaf31e3607f2b1818deef8ef2405a221abcd2d3337c159c196a47f738fbf8040",
+      "bytes": 27686
+    },
+    {
+      "path": "exact-head-source-api/scripts__tests__test_android_godot_session.py.json",
+      "sha256": "7959a42aa186d2c8e8092e0da6704b62abc3594f1b54cf17812640c7a40d5102",
+      "bytes": 54464
+    },
+    {
+      "path": "exact-head-source-preflight.json",
+      "sha256": "b9a863398019f48250d52ec8c587c02b634a9d5633f88d5b019408c4232e2ad1",
+      "bytes": 12560
+    },
+    {
+      "path": "freeze_candidate.py",
+      "sha256": "eac3fd1aaf6fb76fd7567f73e0bc3353b899ce792f06a06d533d988611671e66",
+      "bytes": 15368
+    },
+    {
+      "path": "host-tests.json",
+      "sha256": "24fcb16bb22003b670fe9946e9bcf055005a6c4be46d2c2cc3b8f223428e5650",
+      "bytes": 427
+    },
+    {
+      "path": "host-tests.log",
+      "sha256": "98cd665f0c27ef5aa0c4f699b4073a71b55b99caec64c04577e0e18be8f33d43",
+      "bytes": 34087
+    },
+    {
+      "path": "original/captures/2d-landscape-baseline-public.xml",
+      "sha256": "2264064f110f80d481bdb4d8ca5f0a95958ed3b4a6e707975bbe2e388814844b",
+      "bytes": 17579
+    },
+    {
+      "path": "original/captures/2d-landscape-baseline-selected.xml",
+      "sha256": "342c2feaaa4114531a57361fe99945ed05d430c1504f97050efe653ea4b2d19c",
+      "bytes": 23906
+    },
+    {
+      "path": "original/captures/2d-landscape-unsupported-return-concealed.json",
+      "sha256": "9eb7bd1e97c2348f87d4892a81320e40e5204c3fb3f40879f7dbe0eb1cfec8a8",
+      "bytes": 9515
+    },
+    {
+      "path": "original/captures/2d-landscape-unsupported-return-concealed.png",
+      "sha256": "0beeaf151406fb47c082ffd5f6974a87dc84ab8f9ea88f1484cdbcadb903128c",
+      "bytes": 110819
+    },
+    {
+      "path": "original/captures/2d-landscape-unsupported-return-concealed.xml",
+      "sha256": "457b3aaeedab531611fd6f1ae98905d055302782055158af0a2fa1dfeb30ab25",
+      "bytes": 17565
+    },
+    {
+      "path": "original/captures/final-diagnostic.json",
+      "sha256": "4186f26878208a07dd12b4542bb13839f27a1007819f0d99ae376756c7ec1e34",
+      "bytes": 9440
+    },
+    {
+      "path": "original/captures/final-diagnostic.xml",
+      "sha256": "457b3aaeedab531611fd6f1ae98905d055302782055158af0a2fa1dfeb30ab25",
+      "bytes": 17565
+    },
+    {
+      "path": "original/collection/accepted-checker-pins.json",
+      "sha256": "cc4625d078b1a1cc8d5ce79aa0d6cc6aff72fd64ec16dabb768b9ac366964245",
+      "bytes": 1918
+    },
+    {
+      "path": "original/collection/android-adaptive-api36-debug-font-1.0-34506161751-1.integrity.json",
+      "sha256": "547c061af6a0dbbf5853b0ec734ceb7c7efcde04fbe3d313b688b935b438ed9d",
+      "bytes": 805
+    },
+    {
+      "path": "original/collection/debug-font-1.0-diagnostic-handoff.json",
+      "sha256": "709af2e10d80804c2774b44cc335ed6bc1f258e7a59564bc243bd27aa2715dc2",
+      "bytes": 91469
+    },
+    {
+      "path": "original/collection/job-102971335737.log",
+      "sha256": "9df2482b73c629cd735fb894ca013cfa8a854452467bdb64f35473e628095ec2",
+      "bytes": 121919
+    },
+    {
+      "path": "original/godot-adaptive-result.json",
+      "sha256": "951829fb10a9be0f60986a3d938e1e07962e37a16ceacebb38d3a5a47ff68226",
+      "bytes": 163482
+    },
+    {
+      "path": "original/input-geometry.log",
+      "sha256": "41538e9a618295dfd2e3cb7867277fe0b6a0990bf5d98f4c6d20a94b1fd7d13f",
+      "bytes": 8763
+    },
+    {
+      "path": "original/last-ui.xml",
+      "sha256": "457b3aaeedab531611fd6f1ae98905d055302782055158af0a2fa1dfeb30ab25",
+      "bytes": 17565
+    },
+    {
+      "path": "original/optimized-test-signed/captures/2d-landscape-unsupported-return-concealed.xml",
+      "sha256": "9dcbda5b7a4269c64a1ffeb0ea8b4d5710898ecfa1f6c5c98ace5bad0fa2db35",
+      "bytes": 16454
+    },
+    {
+      "path": "original/optimized-test-signed/captures/final-diagnostic.xml",
+      "sha256": "9dcbda5b7a4269c64a1ffeb0ea8b4d5710898ecfa1f6c5c98ace5bad0fa2db35",
+      "bytes": 16454
+    },
+    {
+      "path": "original/optimized-test-signed/godot-adaptive-result.json",
+      "sha256": "3e206d19eaab6d85578af0c2ee615632fda9135360e357998ebd15576e8f8661",
+      "bytes": 162065
+    },
+    {
+      "path": "original/optimized-test-signed/input-geometry.log",
+      "sha256": "b03fc0fc75708f5e0726b9703dc3be2cd9fa3839236ab5980b45eafb62c35dd3",
+      "bytes": 8763
+    },
+    {
+      "path": "original/states/00031-activity.log",
+      "sha256": "584cc72f6a87cb61bcf5ef18548c66a2dff20b8e61e051bc93fe5736dcc3168b",
+      "bytes": 30607
+    },
+    {
+      "path": "original/states/00031-processes.log",
+      "sha256": "c340d964ebabcc876106daea4cab6399f00abf214dedbdbe69496d2c9fb425fa",
+      "bytes": 11178
+    },
+    {
+      "path": "original/states/00031-window.log",
+      "sha256": "1de082485e9693faf3483c87feec4bb360b76eb0b0194b7c46e3aa462afcf6f6",
+      "bytes": 19381
+    },
+    {
+      "path": "original/states/00031.json",
+      "sha256": "30301bcf2882ede0ae9abc15dcb0858ddf82baca9a0354ce06bcc3811aa326c4",
+      "bytes": 3916
+    },
+    {
+      "path": "original/videos/2d-landscape-rotation.json",
+      "sha256": "cf4ed25942f9c492fe2c0806bf88f0ebf66bfc5ccafc5cba33ee081d6e399ccf",
+      "bytes": 9519
+    },
+    {
+      "path": "original-geometry.json",
+      "sha256": "b148d65d63485984e3fc3056e5094117335b3fd23c05527b92ac831f85365c88",
+      "bytes": 2420
+    },
+    {
+      "path": "original-manifest.json",
+      "sha256": "b7215a2b9122690d3ab19c3bbfcba7f50193e5e793c531c59c402d9420ffaa3e",
+      "bytes": 8558
+    },
+    {
+      "path": "patch-reconstruction.log",
+      "sha256": "47d2dfbbb4fa70ec5482f615fc4eefccc44a1521357726a828b9f0de0995d7ea",
+      "bytes": 1049
+    },
+    {
+      "path": "research/AccessibilityNodeInfoDumper-android16.java",
+      "sha256": "c35f6b78d724a516d4da84007c57def319643b7384e5b9ce90b0a102ab42118c",
+      "bytes": 16147
+    },
+    {
+      "path": "research/AccessibilityNodeInfoHelper-android16.java",
+      "sha256": "9334c1ac2485b8dfbd12d87557446c7e143e45ca826adb3dd50308bde174bfe7",
+      "bytes": 1747
+    },
+    {
+      "path": "research/DumpCommand-android16.java",
+      "sha256": "da9ff50b21ea60d79c339e9c482c35b2a9b8a2677abc5efa7445acfa83897f03",
+      "bytes": 4681
+    },
+    {
+      "path": "research/InputShellCommand-android16.java",
+      "sha256": "9b2c7d34d4f823b65e5b024e6b0ca124fae860c41a47bfa5c59d25af9d2ed5b8",
+      "bytes": 32873
+    },
+    {
+      "path": "research/InputShellCommand-source.json",
+      "sha256": "afe5de12022dec9f3786e0f24d77be90a5181d054b0f7393f75a28004b76642d",
+      "bytes": 724
+    },
+    {
+      "path": "research/standard-source-contract.json",
+      "sha256": "2849e4d0fbe891d21cef25f99eab45c5491880fdc94dd851310e87dd6785c455",
+      "bytes": 5650
+    },
+    {
+      "path": "source-provenance.json",
+      "sha256": "ce7080b208fa166a783319d00dd795e600e65d82ae6db5973251289a21cb1ce5",
+      "bytes": 6103
+    },
+    {
+      "path": "validation.json",
+      "sha256": "c9a7bef2d59eca46cd2817ff5352c8614ff89b829200be6c56569557ed322be8",
+      "bytes": 2422
+    },
+    {
+      "path": "visual-view-receipt.json",
+      "sha256": "582d01682f806535f886de19cb6ff3ef1456477cf5edb20503aa0f56dbd80c14",
+      "bytes": 681
+    }
+  ]
+}

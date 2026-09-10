@@ -1,0 +1,2139 @@
+{
+  "schemaVersion": 1,
+  "issuedUtc": "2026-09-10T18:00:12.532452+00:00",
+  "reviewer": "/root/review_design",
+  "result": "passed",
+  "scope": "Read-only audit of frozen source and recorded evidence. No Godot execution, build, native run, or rewrite of source evidence.",
+  "sourceFreeze": {
+    "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/freeze.json",
+    "bytes": 89896,
+    "sha256": "b0f40415c147183039474ff135e7d55f45a9ac089728097a69702465bfff7d85"
+  },
+  "frozenArtifactsVerified": 391,
+  "sourceTreeDifferences": [
+    "presentations/two_d/table.gd"
+  ],
+  "checksPassed": 679,
+  "checks": [
+    "Frozen proposal identity matches the assigned review.",
+    "Frozen artifact exact bytes: README.md",
+    "Frozen artifact exact bytes: baseline/.gitignore",
+    "Frozen artifact exact bytes: baseline/README.md",
+    "Frozen artifact exact bytes: baseline/assets/README.md",
+    "Frozen artifact exact bytes: baseline/assets/audio/card_place.wav",
+    "Frozen artifact exact bytes: baseline/assets/audio/card_place.wav.import",
+    "Frozen artifact exact bytes: baseline/assets/audio/challenge.wav",
+    "Frozen artifact exact bytes: baseline/assets/audio/challenge.wav.import",
+    "Frozen artifact exact bytes: baseline/assets/audio/light_out.wav",
+    "Frozen artifact exact bytes: baseline/assets/audio/light_out.wav.import",
+    "Frozen artifact exact bytes: baseline/assets/audio/safe.wav",
+    "Frozen artifact exact bytes: baseline/assets/audio/safe.wav.import",
+    "Frozen artifact exact bytes: baseline/assets/audio/ui_tap.wav",
+    "Frozen artifact exact bytes: baseline/assets/audio/ui_tap.wav.import",
+    "Frozen artifact exact bytes: baseline/assets/audio/victory.wav",
+    "Frozen artifact exact bytes: baseline/assets/audio/victory.wav.import",
+    "Frozen artifact exact bytes: baseline/assets/fonts/fraunces_semibold.ttf",
+    "Frozen artifact exact bytes: baseline/assets/fonts/fraunces_semibold.ttf.import",
+    "Frozen artifact exact bytes: baseline/assets/fonts/manrope_medium.ttf",
+    "Frozen artifact exact bytes: baseline/assets/fonts/manrope_medium.ttf.import",
+    "Frozen artifact exact bytes: baseline/assets/fonts/manrope_regular.ttf",
+    "Frozen artifact exact bytes: baseline/assets/fonts/manrope_regular.ttf.import",
+    "Frozen artifact exact bytes: baseline/assets/fonts/manrope_semibold.ttf",
+    "Frozen artifact exact bytes: baseline/assets/fonts/manrope_semibold.ttf.import",
+    "Frozen artifact exact bytes: baseline/assets/licenses/font_notices.txt",
+    "Frozen artifact exact bytes: baseline/assets/licenses/fraunces_ofl.txt",
+    "Frozen artifact exact bytes: baseline/assets/licenses/manrope_ofl.txt",
+    "Frozen artifact exact bytes: baseline/assets/manifest.json",
+    "Frozen artifact exact bytes: baseline/assets/proofs/.gdignore",
+    "Frozen artifact exact bytes: baseline/assets/proofs/cards.png",
+    "Frozen artifact exact bytes: baseline/assets/proofs/godot_rank_imports.png",
+    "Frozen artifact exact bytes: baseline/assets/proofs/import_verification.json",
+    "Frozen artifact exact bytes: baseline/assets/sources/.gdignore",
+    "Frozen artifact exact bytes: baseline/assets/sources/cards/face_crown.svg",
+    "Frozen artifact exact bytes: baseline/assets/sources/cards/face_moon.svg",
+    "Frozen artifact exact bytes: baseline/assets/sources/cards/face_star.svg",
+    "Frozen artifact exact bytes: baseline/assets/sources/cards/face_wild.svg",
+    "Frozen artifact exact bytes: baseline/assets/textures/cards/back.png",
+    "Frozen artifact exact bytes: baseline/assets/textures/cards/back.png.import",
+    "Frozen artifact exact bytes: baseline/assets/textures/cards/face_crown.png",
+    "Frozen artifact exact bytes: baseline/assets/textures/cards/face_crown.png.import",
+    "Frozen artifact exact bytes: baseline/assets/textures/cards/face_moon.png",
+    "Frozen artifact exact bytes: baseline/assets/textures/cards/face_moon.png.import",
+    "Frozen artifact exact bytes: baseline/assets/textures/cards/face_star.png",
+    "Frozen artifact exact bytes: baseline/assets/textures/cards/face_star.png.import",
+    "Frozen artifact exact bytes: baseline/assets/textures/cards/face_wild.png",
+    "Frozen artifact exact bytes: baseline/assets/textures/cards/face_wild.png.import",
+    "Frozen artifact exact bytes: baseline/assets/textures/ranks/crown.png",
+    "Frozen artifact exact bytes: baseline/assets/textures/ranks/crown.png.import",
+    "Frozen artifact exact bytes: baseline/assets/textures/ranks/crown_mask.png",
+    "Frozen artifact exact bytes: baseline/assets/textures/ranks/crown_mask.png.import",
+    "Frozen artifact exact bytes: baseline/assets/textures/ranks/moon.png",
+    "Frozen artifact exact bytes: baseline/assets/textures/ranks/moon.png.import",
+    "Frozen artifact exact bytes: baseline/assets/textures/ranks/moon_mask.png",
+    "Frozen artifact exact bytes: baseline/assets/textures/ranks/moon_mask.png.import",
+    "Frozen artifact exact bytes: baseline/assets/textures/ranks/star.png",
+    "Frozen artifact exact bytes: baseline/assets/textures/ranks/star.png.import",
+    "Frozen artifact exact bytes: baseline/assets/textures/ranks/star_mask.png",
+    "Frozen artifact exact bytes: baseline/assets/textures/ranks/star_mask.png.import",
+    "Frozen artifact exact bytes: baseline/assets/textures/ranks/wild.png",
+    "Frozen artifact exact bytes: baseline/assets/textures/ranks/wild.png.import",
+    "Frozen artifact exact bytes: baseline/assets/textures/ranks/wild_mask.png",
+    "Frozen artifact exact bytes: baseline/assets/textures/ranks/wild_mask.png.import",
+    "Frozen artifact exact bytes: baseline/assets/vectors/card_back.svg",
+    "Frozen artifact exact bytes: baseline/assets/vectors/card_back.svg.import",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_arrow_back.svg",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_arrow_back.svg.import",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_arrow_forward.svg",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_arrow_forward.svg.import",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_check.svg",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_check.svg.import",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_close.svg",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_close.svg.import",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_copy.svg",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_copy.svg.import",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_exit.svg",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_exit.svg.import",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_haptics.svg",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_haptics.svg.import",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_info.svg",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_info.svg.import",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_lock.svg",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_lock.svg.import",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_motion.svg",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_motion.svg.import",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_nearby.svg",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_nearby.svg.import",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_people.svg",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_people.svg.import",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_plus.svg",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_plus.svg.import",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_qr_scan.svg",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_qr_scan.svg.import",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_settings.svg",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_settings.svg.import",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_share.svg",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_share.svg.import",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_sound.svg",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_sound.svg.import",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_sound_off.svg",
+    "Frozen artifact exact bytes: baseline/assets/vectors/icon_sound_off.svg.import",
+    "Frozen artifact exact bytes: baseline/assets/vectors/partydeck_mark.svg",
+    "Frozen artifact exact bytes: baseline/assets/vectors/partydeck_mark.svg.import",
+    "Frozen artifact exact bytes: baseline/assets/vectors/rank_crown.svg",
+    "Frozen artifact exact bytes: baseline/assets/vectors/rank_crown.svg.import",
+    "Frozen artifact exact bytes: baseline/assets/vectors/rank_moon.svg",
+    "Frozen artifact exact bytes: baseline/assets/vectors/rank_moon.svg.import",
+    "Frozen artifact exact bytes: baseline/assets/vectors/rank_star.svg",
+    "Frozen artifact exact bytes: baseline/assets/vectors/rank_star.svg.import",
+    "Frozen artifact exact bytes: baseline/assets/vectors/rank_wild.svg",
+    "Frozen artifact exact bytes: baseline/assets/vectors/rank_wild.svg.import",
+    "Frozen artifact exact bytes: baseline/export_presets.cfg",
+    "Frozen artifact exact bytes: baseline/licenses/ANDROID_NDK_LLVM_NOTICE.txt",
+    "Frozen artifact exact bytes: baseline/licenses/GODOT_CA_BUNDLE_SOURCE.txt",
+    "Frozen artifact exact bytes: baseline/licenses/GODOT_CA_CERTIFICATES_SOURCE.txt",
+    "Frozen artifact exact bytes: baseline/licenses/GODOT_COPYRIGHT.txt",
+    "Frozen artifact exact bytes: baseline/licenses/GODOT_LICENSE.txt",
+    "Frozen artifact exact bytes: baseline/licenses/NOTICE_PROVENANCE.json",
+    "Frozen artifact exact bytes: baseline/licenses/README.txt",
+    "Frozen artifact exact bytes: baseline/main.tscn",
+    "Frozen artifact exact bytes: baseline/presentations/three_d/card_3d.gd",
+    "Frozen artifact exact bytes: baseline/presentations/three_d/card_3d.gd.uid",
+    "Frozen artifact exact bytes: baseline/presentations/three_d/table.gd",
+    "Frozen artifact exact bytes: baseline/presentations/three_d/table.gd.uid",
+    "Frozen artifact exact bytes: baseline/presentations/three_d/table.tscn",
+    "Frozen artifact exact bytes: baseline/presentations/two_d/README.md",
+    "Frozen artifact exact bytes: baseline/presentations/two_d/checks/.gdignore",
+    "Frozen artifact exact bytes: baseline/presentations/two_d/checks/scene_check.gd",
+    "Frozen artifact exact bytes: baseline/presentations/two_d/deck_style.gd",
+    "Frozen artifact exact bytes: baseline/presentations/two_d/deck_style.gd.uid",
+    "Frozen artifact exact bytes: baseline/presentations/two_d/hand_card.gd",
+    "Frozen artifact exact bytes: baseline/presentations/two_d/hand_card.gd.uid",
+    "Frozen artifact exact bytes: baseline/presentations/two_d/seat_view.gd",
+    "Frozen artifact exact bytes: baseline/presentations/two_d/seat_view.gd.uid",
+    "Frozen artifact exact bytes: baseline/presentations/two_d/table.gd",
+    "Frozen artifact exact bytes: baseline/presentations/two_d/table.gd.uid",
+    "Frozen artifact exact bytes: baseline/presentations/two_d/table.tscn",
+    "Frozen artifact exact bytes: baseline/presentations/two_d/table_surface.gd",
+    "Frozen artifact exact bytes: baseline/presentations/two_d/table_surface.gd.uid",
+    "Frozen artifact exact bytes: baseline/project.godot",
+    "Frozen artifact exact bytes: baseline/scripts/main.gd",
+    "Frozen artifact exact bytes: baseline/scripts/main.gd.uid",
+    "Frozen artifact exact bytes: baseline/scripts/renderer_controller.gd",
+    "Frozen artifact exact bytes: baseline/scripts/renderer_controller.gd.uid",
+    "Frozen artifact exact bytes: baseline/scripts/strict_json.gd",
+    "Frozen artifact exact bytes: baseline/scripts/strict_json.gd.uid",
+    "Frozen artifact exact bytes: baseline/scripts/view_validator.gd",
+    "Frozen artifact exact bytes: baseline/scripts/view_validator.gd.uid",
+    "Frozen artifact exact bytes: baseline/tests/native_bridge_check.gd",
+    "Frozen artifact exact bytes: baseline/tests/native_bridge_check.gd.uid",
+    "Frozen artifact exact bytes: baseline/tests/terminal_return_render_check.gd",
+    "Frozen artifact exact bytes: baseline/tests/terminal_return_render_check.gd.uid",
+    "Frozen artifact exact bytes: baseline/tests/three_d_redraw_check.gd",
+    "Frozen artifact exact bytes: baseline/tests/three_d_redraw_check.gd.uid",
+    "Frozen artifact exact bytes: baseline/tests/three_d_scene_check.gd",
+    "Frozen artifact exact bytes: baseline/tests/three_d_scene_check.gd.uid",
+    "Frozen artifact exact bytes: baseline-provenance.json",
+    "Frozen artifact exact bytes: candidate/.gitignore",
+    "Frozen artifact exact bytes: candidate/README.md",
+    "Frozen artifact exact bytes: candidate/assets/README.md",
+    "Frozen artifact exact bytes: candidate/assets/audio/card_place.wav",
+    "Frozen artifact exact bytes: candidate/assets/audio/card_place.wav.import",
+    "Frozen artifact exact bytes: candidate/assets/audio/challenge.wav",
+    "Frozen artifact exact bytes: candidate/assets/audio/challenge.wav.import",
+    "Frozen artifact exact bytes: candidate/assets/audio/light_out.wav",
+    "Frozen artifact exact bytes: candidate/assets/audio/light_out.wav.import",
+    "Frozen artifact exact bytes: candidate/assets/audio/safe.wav",
+    "Frozen artifact exact bytes: candidate/assets/audio/safe.wav.import",
+    "Frozen artifact exact bytes: candidate/assets/audio/ui_tap.wav",
+    "Frozen artifact exact bytes: candidate/assets/audio/ui_tap.wav.import",
+    "Frozen artifact exact bytes: candidate/assets/audio/victory.wav",
+    "Frozen artifact exact bytes: candidate/assets/audio/victory.wav.import",
+    "Frozen artifact exact bytes: candidate/assets/fonts/fraunces_semibold.ttf",
+    "Frozen artifact exact bytes: candidate/assets/fonts/fraunces_semibold.ttf.import",
+    "Frozen artifact exact bytes: candidate/assets/fonts/manrope_medium.ttf",
+    "Frozen artifact exact bytes: candidate/assets/fonts/manrope_medium.ttf.import",
+    "Frozen artifact exact bytes: candidate/assets/fonts/manrope_regular.ttf",
+    "Frozen artifact exact bytes: candidate/assets/fonts/manrope_regular.ttf.import",
+    "Frozen artifact exact bytes: candidate/assets/fonts/manrope_semibold.ttf",
+    "Frozen artifact exact bytes: candidate/assets/fonts/manrope_semibold.ttf.import",
+    "Frozen artifact exact bytes: candidate/assets/licenses/font_notices.txt",
+    "Frozen artifact exact bytes: candidate/assets/licenses/fraunces_ofl.txt",
+    "Frozen artifact exact bytes: candidate/assets/licenses/manrope_ofl.txt",
+    "Frozen artifact exact bytes: candidate/assets/manifest.json",
+    "Frozen artifact exact bytes: candidate/assets/proofs/.gdignore",
+    "Frozen artifact exact bytes: candidate/assets/proofs/cards.png",
+    "Frozen artifact exact bytes: candidate/assets/proofs/godot_rank_imports.png",
+    "Frozen artifact exact bytes: candidate/assets/proofs/import_verification.json",
+    "Frozen artifact exact bytes: candidate/assets/sources/.gdignore",
+    "Frozen artifact exact bytes: candidate/assets/sources/cards/face_crown.svg",
+    "Frozen artifact exact bytes: candidate/assets/sources/cards/face_moon.svg",
+    "Frozen artifact exact bytes: candidate/assets/sources/cards/face_star.svg",
+    "Frozen artifact exact bytes: candidate/assets/sources/cards/face_wild.svg",
+    "Frozen artifact exact bytes: candidate/assets/textures/cards/back.png",
+    "Frozen artifact exact bytes: candidate/assets/textures/cards/back.png.import",
+    "Frozen artifact exact bytes: candidate/assets/textures/cards/face_crown.png",
+    "Frozen artifact exact bytes: candidate/assets/textures/cards/face_crown.png.import",
+    "Frozen artifact exact bytes: candidate/assets/textures/cards/face_moon.png",
+    "Frozen artifact exact bytes: candidate/assets/textures/cards/face_moon.png.import",
+    "Frozen artifact exact bytes: candidate/assets/textures/cards/face_star.png",
+    "Frozen artifact exact bytes: candidate/assets/textures/cards/face_star.png.import",
+    "Frozen artifact exact bytes: candidate/assets/textures/cards/face_wild.png",
+    "Frozen artifact exact bytes: candidate/assets/textures/cards/face_wild.png.import",
+    "Frozen artifact exact bytes: candidate/assets/textures/ranks/crown.png",
+    "Frozen artifact exact bytes: candidate/assets/textures/ranks/crown.png.import",
+    "Frozen artifact exact bytes: candidate/assets/textures/ranks/crown_mask.png",
+    "Frozen artifact exact bytes: candidate/assets/textures/ranks/crown_mask.png.import",
+    "Frozen artifact exact bytes: candidate/assets/textures/ranks/moon.png",
+    "Frozen artifact exact bytes: candidate/assets/textures/ranks/moon.png.import",
+    "Frozen artifact exact bytes: candidate/assets/textures/ranks/moon_mask.png",
+    "Frozen artifact exact bytes: candidate/assets/textures/ranks/moon_mask.png.import",
+    "Frozen artifact exact bytes: candidate/assets/textures/ranks/star.png",
+    "Frozen artifact exact bytes: candidate/assets/textures/ranks/star.png.import",
+    "Frozen artifact exact bytes: candidate/assets/textures/ranks/star_mask.png",
+    "Frozen artifact exact bytes: candidate/assets/textures/ranks/star_mask.png.import",
+    "Frozen artifact exact bytes: candidate/assets/textures/ranks/wild.png",
+    "Frozen artifact exact bytes: candidate/assets/textures/ranks/wild.png.import",
+    "Frozen artifact exact bytes: candidate/assets/textures/ranks/wild_mask.png",
+    "Frozen artifact exact bytes: candidate/assets/textures/ranks/wild_mask.png.import",
+    "Frozen artifact exact bytes: candidate/assets/vectors/card_back.svg",
+    "Frozen artifact exact bytes: candidate/assets/vectors/card_back.svg.import",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_arrow_back.svg",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_arrow_back.svg.import",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_arrow_forward.svg",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_arrow_forward.svg.import",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_check.svg",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_check.svg.import",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_close.svg",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_close.svg.import",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_copy.svg",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_copy.svg.import",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_exit.svg",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_exit.svg.import",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_haptics.svg",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_haptics.svg.import",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_info.svg",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_info.svg.import",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_lock.svg",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_lock.svg.import",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_motion.svg",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_motion.svg.import",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_nearby.svg",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_nearby.svg.import",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_people.svg",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_people.svg.import",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_plus.svg",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_plus.svg.import",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_qr_scan.svg",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_qr_scan.svg.import",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_settings.svg",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_settings.svg.import",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_share.svg",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_share.svg.import",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_sound.svg",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_sound.svg.import",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_sound_off.svg",
+    "Frozen artifact exact bytes: candidate/assets/vectors/icon_sound_off.svg.import",
+    "Frozen artifact exact bytes: candidate/assets/vectors/partydeck_mark.svg",
+    "Frozen artifact exact bytes: candidate/assets/vectors/partydeck_mark.svg.import",
+    "Frozen artifact exact bytes: candidate/assets/vectors/rank_crown.svg",
+    "Frozen artifact exact bytes: candidate/assets/vectors/rank_crown.svg.import",
+    "Frozen artifact exact bytes: candidate/assets/vectors/rank_moon.svg",
+    "Frozen artifact exact bytes: candidate/assets/vectors/rank_moon.svg.import",
+    "Frozen artifact exact bytes: candidate/assets/vectors/rank_star.svg",
+    "Frozen artifact exact bytes: candidate/assets/vectors/rank_star.svg.import",
+    "Frozen artifact exact bytes: candidate/assets/vectors/rank_wild.svg",
+    "Frozen artifact exact bytes: candidate/assets/vectors/rank_wild.svg.import",
+    "Frozen artifact exact bytes: candidate/export_presets.cfg",
+    "Frozen artifact exact bytes: candidate/licenses/ANDROID_NDK_LLVM_NOTICE.txt",
+    "Frozen artifact exact bytes: candidate/licenses/GODOT_CA_BUNDLE_SOURCE.txt",
+    "Frozen artifact exact bytes: candidate/licenses/GODOT_CA_CERTIFICATES_SOURCE.txt",
+    "Frozen artifact exact bytes: candidate/licenses/GODOT_COPYRIGHT.txt",
+    "Frozen artifact exact bytes: candidate/licenses/GODOT_LICENSE.txt",
+    "Frozen artifact exact bytes: candidate/licenses/NOTICE_PROVENANCE.json",
+    "Frozen artifact exact bytes: candidate/licenses/README.txt",
+    "Frozen artifact exact bytes: candidate/main.tscn",
+    "Frozen artifact exact bytes: candidate/presentations/three_d/card_3d.gd",
+    "Frozen artifact exact bytes: candidate/presentations/three_d/card_3d.gd.uid",
+    "Frozen artifact exact bytes: candidate/presentations/three_d/table.gd",
+    "Frozen artifact exact bytes: candidate/presentations/three_d/table.gd.uid",
+    "Frozen artifact exact bytes: candidate/presentations/three_d/table.tscn",
+    "Frozen artifact exact bytes: candidate/presentations/two_d/README.md",
+    "Frozen artifact exact bytes: candidate/presentations/two_d/checks/.gdignore",
+    "Frozen artifact exact bytes: candidate/presentations/two_d/checks/scene_check.gd",
+    "Frozen artifact exact bytes: candidate/presentations/two_d/deck_style.gd",
+    "Frozen artifact exact bytes: candidate/presentations/two_d/deck_style.gd.uid",
+    "Frozen artifact exact bytes: candidate/presentations/two_d/hand_card.gd",
+    "Frozen artifact exact bytes: candidate/presentations/two_d/hand_card.gd.uid",
+    "Frozen artifact exact bytes: candidate/presentations/two_d/seat_view.gd",
+    "Frozen artifact exact bytes: candidate/presentations/two_d/seat_view.gd.uid",
+    "Frozen artifact exact bytes: candidate/presentations/two_d/table.gd",
+    "Frozen artifact exact bytes: candidate/presentations/two_d/table.gd.uid",
+    "Frozen artifact exact bytes: candidate/presentations/two_d/table.tscn",
+    "Frozen artifact exact bytes: candidate/presentations/two_d/table_surface.gd",
+    "Frozen artifact exact bytes: candidate/presentations/two_d/table_surface.gd.uid",
+    "Frozen artifact exact bytes: candidate/project.godot",
+    "Frozen artifact exact bytes: candidate/scripts/main.gd",
+    "Frozen artifact exact bytes: candidate/scripts/main.gd.uid",
+    "Frozen artifact exact bytes: candidate/scripts/renderer_controller.gd",
+    "Frozen artifact exact bytes: candidate/scripts/renderer_controller.gd.uid",
+    "Frozen artifact exact bytes: candidate/scripts/strict_json.gd",
+    "Frozen artifact exact bytes: candidate/scripts/strict_json.gd.uid",
+    "Frozen artifact exact bytes: candidate/scripts/view_validator.gd",
+    "Frozen artifact exact bytes: candidate/scripts/view_validator.gd.uid",
+    "Frozen artifact exact bytes: candidate/tests/native_bridge_check.gd",
+    "Frozen artifact exact bytes: candidate/tests/native_bridge_check.gd.uid",
+    "Frozen artifact exact bytes: candidate/tests/terminal_return_render_check.gd",
+    "Frozen artifact exact bytes: candidate/tests/terminal_return_render_check.gd.uid",
+    "Frozen artifact exact bytes: candidate/tests/three_d_redraw_check.gd",
+    "Frozen artifact exact bytes: candidate/tests/three_d_redraw_check.gd.uid",
+    "Frozen artifact exact bytes: candidate/tests/three_d_scene_check.gd",
+    "Frozen artifact exact bytes: candidate/tests/three_d_scene_check.gd.uid",
+    "Frozen artifact exact bytes: candidate-v2-inputs.json",
+    "Frozen artifact exact bytes: cases.json",
+    "Frozen artifact exact bytes: fixtures/advance-round.json",
+    "Frozen artifact exact bytes: fixtures/after-play.json",
+    "Frozen artifact exact bytes: fixtures/close.json",
+    "Frozen artifact exact bytes: fixtures/finished-launch-2d.json",
+    "Frozen artifact exact bytes: fixtures/finished-launch-3d.json",
+    "Frozen artifact exact bytes: fixtures/finished.json",
+    "Frozen artifact exact bytes: fixtures/fixture-manifest.json",
+    "Frozen artifact exact bytes: fixtures/launch-2d.json",
+    "Frozen artifact exact bytes: fixtures/launch-3d.json",
+    "Frozen artifact exact bytes: fixtures/layout-launch-2d.json",
+    "Frozen artifact exact bytes: fixtures/play.json",
+    "Frozen artifact exact bytes: fixtures/ready.json",
+    "Frozen artifact exact bytes: fixtures/return-to-lobby.json",
+    "Frozen artifact exact bytes: fixtures/round-ended-launch-2d.json",
+    "Frozen artifact exact bytes: fixtures/round-ended-launch-3d.json",
+    "Frozen artifact exact bytes: fixtures/round-ended.json",
+    "Frozen artifact exact bytes: fixtures/round-playing.json",
+    "Frozen artifact exact bytes: history/candidate-v1-table.gd",
+    "Frozen artifact exact bytes: history/measure-initial-baseline.gd",
+    "Frozen artifact exact bytes: history/measure-initial-wrap-v1.gd",
+    "Frozen artifact exact bytes: new-pngs.json",
+    "Frozen artifact exact bytes: pinned-layout-sources.json",
+    "Frozen artifact exact bytes: results/baseline-import.log",
+    "Frozen artifact exact bytes: results/baseline-layout.json",
+    "Frozen artifact exact bytes: results/baseline-layout.log",
+    "Frozen artifact exact bytes: results/candidate-layout.json",
+    "Frozen artifact exact bytes: results/candidate-layout.log",
+    "Frozen artifact exact bytes: results/candidate-v2-layout.json",
+    "Frozen artifact exact bytes: results/candidate-v2-layout.log",
+    "Frozen artifact exact bytes: results/candidate-v2-wrap-layout.json",
+    "Frozen artifact exact bytes: results/candidate-v2-wrap-layout.log",
+    "Frozen artifact exact bytes: results/candidate-wrap-layout-attempt-2.log",
+    "Frozen artifact exact bytes: results/candidate-wrap-layout.json",
+    "Frozen artifact exact bytes: results/candidate-wrap-layout.log",
+    "Frozen artifact exact bytes: results/patch-application-check.log",
+    "Frozen artifact exact bytes: results/source-input-320x568-text-1/01-concealed.json",
+    "Frozen artifact exact bytes: results/source-input-320x568-text-1/01-concealed.png",
+    "Frozen artifact exact bytes: results/source-input-320x568-text-1/02-revealed-selected.json",
+    "Frozen artifact exact bytes: results/source-input-320x568-text-1/02-revealed-selected.png",
+    "Frozen artifact exact bytes: results/source-input-320x568-text-1/03-covered-again.json",
+    "Frozen artifact exact bytes: results/source-input-320x568-text-1/03-covered-again.png",
+    "Frozen artifact exact bytes: results/source-input-320x568-text-1/04-resumed-covered.json",
+    "Frozen artifact exact bytes: results/source-input-320x568-text-1/04-resumed-covered.png",
+    "Frozen artifact exact bytes: results/source-input-320x568-text-1/execution.json",
+    "Frozen artifact exact bytes: results/source-input-320x568-text-1/process.log",
+    "Frozen artifact exact bytes: results/source-input-320x568-text-1/report.json",
+    "Frozen artifact exact bytes: results/source-input-320x568-text-2/01-concealed.json",
+    "Frozen artifact exact bytes: results/source-input-320x568-text-2/01-concealed.png",
+    "Frozen artifact exact bytes: results/source-input-320x568-text-2/02-revealed-selected.json",
+    "Frozen artifact exact bytes: results/source-input-320x568-text-2/02-revealed-selected.png",
+    "Frozen artifact exact bytes: results/source-input-320x568-text-2/03-covered-again.json",
+    "Frozen artifact exact bytes: results/source-input-320x568-text-2/03-covered-again.png",
+    "Frozen artifact exact bytes: results/source-input-320x568-text-2/04-resumed-covered.json",
+    "Frozen artifact exact bytes: results/source-input-320x568-text-2/04-resumed-covered.png",
+    "Frozen artifact exact bytes: results/source-input-320x568-text-2/execution.json",
+    "Frozen artifact exact bytes: results/source-input-320x568-text-2/process.log",
+    "Frozen artifact exact bytes: results/source-input-320x568-text-2/report.json",
+    "Frozen artifact exact bytes: results/source-input-378x655-text-1/01-concealed.json",
+    "Frozen artifact exact bytes: results/source-input-378x655-text-1/01-concealed.png",
+    "Frozen artifact exact bytes: results/source-input-378x655-text-1/02-revealed-selected.json",
+    "Frozen artifact exact bytes: results/source-input-378x655-text-1/02-revealed-selected.png",
+    "Frozen artifact exact bytes: results/source-input-378x655-text-1/03-covered-again.json",
+    "Frozen artifact exact bytes: results/source-input-378x655-text-1/03-covered-again.png",
+    "Frozen artifact exact bytes: results/source-input-378x655-text-1/04-resumed-covered.json",
+    "Frozen artifact exact bytes: results/source-input-378x655-text-1/04-resumed-covered.png",
+    "Frozen artifact exact bytes: results/source-input-378x655-text-1/execution.json",
+    "Frozen artifact exact bytes: results/source-input-378x655-text-1/process.log",
+    "Frozen artifact exact bytes: results/source-input-378x655-text-1/report.json",
+    "Frozen artifact exact bytes: results/validation-summary.json",
+    "Frozen artifact exact bytes: scripts/measure_initial.gd",
+    "Frozen artifact exact bytes: scripts/run_source_checks.py",
+    "Frozen artifact exact bytes: scripts/verify_results.py",
+    "Frozen artifact exact bytes: source-differences.json",
+    "Frozen artifact exact bytes: two-d-initial-reveal.patch",
+    "Frozen artifact exact bytes: view-receipt.json",
+    "Frozen artifact exact bytes: wrap-cases-v2.json",
+    "Frozen artifact exact bytes: wrap-cases.json",
+    "Archived baseline and candidate source trees have the same frozen file set.",
+    "Only table.gd differs between the frozen source trees.",
+    "Frozen patch exactly reproduces the baseline-to-candidate source diff.",
+    "Recorded case counts are 13 baseline, 13 candidate comparisons, and 9 candidate wrapping cases.",
+    "baseline/378x655-normal: recorded frames 2, 4, 8, 12 present.",
+    "baseline/378x655-normal: control/scroll geometry stable across the recorded settled frames.",
+    "baseline/378x655-normal: concealed initial state has no private faces, labels, or selection.",
+    "baseline/378x691-normal: recorded frames 2, 4, 8, 12 present.",
+    "baseline/378x691-normal: control/scroll geometry stable across the recorded settled frames.",
+    "baseline/378x691-normal: concealed initial state has no private faces, labels, or selection.",
+    "baseline/320x568-normal: recorded frames 2, 4, 8, 12 present.",
+    "baseline/320x568-normal: control/scroll geometry stable across the recorded settled frames.",
+    "baseline/320x568-normal: concealed initial state has no private faces, labels, or selection.",
+    "baseline/320x740-normal: recorded frames 2, 4, 8, 12 present.",
+    "baseline/320x740-normal: control/scroll geometry stable across the recorded settled frames.",
+    "baseline/320x740-normal: concealed initial state has no private faces, labels, or selection.",
+    "baseline/390x844-normal: recorded frames 2, 4, 8, 12 present.",
+    "baseline/390x844-normal: control/scroll geometry stable across the recorded settled frames.",
+    "baseline/390x844-normal: concealed initial state has no private faces, labels, or selection.",
+    "baseline/430x932-normal: recorded frames 2, 4, 8, 12 present.",
+    "baseline/430x932-normal: control/scroll geometry stable across the recorded settled frames.",
+    "baseline/430x932-normal: concealed initial state has no private faces, labels, or selection.",
+    "baseline/844x390-normal: recorded frames 2, 4, 8, 12 present.",
+    "baseline/844x390-normal: control/scroll geometry stable across the recorded settled frames.",
+    "baseline/844x390-normal: concealed initial state has no private faces, labels, or selection.",
+    "baseline/900x740-normal: recorded frames 2, 4, 8, 12 present.",
+    "baseline/900x740-normal: control/scroll geometry stable across the recorded settled frames.",
+    "baseline/900x740-normal: concealed initial state has no private faces, labels, or selection.",
+    "baseline/1280x800-normal: recorded frames 2, 4, 8, 12 present.",
+    "baseline/1280x800-normal: control/scroll geometry stable across the recorded settled frames.",
+    "baseline/1280x800-normal: concealed initial state has no private faces, labels, or selection.",
+    "baseline/378x655-200: recorded frames 2, 4, 8, 12 present.",
+    "baseline/378x655-200: control/scroll geometry stable across the recorded settled frames.",
+    "baseline/378x655-200: concealed initial state has no private faces, labels, or selection.",
+    "baseline/320x568-200: recorded frames 2, 4, 8, 12 present.",
+    "baseline/320x568-200: control/scroll geometry stable across the recorded settled frames.",
+    "baseline/320x568-200: concealed initial state has no private faces, labels, or selection.",
+    "baseline/320x740-200: recorded frames 2, 4, 8, 12 present.",
+    "baseline/320x740-200: control/scroll geometry stable across the recorded settled frames.",
+    "baseline/320x740-200: concealed initial state has no private faces, labels, or selection.",
+    "baseline/844x390-200: recorded frames 2, 4, 8, 12 present.",
+    "baseline/844x390-200: control/scroll geometry stable across the recorded settled frames.",
+    "baseline/844x390-200: concealed initial state has no private faces, labels, or selection.",
+    "candidate/378x655-normal: recorded frames 2, 4, 8, 12 present.",
+    "candidate/378x655-normal: control/scroll geometry stable across the recorded settled frames.",
+    "candidate/378x655-normal: concealed initial state has no private faces, labels, or selection.",
+    "378x655-normal: initial scroll is zero.",
+    "378x655-normal: whole normal-text initial Reveal is enabled, visible, and at least 56 units high.",
+    "378x655-normal: compact initial turn, rank, and claim rectangles are fully contained.",
+    "378x655-normal: compact decorative content is hidden.",
+    "candidate/378x691-normal: recorded frames 2, 4, 8, 12 present.",
+    "candidate/378x691-normal: control/scroll geometry stable across the recorded settled frames.",
+    "candidate/378x691-normal: concealed initial state has no private faces, labels, or selection.",
+    "378x691-normal: initial scroll is zero.",
+    "378x691-normal: whole normal-text initial Reveal is enabled, visible, and at least 56 units high.",
+    "378x691-normal: compact initial turn, rank, and claim rectangles are fully contained.",
+    "378x691-normal: compact decorative content is hidden.",
+    "candidate/320x568-normal: recorded frames 2, 4, 8, 12 present.",
+    "candidate/320x568-normal: control/scroll geometry stable across the recorded settled frames.",
+    "candidate/320x568-normal: concealed initial state has no private faces, labels, or selection.",
+    "320x568-normal: initial scroll is zero.",
+    "320x568-normal: whole normal-text initial Reveal is enabled, visible, and at least 56 units high.",
+    "320x568-normal: compact initial turn, rank, and claim rectangles are fully contained.",
+    "320x568-normal: compact decorative content is hidden.",
+    "candidate/320x740-normal: recorded frames 2, 4, 8, 12 present.",
+    "candidate/320x740-normal: control/scroll geometry stable across the recorded settled frames.",
+    "candidate/320x740-normal: concealed initial state has no private faces, labels, or selection.",
+    "320x740-normal: initial scroll is zero.",
+    "320x740-normal: whole normal-text initial Reveal is enabled, visible, and at least 56 units high.",
+    "320x740-normal: compact initial turn, rank, and claim rectangles are fully contained.",
+    "320x740-normal: compact decorative content is hidden.",
+    "candidate/390x844-normal: recorded frames 2, 4, 8, 12 present.",
+    "candidate/390x844-normal: control/scroll geometry stable across the recorded settled frames.",
+    "candidate/390x844-normal: concealed initial state has no private faces, labels, or selection.",
+    "390x844-normal: initial scroll is zero.",
+    "390x844-normal: whole normal-text initial Reveal is enabled, visible, and at least 56 units high.",
+    "390x844-normal: comparison control/scroll geometry remains unchanged.",
+    "candidate/430x932-normal: recorded frames 2, 4, 8, 12 present.",
+    "candidate/430x932-normal: control/scroll geometry stable across the recorded settled frames.",
+    "candidate/430x932-normal: concealed initial state has no private faces, labels, or selection.",
+    "430x932-normal: initial scroll is zero.",
+    "430x932-normal: whole normal-text initial Reveal is enabled, visible, and at least 56 units high.",
+    "430x932-normal: comparison control/scroll geometry remains unchanged.",
+    "candidate/844x390-normal: recorded frames 2, 4, 8, 12 present.",
+    "candidate/844x390-normal: control/scroll geometry stable across the recorded settled frames.",
+    "candidate/844x390-normal: concealed initial state has no private faces, labels, or selection.",
+    "844x390-normal: initial scroll is zero.",
+    "844x390-normal: whole normal-text initial Reveal is enabled, visible, and at least 56 units high.",
+    "844x390-normal: comparison control/scroll geometry remains unchanged.",
+    "candidate/900x740-normal: recorded frames 2, 4, 8, 12 present.",
+    "candidate/900x740-normal: control/scroll geometry stable across the recorded settled frames.",
+    "candidate/900x740-normal: concealed initial state has no private faces, labels, or selection.",
+    "900x740-normal: initial scroll is zero.",
+    "900x740-normal: whole normal-text initial Reveal is enabled, visible, and at least 56 units high.",
+    "900x740-normal: comparison control/scroll geometry remains unchanged.",
+    "candidate/1280x800-normal: recorded frames 2, 4, 8, 12 present.",
+    "candidate/1280x800-normal: control/scroll geometry stable across the recorded settled frames.",
+    "candidate/1280x800-normal: concealed initial state has no private faces, labels, or selection.",
+    "1280x800-normal: initial scroll is zero.",
+    "1280x800-normal: whole normal-text initial Reveal is enabled, visible, and at least 56 units high.",
+    "1280x800-normal: comparison control/scroll geometry remains unchanged.",
+    "candidate/378x655-200: recorded frames 2, 4, 8, 12 present.",
+    "candidate/378x655-200: control/scroll geometry stable across the recorded settled frames.",
+    "candidate/378x655-200: concealed initial state has no private faces, labels, or selection.",
+    "378x655-200: initial scroll is zero.",
+    "378x655-200: comparison control/scroll geometry remains unchanged.",
+    "candidate/320x568-200: recorded frames 2, 4, 8, 12 present.",
+    "candidate/320x568-200: control/scroll geometry stable across the recorded settled frames.",
+    "candidate/320x568-200: concealed initial state has no private faces, labels, or selection.",
+    "320x568-200: initial scroll is zero.",
+    "320x568-200: comparison control/scroll geometry remains unchanged.",
+    "candidate/320x740-200: recorded frames 2, 4, 8, 12 present.",
+    "candidate/320x740-200: control/scroll geometry stable across the recorded settled frames.",
+    "candidate/320x740-200: concealed initial state has no private faces, labels, or selection.",
+    "320x740-200: initial scroll is zero.",
+    "320x740-200: comparison control/scroll geometry remains unchanged.",
+    "candidate/844x390-200: recorded frames 2, 4, 8, 12 present.",
+    "candidate/844x390-200: control/scroll geometry stable across the recorded settled frames.",
+    "candidate/844x390-200: concealed initial state has no private faces, labels, or selection.",
+    "844x390-200: initial scroll is zero.",
+    "844x390-200: comparison control/scroll geometry remains unchanged.",
+    "candidate-wrapping/320x568-opponent-duplicate-24chars: recorded frames 2, 4, 8, 12 present.",
+    "candidate-wrapping/320x568-opponent-duplicate-24chars: control/scroll geometry stable across the recorded settled frames.",
+    "candidate-wrapping/320x568-opponent-duplicate-24chars: concealed initial state has no private faces, labels, or selection.",
+    "320x568-opponent-duplicate-24chars: initial scroll is zero.",
+    "320x568-opponent-duplicate-24chars: whole normal-text initial Reveal is enabled, visible, and at least 56 units high.",
+    "320x568-opponent-duplicate-24chars: compact initial turn, rank, and claim rectangles are fully contained.",
+    "320x568-opponent-duplicate-24chars: compact decorative content is hidden.",
+    "320x568-opponent-duplicate-24chars: duplicate-name fixture is 24 characters.",
+    "320x568-opponent-duplicate-24chars: opponent turn retains duplicate-name seat disambiguation.",
+    "candidate-wrapping/320x568-latest-claim-duplicate-24chars: recorded frames 2, 4, 8, 12 present.",
+    "candidate-wrapping/320x568-latest-claim-duplicate-24chars: control/scroll geometry stable across the recorded settled frames.",
+    "candidate-wrapping/320x568-latest-claim-duplicate-24chars: concealed initial state has no private faces, labels, or selection.",
+    "320x568-latest-claim-duplicate-24chars: initial scroll is zero.",
+    "320x568-latest-claim-duplicate-24chars: whole normal-text initial Reveal is enabled, visible, and at least 56 units high.",
+    "320x568-latest-claim-duplicate-24chars: compact initial turn, rank, and claim rectangles are fully contained.",
+    "320x568-latest-claim-duplicate-24chars: compact decorative content is hidden.",
+    "320x568-latest-claim-duplicate-24chars: duplicate-name fixture is 24 characters.",
+    "320x568-latest-claim-duplicate-24chars: latest claim retains actor, seat, count, and rank.",
+    "candidate-wrapping/378x655-opponent-duplicate-24chars: recorded frames 2, 4, 8, 12 present.",
+    "candidate-wrapping/378x655-opponent-duplicate-24chars: control/scroll geometry stable across the recorded settled frames.",
+    "candidate-wrapping/378x655-opponent-duplicate-24chars: concealed initial state has no private faces, labels, or selection.",
+    "378x655-opponent-duplicate-24chars: initial scroll is zero.",
+    "378x655-opponent-duplicate-24chars: whole normal-text initial Reveal is enabled, visible, and at least 56 units high.",
+    "378x655-opponent-duplicate-24chars: compact initial turn, rank, and claim rectangles are fully contained.",
+    "378x655-opponent-duplicate-24chars: compact decorative content is hidden.",
+    "378x655-opponent-duplicate-24chars: duplicate-name fixture is 24 characters.",
+    "378x655-opponent-duplicate-24chars: opponent turn retains duplicate-name seat disambiguation.",
+    "candidate-wrapping/378x655-latest-claim-duplicate-24chars: recorded frames 2, 4, 8, 12 present.",
+    "candidate-wrapping/378x655-latest-claim-duplicate-24chars: control/scroll geometry stable across the recorded settled frames.",
+    "candidate-wrapping/378x655-latest-claim-duplicate-24chars: concealed initial state has no private faces, labels, or selection.",
+    "378x655-latest-claim-duplicate-24chars: initial scroll is zero.",
+    "378x655-latest-claim-duplicate-24chars: whole normal-text initial Reveal is enabled, visible, and at least 56 units high.",
+    "378x655-latest-claim-duplicate-24chars: compact initial turn, rank, and claim rectangles are fully contained.",
+    "378x655-latest-claim-duplicate-24chars: compact decorative content is hidden.",
+    "378x655-latest-claim-duplicate-24chars: duplicate-name fixture is 24 characters.",
+    "378x655-latest-claim-duplicate-24chars: latest claim retains actor, seat, count, and rank.",
+    "candidate-wrapping/378x691-opponent-duplicate-24chars: recorded frames 2, 4, 8, 12 present.",
+    "candidate-wrapping/378x691-opponent-duplicate-24chars: control/scroll geometry stable across the recorded settled frames.",
+    "candidate-wrapping/378x691-opponent-duplicate-24chars: concealed initial state has no private faces, labels, or selection.",
+    "378x691-opponent-duplicate-24chars: initial scroll is zero.",
+    "378x691-opponent-duplicate-24chars: whole normal-text initial Reveal is enabled, visible, and at least 56 units high.",
+    "378x691-opponent-duplicate-24chars: compact initial turn, rank, and claim rectangles are fully contained.",
+    "378x691-opponent-duplicate-24chars: compact decorative content is hidden.",
+    "378x691-opponent-duplicate-24chars: duplicate-name fixture is 24 characters.",
+    "378x691-opponent-duplicate-24chars: opponent turn retains duplicate-name seat disambiguation.",
+    "candidate-wrapping/378x691-latest-claim-duplicate-24chars: recorded frames 2, 4, 8, 12 present.",
+    "candidate-wrapping/378x691-latest-claim-duplicate-24chars: control/scroll geometry stable across the recorded settled frames.",
+    "candidate-wrapping/378x691-latest-claim-duplicate-24chars: concealed initial state has no private faces, labels, or selection.",
+    "378x691-latest-claim-duplicate-24chars: initial scroll is zero.",
+    "378x691-latest-claim-duplicate-24chars: whole normal-text initial Reveal is enabled, visible, and at least 56 units high.",
+    "378x691-latest-claim-duplicate-24chars: compact initial turn, rank, and claim rectangles are fully contained.",
+    "378x691-latest-claim-duplicate-24chars: compact decorative content is hidden.",
+    "378x691-latest-claim-duplicate-24chars: duplicate-name fixture is 24 characters.",
+    "378x691-latest-claim-duplicate-24chars: latest claim retains actor, seat, count, and rank.",
+    "candidate-wrapping/430x740-opponent-duplicate-24chars: recorded frames 2, 4, 8, 12 present.",
+    "candidate-wrapping/430x740-opponent-duplicate-24chars: control/scroll geometry stable across the recorded settled frames.",
+    "candidate-wrapping/430x740-opponent-duplicate-24chars: concealed initial state has no private faces, labels, or selection.",
+    "430x740-opponent-duplicate-24chars: initial scroll is zero.",
+    "430x740-opponent-duplicate-24chars: whole normal-text initial Reveal is enabled, visible, and at least 56 units high.",
+    "430x740-opponent-duplicate-24chars: compact initial turn, rank, and claim rectangles are fully contained.",
+    "430x740-opponent-duplicate-24chars: compact decorative content is hidden.",
+    "430x740-opponent-duplicate-24chars: duplicate-name fixture is 24 characters.",
+    "430x740-opponent-duplicate-24chars: opponent turn retains duplicate-name seat disambiguation.",
+    "candidate-wrapping/430x740-latest-claim-duplicate-24chars: recorded frames 2, 4, 8, 12 present.",
+    "candidate-wrapping/430x740-latest-claim-duplicate-24chars: control/scroll geometry stable across the recorded settled frames.",
+    "candidate-wrapping/430x740-latest-claim-duplicate-24chars: concealed initial state has no private faces, labels, or selection.",
+    "430x740-latest-claim-duplicate-24chars: initial scroll is zero.",
+    "430x740-latest-claim-duplicate-24chars: whole normal-text initial Reveal is enabled, visible, and at least 56 units high.",
+    "430x740-latest-claim-duplicate-24chars: compact initial turn, rank, and claim rectangles are fully contained.",
+    "430x740-latest-claim-duplicate-24chars: compact decorative content is hidden.",
+    "430x740-latest-claim-duplicate-24chars: duplicate-name fixture is 24 characters.",
+    "430x740-latest-claim-duplicate-24chars: latest claim retains actor, seat, count, and rank.",
+    "candidate-wrapping/320x568-opponent-and-latest-claim-duplicate-24chars: recorded frames 2, 4, 8, 12 present.",
+    "candidate-wrapping/320x568-opponent-and-latest-claim-duplicate-24chars: control/scroll geometry stable across the recorded settled frames.",
+    "candidate-wrapping/320x568-opponent-and-latest-claim-duplicate-24chars: concealed initial state has no private faces, labels, or selection.",
+    "320x568-opponent-and-latest-claim-duplicate-24chars: initial scroll is zero.",
+    "320x568-opponent-and-latest-claim-duplicate-24chars: whole normal-text initial Reveal is enabled, visible, and at least 56 units high.",
+    "320x568-opponent-and-latest-claim-duplicate-24chars: compact initial turn, rank, and claim rectangles are fully contained.",
+    "320x568-opponent-and-latest-claim-duplicate-24chars: compact decorative content is hidden.",
+    "320x568-opponent-and-latest-claim-duplicate-24chars: duplicate-name fixture is 24 characters.",
+    "320x568-opponent-and-latest-claim-duplicate-24chars: opponent turn retains duplicate-name seat disambiguation.",
+    "320x568-opponent-and-latest-claim-duplicate-24chars: latest claim retains actor, seat, count, and rank.",
+    "source-input-320x568-text-1: source fixture execution reports success.",
+    "source-input-320x568-text-1: declared execution hash matches godot",
+    "source-input-320x568-text-1: declared execution hash matches layout-launch-2d.json",
+    "source-input-320x568-text-1: declared execution hash matches scene_check.gd",
+    "source-input-320x568-text-1: declared execution hash matches table.gd",
+    "source-input-320x568-text-1: declared execution hash matches 01-concealed.json",
+    "source-input-320x568-text-1: declared execution hash matches 01-concealed.png",
+    "source-input-320x568-text-1: declared execution hash matches 02-revealed-selected.json",
+    "source-input-320x568-text-1: declared execution hash matches 02-revealed-selected.png",
+    "source-input-320x568-text-1: declared execution hash matches 03-covered-again.json",
+    "source-input-320x568-text-1: declared execution hash matches 03-covered-again.png",
+    "source-input-320x568-text-1: declared execution hash matches 04-resumed-covered.json",
+    "source-input-320x568-text-1: declared execution hash matches 04-resumed-covered.png",
+    "source-input-320x568-text-1: declared execution hash matches process.log",
+    "source-input-320x568-text-1: declared execution hash matches report.json",
+    "source-input-320x568-text-1: four capture/diagnostic observations are present.",
+    "source-input-320x568-text-1: capture diagnostics match report 1",
+    "source-input-320x568-text-1: recorded capture privacy/selection state 1",
+    "source-input-320x568-text-1: capture diagnostics match report 2",
+    "source-input-320x568-text-1: recorded capture privacy/selection state 2",
+    "source-input-320x568-text-1: capture diagnostics match report 3",
+    "source-input-320x568-text-1: recorded capture privacy/selection state 3",
+    "source-input-320x568-text-1: capture diagnostics match report 4",
+    "source-input-320x568-text-1: recorded capture privacy/selection state 4",
+    "source-input-320x568-text-1: source page drag scrolls without revealing.",
+    "source-input-320x568-text-1: source hand drag scrolls without selection.",
+    "source-input-320x568-text-1: small-motion source tap selects without scrolling.",
+    "source-input-320x568-text-2: source fixture execution reports success.",
+    "source-input-320x568-text-2: declared execution hash matches godot",
+    "source-input-320x568-text-2: declared execution hash matches layout-launch-2d.json",
+    "source-input-320x568-text-2: declared execution hash matches scene_check.gd",
+    "source-input-320x568-text-2: declared execution hash matches table.gd",
+    "source-input-320x568-text-2: declared execution hash matches 01-concealed.json",
+    "source-input-320x568-text-2: declared execution hash matches 01-concealed.png",
+    "source-input-320x568-text-2: declared execution hash matches 02-revealed-selected.json",
+    "source-input-320x568-text-2: declared execution hash matches 02-revealed-selected.png",
+    "source-input-320x568-text-2: declared execution hash matches 03-covered-again.json",
+    "source-input-320x568-text-2: declared execution hash matches 03-covered-again.png",
+    "source-input-320x568-text-2: declared execution hash matches 04-resumed-covered.json",
+    "source-input-320x568-text-2: declared execution hash matches 04-resumed-covered.png",
+    "source-input-320x568-text-2: declared execution hash matches process.log",
+    "source-input-320x568-text-2: declared execution hash matches report.json",
+    "source-input-320x568-text-2: four capture/diagnostic observations are present.",
+    "source-input-320x568-text-2: capture diagnostics match report 1",
+    "source-input-320x568-text-2: recorded capture privacy/selection state 1",
+    "source-input-320x568-text-2: capture diagnostics match report 2",
+    "source-input-320x568-text-2: recorded capture privacy/selection state 2",
+    "source-input-320x568-text-2: capture diagnostics match report 3",
+    "source-input-320x568-text-2: recorded capture privacy/selection state 3",
+    "source-input-320x568-text-2: capture diagnostics match report 4",
+    "source-input-320x568-text-2: recorded capture privacy/selection state 4",
+    "source-input-320x568-text-2: source page drag scrolls without revealing.",
+    "source-input-320x568-text-2: source hand drag scrolls without selection.",
+    "source-input-320x568-text-2: small-motion source tap selects without scrolling.",
+    "source-input-378x655-text-1: source fixture execution reports success.",
+    "source-input-378x655-text-1: declared execution hash matches godot",
+    "source-input-378x655-text-1: declared execution hash matches layout-launch-2d.json",
+    "source-input-378x655-text-1: declared execution hash matches scene_check.gd",
+    "source-input-378x655-text-1: declared execution hash matches table.gd",
+    "source-input-378x655-text-1: declared execution hash matches 01-concealed.json",
+    "source-input-378x655-text-1: declared execution hash matches 01-concealed.png",
+    "source-input-378x655-text-1: declared execution hash matches 02-revealed-selected.json",
+    "source-input-378x655-text-1: declared execution hash matches 02-revealed-selected.png",
+    "source-input-378x655-text-1: declared execution hash matches 03-covered-again.json",
+    "source-input-378x655-text-1: declared execution hash matches 03-covered-again.png",
+    "source-input-378x655-text-1: declared execution hash matches 04-resumed-covered.json",
+    "source-input-378x655-text-1: declared execution hash matches 04-resumed-covered.png",
+    "source-input-378x655-text-1: declared execution hash matches process.log",
+    "source-input-378x655-text-1: declared execution hash matches report.json",
+    "source-input-378x655-text-1: four capture/diagnostic observations are present.",
+    "source-input-378x655-text-1: capture diagnostics match report 1",
+    "source-input-378x655-text-1: recorded capture privacy/selection state 1",
+    "source-input-378x655-text-1: capture diagnostics match report 2",
+    "source-input-378x655-text-1: recorded capture privacy/selection state 2",
+    "source-input-378x655-text-1: capture diagnostics match report 3",
+    "source-input-378x655-text-1: recorded capture privacy/selection state 3",
+    "source-input-378x655-text-1: capture diagnostics match report 4",
+    "source-input-378x655-text-1: recorded capture privacy/selection state 4",
+    "source-input-378x655-text-1: source page drag scrolls without revealing.",
+    "source-input-378x655-text-1: source hand drag scrolls without selection.",
+    "source-input-378x655-text-1: small-motion source tap selects without scrolling.",
+    "Pinned upstream container source exact bytes: scroll_container.cpp",
+    "Pinned upstream container source exact bytes: box_container.cpp",
+    "Pinned upstream container source exact bytes: panel_container.cpp"
+  ],
+  "failures": [],
+  "geometryInputs": [
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/baseline-layout.json",
+      "bytes": 560327,
+      "sha256": "7da8b340eaf9be9c237e32558bacc5f7a048f901a20f0b60a1edf4df2a31646f"
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/candidate-v2-layout.json",
+      "bytes": 560110,
+      "sha256": "89c84d0c21a672d5afc75860145761188c8f93fb35af94fdadd3eb6404be443b"
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/candidate-v2-wrap-layout.json",
+      "bytes": 386818,
+      "sha256": "e2c9fe14057a2bda76af4faee504eb5a708158c75eb672d755b562c26401493a"
+    }
+  ],
+  "geometryCases": [
+    {
+      "case": "378x655-normal",
+      "dataset": "candidate",
+      "compact": true,
+      "baselineReveal": [
+        32.0,
+        514.0,
+        306.0,
+        56.0
+      ],
+      "candidateReveal": [
+        32.0,
+        301.0,
+        306.0,
+        56.0
+      ],
+      "clipRect": [
+        16.0,
+        118.0,
+        346.0,
+        391.0
+      ],
+      "initialScroll": 0,
+      "fullyContained": true,
+      "bottomClearance": 152.0,
+      "comparisonUnchanged": null,
+      "publicContext": {
+        "_turn": {
+          "rect": [
+            16.0,
+            80.0,
+            346.0,
+            26.0
+          ],
+          "text": "Your turn · claim Crowns.",
+          "visible": true
+        },
+        "_rank": {
+          "rect": [
+            16.0,
+            142.0,
+            338.0,
+            53.0
+          ],
+          "text": "Crown",
+          "visible": true
+        },
+        "_claim": {
+          "rect": [
+            16.0,
+            201.0,
+            338.0,
+            26.0
+          ],
+          "text": "A fresh round. Who do you trust?",
+          "visible": true
+        }
+      }
+    },
+    {
+      "case": "378x691-normal",
+      "dataset": "candidate",
+      "compact": true,
+      "baselineReveal": [
+        32.0,
+        514.0,
+        306.0,
+        56.0
+      ],
+      "candidateReveal": [
+        32.0,
+        301.0,
+        306.0,
+        56.0
+      ],
+      "clipRect": [
+        16.0,
+        118.0,
+        346.0,
+        427.0
+      ],
+      "initialScroll": 0,
+      "fullyContained": true,
+      "bottomClearance": 188.0,
+      "comparisonUnchanged": null,
+      "publicContext": {
+        "_turn": {
+          "rect": [
+            16.0,
+            80.0,
+            346.0,
+            26.0
+          ],
+          "text": "Your turn · claim Crowns.",
+          "visible": true
+        },
+        "_rank": {
+          "rect": [
+            16.0,
+            142.0,
+            338.0,
+            53.0
+          ],
+          "text": "Crown",
+          "visible": true
+        },
+        "_claim": {
+          "rect": [
+            16.0,
+            201.0,
+            338.0,
+            26.0
+          ],
+          "text": "A fresh round. Who do you trust?",
+          "visible": true
+        }
+      }
+    },
+    {
+      "case": "320x568-normal",
+      "dataset": "candidate",
+      "compact": true,
+      "baselineReveal": [
+        32.0,
+        546.0,
+        248.0,
+        56.0
+      ],
+      "candidateReveal": [
+        32.0,
+        301.0,
+        248.0,
+        56.0
+      ],
+      "clipRect": [
+        16.0,
+        118.0,
+        288.0,
+        304.0
+      ],
+      "initialScroll": 0,
+      "fullyContained": true,
+      "bottomClearance": 65.0,
+      "comparisonUnchanged": null,
+      "publicContext": {
+        "_turn": {
+          "rect": [
+            16.0,
+            80.0,
+            288.0,
+            26.0
+          ],
+          "text": "Your turn · claim Crowns.",
+          "visible": true
+        },
+        "_rank": {
+          "rect": [
+            16.0,
+            142.0,
+            280.0,
+            53.0
+          ],
+          "text": "Crown",
+          "visible": true
+        },
+        "_claim": {
+          "rect": [
+            16.0,
+            201.0,
+            280.0,
+            26.0
+          ],
+          "text": "A fresh round. Who do you trust?",
+          "visible": true
+        }
+      }
+    },
+    {
+      "case": "320x740-normal",
+      "dataset": "candidate",
+      "compact": true,
+      "baselineReveal": [
+        32.0,
+        546.0,
+        248.0,
+        56.0
+      ],
+      "candidateReveal": [
+        32.0,
+        301.0,
+        248.0,
+        56.0
+      ],
+      "clipRect": [
+        16.0,
+        118.0,
+        288.0,
+        476.0
+      ],
+      "initialScroll": 0,
+      "fullyContained": true,
+      "bottomClearance": 237.0,
+      "comparisonUnchanged": null,
+      "publicContext": {
+        "_turn": {
+          "rect": [
+            16.0,
+            80.0,
+            288.0,
+            26.0
+          ],
+          "text": "Your turn · claim Crowns.",
+          "visible": true
+        },
+        "_rank": {
+          "rect": [
+            16.0,
+            142.0,
+            280.0,
+            53.0
+          ],
+          "text": "Crown",
+          "visible": true
+        },
+        "_claim": {
+          "rect": [
+            16.0,
+            201.0,
+            280.0,
+            26.0
+          ],
+          "text": "A fresh round. Who do you trust?",
+          "visible": true
+        }
+      }
+    },
+    {
+      "case": "390x844-normal",
+      "dataset": "candidate",
+      "compact": false,
+      "baselineReveal": [
+        32.0,
+        528.0,
+        318.0,
+        56.0
+      ],
+      "candidateReveal": [
+        32.0,
+        528.0,
+        318.0,
+        56.0
+      ],
+      "clipRect": [
+        16.0,
+        118.0,
+        358.0,
+        580.0
+      ],
+      "initialScroll": 0,
+      "fullyContained": true,
+      "bottomClearance": 114.0,
+      "comparisonUnchanged": true,
+      "publicContext": {
+        "_turn": {
+          "rect": [
+            16.0,
+            80.0,
+            358.0,
+            26.0
+          ],
+          "text": "Your turn · claim Crowns.",
+          "visible": true
+        },
+        "_rank": {
+          "rect": [
+            16.0,
+            142.0,
+            350.0,
+            53.0
+          ],
+          "text": "Crown",
+          "visible": true
+        },
+        "_claim": {
+          "rect": [
+            16.0,
+            355.0,
+            350.0,
+            26.0
+          ],
+          "text": "A fresh round. Who do you trust?",
+          "visible": true
+        }
+      }
+    },
+    {
+      "case": "430x932-normal",
+      "dataset": "candidate",
+      "compact": false,
+      "baselineReveal": [
+        128.0,
+        586.0,
+        262.0,
+        56.0
+      ],
+      "candidateReveal": [
+        128.0,
+        586.0,
+        262.0,
+        56.0
+      ],
+      "clipRect": [
+        16.0,
+        118.0,
+        398.0,
+        668.0
+      ],
+      "initialScroll": 0,
+      "fullyContained": true,
+      "bottomClearance": 144.0,
+      "comparisonUnchanged": true,
+      "publicContext": {
+        "_turn": {
+          "rect": [
+            16.0,
+            80.0,
+            398.0,
+            26.0
+          ],
+          "text": "Your turn · claim Crowns.",
+          "visible": true
+        },
+        "_rank": {
+          "rect": [
+            16.0,
+            142.0,
+            390.0,
+            53.0
+          ],
+          "text": "Crown",
+          "visible": true
+        },
+        "_claim": {
+          "rect": [
+            16.0,
+            355.0,
+            390.0,
+            26.0
+          ],
+          "text": "A fresh round. Who do you trust?",
+          "visible": true
+        }
+      }
+    },
+    {
+      "case": "844x390-normal",
+      "dataset": "candidate",
+      "compact": false,
+      "baselineReveal": [
+        128.0,
+        194.0,
+        676.0,
+        56.0
+      ],
+      "candidateReveal": [
+        128.0,
+        194.0,
+        676.0,
+        56.0
+      ],
+      "clipRect": [
+        16.0,
+        114.0,
+        812.0,
+        200.0
+      ],
+      "initialScroll": 0,
+      "fullyContained": true,
+      "bottomClearance": 64.0,
+      "comparisonUnchanged": true,
+      "publicContext": {
+        "_turn": {
+          "rect": [
+            16.0,
+            76.0,
+            812.0,
+            26.0
+          ],
+          "text": "Your turn · Crown table",
+          "visible": true
+        },
+        "_rank": {
+          "rect": [
+            16.0,
+            311.0,
+            804.0,
+            53.0
+          ],
+          "text": "Crown",
+          "visible": true
+        },
+        "_claim": {
+          "rect": [
+            16.0,
+            512.0,
+            804.0,
+            26.0
+          ],
+          "text": "A fresh round. Who do you trust?",
+          "visible": true
+        }
+      }
+    },
+    {
+      "case": "900x740-normal",
+      "dataset": "candidate",
+      "compact": false,
+      "baselineReveal": [
+        140.0,
+        530.0,
+        716.0,
+        56.0
+      ],
+      "candidateReveal": [
+        140.0,
+        530.0,
+        716.0,
+        56.0
+      ],
+      "clipRect": [
+        28.0,
+        118.0,
+        844.0,
+        542.0
+      ],
+      "initialScroll": 0,
+      "fullyContained": true,
+      "bottomClearance": 74.0,
+      "comparisonUnchanged": true,
+      "publicContext": {
+        "_turn": {
+          "rect": [
+            28.0,
+            80.0,
+            844.0,
+            26.0
+          ],
+          "text": "Your turn · claim Crowns.",
+          "visible": true
+        },
+        "_rank": {
+          "rect": [
+            28.0,
+            142.0,
+            490.0,
+            67.0
+          ],
+          "text": "Crown",
+          "visible": true
+        },
+        "_claim": {
+          "rect": [
+            28.0,
+            373.0,
+            490.0,
+            26.0
+          ],
+          "text": "A fresh round. Who do you trust?",
+          "visible": true
+        }
+      }
+    },
+    {
+      "case": "1280x800-normal",
+      "dataset": "candidate",
+      "compact": false,
+      "baselineReveal": [
+        140.0,
+        546.0,
+        1096.0,
+        56.0
+      ],
+      "candidateReveal": [
+        140.0,
+        546.0,
+        1096.0,
+        56.0
+      ],
+      "clipRect": [
+        28.0,
+        118.0,
+        1224.0,
+        602.0
+      ],
+      "initialScroll": 0,
+      "fullyContained": true,
+      "bottomClearance": 118.0,
+      "comparisonUnchanged": true,
+      "publicContext": {
+        "_turn": {
+          "rect": [
+            28.0,
+            80.0,
+            1224.0,
+            26.0
+          ],
+          "text": "Your turn · claim Crowns.",
+          "visible": true
+        },
+        "_rank": {
+          "rect": [
+            28.0,
+            142.0,
+            870.0,
+            67.0
+          ],
+          "text": "Crown",
+          "visible": true
+        },
+        "_claim": {
+          "rect": [
+            28.0,
+            373.0,
+            870.0,
+            26.0
+          ],
+          "text": "A fresh round. Who do you trust?",
+          "visible": true
+        }
+      }
+    },
+    {
+      "case": "378x655-200",
+      "dataset": "candidate",
+      "compact": false,
+      "baselineReveal": [
+        32.0,
+        529.0,
+        306.0,
+        72.0
+      ],
+      "candidateReveal": [
+        32.0,
+        529.0,
+        306.0,
+        72.0
+      ],
+      "clipRect": [
+        16.0,
+        211.0,
+        346.0,
+        432.0
+      ],
+      "initialScroll": 0,
+      "fullyContained": true,
+      "bottomClearance": 42.0,
+      "comparisonUnchanged": true,
+      "publicContext": {
+        "_turn": {
+          "rect": [
+            16.0,
+            96.0,
+            346.0,
+            103.0
+          ],
+          "text": "Your turn · claim Crowns.",
+          "visible": true
+        },
+        "_rank": {
+          "rect": [
+            16.0,
+            253.0,
+            338.0,
+            70.0
+          ],
+          "text": "Crown",
+          "visible": true
+        },
+        "_claim": {
+          "rect": [
+            16.0,
+            211.0,
+            1.0,
+            1428.0
+          ],
+          "text": "A fresh round. Who do you trust?",
+          "visible": false
+        }
+      }
+    },
+    {
+      "case": "320x568-200",
+      "dataset": "candidate",
+      "compact": false,
+      "baselineReveal": [
+        32.0,
+        529.0,
+        248.0,
+        120.0
+      ],
+      "candidateReveal": [
+        32.0,
+        529.0,
+        248.0,
+        120.0
+      ],
+      "clipRect": [
+        16.0,
+        211.0,
+        288.0,
+        345.0
+      ],
+      "initialScroll": 0,
+      "fullyContained": false,
+      "bottomClearance": -93.0,
+      "comparisonUnchanged": true,
+      "publicContext": {
+        "_turn": {
+          "rect": [
+            16.0,
+            96.0,
+            288.0,
+            103.0
+          ],
+          "text": "Your turn · claim Crowns.",
+          "visible": true
+        },
+        "_rank": {
+          "rect": [
+            16.0,
+            253.0,
+            280.0,
+            70.0
+          ],
+          "text": "Crown",
+          "visible": true
+        },
+        "_claim": {
+          "rect": [
+            16.0,
+            211.0,
+            1.0,
+            1428.0
+          ],
+          "text": "A fresh round. Who do you trust?",
+          "visible": false
+        }
+      }
+    },
+    {
+      "case": "320x740-200",
+      "dataset": "candidate",
+      "compact": false,
+      "baselineReveal": [
+        32.0,
+        529.0,
+        248.0,
+        120.0
+      ],
+      "candidateReveal": [
+        32.0,
+        529.0,
+        248.0,
+        120.0
+      ],
+      "clipRect": [
+        16.0,
+        211.0,
+        288.0,
+        517.0
+      ],
+      "initialScroll": 0,
+      "fullyContained": true,
+      "bottomClearance": 79.0,
+      "comparisonUnchanged": true,
+      "publicContext": {
+        "_turn": {
+          "rect": [
+            16.0,
+            96.0,
+            288.0,
+            103.0
+          ],
+          "text": "Your turn · claim Crowns.",
+          "visible": true
+        },
+        "_rank": {
+          "rect": [
+            16.0,
+            253.0,
+            280.0,
+            70.0
+          ],
+          "text": "Crown",
+          "visible": true
+        },
+        "_claim": {
+          "rect": [
+            16.0,
+            211.0,
+            1.0,
+            1428.0
+          ],
+          "text": "A fresh round. Who do you trust?",
+          "visible": false
+        }
+      }
+    },
+    {
+      "case": "844x390-200",
+      "dataset": "candidate",
+      "compact": false,
+      "baselineReveal": [
+        32.0,
+        231.0,
+        772.0,
+        72.0
+      ],
+      "candidateReveal": [
+        32.0,
+        231.0,
+        772.0,
+        72.0
+      ],
+      "clipRect": [
+        16.0,
+        154.0,
+        812.0,
+        228.0
+      ],
+      "initialScroll": 0,
+      "fullyContained": true,
+      "bottomClearance": 79.0,
+      "comparisonUnchanged": true,
+      "publicContext": {
+        "_turn": {
+          "rect": [
+            16.0,
+            92.0,
+            812.0,
+            50.0
+          ],
+          "text": "Your turn · Crown table",
+          "visible": true
+        },
+        "_rank": {
+          "rect": [
+            16.0,
+            548.0,
+            804.0,
+            70.0
+          ],
+          "text": "Crown",
+          "visible": true
+        },
+        "_claim": {
+          "rect": [
+            16.0,
+            506.0,
+            1.0,
+            1428.0
+          ],
+          "text": "A fresh round. Who do you trust?",
+          "visible": false
+        }
+      }
+    },
+    {
+      "case": "320x568-opponent-duplicate-24chars",
+      "dataset": "candidate-wrapping",
+      "compact": true,
+      "baselineReveal": null,
+      "candidateReveal": [
+        32.0,
+        330.0,
+        248.0,
+        56.0
+      ],
+      "clipRect": [
+        16.0,
+        147.0,
+        288.0,
+        275.0
+      ],
+      "initialScroll": 0,
+      "fullyContained": true,
+      "bottomClearance": 36.0,
+      "comparisonUnchanged": null,
+      "publicContext": {
+        "_turn": {
+          "rect": [
+            16.0,
+            80.0,
+            288.0,
+            55.0
+          ],
+          "text": "Alexandria Montgomery II · seat 2 is up.",
+          "visible": true
+        },
+        "_rank": {
+          "rect": [
+            16.0,
+            171.0,
+            280.0,
+            53.0
+          ],
+          "text": "Crown",
+          "visible": true
+        },
+        "_claim": {
+          "rect": [
+            16.0,
+            230.0,
+            280.0,
+            26.0
+          ],
+          "text": "A fresh round. Who do you trust?",
+          "visible": true
+        }
+      }
+    },
+    {
+      "case": "320x568-latest-claim-duplicate-24chars",
+      "dataset": "candidate-wrapping",
+      "compact": true,
+      "baselineReveal": null,
+      "candidateReveal": [
+        32.0,
+        330.0,
+        248.0,
+        56.0
+      ],
+      "clipRect": [
+        16.0,
+        118.0,
+        288.0,
+        304.0
+      ],
+      "initialScroll": 0,
+      "fullyContained": true,
+      "bottomClearance": 36.0,
+      "comparisonUnchanged": null,
+      "publicContext": {
+        "_turn": {
+          "rect": [
+            16.0,
+            80.0,
+            288.0,
+            26.0
+          ],
+          "text": "Your turn · claim Crowns.",
+          "visible": true
+        },
+        "_rank": {
+          "rect": [
+            16.0,
+            142.0,
+            280.0,
+            53.0
+          ],
+          "text": "Crown",
+          "visible": true
+        },
+        "_claim": {
+          "rect": [
+            16.0,
+            201.0,
+            280.0,
+            55.0
+          ],
+          "text": "Alexandria Montgomery II · seat 2 claimed 3 Crowns.",
+          "visible": true
+        }
+      }
+    },
+    {
+      "case": "378x655-opponent-duplicate-24chars",
+      "dataset": "candidate-wrapping",
+      "compact": true,
+      "baselineReveal": null,
+      "candidateReveal": [
+        32.0,
+        301.0,
+        306.0,
+        56.0
+      ],
+      "clipRect": [
+        16.0,
+        118.0,
+        346.0,
+        391.0
+      ],
+      "initialScroll": 0,
+      "fullyContained": true,
+      "bottomClearance": 152.0,
+      "comparisonUnchanged": null,
+      "publicContext": {
+        "_turn": {
+          "rect": [
+            16.0,
+            80.0,
+            346.0,
+            26.0
+          ],
+          "text": "Alexandria Montgomery II · seat 2 is up.",
+          "visible": true
+        },
+        "_rank": {
+          "rect": [
+            16.0,
+            142.0,
+            338.0,
+            53.0
+          ],
+          "text": "Crown",
+          "visible": true
+        },
+        "_claim": {
+          "rect": [
+            16.0,
+            201.0,
+            338.0,
+            26.0
+          ],
+          "text": "A fresh round. Who do you trust?",
+          "visible": true
+        }
+      }
+    },
+    {
+      "case": "378x655-latest-claim-duplicate-24chars",
+      "dataset": "candidate-wrapping",
+      "compact": true,
+      "baselineReveal": null,
+      "candidateReveal": [
+        32.0,
+        330.0,
+        306.0,
+        56.0
+      ],
+      "clipRect": [
+        16.0,
+        118.0,
+        346.0,
+        391.0
+      ],
+      "initialScroll": 0,
+      "fullyContained": true,
+      "bottomClearance": 123.0,
+      "comparisonUnchanged": null,
+      "publicContext": {
+        "_turn": {
+          "rect": [
+            16.0,
+            80.0,
+            346.0,
+            26.0
+          ],
+          "text": "Your turn · claim Crowns.",
+          "visible": true
+        },
+        "_rank": {
+          "rect": [
+            16.0,
+            142.0,
+            338.0,
+            53.0
+          ],
+          "text": "Crown",
+          "visible": true
+        },
+        "_claim": {
+          "rect": [
+            16.0,
+            201.0,
+            338.0,
+            55.0
+          ],
+          "text": "Alexandria Montgomery II · seat 2 claimed 3 Crowns.",
+          "visible": true
+        }
+      }
+    },
+    {
+      "case": "378x691-opponent-duplicate-24chars",
+      "dataset": "candidate-wrapping",
+      "compact": true,
+      "baselineReveal": null,
+      "candidateReveal": [
+        32.0,
+        301.0,
+        306.0,
+        56.0
+      ],
+      "clipRect": [
+        16.0,
+        118.0,
+        346.0,
+        427.0
+      ],
+      "initialScroll": 0,
+      "fullyContained": true,
+      "bottomClearance": 188.0,
+      "comparisonUnchanged": null,
+      "publicContext": {
+        "_turn": {
+          "rect": [
+            16.0,
+            80.0,
+            346.0,
+            26.0
+          ],
+          "text": "Alexandria Montgomery II · seat 2 is up.",
+          "visible": true
+        },
+        "_rank": {
+          "rect": [
+            16.0,
+            142.0,
+            338.0,
+            53.0
+          ],
+          "text": "Crown",
+          "visible": true
+        },
+        "_claim": {
+          "rect": [
+            16.0,
+            201.0,
+            338.0,
+            26.0
+          ],
+          "text": "A fresh round. Who do you trust?",
+          "visible": true
+        }
+      }
+    },
+    {
+      "case": "378x691-latest-claim-duplicate-24chars",
+      "dataset": "candidate-wrapping",
+      "compact": true,
+      "baselineReveal": null,
+      "candidateReveal": [
+        32.0,
+        330.0,
+        306.0,
+        56.0
+      ],
+      "clipRect": [
+        16.0,
+        118.0,
+        346.0,
+        427.0
+      ],
+      "initialScroll": 0,
+      "fullyContained": true,
+      "bottomClearance": 159.0,
+      "comparisonUnchanged": null,
+      "publicContext": {
+        "_turn": {
+          "rect": [
+            16.0,
+            80.0,
+            346.0,
+            26.0
+          ],
+          "text": "Your turn · claim Crowns.",
+          "visible": true
+        },
+        "_rank": {
+          "rect": [
+            16.0,
+            142.0,
+            338.0,
+            53.0
+          ],
+          "text": "Crown",
+          "visible": true
+        },
+        "_claim": {
+          "rect": [
+            16.0,
+            201.0,
+            338.0,
+            55.0
+          ],
+          "text": "Alexandria Montgomery II · seat 2 claimed 3 Crowns.",
+          "visible": true
+        }
+      }
+    },
+    {
+      "case": "430x740-opponent-duplicate-24chars",
+      "dataset": "candidate-wrapping",
+      "compact": true,
+      "baselineReveal": null,
+      "candidateReveal": [
+        32.0,
+        301.0,
+        358.0,
+        56.0
+      ],
+      "clipRect": [
+        16.0,
+        118.0,
+        398.0,
+        476.0
+      ],
+      "initialScroll": 0,
+      "fullyContained": true,
+      "bottomClearance": 237.0,
+      "comparisonUnchanged": null,
+      "publicContext": {
+        "_turn": {
+          "rect": [
+            16.0,
+            80.0,
+            398.0,
+            26.0
+          ],
+          "text": "Alexandria Montgomery II · seat 2 is up.",
+          "visible": true
+        },
+        "_rank": {
+          "rect": [
+            16.0,
+            142.0,
+            390.0,
+            53.0
+          ],
+          "text": "Crown",
+          "visible": true
+        },
+        "_claim": {
+          "rect": [
+            16.0,
+            201.0,
+            390.0,
+            26.0
+          ],
+          "text": "A fresh round. Who do you trust?",
+          "visible": true
+        }
+      }
+    },
+    {
+      "case": "430x740-latest-claim-duplicate-24chars",
+      "dataset": "candidate-wrapping",
+      "compact": true,
+      "baselineReveal": null,
+      "candidateReveal": [
+        32.0,
+        330.0,
+        358.0,
+        56.0
+      ],
+      "clipRect": [
+        16.0,
+        118.0,
+        398.0,
+        476.0
+      ],
+      "initialScroll": 0,
+      "fullyContained": true,
+      "bottomClearance": 208.0,
+      "comparisonUnchanged": null,
+      "publicContext": {
+        "_turn": {
+          "rect": [
+            16.0,
+            80.0,
+            398.0,
+            26.0
+          ],
+          "text": "Your turn · claim Crowns.",
+          "visible": true
+        },
+        "_rank": {
+          "rect": [
+            16.0,
+            142.0,
+            390.0,
+            53.0
+          ],
+          "text": "Crown",
+          "visible": true
+        },
+        "_claim": {
+          "rect": [
+            16.0,
+            201.0,
+            390.0,
+            55.0
+          ],
+          "text": "Alexandria Montgomery II · seat 2 claimed 3 Crowns.",
+          "visible": true
+        }
+      }
+    },
+    {
+      "case": "320x568-opponent-and-latest-claim-duplicate-24chars",
+      "dataset": "candidate-wrapping",
+      "compact": true,
+      "baselineReveal": null,
+      "candidateReveal": [
+        32.0,
+        359.0,
+        248.0,
+        56.0
+      ],
+      "clipRect": [
+        16.0,
+        147.0,
+        288.0,
+        275.0
+      ],
+      "initialScroll": 0,
+      "fullyContained": true,
+      "bottomClearance": 7.0,
+      "comparisonUnchanged": null,
+      "publicContext": {
+        "_turn": {
+          "rect": [
+            16.0,
+            80.0,
+            288.0,
+            55.0
+          ],
+          "text": "Alexandria Montgomery II · seat 2 is up.",
+          "visible": true
+        },
+        "_rank": {
+          "rect": [
+            16.0,
+            171.0,
+            280.0,
+            53.0
+          ],
+          "text": "Crown",
+          "visible": true
+        },
+        "_claim": {
+          "rect": [
+            16.0,
+            230.0,
+            280.0,
+            55.0
+          ],
+          "text": "Alexandria Montgomery II · seat 2 claimed 3 Crowns.",
+          "visible": true
+        }
+      }
+    }
+  ],
+  "inputReports": [
+    {
+      "report": {
+        "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-1/report.json",
+        "bytes": 14054,
+        "sha256": "84ae9fdfa03d92b0aa6d9328eec1f2c98b9feb6b83e71d16709afcf52092837b"
+      },
+      "execution": {
+        "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-1/execution.json",
+        "bytes": 4053,
+        "sha256": "22830959ecb7cecd330cc85a2c4b32582511b3a42661aeb20eb4043fdc18b30f"
+      },
+      "pageDrag": {
+        "after": 229,
+        "before": 0,
+        "eventCount": 1,
+        "handVisible": false,
+        "input": "emulated-touch-page-drag"
+      },
+      "handDrag": {
+        "after": 288,
+        "before": 0,
+        "input": "emulated-touch-hand-drag",
+        "selectedCount": 0
+      },
+      "smallTap": {
+        "after": 0,
+        "before": 0,
+        "input": "emulated-touch-small-tap",
+        "selectedCount": 1
+      },
+      "originalPngs": [
+        "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-1/01-concealed.png",
+        "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-1/02-revealed-selected.png",
+        "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-1/03-covered-again.png",
+        "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-1/04-resumed-covered.png"
+      ],
+      "limits": "Mouse/touch-emulated Linux OpenGL input. Helpers call ensure_control_visible before interaction; no native acceptance or human discoverability finding."
+    },
+    {
+      "report": {
+        "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-2/report.json",
+        "bytes": 14113,
+        "sha256": "ac8c999c77fe46e394ee5b6e4416ab2e0ec5e4ea74b5a85e9ae41866cd322602"
+      },
+      "execution": {
+        "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-2/execution.json",
+        "bytes": 4053,
+        "sha256": "0aefa8ee928aaf169351e695e090c0306325858f5ce77f23c2da02122368ec61"
+      },
+      "pageDrag": {
+        "after": 377,
+        "before": 93,
+        "eventCount": 1,
+        "handVisible": false,
+        "input": "emulated-touch-page-drag"
+      },
+      "handDrag": {
+        "after": 528,
+        "before": 0,
+        "input": "emulated-touch-hand-drag",
+        "selectedCount": 0
+      },
+      "smallTap": {
+        "after": 0,
+        "before": 0,
+        "input": "emulated-touch-small-tap",
+        "selectedCount": 1
+      },
+      "originalPngs": [
+        "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-2/01-concealed.png",
+        "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-2/02-revealed-selected.png",
+        "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-2/03-covered-again.png",
+        "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-2/04-resumed-covered.png"
+      ],
+      "limits": "Mouse/touch-emulated Linux OpenGL input. Helpers call ensure_control_visible before interaction; no native acceptance or human discoverability finding."
+    },
+    {
+      "report": {
+        "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-378x655-text-1/report.json",
+        "bytes": 14051,
+        "sha256": "7777f1395df54a817b6b73dd95acf5c3b6940fe69dd009a92609851bab20bc14"
+      },
+      "execution": {
+        "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-378x655-text-1/execution.json",
+        "bytes": 4053,
+        "sha256": "b5ddefa1d95a3feaa1659378e5478a547d93331c041a1462a38a7c79ecbae73a"
+      },
+      "pageDrag": {
+        "after": 142,
+        "before": 0,
+        "eventCount": 1,
+        "handVisible": false,
+        "input": "emulated-touch-page-drag"
+      },
+      "handDrag": {
+        "after": 230,
+        "before": 0,
+        "input": "emulated-touch-hand-drag",
+        "selectedCount": 0
+      },
+      "smallTap": {
+        "after": 0,
+        "before": 0,
+        "input": "emulated-touch-small-tap",
+        "selectedCount": 1
+      },
+      "originalPngs": [
+        "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-378x655-text-1/01-concealed.png",
+        "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-378x655-text-1/02-revealed-selected.png",
+        "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-378x655-text-1/03-covered-again.png",
+        "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-378x655-text-1/04-resumed-covered.png"
+      ],
+      "limits": "Mouse/touch-emulated Linux OpenGL input. Helpers call ensure_control_visible before interaction; no native acceptance or human discoverability finding."
+    }
+  ],
+  "authoritativeSources": [
+    {
+      "path": "/root/projects/PartyDeck/godot/ios-host/build/upstream/scene/gui/scroll_container.cpp",
+      "bytes": 42052,
+      "sha256": "ed4e16ea3022b44503b09b854a9ddff57c8db384fde4748ddbc3ff708f8a5c1d",
+      "upstreamCommit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+      "readLineRanges": [
+        [
+          43,
+          97
+        ],
+        [
+          365,
+          441
+        ]
+      ]
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/ios-host/build/upstream/scene/gui/box_container.cpp",
+      "bytes": 13187,
+      "sha256": "46b3ac01582618ceb65c248b474187f857f0af22bbc1f745a234f5785b55cea6",
+      "upstreamCommit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+      "readLineRanges": [
+        [
+          45,
+          160
+        ],
+        [
+          291,
+          328
+        ]
+      ]
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/ios-host/build/upstream/scene/gui/panel_container.cpp",
+      "bytes": 4721,
+      "sha256": "8aaf9b7c1483bcbc233cfd1a6b4924ab8de43d309933eda51042e0a484ead56f",
+      "upstreamCommit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+      "readLineRanges": [
+        [
+          35,
+          51
+        ]
+      ]
+    }
+  ],
+  "limits": [
+    "Landscape/tablet conclusions are comparison geometry and unchanged source branches; no new landscape/tablet candidate PNGs were produced.",
+    "The 320x568 200% initial Reveal remains 93 units below full containment; helper scrolling precedes source input.",
+    "Nine wrapping cases cover the recorded Latin duplicate-name fixture only; they do not establish every locale, glyph, viewport, or accessibility condition.",
+    "PNG and diagnostic capture files are associated outputs; no native original PNG is uniquely paired to a same-frame measurement by this review."
+  ]
+}

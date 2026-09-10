@@ -1,0 +1,47 @@
+{
+  "reviewer": "/root/ui_game",
+  "viewMethod": "tools.view_image",
+  "detail": "original",
+  "recordedUtc": "2026-09-10T18:48:12.763Z",
+  "actualOriginalViews": 4,
+  "notes": [
+    {
+      "directViewOrder": 90,
+      "visibleState": "Portrait PartyDeck home with Last Light description, Host, Join, practice and How to play.",
+      "layout": "All main home text/actions fit and are legible; clear primary action and no visible clipping.",
+      "privacy": "No hand identities or invitation material visible.",
+      "findings": []
+    },
+    {
+      "directViewOrder": 91,
+      "visibleState": "Seascape standard public Star table, Your turn, round 1 and Orbit claims 2 Stars; system navigation is at the left.",
+      "layout": "Public title/claim fit. The explanation beneath the claim is cut at the lower viewport; hand/actions are outside this scroll position.",
+      "privacy": "Public claim only; no individual card identities visible.",
+      "findings": [
+        "public-explanation-cut-at-lower-viewport",
+        "hand-and-actions-not-in-view"
+      ]
+    },
+    {
+      "directViewOrder": 92,
+      "visibleState": "Seascape revealed-hand view with Hide hand, Moon and Crown card rows, and a sliver of the next row.",
+      "layout": "The two full card labels/icons are readable; the remaining hand and play actions extend below the viewport.",
+      "privacy": "Visible card identities come from an explicit revealed-hand capture. Not a concealed state.",
+      "findings": [
+        "partial-hand-viewport",
+        "revealed-hand-capture"
+      ]
+    },
+    {
+      "directViewOrder": 93,
+      "visibleState": "Seascape selected-hand action view with a Star row, You'll claim 1 Star and Play 1 card.",
+      "layout": "The top card row is cropped at its upper edge but its label is readable. Play 1 card is complete; Challenge Orbit extends below the lower edge and its text is clipped.",
+      "privacy": "A Star card identity is visible in the source's revealed/selected state; selected first card is outside this viewport.",
+      "findings": [
+        "card-row-cut-at-upper-viewport",
+        "challenge-control-partly-below-viewport",
+        "revealed-hand-capture"
+      ]
+    }
+  ]
+}

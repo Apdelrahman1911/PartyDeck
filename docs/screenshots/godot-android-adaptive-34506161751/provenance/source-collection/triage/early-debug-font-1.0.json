@@ -1,0 +1,113 @@
+{
+  "runId": 34506161751,
+  "headSha": "d06f83aa8f6905be515faf0f58690634714e5a2d",
+  "case": "android-adaptive-api36-debug-font-1.0-34506161751-1",
+  "fontScale": "1.0",
+  "jobId": 102971335737,
+  "originalResult": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34506161751/android-adaptive-api36-debug-font-1.0-34506161751-1/godot-adaptive/runtime/godot-adaptive-result.json",
+    "bytes": 163482,
+    "sha256": "951829fb10a9be0f60986a3d938e1e07962e37a16ceacebb38d3a5a47ff68226"
+  },
+  "status": "failed",
+  "failedStage": "2d-landscape.held-rotation",
+  "error": "2d-landscape.held-rotation: Expected visible 'game-play' within 45 seconds: Command '['adb', '-s', 'emulator-5554', 'shell', 'uiautomator', 'dump', '/sdcard/partydeck-ci-godot-session-ui.xml']' timed out after 0.6041529009999067 seconds",
+  "checks": {
+    "2d-landscape.held-rotation": {
+      "status": "unsupported",
+      "reason": "Cannot prove the exact recorder identity and growing original output on this device.",
+      "started_utc": "2026-09-10T17:18:11.730+00:00",
+      "ended_utc": "2026-09-10T17:18:24.424+00:00"
+    },
+    "2d-landscape.initial-landscape": {
+      "status": "passed",
+      "started_utc": "2026-09-10T17:17:15.629+00:00",
+      "ended_utc": "2026-09-10T17:18:11.730+00:00"
+    },
+    "installation": {
+      "status": "passed",
+      "started_utc": "2026-09-10T17:16:56.767+00:00",
+      "ended_utc": "2026-09-10T17:17:15.629+00:00"
+    }
+  },
+  "captures": [
+    {
+      "name": "home-cold",
+      "stage": "emulator readiness",
+      "status": "captured"
+    },
+    {
+      "name": "2d-landscape-baseline-public",
+      "stage": "2d-landscape.initial-landscape",
+      "status": "captured"
+    },
+    {
+      "name": "2d-landscape-baseline-first-card",
+      "stage": "2d-landscape.initial-landscape",
+      "status": "captured"
+    },
+    {
+      "name": "2d-landscape-baseline-selected",
+      "stage": "2d-landscape.initial-landscape",
+      "status": "captured"
+    },
+    {
+      "name": "2d-landscape-initial-selector",
+      "stage": "2d-landscape.initial-landscape",
+      "status": "captured"
+    },
+    {
+      "name": "2d-landscape-initial-native-ready",
+      "stage": "2d-landscape.initial-landscape",
+      "status": "captured"
+    },
+    {
+      "name": "2d-landscape-unsupported-return-concealed",
+      "stage": "2d-landscape.held-rotation",
+      "status": "captured"
+    },
+    {
+      "name": "final-diagnostic",
+      "stage": "2d-landscape.held-rotation",
+      "status": "captured"
+    }
+  ],
+  "videos": [
+    {
+      "name": "2d-landscape-rotation",
+      "status": "startup-unavailable-original-retained",
+      "original": {
+        "bytes": 43082,
+        "file": "videos/2d-landscape-rotation.mp4",
+        "sha256": "aa7e02a439cce61c0f9fb1f99bc1b034a87e670c6d7988681f5c749f101cb490"
+      },
+      "identity": null,
+      "initial_file_sizes": null,
+      "startup_timeout_seconds": 8,
+      "startup_unavailable_condition": "growth-not-observed",
+      "validation": null,
+      "startupObservationCount": 26,
+      "observedStartupSizes": [
+        0,
+        3232
+      ],
+      "lastStartupObservation": {
+        "identity": {
+          "name": "/system/bin/screenrecord",
+          "pid": 3980,
+          "start_ticks": 13067,
+          "uid": 2000
+        },
+        "identity_query_ended_seconds": 8.049657397000146,
+        "output_bytes": 3232,
+        "size_query_ended_seconds": 8.06274941200013,
+        "size_query_returncode": 0
+      }
+    }
+  ],
+  "originalStates": 31,
+  "originalRawProcessReceipts": 31,
+  "all3dScopesNotReached": true,
+  "scope": "Early read-only triage of collected originals. Source/archive and full-run audit remain pending; no runtime status promoted.",
+  "recordedAtUtc": "2026-09-10T17:24:18.929759+00:00"
+}

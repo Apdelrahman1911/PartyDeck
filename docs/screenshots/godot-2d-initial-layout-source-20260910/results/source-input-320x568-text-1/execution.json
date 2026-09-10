@@ -1,0 +1,94 @@
+{
+  "command": [
+    "flock",
+    "/tmp/partydeck-godot.lock",
+    "xvfb-run",
+    "-a",
+    "-s",
+    "-screen 0 1440x1100x24",
+    "/opt/partydeck-godot/godot",
+    "--audio-driver",
+    "Dummy",
+    "--rendering-method",
+    "gl_compatibility",
+    "--path",
+    "/tmp/partydeck-2d-initial-layout-34488350932-v1/candidate",
+    "--script",
+    "/tmp/partydeck-2d-initial-layout-34488350932-v1/candidate/presentations/two_d/checks/scene_check.gd",
+    "--",
+    "--manual-bridge",
+    "--check-fixture=/tmp/partydeck-2d-initial-layout-34488350932-v1/fixtures/layout-launch-2d.json",
+    "--check-output=/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-1",
+    "--check-width=320",
+    "--check-height=568",
+    "--check-text-scale=1",
+    "--check-touch-drag=true"
+  ],
+  "startedUtc": "2026-09-10T17:32:22.605911+00:00",
+  "inputs": [
+    {
+      "path": "/opt/partydeck-godot/godot",
+      "sha256": "8d106cbe6144c2dc7e881d61d2429c1a8a76e6b22ef48bd5e48dcf934953f71e"
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/fixtures/layout-launch-2d.json",
+      "sha256": "3ca5f2a15a3756dcb5644e8370e02a88bdc86f271d7a658fa149b282573d5e22"
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/candidate/presentations/two_d/checks/scene_check.gd",
+      "sha256": "aedb2ca6e459044197284062067b727a36e8d5d9facdad85aff84db8514603e4"
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/candidate/presentations/two_d/table.gd",
+      "sha256": "de0bec7b083327f1210a9413d0236208be832ed49c0cec329b4999fb2994ba9a"
+    }
+  ],
+  "environmentOverride": {
+    "LIBGL_ALWAYS_SOFTWARE": "1"
+  },
+  "scope": "Source fixture, real OpenGL and emulated touch/mouse. No native or accepted-authority claim.",
+  "exitCode": 0,
+  "completedUtc": "2026-09-10T17:32:28.809753+00:00",
+  "outputs": [
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-1/01-concealed.json",
+      "sha256": "c17eb30e53475fa75427f57bd4eed22c354f14db42f80280565ccf02d657a249"
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-1/01-concealed.png",
+      "sha256": "268b430aa68b59592ea34a61a80c1f59e9bbbaed2b8e9f3378c5ae7735801a53"
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-1/02-revealed-selected.json",
+      "sha256": "99db627f6420eee65ba03e58f4adef85c8f3abff7584d52f6496e77b45abb82f"
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-1/02-revealed-selected.png",
+      "sha256": "c87c163d4c5f4adc7e595d32c9233cffd2c677f29c5d9bdb49cca702e84bfab9"
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-1/03-covered-again.json",
+      "sha256": "f0059f8d87b75fd2e2bea24e596a950692b326f874f9727c3211aa3aa9d0bff6"
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-1/03-covered-again.png",
+      "sha256": "94364f4959c91d8bb5bd9f6c6ae541d84a7a608412f1db3ac49043db5b8241bb"
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-1/04-resumed-covered.json",
+      "sha256": "b492602d15ca4754bd7a7099cdadb9188f50bc0c3302f5465c6d826dd8917b00"
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-1/04-resumed-covered.png",
+      "sha256": "94364f4959c91d8bb5bd9f6c6ae541d84a7a608412f1db3ac49043db5b8241bb"
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-1/process.log",
+      "sha256": "0548ed92c9eff6bfc3c4b7a3a93d827a8ba44989a5f94804a76775d489b9edac"
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-1/report.json",
+      "sha256": "84ae9fdfa03d92b0aa6d9328eec1f2c98b9feb6b83e71d16709afcf52092837b"
+    }
+  ]
+}

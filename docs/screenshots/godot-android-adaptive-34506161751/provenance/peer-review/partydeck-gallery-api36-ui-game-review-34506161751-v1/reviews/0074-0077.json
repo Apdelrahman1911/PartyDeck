@@ -1,0 +1,46 @@
+{
+  "reviewer": "/root/ui_game",
+  "viewMethod": "tools.view_image",
+  "detail": "original",
+  "recordedUtc": "2026-09-10T18:44:30.144Z",
+  "actualOriginalViews": 4,
+  "notes": [
+    {
+      "directViewOrder": 74,
+      "visibleState": "Landscape standard table after selection clearing: Show hand, Wild cards always match, disabled Select cards.",
+      "layout": "Upper concealment copy is clipped at the content top; Show hand is complete. The disabled Select cards button extends below the lower edge and challenge is outside the viewport.",
+      "privacy": "No card identities are visible. The offered reveal action and disabled selection fit a concealed snapshot, not a held-transition proof.",
+      "findings": [
+        "concealment-copy-cut-at-upper-viewport",
+        "select-cards-button-partly-below-viewport"
+      ]
+    },
+    {
+      "directViewOrder": 75,
+      "visibleState": "Landscape public Star table, round 1, Your turn and Orbit claims 1 Star.",
+      "layout": "Main title/claim readable. The explanatory sentence is clipped at the lower viewport; hand and actions are not shown in this scroll position.",
+      "privacy": "Public information only; no private card identities visible.",
+      "findings": [
+        "public-explanation-cut-at-lower-viewport",
+        "hand-and-actions-not-in-view"
+      ]
+    },
+    {
+      "directViewOrder": 76,
+      "visibleState": "Landscape revealed hand with Hide hand, two complete Star card rows and an edge of the next row.",
+      "layout": "First two card icons/labels are readable without overlap. Remaining hand and controls continue below the viewport; upper hand heading/count is outside view.",
+      "privacy": "Visible card identities belong to the explicitly revealed first-card capture; not a concealed-state image.",
+      "findings": [
+        "partial-hand-viewport",
+        "revealed-hand-capture"
+      ]
+    },
+    {
+      "directViewOrder": 77,
+      "visibleState": "Portrait concealed five-card hand with Show hand, disabled Select cards and Challenge Orbit.",
+      "layout": "Concealment copy and all three shown controls are fully readable with no overlap or truncation.",
+      "privacy": "No individual card identities visible. Source held-rotation remains unsupported; no timing claim.",
+      "findings": []
+    }
+  ]
+}

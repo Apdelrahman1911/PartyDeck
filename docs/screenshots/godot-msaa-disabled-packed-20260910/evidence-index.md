@@ -1,0 +1,47 @@
+# Preserved evidence index
+
+[3D MSAA-disabled diagnostic — root packed checks](README.md)
+
+These are unchanged original companions, frozen reviews and explicitly labeled publication metadata. All records below contribute zero original PNGs. Original path/size/hash metadata is also in the global manifest. Source-result outcomes are preserved; archived source Markdown keeps its original links and filesystem references.
+
+| Preserved file | Type | Bytes | SHA-256 |
+| --- | --- | ---: | --- |
+| [provenance/publication-review/partydeck-gallery-after-2355-msaa-local-visual-review-v1.json](provenance/publication-review/partydeck-gallery-after-2355-msaa-local-visual-review-v1.json) | frozen_review_provenance | 30640 | <code>4bd31309fe4d6e1836edcd1bdbf218a5b232ec71ca00ce8246ddfe6379db1a89</code> |
+| [packed-check-378x655-text-1/01-concealed.json](packed-check-378x655-text-1/01-concealed.json) | original_fixture_capture_companion | 1176 | <code>839c291c589692876134d7dafef317c6c76a675a7badc5093ba20df6e5c0487f</code> |
+| [packed-check-378x655-text-1/02-revealed-selected.json](packed-check-378x655-text-1/02-revealed-selected.json) | original_fixture_capture_companion | 2656 | <code>337f0578a55288b32bb3ffaae5760ff672c3728c02775e42e5891e1ec6af6473</code> |
+| [packed-check-378x655-text-1/02a-selection-limit.json](packed-check-378x655-text-1/02a-selection-limit.json) | original_fixture_capture_companion | 2655 | <code>c1daa603ebc9575db54b55d02271fceca63abc755da1728ce4281dd95588efa0</code> |
+| [packed-check-378x655-text-1/02b-deselected-last.json](packed-check-378x655-text-1/02b-deselected-last.json) | original_fixture_capture_companion | 2656 | <code>c27c2ea6aab7a65494f4f8ca0324ba1fd7e5d72fb8d9611820ea7e4919c8421a</code> |
+| [packed-check-378x655-text-1/03-covered-again.json](packed-check-378x655-text-1/03-covered-again.json) | original_fixture_capture_companion | 1177 | <code>c62fbcf68eb0884262ca02cbf048a66f53cde2b00ad18518f75ee46f731b3b12</code> |
+| [packed-check-378x655-text-1/04-resumed-covered.json](packed-check-378x655-text-1/04-resumed-covered.json) | original_fixture_capture_companion | 1177 | <code>f8adeb654f11599410afde2666f00b1caa9fda38a89e0f7146fd7995c0c150c4</code> |
+| [packed-check-378x655-text-1/execution.json](packed-check-378x655-text-1/execution.json) | original_fixture_capture_companion | 4118 | <code>12bda228884e6cde4163e22f4916c65ce8d0e7ff0b8d84a7869f449ab270824c</code> |
+| [packed-check-378x655-text-1/process.log](packed-check-378x655-text-1/process.log) | original_fixture_capture_companion | 784 | <code>b7e8cd1d906bee65d8c4a52b6b3a02d9cebe43e07c35df3541b13a79efed1822</code> |
+| [packed-check-378x655-text-1/report.json](packed-check-378x655-text-1/report.json) | original_fixture_capture_companion | 16102 | <code>a7404071fffd9e114078064231164a079c49cb787318983e141b2c47a7cad159</code> |
+| [packed-check-378x655-text-2/01-concealed.json](packed-check-378x655-text-2/01-concealed.json) | original_fixture_capture_companion | 1177 | <code>91c6a95a3457f9dc522890c3c0aba27977f20de06f6a3c2504fa52362b8f678c</code> |
+| [packed-check-378x655-text-2/02-revealed-selected.json](packed-check-378x655-text-2/02-revealed-selected.json) | original_fixture_capture_companion | 2427 | <code>ee911b0b2b01adca1e64ff12afe2a424b77a3e5b86c376170a911a556d78530b</code> |
+| [packed-check-378x655-text-2/02a-selection-limit.json](packed-check-378x655-text-2/02a-selection-limit.json) | original_fixture_capture_companion | 2427 | <code>09e435f10afae6544c7764612c6b23bf946090fd1683fbdb6195e8a756200428</code> |
+| [packed-check-378x655-text-2/02b-deselected-last.json](packed-check-378x655-text-2/02b-deselected-last.json) | original_fixture_capture_companion | 2427 | <code>184476f7520c4b422c473e57679973a291d215a76caab8314c4d8866b32b17b1</code> |
+| [packed-check-378x655-text-2/03-covered-again.json](packed-check-378x655-text-2/03-covered-again.json) | original_fixture_capture_companion | 1177 | <code>0dbb200d0d58cbfea84eb03c545b44f12c96ebf740d9e88e1562fdc753648859</code> |
+| [packed-check-378x655-text-2/04-resumed-covered.json](packed-check-378x655-text-2/04-resumed-covered.json) | original_fixture_capture_companion | 1177 | <code>2d6e65d326671c9090063379b193f67845cb19a708abadcf5e191125940d7b3f</code> |
+| [packed-check-378x655-text-2/execution.json](packed-check-378x655-text-2/execution.json) | original_fixture_capture_companion | 4118 | <code>5d19240933ea00ca1c392ef85a30a0ac28c094932fd6ec80eb4be1ff7163f8e2</code> |
+| [packed-check-378x655-text-2/process.log](packed-check-378x655-text-2/process.log) | original_fixture_capture_companion | 784 | <code>1b0d20b91e9c25b03d5fd6a61dd77563bf8fdb78b6f3d09d23390307cecd4949</code> |
+| [packed-check-378x655-text-2/report.json](packed-check-378x655-text-2/report.json) | original_fixture_capture_companion | 15318 | <code>87864f13cf6e34e99b4791fc370acb43c16a6bfed5b9bafb10f93312e3421500</code> |
+| [provenance/root-pack/attempt-2/pack-execution.json](provenance/root-pack/attempt-2/pack-execution.json) | original_pack_receipt_or_log | 677 | <code>0792bc5dee5ae433532356853d90232af61222a7643b32e05e3ed0bdcb02b46e</code> |
+| [provenance/root-pack/attempt-2/pack-logs/commands.json](provenance/root-pack/attempt-2/pack-logs/commands.json) | original_pack_receipt_or_log | 4138 | <code>6220937412de5d6993ba4fffb9e4729f4657ffee556a48c5ba99fe0e714e7f2e</code> |
+| [provenance/root-pack/attempt-2/pack-logs/export-pack.log](provenance/root-pack/attempt-2/pack-logs/export-pack.log) | original_pack_receipt_or_log | 16181 | <code>23447771021829e260485d055a61d78e7e983f9d2273d53ab473357fa670191f</code> |
+| [provenance/root-pack/attempt-2/pack-logs/export_presets.cfg](provenance/root-pack/attempt-2/pack-logs/export_presets.cfg) | original_pack_receipt_or_log | 3342 | <code>d42b3142311faa1a095980ace6665f2dfd0bf6adf88303e9fe53839b008f18cd</code> |
+| [provenance/root-pack/attempt-2/pack-logs/import.log](provenance/root-pack/attempt-2/pack-logs/import.log) | original_pack_receipt_or_log | 12252 | <code>36421a9e7b45982d76ea0feed0b7b7087415021ea77035080653c5c065ec34cc</code> |
+| [provenance/root-pack/attempt-2/pack-logs/packed-scene-check.log](provenance/root-pack/attempt-2/pack-logs/packed-scene-check.log) | original_pack_receipt_or_log | 465 | <code>de70817a5236ca55177f7b76651410b47b382a1bddd19e6e9366f58260df899a</code> |
+| [provenance/root-pack/attempt-2/pack-logs/source-scene-check.log](provenance/root-pack/attempt-2/pack-logs/source-scene-check.log) | original_pack_receipt_or_log | 465 | <code>de70817a5236ca55177f7b76651410b47b382a1bddd19e6e9366f58260df899a</code> |
+| [provenance/root-pack/attempt-2/pack.log](provenance/root-pack/attempt-2/pack.log) | original_pack_receipt_or_log | 884 | <code>93523606ab6e55d41271dc64d88d5f0a9b024e51cdb7b4abde2253195ec8bf15</code> |
+| [provenance/root-pack/attempt-2/partydeck-last-light.receipt.json](provenance/root-pack/attempt-2/partydeck-last-light.receipt.json) | original_pack_receipt_or_log | 62028 | <code>f83adc2ea751d312a047cee283437e054cb1aa909adf80d2a6c1d5089f2d3629</code> |
+| [provenance/first-pack-attempt/pack.log](provenance/first-pack-attempt/pack.log) | original_diagnostic_pack_history | 9117 | <code>b4a06c45c6b65e2e7edfded7a0c7ba166d957c795bd5b9ecdbfa4009f8ae1f70</code> |
+| [provenance/first-pack-attempt/pack-execution.json](provenance/first-pack-attempt/pack-execution.json) | original_diagnostic_pack_history | 547 | <code>10205d1c1347511d0fe762d10083acc046e311466655379e9c3eb56fa1625acf</code> |
+| [provenance/first-pack-attempt/dispatch.json](provenance/first-pack-attempt/dispatch.json) | original_diagnostic_pack_history | 601 | <code>b9d6c9434fd6e1917d1ab22e3bf0e0e12256f403757e56570fc3aa3a0d3a4e3e</code> |
+| [provenance/first-pack-attempt/pack-logs/commands.json](provenance/first-pack-attempt/pack-logs/commands.json) | original_diagnostic_pack_history | 896 | <code>14dff7271e9f4b8b9c510e65c9f6928d4d09c675b59f3a37c3be85073bceb70a</code> |
+| [provenance/first-pack-attempt/pack-logs/import.log](provenance/first-pack-attempt/pack-logs/import.log) | original_diagnostic_pack_history | 8933 | <code>d7fde608d214680e95777da93fdb93eeec3c11adcc28c9c55683a1ffdfdbd463</code> |
+| [provenance/assets-visual-review-v1/RESULT.md](provenance/assets-visual-review-v1/RESULT.md) | attributed_peer_visual_review | 2670 | <code>5ca25ed452aa24d9ee291f8f0852e7a278a7bce13b4bd6e0b91013aa199ebf00</code> |
+| [provenance/assets-visual-review-v1/freeze.json](provenance/assets-visual-review-v1/freeze.json) | attributed_peer_visual_review | 681 | <code>0be3839eb883c5f330acca9cb82fddc3fb5bc90da154bba50e05b1c1ce0da2ef</code> |
+| [provenance/assets-visual-review-v1/visual-view-receipt.json](provenance/assets-visual-review-v1/visual-view-receipt.json) | attributed_peer_visual_review | 23130 | <code>74756e9f587ce43e05ff96e063f978fbc69163bbe25671b3ea09528c56b833b2</code> |
+| [provenance/pinned-source/candidate/table.gd](provenance/pinned-source/candidate/table.gd) | pinned_diagnostic_source | 40697 | <code>51ddc1b15361cb17dd6e3eadd5f68dc3ed991a4852895f1ff3f7bda045a4f1ba</code> |
+| [provenance/pinned-source/baseline/table.gd](provenance/pinned-source/baseline/table.gd) | pinned_diagnostic_source | 40691 | <code>45ee2ac81cd371f13b16e2b29b47468cbd86f2cbe98c1a0f8ba55787609cdf40</code> |
+| [provenance/pinned-source/check/three_d_scene_check.gd](provenance/pinned-source/check/three_d_scene_check.gd) | pinned_diagnostic_source | 16311 | <code>5d36c98fc638ebeb28c906350950bb6e7b7e5f111d560e2c62461db0c5e3d32e</code> |

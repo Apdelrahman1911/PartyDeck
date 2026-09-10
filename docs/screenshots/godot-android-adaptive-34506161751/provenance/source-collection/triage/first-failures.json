@@ -1,0 +1,436 @@
+{
+  "runId": 34506161751,
+  "headSha": "d06f83aa8f6905be515faf0f58690634714e5a2d",
+  "attempt": 1,
+  "earliestRecordedCheckerError": {
+    "jobId": 102971335737,
+    "originalLog": {
+      "file": "job-102971335737.log",
+      "bytes": 121919,
+      "sha256": "9df2482b73c629cd735fb894ca013cfa8a854452467bdb64f35473e628095ec2"
+    },
+    "line": 1216,
+    "text": "2026-09-10T17:19:19.0947295Z FAILED 2d-landscape.held-rotation: 2d-landscape.held-rotation: Expected visible 'game-play' within 45 seconds: Command '['adb', '-s', 'emulator-5554', 'shell', 'uiautomator', 'dump', '/sdcard/partydeck-ci-godot-session-ui.xml']' timed out after 0.6041529009999067 seconds"
+  },
+  "cases": [
+    {
+      "case": "android-adaptive-api36-debug-font-1.0-34506161751-1",
+      "variant": "debug",
+      "fontScale": "1.0",
+      "status": "failed",
+      "originalResult": {
+        "file": "android-adaptive-api36-debug-font-1.0-34506161751-1/godot-adaptive/runtime/godot-adaptive-result.json",
+        "bytes": 163482,
+        "sha256": "951829fb10a9be0f60986a3d938e1e07962e37a16ceacebb38d3a5a47ff68226"
+      },
+      "failedStage": "2d-landscape.held-rotation",
+      "error": "2d-landscape.held-rotation: Expected visible 'game-play' within 45 seconds: Command '['adb', '-s', 'emulator-5554', 'shell', 'uiautomator', 'dump', '/sdcard/partydeck-ci-godot-session-ui.xml']' timed out after 0.6041529009999067 seconds",
+      "firstCheckerError": {
+        "jobId": 102971335737,
+        "originalLog": {
+          "file": "job-102971335737.log",
+          "bytes": 121919,
+          "sha256": "9df2482b73c629cd735fb894ca013cfa8a854452467bdb64f35473e628095ec2"
+        },
+        "line": 1216,
+        "text": "2026-09-10T17:19:19.0947295Z FAILED 2d-landscape.held-rotation: 2d-landscape.held-rotation: Expected visible 'game-play' within 45 seconds: Command '['adb', '-s', 'emulator-5554', 'shell', 'uiautomator', 'dump', '/sdcard/partydeck-ci-godot-session-ui.xml']' timed out after 0.6041529009999067 seconds"
+      },
+      "checks": {
+        "2d-landscape.held-rotation": {
+          "status": "unsupported",
+          "startedUtc": "2026-09-10T17:18:11.730+00:00",
+          "endedUtc": "2026-09-10T17:18:24.424+00:00",
+          "error": null
+        },
+        "2d-landscape.initial-landscape": {
+          "status": "passed",
+          "startedUtc": "2026-09-10T17:17:15.629+00:00",
+          "endedUtc": "2026-09-10T17:18:11.730+00:00",
+          "error": null
+        },
+        "installation": {
+          "status": "passed",
+          "startedUtc": "2026-09-10T17:16:56.767+00:00",
+          "endedUtc": "2026-09-10T17:17:15.629+00:00",
+          "error": null
+        }
+      },
+      "stoppedStage": null,
+      "unsupportedReason": null,
+      "cleanupErrors": [],
+      "nativeCrashLog": {
+        "file": "android-adaptive-api36-debug-font-1.0-34506161751-1/godot-adaptive/runtime/logs/crash.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "firstNativeErrorLines": [],
+      "finalState": {
+        "file": "android-adaptive-api36-debug-font-1.0-34506161751-1/godot-adaptive/runtime/states/00031.json",
+        "bytes": 3916,
+        "sha256": "30301bcf2882ede0ae9abc15dcb0858ddf82baca9a0354ce06bcc3811aa326c4"
+      },
+      "finalObservedConfiguration": {
+        "bounds": [
+          0,
+          0,
+          1600,
+          720
+        ],
+        "density_dpi": 280,
+        "display_rotation": 1,
+        "font_scale": 1.0,
+        "height_dp": 411,
+        "layout_direction": "ldltr",
+        "orientation": "land",
+        "width_dp": 914,
+        "window_size": [
+          1600,
+          720
+        ],
+        "windowing_mode": "fullscreen"
+      },
+      "originalFailedLogLines": [
+        {
+          "line": 1216,
+          "text": "2026-09-10T17:19:19.0947295Z FAILED 2d-landscape.held-rotation: 2d-landscape.held-rotation: Expected visible 'game-play' within 45 seconds: Command '['adb', '-s', 'emulator-5554', 'shell', 'uiautomator', 'dump', '/sdcard/partydeck-ci-godot-session-ui.xml']' timed out after 0.6041529009999067 seconds"
+        }
+      ],
+      "originalUnsupportedLogLines": []
+    },
+    {
+      "case": "android-adaptive-api36-debug-font-2.0-34506161751-1",
+      "variant": "debug",
+      "fontScale": "2.0",
+      "status": "failed",
+      "originalResult": {
+        "file": "android-adaptive-api36-debug-font-2.0-34506161751-1/godot-adaptive/runtime/godot-adaptive-result.json",
+        "bytes": 169545,
+        "sha256": "91881dfc05a1da593aa2cf0c846631482aa2802f2808883a61f12a4f323f2985"
+      },
+      "failedStage": "2d-landscape.held-rotation",
+      "error": "Input ended before the concealed return was observed.",
+      "firstCheckerError": {
+        "jobId": 102971335871,
+        "originalLog": {
+          "file": "job-102971335871.log",
+          "bytes": 121570,
+          "sha256": "9e64e18dc33d76524d4c4a0601d0373fa06098d4c9f41c47b14fad76f27cb15c"
+        },
+        "line": 1215,
+        "text": "2026-09-10T17:19:39.3480375Z FAILED 2d-landscape.held-rotation: Input ended before the concealed return was observed."
+      },
+      "checks": {
+        "2d-landscape.held-rotation": {
+          "status": "failed",
+          "startedUtc": "2026-09-10T17:18:56.966+00:00",
+          "endedUtc": "2026-09-10T17:19:39.347+00:00",
+          "error": "Input ended before the concealed return was observed."
+        },
+        "2d-landscape.initial-landscape": {
+          "status": "passed",
+          "startedUtc": "2026-09-10T17:17:03.509+00:00",
+          "endedUtc": "2026-09-10T17:18:56.965+00:00",
+          "error": null
+        },
+        "installation": {
+          "status": "passed",
+          "startedUtc": "2026-09-10T17:16:43.620+00:00",
+          "endedUtc": "2026-09-10T17:17:03.509+00:00",
+          "error": null
+        }
+      },
+      "stoppedStage": null,
+      "unsupportedReason": null,
+      "cleanupErrors": [],
+      "nativeCrashLog": {
+        "file": "android-adaptive-api36-debug-font-2.0-34506161751-1/godot-adaptive/runtime/logs/crash.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "firstNativeErrorLines": [],
+      "finalState": {
+        "file": "android-adaptive-api36-debug-font-2.0-34506161751-1/godot-adaptive/runtime/states/00043.json",
+        "bytes": 3920,
+        "sha256": "ac362be697b4835f20168b5da1005dee0666078dd21b2b87aa704e5da4aa6b43"
+      },
+      "finalObservedConfiguration": {
+        "bounds": [
+          0,
+          0,
+          720,
+          1600
+        ],
+        "density_dpi": 280,
+        "display_rotation": 0,
+        "font_scale": 2.0,
+        "height_dp": 914,
+        "layout_direction": "ldltr",
+        "orientation": "port",
+        "width_dp": 411,
+        "window_size": [
+          720,
+          1600
+        ],
+        "windowing_mode": "fullscreen"
+      },
+      "originalFailedLogLines": [
+        {
+          "line": 1215,
+          "text": "2026-09-10T17:19:39.3480375Z FAILED 2d-landscape.held-rotation: Input ended before the concealed return was observed."
+        }
+      ],
+      "originalUnsupportedLogLines": []
+    },
+    {
+      "case": "android-adaptive-api36-optimized-test-signed-font-1.0-34506161751-1",
+      "variant": "optimized-test-signed",
+      "fontScale": "1.0",
+      "status": "failed",
+      "originalResult": {
+        "file": "android-adaptive-api36-optimized-test-signed-font-1.0-34506161751-1/godot-adaptive/runtime/godot-adaptive-result.json",
+        "bytes": 162065,
+        "sha256": "3e206d19eaab6d85578af0c2ee615632fda9135360e357998ebd15576e8f8661"
+      },
+      "failedStage": "2d-landscape.held-rotation",
+      "error": "2d-landscape.held-rotation: Expected visible 'game-play' within 45 seconds: Command '['adb', '-s', 'emulator-5554', 'shell', 'uiautomator', 'dump', '/sdcard/partydeck-ci-godot-session-ui.xml']' timed out after 0.39980641300007846 seconds",
+      "firstCheckerError": {
+        "jobId": 102971335823,
+        "originalLog": {
+          "file": "job-102971335823.log",
+          "bytes": 122103,
+          "sha256": "6c9e582fe7cb6019ee03c78577fe504990702e8917eb3392361c85f772f8f46f"
+        },
+        "line": 1216,
+        "text": "2026-09-10T17:31:33.9651142Z FAILED 2d-landscape.held-rotation: 2d-landscape.held-rotation: Expected visible 'game-play' within 45 seconds: Command '['adb', '-s', 'emulator-5554', 'shell', 'uiautomator', 'dump', '/sdcard/partydeck-ci-godot-session-ui.xml']' timed out after 0.39980641300007846 seconds"
+      },
+      "checks": {
+        "2d-landscape.held-rotation": {
+          "status": "unsupported",
+          "startedUtc": "2026-09-10T17:30:26.739+00:00",
+          "endedUtc": "2026-09-10T17:30:39.454+00:00",
+          "error": null
+        },
+        "2d-landscape.initial-landscape": {
+          "status": "passed",
+          "startedUtc": "2026-09-10T17:29:33.515+00:00",
+          "endedUtc": "2026-09-10T17:30:26.739+00:00",
+          "error": null
+        },
+        "installation": {
+          "status": "passed",
+          "startedUtc": "2026-09-10T17:29:16.517+00:00",
+          "endedUtc": "2026-09-10T17:29:33.515+00:00",
+          "error": null
+        }
+      },
+      "stoppedStage": null,
+      "unsupportedReason": null,
+      "cleanupErrors": [],
+      "nativeCrashLog": {
+        "file": "android-adaptive-api36-optimized-test-signed-font-1.0-34506161751-1/godot-adaptive/runtime/logs/crash.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "firstNativeErrorLines": [],
+      "finalState": {
+        "file": "android-adaptive-api36-optimized-test-signed-font-1.0-34506161751-1/godot-adaptive/runtime/states/00030.json",
+        "bytes": 3920,
+        "sha256": "2405a0117fab8559191528a60d56b98e0bba1da196d20998863379230c1bc65d"
+      },
+      "finalObservedConfiguration": {
+        "bounds": [
+          0,
+          0,
+          1600,
+          720
+        ],
+        "density_dpi": 280,
+        "display_rotation": 1,
+        "font_scale": 1.0,
+        "height_dp": 411,
+        "layout_direction": "ldltr",
+        "orientation": "land",
+        "width_dp": 914,
+        "window_size": [
+          1600,
+          720
+        ],
+        "windowing_mode": "fullscreen"
+      },
+      "originalFailedLogLines": [
+        {
+          "line": 1216,
+          "text": "2026-09-10T17:31:33.9651142Z FAILED 2d-landscape.held-rotation: 2d-landscape.held-rotation: Expected visible 'game-play' within 45 seconds: Command '['adb', '-s', 'emulator-5554', 'shell', 'uiautomator', 'dump', '/sdcard/partydeck-ci-godot-session-ui.xml']' timed out after 0.39980641300007846 seconds"
+        }
+      ],
+      "originalUnsupportedLogLines": []
+    },
+    {
+      "case": "android-adaptive-api36-optimized-test-signed-font-2.0-34506161751-1",
+      "variant": "optimized-test-signed",
+      "fontScale": "2.0",
+      "status": "unsupported",
+      "originalResult": {
+        "file": "android-adaptive-api36-optimized-test-signed-font-2.0-34506161751-1/godot-adaptive/runtime/godot-adaptive-result.json",
+        "bytes": 1789116,
+        "sha256": "53941d0a5cb02e051a2bb405105147dd93899282bb37ce0ca8ae430650f38a84"
+      },
+      "failedStage": null,
+      "error": null,
+      "firstCheckerError": null,
+      "checks": {
+        "2d-landscape.held-rotation": {
+          "status": "unsupported",
+          "startedUtc": "2026-09-10T17:19:53.432+00:00",
+          "endedUtc": "2026-09-10T17:20:06.133+00:00",
+          "error": null
+        },
+        "2d-landscape.initial-landscape": {
+          "status": "passed",
+          "startedUtc": "2026-09-10T17:17:51.342+00:00",
+          "endedUtc": "2026-09-10T17:19:53.432+00:00",
+          "error": null
+        },
+        "2d-landscape.native-leave-home": {
+          "status": "passed",
+          "startedUtc": "2026-09-10T17:22:55.043+00:00",
+          "endedUtc": "2026-09-10T17:23:42.593+00:00",
+          "error": null
+        },
+        "2d-landscape.portrait-reentry-standard": {
+          "status": "passed",
+          "startedUtc": "2026-09-10T17:21:44.211+00:00",
+          "endedUtc": "2026-09-10T17:22:55.043+00:00",
+          "error": null
+        },
+        "2d-seascape.held-rotation": {
+          "status": "unsupported",
+          "startedUtc": "2026-09-10T17:25:30.560+00:00",
+          "endedUtc": "2026-09-10T17:25:43.400+00:00",
+          "error": null
+        },
+        "2d-seascape.initial-landscape": {
+          "status": "passed",
+          "startedUtc": "2026-09-10T17:23:42.593+00:00",
+          "endedUtc": "2026-09-10T17:25:30.560+00:00",
+          "error": null
+        },
+        "2d-seascape.native-leave-home": {
+          "status": "passed",
+          "startedUtc": "2026-09-10T17:28:34.206+00:00",
+          "endedUtc": "2026-09-10T17:29:23.273+00:00",
+          "error": null
+        },
+        "2d-seascape.portrait-reentry-standard": {
+          "status": "passed",
+          "startedUtc": "2026-09-10T17:27:23.965+00:00",
+          "endedUtc": "2026-09-10T17:28:34.206+00:00",
+          "error": null
+        },
+        "2d-split.support": {
+          "status": "unsupported",
+          "startedUtc": "2026-09-10T17:29:23.273+00:00",
+          "endedUtc": "2026-09-10T17:29:23.348+00:00",
+          "error": null
+        },
+        "3d-landscape.held-rotation": {
+          "status": "unsupported",
+          "startedUtc": "2026-09-10T17:31:24.981+00:00",
+          "endedUtc": "2026-09-10T17:31:37.809+00:00",
+          "error": null
+        },
+        "3d-landscape.initial-landscape": {
+          "status": "passed",
+          "startedUtc": "2026-09-10T17:29:23.348+00:00",
+          "endedUtc": "2026-09-10T17:31:24.981+00:00",
+          "error": null
+        },
+        "3d-landscape.native-leave-home": {
+          "status": "passed",
+          "startedUtc": "2026-09-10T17:34:28.024+00:00",
+          "endedUtc": "2026-09-10T17:35:17.127+00:00",
+          "error": null
+        },
+        "3d-landscape.portrait-reentry-standard": {
+          "status": "passed",
+          "startedUtc": "2026-09-10T17:33:15.650+00:00",
+          "endedUtc": "2026-09-10T17:34:28.024+00:00",
+          "error": null
+        },
+        "3d-seascape.held-rotation": {
+          "status": "unsupported",
+          "startedUtc": "2026-09-10T17:37:12.964+00:00",
+          "endedUtc": "2026-09-10T17:37:25.532+00:00",
+          "error": null
+        },
+        "3d-seascape.initial-landscape": {
+          "status": "passed",
+          "startedUtc": "2026-09-10T17:35:17.127+00:00",
+          "endedUtc": "2026-09-10T17:37:12.964+00:00",
+          "error": null
+        },
+        "3d-seascape.native-leave-home": {
+          "status": "passed",
+          "startedUtc": "2026-09-10T17:40:47.130+00:00",
+          "endedUtc": "2026-09-10T17:41:36.482+00:00",
+          "error": null
+        },
+        "3d-seascape.portrait-reentry-standard": {
+          "status": "passed",
+          "startedUtc": "2026-09-10T17:39:34.277+00:00",
+          "endedUtc": "2026-09-10T17:40:47.130+00:00",
+          "error": null
+        },
+        "3d-split.support": {
+          "status": "unsupported",
+          "startedUtc": "2026-09-10T17:41:36.482+00:00",
+          "endedUtc": "2026-09-10T17:41:36.559+00:00",
+          "error": null
+        },
+        "installation": {
+          "status": "passed",
+          "startedUtc": "2026-09-10T17:17:31.989+00:00",
+          "endedUtc": "2026-09-10T17:17:51.342+00:00",
+          "error": null
+        }
+      },
+      "stoppedStage": null,
+      "unsupportedReason": null,
+      "cleanupErrors": [],
+      "nativeCrashLog": {
+        "file": "android-adaptive-api36-optimized-test-signed-font-2.0-34506161751-1/godot-adaptive/runtime/logs/crash.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "firstNativeErrorLines": [],
+      "finalState": {
+        "file": "android-adaptive-api36-optimized-test-signed-font-2.0-34506161751-1/godot-adaptive/runtime/states/00340.json",
+        "bytes": 3920,
+        "sha256": "da4704f8a77c6a58e56ce6b93b7438119fa30f5ccf7246664ca0da72341be3f2"
+      },
+      "finalObservedConfiguration": {
+        "bounds": [
+          0,
+          0,
+          720,
+          1600
+        ],
+        "density_dpi": 280,
+        "display_rotation": 0,
+        "font_scale": 2.0,
+        "height_dp": 914,
+        "layout_direction": "ldltr",
+        "orientation": "port",
+        "width_dp": 411,
+        "window_size": [
+          720,
+          1600
+        ],
+        "windowing_mode": "fullscreen"
+      },
+      "originalFailedLogLines": [],
+      "originalUnsupportedLogLines": []
+    }
+  ],
+  "scope": "Original runtime/error evidence. Named unsupported checks remain unsupported even when subsequent recovery fails under the same stage label; absent or unreached observations are not fabricated."
+}

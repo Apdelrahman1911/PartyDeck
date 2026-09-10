@@ -1,0 +1,140 @@
+Activity Resolver Table:
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        f30e634 dev.partydeck.app/.MainActivity filter e2e0c5d
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LAUNCHER"
+
+Receiver Resolver Table:
+  Non-Data Actions:
+      androidx.profileinstaller.action.SAVE_PROFILE:
+        e4dc9d2 dev.partydeck.app/androidx.profileinstaller.ProfileInstallReceiver filter fc41159
+          Action: "androidx.profileinstaller.action.SAVE_PROFILE"
+      androidx.profileinstaller.action.INSTALL_PROFILE:
+        e4dc9d2 dev.partydeck.app/androidx.profileinstaller.ProfileInstallReceiver filter 5091aa3
+          Action: "androidx.profileinstaller.action.INSTALL_PROFILE"
+      androidx.profileinstaller.action.SKIP_FILE:
+        e4dc9d2 dev.partydeck.app/androidx.profileinstaller.ProfileInstallReceiver filter 81031a0
+          Action: "androidx.profileinstaller.action.SKIP_FILE"
+      androidx.profileinstaller.action.BENCHMARK_OPERATION:
+        e4dc9d2 dev.partydeck.app/androidx.profileinstaller.ProfileInstallReceiver filter 79ab11e
+          Action: "androidx.profileinstaller.action.BENCHMARK_OPERATION"
+
+Domain verification status:
+
+Permissions:
+  Permission [dev.partydeck.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION] (37836df):
+    sourcePackage=dev.partydeck.app
+    uid=10150 gids=[] type=0 prot=signature
+    perm=PermissionInfo{a617f2c dev.partydeck.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION}
+    flags=0x0
+
+Registered ContentProviders:
+  dev.partydeck.app/androidx.startup.InitializationProvider:
+    Provider{84abdf5 dev.partydeck.app/androidx.startup.InitializationProvider}
+  dev.partydeck.app/org.jetbrains.compose.resources.AndroidContextProvider:
+    Provider{e31b78a dev.partydeck.app/org.jetbrains.compose.resources.AndroidContextProvider}
+  dev.partydeck.app/androidx.core.content.FileProvider:
+    Provider{fd361fb dev.partydeck.app/androidx.core.content.FileProvider}
+
+ContentProvider Authorities:
+  [dev.partydeck.app.fileprovider]:
+    Provider{fd361fb dev.partydeck.app/androidx.core.content.FileProvider}
+      applicationInfo=ApplicationInfo{7fd6218 dev.partydeck.app}
+  [dev.partydeck.app.androidx-startup]:
+    Provider{84abdf5 dev.partydeck.app/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{1564471 dev.partydeck.app}
+  [dev.partydeck.app.resources.AndroidContextProvider]:
+    Provider{e31b78a dev.partydeck.app/org.jetbrains.compose.resources.AndroidContextProvider}
+      applicationInfo=ApplicationInfo{afbc256 dev.partydeck.app}
+
+Key Set Manager:
+  [dev.partydeck.app]
+      Signing KeySets: 20
+
+Packages:
+  Package [dev.partydeck.app] (6ec22d7):
+    appId=10150
+    pkg=Package{e7287c4 dev.partydeck.app}
+    codePath=/data/app/~~XeOa0Gg5_eZhaErA8DEEkg==/dev.partydeck.app-dliUe_RXH1TEXpQwIITvog==
+    resourcePath=/data/app/~~XeOa0Gg5_eZhaErA8DEEkg==/dev.partydeck.app-dliUe_RXH1TEXpQwIITvog==
+    legacyNativeLibraryDir=/data/app/~~XeOa0Gg5_eZhaErA8DEEkg==/dev.partydeck.app-dliUe_RXH1TEXpQwIITvog==/lib
+    extractNativeLibs=false
+    primaryCpuAbi=x86_64
+    secondaryCpuAbi=null
+    cpuAbiOverride=null
+    versionCode=1 minSdk=26 targetSdk=36
+    minExtensionVersions=[]
+    versionName=1.0.0
+    hiddenApiEnforcementPolicy=2
+    usesNonSdkApi=false
+    splits=[base]
+    apkSigningVersion=2
+    flags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE PRIVATE_FLAG_ALLOW_NATIVE_HEAP_POINTER_TAGGING ]
+    forceQueryable=false
+    pageSizeCompat=0
+    scannedAsStoppedSystemApp=false
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    usesOptionalLibraries:
+      androidx.window.extensions
+      androidx.window.sidecar
+    usesLibraryFiles:
+      /system_ext/framework/androidx.window.extensions.jar
+      /system_ext/framework/androidx.window.sidecar.jar
+    timeStamp=2026-09-10 17:17:05
+    lastUpdateTime=2026-09-10 17:17:05
+    installerPackageName=null
+    installerPackageUid=-1
+    initiatingPackageName=com.android.shell
+    originatingPackageName=null
+    packageSource=1
+    appMetadataFilePath=null
+    appMetadataSource=0
+    signatures=PackageSignatures{1b9b6ad version:2, signatures:[3458a412], past signatures:[]}
+    installPermissionsFixed=false
+    pkgFlags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ]
+    privatePkgFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE PRIVATE_FLAG_ALLOW_NATIVE_HEAP_POINTER_TAGGING ]
+    apexModuleName=null
+    declared permissions:
+      dev.partydeck.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: prot=signature
+    requested permissions:
+      android.permission.INTERNET
+      dev.partydeck.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+      android.permission.CAMERA
+    install permissions:
+      android.permission.INTERNET: granted=true
+      dev.partydeck.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+    User 0: ceDataInode=352489 deDataInode=49274 installed=true hidden=false suspended=false distractionFlags=0 stopped=true notLaunched=true enabled=0 instant=false virtual=false quarantined=false
+      installReason=0
+      dataDir=/data/user/0/dev.partydeck.app
+      firstInstallTime=2026-09-10 17:17:05
+      uninstallReason=0
+      overlay paths:
+        /product/overlay/EmulationPixel7/EmulationPixel7Overlay.apk
+      legacy overlay paths:
+        /product/overlay/EmulationPixel7/EmulationPixel7Overlay.apk
+      gids=[3003]
+      runtime permissions:
+        android.permission.CAMERA: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+
+Queries:
+  system apps queryable: false
+  queries via forceQueryable:
+  queries via package name:
+  queries via component:
+    com.android.settings.intelligence:
+      dev.partydeck.app
+  queryable via interaction:
+    User 0:
+  queryable via uses-library:
+
+Dexopt state:
+  [dev.partydeck.app]
+    path: /data/app/~~XeOa0Gg5_eZhaErA8DEEkg==/dev.partydeck.app-dliUe_RXH1TEXpQwIITvog==/base.apk
+      x86_64: [status=run-from-apk] [reason=unknown] [primary-abi]
+        [location is error]
+
+Compiler stats:
+  [dev.partydeck.app]
+    (No recorded stats)

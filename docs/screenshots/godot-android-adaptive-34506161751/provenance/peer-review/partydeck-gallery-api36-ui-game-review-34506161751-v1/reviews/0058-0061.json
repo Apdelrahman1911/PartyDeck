@@ -1,0 +1,41 @@
+{
+  "reviewer": "/root/ui_game",
+  "viewMethod": "tools.view_image",
+  "detail": "original",
+  "recordedUtc": "2026-09-10T18:40:36.496Z",
+  "actualOriginalViews": 4,
+  "notes": [
+    {
+      "directViewOrder": 58,
+      "visibleState": "Portrait Table style dialog; Standard table is selected, with 2D table, 3D table and Done visible.",
+      "layout": "Heading, explanatory text, radio rows and Done fit within the modal; no visible text truncation or overlap.",
+      "privacy": "Modal contains style choices and accessibility guidance; no card faces or invitation material visible.",
+      "findings": []
+    },
+    {
+      "directViewOrder": 59,
+      "visibleState": "Table ready header, Standard table and Leave table controls, Exit, Crown round/claim and the beginning of a covered five-card hand.",
+      "layout": "Standard table wraps across two lines. Header actions fit. The scrollable content continues below the viewport; the covered-hand label/panel is cut by the lower viewport edge.",
+      "privacy": "Visible hand area is covered; no individual card face or rank visible. This still does not establish cover timing.",
+      "findings": [
+        "covered-hand-panel-partly-below-viewport"
+      ]
+    },
+    {
+      "directViewOrder": 60,
+      "visibleState": "Portrait standard table scrolled to Your hand: five cards, For your eyes only, Show hand, disabled Select cards and Challenge Orbit.",
+      "layout": "The concealment panel and both bottom actions are fully visible with clear hierarchy; no visible overlap or truncation.",
+      "privacy": "No card faces/ranks are visible in the concealed hand. Snapshot only; no transition privacy claim.",
+      "findings": []
+    },
+    {
+      "directViewOrder": 61,
+      "visibleState": "Portrait standard table showing Your turn, Crown table, round 1, Orbit claims 2 Crowns, player link and covered-hand panel.",
+      "layout": "Main public labels are readable. The hand panel continues below the viewport, with its Show hand action mostly below the bottom edge in this scroll position.",
+      "privacy": "Public claim and hand count are visible; individual cards remain concealed in the visible panel.",
+      "findings": [
+        "show-hand-action-below-viewport"
+      ]
+    }
+  ]
+}

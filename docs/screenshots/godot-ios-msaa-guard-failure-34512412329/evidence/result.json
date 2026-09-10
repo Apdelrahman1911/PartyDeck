@@ -1,0 +1,275 @@
+{
+  "stage": "retained_engine_lifecycle_execution",
+  "recorded_utc": "2026-09-10T18:20:49.848620+00:00",
+  "command_exit_code": 65,
+  "problems": [
+    "The three actual retained-engine XCTest cases did not each finish with a pass.",
+    "The native runner or evidence export returned exit code 65."
+  ],
+  "inputs": {
+    "started_utc": "2026-09-10T18:12:40.129334+00:00",
+    "sources": {
+      "RetainedHost/Host.xcconfig": "3651cd7294b88ad2a9e8cc0e1324fcc534e3588232d14008733528cd3cf46cf3",
+      "RetainedHost/Info.plist": "2a839863df5784b890c7a51efdd695bedaec5461cb5c5191e80ca1f439ef307c",
+      "RetainedHost/README.md": "b255102284fed68dddf0f5d157b08f23bf36aafed2753f1262f6a66d554dfa80",
+      "RetainedHost/RetainedHostApp.swift": "4e50fa627cf1ee74455aee9cf64c9fda34d71e51991ae83175f4f5a0b5418a1c",
+      "RetainedHost/RetainedModel.swift": "6074e9de7186adddfd85e450722470d73c46806e0592305671b303b3369b7ed1",
+      "RetainedHostUITests/RetainedHostUITests.swift": "ca2f573379be62e2c82df38af31556d0961133af2480d20901d93ce63152951b",
+      "RetainedHost.xcodeproj/project.pbxproj": "5a88e42d278871df1545751c4d4d69841cc3b7997e420dbf39d58b90ef318c7f",
+      "RetainedHost.xcodeproj/xcshareddata/xcschemes/RetainedHost.xcscheme": "26a3e28aeaa1b0a39af391e669f3b5ed1b2b221eb02486fcd707a6fb4a3474f2",
+      "test-retained-host.sh": "4975153bc94793087f7a6fbf43026bd00927853c95f4ac3d03d0f76c28f441ed",
+      "record-retained-result.py": "4387cd8cb78a3ef9f393f19e433df4238e4697fd67388975ab999b1e0ffdac49",
+      "modules/partydeck_ios_probe/PDGodotEngineOwner.h": "f55aed92a3c0987ce2f2e5ba544738d5a7dcd53a3f19581c6056dc1de642f1c0"
+    },
+    "verified_engine_framework_pack": {
+      "stage": "authority_host_inputs_only",
+      "framework_receipt": {
+        "stage": "authority_framework_compilation",
+        "target": "iosSimulatorArm64",
+        "configuration": "debugFramework",
+        "framework": {
+          "PartyDeckGodotBridge": {
+            "sha256": "580b45b44dc59289a65178fa8187f3512563a918294eb1c5262398b1a240ff95",
+            "bytes": 40739216
+          },
+          "Headers/PartyDeckGodotBridge.h": {
+            "sha256": "dddbb2ae23d1e87ebab18fa7c4f77326c3e370422b96f1e723c3e2f2cdde14fd",
+            "bytes": 179497
+          },
+          "Modules/module.modulemap": {
+            "sha256": "566a10ca59319c5510d030cc2418d21900d0cc724abd7627cfd65972aeec3a04",
+            "bytes": 149
+          },
+          "Info.plist": {
+            "sha256": "7873447ece8f8dab0760511eed41646ef12e940a3c7f70ec16acf7a394b6eb7a",
+            "bytes": 953
+          }
+        },
+        "archive": {
+          "name": "PartyDeckGodotBridge-simulator.framework.tar.gz",
+          "sha256": "e3caeb7d33183cc9ece4f3a04212359fcbc842b216e9d93d2131c47a29821968",
+          "bytes": 8148399
+        },
+        "framework_compiled": true,
+        "expected_facade_declarations_present": true,
+        "swift_module_import_typechecked": true,
+        "swift_authority_host_compiled": false,
+        "ios_authority_runtime_executed": false,
+        "kmp_factory_qualified": false
+      },
+      "engine_receipt": {
+        "engine_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+        "upstream_archive": "libgodot.ios.template_debug.arm64.simulator.a",
+        "artifact": "libpartydeck_godot_ios_probe.a",
+        "sha256": "e1c5ebcb5ea0451f1edd2b44658275b5960fc0745c3fba0fa81e998edcee81ef",
+        "bytes": 191065576,
+        "auxiliary_archives": [
+          {
+            "artifact": "libpartydeck_godot_camera.a",
+            "sha256": "a1548b1b0e9982954b5bd4b500b51796003f57e340ff03ddf3009e81fa033408",
+            "bytes": 82392,
+            "upstream_archive": "libgodot_camera.ios.template_debug.arm64.simulator.a"
+          }
+        ],
+        "stage": "engine_compile_only",
+        "platform": "ios",
+        "target": "template_debug",
+        "configuration": "Debug",
+        "simulator": true,
+        "architecture": "arm64",
+        "sdk": "iphonesimulator",
+        "sdk_version": "26.4",
+        "lto": "none",
+        "xcode_version": "26.4.1",
+        "rendering_drivers": [
+          "opengl3"
+        ],
+        "path_overrides_enabled": true,
+        "bootstrap_arguments": "native_owned_bundle_paths",
+        "sdl_enabled": false,
+        "native_input_scope": "touch_and_hardware_keyboard",
+        "upstream_patches": [
+          {
+            "name": "coreaudio-dormancy",
+            "base_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+            "patch_sha256": "d5aad26c18f79c830c660cbd4f2debf401fb796381d4742706eb233afff4701c",
+            "manifest_sha256": "7d02c1a1a20c9f941f3b94119a3a7dd4dc0f19972a1744d16acc08ad80b62724",
+            "applied": true,
+            "files": [
+              {
+                "path": "drivers/coreaudio/audio_driver_coreaudio.h",
+                "originalSha256": "6fd7e8ce99b61d6922259e8d806bc5e6de85c99b8d7033ac72d508ff0a419f0c",
+                "patchedSha256": "12b24d810c8b95a0cb40e3dd41ca8999048571bda9474bcc86ef624915f0ff3f",
+                "originalGitBlob": "08c4ec475f9835cc5ecce3f50a6b4b043be3ec88",
+                "patchedGitBlob": "52e2708f3f95a970750375f15bc4ffd6da1cb07d"
+              },
+              {
+                "path": "drivers/coreaudio/audio_driver_coreaudio.mm",
+                "originalSha256": "656bef8d243670b902c8a9f203f301dc10c23ea9f2ee38f7583e541fe1c5b959",
+                "patchedSha256": "f0d5a678385492c38e83698a7c1884d625d8b52deb49535ffd2309e2ddf54531",
+                "originalGitBlob": "fbd73c8d73d712bfb03c94c9c02357db5a3b2813",
+                "patchedGitBlob": "9b1eefab413502b65fdf05b622808f307000e101"
+              },
+              {
+                "path": "servers/audio/audio_server.cpp",
+                "originalSha256": "d7641ef5852aa86f75c4d506759de2838a2c3886c29f7eb25fd9e9310d87c102",
+                "patchedSha256": "7b32e9c83867692147581b7ac551ee2ea34fda3505ee1cb0dc3d9ad4fc1accec",
+                "originalGitBlob": "98bb2cebd94299cd2d87bc1ca5fd4d5c73ab1807",
+                "patchedGitBlob": "d9f2f8b4d529af3bbe4583f431e0eefd2dff23f4"
+              },
+              {
+                "path": "servers/audio/audio_server.h",
+                "originalSha256": "fb97202eb2148536c06f193f1ccd838ce121b8cfddbb9f1bcd30e7fdbe74647c",
+                "patchedSha256": "6f9bf751e81e51fc490102b1990c0280fa1272884d0821e9dce8e8d2b679f7bd",
+                "originalGitBlob": "efb0a58e1cc4cab257fa1bbf4be0184303f2e234",
+                "patchedGitBlob": "c169e9c4308541a5ee1ae25e1f08c12b15c7dd07"
+              }
+            ]
+          },
+          {
+            "name": "main-loop-access",
+            "base_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+            "patch_sha256": "896fe2da52c8d3e4f9d436c4d41808e5fbc567c268294baf898843c28dbbb3c6",
+            "manifest_sha256": "456c08911c1aa8c4c4efd5d7a372cdf12f2da6380f699b295fe3aeab8e7828ab",
+            "applied": true,
+            "files": [
+              {
+                "path": "drivers/apple_embedded/os_apple_embedded.h",
+                "originalSha256": "c78457c745e3596edd355aaf2e23611a1f51c782ed25a701fb0d3e06dd3cd9e3",
+                "patchedSha256": "5b331a2008f22581320ec2301a269dcc6344814a3d985ffbb63df2107ba64dee",
+                "originalGitBlob": "d801a8652d63b31b2a24e037735314d7ad7a5117",
+                "patchedGitBlob": "b3e14db14a3a8d056948f3396227e1fc7a0a39cc"
+              }
+            ]
+          }
+        ],
+        "native_module_sources": {
+          "partydeck_ios_probe/AppleExportPlugins.mm": "4fd8706afd3616e59221e12969d2a16380f3f8984077b0ff2a59dba0a74f30fc",
+          "partydeck_ios_probe/PDGodotEngineOwner.h": "f55aed92a3c0987ce2f2e5ba544738d5a7dcd53a3f19581c6056dc1de642f1c0",
+          "partydeck_ios_probe/PDGodotRuntime.h": "781d0ea7d206d91a49316f30eeb905caec4b5715f5222fc363ed1b03127a647e",
+          "partydeck_ios_probe/PDGodotRuntime.mm": "042ad5a42ae33a7696c38c448a0e5eef120d1c75a19ad3c29e5c516899913fc8",
+          "partydeck_ios_probe/SCsub": "781f9abdcb30c34d0271bcc21372c6b2ca59545594b8f59625bf05cd9c52f564",
+          "partydeck_ios_probe/config.py": "a7d49c9d253183baf38500b6427d3dde8465df1c176d14ddae240ea086e67d3f",
+          "partydeck_ios_probe/engine_surface_probe.mm": "d86ee6e956ba38843c4d359ff140fe1635d9537775787722d66d7caaac7206f2",
+          "partydeck_ios_probe/register_types.h": "f4550220fcfb8bbd2bb42118823987254b40d6f9293cee61bb972acaa82e4c9c",
+          "partydeck_ios_probe/strict_json.h": "c3bff31433102904886a4fb1adcee109c912b7532f21a46f7e1b1ae629c9d074"
+        },
+        "module_snapshot_sha256": "639db445525cd1218e65025183aea870369d42d59a842cd2016507ec896eaea9",
+        "native_module_capture_phase": "before_scons",
+        "engine_checkout_policy": "fresh_isolated_checkout",
+        "ios_runtime_executed": false,
+        "kmp_factory_qualified": false
+      },
+      "framework_receipt_file": {
+        "sha256": "b601ee6daab71d62a1e78d605bc7beacdf46b508ee3edeafb268547f820a8424",
+        "bytes": 1138
+      },
+      "resources": {
+        "stage": "host_resources_only",
+        "fixture_sha256": "c43b9b8d379b1dcc22311d269745da9e67c3904bae6251636ed8e9abcb22cbb3",
+        "fixture_manifest_sha256": "79b71d6dd1d9ff43fd667482f4323aec9a1bf7720d4964315cdb3dab1a68038e",
+        "fixture_authority": "LastLightEngine.start/viewFor/apply/advanceRound",
+        "diagnostic_sources": {
+          "ProbeScene/project.godot": "e0eaa6ea4d92d7d1786ae82e2523f6b1084262559c90490ee1dd59639aae93e7",
+          "ProbeScene/main.tscn": "1666abce420c16f190937a650fdea6ef2e57ad429ee321c5bee27ad03f8b2885",
+          "ProbeScene/main.gd": "59d6f9e57c3b15ac0393d7a6ed6fd75b212002097fc6e22da515c8cc6d7dc05b",
+          "ProbeResources/MissingMainScene/project.godot": "ccda6894238df7cc451cce666655fea1f48e4d676b9888e5cef27f527cc813c6"
+        },
+        "license_bundle_sha256": {
+          "ANDROID_NDK_LLVM_NOTICE.txt": "f96f763beb66a7ba7a667647fc64c0226ace875e590c831fdd9579ec1c1d91e1",
+          "GODOT_CA_BUNDLE_SOURCE.txt": "33a22c7286f7752131636a11fb9feb3fb12ecd02f1a9b3e54e5901349d37362e",
+          "GODOT_CA_CERTIFICATES_SOURCE.txt": "c68edd43fa15b39be0aa724eaf28cdfa9df22a83eb74f66614b93993bdcde1f7",
+          "GODOT_COPYRIGHT.txt": "cb1980c88089573bcacd7221d777c689bb8bbd778799f24c27fca0fe5f774d6d",
+          "GODOT_LICENSE.txt": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80",
+          "NOTICE_PROVENANCE.json": "c702de9b8f36aa7144902b816a74b8a4718dc34245bfbbe3cb056fed4f65f062",
+          "README.txt": "1ccab8a45f6dab1e3a9117b8f29c56fe67ec969b5c3083fe1a0027eabf3b9231"
+        },
+        "optional_shared_pack": {
+          "sha256": "c8d2b0989524c66715fd7469b7a8315a6fd2fb8563ec87bd2294d60b4ebbcd4a",
+          "bytes": 1549656
+        },
+        "ios_runtime_executed": false,
+        "kmp_factory_qualified": false
+      },
+      "swift_authority_host_compiled": false,
+      "ios_authority_runtime_executed": false,
+      "kmp_factory_qualified": false
+    }
+  },
+  "inputs_file_sha256": "98156ad1b0109ba99ecac54de13a86a1e8b3362e5f95ef821043e626b3ff15de",
+  "source_hashes_after": {
+    "RetainedHost/Host.xcconfig": "3651cd7294b88ad2a9e8cc0e1324fcc534e3588232d14008733528cd3cf46cf3",
+    "RetainedHost/Info.plist": "2a839863df5784b890c7a51efdd695bedaec5461cb5c5191e80ca1f439ef307c",
+    "RetainedHost/README.md": "b255102284fed68dddf0f5d157b08f23bf36aafed2753f1262f6a66d554dfa80",
+    "RetainedHost/RetainedHostApp.swift": "4e50fa627cf1ee74455aee9cf64c9fda34d71e51991ae83175f4f5a0b5418a1c",
+    "RetainedHost/RetainedModel.swift": "6074e9de7186adddfd85e450722470d73c46806e0592305671b303b3369b7ed1",
+    "RetainedHostUITests/RetainedHostUITests.swift": "ca2f573379be62e2c82df38af31556d0961133af2480d20901d93ce63152951b",
+    "RetainedHost.xcodeproj/project.pbxproj": "5a88e42d278871df1545751c4d4d69841cc3b7997e420dbf39d58b90ef318c7f",
+    "RetainedHost.xcodeproj/xcshareddata/xcschemes/RetainedHost.xcscheme": "26a3e28aeaa1b0a39af391e669f3b5ed1b2b221eb02486fcd707a6fb4a3474f2",
+    "test-retained-host.sh": "4975153bc94793087f7a6fbf43026bd00927853c95f4ac3d03d0f76c28f441ed",
+    "record-retained-result.py": "4387cd8cb78a3ef9f393f19e433df4238e4697fd67388975ab999b1e0ffdac49",
+    "modules/partydeck_ios_probe/PDGodotEngineOwner.h": "f55aed92a3c0987ce2f2e5ba544738d5a7dcd53a3f19581c6056dc1de642f1c0"
+  },
+  "executable_sha256": "7455b1706f6d1e51ef67846618a841f2a397c2b963abf3547fd0dce46f7814e3",
+  "swift_harness_compiled": true,
+  "native_and_kotlin_owners_linked": true,
+  "native_tests_started": [
+    "testActiveAndDormantBackgroundTransitionsStayConcealed",
+    "testRepeated2DAnd3DKeepOneDormantEngine",
+    "testStaleFirstReadyAndCloseCompletionReentry"
+  ],
+  "native_tests": [
+    {
+      "case": "testActiveAndDormantBackgroundTransitionsStayConcealed",
+      "status": "failed",
+      "seconds": 17.26
+    },
+    {
+      "case": "testRepeated2DAnd3DKeepOneDormantEngine",
+      "status": "failed",
+      "seconds": 8.121
+    },
+    {
+      "case": "testStaleFirstReadyAndCloseCompletionReentry",
+      "status": "failed",
+      "seconds": 8.873
+    }
+  ],
+  "test_evidence": {
+    "xcresult_retained": true,
+    "attachment_files": [
+      "attachments/006E0382-C404-40CF-912A-7BE6B4D270A2",
+      "attachments/05D14E8D-BBF7-4E9F-8F79-17C2AA422EE8.json",
+      "attachments/081559C7-D865-423B-8976-82778AA51A3D.mp4",
+      "attachments/5C919968-6216-46A3-A6CC-992912645781.png",
+      "attachments/6BA0A549-B0C7-414D-9085-4FA6AC6AF40D.png",
+      "attachments/6E5CDEFE-AC8C-4BA3-B555-96397D496C04.mp4",
+      "attachments/78201EDE-5BD1-42AA-B95E-1E03F09D017A",
+      "attachments/80F5291B-E82C-4A09-A027-B25ED88D958A.png",
+      "attachments/AA62E6B6-6ACD-4EB9-B63C-568B9C3C5759.mp4",
+      "attachments/ABBE9E90-1DB3-44AF-8BEE-835E5E1457A4",
+      "attachments/B3C4DFDB-46BE-441B-8DDD-A103784A8BF0.json",
+      "attachments/BB9C97E6-CCEA-4464-8DE7-5FC0E14159ED.json",
+      "attachments/manifest.json"
+    ],
+    "export_commands": {
+      "attachments_export_exit_code": 0,
+      "summary_export_exit_code": 0
+    },
+    "export_metadata_sha256": "a26fb7cf154c7bb08a3a3ff377334bab7314f8323ab0092a4674eacf1ef35a8f",
+    "summary_sha256": "b70ca05ab050f6db9e2a690e406cd92e76bf1690b3af238febeeacd0005082f7"
+  },
+  "retained_engine_lifecycle_qualified": false,
+  "same_process_reentry_qualified": false,
+  "kmp_factory_qualified": false,
+  "device_metal_qualified": false,
+  "physical_motion_shutdown_qualified": false,
+  "real_audio_interruption_qualified": false,
+  "simulator_only": true,
+  "observed_scope": "Whole-scene replacement; 2D/3D real input and concealed entry; native close ordering; stale handle and epoch rejection; native-shell display/audio/input/motion observations; actual application Home/activate. Unavailable simulator sensors remain unqualified.",
+  "application_observation_files": [
+    "retained-runtime-52CAA031-EAC7-42E5-96D4-BE059DFE2F79.json",
+    "retained-runtime-A3ACF614-E060-43CA-8864-41328E084AA0.json",
+    "retained-runtime-AB55DE1B-ED06-4EE1-99F7-6412BB014812.json"
+  ]
+}

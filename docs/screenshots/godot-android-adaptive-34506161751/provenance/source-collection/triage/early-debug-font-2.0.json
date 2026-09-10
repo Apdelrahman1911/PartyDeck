@@ -1,0 +1,144 @@
+{
+  "runId": 34506161751,
+  "headSha": "d06f83aa8f6905be515faf0f58690634714e5a2d",
+  "case": "android-adaptive-api36-debug-font-2.0-34506161751-1",
+  "fontScale": "2.0",
+  "jobId": 102971335871,
+  "originalResult": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34506161751/android-adaptive-api36-debug-font-2.0-34506161751-1/godot-adaptive/runtime/godot-adaptive-result.json",
+    "bytes": 169545,
+    "sha256": "91881dfc05a1da593aa2cf0c846631482aa2802f2808883a61f12a4f323f2985"
+  },
+  "status": "failed",
+  "failedStage": "2d-landscape.held-rotation",
+  "error": "Input ended before the concealed return was observed.",
+  "checks": {
+    "2d-landscape.held-rotation": {
+      "status": "failed",
+      "error": "Input ended before the concealed return was observed.",
+      "started_utc": "2026-09-10T17:18:56.966+00:00",
+      "ended_utc": "2026-09-10T17:19:39.347+00:00"
+    },
+    "2d-landscape.initial-landscape": {
+      "status": "passed",
+      "started_utc": "2026-09-10T17:17:03.509+00:00",
+      "ended_utc": "2026-09-10T17:18:56.965+00:00"
+    },
+    "installation": {
+      "status": "passed",
+      "started_utc": "2026-09-10T17:16:43.620+00:00",
+      "ended_utc": "2026-09-10T17:17:03.509+00:00"
+    }
+  },
+  "captures": [
+    {
+      "name": "home-cold",
+      "stage": "emulator readiness",
+      "status": "captured"
+    },
+    {
+      "name": "2d-landscape-baseline-public",
+      "stage": "2d-landscape.initial-landscape",
+      "status": "captured"
+    },
+    {
+      "name": "2d-landscape-baseline-first-card",
+      "stage": "2d-landscape.initial-landscape",
+      "status": "captured"
+    },
+    {
+      "name": "2d-landscape-baseline-selected",
+      "stage": "2d-landscape.initial-landscape",
+      "status": "captured"
+    },
+    {
+      "name": "2d-landscape-initial-selector",
+      "stage": "2d-landscape.initial-landscape",
+      "status": "captured"
+    },
+    {
+      "name": "2d-landscape-initial-native-ready",
+      "stage": "2d-landscape.initial-landscape",
+      "status": "captured"
+    },
+    {
+      "name": "final-diagnostic",
+      "stage": "2d-landscape.held-rotation",
+      "status": "captured"
+    }
+  ],
+  "videos": [
+    {
+      "name": "2d-landscape-rotation",
+      "status": "captured-review-required",
+      "original": {
+        "bytes": 214574,
+        "file": "videos/2d-landscape-rotation.mp4",
+        "sha256": "1b206757077641bb53494a3a03442ca41d5ba5ba82f6459fd901979ddae76e49"
+      },
+      "identity": {
+        "name": "/system/bin/screenrecord",
+        "pid": 4468,
+        "start_ticks": 18875,
+        "uid": 2000
+      },
+      "initial_file_sizes": [
+        3232,
+        42664
+      ],
+      "startup_timeout_seconds": 8,
+      "startup_unavailable_condition": null,
+      "validation": {
+        "bytes": 214574,
+        "duration_seconds": 37.032189,
+        "file": "2d-landscape-rotation.mp4",
+        "frames": 77,
+        "height": 720,
+        "metadata": [
+          {
+            "kind": "winscope_legacy",
+            "sample_bytes": 636,
+            "sample_sha256": "2bd67a7c9085c338b9490537d4ac444ba3500ad586e8efda8fc9db94e5693707",
+            "stream_index": 1,
+            "track_id": 2,
+            "video_frames": 77
+          },
+          {
+            "kind": "winscope_v2",
+            "sample_bytes": 648,
+            "sample_sha256": "c3184cab438bf1b88e6a8330c7beadaa67fcd8f79b9bed03cd7661f9b312bbee",
+            "stream_index": 2,
+            "track_id": 3,
+            "video_frames": 77
+          }
+        ],
+        "pixel_privacy": "Review required; decode success does not establish cover order or privacy.",
+        "sha256": "1b206757077641bb53494a3a03442ca41d5ba5ba82f6459fd901979ddae76e49",
+        "width": 1600
+      },
+      "startupObservationCount": 25,
+      "observedStartupSizes": [
+        0,
+        3232,
+        42664
+      ],
+      "lastStartupObservation": {
+        "identity": {
+          "name": "/system/bin/screenrecord",
+          "pid": 4468,
+          "start_ticks": 18875,
+          "uid": 2000
+        },
+        "identity_query_ended_seconds": 7.832839679000017,
+        "output_bytes": 42664,
+        "size_query_ended_seconds": 7.846212299999934,
+        "size_query_returncode": 0
+      }
+    }
+  ],
+  "originalStates": 43,
+  "originalRawProcessReceipts": 43,
+  "all3dScopesNotReached": true,
+  "scope": "Early read-only triage of collected originals. Source/archive and full-run audit remain pending; no runtime status promoted.",
+  "recordedAtUtc": "2026-09-10T17:24:18.932559+00:00"
+}

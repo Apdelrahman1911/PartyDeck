@@ -1,0 +1,104 @@
+{
+  "runId": 34503251315,
+  "headSha": "1cd34a36753ed0112e6684f6525592dab8ef2edb",
+  "createdAtUtc": "2026-09-10T17:46:37.387413+00:00",
+  "result": "Prior selected-JNI pass applies by identical complete DEX bytes.",
+  "priorAudit": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-jni-standard-root-validation-20260910/jni-abi-audit.json",
+    "bytes": 33846,
+    "sha256": "4a9cc5457b1b0c923ecb47e836705432e297a6f4938ef24c49657bcfa47584cc"
+  },
+  "priorApkIndependentlyRehashed": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/android-jni-standard-root-validation-20260910/androidApp-release-unsigned.apk",
+    "bytes": 316255235,
+    "sha256": "a72ca06c7b59f1dcfc7b2cba6d2771e08a5722af462f0700c7b3a3a748530321"
+  },
+  "auditorFreeze": {
+    "path": "/tmp/partydeck-api36-native-ready-34496282263-v1/audit-freeze-v1.json",
+    "bytes": 1735,
+    "sha256": "ebd5383f31dd44ab1e97df987cf618b5ace726a3ee6a0944730c876169a06b98"
+  },
+  "auditorFilesRehashed": [
+    {
+      "path": "/tmp/partydeck-api36-native-ready-34496282263-v1/verify_jni_contract.py",
+      "bytes": 3515,
+      "sha256": "8ea4583b4d7f43e9b24fd14984fbb86f12c60e49194759dc4990f46dee7744ba"
+    },
+    {
+      "path": "/tmp/partydeck-api36-native-ready-34496282263-v1/inspect_dex.py",
+      "bytes": 5960,
+      "sha256": "71cf537c4dff216b1f6958443c8c6d5dbadb10e39a331b81a4a1a024a1504a7d"
+    },
+    {
+      "path": "/tmp/partydeck-api36-native-ready-34496282263-v1/freeze-v1.json",
+      "bytes": 3317,
+      "sha256": "7275bd92d83e580c048d8b4ef0056214685b4812ff60a94c5cda6a18550848a0"
+    },
+    {
+      "path": "/tmp/partydeck-api36-native-ready-34496282263-v1/original-jni-contract-audit-v1.json",
+      "bytes": 72272,
+      "sha256": "d023ba2549243e4dcaeebda7c6645558ddd0afb5cebdea7a7f2a0ac20b5d9547"
+    },
+    {
+      "path": "/tmp/partydeck-api36-native-ready-34496282263-v1/scope-addendum-v1.md",
+      "bytes": 1788,
+      "sha256": "478b2d9c65ab3c141c4e940d066233b24d0d6001403c63d80f249202dadb273c"
+    },
+    {
+      "path": "/tmp/partydeck-api36-native-ready-34496282263-v1/reports/archive-verifier-v1/validation.json",
+      "bytes": 1572,
+      "sha256": "e36fd3d7229e03364ff75dafd4467bd045eedef59e7b2d414266904ff9b7c773"
+    }
+  ],
+  "currentPackages": {
+    "unsigned-release": {
+      "artifact": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/android-packages-and-shrinker-reports/androidApp/build/outputs/apk/release/androidApp-release-unsigned.apk",
+        "bytes": 316255235,
+        "sha256": "2751d7d92a5dcacc7b4bdeb7ad64927621238a225bdf425710f6126d8fb4ad27"
+      },
+      "completeDexSet": [
+        {
+          "name": "classes.dex",
+          "bytes": 4004036,
+          "sha256": "3e231f096df33383e76e8e3cf61172d6c92bb15cdef8fe77ec4db943ed962f02",
+          "classes": 4531
+        }
+      ],
+      "matchesPinnedPriorAuditDexBytes": true
+    },
+    "optimized-test-signed": {
+      "artifact": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/android-packages-and-shrinker-reports/build/ci/android/packages/PartyDeck-release-ci-test-signed.apk",
+        "bytes": 316306374,
+        "sha256": "6a316ee35b94dbd986e85ade8ded5ab4e17c5eb3eabe861588f5e0977bb94f69"
+      },
+      "completeDexSet": [
+        {
+          "name": "classes.dex",
+          "bytes": 4004036,
+          "sha256": "3e231f096df33383e76e8e3cf61172d6c92bb15cdef8fe77ec4db943ed962f02",
+          "classes": 4531
+        }
+      ],
+      "matchesPinnedPriorAuditDexBytes": true
+    }
+  },
+  "packageAudit": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/review/package-audit.json",
+    "bytes": 22834,
+    "sha256": "5569b997d32e15162834bea8cf1ec5c6a69f3b8dfa9d34cf2a16c48f78e23ccc"
+  },
+  "selectedExpectedDeclarations": 122,
+  "selectedPresentDeclarations": 122,
+  "allSelectedDescriptorClassesPresent": true,
+  "parserRerun": false,
+  "nativeExecutionPerformedByReviewer": false,
+  "scope": "Selected pinned core JNI declarations in actual APK DEX; no inherited-resolution, native execution, frame, Ready or universal Godot compatibility claim.",
+  "limits": "This receipt applies the pinned root-owned local ABI audit to the current original CI APK DEX bytes. It does not apply the old missing-method result or establish universal Godot JNI compatibility. Current native Ready/lifecycle evidence is separately bound in runtime-result-triage.json.",
+  "auditScript": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34503251315/audit-scripts/audit-jni-applicability.py",
+    "bytes": 4671,
+    "sha256": "10682dc393b33fda2a4ea8c9f2eb245d5b831dbc0bfd0bbf164ebea36c5d731e"
+  }
+}

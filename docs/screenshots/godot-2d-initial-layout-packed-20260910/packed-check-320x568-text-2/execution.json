@@ -1,0 +1,99 @@
+{
+  "command": [
+    "flock",
+    "/tmp/partydeck-godot.lock",
+    "xvfb-run",
+    "-a",
+    "-s",
+    "-screen 0 1440x1100x24",
+    "/opt/partydeck-godot/godot",
+    "--path",
+    "/root/projects/PartyDeck/artifacts/evidence-storage/2d-initial-layout-root-validation-20260910/packed-check-320x568-text-2/empty-project",
+    "--main-pack",
+    "/root/projects/PartyDeck/artifacts/evidence-storage/2d-initial-layout-root-validation-20260910/attempt-1/partydeck-last-light.pck",
+    "--rendering-method",
+    "gl_compatibility",
+    "--audio-driver",
+    "Dummy",
+    "--script",
+    "/root/projects/PartyDeck/godot/renderer/presentations/two_d/checks/scene_check.gd",
+    "--",
+    "--manual-bridge",
+    "--check-fixture=/tmp/partydeck-2d-initial-layout-34488350932-v1/fixtures/layout-launch-2d.json",
+    "--check-output=/root/projects/PartyDeck/artifacts/evidence-storage/2d-initial-layout-root-validation-20260910/packed-check-320x568-text-2",
+    "--check-width=320",
+    "--check-height=568",
+    "--check-text-scale=2",
+    "--check-touch-drag=true"
+  ],
+  "startedUtc": "2026-09-10T18:01:12.512130+00:00",
+  "inputs": [
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/2d-initial-layout-root-validation-20260910/attempt-1/partydeck-last-light.pck",
+      "sha256": "557b2297bed133a433acc25efa4837462465dd4e06da659ae5a4cbd792f77fe0"
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/renderer/presentations/two_d/checks/scene_check.gd",
+      "sha256": "aedb2ca6e459044197284062067b727a36e8d5d9facdad85aff84db8514603e4"
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/fixtures/layout-launch-2d.json",
+      "sha256": "3ca5f2a15a3756dcb5644e8370e02a88bdc86f271d7a658fa149b282573d5e22"
+    }
+  ],
+  "scope": "Actual packed resources in empty project; local OpenGL input/privacy; not native qualification",
+  "exitCode": 0,
+  "completedUtc": "2026-09-10T18:01:18.294821+00:00",
+  "outputs": [
+    {
+      "path": "01-concealed.json",
+      "bytes": 2213,
+      "sha256": "4a5a83bc452193fd18eedd85766e082638563fc26db70a60a72f88ca358ffd13"
+    },
+    {
+      "path": "01-concealed.png",
+      "bytes": 34818,
+      "sha256": "e4bfcd497b32883570b9b03621918c6546f5277c1b8587611500095ccbece418"
+    },
+    {
+      "path": "02-revealed-selected.json",
+      "bytes": 3481,
+      "sha256": "09721ec9f2cee33e64d07b47bf9b63c1e5673606750efc748fc5bd23e6726f08"
+    },
+    {
+      "path": "02-revealed-selected.png",
+      "bytes": 24924,
+      "sha256": "648bd6ae48a4a13930de74a957a060a61ca03b78b21637fdba6c3e2e764fd3b1"
+    },
+    {
+      "path": "03-covered-again.json",
+      "bytes": 2212,
+      "sha256": "a418fa16f1f46eab2dee273bd058792bde0acc45e2cee07fbbc9da52ac9bbb97"
+    },
+    {
+      "path": "03-covered-again.png",
+      "bytes": 35213,
+      "sha256": "f800a6739e47c504720e1d4d9c72f5ca1076453d6c9a89e1d5408dd370d62546"
+    },
+    {
+      "path": "04-resumed-covered.json",
+      "bytes": 2211,
+      "sha256": "8d81a0e6145d75a1da72ba537193756fa9eee88c78d6bb63c83af63c0600e3c7"
+    },
+    {
+      "path": "04-resumed-covered.png",
+      "bytes": 36366,
+      "sha256": "9cc42987413e63c037df2ffe055a49a0f113a08574559bd81eb6e69fe491d2ca"
+    },
+    {
+      "path": "process.log",
+      "bytes": 785,
+      "sha256": "49cbb833715d898cb1a61a33aeaa00d89001897f5626ba7e6190b904c9e7446e"
+    },
+    {
+      "path": "report.json",
+      "bytes": 14269,
+      "sha256": "0e8a19fd6fbab47d783b83b34380a2808ad88e8ca9c879fa76f896b40ca50f01"
+    }
+  ]
+}

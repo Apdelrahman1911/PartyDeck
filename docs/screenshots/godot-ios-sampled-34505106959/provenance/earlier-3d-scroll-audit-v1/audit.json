@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "auditor": "ui_shell",
+  "completed_at_utc": "2026-09-10T17:33:09.746212+00:00",
+  "run_id": 34488350932,
+  "head_sha": "4f694296b08899176831e7c444c6f8082d40d64b",
+  "pack_sha256": "d6adbba1b5cbd6a1ac3a5754e4294363eae70ae9540af4ba12040cd4cfff44e0",
+  "test_identifier": "AuthorityHostUITests/testReferenceMatchIn3DAt200Percent()",
+  "disposition": "No demonstrated 3D layout or unreachable-primary-action defect in the assigned evidence. Intended scrolling accounts for the captured clipping. No code proposal warranted.",
+  "findings": [
+    {
+      "id": "initial_action",
+      "finding": "Show hand is fully visible outside the scrollable body. Initial offscreen cards and disabled Select cards do not block the required reveal action.",
+      "source": "source/godot/renderer/presentations/three_d/table.gd",
+      "lines": [
+        205,
+        206,
+        243,
+        276,
+        962
+      ],
+      "captures": [
+        50
+      ]
+    },
+    {
+      "id": "large_text_card_selection",
+      "finding": "Large text scale creates separate text card selectors. Reveal requests the first selector into view after layout. Source scroll/focus restoration and a scrolled selected capture explain the artwork cut at the scroll boundary.",
+      "source": "source/godot/renderer/presentations/three_d/table.gd",
+      "lines": [
+        412,
+        539,
+        786,
+        968,
+        975
+      ],
+      "captures": [
+        51,
+        52,
+        55
+      ]
+    },
+    {
+      "id": "result_continuation",
+      "finding": "The scrollable body orders named results and match words before a 220-unit-minimum artwork stage and continuation/return controls. Thirteen round advances each used one retained native drag; final return used two and reached CLOSED/RETURN_TO_LOBBY.",
+      "source": "source/godot/renderer/presentations/three_d/table.gd",
+      "lines": [
+        105,
+        276,
+        327,
+        435
+      ],
+      "captures": [
+        56,
+        58,
+        59
+      ]
+    },
+    {
+      "id": "discoverability",
+      "finding": "Continuation is initially below the result viewport, with a visible scrollbar and successful native scrolling recorded. The evidence does not establish a primary-action discoverability defect; no human usability claim is made.",
+      "captures": [
+        56,
+        58,
+        59
+      ]
+    }
+  ],
+  "checked_counts": {
+    "direct_original_images_viewed": 7,
+    "original_png_hashes_and_dimensions_verified": 7,
+    "original_json_hashes_verified": 109,
+    "actual_touch_geometry_records": 29,
+    "measured_scroll_gestures": 20,
+    "observed_control_records": 49,
+    "all_touch_geometries_fit_clips_and_root_viewport": true,
+    "next_round_gesture_to_touch_revision_pairs": 13,
+    "final_lobby_gesture_count": 2
+  },
+  "source_change_proposal": null,
+  "shared_source_writes": 0,
+  "new_native_execution": false,
+  "new_engine_execution": false,
+  "new_builds_or_exports": false,
+  "new_ci_dispatches": false,
+  "image_derivatives_created": 0,
+  "coordination": {
+    "ui_game": "No shared HUD patch proposed; separate concrete 2D initial Reveal clipping issue remains with ui_game.",
+    "accessible_route": "Standard, as directed by root. No accessibility overlay proposed.",
+    "performance_diagnosis": "Retained current PCK preserved; no rendering or animation changes."
+  },
+  "limits": [
+    "The case is a simulator reference-seed-2 run with a 378 × 691 logical renderer viewport and 200% text.",
+    "All five card-selection touch records target index 0; no claim that this case individually exercised the other card selectors.",
+    "No physical-device, other-viewport, VoiceOver, Android, or human usability qualification.",
+    "Original-image observations remain separate from named/timed companion data; no one-to-one screenshot/geometry pairing was invented.",
+    "Successful scrolling and input are not a performance qualification."
+  ],
+  "evidence_files": [
+    "README.md",
+    "source-identities.json",
+    "visual-receipt.json",
+    "action-evidence.json",
+    "upstream/sources.json"
+  ]
+}

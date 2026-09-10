@@ -1,0 +1,241 @@
+{
+  "schema_version": 1,
+  "run_id": "34505106959",
+  "source_head": "16d828e10212dbe7e930421c2fbe7d040f835c19",
+  "original_report": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34505106959/godot-ios-retained-stack-samples-attempt-1/sample-05.txt",
+    "bytes": 1858083,
+    "sha256": "ac389adbdd7745e5b3d66518362ab07e6eefc8dfde28acdb346e5a32c716ce5f"
+  },
+  "pid": 29236,
+  "uid": 501,
+  "executable_sha256": "7455b1706f6d1e51ef67846618a841f2a397c2b963abf3547fd0dce46f7814e3",
+  "test_case": "testStaleFirstReadyAndCloseCompletionReentry",
+  "nominal_sampling_seconds": 30,
+  "nominal_interval_milliseconds": 10,
+  "tool_launched_at": {
+    "utc": "2026-09-10T17:14:50.138666+00:00",
+    "wallTimeNs": 1789060490138682000,
+    "monotonicNs": 1098776682625
+  },
+  "tool_finished_at": {
+    "utc": "2026-09-10T17:15:26.340538+00:00",
+    "wallTimeNs": 1789060526340549000,
+    "monotonicNs": 1134978549541
+  },
+  "report_date_time_line": "Date/Time:       2026-09-10 17:14:50.669 +0000",
+  "report_launch_time_line": "Launch Time:     2026-09-10 17:14:48.629 +0000",
+  "counts_scope": "Inclusive call-tree observations; not call counts, exclusive CPU time, exact elapsed duration or chronological samples. Only disjoint node totals below are summed.",
+  "main_thread_roots": [
+    {
+      "line": 24,
+      "count": 110
+    },
+    {
+      "line": 170,
+      "count": 1201
+    }
+  ],
+  "iteration_nodes": [
+    {
+      "line": 195,
+      "count": 510
+    },
+    {
+      "line": 805,
+      "count": 10
+    },
+    {
+      "line": 2077,
+      "count": 2
+    },
+    {
+      "line": 2125,
+      "count": 14
+    }
+  ],
+  "disjoint_iteration_observations": 536,
+  "draw_nodes": [
+    {
+      "line": 196,
+      "count": 510
+    },
+    {
+      "line": 2078,
+      "count": 2
+    },
+    {
+      "line": 2126,
+      "count": 14
+    }
+  ],
+  "disjoint_draw_observations": 526,
+  "examined_runtime_descendant_frame_records": 890,
+  "explicit_wait_family_matches_under_sampled_iterate": [],
+  "shader_specialization_nodes": [
+    {
+      "line": 536,
+      "count": 1,
+      "phase": "iteration"
+    },
+    {
+      "line": 551,
+      "count": 1,
+      "phase": "iteration"
+    },
+    {
+      "line": 554,
+      "count": 1,
+      "phase": "iteration"
+    },
+    {
+      "line": 753,
+      "count": 1,
+      "phase": "iteration"
+    },
+    {
+      "line": 1178,
+      "count": 4,
+      "phase": "setup2"
+    },
+    {
+      "line": 1206,
+      "count": 2,
+      "phase": "setup2"
+    },
+    {
+      "line": 1276,
+      "count": 1,
+      "phase": "setup2"
+    }
+  ],
+  "deferred_compiler_queue": {
+    "line": 4995,
+    "count": 469,
+    "name": "com.apple.opengl.cvmDoWork",
+    "main_thread_dependency_demonstrated": false,
+    "simultaneous_sample_timestamps_available": false
+  },
+  "concrete_observed_wait_paths": [
+    {
+      "report_lines": [
+        37,
+        41
+      ],
+      "count": 72,
+      "path": "dyld synchronous debugger/image notification → mach_msg2_trap",
+      "attributable_to_failed_iteration": false
+    },
+    {
+      "report_lines": [
+        1068,
+        1076
+      ],
+      "count": 16,
+      "path": "AudioDriverCoreAudio::init → AudioUnitInitialize/AURemoteIO::Initialize → mach_msg2_trap",
+      "attributable_to_failed_iteration": false
+    },
+    {
+      "report_lines": [
+        1178,
+        1195
+      ],
+      "count": 3,
+      "path": "startup ShaderGLES3 compile → glpGetBIArchiveData → dyld loaders lock → __ulock_wait2",
+      "attributable_to_failed_iteration": false
+    },
+    {
+      "report_lines": [
+        4091,
+        4102
+      ],
+      "count": 66,
+      "path": "framework load → dyld synchronous debugger/image notification → mach_msg2_trap",
+      "attributable_to_failed_iteration": false
+    }
+  ],
+  "original_app_backend": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34505106959/xcresult-decoded/app-stdout-stderr-001.log",
+    "line": 111767,
+    "text": "2026-09-10 17:15:00.442080+0000 RetainedHost[29236:84368] [engine] OpenGL API OpenGL ES 3.0 APPLE-23.1.1 - Compatibility - Using Device: Apple Inc. - Apple Software Renderer",
+    "sha256": "2bd4da73dcf05dc4c24131b64e3bc1ba44e289a1c9109effc0f297a23d8c93d2"
+  },
+  "sampler_observed_case_markers": [
+    {
+      "kind": "original_test_log_marker",
+      "utc": "2026-09-10T17:14:48.410636+00:00",
+      "wallTimeNs": 1789060488410643000,
+      "monotonicNs": 1097048643250,
+      "marker": {
+        "kind": "case_started",
+        "case": "testStaleFirstReadyAndCloseCompletionReentry",
+        "line": 875,
+        "rawLineSha256": "1ab0e8cb919a92d2c20ea015cb2dfcbfec76873703f435ca44fc1fe0404b47c7",
+        "utc": "2026-09-10T17:14:48.410072+00:00",
+        "wallTimeNs": 1789060488410219000,
+        "monotonicNs": 1097048220666
+      }
+    },
+    {
+      "kind": "original_test_log_marker",
+      "utc": "2026-09-10T17:15:04.545470+00:00",
+      "wallTimeNs": 1789060504545474000,
+      "monotonicNs": 1113183474250,
+      "marker": {
+        "kind": "three_d_action",
+        "case": "testStaleFirstReadyAndCloseCompletionReentry",
+        "action": "switch-table",
+        "reportedTestSeconds": 16.02,
+        "line": 904,
+        "rawLine": "    t =    16.02s Tap \"switch-table\" Any",
+        "rawLineSha256": "86fb05ec6a963567e20ac40a9c63977a309b17af9ef17a1a68e2a7b03a4d0681",
+        "utc": "2026-09-10T17:15:04.545282+00:00",
+        "wallTimeNs": 1789060504545289000,
+        "monotonicNs": 1113183289375
+      }
+    },
+    {
+      "kind": "original_test_log_marker",
+      "utc": "2026-09-10T17:15:34.321012+00:00",
+      "wallTimeNs": 1789060534321016000,
+      "monotonicNs": 1142959016541,
+      "marker": {
+        "kind": "case_failed",
+        "case": "testStaleFirstReadyAndCloseCompletionReentry",
+        "line": 922,
+        "rawLineSha256": "80e96eca1598b794725e9acb674d65238db936e418511499286c7ab53544f45c",
+        "utc": "2026-09-10T17:15:34.320833+00:00",
+        "wallTimeNs": 1789060534320892000,
+        "monotonicNs": 1142958892458
+      }
+    }
+  ],
+  "per_observation_timestamps_retained": false,
+  "exact_failed_iteration_stack_binding": false,
+  "first_frame_ordinal_identified": false,
+  "observer_and_foundation_clock_origins_equated": false,
+  "first_failed_repeated_case_has_usable_raw_sample": false,
+  "sampling_overhead_measured": false,
+  "material_shader_or_variant_identified": false,
+  "failed_deadline_blocked_call_identified": false,
+  "source_map_relation": "The same renderer PCK and exact three_d/table.gd bytes retain the prior material-key/source map. Actual Godot specialization and Apple pipeline/CVM build work appear, but do not establish a Reveal/selection shader-key toggle or material-cache cause.",
+  "proposed_experiment": {
+    "status": "Recommendation only; no product edit or export by this reviewer",
+    "source": "/root/projects/PartyDeck/artifacts/evidence-storage/source-16d828e/source-16d828e/godot/renderer/presentations/three_d/table.gd",
+    "line": 156,
+    "before": "_viewport.msaa_3d = Viewport.MSAA_2X",
+    "after": "_viewport.msaa_3d = Viewport.MSAA_DISABLED",
+    "baseline_pack_sha256": "d6adbba1b5cbd6a1ac3a5754e4294363eae70ae9540af4ba12040cd4cfff44e0",
+    "owner": "engine_ci",
+    "owner_proposal": "/root/projects/PartyDeck/artifacts/evidence-storage/34505106959-msaa-experiment-v1/PROPOSAL.md",
+    "aim": "Test contribution from the 3D multisample render path while preserving geometry, materials, layouts, controls and gates.",
+    "cause_claim": false,
+    "actual_effective_sample_count_known": false,
+    "merge_or_acceptance_claim": false
+  },
+  "native_qualification_added": false,
+  "product_edits": false,
+  "new_sample_runs": 0,
+  "new_exports": 0,
+  "full_collection_reaudits": 0
+}

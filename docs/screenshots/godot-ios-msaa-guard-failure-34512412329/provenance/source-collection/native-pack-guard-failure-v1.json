@@ -1,0 +1,1125 @@
+{
+  "auditedAtUtc": "2026-09-10T18:35:02.323440+00:00",
+  "runId": 34512412329,
+  "headSha": "c058bdc806b918bff17630489257a1b401e224b4",
+  "allChecksPassed": true,
+  "finding": "The candidate pack fails the unchanged exact-pack guard before native preparation. All three cases stop on initial 2D entry; no MSAA rendering experiment is reached.",
+  "originalResult": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34512412329/godot-ios-retained-host-test-attempt-1/retained-host-test/evidence/result.json",
+    "bytes": 15037,
+    "sha256": "cd5af3613d802e54172421ece6b1dc46340f1a63f2ebdef632a93ef8f9a838d0"
+  },
+  "originalInputs": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34512412329/godot-ios-retained-host-test-attempt-1/retained-host-test/evidence/inputs.json",
+    "bytes": 10283,
+    "sha256": "98156ad1b0109ba99ecac54de13a86a1e8b3362e5f95ef821043e626b3ff15de"
+  },
+  "originalTestSummary": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34512412329/godot-ios-retained-host-test-attempt-1/retained-host-test/evidence/test-summary.json",
+    "bytes": 2643,
+    "sha256": "b70ca05ab050f6db9e2a690e406cd92e76bf1690b3af238febeeacd0005082f7"
+  },
+  "originalAttachmentManifest": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34512412329/godot-ios-retained-host-test-attempt-1/retained-host-test/artifacts/attachments/manifest.json",
+    "bytes": 5922,
+    "sha256": "b6400eca548045f4d4f83cefd1b37c6df19e3c31f003e0594889b9978a0a0428"
+  },
+  "cases": [
+    {
+      "case": "testActiveAndDormantBackgroundTransitionsStayConcealed",
+      "result": {
+        "case": "testActiveAndDormantBackgroundTransitionsStayConcealed",
+        "status": "failed",
+        "seconds": 17.26
+      },
+      "originalAttachment": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34512412329/godot-ios-retained-host-test-attempt-1/retained-host-test/artifacts/attachments/B3C4DFDB-46BE-441B-8DDD-A103784A8BF0.json",
+        "bytes": 4309,
+        "sha256": "c7a41d8607f83b85a9bc70f822cbe1da733b304f138ca3bbb52f589eef7af15b"
+      },
+      "originalManifestEntry": {
+        "configurationName": "Test Scheme Action",
+        "deviceId": "6762BD8F-E960-4E21-B8DB-9D43947B47AF",
+        "deviceName": "iPhone 17",
+        "exportedFileName": "B3C4DFDB-46BE-441B-8DDD-A103784A8BF0.json",
+        "isAssociatedWithFailure": false,
+        "suggestedHumanReadableName": "Actual retained owner failure measurements_0_FC227708-601C-4317-95DB-95591FC3CE63.json",
+        "timestamp": 1789064350.159
+      },
+      "selectedOriginalFields": {
+        "measurements": {
+          "runID": "A3ACF614-E060-43CA-8864-41328E084AA0",
+          "state": "idle",
+          "mode": "",
+          "entryCount": 0,
+          "presentationID": "",
+          "failure": "Native preparation failed: Retained entry requires the exact audited pack in the application bundle.",
+          "readyConfirmed": false,
+          "entryPreparedNative": {},
+          "firstReadyProbe": {},
+          "staleProbe": {},
+          "lastClosure": {},
+          "authorityReleased": true,
+          "pollCount": 24,
+          "observedUptime": 569.5865042500001,
+          "observedApplicationState": 4,
+          "observedMetricsQuerySeconds": 0.15917333333334227
+        },
+        "native": {
+          "state": "idle",
+          "bootstrapCount": 0,
+          "bootstrapExitCode": -1,
+          "mainStarted": false,
+          "mainStartExitCode": -1,
+          "osSingletonPresent": false,
+          "setup2Succeeded": false,
+          "setup2ErrorCode": -1,
+          "drawCalls": 0,
+          "iterations": 0,
+          "readyEvents": 0,
+          "renderLoopActive": false,
+          "rendererDiagnostics": {},
+          "quarantined": false,
+          "timings": {
+            "drain": {
+              "activeStartedUptime": 0,
+              "completedCount": 0,
+              "currentDepth": 0,
+              "lastCompletedUptime": 0,
+              "lastSeconds": 0,
+              "maxCompletedUptime": 0,
+              "maxDepth": 0,
+              "maxSeconds": 0
+            },
+            "drawView": {
+              "activeStartedUptime": 0,
+              "completedCount": 0,
+              "currentDepth": 0,
+              "lastCompletedUptime": 0,
+              "lastSeconds": 0,
+              "maxCompletedUptime": 0,
+              "maxDepth": 0,
+              "maxSeconds": 0
+            },
+            "iterate": {
+              "activeStartedUptime": 0,
+              "completedCount": 0,
+              "currentDepth": 0,
+              "lastCompletedUptime": 0,
+              "lastSeconds": 0,
+              "maxCompletedUptime": 0,
+              "maxDepth": 0,
+              "maxSeconds": 0
+            },
+            "presentRenderbuffer": {
+              "activeStartedUptime": 0,
+              "completedCount": 0,
+              "currentDepth": 0,
+              "lastCompletedUptime": 0,
+              "lastSeconds": 0,
+              "maxCompletedUptime": 0,
+              "maxDepth": 0,
+              "maxSeconds": 0
+            },
+            "renderOnView": {
+              "activeStartedUptime": 0,
+              "completedCount": 0,
+              "currentDepth": 0,
+              "lastCompletedUptime": 0,
+              "lastSeconds": 0,
+              "maxCompletedUptime": 0,
+              "maxDepth": 0,
+              "maxSeconds": 0
+            },
+            "schemaVersion": 1,
+            "setupView": {
+              "activeStartedUptime": 0,
+              "completedCount": 0,
+              "currentDepth": 0,
+              "lastCompletedUptime": 0,
+              "lastSeconds": 0,
+              "maxCompletedUptime": 0,
+              "maxDepth": 0,
+              "maxSeconds": 0
+            },
+            "snapshotUptime": 569.5865061666667,
+            "uikitPump": {
+              "activeStartedUptime": 0,
+              "completedCount": 0,
+              "currentDepth": 0,
+              "lastCompletedUptime": 0,
+              "lastSeconds": 0,
+              "maxCompletedUptime": 0,
+              "maxDepth": 0,
+              "maxSeconds": 0
+            }
+          }
+        },
+        "allRecordedTimingScopesUnentered": true
+      },
+      "originalApplicationJournal": {
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34512412329/godot-ios-retained-host-test-attempt-1/retained-host-test/evidence/application-observations/retained-runtime-A3ACF614-E060-43CA-8864-41328E084AA0.json",
+          "bytes": 3399,
+          "sha256": "49be4db69ad4ec6d28f88becd95673348a57c743a81e34a14a1ffe073140f7c5"
+        },
+        "runID": "A3ACF614-E060-43CA-8864-41328E084AA0",
+        "startedAtUnixSeconds": 1789064344.408107,
+        "arguments": [
+          "/Users/runner/Library/Developer/CoreSimulator/Devices/6762BD8F-E960-4E21-B8DB-9D43947B47AF/data/Containers/Bundle/Application/77E25B86-75DC-4629-81C3-67D6CF9EE578/RetainedHost.app/RetainedHost",
+          "--host-idle-timer=on"
+        ],
+        "event": "preparation-failed",
+        "observedAtUnixSeconds": 1789064349.192478,
+        "selectedOriginalFields": {
+          "measurements": {
+            "runID": "A3ACF614-E060-43CA-8864-41328E084AA0",
+            "state": "idle",
+            "mode": "",
+            "entryCount": 0,
+            "presentationID": "",
+            "failure": "Native preparation failed: Retained entry requires the exact audited pack in the application bundle.",
+            "readyConfirmed": false,
+            "entryPreparedNative": {},
+            "firstReadyProbe": {},
+            "staleProbe": {},
+            "lastClosure": {},
+            "authorityReleased": true,
+            "pollCount": 21,
+            "observedUptime": 568.773610875
+          },
+          "native": {
+            "state": "idle",
+            "bootstrapCount": 0,
+            "bootstrapExitCode": -1,
+            "mainStarted": false,
+            "mainStartExitCode": -1,
+            "osSingletonPresent": false,
+            "setup2Succeeded": false,
+            "setup2ErrorCode": -1,
+            "drawCalls": 0,
+            "iterations": 0,
+            "readyEvents": 0,
+            "renderLoopActive": false,
+            "rendererDiagnostics": {},
+            "quarantined": false,
+            "timings": {
+              "drain": {
+                "activeStartedUptime": 0,
+                "completedCount": 0,
+                "currentDepth": 0,
+                "lastCompletedUptime": 0,
+                "lastSeconds": 0,
+                "maxCompletedUptime": 0,
+                "maxDepth": 0,
+                "maxSeconds": 0
+              },
+              "drawView": {
+                "activeStartedUptime": 0,
+                "completedCount": 0,
+                "currentDepth": 0,
+                "lastCompletedUptime": 0,
+                "lastSeconds": 0,
+                "maxCompletedUptime": 0,
+                "maxDepth": 0,
+                "maxSeconds": 0
+              },
+              "iterate": {
+                "activeStartedUptime": 0,
+                "completedCount": 0,
+                "currentDepth": 0,
+                "lastCompletedUptime": 0,
+                "lastSeconds": 0,
+                "maxCompletedUptime": 0,
+                "maxDepth": 0,
+                "maxSeconds": 0
+              },
+              "presentRenderbuffer": {
+                "activeStartedUptime": 0,
+                "completedCount": 0,
+                "currentDepth": 0,
+                "lastCompletedUptime": 0,
+                "lastSeconds": 0,
+                "maxCompletedUptime": 0,
+                "maxDepth": 0,
+                "maxSeconds": 0
+              },
+              "renderOnView": {
+                "activeStartedUptime": 0,
+                "completedCount": 0,
+                "currentDepth": 0,
+                "lastCompletedUptime": 0,
+                "lastSeconds": 0,
+                "maxCompletedUptime": 0,
+                "maxDepth": 0,
+                "maxSeconds": 0
+              },
+              "schemaVersion": 1,
+              "setupView": {
+                "activeStartedUptime": 0,
+                "completedCount": 0,
+                "currentDepth": 0,
+                "lastCompletedUptime": 0,
+                "lastSeconds": 0,
+                "maxCompletedUptime": 0,
+                "maxDepth": 0,
+                "maxSeconds": 0
+              },
+              "snapshotUptime": 568.7736135416667,
+              "uikitPump": {
+                "activeStartedUptime": 0,
+                "completedCount": 0,
+                "currentDepth": 0,
+                "lastCompletedUptime": 0,
+                "lastSeconds": 0,
+                "maxCompletedUptime": 0,
+                "maxDepth": 0,
+                "maxSeconds": 0
+              }
+            }
+          },
+          "allRecordedTimingScopesUnentered": true
+        }
+      },
+      "firstRequestedMode": "2d",
+      "nativePreparationReached": false,
+      "renderingReached": false,
+      "threeDExperimentReached": false
+    },
+    {
+      "case": "testRepeated2DAnd3DKeepOneDormantEngine",
+      "result": {
+        "case": "testRepeated2DAnd3DKeepOneDormantEngine",
+        "status": "failed",
+        "seconds": 8.121
+      },
+      "originalAttachment": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34512412329/godot-ios-retained-host-test-attempt-1/retained-host-test/artifacts/attachments/BB9C97E6-CCEA-4464-8DE7-5FC0E14159ED.json",
+        "bytes": 4311,
+        "sha256": "6fd6d033c208965a3e2556f672388a80fc5339a31c958530bc7370f978e6f526"
+      },
+      "originalManifestEntry": {
+        "configurationName": "Test Scheme Action",
+        "deviceId": "6762BD8F-E960-4E21-B8DB-9D43947B47AF",
+        "deviceName": "iPhone 17",
+        "exportedFileName": "BB9C97E6-CCEA-4464-8DE7-5FC0E14159ED.json",
+        "isAssociatedWithFailure": false,
+        "suggestedHumanReadableName": "Actual retained owner failure measurements_0_DD429599-8674-43D5-8C38-D3ED669230C1.json",
+        "timestamp": 1789064362.397
+      },
+      "selectedOriginalFields": {
+        "measurements": {
+          "runID": "AB55DE1B-ED06-4EE1-99F7-6412BB014812",
+          "state": "idle",
+          "mode": "",
+          "entryCount": 0,
+          "presentationID": "",
+          "failure": "Native preparation failed: Retained entry requires the exact audited pack in the application bundle.",
+          "readyConfirmed": false,
+          "entryPreparedNative": {},
+          "firstReadyProbe": {},
+          "staleProbe": {},
+          "lastClosure": {},
+          "authorityReleased": true,
+          "pollCount": 20,
+          "observedUptime": 581.77096125,
+          "observedApplicationState": 4,
+          "observedMetricsQuerySeconds": 0.03646754166663868
+        },
+        "native": {
+          "state": "idle",
+          "bootstrapCount": 0,
+          "bootstrapExitCode": -1,
+          "mainStarted": false,
+          "mainStartExitCode": -1,
+          "osSingletonPresent": false,
+          "setup2Succeeded": false,
+          "setup2ErrorCode": -1,
+          "drawCalls": 0,
+          "iterations": 0,
+          "readyEvents": 0,
+          "renderLoopActive": false,
+          "rendererDiagnostics": {},
+          "quarantined": false,
+          "timings": {
+            "drain": {
+              "activeStartedUptime": 0,
+              "completedCount": 0,
+              "currentDepth": 0,
+              "lastCompletedUptime": 0,
+              "lastSeconds": 0,
+              "maxCompletedUptime": 0,
+              "maxDepth": 0,
+              "maxSeconds": 0
+            },
+            "drawView": {
+              "activeStartedUptime": 0,
+              "completedCount": 0,
+              "currentDepth": 0,
+              "lastCompletedUptime": 0,
+              "lastSeconds": 0,
+              "maxCompletedUptime": 0,
+              "maxDepth": 0,
+              "maxSeconds": 0
+            },
+            "iterate": {
+              "activeStartedUptime": 0,
+              "completedCount": 0,
+              "currentDepth": 0,
+              "lastCompletedUptime": 0,
+              "lastSeconds": 0,
+              "maxCompletedUptime": 0,
+              "maxDepth": 0,
+              "maxSeconds": 0
+            },
+            "presentRenderbuffer": {
+              "activeStartedUptime": 0,
+              "completedCount": 0,
+              "currentDepth": 0,
+              "lastCompletedUptime": 0,
+              "lastSeconds": 0,
+              "maxCompletedUptime": 0,
+              "maxDepth": 0,
+              "maxSeconds": 0
+            },
+            "renderOnView": {
+              "activeStartedUptime": 0,
+              "completedCount": 0,
+              "currentDepth": 0,
+              "lastCompletedUptime": 0,
+              "lastSeconds": 0,
+              "maxCompletedUptime": 0,
+              "maxDepth": 0,
+              "maxSeconds": 0
+            },
+            "schemaVersion": 1,
+            "setupView": {
+              "activeStartedUptime": 0,
+              "completedCount": 0,
+              "currentDepth": 0,
+              "lastCompletedUptime": 0,
+              "lastSeconds": 0,
+              "maxCompletedUptime": 0,
+              "maxDepth": 0,
+              "maxSeconds": 0
+            },
+            "snapshotUptime": 581.7709630416667,
+            "uikitPump": {
+              "activeStartedUptime": 0,
+              "completedCount": 0,
+              "currentDepth": 0,
+              "lastCompletedUptime": 0,
+              "lastSeconds": 0,
+              "maxCompletedUptime": 0,
+              "maxDepth": 0,
+              "maxSeconds": 0
+            }
+          }
+        },
+        "allRecordedTimingScopesUnentered": true
+      },
+      "originalApplicationJournal": {
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34512412329/godot-ios-retained-host-test-attempt-1/retained-host-test/evidence/application-observations/retained-runtime-AB55DE1B-ED06-4EE1-99F7-6412BB014812.json",
+          "bytes": 3401,
+          "sha256": "b8622a8d42483aa9cd00eb995ae86fc4cf85e9e349f2569a62d7c656e301c10c"
+        },
+        "runID": "AB55DE1B-ED06-4EE1-99F7-6412BB014812",
+        "startedAtUnixSeconds": 1789064358.028687,
+        "arguments": [
+          "/Users/runner/Library/Developer/CoreSimulator/Devices/6762BD8F-E960-4E21-B8DB-9D43947B47AF/data/Containers/Bundle/Application/77E25B86-75DC-4629-81C3-67D6CF9EE578/RetainedHost.app/RetainedHost",
+          "--host-idle-timer=off"
+        ],
+        "event": "preparation-failed",
+        "observedAtUnixSeconds": 1789064361.9631572,
+        "selectedOriginalFields": {
+          "measurements": {
+            "runID": "AB55DE1B-ED06-4EE1-99F7-6412BB014812",
+            "state": "idle",
+            "mode": "",
+            "entryCount": 0,
+            "presentationID": "",
+            "failure": "Native preparation failed: Retained entry requires the exact audited pack in the application bundle.",
+            "readyConfirmed": false,
+            "entryPreparedNative": {},
+            "firstReadyProbe": {},
+            "staleProbe": {},
+            "lastClosure": {},
+            "authorityReleased": true,
+            "pollCount": 19,
+            "observedUptime": 581.5458586666667
+          },
+          "native": {
+            "state": "idle",
+            "bootstrapCount": 0,
+            "bootstrapExitCode": -1,
+            "mainStarted": false,
+            "mainStartExitCode": -1,
+            "osSingletonPresent": false,
+            "setup2Succeeded": false,
+            "setup2ErrorCode": -1,
+            "drawCalls": 0,
+            "iterations": 0,
+            "readyEvents": 0,
+            "renderLoopActive": false,
+            "rendererDiagnostics": {},
+            "quarantined": false,
+            "timings": {
+              "drain": {
+                "activeStartedUptime": 0,
+                "completedCount": 0,
+                "currentDepth": 0,
+                "lastCompletedUptime": 0,
+                "lastSeconds": 0,
+                "maxCompletedUptime": 0,
+                "maxDepth": 0,
+                "maxSeconds": 0
+              },
+              "drawView": {
+                "activeStartedUptime": 0,
+                "completedCount": 0,
+                "currentDepth": 0,
+                "lastCompletedUptime": 0,
+                "lastSeconds": 0,
+                "maxCompletedUptime": 0,
+                "maxDepth": 0,
+                "maxSeconds": 0
+              },
+              "iterate": {
+                "activeStartedUptime": 0,
+                "completedCount": 0,
+                "currentDepth": 0,
+                "lastCompletedUptime": 0,
+                "lastSeconds": 0,
+                "maxCompletedUptime": 0,
+                "maxDepth": 0,
+                "maxSeconds": 0
+              },
+              "presentRenderbuffer": {
+                "activeStartedUptime": 0,
+                "completedCount": 0,
+                "currentDepth": 0,
+                "lastCompletedUptime": 0,
+                "lastSeconds": 0,
+                "maxCompletedUptime": 0,
+                "maxDepth": 0,
+                "maxSeconds": 0
+              },
+              "renderOnView": {
+                "activeStartedUptime": 0,
+                "completedCount": 0,
+                "currentDepth": 0,
+                "lastCompletedUptime": 0,
+                "lastSeconds": 0,
+                "maxCompletedUptime": 0,
+                "maxDepth": 0,
+                "maxSeconds": 0
+              },
+              "schemaVersion": 1,
+              "setupView": {
+                "activeStartedUptime": 0,
+                "completedCount": 0,
+                "currentDepth": 0,
+                "lastCompletedUptime": 0,
+                "lastSeconds": 0,
+                "maxCompletedUptime": 0,
+                "maxDepth": 0,
+                "maxSeconds": 0
+              },
+              "snapshotUptime": 581.5458594166668,
+              "uikitPump": {
+                "activeStartedUptime": 0,
+                "completedCount": 0,
+                "currentDepth": 0,
+                "lastCompletedUptime": 0,
+                "lastSeconds": 0,
+                "maxCompletedUptime": 0,
+                "maxDepth": 0,
+                "maxSeconds": 0
+              }
+            }
+          },
+          "allRecordedTimingScopesUnentered": true
+        }
+      },
+      "firstRequestedMode": "2d",
+      "nativePreparationReached": false,
+      "renderingReached": false,
+      "threeDExperimentReached": false
+    },
+    {
+      "case": "testStaleFirstReadyAndCloseCompletionReentry",
+      "result": {
+        "case": "testStaleFirstReadyAndCloseCompletionReentry",
+        "status": "failed",
+        "seconds": 8.873
+      },
+      "originalAttachment": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34512412329/godot-ios-retained-host-test-attempt-1/retained-host-test/artifacts/attachments/05D14E8D-BBF7-4E9F-8F79-17C2AA422EE8.json",
+        "bytes": 4311,
+        "sha256": "68f58c505b50c104f4cc6f3e9da9816ce3ebb5301645d5c38d93ea2d8ff68046"
+      },
+      "originalManifestEntry": {
+        "configurationName": "Test Scheme Action",
+        "deviceId": "6762BD8F-E960-4E21-B8DB-9D43947B47AF",
+        "deviceName": "iPhone 17",
+        "exportedFileName": "05D14E8D-BBF7-4E9F-8F79-17C2AA422EE8.json",
+        "isAssociatedWithFailure": false,
+        "suggestedHumanReadableName": "Actual retained owner failure measurements_0_8D15B3C5-3BC1-4305-B6CB-6C047D4A069E.json",
+        "timestamp": 1789064373.36
+      },
+      "selectedOriginalFields": {
+        "measurements": {
+          "runID": "52CAA031-EAC7-42E5-96D4-BE059DFE2F79",
+          "state": "idle",
+          "mode": "",
+          "entryCount": 0,
+          "presentationID": "",
+          "failure": "Native preparation failed: Retained entry requires the exact audited pack in the application bundle.",
+          "readyConfirmed": false,
+          "entryPreparedNative": {},
+          "firstReadyProbe": {},
+          "staleProbe": {},
+          "lastClosure": {},
+          "authorityReleased": true,
+          "pollCount": 21,
+          "observedUptime": 592.693667125,
+          "observedApplicationState": 4,
+          "observedMetricsQuerySeconds": 0.0582254583333679
+        },
+        "native": {
+          "state": "idle",
+          "bootstrapCount": 0,
+          "bootstrapExitCode": -1,
+          "mainStarted": false,
+          "mainStartExitCode": -1,
+          "osSingletonPresent": false,
+          "setup2Succeeded": false,
+          "setup2ErrorCode": -1,
+          "drawCalls": 0,
+          "iterations": 0,
+          "readyEvents": 0,
+          "renderLoopActive": false,
+          "rendererDiagnostics": {},
+          "quarantined": false,
+          "timings": {
+            "drain": {
+              "activeStartedUptime": 0,
+              "completedCount": 0,
+              "currentDepth": 0,
+              "lastCompletedUptime": 0,
+              "lastSeconds": 0,
+              "maxCompletedUptime": 0,
+              "maxDepth": 0,
+              "maxSeconds": 0
+            },
+            "drawView": {
+              "activeStartedUptime": 0,
+              "completedCount": 0,
+              "currentDepth": 0,
+              "lastCompletedUptime": 0,
+              "lastSeconds": 0,
+              "maxCompletedUptime": 0,
+              "maxDepth": 0,
+              "maxSeconds": 0
+            },
+            "iterate": {
+              "activeStartedUptime": 0,
+              "completedCount": 0,
+              "currentDepth": 0,
+              "lastCompletedUptime": 0,
+              "lastSeconds": 0,
+              "maxCompletedUptime": 0,
+              "maxDepth": 0,
+              "maxSeconds": 0
+            },
+            "presentRenderbuffer": {
+              "activeStartedUptime": 0,
+              "completedCount": 0,
+              "currentDepth": 0,
+              "lastCompletedUptime": 0,
+              "lastSeconds": 0,
+              "maxCompletedUptime": 0,
+              "maxDepth": 0,
+              "maxSeconds": 0
+            },
+            "renderOnView": {
+              "activeStartedUptime": 0,
+              "completedCount": 0,
+              "currentDepth": 0,
+              "lastCompletedUptime": 0,
+              "lastSeconds": 0,
+              "maxCompletedUptime": 0,
+              "maxDepth": 0,
+              "maxSeconds": 0
+            },
+            "schemaVersion": 1,
+            "setupView": {
+              "activeStartedUptime": 0,
+              "completedCount": 0,
+              "currentDepth": 0,
+              "lastCompletedUptime": 0,
+              "lastSeconds": 0,
+              "maxCompletedUptime": 0,
+              "maxDepth": 0,
+              "maxSeconds": 0
+            },
+            "snapshotUptime": 592.6936685000001,
+            "uikitPump": {
+              "activeStartedUptime": 0,
+              "completedCount": 0,
+              "currentDepth": 0,
+              "lastCompletedUptime": 0,
+              "lastSeconds": 0,
+              "maxCompletedUptime": 0,
+              "maxDepth": 0,
+              "maxSeconds": 0
+            }
+          }
+        },
+        "allRecordedTimingScopesUnentered": true
+      },
+      "originalApplicationJournal": {
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34512412329/godot-ios-retained-host-test-attempt-1/retained-host-test/evidence/application-observations/retained-runtime-52CAA031-EAC7-42E5-96D4-BE059DFE2F79.json",
+          "bytes": 3426,
+          "sha256": "42ffa1876803f4d9fb2c9d47ceb4036f6bc4558e08f542302194882a909695cf"
+        },
+        "runID": "52CAA031-EAC7-42E5-96D4-BE059DFE2F79",
+        "startedAtUnixSeconds": 1789064368.544289,
+        "arguments": [
+          "/Users/runner/Library/Developer/CoreSimulator/Devices/6762BD8F-E960-4E21-B8DB-9D43947B47AF/data/Containers/Bundle/Application/77E25B86-75DC-4629-81C3-67D6CF9EE578/RetainedHost.app/RetainedHost",
+          "--host-idle-timer=off",
+          "--supersede-first-ready"
+        ],
+        "event": "preparation-failed",
+        "observedAtUnixSeconds": 1789064372.768132,
+        "selectedOriginalFields": {
+          "measurements": {
+            "runID": "52CAA031-EAC7-42E5-96D4-BE059DFE2F79",
+            "state": "idle",
+            "mode": "",
+            "entryCount": 0,
+            "presentationID": "",
+            "failure": "Native preparation failed: Retained entry requires the exact audited pack in the application bundle.",
+            "readyConfirmed": false,
+            "entryPreparedNative": {},
+            "firstReadyProbe": {},
+            "staleProbe": {},
+            "lastClosure": {},
+            "authorityReleased": true,
+            "pollCount": 19,
+            "observedUptime": 592.3482255
+          },
+          "native": {
+            "state": "idle",
+            "bootstrapCount": 0,
+            "bootstrapExitCode": -1,
+            "mainStarted": false,
+            "mainStartExitCode": -1,
+            "osSingletonPresent": false,
+            "setup2Succeeded": false,
+            "setup2ErrorCode": -1,
+            "drawCalls": 0,
+            "iterations": 0,
+            "readyEvents": 0,
+            "renderLoopActive": false,
+            "rendererDiagnostics": {},
+            "quarantined": false,
+            "timings": {
+              "drain": {
+                "activeStartedUptime": 0,
+                "completedCount": 0,
+                "currentDepth": 0,
+                "lastCompletedUptime": 0,
+                "lastSeconds": 0,
+                "maxCompletedUptime": 0,
+                "maxDepth": 0,
+                "maxSeconds": 0
+              },
+              "drawView": {
+                "activeStartedUptime": 0,
+                "completedCount": 0,
+                "currentDepth": 0,
+                "lastCompletedUptime": 0,
+                "lastSeconds": 0,
+                "maxCompletedUptime": 0,
+                "maxDepth": 0,
+                "maxSeconds": 0
+              },
+              "iterate": {
+                "activeStartedUptime": 0,
+                "completedCount": 0,
+                "currentDepth": 0,
+                "lastCompletedUptime": 0,
+                "lastSeconds": 0,
+                "maxCompletedUptime": 0,
+                "maxDepth": 0,
+                "maxSeconds": 0
+              },
+              "presentRenderbuffer": {
+                "activeStartedUptime": 0,
+                "completedCount": 0,
+                "currentDepth": 0,
+                "lastCompletedUptime": 0,
+                "lastSeconds": 0,
+                "maxCompletedUptime": 0,
+                "maxDepth": 0,
+                "maxSeconds": 0
+              },
+              "renderOnView": {
+                "activeStartedUptime": 0,
+                "completedCount": 0,
+                "currentDepth": 0,
+                "lastCompletedUptime": 0,
+                "lastSeconds": 0,
+                "maxCompletedUptime": 0,
+                "maxDepth": 0,
+                "maxSeconds": 0
+              },
+              "schemaVersion": 1,
+              "setupView": {
+                "activeStartedUptime": 0,
+                "completedCount": 0,
+                "currentDepth": 0,
+                "lastCompletedUptime": 0,
+                "lastSeconds": 0,
+                "maxCompletedUptime": 0,
+                "maxDepth": 0,
+                "maxSeconds": 0
+              },
+              "snapshotUptime": 592.3482279166667,
+              "uikitPump": {
+                "activeStartedUptime": 0,
+                "completedCount": 0,
+                "currentDepth": 0,
+                "lastCompletedUptime": 0,
+                "lastSeconds": 0,
+                "maxCompletedUptime": 0,
+                "maxDepth": 0,
+                "maxSeconds": 0
+              }
+            }
+          },
+          "allRecordedTimingScopesUnentered": true
+        }
+      },
+      "firstRequestedMode": "2d",
+      "nativePreparationReached": false,
+      "renderingReached": false,
+      "threeDExperimentReached": false
+    }
+  ],
+  "packBinding": {
+    "producerPack": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34512412329/godot-ios-host-renderer/partydeck-last-light.pck",
+      "bytes": 1549656,
+      "sha256": "c8d2b0989524c66715fd7469b7a8315a6fd2fb8563ec87bd2294d60b4ebbcd4a"
+    },
+    "requiredPackSHA256": "d6adbba1b5cbd6a1ac3a5754e4294363eae70ae9540af4ba12040cd4cfff44e0",
+    "actualCandidateSHA256": "c8d2b0989524c66715fd7469b7a8315a6fd2fb8563ec87bd2294d60b4ebbcd4a",
+    "originalPreservationAudit": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34512412329/retained-preservation-audit.json",
+      "bytes": 1212009,
+      "sha256": "122e5bf0c2f2bd53e419517509f9a2799da33b20b73ecc424c692f0f01a563f5"
+    },
+    "preservedPackMembers": [
+      {
+        "member": "retained-inputs/renderer/partydeck-last-light.pck",
+        "bytes": 1549656,
+        "sha256": "c8d2b0989524c66715fd7469b7a8315a6fd2fb8563ec87bd2294d60b4ebbcd4a",
+        "matchesOriginalProducer": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34512412329/godot-ios-host-renderer/partydeck-last-light.pck",
+          "bytes": 1549656,
+          "sha256": "c8d2b0989524c66715fd7469b7a8315a6fd2fb8563ec87bd2294d60b4ebbcd4a"
+        }
+      },
+      {
+        "member": "host-resources/ProbeResources/partydeck-last-light.pck",
+        "bytes": 1549656,
+        "sha256": "c8d2b0989524c66715fd7469b7a8315a6fd2fb8563ec87bd2294d60b4ebbcd4a"
+      }
+    ],
+    "stagedAuthorityInputs": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34512412329/preservation-metadata/evidence/authority-host-inputs.json",
+      "bytes": 8608,
+      "sha256": "8b1c5e5549f5ad56b1b8c4abd946925231eee2029c72e288831055e88c1cbe3f"
+    },
+    "nativeInputResources": {
+      "sha256": "c8d2b0989524c66715fd7469b7a8315a6fd2fb8563ec87bd2294d60b4ebbcd4a",
+      "bytes": 1549656
+    }
+  },
+  "nativeGuardSourceBinding": {
+    "sourceOrigin": "Unchanged native/test bytes from the frozen 16d828e source snapshot, independently matched to current-run original module and harness receipts. The separate shared-source binding covers the derived c058 snapshot.",
+    "sourceFreeze": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-16d828e/collection-frozen.json",
+      "bytes": 173547,
+      "sha256": "f352377d994f595b96c07922965598563bc1cc0ca1731c72573ea8c26bd38193"
+    },
+    "currentEngineReceipt": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34512412329/godot-ios-host-engine/evidence/engine-artifact.json",
+      "bytes": 5130,
+      "sha256": "09c3d6dce5e00aa3d6f8b3910fd173efc016ab020b0da30bc13c24e1706b31cf"
+    },
+    "runtime": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-16d828e/source-16d828e/godot/ios-host/modules/partydeck_ios_probe/PDGodotRuntime.mm",
+      "bytes": 109043,
+      "sha256": "042ad5a42ae33a7696c38c448a0e5eef120d1c75a19ad3c29e5c516899913fc8"
+    },
+    "tests": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-16d828e/source-16d828e/godot/ios-host/RetainedHostUITests/RetainedHostUITests.swift",
+      "bytes": 40569,
+      "sha256": "ca2f573379be62e2c82df38af31556d0961133af2480d20901d93ce63152951b"
+    },
+    "model": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-16d828e/source-16d828e/godot/ios-host/RetainedHost/RetainedModel.swift",
+      "bytes": 29929,
+      "sha256": "6074e9de7186adddfd85e450722470d73c46806e0592305671b303b3369b7ed1"
+    },
+    "guardExcerpts": [
+      {
+        "source": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-16d828e/source-16d828e/godot/ios-host/modules/partydeck_ios_probe/PDGodotRuntime.mm",
+          "bytes": 109043,
+          "sha256": "042ad5a42ae33a7696c38c448a0e5eef120d1c75a19ad3c29e5c516899913fc8"
+        },
+        "firstLine": 138,
+        "lastLine": 150,
+        "excerptSha256": "2a7f1f0f5d3fac59a190ea4ec325b89a1819f91e03d5afb93f24d5e8d7eb0b89",
+        "text": "// This lifecycle is audited for the frozen trusted content, including its\n// imported resources. A different pack requires a new content/source review.\nstatic NSString *const PDQualifiedRetainedPackSHA256 = @\"d6adbba1b5cbd6a1ac3a5754e4294363eae70ae9540af4ba12040cd4cfff44e0\";\n\nstatic NSString *PDPackSHA256(NSString *path) {\n\tNSDictionary *attributes = [NSFileManager.defaultManager attributesOfItemAtPath:path error:nil];\n\tif (!attributes || [attributes[NSFileSize] unsignedLongLongValue] > 8 * 1024 * 1024) { return nil; }\n\tNSData *data = [NSData dataWithContentsOfFile:path options:NSDataReadingMappedIfSafe error:nil];\n\tif (!data) { return nil; }\n\tunsigned char digest[CC_SHA256_DIGEST_LENGTH];\n\tCC_SHA256(data.bytes, static_cast<CC_LONG>(data.length), digest);\n\tNSMutableString *value = [NSMutableString stringWithCapacity:CC_SHA256_DIGEST_LENGTH * 2];\n\tfor (unsigned char byte : digest) { [value appendFormat:@\"%02x\", byte]; }\n"
+      },
+      {
+        "source": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-16d828e/source-16d828e/godot/ios-host/modules/partydeck_ios_probe/PDGodotRuntime.mm",
+          "bytes": 109043,
+          "sha256": "042ad5a42ae33a7696c38c448a0e5eef120d1c75a19ad3c29e5c516899913fc8"
+        },
+        "firstLine": 895,
+        "lastLine": 920,
+        "excerptSha256": "03ad7b1e92309b9ba5350b5c32d387fdb14fd587851f1db621d284a01247bf76",
+        "text": "\t\t\t!_closed && !_quarantined && generation == _presentationGeneration;\n}\n\n- (BOOL)prepareRetainedWithProjectPath:(NSString *)projectPath packPath:(NSString *)packPath\n\t\t\t\t\t\t launchDocument:(NSString *)launchDocument generation:(uint64_t)generation\n\t\t\t\t\t\t\t\t owner:(PDGodotEngineOwner *)owner error:(NSError **)error {\n\tif (!NSThread.isMainThread || _closed || _closeRequested || _quarantined || _presentationActive || _leaveRequested ||\n\t\t\t(_prepared && !_dormant) || generation == 0 || generation <= _presentationGeneration) {\n\t\treturn PDReject(error, @\"The retained engine cannot accept another presentation in its current state.\");\n\t}\n\tif (PDSDLEnabled) { return PDReject(error, @\"Retained qualification requires the audited touch/keyboard-only sdl=no build.\"); }\n\tNSString *project = projectPath.stringByResolvingSymlinksInPath;\n\tNSString *pack = packPath.stringByResolvingSymlinksInPath;\n\tNSString *bundle = NSBundle.mainBundle.resourcePath.stringByResolvingSymlinksInPath;\n\tNSString *hash = PDPackSHA256(pack);\n\tif (![project isEqual:bundle] || ![pack isEqual:[bundle stringByAppendingPathComponent:@\"ProbeResources/partydeck-last-light.pck\"]] ||\n\t\t\t![hash isEqual:PDQualifiedRetainedPackSHA256] || (_fixedPackSHA256 && ![_fixedPackSHA256 isEqual:hash]) ||\n\t\t\t(_projectPath && (![_projectPath isEqual:project] || ![_packPath isEqual:pack]))) {\n\t\treturn PDReject(error, @\"Retained entry requires the exact audited pack in the application bundle.\");\n\t}\n\tNSDictionary *launch = PDObject(launchDocument, PDCommandLimit);\n\tif (!PDLaunch(launch)) { return PDReject(error, @\"The new presentation launch envelope is invalid.\"); }\n\tif (!_prepared) {\n\t\tif (![self prepareWithProjectPath:project packPath:pack launchDocument:launchDocument error:error]) { return NO; }\n\t} else {\n\t\tif (!_started || !_emptyTree || _retainedOwner != owner || !OS::get_singleton() || !SceneTree::get_singleton() ||\n"
+      }
+    ],
+    "testFailureExcerpt": {
+      "source": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-16d828e/source-16d828e/godot/ios-host/RetainedHostUITests/RetainedHostUITests.swift",
+        "bytes": 40569,
+        "sha256": "ca2f573379be62e2c82df38af31556d0961133af2480d20901d93ce63152951b"
+      },
+      "firstLine": 506,
+      "lastLine": 520,
+      "excerptSha256": "b2d802a5aee528f8ac752ace8bc9f7e93db7fd6d154d8ff0195d021aa7235a63",
+      "text": "    @MainActor\n    private func wait(_ app: XCUIApplication, _ message: String, timeout: TimeInterval = 15,\n                      predicate: ([String: Any]) -> Bool) async throws -> [String: Any] {\n        let startedAt = ProcessInfo.processInfo.systemUptime\n        let deadline = Date().addingTimeInterval(timeout)\n        var lastRejectedMeasurements: [String: Any] = [:]\n        while Date() < deadline {\n            let value = metrics(app)\n            if app.state == .notRunning || !(value[\"failure\"] as? String ?? \"\").isEmpty || flag(\"quarantined\", native(value)) || native(value)[\"state\"] as? String == \"failed\" {\n                capture(\"Actual retained owner failure\", app)\n                XCTFail(\"The retained owner or native application failed.\")\n                throw Failure.native\n            }\n            if predicate(value) { return value }\n            lastRejectedMeasurements = value\n"
+    },
+    "guardRejectsBeforePrepareCall": true,
+    "originalLinkMap": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34512412329/godot-ios-retained-host-test-attempt-1/retained-host-test/evidence/RetainedHost-LinkMap.txt",
+      "bytes": 85459782,
+      "sha256": "c086bf88be98b4987c879a6b1dbb3b3d53e3e981802946b94814dd003804deed"
+    },
+    "linkMapLines": [
+      {
+        "line": 351635,
+        "text": "0x102D61163\t0x00000041\t[847] literal string: d6adbba1b5cbd6a1ac3a5754e4294363eae70ae9540af4ba12040cd4cfff44e0",
+        "rawLineSha256": "829b92a9c3495d0240e572e8e6439a43819ea7f7d536064829a11e1e8e1fbea6"
+      },
+      {
+        "line": 351640,
+        "text": "0x102D61232\t0x0000004A\t[847] literal string: Retained entry requires the exact audited pack in the application bundle.",
+        "rawLineSha256": "b50e28059140ab63058e0262b4b6d6c8e62bf74b91fa1e097f8a2fa26a8a49fe"
+      }
+    ]
+  },
+  "originalTestLog": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34512412329/godot-ios-retained-host-test-attempt-1/retained-host-test/evidence/test.log",
+    "bytes": 85778,
+    "sha256": "73edb2ec34676ad1c22d5f3714401624a64e2cbbab0bfd92fd32c9322eda20d6"
+  },
+  "caseAndFailureLines": [
+    {
+      "line": 268,
+      "text": "Test Case '-[RetainedHostUITests.RetainedHostUITests testActiveAndDormantBackgroundTransitionsStayConcealed]' started.",
+      "rawLineSha256": "f6d60f793b071c63ddebf3d2a3d4104f16e7662a242ed14775726ad07710b5b5"
+    },
+    {
+      "line": 284,
+      "text": "    t =    14.75s Tap \"start-2d\" Button",
+      "rawLineSha256": "c11191e29ac9a5a86e48e38eacad67b7091d798df811f299f8b6d472fedf2201"
+    },
+    {
+      "line": 292,
+      "text": "    t =    16.25s Added attachment named 'Actual retained owner failure'",
+      "rawLineSha256": "5b47f16ff8667ddb96dd9e2d344584658744ae5f3036ca031d0e72369b70f11a"
+    },
+    {
+      "line": 294,
+      "text": "    t =    16.42s Added attachment named 'Actual retained owner failure measurements'",
+      "rawLineSha256": "8281803033114d0d3699940e4353c1be56d08f2ef420040d4a968decf945b9eb"
+    },
+    {
+      "line": 295,
+      "text": "/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHostUITests/RetainedHostUITests.swift:516: error: -[RetainedHostUITests.RetainedHostUITests testActiveAndDormantBackgroundTransitionsStayConcealed] : failed - The retained owner or native application failed.",
+      "rawLineSha256": "7fe27ff352f55bc0f13b855a3a1040b511b50f638d9a6edfc95caf2b153a9ed7"
+    },
+    {
+      "line": 297,
+      "text": "Test Case '-[RetainedHostUITests.RetainedHostUITests testActiveAndDormantBackgroundTransitionsStayConcealed]' failed (17.260 seconds).",
+      "rawLineSha256": "34fb9a634764c8b43937b4972b77e623371d0a02ef03e956a567bf35e000f1cd"
+    },
+    {
+      "line": 308,
+      "text": "Test Case '-[RetainedHostUITests.RetainedHostUITests testRepeated2DAnd3DKeepOneDormantEngine]' started.",
+      "rawLineSha256": "524dac5d4f28be3cea33cb94a2a9289e39bb874e99fb66fee8a25c85588e8a01"
+    },
+    {
+      "line": 325,
+      "text": "    t =     7.14s Tap \"start-2d\" Button",
+      "rawLineSha256": "659291ef231eaf3ab45562e0a70fd76c69ef5cc9115e67026332f12749f588f0"
+    },
+    {
+      "line": 333,
+      "text": "    t =     7.84s Added attachment named 'Actual retained owner failure'",
+      "rawLineSha256": "c43cffb970f9c40d5fb9a7b08a51371ccbd4080556b89609bbca534e32188a3b"
+    },
+    {
+      "line": 335,
+      "text": "    t =     7.88s Added attachment named 'Actual retained owner failure measurements'",
+      "rawLineSha256": "11594d6dad140f2b6bfd81556b66a5bdbf057786c8b493fc4ecd21b3c1b1633e"
+    },
+    {
+      "line": 336,
+      "text": "/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHostUITests/RetainedHostUITests.swift:516: error: -[RetainedHostUITests.RetainedHostUITests testRepeated2DAnd3DKeepOneDormantEngine] : failed - The retained owner or native application failed.",
+      "rawLineSha256": "6acefd2a98f58123e61136a970462e50b4251653bea1bb4a599ce29996f28376"
+    },
+    {
+      "line": 338,
+      "text": "Test Case '-[RetainedHostUITests.RetainedHostUITests testRepeated2DAnd3DKeepOneDormantEngine]' failed (8.121 seconds).",
+      "rawLineSha256": "8505a6aa2d9f44be29c108b7a6aa411964c3b72a9ec72b2f7c98b0090dcf6375"
+    },
+    {
+      "line": 350,
+      "text": "Test Case '-[RetainedHostUITests.RetainedHostUITests testStaleFirstReadyAndCloseCompletionReentry]' started.",
+      "rawLineSha256": "1ab0e8cb919a92d2c20ea015cb2dfcbfec76873703f435ca44fc1fe0404b47c7"
+    },
+    {
+      "line": 366,
+      "text": "    t =     6.96s Tap \"start-2d\" Button",
+      "rawLineSha256": "8f13f17aa539d3311191a72bae765e4426668c919c6fa935e6b20278dd209808"
+    },
+    {
+      "line": 374,
+      "text": "    t =     7.92s Added attachment named 'Actual retained owner failure'",
+      "rawLineSha256": "43ee6b24201510180b00891f4983ebe519c586ec659f2094cbc15b5a670bebcf"
+    },
+    {
+      "line": 376,
+      "text": "    t =     7.98s Added attachment named 'Actual retained owner failure measurements'",
+      "rawLineSha256": "a443c9519c58c1309628d5a5436b0e7685993cc77a938cb72fbd55e9b38cac24"
+    },
+    {
+      "line": 377,
+      "text": "/Users/runner/work/PartyDeck/PartyDeck/godot/ios-host/RetainedHostUITests/RetainedHostUITests.swift:516: error: -[RetainedHostUITests.RetainedHostUITests testStaleFirstReadyAndCloseCompletionReentry] : failed - The retained owner or native application failed.",
+      "rawLineSha256": "4c268fd2b72e75071c755c9395f7f0b6843fa71e544326d94db4ac3a1f6eb4f8"
+    },
+    {
+      "line": 381,
+      "text": "Test Case '-[RetainedHostUITests.RetainedHostUITests testStaleFirstReadyAndCloseCompletionReentry]' failed (8.873 seconds).",
+      "rawLineSha256": "ec81de55a04bbd589fa88e1baa7a7a069b7dca786e65d0507365fc143341a929"
+    }
+  ],
+  "initialModeTapSequenceByCase": {
+    "testActiveAndDormantBackgroundTransitionsStayConcealed": [
+      "2d"
+    ],
+    "testRepeated2DAnd3DKeepOneDormantEngine": [
+      "2d"
+    ],
+    "testStaleFirstReadyAndCloseCompletionReentry": [
+      "2d"
+    ]
+  },
+  "originalJobLog": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34512412329/job-102990938894.log",
+    "bytes": 298087,
+    "sha256": "97b88edf4714ba67c198fea5d87e59d19cb740dd419ead9a8a35e08ab299e749"
+  },
+  "samplingEnvironmentLines": [
+    {
+      "line": 52,
+      "text": "2026-09-10T18:12:04.7164300Z   PARTYDECK_RETAINED_STACK_SAMPLING: 0",
+      "rawLineSha256": "e69350aa62396116be06ed4cd82510be9b4ce1596dae7ed901ef9d4630bcae0b"
+    },
+    {
+      "line": 277,
+      "text": "2026-09-10T18:12:23.7877340Z   PARTYDECK_RETAINED_STACK_SAMPLING: 0",
+      "rawLineSha256": "e86849615e707bd01af778f4891a5cb99bf0ec46daf9091077866e7edcf656cf"
+    },
+    {
+      "line": 294,
+      "text": "2026-09-10T18:12:24.0509370Z   PARTYDECK_RETAINED_STACK_SAMPLING: 0",
+      "rawLineSha256": "0b8e5e8de39e2a6f675d034a42aa479f98b4107a51f2947d3f92e14935648207"
+    },
+    {
+      "line": 322,
+      "text": "2026-09-10T18:12:26.0669360Z   PARTYDECK_RETAINED_STACK_SAMPLING: 0",
+      "rawLineSha256": "a416a90faa5361883d63b67c56b8c450b0a5684b1209f2d61c460ce4d1019a68"
+    },
+    {
+      "line": 350,
+      "text": "2026-09-10T18:12:32.2473890Z   PARTYDECK_RETAINED_STACK_SAMPLING: 0",
+      "rawLineSha256": "da5b1da5fd784cd740f57aa139a3eed8322d2250b947d98fb9b2e225ea7e3827"
+    },
+    {
+      "line": 461,
+      "text": "2026-09-10T18:12:35.1951680Z   PARTYDECK_RETAINED_STACK_SAMPLING: 0",
+      "rawLineSha256": "71167e85c2ffec8ca31d6e03476bbd1cd4acb6ce8828be1fc779169fa4116c75"
+    },
+    {
+      "line": 481,
+      "text": "2026-09-10T18:12:35.9064880Z   PARTYDECK_RETAINED_STACK_SAMPLING: 0",
+      "rawLineSha256": "5e405ce349e14bc8f4297e26d9d6b6afbd745c5cbf18b81e7f715d5f56b2e28e"
+    },
+    {
+      "line": 2229,
+      "text": "2026-09-10T18:20:50.5341260Z   PARTYDECK_RETAINED_STACK_SAMPLING: 0",
+      "rawLineSha256": "904e2dc9a586c06e6851fe0a701576b1c14d00146fcc7dcddad42cf1554c11d7"
+    },
+    {
+      "line": 2251,
+      "text": "2026-09-10T18:21:56.9591510Z   PARTYDECK_RETAINED_STACK_SAMPLING: 0",
+      "rawLineSha256": "6d24f9547270e45aefb13f01a90122b72f21cf7b0a0fd40efa202c1862dc32c0"
+    },
+    {
+      "line": 2275,
+      "text": "2026-09-10T18:21:57.0193770Z   PARTYDECK_RETAINED_STACK_SAMPLING: 0",
+      "rawLineSha256": "ed8daa2404d57811e8a3e975fb378cdd5b911600e415857b001d72a1b30d2271"
+    }
+  ],
+  "stackSamplingEnabled": false,
+  "originalGates": {
+    "command_exit_code": 65,
+    "native_tests": [
+      {
+        "case": "testActiveAndDormantBackgroundTransitionsStayConcealed",
+        "status": "failed",
+        "seconds": 17.26
+      },
+      {
+        "case": "testRepeated2DAnd3DKeepOneDormantEngine",
+        "status": "failed",
+        "seconds": 8.121
+      },
+      {
+        "case": "testStaleFirstReadyAndCloseCompletionReentry",
+        "status": "failed",
+        "seconds": 8.873
+      }
+    ],
+    "retained_engine_lifecycle_qualified": false,
+    "same_process_reentry_qualified": false,
+    "kmp_factory_qualified": false,
+    "device_metal_qualified": false
+  },
+  "scope": "Original JSON, app journals, test log, link map, source hashes and preserved PCK bytes establish admission failure. Zero completed timing scopes mean no measured draw/iteration work, not improved render speed. No CPU-duration, crash, effective-MSAA-count or rendering-causality conclusion. Complete original XCResult is preserved; further decoding was unnecessary for this finding."
+}

@@ -1,0 +1,94 @@
+{
+  "command": [
+    "flock",
+    "/tmp/partydeck-godot.lock",
+    "xvfb-run",
+    "-a",
+    "-s",
+    "-screen 0 1440x1100x24",
+    "/opt/partydeck-godot/godot",
+    "--audio-driver",
+    "Dummy",
+    "--rendering-method",
+    "gl_compatibility",
+    "--path",
+    "/tmp/partydeck-2d-initial-layout-34488350932-v1/candidate",
+    "--script",
+    "/tmp/partydeck-2d-initial-layout-34488350932-v1/candidate/presentations/two_d/checks/scene_check.gd",
+    "--",
+    "--manual-bridge",
+    "--check-fixture=/tmp/partydeck-2d-initial-layout-34488350932-v1/fixtures/layout-launch-2d.json",
+    "--check-output=/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-2",
+    "--check-width=320",
+    "--check-height=568",
+    "--check-text-scale=2",
+    "--check-touch-drag=true"
+  ],
+  "startedUtc": "2026-09-10T17:32:28.812053+00:00",
+  "inputs": [
+    {
+      "path": "/opt/partydeck-godot/godot",
+      "sha256": "8d106cbe6144c2dc7e881d61d2429c1a8a76e6b22ef48bd5e48dcf934953f71e"
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/fixtures/layout-launch-2d.json",
+      "sha256": "3ca5f2a15a3756dcb5644e8370e02a88bdc86f271d7a658fa149b282573d5e22"
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/candidate/presentations/two_d/checks/scene_check.gd",
+      "sha256": "aedb2ca6e459044197284062067b727a36e8d5d9facdad85aff84db8514603e4"
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/candidate/presentations/two_d/table.gd",
+      "sha256": "de0bec7b083327f1210a9413d0236208be832ed49c0cec329b4999fb2994ba9a"
+    }
+  ],
+  "environmentOverride": {
+    "LIBGL_ALWAYS_SOFTWARE": "1"
+  },
+  "scope": "Source fixture, real OpenGL and emulated touch/mouse. No native or accepted-authority claim.",
+  "exitCode": 0,
+  "completedUtc": "2026-09-10T17:32:35.021103+00:00",
+  "outputs": [
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-2/01-concealed.json",
+      "sha256": "4a5a83bc452193fd18eedd85766e082638563fc26db70a60a72f88ca358ffd13"
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-2/01-concealed.png",
+      "sha256": "e4bfcd497b32883570b9b03621918c6546f5277c1b8587611500095ccbece418"
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-2/02-revealed-selected.json",
+      "sha256": "09721ec9f2cee33e64d07b47bf9b63c1e5673606750efc748fc5bd23e6726f08"
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-2/02-revealed-selected.png",
+      "sha256": "648bd6ae48a4a13930de74a957a060a61ca03b78b21637fdba6c3e2e764fd3b1"
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-2/03-covered-again.json",
+      "sha256": "a418fa16f1f46eab2dee273bd058792bde0acc45e2cee07fbbc9da52ac9bbb97"
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-2/03-covered-again.png",
+      "sha256": "f800a6739e47c504720e1d4d9c72f5ca1076453d6c9a89e1d5408dd370d62546"
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-2/04-resumed-covered.json",
+      "sha256": "8d81a0e6145d75a1da72ba537193756fa9eee88c78d6bb63c83af63c0600e3c7"
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-2/04-resumed-covered.png",
+      "sha256": "9cc42987413e63c037df2ffe055a49a0f113a08574559bd81eb6e69fe491d2ca"
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-2/process.log",
+      "sha256": "18bea3a945e9d44b33cf0e3ab4af598d035bdf07f9225db63e0029dc4d686b70"
+    },
+    {
+      "path": "/tmp/partydeck-2d-initial-layout-34488350932-v1/results/source-input-320x568-text-2/report.json",
+      "sha256": "ac8c999c77fe46e394ee5b6e4416ab2e0ec5e4ea74b5a85e9ae41866cd322602"
+    }
+  ]
+}

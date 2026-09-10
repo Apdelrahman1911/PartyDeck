@@ -1,0 +1,44 @@
+{
+  "reviewer": "/root/ui_game",
+  "viewMethod": "tools.view_image",
+  "detail": "original",
+  "recordedUtc": "2026-09-10T18:52:03.055Z",
+  "actualOriginalViews": 4,
+  "notes": [
+    {
+      "directViewOrder": 106,
+      "visibleState": "Portrait standard concealed hand with five cards, For your eyes only, Show hand, disabled Select cards and Challenge Orbit.",
+      "layout": "Full concealment panel and controls fit; clear hierarchy and no visible text truncation.",
+      "privacy": "No individual hand card identities visible in this still.",
+      "findings": []
+    },
+    {
+      "directViewOrder": 107,
+      "visibleState": "Portrait Star table public claim and covered-hand panel with Your turn and player link.",
+      "layout": "Public claim and cover copy fit; Show hand is clipped at the lower viewport with only the upper portion of its label visible.",
+      "privacy": "No individual card faces/ranks exposed in the visible covered-hand panel.",
+      "findings": [
+        "show-hand-action-partly-below-viewport"
+      ]
+    },
+    {
+      "directViewOrder": 108,
+      "visibleState": "Portrait revealed hand with zero selected, Hide hand and five readable Moon/Crown/Star rows.",
+      "layout": "All five card labels fit; the last card's bottom edge is cut at the viewport, and play controls are below view.",
+      "privacy": "Five individual card identities are visible after the explicit reveal action; not a concealed-state capture.",
+      "findings": [
+        "last-card-row-partly-below-viewport",
+        "revealed-hand-capture"
+      ]
+    },
+    {
+      "directViewOrder": 109,
+      "visibleState": "Portrait first Moon card selected, five revealed card rows, one-Star claim, Play 1 card and Challenge Orbit.",
+      "layout": "Selection mark, card labels and both actions fit with no visible overlap or text truncation.",
+      "privacy": "The deliberate selected-hand state exposes card identities. No concealment or transition claim.",
+      "findings": [
+        "revealed-hand-capture"
+      ]
+    }
+  ]
+}
