@@ -1,0 +1,1341 @@
+﻿2026-09-10T07:30:02.1505562Z Current runner version: '2.337.0'
+2026-09-10T07:30:02.1531374Z ##[group]Runner Image Provisioner
+2026-09-10T07:30:02.1533050Z Hosted Compute Agent
+2026-09-10T07:30:02.1533732Z Version: 20260828.587
+2026-09-10T07:30:02.1534377Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-10T07:30:02.1535462Z Build Date: 2026-08-28T16:44:25Z
+2026-09-10T07:30:02.1536249Z Worker ID: {0d541655-908d-43d6-9916-150be3d92196}
+2026-09-10T07:30:02.1536969Z Azure Region: westus2
+2026-09-10T07:30:02.1537621Z ##[endgroup]
+2026-09-10T07:30:02.1539474Z ##[group]Operating System
+2026-09-10T07:30:02.1540106Z Ubuntu
+2026-09-10T07:30:02.1540728Z 24.04.4
+2026-09-10T07:30:02.1541241Z LTS
+2026-09-10T07:30:02.1542361Z ##[endgroup]
+2026-09-10T07:30:02.1543086Z ##[group]Runner Image
+2026-09-10T07:30:02.1543749Z Image: ubuntu-24.04
+2026-09-10T07:30:02.1544428Z Version: 20260831.293.1
+2026-09-10T07:30:02.1545758Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260831.293/images/ubuntu/Ubuntu2404-Readme.md
+2026-09-10T07:30:02.1547476Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260831.293
+2026-09-10T07:30:02.1548504Z ##[endgroup]
+2026-09-10T07:30:02.1549758Z ##[group]GITHUB_TOKEN Permissions
+2026-09-10T07:30:02.1552409Z Contents: read
+2026-09-10T07:30:02.1553126Z Metadata: read
+2026-09-10T07:30:02.1553759Z ##[endgroup]
+2026-09-10T07:30:02.1556093Z Secret source: Actions
+2026-09-10T07:30:02.1557057Z Cache mode: write
+2026-09-10T07:30:02.1557773Z Prepare workflow directory
+2026-09-10T07:30:02.1914584Z Prepare all required actions
+2026-09-10T07:30:02.1966538Z Getting action download info
+2026-09-10T07:30:02.5652690Z Download action repository 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-09-10T07:30:02.6883471Z Download action repository 'actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6' (SHA:de7274f081f381c8f8158605e0321c36c376e2e6)
+2026-09-10T07:30:03.1232496Z Download action repository 'android-actions/setup-android@40fd30fb8d7440372e1316f5d1809ec01dcd3699' (SHA:40fd30fb8d7440372e1316f5d1809ec01dcd3699)
+2026-09-10T07:30:03.3256259Z Download action repository 'gradle/actions@9c971963bec38e04b3d30dcc455b5382be2fdbfb' (SHA:9c971963bec38e04b3d30dcc455b5382be2fdbfb)
+2026-09-10T07:30:04.3718023Z Complete job name: Shared authority, matched desktop gameplay and Android packages
+2026-09-10T07:30:04.4743556Z ##[group]Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+2026-09-10T07:30:04.4744367Z with:
+2026-09-10T07:30:04.4744667Z   persist-credentials: false
+2026-09-10T07:30:04.4745003Z   repository: Apdelrahman1911/PartyDeck
+2026-09-10T07:30:04.4747618Z   token: ***
+2026-09-10T07:30:04.4747889Z   ssh-strict: true
+2026-09-10T07:30:04.4748149Z   ssh-user: git
+2026-09-10T07:30:04.4748399Z   clean: true
+2026-09-10T07:30:04.4748672Z   sparse-checkout-cone-mode: true
+2026-09-10T07:30:04.4749004Z   fetch-depth: 1
+2026-09-10T07:30:04.4749272Z   fetch-tags: false
+2026-09-10T07:30:04.4749542Z   show-progress: true
+2026-09-10T07:30:04.4749840Z   lfs: false
+2026-09-10T07:30:04.4750080Z   submodules: false
+2026-09-10T07:30:04.4750344Z   set-safe-directory: true
+2026-09-10T07:30:04.4750651Z   allow-unsafe-pr-checkout: false
+2026-09-10T07:30:04.4751201Z ##[endgroup]
+2026-09-10T07:30:04.5823667Z Syncing repository: Apdelrahman1911/PartyDeck
+2026-09-10T07:30:04.5826069Z ##[group]Getting Git version info
+2026-09-10T07:30:04.5826826Z Working directory is '/home/runner/work/PartyDeck/PartyDeck'
+2026-09-10T07:30:04.5827917Z [command]/usr/bin/git version
+2026-09-10T07:30:04.5880760Z git version 2.55.0
+2026-09-10T07:30:04.5911338Z ##[endgroup]
+2026-09-10T07:30:04.5918158Z Temporarily overriding HOME='/home/runner/work/_temp/d7a60710-a541-48b6-b48f-bb2ccfbf2320' before making global git config changes
+2026-09-10T07:30:04.5919603Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-10T07:30:04.5925521Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/PartyDeck/PartyDeck
+2026-09-10T07:30:04.6007329Z Deleting the contents of '/home/runner/work/PartyDeck/PartyDeck'
+2026-09-10T07:30:04.6008782Z ##[group]Determining repository object format
+2026-09-10T07:30:04.6009671Z ##[endgroup]
+2026-09-10T07:30:04.6010411Z ##[group]Initializing the repository
+2026-09-10T07:30:04.6011103Z [command]/usr/bin/git init /home/runner/work/PartyDeck/PartyDeck
+2026-09-10T07:30:04.6127258Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-09-10T07:30:04.6128590Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-09-10T07:30:04.6129970Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-09-10T07:30:04.6130960Z hint: call:
+2026-09-10T07:30:04.6131877Z hint:
+2026-09-10T07:30:04.6132695Z hint: 	git config --global init.defaultBranch <name>
+2026-09-10T07:30:04.6133492Z hint:
+2026-09-10T07:30:04.6134262Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-09-10T07:30:04.6135539Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-09-10T07:30:04.6137334Z hint:
+2026-09-10T07:30:04.6137951Z hint: 	git branch -m <name>
+2026-09-10T07:30:04.6138599Z hint:
+2026-09-10T07:30:04.6139418Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-09-10T07:30:04.6141032Z Initialized empty Git repository in /home/runner/work/PartyDeck/PartyDeck/.git/
+2026-09-10T07:30:04.6143984Z [command]/usr/bin/git remote add origin https://github.com/Apdelrahman1911/PartyDeck
+2026-09-10T07:30:04.6193197Z ##[endgroup]
+2026-09-10T07:30:04.6194052Z ##[group]Disabling automatic garbage collection
+2026-09-10T07:30:04.6197805Z [command]/usr/bin/git config --local gc.auto 0
+2026-09-10T07:30:04.6244879Z ##[endgroup]
+2026-09-10T07:30:04.6246273Z ##[group]Setting up auth
+2026-09-10T07:30:04.6247022Z Removing SSH command configuration
+2026-09-10T07:30:04.6254614Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-10T07:30:04.6293232Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-10T07:30:04.6661731Z Removing HTTP extra header
+2026-09-10T07:30:04.6667236Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-10T07:30:04.6708139Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-10T07:30:04.6933755Z Removing includeIf entries pointing to credentials config files
+2026-09-10T07:30:04.6938992Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-10T07:30:04.6976117Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-10T07:30:04.7218245Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-8a84f2fc-5af2-4340-b6ef-e8139adcedb2.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-09-10T07:30:04.7261267Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/PartyDeck/PartyDeck/.git.path /home/runner/work/_temp/git-credentials-8a84f2fc-5af2-4340-b6ef-e8139adcedb2.config
+2026-09-10T07:30:04.7296916Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/PartyDeck/PartyDeck/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-8a84f2fc-5af2-4340-b6ef-e8139adcedb2.config
+2026-09-10T07:30:04.7337076Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-8a84f2fc-5af2-4340-b6ef-e8139adcedb2.config
+2026-09-10T07:30:04.7374927Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-8a84f2fc-5af2-4340-b6ef-e8139adcedb2.config
+2026-09-10T07:30:04.7407797Z ##[endgroup]
+2026-09-10T07:30:04.7408616Z ##[group]Fetching the repository
+2026-09-10T07:30:04.7416623Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +a7278686170243795e505ce4f6a6788e912c01fe:refs/remotes/origin/main
+2026-09-10T07:30:09.1967713Z From https://github.com/Apdelrahman1911/PartyDeck
+2026-09-10T07:30:09.1968468Z  * [new ref]         a7278686170243795e505ce4f6a6788e912c01fe -> origin/main
+2026-09-10T07:30:09.1977077Z [command]/usr/bin/git branch --list --remote origin/main
+2026-09-10T07:30:09.2010240Z   origin/main
+2026-09-10T07:30:09.2023364Z [command]/usr/bin/git rev-parse refs/remotes/origin/main
+2026-09-10T07:30:09.2052636Z a7278686170243795e505ce4f6a6788e912c01fe
+2026-09-10T07:30:09.2056768Z ##[endgroup]
+2026-09-10T07:30:09.2078460Z ##[group]Determining the checkout info
+2026-09-10T07:30:09.2079418Z ##[endgroup]
+2026-09-10T07:30:09.2079918Z [command]/usr/bin/git sparse-checkout disable
+2026-09-10T07:30:09.2153040Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-09-10T07:30:09.2161129Z ##[group]Checking out the ref
+2026-09-10T07:30:09.2168519Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-09-10T07:30:10.2382158Z Updating files:  78% (3378/4319)
+2026-09-10T07:30:10.2432723Z Updating files:  79% (3413/4319)
+2026-09-10T07:30:10.2513222Z Updating files:  80% (3456/4319)
+2026-09-10T07:30:10.2562331Z Updating files:  81% (3499/4319)
+2026-09-10T07:30:10.2612854Z Updating files:  82% (3542/4319)
+2026-09-10T07:30:10.2659897Z Updating files:  83% (3585/4319)
+2026-09-10T07:30:10.2715141Z Updating files:  84% (3628/4319)
+2026-09-10T07:30:10.2770916Z Updating files:  85% (3672/4319)
+2026-09-10T07:30:10.2831812Z Updating files:  86% (3715/4319)
+2026-09-10T07:30:10.2879250Z Updating files:  87% (3758/4319)
+2026-09-10T07:30:10.2946453Z Updating files:  88% (3801/4319)
+2026-09-10T07:30:10.3005162Z Updating files:  89% (3844/4319)
+2026-09-10T07:30:10.3163516Z Updating files:  90% (3888/4319)
+2026-09-10T07:30:10.3251939Z Updating files:  91% (3931/4319)
+2026-09-10T07:30:10.3294356Z Updating files:  92% (3974/4319)
+2026-09-10T07:30:10.3361110Z Updating files:  93% (4017/4319)
+2026-09-10T07:30:10.3430156Z Updating files:  94% (4060/4319)
+2026-09-10T07:30:10.3467872Z Updating files:  95% (4104/4319)
+2026-09-10T07:30:10.3482726Z Updating files:  96% (4147/4319)
+2026-09-10T07:30:10.3517730Z Updating files:  97% (4190/4319)
+2026-09-10T07:30:10.3559737Z Updating files:  98% (4233/4319)
+2026-09-10T07:30:10.3604712Z Updating files:  99% (4276/4319)
+2026-09-10T07:30:10.3605209Z Updating files: 100% (4319/4319)
+2026-09-10T07:30:10.3605659Z Updating files: 100% (4319/4319), done.
+2026-09-10T07:30:10.3665580Z Switched to a new branch 'main'
+2026-09-10T07:30:10.3671174Z branch 'main' set up to track 'origin/main'.
+2026-09-10T07:30:10.3724719Z ##[endgroup]
+2026-09-10T07:30:10.3778168Z [command]/usr/bin/git log -1 --format=%H
+2026-09-10T07:30:10.3814277Z a7278686170243795e505ce4f6a6788e912c01fe
+2026-09-10T07:30:10.3825254Z ##[group]Removing auth
+2026-09-10T07:30:10.3825549Z Removing SSH command configuration
+2026-09-10T07:30:10.3831214Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-10T07:30:10.3869741Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-10T07:30:10.4106773Z Removing HTTP extra header
+2026-09-10T07:30:10.4112585Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-10T07:30:10.4151199Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-10T07:30:10.4387051Z Removing includeIf entries pointing to credentials config files
+2026-09-10T07:30:10.4391850Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-10T07:30:10.4426033Z includeif.gitdir:/home/runner/work/PartyDeck/PartyDeck/.git.path
+2026-09-10T07:30:10.4426946Z includeif.gitdir:/home/runner/work/PartyDeck/PartyDeck/.git/worktrees/*.path
+2026-09-10T07:30:10.4427440Z includeif.gitdir:/github/workspace/.git.path
+2026-09-10T07:30:10.4427843Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-09-10T07:30:10.4435748Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/PartyDeck/PartyDeck/.git.path
+2026-09-10T07:30:10.4463606Z /home/runner/work/_temp/git-credentials-8a84f2fc-5af2-4340-b6ef-e8139adcedb2.config
+2026-09-10T07:30:10.4474968Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/PartyDeck/PartyDeck/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-8a84f2fc\-5af2\-4340\-b6ef\-e8139adcedb2\.config
+2026-09-10T07:30:10.4514126Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/PartyDeck/PartyDeck/.git/worktrees/*.path
+2026-09-10T07:30:10.4541039Z /home/runner/work/_temp/git-credentials-8a84f2fc-5af2-4340-b6ef-e8139adcedb2.config
+2026-09-10T07:30:10.4553881Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/PartyDeck/PartyDeck/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-8a84f2fc\-5af2\-4340\-b6ef\-e8139adcedb2\.config
+2026-09-10T07:30:10.4597261Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-09-10T07:30:10.4625809Z /github/runner_temp/git-credentials-8a84f2fc-5af2-4340-b6ef-e8139adcedb2.config
+2026-09-10T07:30:10.4634647Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-8a84f2fc\-5af2\-4340\-b6ef\-e8139adcedb2\.config
+2026-09-10T07:30:10.4676871Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-09-10T07:30:10.4706078Z /github/runner_temp/git-credentials-8a84f2fc-5af2-4340-b6ef-e8139adcedb2.config
+2026-09-10T07:30:10.4714087Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-8a84f2fc\-5af2\-4340\-b6ef\-e8139adcedb2\.config
+2026-09-10T07:30:10.4752377Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-10T07:30:10.4984053Z Removing credentials config '/home/runner/work/_temp/git-credentials-8a84f2fc-5af2-4340-b6ef-e8139adcedb2.config'
+2026-09-10T07:30:10.4993089Z ##[endgroup]
+2026-09-10T07:30:10.5196238Z ##[group]Run mkdir -p godot/qualification/build/ci
+2026-09-10T07:30:10.5196697Z [36;1mmkdir -p godot/qualification/build/ci[0m
+2026-09-10T07:30:10.5197166Z [36;1mpython3 -B -m unittest discover -s godot/android-checks -p 'test_*.py' -v \[0m
+2026-09-10T07:30:10.5197718Z [36;1m  2>&1 | tee godot/qualification/build/ci/android-checker-tests.log[0m
+2026-09-10T07:30:10.5238632Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-09-10T07:30:10.5239004Z ##[endgroup]
+2026-09-10T07:30:10.7322950Z test_capture_cannot_include_a_different_native_surface (test_evidence.CaptureEvidenceTest.test_capture_cannot_include_a_different_native_surface) ... ok
+2026-09-10T07:30:10.7324876Z test_engine_crop_contains_rendered_pixels (test_evidence.CaptureEvidenceTest.test_engine_crop_contains_rendered_pixels) ... ok
+2026-09-10T07:30:10.7326401Z test_flat_engine_surface_is_not_render_evidence (test_evidence.CaptureEvidenceTest.test_flat_engine_surface_is_not_render_evidence) ... ok
+2026-09-10T07:30:10.7328056Z test_truncated_corrupt_and_non_png_capture_rejected (test_evidence.CaptureEvidenceTest.test_truncated_corrupt_and_non_png_capture_rejected) ... ok
+2026-09-10T07:30:10.7331172Z test_ambiguous_controls_rejected (test_evidence.DiagnosticsEvidenceTest.test_ambiguous_controls_rejected) ... ok
+2026-09-10T07:30:10.7333627Z test_android_density_maps_logical_rectangles_without_double_scaling (test_evidence.DiagnosticsEvidenceTest.test_android_density_maps_logical_rectangles_without_double_scaling) ... ok
+2026-09-10T07:30:10.7336492Z test_counter_precision_cannot_be_silently_lost (test_evidence.DiagnosticsEvidenceTest.test_counter_precision_cannot_be_silently_lost) ... ok
+2026-09-10T07:30:10.7338524Z test_duplicate_and_nonfinite_json_rejected (test_evidence.DiagnosticsEvidenceTest.test_duplicate_and_nonfinite_json_rejected) ... ok
+2026-09-10T07:30:10.7340896Z test_far_target_keeps_duration_and_logical_speed_bounded_at_each_density (test_evidence.DiagnosticsEvidenceTest.test_far_target_keeps_duration_and_logical_speed_bounded_at_each_density) ... ok
+2026-09-10T07:30:10.7343647Z test_hidden_but_retained_private_bindings_do_not_pass (test_evidence.DiagnosticsEvidenceTest.test_hidden_but_retained_private_bindings_do_not_pass) ... ok
+2026-09-10T07:30:10.7345993Z test_hidden_disabled_and_offscreen_controls_cannot_be_tapped (test_evidence.DiagnosticsEvidenceTest.test_hidden_disabled_and_offscreen_controls_cannot_be_tapped) ... ok
+2026-09-10T07:30:10.7348239Z test_hidden_selection_is_counted_and_rejected (test_evidence.DiagnosticsEvidenceTest.test_hidden_selection_is_counted_and_rejected) ... ok
+2026-09-10T07:30:10.7350538Z test_impossible_or_already_inside_targets_do_not_produce_a_scroll (test_evidence.DiagnosticsEvidenceTest.test_impossible_or_already_inside_targets_do_not_produce_a_scroll) ... ok
+2026-09-10T07:30:10.7353172Z test_native_bounds_and_scale_must_match (test_evidence.DiagnosticsEvidenceTest.test_native_bounds_and_scale_must_match) ... ok
+2026-09-10T07:30:10.7355217Z test_native_large_text_round_four_uses_slow_measured_correction (test_evidence.DiagnosticsEvidenceTest.test_native_large_text_round_four_uses_slow_measured_correction) ... ok
+2026-09-10T07:30:10.7357385Z test_nested_clip_controls_safe_scroll_coordinates (test_evidence.DiagnosticsEvidenceTest.test_nested_clip_controls_safe_scroll_coordinates) ... ok
+2026-09-10T07:30:10.7359665Z test_noninteger_logical_width_is_not_falsely_treated_as_clipping (test_evidence.DiagnosticsEvidenceTest.test_noninteger_logical_width_is_not_falsely_treated_as_clipping) ... ok
+2026-09-10T07:30:10.7362210Z test_partially_visible_control_cannot_hide_its_clipped_target (test_evidence.DiagnosticsEvidenceTest.test_partially_visible_control_cannot_hide_its_clipped_target) ... ok
+2026-09-10T07:30:10.7363576Z test_small_gaps_correct_the_actual_axis_in_both_directions (test_evidence.DiagnosticsEvidenceTest.test_small_gaps_correct_the_actual_axis_in_both_directions) ... ok
+2026-09-10T07:30:10.7365108Z test_valid_control_maps_into_native_surface (test_evidence.DiagnosticsEvidenceTest.test_valid_control_maps_into_native_surface) ... ok
+2026-09-10T07:30:10.7366452Z test_wrong_lifetime_mode_and_coordinate_space_rejected (test_evidence.DiagnosticsEvidenceTest.test_wrong_lifetime_mode_and_coordinate_space_rejected) ... ok
+2026-09-10T07:30:10.7387168Z test_clean_teardown_records_process_absence_and_surviving_chooser (test_runner.DriverReplayTest.test_clean_teardown_records_process_absence_and_surviving_chooser) ... ok
+2026-09-10T07:30:10.7395268Z test_clipped_stationary_control_stops_without_a_tap (test_runner.DriverReplayTest.test_clipped_stationary_control_stops_without_a_tap) ... ok
+2026-09-10T07:30:10.7400865Z test_crash_rejection_precedes_even_valid_host_evidence (test_runner.DriverReplayTest.test_crash_rejection_precedes_even_valid_host_evidence) ... ok
+2026-09-10T07:30:10.7410467Z test_documented_native_close_without_pid_death_still_fails (test_runner.DriverReplayTest.test_documented_native_close_without_pid_death_still_fails) ... ok
+2026-09-10T07:30:10.7435251Z test_finished_lobby_cannot_pass_missing_intent_or_teardown_marker (test_runner.DriverReplayTest.test_finished_lobby_cannot_pass_missing_intent_or_teardown_marker) ... ok
+2026-09-10T07:30:10.7451743Z test_finished_lobby_route_uses_pre_tap_phase_and_verifies_real_teardown (test_runner.DriverReplayTest.test_finished_lobby_route_uses_pre_tap_phase_and_verifies_real_teardown) ... ok
+2026-09-10T07:30:10.7462917Z test_fresh_correlated_response_follows_one_visible_native_request (test_runner.DriverReplayTest.test_fresh_correlated_response_follows_one_visible_native_request) ... ok
+2026-09-10T07:30:10.7640905Z test_hidden_but_retained_private_binding_cannot_satisfy_response (test_runner.DriverReplayTest.test_hidden_but_retained_private_binding_cannot_satisfy_response) ... ok
+2026-09-10T07:30:10.7653376Z test_incomplete_live_warning_does_not_accept_host_state_until_context_arrives (test_runner.DriverReplayTest.test_incomplete_live_warning_does_not_accept_host_state_until_context_arrives) ... ok
+2026-09-10T07:30:10.7669187Z test_missing_live_warning_context_cannot_extend_host_deadline (test_runner.DriverReplayTest.test_missing_live_warning_context_cannot_extend_host_deadline) ... ok
+2026-09-10T07:30:10.7677654Z test_missing_native_marker_fails_even_when_process_is_absent (test_runner.DriverReplayTest.test_missing_native_marker_fails_even_when_process_is_absent) ... ok
+2026-09-10T07:30:10.7860397Z test_new_request_with_old_view_cannot_pass (test_runner.DriverReplayTest.test_new_request_with_old_view_cannot_pass) ... ok
+2026-09-10T07:30:10.7888039Z test_oscillating_control_still_stops_at_the_original_scroll_bound (test_runner.DriverReplayTest.test_oscillating_control_still_stops_at_the_original_scroll_bound) ... ok
+2026-09-10T07:30:10.7897554Z test_replaced_chooser_does_not_pass_engine_teardown (test_runner.DriverReplayTest.test_replaced_chooser_does_not_pass_engine_teardown) ... ok
+2026-09-10T07:30:10.7907573Z test_scene_geometry_changed_before_touch_is_not_used (test_runner.DriverReplayTest.test_scene_geometry_changed_before_touch_is_not_used) ... ok
+2026-09-10T07:30:10.8076624Z test_stale_file_times_out_without_repeated_native_taps (test_runner.DriverReplayTest.test_stale_file_times_out_without_repeated_native_taps) ... ok
+2026-09-10T07:30:10.8096131Z test_unfinished_lobby_preserves_confirmation_before_authority_exit (test_runner.DriverReplayTest.test_unfinished_lobby_preserves_confirmation_before_authority_exit) ... ok
+2026-09-10T07:30:10.8104284Z test_unfinished_lobby_rejects_a_gameplay_event_while_opening_dialog (test_runner.DriverReplayTest.test_unfinished_lobby_rejects_a_gameplay_event_while_opening_dialog) ... ok
+2026-09-10T07:30:10.8114607Z test_wrong_identity_after_request_is_rejected (test_runner.DriverReplayTest.test_wrong_identity_after_request_is_rejected) ... ok
+2026-09-10T07:30:10.8122739Z test_current_ready_evidence_requires_actual_plugin_and_frame_facts (test_runner.HostSchemaTest.test_current_ready_evidence_requires_actual_plugin_and_frame_facts) ... ok
+2026-09-10T07:30:10.8129765Z test_exact_intent_roundtrip_requires_new_real_authority_view (test_runner.HostSchemaTest.test_exact_intent_roundtrip_requires_new_real_authority_view) ... ok
+2026-09-10T07:30:10.8136187Z test_failure_rejection_and_diagnostic_timeout_cannot_pass (test_runner.HostSchemaTest.test_failure_rejection_and_diagnostic_timeout_cannot_pass) ... ok
+2026-09-10T07:30:10.8140491Z test_host_cannot_accept_future_or_wrong_lifetime_diagnostics (test_runner.HostSchemaTest.test_host_cannot_accept_future_or_wrong_lifetime_diagnostics) ... ok
+2026-09-10T07:30:10.8151676Z test_lifetime_trace_rejects_rollback_and_changed_same_revision (test_runner.HostSchemaTest.test_lifetime_trace_rejects_rollback_and_changed_same_revision) ... ok
+2026-09-10T07:30:10.8157581Z test_local_reveal_or_selection_must_not_emit_an_authority_event (test_runner.HostSchemaTest.test_local_reveal_or_selection_must_not_emit_an_authority_event) ... ok
+2026-09-10T07:30:10.8159807Z test_private_or_unknown_host_fields_are_rejected_before_persistence (test_runner.HostSchemaTest.test_private_or_unknown_host_fields_are_rejected_before_persistence) ... ok
+2026-09-10T07:30:10.8167830Z test_teardown_requires_all_native_markers (test_runner.HostSchemaTest.test_teardown_requires_all_native_markers) ... ok
+2026-09-10T07:30:10.8177678Z test_cache_warning_does_not_hide_compilation_unknown_error_crash_or_timeout (test_runner.ProcessAndCleanupTest.test_cache_warning_does_not_hide_compilation_unknown_error_crash_or_timeout) ... ok
+2026-09-10T07:30:10.8180755Z test_cache_warning_exception_requires_exact_paired_thread_and_source (test_runner.ProcessAndCleanupTest.test_cache_warning_exception_requires_exact_paired_thread_and_source) ... ok
+2026-09-10T07:30:10.8188597Z test_early_successful_logcat_exit_is_a_missing_evidence_interval (test_runner.ProcessAndCleanupTest.test_early_successful_logcat_exit_is_a_missing_evidence_interval) ... ok
+2026-09-10T07:30:10.8206225Z test_entry_failure_retains_validated_host_and_late_log_after_observed_pid_dies (test_runner.ProcessAndCleanupTest.test_entry_failure_retains_validated_host_and_late_log_after_observed_pid_dies) ... ok
+2026-09-10T07:30:10.8212587Z test_failure_collection_rejects_private_fields_before_persistence (test_runner.ProcessAndCleanupTest.test_failure_collection_rejects_private_fields_before_persistence) ... ok
+2026-09-10T07:30:10.8222025Z test_final_device_dump_detects_a_late_renderer_timeout_not_yet_streamed (test_runner.ProcessAndCleanupTest.test_final_device_dump_detects_a_late_renderer_timeout_not_yet_streamed) ... ok
+2026-09-10T07:30:10.8229055Z test_final_device_dump_failure_still_stops_collector_and_closes_files (test_runner.ProcessAndCleanupTest.test_final_device_dump_failure_still_stops_collector_and_closes_files) ... ok
+2026-09-10T07:30:10.8248990Z test_final_diagnostic_errors_and_crash_cannot_be_silently_accepted (test_runner.ProcessAndCleanupTest.test_final_diagnostic_errors_and_crash_cannot_be_silently_accepted) ... ok
+2026-09-10T07:30:10.8271724Z test_invalid_apk_never_contacts_a_device (test_runner.ProcessAndCleanupTest.test_invalid_apk_never_contacts_a_device) ... The requested APK does not exist.
+2026-09-10T07:30:10.8274638Z ok
+2026-09-10T07:30:10.8293766Z test_original_failure_survives_diagnostic_error_and_settings_restore_runs (test_runner.ProcessAndCleanupTest.test_original_failure_survives_diagnostic_error_and_settings_restore_runs) ... original missing native round trip
+2026-09-10T07:30:10.8295532Z ok
+2026-09-10T07:30:10.8300191Z test_partial_live_warning_waits_but_final_inspection_requires_complete_context (test_runner.ProcessAndCleanupTest.test_partial_live_warning_waits_but_final_inspection_requires_complete_context) ... ok
+2026-09-10T07:30:10.8304288Z test_pidof_absence_is_distinct_from_adb_failure (test_runner.ProcessAndCleanupTest.test_pidof_absence_is_distinct_from_adb_failure) ... ok
+2026-09-10T07:30:10.8309493Z test_privileged_observation_requires_existing_root_and_does_not_enable_it (test_runner.ProcessAndCleanupTest.test_privileged_observation_requires_existing_root_and_does_not_enable_it) ... ok
+2026-09-10T07:30:10.8312676Z test_upstream_timeout_is_not_successful_native_termination (test_runner.ProcessAndCleanupTest.test_upstream_timeout_is_not_successful_native_termination) ... ok
+2026-09-10T07:30:10.8323499Z test_verified_cache_warning_remains_in_live_and_final_log_evidence (test_runner.ProcessAndCleanupTest.test_verified_cache_warning_remains_in_live_and_final_log_evidence) ... ok
+2026-09-10T07:30:10.8333046Z test_crash_after_transient_failure_is_rejected_without_another_retry (test_runner.UiAcquisitionTest.test_crash_after_transient_failure_is_rejected_without_another_retry) ... ok
+2026-09-10T07:30:10.8344685Z test_malformed_dump_does_not_bind_or_reuse_previous_geometry (test_runner.UiAcquisitionTest.test_malformed_dump_does_not_bind_or_reuse_previous_geometry) ... ok
+2026-09-10T07:30:10.8357231Z test_missing_dump_retries_fresh_and_retains_failure_after_later_success (test_runner.UiAcquisitionTest.test_missing_dump_retries_fresh_and_retains_failure_after_later_success) ... ok
+2026-09-10T07:30:10.8364549Z test_nonzero_dump_preserves_both_streams_before_a_fresh_retry (test_runner.UiAcquisitionTest.test_nonzero_dump_preserves_both_streams_before_a_fresh_retry) ... ok
+2026-09-10T07:30:10.8373037Z test_timeout_output_is_retained_and_does_not_reuse_prior_dump_stdout (test_runner.UiAcquisitionTest.test_timeout_output_is_retained_and_does_not_reuse_prior_dump_stdout) ... ok
+2026-09-10T07:30:10.8382497Z test_unavailable_ui_expires_at_enclosing_deadline_without_using_old_tree (test_runner.UiAcquisitionTest.test_unavailable_ui_expires_at_enclosing_deadline_without_using_old_tree) ... ok
+2026-09-10T07:30:10.8383808Z 
+2026-09-10T07:30:10.8383995Z ----------------------------------------------------------------------
+2026-09-10T07:30:10.8384406Z Ran 69 tests in 0.106s
+2026-09-10T07:30:10.8384560Z 
+2026-09-10T07:30:10.8384653Z OK
+2026-09-10T07:30:10.8702728Z ##[group]Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6
+2026-09-10T07:30:10.8703153Z with:
+2026-09-10T07:30:10.8703363Z   distribution: temurin
+2026-09-10T07:30:10.8703589Z   java-version: 21
+2026-09-10T07:30:10.8703795Z   java-package: jdk
+2026-09-10T07:30:10.8704006Z   check-latest: false
+2026-09-10T07:30:10.8704228Z   force-download: false
+2026-09-10T07:30:10.8704451Z   set-default: true
+2026-09-10T07:30:10.8704657Z   server-id: github
+2026-09-10T07:30:10.8704900Z   mvn-repositories-include-central: true
+2026-09-10T07:30:10.8705227Z   mvn-repositories-prioritize-central: true
+2026-09-10T07:30:10.8705567Z   overwrite-settings: true
+2026-09-10T07:30:10.8705809Z   cache-read-only: false
+2026-09-10T07:30:10.8706036Z   job-status: success
+2026-09-10T07:30:10.8708358Z   token: ***
+2026-09-10T07:30:10.8708584Z   show-download-progress: false
+2026-09-10T07:30:10.8708861Z   problem-matcher: true
+2026-09-10T07:30:10.8709097Z ##[endgroup]
+2026-09-10T07:30:10.9484427Z ##[group]Installed distributions
+2026-09-10T07:30:10.9570866Z Resolved Java 21.0.12+1 from tool-cache
+2026-09-10T07:30:10.9571411Z Setting Java 21.0.12+1 as the default
+2026-09-10T07:30:10.9579581Z 
+2026-09-10T07:30:10.9579866Z Java configuration:
+2026-09-10T07:30:10.9580271Z   Distribution: temurin
+2026-09-10T07:30:10.9580658Z   Version: 21.0.12+1
+2026-09-10T07:30:10.9581205Z   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T07:30:10.9581889Z 
+2026-09-10T07:30:10.9582340Z ##[endgroup]
+2026-09-10T07:30:10.9611895Z Creating settings.xml with server-id: github
+2026-09-10T07:30:10.9612606Z Creating toolchains.xml for JDK version 21 from temurin
+2026-09-10T07:30:10.9613383Z Writing to /home/runner/.m2/settings.xml
+2026-09-10T07:30:10.9623924Z Writing to /home/runner/.m2/toolchains.xml
+2026-09-10T07:30:10.9631401Z Configured MAVEN_ARGS to include -ntp to suppress Maven transfer progress logs. Set 'show-download-progress: true' to keep the download progress output.
+2026-09-10T07:30:10.9778098Z ##[group]Run android-actions/setup-android@40fd30fb8d7440372e1316f5d1809ec01dcd3699
+2026-09-10T07:30:10.9778553Z with:
+2026-09-10T07:30:10.9778858Z   packages: platform-tools platforms;android-37.1 build-tools;36.0.0
+2026-09-10T07:30:10.9779271Z   log-accepted-android-sdk-licenses: false
+2026-09-10T07:30:10.9779581Z   cmdline-tools-version: 14742923
+2026-09-10T07:30:10.9779856Z   accept-android-sdk-licenses: true
+2026-09-10T07:30:10.9780112Z env:
+2026-09-10T07:30:10.9780407Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T07:30:10.9780895Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T07:30:10.9781296Z   MAVEN_ARGS: -ntp
+2026-09-10T07:30:10.9781804Z ##[endgroup]
+2026-09-10T07:30:11.0810375Z Found preinstalled sdkmanager in /usr/local/lib/android/sdk/cmdline-tools/latest with following source.properties:
+2026-09-10T07:30:11.0812111Z Pkg.Revision=12.0
+2026-09-10T07:30:11.0812589Z Pkg.Path=cmdline-tools;12.0
+2026-09-10T07:30:11.0813009Z Pkg.Desc=Android SDK Command-line Tools
+2026-09-10T07:30:11.0813248Z 
+2026-09-10T07:30:11.0813395Z Wrong version in preinstalled sdkmanager
+2026-09-10T07:30:11.0814133Z Downloading commandline tools from https://dl.google.com/android/repository/commandlinetools-linux-14742923_latest.zip
+2026-09-10T07:30:12.1856593Z [command]/usr/bin/unzip -o -q /home/runner/work/_temp/aa3e75f3-257d-4f2f-8736-c00b8654c6ca
+2026-09-10T07:30:12.9922732Z Accepting Android SDK licenses
+2026-09-10T07:30:17.7461046Z [command]/usr/local/lib/android/sdk/cmdline-tools/20.0/bin/sdkmanager platform-tools
+2026-09-10T07:30:18.5919510Z Loading package information...                                                  
+2026-09-10T07:30:18.6824585Z Loading local repository...                                                     
+2026-09-10T07:30:18.6825993Z [                                       ] 3% Loading local repository...        
+2026-09-10T07:30:18.6868246Z [                                       ] 3% Fetch remote repository...         
+2026-09-10T07:30:19.0182927Z [=                                      ] 3% Fetch remote repository...         
+2026-09-10T07:30:19.1556227Z [=                                      ] 4% Fetch remote repository...         
+2026-09-10T07:30:19.2164503Z [=                                      ] 5% Fetch remote repository...         
+2026-09-10T07:30:19.2732546Z [==                                     ] 5% Fetch remote repository...         
+2026-09-10T07:30:19.3438943Z [==                                     ] 6% Fetch remote repository...         
+2026-09-10T07:30:19.4732415Z [==                                     ] 7% Fetch remote repository...         
+2026-09-10T07:30:19.4734463Z [==                                     ] 7% Computing updates...               
+2026-09-10T07:30:19.4862881Z [===                                    ] 8% Computing updates...               
+2026-09-10T07:30:19.4937098Z [===                                    ] 10% Computing updates...              
+2026-09-10T07:30:19.4937854Z [=======================================] 100% Computing updates...             
+2026-09-10T07:30:19.4938290Z 
+2026-09-10T07:30:19.5123908Z [command]/usr/local/lib/android/sdk/cmdline-tools/20.0/bin/sdkmanager platforms;android-37.1
+2026-09-10T07:30:20.3365613Z Loading package information...                                                  
+2026-09-10T07:30:20.4274383Z Loading local repository...                                                     
+2026-09-10T07:30:20.4275956Z [                                       ] 3% Loading local repository...        
+2026-09-10T07:30:20.4313432Z [                                       ] 3% Fetch remote repository...         
+2026-09-10T07:30:20.7479723Z [=                                      ] 3% Fetch remote repository...         
+2026-09-10T07:30:20.8900169Z [=                                      ] 4% Fetch remote repository...         
+2026-09-10T07:30:20.9467266Z [=                                      ] 5% Fetch remote repository...         
+2026-09-10T07:30:21.0360614Z [==                                     ] 5% Fetch remote repository...         
+2026-09-10T07:30:21.1023916Z [==                                     ] 6% Fetch remote repository...         
+2026-09-10T07:30:21.1860126Z [==                                     ] 7% Fetch remote repository...         
+2026-09-10T07:30:21.1882472Z [==                                     ] 7% Computing updates...               
+2026-09-10T07:30:21.2002632Z [===                                    ] 8% Computing updates...               
+2026-09-10T07:30:21.2074319Z [===                                    ] 10% Computing updates...              
+2026-09-10T07:30:21.2092604Z [=======================================] 100% Computing updates...             
+2026-09-10T07:30:21.2093280Z 
+2026-09-10T07:30:21.2288097Z [command]/usr/local/lib/android/sdk/cmdline-tools/20.0/bin/sdkmanager build-tools;36.0.0
+2026-09-10T07:30:22.0803368Z Loading package information...                                                  
+2026-09-10T07:30:22.1669632Z Loading local repository...                                                     
+2026-09-10T07:30:22.1670457Z [                                       ] 3% Loading local repository...        
+2026-09-10T07:30:22.1699219Z [                                       ] 3% Fetch remote repository...         
+2026-09-10T07:30:22.5673276Z [=                                      ] 3% Fetch remote repository...         
+2026-09-10T07:30:22.6394101Z [=                                      ] 4% Fetch remote repository...         
+2026-09-10T07:30:22.6765783Z [=                                      ] 5% Fetch remote repository...         
+2026-09-10T07:30:22.7256516Z [==                                     ] 5% Fetch remote repository...         
+2026-09-10T07:30:22.8351152Z [==                                     ] 6% Fetch remote repository...         
+2026-09-10T07:30:22.9242867Z [==                                     ] 7% Fetch remote repository...         
+2026-09-10T07:30:22.9271879Z [==                                     ] 7% Computing updates...               
+2026-09-10T07:30:22.9364867Z [===                                    ] 8% Computing updates...               
+2026-09-10T07:30:22.9440262Z [===                                    ] 10% Computing updates...              
+2026-09-10T07:30:22.9441150Z [=======================================] 100% Computing updates...             
+2026-09-10T07:30:22.9441911Z 
+2026-09-10T07:30:22.9929521Z ##[group]Run gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb
+2026-09-10T07:30:22.9929982Z with:
+2026-09-10T07:30:22.9930188Z   cache-provider: basic
+2026-09-10T07:30:22.9930449Z   cache-read-only: false
+2026-09-10T07:30:22.9930684Z   cache-disabled: false
+2026-09-10T07:30:22.9930913Z   cache-write-only: false
+2026-09-10T07:30:22.9931168Z   cache-overwrite-existing: false
+2026-09-10T07:30:22.9931757Z   cache-cleanup: on-success
+2026-09-10T07:30:22.9932068Z   gradle-home-cache-includes: caches
+notifications
+
+2026-09-10T07:30:22.9932390Z   add-job-summary: always
+2026-09-10T07:30:22.9932641Z   add-job-summary-as-pr-comment: never
+2026-09-10T07:30:22.9932922Z   dependency-graph: disabled
+2026-09-10T07:30:22.9933228Z   dependency-graph-report-dir: dependency-graph-reports
+2026-09-10T07:30:22.9933593Z   dependency-graph-continue-on-failure: true
+2026-09-10T07:30:22.9933897Z   build-scan-publish: false
+2026-09-10T07:30:22.9934140Z   validate-wrappers: true
+2026-09-10T07:30:22.9934428Z   allow-snapshot-wrappers: false
+2026-09-10T07:30:22.9934709Z   gradle-home-cache-strict-match: false
+2026-09-10T07:30:22.9934994Z   workflow-job-context: null
+2026-09-10T07:30:22.9937389Z   github-token: ***
+2026-09-10T07:30:22.9937625Z env:
+2026-09-10T07:30:22.9937925Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T07:30:22.9938422Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T07:30:22.9938811Z   MAVEN_ARGS: -ntp
+2026-09-10T07:30:22.9939042Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-10T07:30:22.9939350Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-10T07:30:22.9939629Z ##[endgroup]
+2026-09-10T07:30:23.3600097Z Merged default JDK locations into /home/runner/.m2/toolchains.xml
+2026-09-10T07:30:23.3606264Z Basic Caching: This build uses the basic open-source caching provider. For faster builds and advanced features, consider switching to the Enhanced Caching provider. See https://github.com/gradle/actions/blob/main/DISTRIBUTION.md for details.
+2026-09-10T07:30:24.1862558Z Cache hit for: setup-java-Linux-x64-gradle-ea82b590f096de69b63ea0153db5d1ef1b59480167689ed51e57691f7bc898b1
+2026-09-10T07:30:25.4770698Z Received 0 of 745844976 (0.0%), 0.0 MBs/sec
+2026-09-10T07:30:26.4803500Z Received 88080384 of 745844976 (11.8%), 42.0 MBs/sec
+2026-09-10T07:30:27.4780389Z Received 180355072 of 745844976 (24.2%), 57.3 MBs/sec
+2026-09-10T07:30:28.4782543Z Received 268435456 of 745844976 (36.0%), 64.0 MBs/sec
+2026-09-10T07:30:29.4823158Z Received 364904448 of 745844976 (48.9%), 69.6 MBs/sec
+2026-09-10T07:30:30.4803027Z Received 461373440 of 745844976 (61.9%), 73.3 MBs/sec
+2026-09-10T07:30:31.4803134Z Received 536870912 of 745844976 (72.0%), 73.1 MBs/sec
+2026-09-10T07:30:32.4815269Z Received 654311424 of 745844976 (87.7%), 78.0 MBs/sec
+2026-09-10T07:30:33.4827687Z Received 741650672 of 745844976 (99.4%), 78.5 MBs/sec
+2026-09-10T07:30:33.6279097Z Received 745844976 of 745844976 (100.0%), 77.7 MBs/sec
+2026-09-10T07:30:33.6279783Z Cache Size: ~711 MB (745844976 B)
+2026-09-10T07:30:33.6322604Z [command]/usr/bin/tar -xf /home/runner/work/_temp/9e943dc5-d41d-4e7b-a2ae-045d3d6af898/cache.tzst -P -C /home/runner/work/PartyDeck/PartyDeck --use-compress-program unzstd
+2026-09-10T07:30:36.2545291Z Cache restored successfully
+2026-09-10T07:30:36.2998378Z Basic caching restored from cache key: setup-java-Linux-x64-gradle-ea82b590f096de69b63ea0153db5d1ef1b59480167689ed51e57691f7bc898b1
+2026-09-10T07:30:36.3629127Z ##[group]All Gradle Wrapper jars are valid
+2026-09-10T07:30:36.3630484Z ✓ Found known Gradle Wrapper JAR files:
+2026-09-10T07:30:36.3631892Z   7a9ce74cff467ca1bf60a4fcd9f05185acceda4d0f382434d393e17864262c5d gradle/wrapper/gradle-wrapper.jar
+2026-09-10T07:30:36.3633100Z ##[endgroup]
+2026-09-10T07:30:36.3884069Z ##[group]Run ./scripts/setup-ubuntu-graphics.sh
+2026-09-10T07:30:36.3884789Z [36;1m./scripts/setup-ubuntu-graphics.sh[0m
+2026-09-10T07:30:36.3929050Z shell: /usr/bin/bash -e {0}
+2026-09-10T07:30:36.3929317Z env:
+2026-09-10T07:30:36.3929639Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T07:30:36.3930161Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T07:30:36.3930580Z   MAVEN_ARGS: -ntp
+2026-09-10T07:30:36.3930823Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-10T07:30:36.3931132Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-10T07:30:36.3931724Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-09-10T07:30:36.3932076Z   GRADLE_USER_HOME: /home/runner/.gradle
+2026-09-10T07:30:36.3932376Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-09-10T07:30:36.3932849Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-09-10T07:30:36.3933514Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-09-10T07:30:36.3934149Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-09-10T07:30:36.3934662Z ##[endgroup]
+2026-09-10T07:30:37.8376332Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-09-10T07:30:38.0493543Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+2026-09-10T07:30:38.0509031Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+2026-09-10T07:30:38.0549260Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+2026-09-10T07:30:38.0605800Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+2026-09-10T07:30:38.1991386Z Get:6 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1262 kB]
+2026-09-10T07:30:38.2148662Z Get:7 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [292 kB]
+2026-09-10T07:30:38.2175969Z Get:8 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Components [180 kB]
+2026-09-10T07:30:38.2199296Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1690 kB]
+2026-09-10T07:30:38.2317398Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [339 kB]
+2026-09-10T07:30:38.2337551Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Components [388 kB]
+2026-09-10T07:30:38.2373469Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1540 kB]
+2026-09-10T07:30:38.2454059Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [353 kB]
+2026-09-10T07:30:38.2517129Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Components [940 B]
+2026-09-10T07:30:38.2552934Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble-backports/main amd64 Components [5784 B]
+2026-09-10T07:30:38.3043847Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble-backports/universe amd64 Components [12.6 kB]
+2026-09-10T07:30:38.3063220Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1005 kB]
+2026-09-10T07:30:38.3136454Z Get:18 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [213 kB]
+2026-09-10T07:30:38.3155918Z Get:19 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Components [46.4 kB]
+2026-09-10T07:30:38.3170851Z Get:20 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1206 kB]
+2026-09-10T07:30:38.3234368Z Get:21 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [241 kB]
+2026-09-10T07:30:38.3256350Z Get:22 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Components [76.2 kB]
+2026-09-10T07:30:38.3272299Z Get:23 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1441 kB]
+2026-09-10T07:30:38.3343114Z Get:24 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [334 kB]
+2026-09-10T07:30:44.2224025Z Fetched 11.0 MB in 2s (6052 kB/s)
+2026-09-10T07:30:44.9336446Z Reading package lists...
+2026-09-10T07:30:44.9639364Z Reading package lists...
+2026-09-10T07:30:45.1372765Z Building dependency tree...
+2026-09-10T07:30:45.1380304Z Reading state information...
+2026-09-10T07:30:45.2862299Z The following additional packages will be installed:
+2026-09-10T07:30:45.2867279Z   libegl-mesa0
+2026-09-10T07:30:45.3162721Z The following NEW packages will be installed:
+2026-09-10T07:30:45.3169127Z   libegl-mesa0 libegl1
+2026-09-10T07:30:45.3342204Z 0 upgraded, 2 newly installed, 0 to remove and 43 not upgraded.
+2026-09-10T07:30:45.3343012Z Need to get 146 kB of archives.
+2026-09-10T07:30:45.3343810Z After this operation, 502 kB of additional disk space will be used.
+2026-09-10T07:30:45.3344683Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-09-10T07:30:45.4222946Z Get:2 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libegl-mesa0 amd64 25.2.8-0ubuntu0.24.04.2 [117 kB]
+2026-09-10T07:30:45.4969913Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libegl1 amd64 1.7.0-1build1 [28.7 kB]
+2026-09-10T07:30:46.4882841Z Fetched 146 kB in 0s (841 kB/s)
+2026-09-10T07:30:46.5234630Z Selecting previously unselected package libegl-mesa0:amd64.
+2026-09-10T07:30:46.5794357Z (Reading database ... 
+2026-09-10T07:30:46.5795242Z (Reading database ... 5%
+2026-09-10T07:30:46.5795920Z (Reading database ... 10%
+2026-09-10T07:30:46.5796411Z (Reading database ... 15%
+2026-09-10T07:30:46.5796924Z (Reading database ... 20%
+2026-09-10T07:30:46.5797374Z (Reading database ... 25%
+2026-09-10T07:30:46.5797893Z (Reading database ... 30%
+2026-09-10T07:30:46.5798373Z (Reading database ... 35%
+2026-09-10T07:30:46.5798843Z (Reading database ... 40%
+2026-09-10T07:30:46.5799275Z (Reading database ... 45%
+2026-09-10T07:30:46.5799594Z (Reading database ... 50%
+2026-09-10T07:30:46.6187206Z (Reading database ... 55%
+2026-09-10T07:30:46.9717186Z (Reading database ... 60%
+2026-09-10T07:30:47.1831382Z (Reading database ... 65%
+2026-09-10T07:30:47.3969315Z (Reading database ... 70%
+2026-09-10T07:30:47.6244438Z (Reading database ... 75%
+2026-09-10T07:30:47.9719020Z (Reading database ... 80%
+2026-09-10T07:30:48.9276134Z (Reading database ... 85%
+2026-09-10T07:30:49.5471847Z (Reading database ... 90%
+2026-09-10T07:30:50.0857941Z (Reading database ... 95%
+2026-09-10T07:30:50.0858632Z (Reading database ... 100%
+2026-09-10T07:30:50.0859522Z (Reading database ... 201676 files and directories currently installed.)
+2026-09-10T07:30:50.0902601Z Preparing to unpack .../libegl-mesa0_25.2.8-0ubuntu0.24.04.2_amd64.deb ...
+2026-09-10T07:30:50.0978669Z Unpacking libegl-mesa0:amd64 (25.2.8-0ubuntu0.24.04.2) ...
+2026-09-10T07:30:50.1259670Z Selecting previously unselected package libegl1:amd64.
+2026-09-10T07:30:50.1385503Z Preparing to unpack .../libegl1_1.7.0-1build1_amd64.deb ...
+2026-09-10T07:30:50.1394023Z Unpacking libegl1:amd64 (1.7.0-1build1) ...
+2026-09-10T07:30:50.1799499Z Setting up libegl-mesa0:amd64 (25.2.8-0ubuntu0.24.04.2) ...
+2026-09-10T07:30:50.1819840Z Setting up libegl1:amd64 (1.7.0-1build1) ...
+2026-09-10T07:30:50.1843617Z Processing triggers for libc-bin (2.39-0ubuntu8.8) ...
+2026-09-10T07:30:51.9895153Z 
+2026-09-10T07:30:51.9895816Z Running kernel seems to be up-to-date.
+2026-09-10T07:30:51.9896237Z 
+2026-09-10T07:30:51.9896518Z No services need to be restarted.
+2026-09-10T07:30:51.9896842Z 
+2026-09-10T07:30:51.9897112Z No containers need to be restarted.
+2026-09-10T07:30:51.9897450Z 
+2026-09-10T07:30:51.9897840Z No user sessions are running outdated binaries.
+2026-09-10T07:30:51.9898596Z 
+2026-09-10T07:30:51.9899127Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+2026-09-10T07:30:53.5838291Z libegl1	install ok installed	1.7.0-1build1
+2026-09-10T07:30:53.5838935Z libgl1	install ok installed	1.7.0-1build1
+2026-09-10T07:30:53.5839444Z libgl1-mesa-dri	install ok installed	25.2.8-0ubuntu0.24.04.2
+2026-09-10T07:30:53.5839950Z libx11-6	install ok installed	2:1.8.7-1build1
+2026-09-10T07:30:53.5840377Z libxi6	install ok installed	2:1.8.1-1build1
+2026-09-10T07:30:53.5841111Z libxrender1	install ok installed	1:0.9.10-1.1build1
+2026-09-10T07:30:53.5842012Z libxtst6	install ok installed	2:1.2.3-1.1build1
+2026-09-10T07:30:53.5842714Z xauth	install ok installed	1:1.1.2-1build1
+2026-09-10T07:30:53.5843357Z xvfb	install ok installed	2:21.1.12-1ubuntu1.6
+2026-09-10T07:30:53.5845439Z /usr/bin/xvfb-run
+2026-09-10T07:30:53.5846295Z /usr/bin/Xvfb
+2026-09-10T07:30:53.5900689Z ##[group]Run python3 godot/tools/renderer.py install --destination godot/qualification/build/toolchain
+2026-09-10T07:30:53.5901753Z [36;1mpython3 godot/tools/renderer.py install --destination godot/qualification/build/toolchain[0m
+2026-09-10T07:30:53.5938666Z shell: /usr/bin/bash -e {0}
+2026-09-10T07:30:53.5938933Z env:
+2026-09-10T07:30:53.5939255Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T07:30:53.5939807Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T07:30:53.5940216Z   MAVEN_ARGS: -ntp
+2026-09-10T07:30:53.5940451Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-10T07:30:53.5940760Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-10T07:30:53.5941084Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-09-10T07:30:53.5941395Z   GRADLE_USER_HOME: /home/runner/.gradle
+2026-09-10T07:30:53.5941949Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-09-10T07:30:53.5942435Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-09-10T07:30:53.5942938Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-09-10T07:30:53.5943262Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-09-10T07:30:53.5943530Z ##[endgroup]
+2026-09-10T07:30:54.9985230Z /home/runner/work/PartyDeck/PartyDeck/godot/qualification/build/toolchain/godot
+2026-09-10T07:30:55.0131931Z ##[group]Run ./gradlew -p godot/qualification --console=plain \
+2026-09-10T07:30:55.0132806Z [36;1m./gradlew -p godot/qualification --console=plain \[0m
+2026-09-10T07:30:55.0133547Z [36;1m  :bridge:jvmTest :bridge:generateFixtures \[0m
+2026-09-10T07:30:55.0134272Z [36;1m  :comparison:test :comparison:installDist[0m
+2026-09-10T07:30:55.0170589Z shell: /usr/bin/bash -e {0}
+2026-09-10T07:30:55.0170848Z env:
+2026-09-10T07:30:55.0171184Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T07:30:55.0172105Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T07:30:55.0172522Z   MAVEN_ARGS: -ntp
+2026-09-10T07:30:55.0172771Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-10T07:30:55.0173116Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-10T07:30:55.0173454Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-09-10T07:30:55.0173785Z   GRADLE_USER_HOME: /home/runner/.gradle
+2026-09-10T07:30:55.0174122Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-09-10T07:30:55.0174576Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-09-10T07:30:55.0175071Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-09-10T07:30:55.0175398Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-09-10T07:30:55.0175671Z ##[endgroup]
+2026-09-10T07:30:55.7158894Z 
+2026-09-10T07:30:55.7160528Z Welcome to Gradle 9.7.0!
+2026-09-10T07:30:55.7161999Z 
+2026-09-10T07:30:55.7162400Z Here are the highlights of this release:
+2026-09-10T07:30:55.7164047Z  - Isolated Projects graduates to incubating
+2026-09-10T07:30:55.7165505Z  - Broader Configuration Cache compatibility
+2026-09-10T07:30:55.7166379Z  - More source locations in problem reports
+2026-09-10T07:30:55.7167327Z 
+2026-09-10T07:30:55.7168454Z For more details see https://docs.gradle.org/9.7.0/release-notes.html
+2026-09-10T07:30:55.7169226Z 
+2026-09-10T07:30:55.9162966Z Starting a Gradle Daemon (subsequent builds will be faster)
+2026-09-10T07:31:05.9155035Z 
+2026-09-10T07:31:05.9164222Z > Configure project :bridge
+2026-09-10T07:31:05.9168576Z WARNING: The 'commonTest' source directory exists, but android host tests are not enabled. To enable android host tests, add `withHostTest {}` to your android target configuration in the Gradle build file.
+2026-09-10T07:31:05.9171009Z Add android.sync.suppressAgpWarnings=GENERIC to the gradle.properties file to suppress this warning.
+2026-09-10T07:31:06.2155163Z 
+2026-09-10T07:31:06.2173345Z > Configure project :core
+2026-09-10T07:31:06.2194801Z WARNING: The 'commonTest' source directory exists, but android host tests are not enabled. To enable android host tests, add `withHostTest {}` to your android target configuration in the Gradle build file.
+2026-09-10T07:31:06.2201206Z Add android.sync.suppressAgpWarnings=GENERIC to the gradle.properties file to suppress this warning.
+2026-09-10T07:31:06.4160013Z 
+2026-09-10T07:31:06.4170751Z > Configure project :games
+2026-09-10T07:31:06.4184060Z WARNING: The 'commonTest' source directory exists, but android host tests are not enabled. To enable android host tests, add `withHostTest {}` to your android target configuration in the Gradle build file.
+2026-09-10T07:31:06.4186397Z Add android.sync.suppressAgpWarnings=GENERIC to the gradle.properties file to suppress this warning.
+2026-09-10T07:31:11.7154345Z 
+2026-09-10T07:31:11.7204286Z > Task :comparison:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-09-10T07:31:11.8167715Z > Task :comparison:processResources NO-SOURCE
+2026-09-10T07:31:11.8182690Z > Task :comparison:processTestResources NO-SOURCE
+2026-09-10T07:31:11.8192686Z > Task :core:kmpPartiallyResolvedDependenciesChecker
+2026-09-10T07:31:11.8193867Z > Task :core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-09-10T07:31:12.0189972Z > Task :core:compileKotlinJvm FROM-CACHE
+2026-09-10T07:31:12.0212967Z > Task :core:compileJvmMainJava NO-SOURCE
+2026-09-10T07:31:12.0234762Z > Task :core:jvmProcessResources NO-SOURCE
+2026-09-10T07:31:12.0236216Z > Task :core:processJvmMainResources SKIPPED
+2026-09-10T07:31:12.0245587Z > Task :core:jvmMainClasses UP-TO-DATE
+2026-09-10T07:31:12.1154185Z > Task :core:jvmJar
+2026-09-10T07:31:12.1182981Z > Task :games:kmpPartiallyResolvedDependenciesChecker
+2026-09-10T07:31:12.1212859Z > Task :games:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-09-10T07:31:12.2163455Z > Task :games:compileKotlinJvm FROM-CACHE
+2026-09-10T07:31:12.2176048Z > Task :games:compileJvmMainJava NO-SOURCE
+2026-09-10T07:31:12.2177175Z > Task :games:jvmProcessResources NO-SOURCE
+2026-09-10T07:31:12.2178148Z > Task :games:processJvmMainResources SKIPPED
+2026-09-10T07:31:12.2179031Z > Task :games:jvmMainClasses UP-TO-DATE
+2026-09-10T07:31:12.2179813Z > Task :games:jvmJar
+2026-09-10T07:31:12.3154180Z > Task :bridge:kmpPartiallyResolvedDependenciesChecker
+2026-09-10T07:31:12.3182940Z > Task :bridge:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-09-10T07:31:12.3184113Z > Task :bridge:compileKotlinJvm FROM-CACHE
+2026-09-10T07:31:12.3185057Z > Task :bridge:compileJvmMainJava NO-SOURCE
+2026-09-10T07:31:12.3185954Z > Task :bridge:jvmProcessResources NO-SOURCE
+2026-09-10T07:31:12.3190144Z > Task :bridge:processJvmMainResources SKIPPED
+2026-09-10T07:31:12.3191176Z > Task :bridge:jvmMainClasses UP-TO-DATE
+2026-09-10T07:31:12.4166271Z > Task :bridge:jvmJar
+2026-09-10T07:31:12.5226961Z > Task :comparison:compileKotlin FROM-CACHE
+2026-09-10T07:31:12.5238942Z > Task :comparison:compileJava NO-SOURCE
+2026-09-10T07:31:12.5273969Z > Task :comparison:classes UP-TO-DATE
+2026-09-10T07:31:12.5302369Z > Task :bridge:compileTestKotlinJvm FROM-CACHE
+2026-09-10T07:31:12.5325032Z > Task :bridge:compileJvmTestJava NO-SOURCE
+2026-09-10T07:31:12.5355005Z > Task :bridge:jvmTestProcessResources NO-SOURCE
+2026-09-10T07:31:12.5377311Z > Task :bridge:processJvmTestResources SKIPPED
+2026-09-10T07:31:12.5382305Z > Task :bridge:jvmTestClasses UP-TO-DATE
+2026-09-10T07:31:12.5433814Z > Task :comparison:jar
+2026-09-10T07:31:12.5460398Z > Task :comparison:compileTestKotlin NO-SOURCE
+2026-09-10T07:31:12.5543097Z > Task :comparison:compileTestJava NO-SOURCE
+2026-09-10T07:31:12.5553474Z > Task :comparison:testClasses UP-TO-DATE
+2026-09-10T07:31:12.6162942Z > Task :comparison:test NO-SOURCE
+2026-09-10T07:31:12.6163821Z > Task :bridge:jvmTest FROM-CACHE
+2026-09-10T07:31:13.3192913Z > Task :comparison:startScripts
+2026-09-10T07:31:13.4153180Z > Task :comparison:installDist
+2026-09-10T07:31:13.4153802Z 
+2026-09-10T07:31:13.4155742Z > Task :bridge:generateFixtures
+2026-09-10T07:31:13.4156841Z Generated 15 authority-derived renderer documents; viewer plays=2, challenges=2, final round=14.
+2026-09-10T07:31:13.4158199Z Fixture seed/provenance is in the tooling manifest; it is never sent as a renderer view or intent.
+2026-09-10T07:31:13.4159803Z gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_4-1789025458912.json
+2026-09-10T07:31:13.4982232Z 
+2026-09-10T07:31:13.5012673Z BUILD SUCCESSFUL in 18s
+2026-09-10T07:31:13.5013401Z 16 actionable tasks: 10 executed, 6 from cache
+2026-09-10T07:31:13.5014906Z Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.7.0/userguide/configuration_cache_enabling.html
+2026-09-10T07:31:13.8238061Z ##[group]Run python3 godot/tools/renderer.py pack --godot godot/qualification/build/toolchain/godot
+2026-09-10T07:31:13.8238808Z [36;1mpython3 godot/tools/renderer.py pack --godot godot/qualification/build/toolchain/godot[0m
+2026-09-10T07:31:13.8276436Z shell: /usr/bin/bash -e {0}
+2026-09-10T07:31:13.8276697Z env:
+2026-09-10T07:31:13.8277026Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T07:31:13.8277550Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T07:31:13.8277983Z   MAVEN_ARGS: -ntp
+2026-09-10T07:31:13.8278222Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-10T07:31:13.8278525Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-10T07:31:13.8278848Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-09-10T07:31:13.8279164Z   GRADLE_USER_HOME: /home/runner/.gradle
+2026-09-10T07:31:13.8279459Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-09-10T07:31:13.8279943Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-09-10T07:31:13.8280429Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-09-10T07:31:13.8280752Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-09-10T07:31:13.8281024Z ##[endgroup]
+2026-09-10T07:31:22.3464013Z import: passed; log: /home/runner/work/PartyDeck/PartyDeck/godot/qualification/build/renderer/pack-logs/import.log
+2026-09-10T07:31:22.3465971Z source-scene-check: passed; log: /home/runner/work/PartyDeck/PartyDeck/godot/qualification/build/renderer/pack-logs/source-scene-check.log
+2026-09-10T07:31:22.3467840Z export-pack: passed; log: /home/runner/work/PartyDeck/PartyDeck/godot/qualification/build/renderer/pack-logs/export-pack.log
+2026-09-10T07:31:22.3469639Z packed-scene-check: passed; log: /home/runner/work/PartyDeck/PartyDeck/godot/qualification/build/renderer/pack-logs/packed-scene-check.log
+2026-09-10T07:31:22.3471221Z PCK: /home/runner/work/PartyDeck/PartyDeck/godot/qualification/build/renderer/partydeck-last-light.pck
+2026-09-10T07:31:22.3472686Z SHA-256: 0440dc8a1e099031eb7e0a08304411908e8580f932673599f149d2088c0e7afe
+2026-09-10T07:31:22.3473389Z Entries: 136; bytes: 1546312
+2026-09-10T07:31:22.3600841Z ##[group]Run mkdir -p godot/qualification/build/ci/native-boundary/empty
+2026-09-10T07:31:22.3601444Z [36;1mmkdir -p godot/qualification/build/ci/native-boundary/empty[0m
+2026-09-10T07:31:22.3602119Z [36;1mgodot/qualification/build/toolchain/godot --headless \[0m
+2026-09-10T07:31:22.3602670Z [36;1m  --path "$GITHUB_WORKSPACE/godot/qualification/build/ci/native-boundary/empty" \[0m
+2026-09-10T07:31:22.3603556Z [36;1m  --main-pack "$GITHUB_WORKSPACE/godot/qualification/build/renderer/partydeck-last-light.pck" \[0m
+2026-09-10T07:31:22.3604073Z [36;1m  --audio-driver Dummy \[0m
+2026-09-10T07:31:22.3604497Z [36;1m  --script "$GITHUB_WORKSPACE/godot/renderer/tests/native_bridge_check.gd" -- \[0m
+2026-09-10T07:31:22.3605121Z [36;1m  --check-output="$GITHUB_WORKSPACE/godot/qualification/build/ci/native-boundary/results" \[0m
+2026-09-10T07:31:22.3605704Z [36;1m  --check-fixtures="$GITHUB_WORKSPACE/godot/bridge/fixtures" \[0m
+2026-09-10T07:31:22.3606224Z [36;1m  2>&1 | tee godot/qualification/build/ci/native-boundary/runtime.log[0m
+2026-09-10T07:31:22.3606614Z [36;1mpython3 - <<'PY'[0m
+2026-09-10T07:31:22.3606852Z [36;1mimport json[0m
+2026-09-10T07:31:22.3607073Z [36;1mimport re[0m
+2026-09-10T07:31:22.3607296Z [36;1mfrom pathlib import Path[0m
+2026-09-10T07:31:22.3607547Z [36;1m[0m
+2026-09-10T07:31:22.3607834Z [36;1moutput = Path('godot/qualification/build/ci/native-boundary')[0m
+2026-09-10T07:31:22.3608316Z [36;1mreport = json.loads((output / 'results/report.json').read_text())[0m
+2026-09-10T07:31:22.3608784Z [36;1mif report.get('result') != 'passed' or not report.get('checks'):[0m
+2026-09-10T07:31:22.3609303Z [36;1m    raise SystemExit('The packed native bridge boundary check did not pass.')[0m
+2026-09-10T07:31:22.3609849Z [36;1mif any(check.get('passed') is not True for check in report['checks']):[0m
+2026-09-10T07:31:22.3610372Z [36;1m    raise SystemExit('The boundary report contains a failed assertion.')[0m
+2026-09-10T07:31:22.3610958Z [36;1mif re.search(r'(?m)^(?:SCRIPT ERROR|ERROR|Parse Error):', (output / 'runtime.log').read_text()):[0m
+2026-09-10T07:31:22.3611730Z [36;1m    raise SystemExit('The engine reported an error despite its process exit status.')[0m
+2026-09-10T07:31:22.3612364Z [36;1mprint(f"{len(report['checks'])} packed boundary assertions passed without engine errors.")[0m
+2026-09-10T07:31:22.3612815Z [36;1mPY[0m
+2026-09-10T07:31:22.3648676Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-09-10T07:31:22.3649045Z env:
+2026-09-10T07:31:22.3649355Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T07:31:22.3649861Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T07:31:22.3650260Z   MAVEN_ARGS: -ntp
+2026-09-10T07:31:22.3650491Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-10T07:31:22.3650797Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-10T07:31:22.3651113Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-09-10T07:31:22.3651552Z   GRADLE_USER_HOME: /home/runner/.gradle
+2026-09-10T07:31:22.3651869Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-09-10T07:31:22.3652321Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-09-10T07:31:22.3652857Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-09-10T07:31:22.3653189Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-09-10T07:31:22.3653462Z ##[endgroup]
+2026-09-10T07:31:22.3901431Z Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+2026-09-10T07:31:22.4170198Z 
+2026-09-10T07:31:23.4863807Z Native bridge boundary checks: 111 passed, 0 failed.
+2026-09-10T07:31:23.5758766Z 111 packed boundary assertions passed without engine errors.
+2026-09-10T07:31:23.5839921Z ##[group]Run godot/qualification/build/modules/comparison/install/partydeck-godot-compare/bin/partydeck-godot-compare \
+2026-09-10T07:31:23.5841121Z [36;1mgodot/qualification/build/modules/comparison/install/partydeck-godot-compare/bin/partydeck-godot-compare \[0m
+2026-09-10T07:31:23.5842107Z [36;1m  --godot godot/qualification/build/toolchain/godot \[0m
+2026-09-10T07:31:23.5842696Z [36;1m  --pack godot/qualification/build/renderer/partydeck-last-light.pck \[0m
+2026-09-10T07:31:23.5857921Z [36;1m  --presentation both --seed 2 --size 430x932 --xvfb --seconds 240 \[0m
+2026-09-10T07:31:23.5858418Z [36;1m  --output godot/qualification/build/ci/desktop[0m
+2026-09-10T07:31:23.5894281Z shell: /usr/bin/bash -e {0}
+2026-09-10T07:31:23.5894541Z env:
+2026-09-10T07:31:23.5894863Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T07:31:23.5895379Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T07:31:23.5895806Z   MAVEN_ARGS: -ntp
+2026-09-10T07:31:23.5896054Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-10T07:31:23.5896364Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-10T07:31:23.5896694Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-09-10T07:31:23.5897002Z   GRADLE_USER_HOME: /home/runner/.gradle
+2026-09-10T07:31:23.5897288Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-09-10T07:31:23.5897732Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-09-10T07:31:23.5898232Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-09-10T07:31:23.5898562Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-09-10T07:31:23.5898844Z   LIBGL_ALWAYS_SOFTWARE: true
+2026-09-10T07:31:23.5899096Z ##[endgroup]
+2026-09-10T07:31:24.3894777Z Starting 2d with comparison seed 2
+2026-09-10T07:31:34.2038143Z Captured 2d/01-concealed.png
+2026-09-10T07:31:34.7882752Z Captured 2d/02-revealed.png
+2026-09-10T07:31:35.4653162Z Captured 2d/03-selected.png
+2026-09-10T07:31:36.0807587Z Captured 2d/04-covered.png
+2026-09-10T07:31:37.0466994Z Captured 2d/05-background-privacy.png
+2026-09-10T07:31:38.0600742Z Captured 2d/06-play-pending.png
+2026-09-10T07:31:38.7565185Z Captured 2d/07-public-round-result.png
+2026-09-10T07:31:39.4142203Z Captured 2d/08-next-round.png
+2026-09-10T07:31:40.9428478Z Captured 2d/09-challenge-pending.png
+2026-09-10T07:31:46.8034590Z Captured 2d/10-winner.png
+2026-09-10T07:31:47.6239838Z Captured 2d/12-fresh-presentation.png
+2026-09-10T07:31:48.2436493Z Starting 3d with comparison seed 2
+2026-09-10T07:31:50.6498247Z Captured 3d/01-concealed.png
+2026-09-10T07:31:51.2227280Z Captured 3d/02-revealed.png
+2026-09-10T07:31:51.8358420Z Captured 3d/03-selected.png
+2026-09-10T07:31:52.4699140Z Captured 3d/04-covered.png
+2026-09-10T07:31:53.4035104Z Captured 3d/05-background-privacy.png
+2026-09-10T07:31:54.4520143Z Captured 3d/06-play-pending.png
+2026-09-10T07:31:55.1586500Z Captured 3d/07-public-round-result.png
+2026-09-10T07:31:55.8521042Z Captured 3d/08-next-round.png
+2026-09-10T07:31:57.5935257Z Captured 3d/09-challenge-pending.png
+2026-09-10T07:32:04.4945571Z Captured 3d/10-winner.png
+2026-09-10T07:32:05.3595980Z Captured 3d/12-fresh-presentation.png
+2026-09-10T07:32:05.7613563Z Comparison passed. Report: /home/runner/work/PartyDeck/PartyDeck/godot/qualification/build/ci/desktop/report.json
+2026-09-10T07:32:05.7818230Z ##[group]Run ./gradlew -p godot/qualification --console=plain \
+2026-09-10T07:32:05.7818739Z [36;1m./gradlew -p godot/qualification --console=plain \[0m
+2026-09-10T07:32:05.7819324Z [36;1m  :androidRenderer:testDebugUnitTest :androidHost:testDebugUnitTest :androidHost:lintDebug \[0m
+2026-09-10T07:32:05.7820001Z [36;1m  :androidHost:assembleDebug :androidHost:assembleRelease :androidHost:bundleRelease[0m
+2026-09-10T07:32:05.7857153Z shell: /usr/bin/bash -e {0}
+2026-09-10T07:32:05.7857417Z env:
+2026-09-10T07:32:05.7857745Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T07:32:05.7858275Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T07:32:05.7858665Z   MAVEN_ARGS: -ntp
+2026-09-10T07:32:05.7858902Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-10T07:32:05.7859213Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-10T07:32:05.7859535Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-09-10T07:32:05.7859876Z   GRADLE_USER_HOME: /home/runner/.gradle
+2026-09-10T07:32:05.7860164Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-09-10T07:32:05.7860612Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-09-10T07:32:05.7861097Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-09-10T07:32:05.7861416Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-09-10T07:32:05.7862186Z ##[endgroup]
+2026-09-10T07:32:07.1707090Z 
+2026-09-10T07:32:07.1726905Z > Configure project :bridge
+2026-09-10T07:32:07.1729461Z WARNING: The 'commonTest' source directory exists, but android host tests are not enabled. To enable android host tests, add `withHostTest {}` to your android target configuration in the Gradle build file.
+2026-09-10T07:32:07.1732325Z Add android.sync.suppressAgpWarnings=GENERIC to the gradle.properties file to suppress this warning.
+2026-09-10T07:32:07.2700891Z 
+2026-09-10T07:32:07.2722933Z > Configure project :core
+2026-09-10T07:32:07.2763980Z WARNING: The 'commonTest' source directory exists, but android host tests are not enabled. To enable android host tests, add `withHostTest {}` to your android target configuration in the Gradle build file.
+2026-09-10T07:32:07.2783129Z Add android.sync.suppressAgpWarnings=GENERIC to the gradle.properties file to suppress this warning.
+2026-09-10T07:32:07.4673907Z 
+2026-09-10T07:32:07.4679768Z > Configure project :games
+2026-09-10T07:32:07.4682408Z WARNING: The 'commonTest' source directory exists, but android host tests are not enabled. To enable android host tests, add `withHostTest {}` to your android target configuration in the Gradle build file.
+2026-09-10T07:32:07.4685076Z Add android.sync.suppressAgpWarnings=GENERIC to the gradle.properties file to suppress this warning.
+2026-09-10T07:32:09.0692697Z 
+2026-09-10T07:32:09.0696755Z > Task :androidRenderer:preBuild UP-TO-DATE
+2026-09-10T07:32:09.0700520Z > Task :androidRenderer:preDebugBuild UP-TO-DATE
+2026-09-10T07:32:09.0701851Z > Task :androidRenderer:generateDebugResources FROM-CACHE
+2026-09-10T07:32:09.0702786Z > Task :androidRenderer:packageDebugResources FROM-CACHE
+2026-09-10T07:32:09.0703647Z > Task :core:kmpPartiallyResolvedDependenciesChecker
+2026-09-10T07:32:09.0704583Z > Task :core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-09-10T07:32:09.0705602Z > Task :androidRenderer:processDebugNavigationResources FROM-CACHE
+2026-09-10T07:32:11.0696607Z > Task :androidRenderer:parseDebugLocalResources FROM-CACHE
+2026-09-10T07:32:11.0722410Z > Task :androidRenderer:generateDebugRFile FROM-CACHE
+2026-09-10T07:32:11.0752336Z > Task :androidRenderer:javaPreCompileDebug FROM-CACHE
+2026-09-10T07:32:11.0753228Z > Task :androidRenderer:preDebugUnitTestBuild UP-TO-DATE
+2026-09-10T07:32:11.2675920Z > Task :core:compileAndroidMain FROM-CACHE
+2026-09-10T07:32:11.2708906Z > Task :core:androidPreBuild UP-TO-DATE
+2026-09-10T07:32:11.2722648Z > Task :core:preAndroidMainBuild UP-TO-DATE
+2026-09-10T07:32:11.2724087Z > Task :androidRenderer:generateDebugUnitTestStubRFile FROM-CACHE
+2026-09-10T07:32:11.2725322Z > Task :androidRenderer:javaPreCompileDebugUnitTest FROM-CACHE
+2026-09-10T07:32:11.2726273Z > Task :androidHost:preBuild UP-TO-DATE
+2026-09-10T07:32:11.2727101Z > Task :androidHost:preDebugBuild UP-TO-DATE
+2026-09-10T07:32:11.2728020Z > Task :androidHost:generateDebugResources FROM-CACHE
+2026-09-10T07:32:11.2728973Z > Task :androidHost:packageDebugResources FROM-CACHE
+2026-09-10T07:32:11.2729906Z > Task :androidHost:javaPreCompileDebug FROM-CACHE
+2026-09-10T07:32:11.3753739Z > Task :androidRenderer:writeDebugAarMetadata
+2026-09-10T07:32:11.3783046Z > Task :games:kmpPartiallyResolvedDependenciesChecker
+2026-09-10T07:32:11.3792845Z > Task :games:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-09-10T07:32:11.3857145Z > Task :games:androidPreBuild UP-TO-DATE
+2026-09-10T07:32:11.3872301Z > Task :games:preAndroidMainBuild UP-TO-DATE
+2026-09-10T07:32:11.3873317Z > Task :bridge:kmpPartiallyResolvedDependenciesChecker
+2026-09-10T07:32:11.3874416Z > Task :bridge:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-09-10T07:32:11.3875322Z > Task :bridge:androidPreBuild UP-TO-DATE
+2026-09-10T07:32:11.3876106Z > Task :bridge:preAndroidMainBuild UP-TO-DATE
+2026-09-10T07:32:11.3876982Z > Task :core:bundleAndroidMainClassesToRuntimeJar
+2026-09-10T07:32:11.3877947Z > Task :core:bundleAndroidMainClassesToCompileJar
+2026-09-10T07:32:11.3878669Z > Task :core:processAndroidMainJavaRes
+2026-09-10T07:32:11.3879564Z > Task :games:generateAndroidMainEmptyResourceFiles
+2026-09-10T07:32:11.3880092Z > Task :bridge:generateAndroidMainEmptyResourceFiles
+2026-09-10T07:32:11.3880585Z > Task :androidHost:mapDebugSourceSetPaths
+2026-09-10T07:32:11.3881044Z > Task :core:generateAndroidMainEmptyResourceFiles
+2026-09-10T07:32:11.3881796Z > Task :bridge:writeAndroidMainAarMetadata
+2026-09-10T07:32:11.3924171Z > Task :androidRenderer:extractDeepLinksDebug FROM-CACHE
+2026-09-10T07:32:11.3924995Z > Task :core:writeAndroidMainAarMetadata
+2026-09-10T07:32:11.3932554Z > Task :androidHost:createDebugCompatibleScreenManifests
+2026-09-10T07:32:11.4713943Z > Task :androidRenderer:processDebugManifest FROM-CACHE
+2026-09-10T07:32:11.4722600Z > Task :bridge:processAndroidMainManifest FROM-CACHE
+2026-09-10T07:32:11.4751437Z > Task :core:processAndroidMainManifest FROM-CACHE
+2026-09-10T07:32:11.4772456Z > Task :androidRenderer:mapDebugSourceSetPaths
+2026-09-10T07:32:11.4782555Z > Task :core:checkAndroidMainAarMetadata
+2026-09-10T07:32:11.4812376Z > Task :androidRenderer:compileDebugLibraryResources FROM-CACHE
+2026-09-10T07:32:11.4843022Z > Task :androidRenderer:extractDeepLinksForAarDebug FROM-CACHE
+2026-09-10T07:32:11.4855124Z > Task :androidRenderer:generateDebugAssets UP-TO-DATE
+2026-09-10T07:32:11.4884406Z > Task :games:compileAndroidMain FROM-CACHE
+2026-09-10T07:32:11.5683013Z > Task :games:bundleAndroidMainClassesToCompileJar
+2026-09-10T07:32:11.5732885Z > Task :androidHost:processDebugNavigationResources FROM-CACHE
+2026-09-10T07:32:11.5766136Z > Task :games:bundleAndroidMainClassesToRuntimeJar
+2026-09-10T07:32:11.5789699Z > Task :games:processAndroidMainJavaRes
+2026-09-10T07:32:11.6674536Z > Task :androidHost:parseDebugLocalResources FROM-CACHE
+2026-09-10T07:32:11.6701224Z > Task :androidHost:generateDebugRFile FROM-CACHE
+2026-09-10T07:32:11.6712389Z > Task :games:writeAndroidMainAarMetadata
+2026-09-10T07:32:11.6742650Z > Task :bridge:compileAndroidMain FROM-CACHE
+2026-09-10T07:32:11.7726691Z > Task :bridge:bundleAndroidMainClassesToCompileJar
+2026-09-10T07:32:11.7752388Z > Task :androidHost:checkDebugAarMetadata
+2026-09-10T07:32:11.7763160Z > Task :bridge:bundleAndroidMainClassesToRuntimeJar
+2026-09-10T07:32:11.7793180Z > Task :bridge:processAndroidMainJavaRes
+2026-09-10T07:32:11.7809633Z > Task :androidHost:compileDebugNavigationResources FROM-CACHE
+2026-09-10T07:32:11.7832092Z 
+2026-09-10T07:32:11.7853107Z > Task :androidRenderer:stageGodotAssets
+2026-09-10T07:32:11.7876605Z PCK checks passed: 136 entries; SHA-256 0440dc8a1e099031eb7e0a08304411908e8580f932673599f149d2088c0e7afe
+2026-09-10T07:32:11.7904733Z 
+2026-09-10T07:32:11.7924462Z > Task :games:processAndroidMainManifest FROM-CACHE
+2026-09-10T07:32:11.7962519Z > Task :bridge:checkAndroidMainAarMetadata
+2026-09-10T07:32:12.0722877Z > Task :androidHost:mergeDebugResources FROM-CACHE
+2026-09-10T07:32:12.0766838Z > Task :androidHost:extractDeepLinksDebug FROM-CACHE
+2026-09-10T07:32:12.1704942Z > Task :androidRenderer:compileDebugKotlin FROM-CACHE
+2026-09-10T07:32:12.1732889Z > Task :androidRenderer:compileDebugJavaWithJavac NO-SOURCE
+2026-09-10T07:32:12.1759374Z > Task :androidRenderer:bundleLibRuntimeToJarDebug
+2026-09-10T07:32:12.1792884Z > Task :androidHost:processDebugMainManifest FROM-CACHE
+2026-09-10T07:32:12.1802258Z > Task :androidRenderer:bundleLibCompileToJarDebug
+2026-09-10T07:32:12.1822440Z > Task :androidHost:processDebugManifest FROM-CACHE
+2026-09-10T07:32:12.1854509Z > Task :androidRenderer:processDebugJavaRes
+2026-09-10T07:32:12.2702963Z > Task :androidHost:processDebugManifestForPackage FROM-CACHE
+2026-09-10T07:32:12.3675539Z > Task :androidRenderer:compileDebugUnitTestKotlin FROM-CACHE
+2026-09-10T07:32:12.3702609Z > Task :androidRenderer:compileDebugUnitTestJavaWithJavac NO-SOURCE
+2026-09-10T07:32:12.3732376Z > Task :androidRenderer:processDebugUnitTestJavaRes
+2026-09-10T07:32:12.5693448Z > Task :androidRenderer:testDebugUnitTest FROM-CACHE
+2026-09-10T07:32:12.6674711Z > Task :androidRenderer:checkDebugAarMetadata
+2026-09-10T07:32:13.0676526Z > Task :bridge:extractAndroidMainAnnotations FROM-CACHE
+2026-09-10T07:32:13.2693173Z > Task :core:extractAndroidMainAnnotations FROM-CACHE
+2026-09-10T07:32:13.3686524Z > Task :bridge:mergeAndroidMainJavaResource
+2026-09-10T07:32:13.3712252Z > Task :core:mergeAndroidMainJavaResource
+2026-09-10T07:32:13.3732647Z > Task :bridge:syncAndroidMainLibJars FROM-CACHE
+2026-09-10T07:32:13.3822751Z > Task :bridge:bundleAndroidMainLocalLintAar
+2026-09-10T07:32:13.4694282Z > Task :core:syncAndroidMainLibJars FROM-CACHE
+2026-09-10T07:32:13.4702858Z > Task :core:bundleAndroidMainLocalLintAar
+2026-09-10T07:32:13.4712587Z > Task :androidHost:processDebugResources FROM-CACHE
+2026-09-10T07:32:13.4741044Z > Task :androidHost:preDebugUnitTestBuild UP-TO-DATE
+2026-09-10T07:32:13.4773910Z > Task :androidHost:javaPreCompileDebugUnitTest FROM-CACHE
+2026-09-10T07:32:13.4792554Z > Task :androidHost:preDebugAndroidTestBuild SKIPPED
+2026-09-10T07:32:13.4801049Z > Task :games:checkAndroidMainAarMetadata
+2026-09-10T07:32:13.4823117Z > Task :bridge:createFullJarAndroidMain
+2026-09-10T07:32:13.5695146Z > Task :games:extractAndroidMainAnnotations FROM-CACHE
+2026-09-10T07:32:13.5732758Z > Task :bridge:prepareLintJarForPublish
+2026-09-10T07:32:13.5762606Z > Task :core:createFullJarAndroidMain
+2026-09-10T07:32:13.5802237Z > Task :games:mergeAndroidMainJavaResource
+2026-09-10T07:32:13.5832260Z > Task :core:prepareLintJarForPublish
+2026-09-10T07:32:13.5849129Z > Task :games:syncAndroidMainLibJars FROM-CACHE
+2026-09-10T07:32:13.6708393Z > Task :androidHost:extractProguardFiles
+2026-09-10T07:32:13.6712398Z > Task :games:bundleAndroidMainLocalLintAar
+2026-09-10T07:32:13.6742383Z > Task :androidHost:mergeDebugNativeDebugMetadata NO-SOURCE
+2026-09-10T07:32:13.6762460Z > Task :androidHost:generateDebugAssets UP-TO-DATE
+2026-09-10T07:32:13.6792607Z > Task :games:createFullJarAndroidMain
+2026-09-10T07:32:13.6822485Z > Task :games:prepareLintJarForPublish
+2026-09-10T07:32:13.6832571Z > Task :androidHost:generateDebugGlobalSynthetics FROM-CACHE
+2026-09-10T07:32:13.8712825Z > Task :bridge:bundleLibRuntimeToDirAndroidMain
+2026-09-10T07:32:13.8742494Z > Task :androidHost:checkDebugDuplicateClasses
+2026-09-10T07:32:13.8782693Z > Task :androidHost:desugarDebugFileDependencies FROM-CACHE
+2026-09-10T07:32:13.9685721Z > Task :games:bundleLibRuntimeToDirAndroidMain
+2026-09-10T07:32:13.9732738Z > Task :androidRenderer:extractDebugAnnotations FROM-CACHE
+2026-09-10T07:32:14.0712908Z > Task :core:bundleLibRuntimeToDirAndroidMain
+2026-09-10T07:32:14.0773773Z > Task :androidRenderer:mergeDebugAssets
+2026-09-10T07:32:14.0802477Z > Task :bridge:mergeAndroidMainJniLibFolders
+2026-09-10T07:32:14.0832888Z > Task :androidRenderer:mergeDebugGeneratedProguardFiles
+2026-09-10T07:32:14.0862314Z > Task :bridge:mergeAndroidMainNativeLibs NO-SOURCE
+2026-09-10T07:32:14.1707523Z > Task :androidRenderer:mergeDebugConsumerProguardFiles
+2026-09-10T07:32:14.1742598Z > Task :bridge:copyAndroidMainJniLibsProjectOnly
+2026-09-10T07:32:14.1772408Z > Task :androidRenderer:prepareDebugArtProfile
+2026-09-10T07:32:14.1862444Z > Task :core:mergeAndroidMainJniLibFolders
+2026-09-10T07:32:14.1892361Z > Task :core:mergeAndroidMainNativeLibs NO-SOURCE
+2026-09-10T07:32:14.1922451Z > Task :androidRenderer:prepareLintJarForPublish
+2026-09-10T07:32:14.1943788Z > Task :core:copyAndroidMainJniLibsProjectOnly
+2026-09-10T07:32:14.1944985Z > Task :androidRenderer:mergeDebugJavaResource
+2026-09-10T07:32:14.1981018Z > Task :androidRenderer:createFullJarDebug
+2026-09-10T07:32:14.1982226Z > Task :games:mergeAndroidMainJniLibFolders
+2026-09-10T07:32:14.1983134Z > Task :androidRenderer:syncDebugLibJars FROM-CACHE
+2026-09-10T07:32:14.1984086Z > Task :games:mergeAndroidMainNativeLibs NO-SOURCE
+2026-09-10T07:32:14.2694225Z > Task :games:copyAndroidMainJniLibsProjectOnly
+2026-09-10T07:32:14.2713683Z > Task :androidHost:mergeExtDexDebug FROM-CACHE
+2026-09-10T07:32:14.2734964Z > Task :bridge:mergeAndroidMainGeneratedProguardFiles
+2026-09-10T07:32:14.2764409Z > Task :bridge:exportAndroidMainConsumerProguardFiles
+2026-09-10T07:32:14.2836212Z > Task :androidRenderer:bundleDebugLocalLintAar
+2026-09-10T07:32:14.2872394Z > Task :games:mergeAndroidMainGeneratedProguardFiles
+2026-09-10T07:32:14.2873328Z > Task :androidRenderer:writeDebugLintModelMetadata
+2026-09-10T07:32:14.2902369Z > Task :androidRenderer:extractProguardFiles
+2026-09-10T07:32:14.3723051Z > Task :games:exportAndroidMainConsumerProguardFiles
+2026-09-10T07:32:14.3766770Z > Task :androidHost:mergeDebugAssets
+2026-09-10T07:32:14.3782423Z > Task :core:mergeAndroidMainGeneratedProguardFiles
+2026-09-10T07:32:14.3812328Z > Task :core:exportAndroidMainConsumerProguardFiles
+2026-09-10T07:32:14.3842316Z > Task :bridge:prepareAndroidMainArtProfile
+2026-09-10T07:32:14.3853101Z > Task :androidHost:mergeDebugJniLibFolders
+2026-09-10T07:32:14.5700111Z > Task :androidHost:compressDebugAssets
+2026-09-10T07:32:14.5742313Z > Task :core:prepareAndroidMainArtProfile
+2026-09-10T07:32:14.5772226Z > Task :games:prepareAndroidMainArtProfile
+2026-09-10T07:32:14.8673892Z > Task :androidRenderer:generateDebugLintModel
+2026-09-10T07:32:14.9675674Z > Task :androidRenderer:lintAnalyzeDebug FROM-CACHE
+2026-09-10T07:32:14.9702730Z > Task :androidRenderer:preDebugAndroidTestBuild UP-TO-DATE
+2026-09-10T07:32:15.0679456Z > Task :androidRenderer:generateDebugAndroidTestLintModel
+2026-09-10T07:32:15.0702536Z > Task :androidRenderer:generateDebugUnitTestLintModel
+2026-09-10T07:32:17.0683013Z > Task :androidHost:validateSigningDebug
+2026-09-10T07:32:17.1675484Z > Task :androidRenderer:bundleLibRuntimeToDirDebug
+2026-09-10T07:32:17.1742674Z > Task :androidHost:mergeLibDexDebug FROM-CACHE
+2026-09-10T07:32:17.1772432Z > Task :androidRenderer:mergeDebugJniLibFolders
+2026-09-10T07:32:17.1802585Z > Task :androidRenderer:mergeDebugNativeLibs NO-SOURCE
+2026-09-10T07:32:17.1832453Z > Task :androidRenderer:copyDebugJniLibsProjectOnly
+2026-09-10T07:32:19.0695877Z > Task :androidHost:mergeDebugNativeLibs
+2026-09-10T07:32:21.2682780Z > Task :androidHost:stripDebugDebugSymbols
+2026-09-10T07:32:21.3682826Z > Task :androidHost:writeDebugAppMetadata
+2026-09-10T07:32:21.3762708Z > Task :androidHost:writeDebugSigningConfigVersions
+2026-09-10T07:32:21.3792506Z > Task :androidHost:preReleaseBuild UP-TO-DATE
+2026-09-10T07:32:21.4675777Z > Task :androidHost:mergeReleaseJniLibFolders
+2026-09-10T07:32:21.4732724Z > Task :androidRenderer:preReleaseBuild UP-TO-DATE
+2026-09-10T07:32:21.4765577Z > Task :androidRenderer:mergeReleaseJniLibFolders
+2026-09-10T07:32:21.4792717Z > Task :androidRenderer:mergeReleaseNativeLibs NO-SOURCE
+2026-09-10T07:32:21.4793712Z > Task :androidRenderer:copyReleaseJniLibsProjectOnly
+2026-09-10T07:32:23.3693064Z > Task :androidHost:mergeReleaseNativeLibs
+2026-09-10T07:32:23.9693505Z > Task :androidRenderer:lintAnalyzeDebugAndroidTest
+2026-09-10T07:32:23.9758558Z > Task :androidRenderer:generateReleaseResources FROM-CACHE
+2026-09-10T07:32:24.6693027Z > Task :androidHost:stripReleaseDebugSymbols
+2026-09-10T07:32:24.7683075Z > Task :androidRenderer:packageReleaseResources FROM-CACHE
+2026-09-10T07:32:24.7712659Z > Task :androidHost:extractReleaseNativeSymbolTables FROM-CACHE
+2026-09-10T07:32:24.7752059Z > Task :androidRenderer:processReleaseNavigationResources FROM-CACHE
+2026-09-10T07:32:24.7805687Z > Task :androidHost:mergeReleaseNativeDebugMetadata NO-SOURCE
+2026-09-10T07:32:24.7882807Z > Task :androidRenderer:parseReleaseLocalResources FROM-CACHE
+2026-09-10T07:32:24.8697506Z > Task :androidRenderer:generateReleaseRFile FROM-CACHE
+2026-09-10T07:32:24.8743481Z > Task :androidHost:checkReleaseDuplicateClasses
+2026-09-10T07:32:24.8772532Z > Task :androidHost:generateReleaseResources FROM-CACHE
+2026-09-10T07:32:24.8812676Z > Task :androidHost:packageReleaseResources FROM-CACHE
+2026-09-10T07:32:24.8832620Z > Task :androidHost:processReleaseNavigationResources FROM-CACHE
+2026-09-10T07:32:24.8885148Z > Task :androidHost:parseReleaseLocalResources FROM-CACHE
+2026-09-10T07:32:24.8957473Z > Task :androidHost:generateReleaseRFile FROM-CACHE
+2026-09-10T07:32:24.8982401Z > Task :androidHost:javaPreCompileRelease FROM-CACHE
+2026-09-10T07:32:24.9012341Z > Task :androidHost:mapReleaseSourceSetPaths
+2026-09-10T07:32:24.9687260Z > Task :androidHost:compileReleaseNavigationResources FROM-CACHE
+2026-09-10T07:32:24.9741141Z > Task :androidRenderer:compileReleaseKotlin FROM-CACHE
+2026-09-10T07:32:24.9807139Z > Task :androidRenderer:javaPreCompileRelease FROM-CACHE
+2026-09-10T07:32:24.9827611Z > Task :androidRenderer:compileReleaseJavaWithJavac NO-SOURCE
+2026-09-10T07:32:25.0688230Z > Task :androidRenderer:mergeReleaseGeneratedProguardFiles
+2026-09-10T07:32:25.0783361Z > Task :androidRenderer:exportReleaseConsumerProguardFiles
+2026-09-10T07:32:25.0840381Z > Task :androidRenderer:bundleLibCompileToJarRelease
+2026-09-10T07:32:25.0904902Z > Task :androidRenderer:prepareReleaseArtProfile
+2026-09-10T07:32:25.0906093Z > Task :androidRenderer:writeReleaseAarMetadata
+2026-09-10T07:32:25.0935594Z > Task :androidHost:mergeReleaseResources FROM-CACHE
+2026-09-10T07:32:25.1739999Z > Task :androidRenderer:extractDeepLinksRelease FROM-CACHE
+2026-09-10T07:32:25.1786402Z > Task :androidRenderer:processReleaseManifest FROM-CACHE
+2026-09-10T07:32:25.1824810Z > Task :androidRenderer:mapReleaseSourceSetPaths
+2026-09-10T07:32:25.1869165Z > Task :androidRenderer:compileReleaseLibraryResources FROM-CACHE
+2026-09-10T07:32:25.2717894Z > Task :androidHost:mergeReleaseArtProfile
+2026-09-10T07:32:25.3712090Z > Task :androidHost:checkReleaseAarMetadata
+2026-09-10T07:32:25.3723027Z > Task :androidHost:createReleaseCompatibleScreenManifests
+2026-09-10T07:32:25.3739612Z > Task :androidHost:extractDeepLinksRelease FROM-CACHE
+2026-09-10T07:32:25.4722350Z > Task :androidHost:processReleaseMainManifest FROM-CACHE
+2026-09-10T07:32:25.4782816Z > Task :androidHost:processReleaseManifest FROM-CACHE
+2026-09-10T07:32:25.4812712Z > Task :androidHost:processReleaseManifestForPackage FROM-CACHE
+2026-09-10T07:32:25.4842731Z > Task :androidHost:processReleaseResources FROM-CACHE
+2026-09-10T07:32:25.5753053Z > Task :androidRenderer:bundleLibRuntimeToJarRelease
+2026-09-10T07:32:25.5772895Z > Task :androidRenderer:processReleaseJavaRes
+2026-09-10T07:32:25.5902857Z > Task :androidHost:mergeReleaseStartupProfile
+2026-09-10T07:32:25.5930576Z > Task :androidHost:generateReleaseAssets UP-TO-DATE
+2026-09-10T07:32:25.5943800Z > Task :androidRenderer:generateReleaseAssets UP-TO-DATE
+2026-09-10T07:32:25.6674612Z > Task :androidRenderer:mergeReleaseAssets
+2026-09-10T07:32:25.7698669Z > Task :androidHost:mergeReleaseAssets
+2026-09-10T07:32:25.9692753Z > Task :androidHost:compressReleaseAssets
+2026-09-10T07:32:26.1705430Z > Task :androidHost:extractReleaseVersionControlInfo
+2026-09-10T07:32:26.1729567Z > Task :androidRenderer:createFullJarRelease
+2026-09-10T07:32:26.2684997Z > Task :androidRenderer:generateReleaseLintModel
+2026-09-10T07:32:26.2737454Z > Task :androidRenderer:checkReleaseAarMetadata
+2026-09-10T07:32:26.2791870Z > Task :androidRenderer:extractDeepLinksForAarRelease FROM-CACHE
+2026-09-10T07:32:26.3704478Z > Task :androidRenderer:extractReleaseAnnotations FROM-CACHE
+2026-09-10T07:32:26.3719348Z > Task :androidRenderer:mergeReleaseConsumerProguardFiles
+2026-09-10T07:32:26.3775738Z > Task :androidRenderer:mergeReleaseJavaResource
+2026-09-10T07:32:26.3812634Z > Task :androidRenderer:syncReleaseLibJars FROM-CACHE
+2026-09-10T07:32:26.4687256Z > Task :androidRenderer:bundleReleaseLocalLintAar
+2026-09-10T07:32:26.4712559Z > Task :androidRenderer:lintVitalAnalyzeRelease FROM-CACHE
+2026-09-10T07:32:26.5699781Z > Task :androidRenderer:writeReleaseLintModelMetadata
+2026-09-10T07:32:26.5722701Z > Task :androidRenderer:generateReleaseLintVitalModel
+2026-09-10T07:32:26.9693029Z > Task :androidHost:collectReleaseDependencies
+2026-09-10T07:32:27.2692979Z > Task :androidHost:sdkReleaseDependencyData
+2026-09-10T07:32:27.3672595Z > Task :androidHost:writeReleaseAppMetadata
+2026-09-10T07:32:27.3673671Z > Task :androidHost:writeReleaseSigningConfigVersions
+2026-09-10T07:32:27.3702595Z > Task :androidHost:configureReleaseDependencies
+2026-09-10T07:32:27.3732426Z > Task :androidHost:parseReleaseIntegrityConfig FROM-CACHE
+2026-09-10T07:32:33.4693005Z > Task :androidRenderer:lintAnalyzeDebugUnitTest
+2026-09-10T07:32:36.5706244Z > Task :androidHost:compileReleaseKotlin
+2026-09-10T07:32:36.5722417Z > Task :androidHost:compileReleaseJavaWithJavac NO-SOURCE
+2026-09-10T07:32:36.5752353Z > Task :androidHost:compileDebugKotlin
+2026-09-10T07:32:36.5778147Z > Task :androidHost:mergeReleaseGeneratedProguardFiles
+2026-09-10T07:32:36.5812491Z > Task :androidHost:compileDebugJavaWithJavac NO-SOURCE
+2026-09-10T07:32:36.5832269Z > Task :androidHost:bundleDebugClassesToRuntimeJar
+2026-09-10T07:32:36.5833110Z > Task :androidHost:bundleDebugClassesToCompileJar
+2026-09-10T07:32:36.5833871Z > Task :androidHost:processDebugJavaRes
+2026-09-10T07:32:36.5834670Z > Task :androidHost:compileDebugUnitTestKotlin NO-SOURCE
+2026-09-10T07:32:36.5835611Z > Task :androidHost:compileDebugUnitTestJavaWithJavac NO-SOURCE
+2026-09-10T07:32:36.5836551Z > Task :androidHost:processDebugUnitTestJavaRes NO-SOURCE
+2026-09-10T07:32:36.6673850Z > Task :androidHost:testDebugUnitTest NO-SOURCE
+2026-09-10T07:32:36.6732733Z > Task :androidHost:generateDebugAndroidTestLintModel
+2026-09-10T07:32:36.7677741Z > Task :androidHost:generateDebugLintReportModel
+2026-09-10T07:32:36.7680648Z > Task :androidHost:expandReleaseArtProfileWildcards
+2026-09-10T07:32:36.8694254Z > Task :androidHost:generateDebugUnitTestLintModel
+2026-09-10T07:32:37.1682937Z > Task :androidHost:lintAnalyzeDebugAndroidTest
+2026-09-10T07:32:37.1762727Z > Task :androidHost:lintAnalyzeDebugUnitTest
+2026-09-10T07:32:37.7672837Z > Task :androidHost:mergeDebugJavaResource
+2026-09-10T07:32:39.7714612Z > Task :androidHost:dexBuilderDebug
+2026-09-10T07:32:39.8673941Z > Task :androidHost:processReleaseJavaRes
+2026-09-10T07:32:39.8712823Z > Task :androidHost:generateReleaseLintVitalReportModel
+2026-09-10T07:32:40.1672710Z > Task :androidHost:mergeProjectDexDebug
+2026-09-10T07:32:40.3675662Z > Task :androidHost:mergeReleaseJavaResource
+2026-09-10T07:32:43.4699322Z > Task :androidHost:packageDebug
+2026-09-10T07:32:43.4782928Z > Task :androidHost:createDebugApkListingFileRedirect
+2026-09-10T07:32:43.4796060Z > Task :androidHost:assembleDebug
+2026-09-10T07:32:51.7672208Z > Task :androidHost:lintVitalAnalyzeRelease
+2026-09-10T07:32:51.8672160Z > Task :androidHost:lintVitalReportRelease
+2026-09-10T07:32:51.8722744Z > Task :androidHost:lintVitalRelease
+2026-09-10T07:33:02.2688909Z > Task :androidHost:lintAnalyzeDebug
+2026-09-10T07:33:02.5672386Z 
+2026-09-10T07:33:02.5712814Z > Task :androidHost:lintReportDebug
+2026-09-10T07:33:02.5743986Z Wrote HTML report to file:///home/runner/work/PartyDeck/PartyDeck/godot/qualification/build/modules/androidHost/reports/lint-results-debug.html
+2026-09-10T07:33:02.5773087Z Wrote SARIF report to file:///home/runner/work/PartyDeck/PartyDeck/godot/qualification/build/modules/androidHost/reports/lint-results-debug.sarif
+2026-09-10T07:33:02.5801823Z 
+2026-09-10T07:33:02.5823502Z > Task :androidHost:lintDebug
+2026-09-10T07:33:10.3672827Z > Task :androidHost:minifyReleaseWithR8
+2026-09-10T07:33:13.1716614Z > Task :androidHost:convertShrunkResourcesToBinaryRelease FROM-CACHE
+2026-09-10T07:33:13.2672748Z > Task :androidHost:optimizeReleaseResources FROM-CACHE
+2026-09-10T07:33:13.3672193Z > Task :androidHost:compileReleaseArtProfile
+2026-09-10T07:33:14.2683339Z > Task :androidHost:buildReleasePreBundle
+2026-09-10T07:33:15.7672754Z > Task :androidHost:packageRelease
+2026-09-10T07:33:15.7673834Z > Task :androidHost:createReleaseApkListingFileRedirect
+2026-09-10T07:33:15.7674767Z > Task :androidHost:assembleRelease
+2026-09-10T07:33:16.9672312Z > Task :androidHost:packageReleaseBundle
+2026-09-10T07:33:29.9674582Z > Task :androidHost:signReleaseBundle
+2026-09-10T07:33:29.9675893Z > Task :androidHost:produceReleaseBundleIdeListingFile
+2026-09-10T07:33:29.9677049Z > Task :androidHost:createReleaseBundleListingFileRedirect
+2026-09-10T07:33:29.9677965Z > Task :androidHost:bundleRelease
+2026-09-10T07:33:29.9679512Z gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/android-package-1789025526484.json
+2026-09-10T07:33:29.9681050Z 
+2026-09-10T07:33:29.9681771Z BUILD SUCCESSFUL in 1m 24s
+2026-09-10T07:33:29.9682654Z 240 actionable tasks: 161 executed, 79 from cache
+2026-09-10T07:33:30.0083706Z Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.7.0/userguide/configuration_cache_enabling.html
+2026-09-10T07:33:30.0543789Z Prepare all required actions
+2026-09-10T07:33:30.0544681Z Getting action download info
+2026-09-10T07:33:30.3378516Z Download action repository 'actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a' (SHA:043fb46d1a93c77aae656e7c1c64a875d1fc6a0a)
+2026-09-10T07:33:30.4798382Z ##[group]Run ./.github/actions/upload-artifact
+2026-09-10T07:33:30.4798700Z with:
+2026-09-10T07:33:30.4798923Z   name: godot-comparison-runtime-apk
+2026-09-10T07:33:30.4799823Z   path: godot/qualification/build/modules/androidHost/outputs/apk/debug/**
+godot/qualification/build/renderer/partydeck-last-light.pck
+godot/qualification/build/renderer/partydeck-last-light.receipt.json
+
+2026-09-10T07:33:30.4800733Z   retention-days: 14
+2026-09-10T07:33:30.4800971Z   if-no-files-found: error
+2026-09-10T07:33:30.4801202Z env:
+2026-09-10T07:33:30.4801705Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T07:33:30.4802272Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T07:33:30.4802662Z   MAVEN_ARGS: -ntp
+2026-09-10T07:33:30.4802891Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-10T07:33:30.4803192Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-10T07:33:30.4803506Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-09-10T07:33:30.4803807Z   GRADLE_USER_HOME: /home/runner/.gradle
+2026-09-10T07:33:30.4804090Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-09-10T07:33:30.4804545Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-09-10T07:33:30.4805021Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-09-10T07:33:30.4805342Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-09-10T07:33:30.4805612Z ##[endgroup]
+2026-09-10T07:33:30.4861347Z ##[start-action display=Upload artifact;id=runtime-inputs.first]
+2026-09-10T07:33:30.4902155Z ##[group]Run actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+2026-09-10T07:33:30.4902554Z with:
+2026-09-10T07:33:30.4902786Z   name: godot-comparison-runtime-apk
+2026-09-10T07:33:30.4903668Z   path: godot/qualification/build/modules/androidHost/outputs/apk/debug/**
+godot/qualification/build/renderer/partydeck-last-light.pck
+godot/qualification/build/renderer/partydeck-last-light.receipt.json
+
+2026-09-10T07:33:30.4904540Z   retention-days: 14
+2026-09-10T07:33:30.4904763Z   if-no-files-found: error
+2026-09-10T07:33:30.4905007Z   compression-level: 6
+2026-09-10T07:33:30.4905222Z   overwrite: false
+2026-09-10T07:33:30.4905436Z   include-hidden-files: false
+2026-09-10T07:33:30.4905671Z   archive: true
+2026-09-10T07:33:30.4905867Z env:
+2026-09-10T07:33:30.4906160Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T07:33:30.4906658Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T07:33:30.4907045Z   MAVEN_ARGS: -ntp
+2026-09-10T07:33:30.4907274Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-10T07:33:30.4907569Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-10T07:33:30.4907888Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-09-10T07:33:30.4908189Z   GRADLE_USER_HOME: /home/runner/.gradle
+2026-09-10T07:33:30.4908477Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-09-10T07:33:30.4908924Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-09-10T07:33:30.4909403Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-09-10T07:33:30.4909718Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-09-10T07:33:30.4909986Z ##[endgroup]
+2026-09-10T07:33:30.6422314Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-09-10T07:33:30.6426175Z The least common ancestor is /home/runner/work/PartyDeck/PartyDeck/godot/qualification/build. This will be the root directory of the artifact
+2026-09-10T07:33:30.6428160Z With the provided path, there will be 4 files uploaded
+2026-09-10T07:33:30.6433099Z Artifact name is valid!
+2026-09-10T07:33:30.6433673Z Root directory input is valid!
+2026-09-10T07:33:31.0355088Z Uploading artifact: godot-comparison-runtime-apk.zip
+2026-09-10T07:33:31.0423814Z Beginning upload of artifact content to blob storage
+2026-09-10T07:33:32.5709603Z Uploaded bytes 8388608
+2026-09-10T07:33:32.9903424Z Uploaded bytes 16777216
+2026-09-10T07:33:33.0625975Z Uploaded bytes 25165824
+2026-09-10T07:33:33.6347449Z Uploaded bytes 33554432
+2026-09-10T07:33:34.2779246Z Uploaded bytes 41943040
+2026-09-10T07:33:34.8256389Z Uploaded bytes 50331648
+2026-09-10T07:33:35.4299059Z Uploaded bytes 58720256
+2026-09-10T07:33:36.0270949Z Uploaded bytes 67108864
+2026-09-10T07:33:36.7190232Z Uploaded bytes 75497472
+2026-09-10T07:33:37.4297833Z Uploaded bytes 83886080
+2026-09-10T07:33:38.1032833Z Uploaded bytes 92274688
+2026-09-10T07:33:38.6779964Z Uploaded bytes 100663296
+2026-09-10T07:33:39.4250723Z Uploaded bytes 109051904
+2026-09-10T07:33:39.5562249Z Uploaded bytes 111374586
+2026-09-10T07:33:39.6306984Z Finished uploading artifact content to blob storage!
+2026-09-10T07:33:39.6310115Z SHA256 digest of uploaded artifact is 84cd5981d816a74e80e8ee7a5d358ab63cfd78431939263ea25834fef02a5838
+2026-09-10T07:33:39.6312454Z Finalizing artifact upload
+2026-09-10T07:33:40.0766712Z Artifact godot-comparison-runtime-apk successfully finalized. Artifact ID 10141350695
+2026-09-10T07:33:40.0767833Z Artifact godot-comparison-runtime-apk has been successfully uploaded! Final size is 111374586 bytes. Artifact ID is 10141350695
+2026-09-10T07:33:40.0773250Z Artifact download URL: https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34450246541/artifacts/10141350695
+2026-09-10T07:33:40.0913783Z ##[end-action id=runtime-inputs.first;outcome=success;conclusion=success;duration_ms=9605]
+2026-09-10T07:33:40.0916599Z ##[start-action display=Wait before the single upload retry;id=runtime-inputs.__run]
+2026-09-10T07:33:40.0922926Z ##[end-action id=runtime-inputs.__run;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-09-10T07:33:40.0925035Z ##[start-action display=Retry artifact upload;id=runtime-inputs.retry]
+2026-09-10T07:33:40.0929017Z ##[end-action id=runtime-inputs.retry;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-09-10T07:33:40.0930880Z ##[start-action display=Require a successful upload attempt;id=runtime-inputs.__run_2]
+2026-09-10T07:33:40.0936357Z ##[end-action id=runtime-inputs.__run_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-09-10T07:33:40.1029451Z Prepare all required actions
+2026-09-10T07:33:40.1029952Z Getting action download info
+2026-09-10T07:33:40.2458136Z ##[group]Run ./.github/actions/upload-artifact
+2026-09-10T07:33:40.2458466Z with:
+2026-09-10T07:33:40.2458695Z   name: godot-comparison-builds
+2026-09-10T07:33:40.2461391Z   path: godot/qualification/build/modules/**/reports/**
+godot/qualification/build/modules/**/test-results/**
+godot/qualification/build/modules/androidHost/outputs/apk/release/**
+godot/qualification/build/modules/androidHost/outputs/bundle/**
+godot/qualification/build/modules/androidHost/outputs/mapping/**
+godot/qualification/build/modules/comparison/install/**
+godot/qualification/build/renderer/**
+godot/qualification/build/toolchain/install.receipt.json
+godot/qualification/build/ci/android-checker-tests.log
+godot/qualification/build/ci/native-boundary/**
+godot/qualification/build/ci/desktop/**
+build/ci/android/graphics-*.log
+
+2026-09-10T07:33:40.2464355Z   retention-days: 14
+2026-09-10T07:33:40.2464613Z   if-no-files-found: warn
+2026-09-10T07:33:40.2464847Z env:
+2026-09-10T07:33:40.2465160Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T07:33:40.2465727Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T07:33:40.2466155Z   MAVEN_ARGS: -ntp
+2026-09-10T07:33:40.2466395Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-10T07:33:40.2466908Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-10T07:33:40.2467245Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-09-10T07:33:40.2467570Z   GRADLE_USER_HOME: /home/runner/.gradle
+2026-09-10T07:33:40.2467872Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-09-10T07:33:40.2468359Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-09-10T07:33:40.2468891Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-09-10T07:33:40.2469249Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-09-10T07:33:40.2469542Z ##[endgroup]
+2026-09-10T07:33:40.2474505Z ##[start-action display=Upload artifact;id=__self.first]
+2026-09-10T07:33:40.2507127Z ##[group]Run actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+2026-09-10T07:33:40.2507531Z with:
+2026-09-10T07:33:40.2507748Z   name: godot-comparison-builds
+2026-09-10T07:33:40.2510107Z   path: godot/qualification/build/modules/**/reports/**
+godot/qualification/build/modules/**/test-results/**
+godot/qualification/build/modules/androidHost/outputs/apk/release/**
+godot/qualification/build/modules/androidHost/outputs/bundle/**
+godot/qualification/build/modules/androidHost/outputs/mapping/**
+godot/qualification/build/modules/comparison/install/**
+godot/qualification/build/renderer/**
+godot/qualification/build/toolchain/install.receipt.json
+godot/qualification/build/ci/android-checker-tests.log
+godot/qualification/build/ci/native-boundary/**
+godot/qualification/build/ci/desktop/**
+build/ci/android/graphics-*.log
+
+2026-09-10T07:33:40.2512713Z   retention-days: 14
+2026-09-10T07:33:40.2512958Z   if-no-files-found: warn
+2026-09-10T07:33:40.2513196Z   compression-level: 6
+2026-09-10T07:33:40.2513418Z   overwrite: false
+2026-09-10T07:33:40.2513648Z   include-hidden-files: false
+2026-09-10T07:33:40.2513895Z   archive: true
+2026-09-10T07:33:40.2514094Z env:
+2026-09-10T07:33:40.2514401Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T07:33:40.2514910Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-09-10T07:33:40.2515314Z   MAVEN_ARGS: -ntp
+2026-09-10T07:33:40.2515551Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-10T07:33:40.2515859Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-10T07:33:40.2516188Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-09-10T07:33:40.2516497Z   GRADLE_USER_HOME: /home/runner/.gradle
+2026-09-10T07:33:40.2516795Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-09-10T07:33:40.2517247Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-09-10T07:33:40.2517928Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-09-10T07:33:40.2518277Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-09-10T07:33:40.2518550Z ##[endgroup]
+2026-09-10T07:33:41.1404525Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-09-10T07:33:41.1410020Z The least common ancestor is /home/runner/work/PartyDeck/PartyDeck. This will be the root directory of the artifact
+2026-09-10T07:33:41.1410768Z With the provided path, there will be 123 files uploaded
+2026-09-10T07:33:41.1413341Z Artifact name is valid!
+2026-09-10T07:33:41.1413959Z Root directory input is valid!
+2026-09-10T07:33:41.5171160Z Uploading artifact: godot-comparison-builds.zip
+2026-09-10T07:33:41.5213028Z Beginning upload of artifact content to blob storage
+2026-09-10T07:33:43.1902351Z Uploaded bytes 8388608
+2026-09-10T07:33:43.5937005Z Uploaded bytes 16777216
+2026-09-10T07:33:43.7741338Z Uploaded bytes 25165824
+2026-09-10T07:33:44.2309615Z Uploaded bytes 33554432
+2026-09-10T07:33:44.7612696Z Uploaded bytes 41943040
+2026-09-10T07:33:45.3076146Z Uploaded bytes 50331648
+2026-09-10T07:33:46.0400431Z Uploaded bytes 58720256
+2026-09-10T07:33:46.7102685Z Uploaded bytes 67108864
+2026-09-10T07:33:47.4966696Z Uploaded bytes 75497472
+2026-09-10T07:33:48.1040113Z Uploaded bytes 83886080
+2026-09-10T07:33:48.6032641Z Uploaded bytes 92274688
+2026-09-10T07:33:49.3453940Z Uploaded bytes 100663296
+2026-09-10T07:33:49.7218729Z Uploaded bytes 109051904
+2026-09-10T07:33:50.3442777Z Uploaded bytes 117440512
+2026-09-10T07:33:50.5299156Z Uploaded bytes 125829120
+2026-09-10T07:33:50.7561410Z Uploaded bytes 134217728
+2026-09-10T07:33:50.9834173Z Uploaded bytes 142606336
+2026-09-10T07:33:51.2473995Z Uploaded bytes 150994944
+2026-09-10T07:33:51.2593253Z Uploaded bytes 159383552
+2026-09-10T07:33:51.6007442Z Uploaded bytes 167772160
+2026-09-10T07:33:51.7494521Z Uploaded bytes 176160768
+2026-09-10T07:33:52.1131142Z Uploaded bytes 184549376
+2026-09-10T07:33:52.3857964Z Uploaded bytes 192937984
+2026-09-10T07:33:52.5829696Z Uploaded bytes 201326592
+2026-09-10T07:33:52.8939925Z Uploaded bytes 209715200
+2026-09-10T07:33:53.2346378Z Uploaded bytes 218103808
+2026-09-10T07:33:53.3499977Z Uploaded bytes 219469812
+2026-09-10T07:33:53.4302191Z Finished uploading artifact content to blob storage!
+2026-09-10T07:33:53.4306453Z SHA256 digest of uploaded artifact is 2465e564a2f85ea5116c2f23fc9def66a4dc9e46a3d0a2d294f9140e30395d6b
+2026-09-10T07:33:53.4308192Z Finalizing artifact upload
+2026-09-10T07:33:53.8459921Z Artifact godot-comparison-builds successfully finalized. Artifact ID 10141358253
+2026-09-10T07:33:53.8461742Z Artifact godot-comparison-builds has been successfully uploaded! Final size is 219469812 bytes. Artifact ID is 10141358253
+2026-09-10T07:33:53.8466368Z Artifact download URL: https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34450246541/artifacts/10141358253
+2026-09-10T07:33:53.8618259Z ##[end-action id=__self.first;outcome=success;conclusion=success;duration_ms=13614]
+2026-09-10T07:33:53.8622592Z ##[start-action display=Wait before the single upload retry;id=__self.__run]
+2026-09-10T07:33:53.8630252Z ##[end-action id=__self.__run;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-09-10T07:33:53.8633551Z ##[start-action display=Retry artifact upload;id=__self.retry]
+2026-09-10T07:33:53.8639780Z ##[end-action id=__self.retry;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-09-10T07:33:53.8643242Z ##[start-action display=Require a successful upload attempt;id=__self.__run_2]
+2026-09-10T07:33:53.8649993Z ##[end-action id=__self.__run_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-09-10T07:33:53.8803824Z Post job cleanup.
+2026-09-10T07:33:54.1699397Z In post-action step
+2026-09-10T07:33:54.1711157Z Basic Caching: This build uses the basic open-source caching provider. For faster builds and advanced features, consider switching to the Enhanced Caching provider. See https://github.com/gradle/actions/blob/main/DISTRIBUTION.md for details.
+2026-09-10T07:33:54.1716613Z Basic caching restored entry with key `setup-java-Linux-x64-gradle-ea82b590f096de69b63ea0153db5d1ef1b59480167689ed51e57691f7bc898b1`. Save was skipped.
+2026-09-10T07:33:54.1719051Z ##[group]Generating Job Summary
+2026-09-10T07:33:54.1725943Z 
+2026-09-10T07:33:54.1726083Z 
+2026-09-10T07:33:54.1726279Z <table>
+2026-09-10T07:33:54.1726696Z     <tr>
+2026-09-10T07:33:54.1727246Z         <th>Gradle Root Project</th>
+2026-09-10T07:33:54.1727956Z         <th>Requested Tasks</th>
+2026-09-10T07:33:54.1728561Z         <th>Gradle Version</th>
+2026-09-10T07:33:54.1729144Z         <th>Build Outcome</th>
+2026-09-10T07:33:54.1730041Z         <th>Build&nbsp;Scan®</th>
+2026-09-10T07:33:54.1730560Z     </tr>
+2026-09-10T07:33:54.1730931Z     <tr>
+2026-09-10T07:33:54.1732564Z         <td>PartyDeckGodotQualification</td>
+2026-09-10T07:33:54.1734768Z         <td><div title=':bridge:jvmTest :bridge:generateFixtures :comparison:test :comparison:installDist'>:bridge:jvmTest :bridge:generateFixtures :comparison:test :…</div></td>
+2026-09-10T07:33:54.1736249Z         <td align='center'>9.7.0</td>
+2026-09-10T07:33:54.1736948Z         <td align='center'>:white_check_mark:</td>
+2026-09-10T07:33:54.1738814Z         <td><a href="https://scans.gradle.com" rel="nofollow" target="_blank"><img src="https://img.shields.io/badge/Not%20published-lightgrey" alt="Build Scan not published" /></a></td>
+2026-09-10T07:33:54.1740259Z     </tr>
+2026-09-10T07:33:54.1741096Z     <tr>
+2026-09-10T07:33:54.1749640Z         <td>PartyDeckGodotQualification</td>
+2026-09-10T07:33:54.1753644Z         <td><div title=':androidRenderer:testDebugUnitTest :androidHost:testDebugUnitTest :androidHost:lintDebug :androidHost:assembleDebug :androidHost:assembleRelease :androidHost:bundleRelease'>:androidRenderer:testDebugUnitTest :androidHost:testDebugUn…</div></td>
+2026-09-10T07:33:54.1755483Z         <td align='center'>9.7.0</td>
+2026-09-10T07:33:54.1755906Z         <td align='center'>:white_check_mark:</td>
+2026-09-10T07:33:54.1756925Z         <td><a href="https://scans.gradle.com" rel="nofollow" target="_blank"><img src="https://img.shields.io/badge/Not%20published-lightgrey" alt="Build Scan not published" /></a></td>
+2026-09-10T07:33:54.1757708Z     </tr>
+2026-09-10T07:33:54.1757924Z </table>
+2026-09-10T07:33:54.1758117Z     
+2026-09-10T07:33:54.1758365Z ============================
+2026-09-10T07:33:54.1758844Z <h4>Gradle State Caching - 🛡️ Basic</h4>
+2026-09-10T07:33:54.1759065Z 
+2026-09-10T07:33:54.1760487Z **[Basic Caching](https://github.com/gradle/actions/blob/main/docs/setup-gradle.md#basic-caching)** uses the basic open-source caching provider. For faster builds and advanced features, consider the **[Enhanced Caching](https://github.com/gradle/actions/blob/main/docs/setup-gradle.md#enhanced-caching)** provider.
+2026-09-10T07:33:54.1783305Z 
+2026-09-10T07:33:54.1783512Z <details>
+2026-09-10T07:33:54.1784293Z <summary>Entries: 1 restored, 0 saved - Expand for more details</summary>
+2026-09-10T07:33:54.1784789Z 
+2026-09-10T07:33:54.1786485Z [Cache was enabled](https://github.com/gradle/actions/blob/main/docs/setup-gradle.md#caching-build-state-between-jobs) — Gradle User Home was restored from the cache and saved for use by subsequent jobs.
+2026-09-10T07:33:54.1787711Z 
+2026-09-10T07:33:54.1787852Z <pre>
+2026-09-10T07:33:54.1788238Z Entry: Gradle User Home
+2026-09-10T07:33:54.1789301Z     Requested Key : setup-java-Linux-x64-gradle-ea82b590f096de69b63ea0153db5d1ef1b59480167689ed51e57691f7bc898b1
+2026-09-10T07:33:54.1790878Z     Restored  Key : setup-java-Linux-x64-gradle-ea82b590f096de69b63ea0153db5d1ef1b59480167689ed51e57691f7bc898b1
+2026-09-10T07:33:54.1792087Z               Size: 
+2026-09-10T07:33:54.1792770Z               Time: 
+2026-09-10T07:33:54.1793270Z               (Entry restored: exact match found)
+2026-09-10T07:33:54.1795267Z     Saved     Key : 
+2026-09-10T07:33:54.1795710Z               Size: 
+2026-09-10T07:33:54.1796051Z               Time: 
+2026-09-10T07:33:54.1796418Z               (Entry not saved: entry with key already exists)
+2026-09-10T07:33:54.1796760Z </pre>
+2026-09-10T07:33:54.1796972Z </details>
+2026-09-10T07:33:54.1797095Z 
+2026-09-10T07:33:54.1797618Z ##[endgroup]
+2026-09-10T07:33:54.1797898Z Completed post-action step
+2026-09-10T07:33:54.2056565Z Post job cleanup.
+2026-09-10T07:33:54.3058178Z Post job cleanup.
+2026-09-10T07:33:54.4025689Z [command]/usr/bin/git version
+2026-09-10T07:33:54.4082253Z git version 2.55.0
+2026-09-10T07:33:54.4145293Z Temporarily overriding HOME='/home/runner/work/_temp/a94fb970-929a-4ff3-9113-8ec861183c2a' before making global git config changes
+2026-09-10T07:33:54.4161432Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-10T07:33:54.4163456Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/PartyDeck/PartyDeck
+2026-09-10T07:33:54.4173188Z Removing SSH command configuration
+2026-09-10T07:33:54.4177389Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-10T07:33:54.4219034Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-10T07:33:54.4556617Z Removing HTTP extra header
+2026-09-10T07:33:54.4564439Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-10T07:33:54.4609311Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-10T07:33:54.4929645Z Removing includeIf entries pointing to credentials config files
+2026-09-10T07:33:54.4942667Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-10T07:33:54.4980557Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-10T07:33:54.5387358Z Evaluate and set job outputs
+2026-09-10T07:33:54.5392211Z Set output 'runtime-inputs'
+2026-09-10T07:33:54.5394154Z Cleaning up orphan processes
+2026-09-10T07:33:54.5743105Z Terminate orphan process: pid (3252) (java)
+2026-09-10T07:33:54.5783025Z Terminate orphan process: pid (3764) (java)
