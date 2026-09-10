@@ -50,7 +50,7 @@ final class GodotPresentationViewController: UIViewController {
 
         standardButton = button(
             title: text("Godot.StandardTable", "Standard table"),
-            hint: text("Godot.StandardTableHint", "Continue this game with the standard table."),
+            hint: text("Godot.StandardTableHint", "Continue this game with screen-reader controls."),
             action: #selector(useStandardTable),
             identifier: "godot-standard-table"
         )
@@ -188,7 +188,9 @@ final class GodotPresentationViewController: UIViewController {
         if stage.bounds.width > 0 && stage.bounds.height > 0 { establishedSize = stage.bounds.size }
         status.text = text("Godot.TableReady", "Your table is ready")
         engineContainer.isUserInteractionEnabled = true
-        engineContainer.accessibilityElementsHidden = false
+        // This visual surface has no mobile accessibility adapter. The native toolbar
+        // returns to the complete standard-table controls on the same session.
+        engineContainer.accessibilityElementsHidden = true
         cover.isHidden = true
     }
 

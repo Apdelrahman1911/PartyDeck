@@ -66,6 +66,8 @@ internal fun GameplayPresentationPicker(
             text = {
                 Column(Modifier.verticalScroll(rememberScrollState())) {
                     Text(stringResource(Res.string.presentation_local_choice))
+                    Spacer(Modifier.height(8.dp))
+                    Text(stringResource(Res.string.presentation_accessibility_route))
                     Spacer(Modifier.height(16.dp))
                     // The row owns the click and radio semantics, as recommended by Compose.
                     Column(Modifier.selectableGroup()) {

@@ -27,6 +27,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -143,14 +144,16 @@ internal fun PrivateHand(
                 verticalArrangement = Arrangement.spacedBy(10.dp),
             ) {
                 cards.forEachIndexed { index, card ->
-                    LargeHandCard(
-                        card = card,
-                        index = index,
-                        count = cards.size,
-                        isSelected = card.id in selectedIds,
-                        canSelect = canSelect,
-                        onToggle = { onToggle(card.id) },
-                    )
+                    key(card.id) {
+                        LargeHandCard(
+                            card = card,
+                            index = index,
+                            count = cards.size,
+                            isSelected = card.id in selectedIds,
+                            canSelect = canSelect,
+                            onToggle = { onToggle(card.id) },
+                        )
+                    }
                 }
             }
         } else {

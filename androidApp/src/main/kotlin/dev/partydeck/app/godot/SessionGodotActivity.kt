@@ -408,7 +408,9 @@ class SessionGodotActivity : FragmentActivity(), GodotHost, PartyDeckBridgePlugi
         }
         engineContainer.enableInput(generation)
         plugin?.setInputEnabled(true)
-        engineContainer.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_AUTO
+        // This visual surface has no mobile accessibility adapter. The native toolbar
+        // returns to the complete standard-table controls on the same session.
+        engineContainer.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS
         cover.visibility = View.GONE
         status.setText(R.string.godot_table_ready)
     }
@@ -540,7 +542,9 @@ class SessionGodotActivity : FragmentActivity(), GodotHost, PartyDeckBridgePlugi
             minLines = 2
             setPadding(dp(16), dp(8), dp(16), 0)
         }
-        standardTable = nativeButton(R.string.godot_standard_table) { closeTable(ReturnAction.STANDARD) }
+        standardTable = nativeButton(R.string.godot_standard_table) { closeTable(ReturnAction.STANDARD) }.apply {
+            contentDescription = getString(R.string.godot_standard_table_accessibility)
+        }
         leaveTable = nativeButton(R.string.godot_leave_table) { closeTable(ReturnAction.LEAVE) }
         val buttons = LinearLayout(this).apply {
             orientation = LinearLayout.HORIZONTAL
