@@ -1,0 +1,57 @@
+{
+  "passed": false,
+  "modes": [
+    "2d"
+  ],
+  "serial": "emulator-5554",
+  "mode_results": [
+    {
+      "mode": "2d",
+      "passed": false,
+      "intent_counts": {
+        "play": 0,
+        "challenge": 0,
+        "advance_round": 0
+      }
+    }
+  ],
+  "scope": "Real local-practice Godot Android input/lifecycle; no production session, TalkBack, physical LAN or store qualification.",
+  "limits_seconds": {
+    "setup": 600,
+    "per_mode": 600,
+    "cleanup": 180
+  },
+  "source_sha256": {
+    "run.py": "ebc30f7887d60bee3ec16c92e477f2eb81a62d8c8081d6b0f7145abb78085031",
+    "evidence.py": "fa6fdcc4c23597aa4a5f546cb88b3c1a26da023ca2e655eb8c280b551a27ecd9",
+    "smoke-android-ui.py": "0f13ab4e2a09c7c3a8ada02671eb4e6c66badb5e31ad8f75f7a16d90ca8c9076"
+  },
+  "apk_sha256": "878b0074bef8adef5a68f0741d2931fca74e4e9201d7cbd16894fea44c255f23",
+  "apk_bytes": 314300296,
+  "embedded_pck_sha256": "6bb343ada85e9554ae8886159c6a0461b9232ce5eff864e0ca424f0a7189caa8",
+  "embedded_pck_bytes": 1532712,
+  "device": {
+    "sdk": 35,
+    "installed_apk_sha256": "878b0074bef8adef5a68f0741d2931fca74e4e9201d7cbd16894fea44c255f23",
+    "evidence_access": {
+      "method": "debug_run_as",
+      "uid": 10148
+    },
+    "chooser_pid": 2749,
+    "font_scale": "1.0",
+    "preferences": {
+      "reference_scenario": true,
+      "reduce_motion": true,
+      "sound_enabled": false
+    }
+  },
+  "error": "Command '['adb', '-s', 'emulator-5554', 'shell', 'cat', '/sdcard/partydeck-ci-ui.xml']' returned non-zero exit status 1.",
+  "stage": "2d match entry",
+  "steps": [
+    "Verified responsive Android launcher before app installation",
+    "Tapped reference_scenario",
+    "Tapped sound_enabled",
+    "Captured chooser",
+    "Tapped launch_2d"
+  ]
+}

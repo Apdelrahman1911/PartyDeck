@@ -1,0 +1,101 @@
+{
+  "runId": 34428221586,
+  "headSha": "a04f22be8623bec9fbf38d4e74d8f96a94ebb225",
+  "jobId": 102717904559,
+  "conclusion": "failure",
+  "scope": "Downloaded-artifact audit; no native rerun or dispatch.",
+  "linkedHost": true,
+  "nativeTestResults": [
+    {
+      "name": "testCloseBeforePresentationDoesNotConstructEngine()",
+      "result": "Success",
+      "seconds": 41.27062904834747
+    },
+    {
+      "name": "testCloseDuringInitializationUsesCheckedCleanupBoundary()",
+      "result": "Failure",
+      "seconds": 116.57766199111938
+    },
+    {
+      "name": "testCloseInsideActualDrawRunLoopDefersCleanup()",
+      "result": "Failure",
+      "seconds": 69.13682103157043
+    },
+    {
+      "name": "testImmediateForegroundLossAndResumeRestartsDrawing()",
+      "result": "Failure",
+      "seconds": 56.3361439704895
+    },
+    {
+      "name": "testRealScenePauseResumeInputExitAndReopenRefusal()",
+      "result": "Failure",
+      "seconds": 55.78689098358154
+    }
+  ],
+  "nativeTests": 5,
+  "nativePassed": 1,
+  "nativeFailed": 4,
+  "startupRejectionOccurrences": 4,
+  "startupFailure": "The host passes --path, but the engine was compiled without path override support. Main::setup rejects it before setup2 and explicitly requires disable_path_overrides=no.",
+  "appStdoutStderr": "/tmp/partydeck-engine-ci/34428221586/app-stdout-stderr.log",
+  "appStdoutStderrSha256": "c2623ec92884b1b2e7aac8457e138f40fee714fa620860605a2c737bb7935f4d",
+  "stdoutOrigin": {
+    "xcresultDataPayload": "/tmp/partydeck-engine-ci/34428221586/godot-ios-probe-test/artifacts/ProbeHost.xcresult/Data/data.0~wZv0DBhV1zpVy1YEUphf6z6qRiW6ZrGTJCn1CwlemsGpQlFaSTzqxVS1hPaHFvwxR6VQ63h3zrhOP38RQ7iENQ==",
+    "decode": "Zstandard via system libzstd; source artifact unchanged"
+  },
+  "failureExcerpts": "/tmp/partydeck-engine-ci/34428221586/startup-failure-excerpts.log",
+  "metricsFile": "/tmp/partydeck-engine-ci/34428221586/godot-ios-probe-test/artifacts/attachments/28F67620-E355-4777-A8DF-A90044A3F7D7.json",
+  "failedSceneMetrics": {
+    "backgroundTransitions": 0,
+    "bootstrapCount": 1,
+    "bridgeRegistered": false,
+    "cleanupCount": 0,
+    "cleanupDepth": 0,
+    "closeRequestedDuringDraw": 0,
+    "closeRequestedDuringInitialization": 0,
+    "controllerReleased": false,
+    "drawCalls": 0,
+    "drawDepth": 0,
+    "exitEvents": 0,
+    "failure": "INITIALIZATION_FAILED_BEFORE_SAFE_CLEANUP",
+    "foreground": true,
+    "hostCounter": 0,
+    "idleTimerDisabled": false,
+    "idleTimerDisabledAfterSetup": false,
+    "idleTimerPolicyCaptured": true,
+    "idleTimerPolicyRestored": true,
+    "intentEvents": 0,
+    "iterations": 0,
+    "kmpFactoryQualified": false,
+    "mainStarted": false,
+    "osSingletonPresent": true,
+    "pendingForegroundLoss": false,
+    "previousIdleTimerDisabled": false,
+    "privacyCoverCount": 1,
+    "privacyCoverVisible": false,
+    "quarantined": true,
+    "queuedBytes": 0,
+    "queuedCommands": 0,
+    "queuedEvents": 0,
+    "readyEvents": 0,
+    "reinitializationQualified": false,
+    "rejectedEvents": 0,
+    "renderingLayerClass": "",
+    "renderLoopActive": false,
+    "reopenDenied": false,
+    "scene": "diagnostic",
+    "setup2Succeeded": false,
+    "state": "failed",
+    "viewReleased": false
+  },
+  "nativeGameplayEstablished": false,
+  "nativeLifecycleQualificationPassed": false,
+  "artifactDownload": {
+    "artifactId": 10133811904,
+    "sha256": "37c3c48bc7f1b1fa07f1c1cdb7f190dc75b8765062b1a78d1b05554a5fcd2f81",
+    "bytes": 185101522,
+    "entries": 1505,
+    "apiDigestMatched": true,
+    "downloadedArtifactPath": "/tmp/partydeck-engine-ci/34428221586/godot-ios-probe-test"
+  }
+}

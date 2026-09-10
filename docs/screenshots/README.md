@@ -1,6 +1,6 @@
 # Screenshot review gallery
 
-This collection preserves **618 original app and renderer captures**, including failed attempts, and links to **four existing asset proofs**. Click a collection, then any thumbnail to open the full PNG. Every record includes its original filename, scenario, platform, pixel dimensions and full SHA-256; [manifest.json](manifest.json) also records source locations, exact revisions where known, CI runs, receipts and duplicate-source aliases.
+This collection preserves **672 original app and renderer captures**, including failed attempts, and links to **four existing asset proofs**. Click a collection, then any thumbnail to open the full PNG. Every record includes its original filename, scenario, platform, pixel dimensions and full SHA-256; [manifest.json](manifest.json) also records source locations, exact revisions where known, CI runs, receipts and duplicate-source aliases.
 
 [Open the published first batch](first-batch/README.md) for the 125 initially published native, shared-UI and first desktop 2D views. The collection pages below add complete source records and original-filename mappings without duplicating those images.
 
@@ -13,11 +13,20 @@ Use the latest native and shared-UI collections for current review. Earlier capt
 | [iOS — CI 34398824935](ios-34398824935/README.md) | 8 | 3 UI tests passed; native qualification remains bounded to this run. |
 | [Compose shared UI — reviewed layout fixtures](compose-shared/README.md) | 65 | JVM layout fixtures; exact working-tree capture revision not recorded. |
 
+## Godot native host attempts
+
+| Collection | Images | Evidence scope |
+| --- | ---: | --- |
+| [Godot Android host — CI 34427418175](godot-android-34427418175/README.md) | 8 | All four 2D/3D × 100%/200% cases fail at match entry. Native chooser and covered final host originals are retained; no rendered game or accepted gameplay intent is established. |
+| [Godot iOS probe — CI 34428221586](godot-ios-probe-34428221586/README.md) | 2 | One cancellation before engine construction passes; four tests fail. The native host shows Closed or Failed, with zero draw/Ready/iterations. Original metrics and four supplemental source recordings are retained. |
+
 ## Godot gameplay through the real authority
 
 | Collection | Images | Evidence scope |
 | --- | ---: | --- |
+| [Godot 2D and 3D — final ordered packed gameplay](godot-matched-packed-ordered-20260910/README.md) | 22 | Final PCK `26bfbb72…` executes equal 42-view traces with both exits 0. Pixels match the corrected v5 originals; all new source PNGs and receipts are preserved separately. |
 | [Godot 2D and 3D — final matched packed v5 gameplay](godot-matched-packed-v5-20260910/README.md) | 22 | Equal 42-view authority traces, real input and both exits 0 at 430 × 932. The final 3D winner now has the correct Crown emblem and complete challenge/burnout explanation. |
+| [Godot 2D and 3D — older desktop CI 34427418175](godot-desktop-34427418175/README.md) | 22 | Exact CI source, equal 42-view traces and clean desktop exits. This older source still has the wrong Star winner emblem and missing final explanation in 3D; the native jobs in the same workflow fail. |
 | [Godot 2D and 3D — matched packed seed-2 gameplay](godot-matched-packed-20260910/README.md) | 22 | Equal 42-snapshot authority traces, real input, both exits 0. Desktop 430 × 932. The 3D winner still has the wrong rank emblem and missing final explanation. |
 | [Godot 2D — first complete seeded match](godot-first-real-2d-input/README.md) | 11 | Real Button/authority gameplay, privacy and captures retained. Shutdown logged a loopback-close error; clean engine exit is unqualified. Desktop 430 × 932; no 2D/3D parity or native execution claim. |
 
@@ -76,9 +85,10 @@ The [Godot import report](../../godot/renderer/assets/proofs/import_verification
 ## Provenance and capture safety
 
 - Original PNG bytes are preserved. Original capture filenames are retained in each record; the first-batch iOS gallery uses readable repository filenames mapped back to the original UUID filenames. Inline thumbnails display the same files at a smaller width; no image is redrawn, redacted or recompressed. Distinct scenario records remain separate even when their image bytes match.
-- Native captures were screened against their reviewed capture guards and Android UI dumps. Live invitation and share surfaces were not captured; the host lobby images precede invitation opening or follow its dismissal. Infrastructure/SystemUI preparation images and app-bundle icons are excluded. Run 34417204089 debug/final-screen.png is also excluded because it shows the notification shade; its source/hash/reason are recorded in the manifest.
+- Native captures were screened against their reviewed capture guards and Android UI dumps. Live invitation and share surfaces were not captured; the host lobby images precede invitation opening or follow its dismissal. Infrastructure/SystemUI preparation images and app-bundle icons are excluded. Run 34417204089 debug/final-screen.png is excluded because it shows the notification shade. Four Godot CI 34427418175 preparation PNGs show Launcher before app installation and are also excluded, with source paths, hashes, dimensions and reasons in the manifest.
 - Four Compose invitation/QR/Join captures contain explicitly labeled synthetic fixture values. `ShellLayoutTest.syntheticInvitation()` uses the documentation-only endpoint `192.0.2.44:42424` and deterministic fixture credentials. These are not live admission material.
-- Godot iteration 01 contains synthetic recipient-safe structural data. Later static captures use frozen Kotlin-authority projections plus the explicitly synthetic 2D lobby-permission fixture where labeled; 2D iterations 09–10 and the 3D six-seat cases use the real authority-derived lobby input. Truthful-rank, truthful-Wild and burnout edge fixtures use seed 1; the other edge inputs use seed 2. The first-2D and both matched packed collections record actual authority-accepted desktop gameplay; both matched collections also verify equal 2D/3D traces and clean exits. Original reports, diagnostics and available fixture/source provenance are retained. No LAN or admission credentials are involved.
+- Godot iteration 01 contains synthetic recipient-safe structural data. Later static captures use frozen Kotlin-authority projections plus the explicitly synthetic 2D lobby-permission fixture where labeled; 2D iterations 09–10 and the 3D six-seat cases use the real authority-derived lobby input. Truthful-rank, truthful-Wild and burnout edge fixtures use seed 1; the other edge inputs use seed 2. The first-2D and matched packed collections record actual authority-accepted desktop gameplay; the paired runs also verify equal 2D/3D traces and clean exits. Exact older CI and later dirty-tree local provenance remain distinct, even where pixels match. Original reports, diagnostics and available fixture/source provenance are retained. No LAN or admission credentials are involved.
+- Godot native Android and iOS attempts retain host screens and failed outcomes without claiming rendered gameplay. Android final images and UI dumps are sequential; the 2D/100% Closing/Opening mismatch is explicit. The iOS attachment name Diagnostic rendering is preserved alongside its failed initialization metrics; attachment names and failure flags do not override the actual test result.
 - Failed runtime stages, historical layout defects and missing native qualification are recorded in the relevant collection. No retained candidate required credential redaction or omission.
 
 For accepted findings and remaining native limits, see [the shared UI design review](../design-review.md), [the Godot design review](../../godot/reviews/design-review.md), and [the Godot asset documentation](../../godot/renderer/assets/README.md).
