@@ -26,8 +26,15 @@ adb shell am start -n dev.partydeck.godot.compare/.ComparisonActivity
 The generated asset task verifies the canonical pack and source freshness before
 copying only `partydeck-last-light.pck` into Android assets. The pack receipt is
 build evidence, not a shipped asset. Godot receives the fixed native arguments
-`--main-pack res://partydeck-last-light.pck --rendering-method gl_compatibility`.
+`--main-pack res://partydeck-last-light.pck --rendering-method gl_compatibility --xr-mode off`.
 No external intent supplies a filesystem path, engine arguments, or a view.
+
+XR is disabled explicitly because this comparison uses conventional 2D/3D views.
+In Godot 4.7.2, the Android renderer-selection path reads `xr/shaders/enabled`
+before that setting is registered and logs a missing-property warning at error
+severity. The supported `--xr-mode off` option bypasses that lookup. Setting the
+project value to its default `false` is insufficient because export omits default
+values; the engine error checks remain strict.
 
 Native input/background/re-entry checks live in `../android-checks/`. A successful
 APK build or a Godot setup callback alone does not establish runtime acceptance.
@@ -173,6 +180,10 @@ by `proguard-rules.pro` for the independently built optimized variant.
 - [Godot teardown and render dispatch](https://github.com/godotengine/godot/blob/4.7.2-stable/platform/android/java/lib/src/main/java/org/godotengine/godot/Godot.kt)
 - [Upstream Activity explains process restart](https://github.com/godotengine/godot/blob/4.7.2-stable/platform/android/java/lib/src/main/java/org/godotengine/godot/GodotActivity.kt)
 - [Plugin reflection, emitSignal and draw hooks](https://github.com/godotengine/godot/blob/4.7.2-stable/platform/android/java/lib/src/main/java/org/godotengine/godot/plugin/GodotPlugin.java)
+- [Android renderer selection and XR lookup](https://github.com/godotengine/godot/blob/4.7.2-stable/platform/android/java_godot_lib_jni.cpp#L539-L550)
+- [Supported XR mode launch option](https://github.com/godotengine/godot/blob/4.7.2-stable/main/main.cpp#L1991-L2008)
+- [XR shader setting default](https://github.com/godotengine/godot/blob/4.7.2-stable/servers/rendering/rendering_server.cpp#L3812-L3814)
+- [Project export skips settings equal to their default](https://github.com/godotengine/godot/blob/4.7.2-stable/core/config/project_settings.cpp#L1255-L1276)
 
 **Open source notices** on the native chooser exposes the exact bundled Godot,
 LLVM/libc++ and font texts, and the MPL certificate source-availability note with

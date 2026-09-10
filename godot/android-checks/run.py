@@ -49,6 +49,8 @@ class Device(baseline.AndroidSmoke):
         super().__init__(serial, output, "godot-comparison")
         self.access = access
         self.deadline = None
+        self.ui_dump_attempts = 0
+        self.ui_dump_result = None
 
     def timeout(self, limit):
         if self.deadline is None:
@@ -58,6 +60,11 @@ class Device(baseline.AndroidSmoke):
         return min(limit, remaining)
 
     def adb(self, *arguments, timeout=20, binary=False):
+        if arguments == ("shell", "uiautomator", "dump", "/sdcard/partydeck-ci-ui.xml") and not binary:
+            # uiautomator can report failure on stderr while exiting zero.
+            self.ui_dump_result = self.command(*arguments, timeout=timeout)
+            self.ui_dump_result.check_returncode()
+            return self.ui_dump_result.stdout
         return super().adb(*arguments, timeout=self.timeout(timeout), binary=binary)
 
     def command(self, *arguments, timeout=10):
@@ -93,10 +100,55 @@ class Device(baseline.AndroidSmoke):
         require(not result.stderr.strip(), "Unexpected error while reading host evidence.")
         return validate_host(parse_document(result.stdout))
 
+    def dump_ui(self, deadline=None):
+        self.ui_dump_attempts += 1
+        # An unsuccessful acquisition must invalidate the previous input tree.
+        self.ui_root, self.ui_parents = None, {}
+        self.ui_dump_result = None
+        try:
+            # The shared helper removes the device XML before every dump/read.
+            return super().dump_ui(deadline)
+        except baseline.TRANSIENT_ERRORS as error:
+            self.ui_root, self.ui_parents = None, {}
+
+            def text(value):
+                return value.decode(errors="replace") if isinstance(value, bytes) else value
+
+            try:
+                failure = {
+                    "attempt": self.ui_dump_attempts, "stage": self.stage,
+                    "error_type": type(error).__name__, "error": str(error),
+                    "returncode": getattr(error, "returncode", None),
+                    "stdout": text(getattr(error, "stdout", None)),
+                    "stderr": text(getattr(error, "stderr", None)),
+                    "dump_returncode": getattr(self.ui_dump_result, "returncode", None),
+                    "dump_stdout": text(getattr(self.ui_dump_result, "stdout", None)),
+                    "dump_stderr": text(getattr(self.ui_dump_result, "stderr", None)),
+                }
+                with (self.output / "ui-dump-failures.log").open("a") as stream:
+                    stream.write(baseline.redacted(json.dumps(failure, sort_keys=True)) + "\n")
+            except OSError as retention_error:
+                raise CheckFailure("Could not retain the failed fresh UI acquisition.") from retention_error
+            raise
+
     def check_ui(self, deadline=None):
-        root = self.dump_ui(deadline)
-        self.reject_crash_dialog(root)
-        return root
+        deadline = time.monotonic() + ACTION_SECONDS if deadline is None else deadline
+        if self.deadline is not None:
+            deadline = min(deadline, self.deadline)
+        last_error = None
+        while time.monotonic() < deadline:
+            try:
+                root = self.dump_ui(deadline)
+            except baseline.TRANSIENT_ERRORS as error:
+                last_error = error
+            else:
+                # A crash/ANR is not a transient dump error and is never retried.
+                self.reject_crash_dialog(root)
+                if time.monotonic() < deadline:
+                    return root
+            time.sleep(min(0.2, max(0, deadline - time.monotonic())))
+        raise CheckFailure(f"{self.stage}: Could not acquire a fresh crash-checked Android UI "
+                           f"before the existing deadline: {last_error}") from last_error
 
     def diagnostics(self):
         super().diagnostics()
@@ -195,11 +247,50 @@ class Qualification:
         self.journal_revision = None
         self.mode_result = None
         self.captures = {}
+        self.failure_pids = set()
 
     def journal(self, name, value):
         directory = self.entry_output or self.output
         with (directory / name).open("a") as stream:
             stream.write(json.dumps(value, sort_keys=True) + "\n")
+
+    def collect_failure_state(self, phase):
+        # Read-only failure evidence also works when entry failed before a trace
+        # or live collector was established. Never persist an unvalidated host.
+        errors = []
+        observed = {"phase": phase, "stage": self.device.stage}
+        try:
+            pids = self.device.pids(PACKAGE + ":godot")
+            observed["engine_pids"] = sorted(pids)
+            require(len(pids) <= 1, "Ambiguous actual engine PIDs during failure collection.")
+            self.failure_pids.update(pids)
+        except Exception as error:
+            observed["process_error"] = baseline.redacted(str(error))
+            errors.append("failure process observation: " + observed["process_error"])
+        if self.trace is not None:
+            self.failure_pids.add(self.trace.pid)
+        try:
+            observed["host"] = self.device.read_host(allow_missing=True)
+        except Exception as error:
+            observed["host_error"] = baseline.redacted(str(error))
+            errors.append("failure host observation: " + observed["host_error"])
+        self.journal("failure-host-observations.log", observed)
+        return errors
+
+    def collect_failure_logs(self):
+        errors = []
+        directory = self.entry_output or self.output
+        # Only PIDs observed under the actual package or an established trace
+        # are read, including a PID which died during final UI/screenshot capture.
+        for pid in sorted(self.failure_pids):
+            try:
+                value = self.device.adb("logcat", "-d", "-v", "threadtime", "-b", "main", "-b", "system",
+                                        "-b", "crash", "--pid", str(pid), timeout=20)
+                (directory / f"failure-process-{pid}-logcat.log").write_text(baseline.redacted(value))
+                EngineLog.inspect(value)
+            except Exception as error:
+                errors.append(f"failure process {pid} log: " + baseline.redacted(str(error)))
+        return errors
 
     def observe(self, value):
         self.trace.accept(value)
@@ -654,11 +745,26 @@ def main():
         except Exception as error:
             cleanup_errors.append("engine logs: " + baseline.redacted(str(error)))
         if device_started:
+            collect_failure = failure is not None and qualification.entry_output is not None
+            if collect_failure:
+                try:
+                    cleanup_errors.extend(qualification.collect_failure_state("before_final_diagnostics"))
+                except Exception as error:
+                    cleanup_errors.append("failure evidence: " + baseline.redacted(str(error)))
             try:
                 device.diagnostics()
             except Exception as error:
                 cleanup_errors.append("diagnostics: " + baseline.redacted(str(error)))
             finally:
+                if collect_failure:
+                    try:
+                        cleanup_errors.extend(qualification.collect_failure_state("after_final_diagnostics"))
+                    except Exception as error:
+                        cleanup_errors.append("failure evidence: " + baseline.redacted(str(error)))
+                    try:
+                        cleanup_errors.extend(qualification.collect_failure_logs())
+                    except Exception as error:
+                        cleanup_errors.append("failure logs: " + baseline.redacted(str(error)))
                 try:
                     cleanup_errors.extend(device.restore_environment())
                 except Exception as error:

@@ -88,6 +88,13 @@ all device commands are capped by the enclosing budget. A target allows at most
 300 authority actions, within the same mode budget. These are failure bounds,
 not promises of normal execution time. CI must also impose its own process limit.
 
+Transient UI dump/read/parse failures use the caller's existing deadline. Each
+attempt invalidates old input geometry and removes the device XML before dumping
+again. A returned crash/ANR tree fails immediately. Failed attempts append their
+stage, dump output and subprocess stdout/stderr to `ui-dump-failures.log`, so a
+later successful diagnostic dump cannot erase the failure evidence. This retries
+only fresh observation; it does not repeat a launch, gameplay touch or native request.
+
 ## Evidence and limits
 
 `result.json` records the aggregate outcome, selected cases, source/APK/embedded
@@ -97,6 +104,15 @@ host observations, scene input geometry, process-specific live logcat, screensho
 and UI trees, public outcome/counter evidence, and final teardown evidence. Native
 input geometry and final system diagnostics remain at the output root. Exit 0
 requires every selected case and cleanup check to pass.
+
+When an entry fails, `failure-host-observations.log` retains validated private
+host state and actual engine PID observations before and after final diagnostics.
+This also covers failure before an entry trace or live log collector exists.
+After the final UI/screenshot collection, `failure-process-<pid>-logcat.log`
+retains a fresh device-buffer dump for each PID observed under the actual engine
+package or an established trace, including a process that has since died. Raw
+invalid host documents are never persisted. These read-only collections remain
+inside the cleanup budget, and their errors cannot replace the original failure.
 
 Inspect `06-recents-privacy.png` and the concealed/revealed/resumed/game/outcome
 captures independently. Native cover observations, the Recents policy flag and
@@ -126,8 +142,9 @@ python3 -B -m unittest discover -s godot/android-checks -p 'test_*.py' -v
 These tests include stale/wrong-lifetime diagnostics, missing native round trips,
 retained hidden bindings, clipping/density mapping, corrupt/flat PNGs, an alive
 old PID, missing teardown callbacks, a replaced chooser, crashes, bounded waits,
-and preservation of the original failure during cleanup. Replay devices never
-run a simulated authority or claim Android runtime recovery.
+transient fresh UI acquisition, retained failure output, late failure logs, and
+preservation of the original failure during cleanup. Replay devices never run a
+simulated authority or claim Android runtime recovery.
 
 ## Checked platform contracts
 

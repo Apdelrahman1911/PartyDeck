@@ -228,6 +228,7 @@ class GodotGameActivity : FragmentActivity(), GodotHost, PartyDeckBridgePlugin.L
 
     override fun getCommandLine(): List<String> = listOf(
         "--main-pack", "res://partydeck-last-light.pck", "--rendering-method", "gl_compatibility",
+        "--xr-mode", "off",
     )
 
     override fun getHostPlugins(engine: Godot): Set<GodotPlugin> {

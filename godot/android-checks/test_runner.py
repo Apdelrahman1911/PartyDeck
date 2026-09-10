@@ -306,6 +306,124 @@ class DriverReplayTest(unittest.TestCase):
             self.assertEqual(call.args[:3], ("shell", "input", "swipe"))
 
 
+class UiAcquisitionTest(unittest.TestCase):
+    """Replay subprocess results through the real fresh rm/dump/read helpers."""
+    def setUp(self):
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        self.output = pathlib.Path(temporary.name)
+        self.clock = Clock()
+        self.enterContext(mock.patch.object(runner, "time", self.clock))
+        self.enterContext(mock.patch.object(runner.baseline, "time", self.clock))
+        self.device = runner.Device("no-device", self.output, "run-as")
+        self.device.display_size = (720, 1600)
+        self.device.deadline = 50
+        self.device.stage = "2d match entry"
+        old = ET.fromstring('<hierarchy><node resource-id="old" bounds="[0,0][100,100]" /></hierarchy>')
+        self.old_node = old.find("node")
+        self.device.bind_ui(old)
+        self.device_xml = ET.tostring(old, encoding="unicode")
+        self.fresh = '<hierarchy><node resource-id="fresh" bounds="[0,0][100,100]" /></hierarchy>'
+        self.events, self.commands = ["missing", self.fresh], []
+        self.enterContext(mock.patch.object(runner.subprocess, "run", self.process))
+
+    def process(self, command, **options):
+        arguments = tuple(command[3:])
+        timeout = options["timeout"]
+        error_output = ""
+        self.commands.append((arguments, self.clock.now, timeout))
+        self.clock.sleep(min(0.02, timeout))
+        if timeout < 0.02:
+            raise subprocess.TimeoutExpired(command, timeout)
+        if arguments == ("shell", "rm", "-f", "/sdcard/partydeck-ci-ui.xml"):
+            self.device_xml, value = None, ""
+        elif arguments == ("shell", "uiautomator", "dump", "/sdcard/partydeck-ci-ui.xml"):
+            self.assertIsNone(self.device_xml, "A previous device XML must be deleted before every attempt")
+            event = self.events.pop(0) if len(self.events) > 1 else self.events[0]
+            if isinstance(event, Exception):
+                raise event
+            if isinstance(event, subprocess.CompletedProcess):
+                return event
+            self.device_xml = None if event == "missing" else event
+            value = "" if event == "missing" else "UI hierchary dumped to: /sdcard/partydeck-ci-ui.xml\n"
+            if event == "missing":
+                error_output = "Synthetic transient UI dump returned no XML.\n"
+        elif arguments == ("shell", "cat", "/sdcard/partydeck-ci-ui.xml"):
+            if self.device_xml is None:
+                raise subprocess.CalledProcessError(1, command, output="", stderr="cat: /sdcard/partydeck-ci-ui.xml: No such file or directory\n")
+            value = self.device_xml
+        else:
+            self.fail("Unexpected device command: " + str(arguments))
+        return subprocess.CompletedProcess(command, 0, value, error_output)
+
+    def test_missing_dump_retries_fresh_and_retains_failure_after_later_success(self):
+        root = self.device.check_ui(deadline=10)
+        self.assertIsNotNone(self.device.find(root, "fresh"))
+        self.assertFalse(self.device.visible(self.old_node))
+        path = self.output / "ui-dump-failures.log"
+        failures = [json.loads(line) for line in path.read_text().splitlines()]
+        self.assertEqual(len(failures), 1)
+        self.assertEqual(failures[0]["returncode"], 1)
+        self.assertIn("No such file", failures[0]["stderr"])
+        self.assertEqual(failures[0]["dump_returncode"], 0)
+        self.assertEqual(failures[0]["dump_stdout"], "")
+        self.assertEqual(failures[0]["dump_stderr"], "Synthetic transient UI dump returned no XML.\n")
+        self.device.dump_ui(deadline=10)  # Later final diagnostics must not erase the failed attempt.
+        self.assertEqual(failures, [json.loads(line) for line in path.read_text().splitlines()])
+        self.assertIn("UI hierchary dumped", (self.output / "last-ui-dump.log").read_text())
+        self.assertEqual(3, sum(args[:2] == ("shell", "rm") for args, _, _ in self.commands))
+
+    def test_unavailable_ui_expires_at_enclosing_deadline_without_using_old_tree(self):
+        self.events = ["missing"]
+        self.device.deadline = 0.65
+        with self.assertRaisesRegex(CheckFailure, "fresh crash-checked Android UI.*existing deadline"):
+            self.device.check_ui(deadline=10)
+        self.assertLessEqual(self.clock.now, 0.65)
+        self.assertGreaterEqual(self.device.ui_dump_attempts, 2)
+        self.assertIsNone(self.device.ui_root)
+        self.assertFalse(self.device.visible(self.old_node))
+        for _, started, timeout in self.commands:
+            self.assertLessEqual(started + timeout, 0.650000001)
+        self.assertFalse((self.output / "last-ui.xml").exists())
+
+    def test_crash_after_transient_failure_is_rejected_without_another_retry(self):
+        crash = '<hierarchy><node resource-id="android:id/aerr_wait" /></hierarchy>'
+        self.events = ["missing", crash, self.fresh]
+        with self.assertRaisesRegex(RuntimeError, "crash/ANR"):
+            self.device.check_ui(deadline=10)
+        self.assertEqual(self.device.ui_dump_attempts, 2)
+        self.assertEqual(self.events, [self.fresh])
+
+    def test_malformed_dump_does_not_bind_or_reuse_previous_geometry(self):
+        self.events = ["<hierarchy>", self.fresh]
+        root = self.device.check_ui(deadline=10)
+        self.assertIsNotNone(self.device.find(root, "fresh"))
+        failure = json.loads((self.output / "ui-dump-failures.log").read_text())
+        self.assertEqual(failure["error_type"], "ParseError")
+        self.assertFalse(self.device.visible(self.old_node))
+
+    def test_timeout_output_is_retained_and_does_not_reuse_prior_dump_stdout(self):
+        (self.output / "last-ui-dump.log").write_text("Earlier successful dump")
+        self.events = [subprocess.TimeoutExpired("uiautomator", 1, output=b"partial stdout", stderr=b"partial stderr"), self.fresh]
+        self.device.check_ui(deadline=10)
+        failure = json.loads((self.output / "ui-dump-failures.log").read_text())
+        self.assertEqual(failure["error_type"], "TimeoutExpired")
+        self.assertEqual(failure["stdout"], "partial stdout")
+        self.assertEqual(failure["stderr"], "partial stderr")
+        self.assertIsNone(failure["dump_stdout"])
+
+    def test_nonzero_dump_preserves_both_streams_before_a_fresh_retry(self):
+        self.events = [subprocess.CompletedProcess("uiautomator", 1, "partial dump", "dump failed"), self.fresh]
+        root = self.device.check_ui(deadline=10)
+        self.assertIsNotNone(self.device.find(root, "fresh"))
+        failure = json.loads((self.output / "ui-dump-failures.log").read_text())
+        self.assertEqual(failure["returncode"], 1)
+        self.assertEqual(failure["dump_returncode"], 1)
+        self.assertEqual(failure["dump_stdout"], "partial dump")
+        self.assertEqual(failure["dump_stderr"], "dump failed")
+        self.assertEqual(1, sum(args[:2] == ("shell", "cat") for args, _, _ in self.commands))
+
+
 class ProcessAndCleanupTest(unittest.TestCase):
     def test_final_diagnostic_errors_and_crash_cannot_be_silently_accepted(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -409,6 +527,16 @@ class ProcessAndCleanupTest(unittest.TestCase):
             qualification = mock.Mock(engine_log=engine_log, mode_result={"mode": "2d", "passed": False})
             qualification.setup.return_value = {}
             qualification.run_mode.side_effect = CheckFailure("original missing native round trip")
+            qualification.collect_failure_state.return_value = []
+            qualification.collect_failure_logs.return_value = []
+            order = []
+            qualification.collect_failure_state.side_effect = lambda phase: order.append(phase) or []
+            qualification.collect_failure_logs.side_effect = lambda: order.append("late_pid_logs") or []
+            def failed_diagnostics():
+                order.append("final_diagnostics")
+                raise RuntimeError("diagnostic collection failed")
+            device.diagnostics.side_effect = failed_diagnostics
+            device.restore_environment.side_effect = lambda: order.append("restore") or []
             with mock.patch.object(runner, "Device", return_value=device), \
                     mock.patch.object(runner, "Qualification", return_value=qualification), \
                     mock.patch.object(runner, "apk_facts", return_value={}), \
@@ -421,6 +549,51 @@ class ProcessAndCleanupTest(unittest.TestCase):
             self.assertEqual(value["error"], "original missing native round trip")
             self.assertTrue(any("diagnostic collection failed" in error for error in value["cleanup_errors"]))
             self.assertTrue(any("log collector stopped early" in error for error in value["cleanup_errors"]))
+            self.assertEqual(order, ["before_final_diagnostics", "final_diagnostics", "after_final_diagnostics", "late_pid_logs", "restore"])
+
+    def test_entry_failure_retains_validated_host_and_late_log_after_observed_pid_dies(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = pathlib.Path(directory)
+            device = runner.Device("no-device", output, "run-as")
+            failed = final_host()
+            failed["failureCode"] = "renderer_ready_timeout"
+            device.command = mock.Mock(side_effect=(
+                subprocess.CompletedProcess([], 0, "1234\n", ""),
+                subprocess.CompletedProcess([], 0, json.dumps(host()), ""),
+                subprocess.CompletedProcess([], 1, "", ""),
+                subprocess.CompletedProcess([], 0, json.dumps(failed), ""),
+            ))
+            device.adb = mock.Mock(return_value="Godot: Unable to exit the renderer within 1500 ms... Force quitting the process.")
+            qualification = runner.Qualification(device, output)
+            self.assertIsNone(qualification.trace)
+            self.assertEqual(qualification.collect_failure_state("before_final_diagnostics"), [])
+            self.assertEqual(qualification.collect_failure_state("after_final_diagnostics"), [])
+            errors = qualification.collect_failure_logs()
+            self.assertTrue(any("timed out exiting its renderer" in error for error in errors))
+            observations = [json.loads(line) for line in (output / "failure-host-observations.log").read_text().splitlines()]
+            self.assertEqual(observations[0]["engine_pids"], [1234])
+            self.assertEqual(observations[1]["engine_pids"], [])
+            self.assertEqual(observations[1]["host"]["failureCode"], "renderer_ready_timeout")
+            self.assertIn("Unable to exit", (output / "failure-process-1234-logcat.log").read_text())
+            device.adb.assert_called_once_with("logcat", "-d", "-v", "threadtime", "-b", "main", "-b", "system",
+                                               "-b", "crash", "--pid", "1234", timeout=20)
+
+    def test_failure_collection_rejects_private_fields_before_persistence(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = pathlib.Path(directory)
+            device = runner.Device("no-device", output, "run-as")
+            private = host()
+            private["privateHand"] = ["sentinel-card-secret"]
+            device.command = mock.Mock(side_effect=(
+                subprocess.CompletedProcess([], 0, "1234\n", ""),
+                subprocess.CompletedProcess([], 0, json.dumps(private), ""),
+            ))
+            qualification = runner.Qualification(device, output)
+            self.assertTrue(qualification.collect_failure_state("after_final_diagnostics"))
+            retained = (output / "failure-host-observations.log").read_text()
+            self.assertNotIn("sentinel-card-secret", retained)
+            self.assertNotIn("host", json.loads(retained))
+            self.assertIn("host_error", json.loads(retained))
 
     def test_invalid_apk_never_contacts_a_device(self):
         with tempfile.TemporaryDirectory() as directory:
