@@ -99,7 +99,7 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
             try require(nextGeneration > generation, "Starting another actual practice table must create a new runtime generation.")
             let fourth = try await enter(mode, app, session: nextGeneration, after: third)
             try retained(fourth.observation, first: first)
-            try await revealSelectHide(mode, app, session: nextGeneration)
+            try await revealSelectHide(mode, app, session: nextGeneration, inspectBodyScroll: mode == .threeD)
             capture("\(mode.rawValue) new practice reuses engine and receives fresh input", app)
             try await tapElement("godot-leave-table", app)
             try await leaveDialog(app)
@@ -164,7 +164,8 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
     }
 
     @MainActor
-    private func revealSelectHide(_ mode: Mode, _ app: XCUIApplication, session: Counter) async throws {
+    private func revealSelectHide(_ mode: Mode, _ app: XCUIApplication, session: Counter,
+                                  inspectBodyScroll: Bool = false) async throws {
         let beforeReveal = try await tapRenderer("reveal", mode, app, session: session)
         _ = try await live(mode, app, session: session, after: beforeReveal) {
             !$0.renderer.handConcealed && $0.renderer.privateFaceCount > 0 && $0.renderer.selectedCount == 0
@@ -174,6 +175,7 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
             $0.renderer.selectedCount == 1 && $0.renderer.control("card", index: 0)?.selected == true
         }
         capture("\(mode.rawValue) real native card selection", app)
+        if inspectBodyScroll { try await inspectRendererBodyScroll(mode, app, session: session) }
         let beforeHide = try await tapRenderer("hide", mode, app, session: session)
         let hidden = try await live(mode, app, session: session, after: beforeHide) { $0.renderer.concealed }
         try require(hidden.state.lastViewerReceipt?.serial == beforeReveal.state.lastViewerReceipt?.serial,
@@ -377,8 +379,95 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
     }
 
     @MainActor
+    private func inspectRendererBodyScroll(_ mode: Mode, _ app: XCUIApplication, session: Counter) async throws {
+        // The fourth entry follows playablePractice and the existing real card selection.
+        // Inspect disabled controls too; this path never submits Play, Challenge or lobby.
+        let origin = try await live(mode, app, session: session)
+        try require(mode == .threeD && origin.state.phase == "PLAYING" && origin.state.ownTurn &&
+            origin.state.canPlay && origin.state.canSendAction && origin.state.pending == nil &&
+            origin.native.queuedEvents == 0 && origin.state.handCount > 0 && !origin.renderer.handConcealed &&
+            origin.renderer.selectedCount == 1,
+            "The later native scroll check requires the real playable hand and its existing selected card.")
+        let actions = origin.state.canChallenge ? ["lobby", "play", "challenge"] : ["lobby", "play"]
+        try require(origin.state.canChallenge || !origin.renderer.controls.contains(where: { $0.group == "partydeck_action_challenge" }),
+                    "A Challenge control may be absent only when the current authority reports it unavailable.")
+        for action in actions {
+            try require(origin.renderer.control(action, index: -1) != nil,
+                        "Every currently required authority control must have one real renderer target.")
+        }
+        attach(lastDocument, "\(mode.rawValue) round \(origin.state.round) selected hand before body scroll")
+        var gestures = 0
+        var latest = origin
+        for action in actions {
+            let reached = try await reachRenderer(action, mode, app, session: session, performTap: false)
+            try requireScrollPreservedInput(origin, reached.value)
+            gestures += reached.gestures
+            latest = reached.value
+        }
+        try require(gestures > 0, "Native scroll coverage requires an actual measured body drag; fitting without a drag is not scroll evidence.")
+        let fresh = try await live(mode, app, session: session, after: latest) {
+            $0.native.nativePresentedFrames > latest.native.nativePresentedFrames && $0.native.iterations > latest.native.iterations
+        }
+        try requireScrollPreservedInput(origin, fresh)
+        _ = try measuredFrame(fresh, app)
+        let viewport = CGRect(origin: .zero, size: fresh.renderer.viewport.size)
+        var bounds: [[String: Any]] = []
+        for action in actions {
+            guard let control = fresh.renderer.control(action, index: -1) else {
+                throw Failure("A required renderer control disappeared after the native scroll.")
+            }
+            let rect = try rectangle(control.rect)
+            let clip = try rectangle(control.clipRect)
+            try require(control.visible && viewport.insetBy(dx: -0.5, dy: -0.5).contains(clip) &&
+                clip.insetBy(dx: -0.5, dy: -0.5).contains(rect) &&
+                rect.width >= 48 && rect.height >= 48,
+                "Every inspected action must retain its whole 48-point-or-larger bounds inside the real clip after scrolling.")
+            bounds.append(["action": action, "enabled": control.enabled, "rect": control.rect, "clipRect": control.clipRect])
+        }
+        let evidence: [String: Any] = [
+            "schemaVersion": 1, "round": fresh.state.round, "controls": bounds, "scrollGestures": gestures,
+            "canChallenge": fresh.state.canChallenge,
+            "challengeCoverage": fresh.state.canChallenge ? "full_bounds_after_native_scroll" : "authority_unavailable_not_exercised",
+            "beforeObservationSequence": String(origin.observation.observationSequence.value),
+            "afterObservationSequence": String(fresh.observation.observationSequence.value),
+            "beforeRendererSequence": String(origin.renderer.sequence.value),
+            "afterRendererSequence": String(fresh.renderer.sequence.value),
+            "selectedCount": fresh.renderer.selectedCount, "handConcealed": fresh.renderer.handConcealed,
+            "authorityIntentCountBefore": origin.native.intentEvents, "authorityIntentCountAfter": fresh.native.intentEvents
+        ]
+        attach(try JSONSerialization.data(withJSONObject: evidence, options: [.sortedKeys]),
+               "\(mode.rawValue) round \(fresh.state.round) actual body scroll coverage")
+        capture("\(mode.rawValue) round \(fresh.state.round) full native action bounds preserve selection", app)
+    }
+
+    private func requireScrollPreservedInput(_ before: Live, _ after: Live) throws {
+        let selectedBefore = before.renderer.controls.filter { $0.group == "partydeck_hand_card" && $0.selected }.map(\.cardIndex).sorted()
+        let selectedAfter = after.renderer.controls.filter { $0.group == "partydeck_hand_card" && $0.selected }.map(\.cardIndex).sorted()
+        try require(after.sameTouchContext(as: before) && after.isInteractive &&
+            after.state.phase == before.state.phase && after.state.round == before.state.round &&
+            after.state.handCount == before.state.handCount && after.state.ownTurn == before.state.ownTurn &&
+            after.state.canSendAction == before.state.canSendAction && after.state.pending == before.state.pending &&
+            after.state.canPlay == before.state.canPlay && after.state.canChallenge == before.state.canChallenge &&
+            after.state.lastViewerReceipt?.serial == before.state.lastViewerReceipt?.serial &&
+            after.native.intentEvents == before.native.intentEvents && after.native.exitEvents == before.native.exitEvents &&
+            after.native.rejectedEvents == before.native.rejectedEvents && after.native.queuedEvents == 0 &&
+            after.renderer.handConcealed == before.renderer.handConcealed &&
+            after.renderer.selectedCount == before.renderer.selectedCount && selectedAfter == selectedBefore &&
+            after.renderer.privateFaceCount == before.renderer.privateFaceCount &&
+            after.renderer.privateLabelCount == before.renderer.privateLabelCount,
+            "A body scroll must preserve the current input/privacy context, selected cards and private content counts without any authority action.")
+    }
+
+    @MainActor
     private func tapRenderer(_ action: String, _ mode: Mode, _ app: XCUIApplication, session: Counter,
                              cardIndex: Int = -1) async throws -> Live {
+        let reached = try await reachRenderer(action, mode, app, session: session, cardIndex: cardIndex, performTap: true)
+        return reached.value
+    }
+
+    @MainActor
+    private func reachRenderer(_ action: String, _ mode: Mode, _ app: XCUIApplication, session: Counter,
+                               cardIndex: Int = -1, performTap: Bool) async throws -> (value: Live, gestures: Int) {
         var value = try await live(mode, app, session: session)
         var gestures = 0
         for _ in 0..<16 {
@@ -395,7 +484,7 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
             let clip = try rectangle(candidate.clipRect)
             let frame = try measuredFrame(value, app)
             let viewport = CGRect(origin: .zero, size: value.renderer.viewport.size)
-            try require(candidate.enabled && viewport.insetBy(dx: -0.5, dy: -0.5).contains(clip),
+            try require((!performTap || candidate.enabled) && viewport.insetBy(dx: -0.5, dy: -0.5).contains(clip),
                         "Only enabled controls with a measured clip inside the native viewport may receive input.")
             guard let latestObservation = try read(app), let latestScene = latestObservation.port.renderer,
                   let latestNative = latestObservation.port.native, let latestState = latestObservation.controller,
@@ -407,9 +496,13 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
             _ = try measuredFrame(latest, app)
             if candidate.visible && clip.insetBy(dx: -0.5, dy: -0.5).contains(rect) {
                 try require(rect.width >= 44 && rect.height >= 44, "A real engine touch target must measure at least 44 points.")
-                attach(lastDocument, "\(mode.rawValue) measured \(action) before actual coordinate tap")
-                coordinate(CGPoint(x: frame.minX + rect.midX, y: frame.minY + rect.midY), app).tap()
-                return latest
+                if performTap {
+                    attach(lastDocument, "\(mode.rawValue) measured \(action) before actual coordinate tap")
+                    coordinate(CGPoint(x: frame.minX + rect.midX, y: frame.minY + rect.midY), app).tap()
+                } else {
+                    attach(lastDocument, "\(mode.rawValue) measured whole \(action) bounds without tapping")
+                }
+                return (latest, gestures)
             }
             try require(gestures < 8 && clip.width >= 44 && clip.height >= 44 &&
                         rect.width <= clip.width + 0.5 && rect.height <= clip.height + 0.5,
@@ -434,7 +527,14 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
             let to = coordinate(CGPoint(x: frame.minX + end.x, y: frame.minY + end.y), app)
             from.press(forDuration: 0.1, thenDragTo: to)
             gestures += 1
-            value = try await live(mode, app, session: session, after: latest)
+            if performTap {
+                value = try await live(mode, app, session: session, after: latest)
+            } else {
+                value = try await live(mode, app, session: session, after: latest) {
+                    $0.native.nativePresentedFrames > latest.native.nativePresentedFrames && $0.native.iterations > latest.native.iterations
+                }
+                try requireScrollPreservedInput(latest, value)
+            }
         }
         throw Failure("The actual renderer target did not settle inside its clip within the bounded touch attempts.")
     }
@@ -633,7 +733,7 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
         let screen: String, mode: String, lifecycle: String
         let phase: String?, pending: String?, problem: String?
         let round: Int, handCount: Int
-        let ownTurn: Bool, canSendAction: Bool, canPlay: Bool, canAdvanceRound: Bool
+        let ownTurn: Bool, canSendAction: Bool, canPlay: Bool, canChallenge: Bool, canAdvanceRound: Bool
         let foreground: Bool, backgrounded: Bool, leaveConfirmation: Bool
         let lastViewerReceipt: Receipt?
     }
