@@ -286,16 +286,18 @@ jobs:
         env:
           PARTYDECK_IOS_SIMULATOR_GODOT_ENGINE_ROOT: ${{ github.workspace }}/godot/ios-host/build
         run: ./scripts/validate-ios-app.sh
+      # Each suite builds its own app and records its own result. A failed
+      # ordinary or layout test must not prevent the other native checks.
       - name: Qualify native UIKit Godot shell layout
         id: ios-godot-layout
-        if: ${{ !cancelled() && inputs.ios_godot_session && steps.ios-app.outcome == 'success' }}
+        if: ${{ !cancelled() && inputs.platform != 'ios-godot-production' && inputs.ios_godot_session && steps.apple-toolchain.outcome == 'success' && steps.renderer-pack.outcome == 'success' && steps.native-engine.outcome == 'success' }}
         timeout-minutes: 20
         env:
           PARTYDECK_IOS_GODOT_SESSION_SMOKE: '1'
           PARTYDECK_IOS_SIMULATOR_GODOT_ENGINE_ROOT: ${{ github.workspace }}/godot/ios-host/build
         run: bash scripts/validate-ios-godot-layout.sh
       - name: Exercise both real production Godot practice sessions
-        if: ${{ !cancelled() && inputs.ios_godot_session && steps.ios-app.outcome == 'success' && steps.ios-godot-layout.outcome == 'success' }}
+        if: ${{ !cancelled() && inputs.platform != 'ios-godot-production' && inputs.ios_godot_session && steps.apple-toolchain.outcome == 'success' && steps.renderer-pack.outcome == 'success' && steps.native-engine.outcome == 'success' }}
         timeout-minutes: 45
         env:
           PARTYDECK_IOS_GODOT_SESSION_SMOKE: '1'
