@@ -3,6 +3,7 @@
 from contextlib import redirect_stderr, redirect_stdout
 import copy
 import importlib.util
+import hashlib
 import io
 import json
 from pathlib import Path
@@ -121,6 +122,172 @@ class DeviceReplay(smoke.GodotSessionSmoke):
             return subprocess.CompletedProcess(arguments, self.guard_returncode,
                                                "PARTYDECK_RENDERER_SIGNALLED\n" if self.guard_returncode == 0 else "", "")
         raise AssertionError(f"Unexpected replay process command: {arguments}")
+
+
+class PickerReplay(DeviceReplay):
+    def adb(self, *arguments, **kwargs):
+        if arguments[:3] == ("shell", "input", "tap"):
+            self.commands.append(arguments)
+            return ""
+        return super().adb(*arguments, **kwargs)
+
+
+class PickerLookupTests(unittest.TestCase):
+    """Original public picker XML replay; no APK, Android, or renderer execution."""
+
+    def setUp(self):
+        temporary = tempfile.TemporaryDirectory(prefix="partydeck-picker-host-test-")
+        self.addCleanup(temporary.cleanup)
+        self.output = Path(temporary.name)
+        self.raw = (Path(__file__).parent / "fixtures/android-picker-34475047307.xml").read_bytes()
+        self.device = PickerReplay(self.output, self.raw)
+
+    def tree(self):
+        return ET.fromstring(self.raw)
+
+    def label(self, root, text):
+        nodes = [node for node in root.iter("node") if node.get("text") == text]
+        self.assertEqual(1, len(nodes))
+        return nodes[0]
+
+    def parent(self, root, node):
+        return {child: owner for owner in root.iter() for child in owner}[node]
+
+    def row(self, root):
+        return self.parent(root, self.label(root, "2D table"))
+
+    def test_original_capture_exposes_enabled_radio_rows_without_dialog_ids(self):
+        self.assertEqual("a63cdeb42eb34c60fba2bcdc6f20e0583bf97e0db23a12cbb9b7b90ba2cb6f7e",
+                         hashlib.sha256(self.raw).hexdigest())
+        root = self.tree()
+        self.assertIsNone(self.device.find(root, "presentation-options"))
+        self.assertIsNone(self.device.find_action(root, "presentation-choice-godot_2d", "2D table"))
+        for mode, expected in (("2d", (193, 911, 304, 952)), ("3d", (193, 1009, 303, 1050))):
+            with self.subTest(mode=mode):
+                target = self.device.presentation_choice(root, mode)
+                self.assertIsNotNone(target)
+                self.assertEqual(expected, smoke.ui.node_bounds(target))
+                row = self.parent(root, target)
+                for attribute in ("enabled", "clickable", "checkable"):
+                    self.assertEqual("true", row.get(attribute))
+                self.assertEqual("false", row.get("checked"))
+
+    def test_picker_taps_a_fresh_visible_label_inside_the_enabled_row(self):
+        old_target = self.device.presentation_choice(self.tree(), "2d")
+        target = self.device.wait_for_presentation_choice("2d")
+        self.assertFalse(self.device.visible(old_target))
+        self.device.tap_node(target, "presentation-choice-godot_2d")
+        self.assertEqual(("shell", "input", "tap", "248", "931"), self.device.commands[-1])
+        event = json.loads((self.output / "input-geometry.log").read_text())
+        self.assertEqual([193, 911, 304, 952], event["bounds"])
+        self.assertEqual(smoke.PACKAGE, event["package"])
+        self.assertEqual("android.widget.TextView", event["class"])
+        self.assertEqual({"x": 248, "y": 931}, event["coordinates"])
+        self.assertFalse(any("am" in command for command in self.device.commands))
+
+    def test_picker_rejects_disabled_or_nonradio_targets(self):
+        mutations = [
+            ("row", "enabled", "false"), ("row", "clickable", "false"),
+            ("row", "checkable", "false"), ("row", "checked", "true"),
+            ("row", "package", "other.app"), ("label", "enabled", "false"),
+            ("label", "clickable", "true"), ("radio", "clickable", "true"),
+            ("label", "package", "other.app"), ("label", "class", "android.widget.ImageView"),
+            ("radio", "enabled", "false"), ("radio", "class", "android.widget.CheckBox"),
+        ]
+        for part, attribute, value in mutations:
+            with self.subTest(part=part, attribute=attribute, value=value):
+                root = self.tree()
+                row = self.row(root)
+                target = {"row": row, "label": self.label(root, "2D table"),
+                          "radio": next(node for node in row.iter("node")
+                                        if node.get("class") == "android.widget.RadioButton")}[part]
+                target.set(attribute, value)
+                self.assertIsNone(self.device.presentation_choice(root, "2d"))
+
+    def test_picker_requires_the_radio_row_to_own_the_label_action(self):
+        for attribute, value in (("clickable", "true"), ("enabled", "false"), ("package", "other.app")):
+            with self.subTest(attribute=attribute):
+                root = self.tree()
+                row, label = self.row(root), self.label(root, "2D table")
+                wrapper = ET.Element("node", package=smoke.PACKAGE, enabled="true", clickable="false",
+                                     checkable="false", bounds="[180,900][320,965]")
+                wrapper.set(attribute, value)
+                row.remove(label)
+                row.append(wrapper)
+                wrapper.append(label)
+                self.assertIsNone(self.device.presentation_choice(root, "2d"))
+
+    def test_picker_rejects_missing_ambiguous_or_conflicting_choices(self):
+        for mutation in ("missing", "duplicate-label", "duplicate-row", "wrong-tag"):
+            with self.subTest(mutation=mutation):
+                root = self.tree()
+                row, label = self.row(root), self.label(root, "2D table")
+                if mutation == "missing":
+                    label.set("text", "Unavailable")
+                elif mutation == "duplicate-label":
+                    row.append(copy.deepcopy(label))
+                elif mutation == "duplicate-row":
+                    self.parent(root, row).append(copy.deepcopy(row))
+                else:
+                    row.set("resource-id", "presentation-choice-godot_3d")
+                self.assertIsNone(self.device.presentation_choice(root, "2d"))
+
+    def test_picker_requires_unique_real_modal_markers(self):
+        for mutation in ("title-missing", "title-duplicate", "title-package", "done-missing", "done-disabled"):
+            with self.subTest(mutation=mutation):
+                root = self.tree()
+                title, done_label = self.label(root, "Table style"), self.label(root, "Done")
+                if mutation == "title-missing":
+                    title.set("text", "Other dialog")
+                elif mutation == "title-duplicate":
+                    self.parent(root, title).append(copy.deepcopy(title))
+                elif mutation == "title-package":
+                    title.set("package", "other.app")
+                elif mutation == "done-missing":
+                    done_label.set("text", "Other action")
+                else:
+                    self.parent(root, done_label).set("enabled", "false")
+                self.assertIsNone(self.device.presentation_choice(root, "2d"))
+
+    def test_picker_rejects_an_anchor_in_a_different_window(self):
+        root = self.tree()
+        done = self.parent(root, self.label(root, "Done"))
+        self.parent(root, done).remove(done)
+        root.append(done)
+        self.assertIsNone(self.device.presentation_choice(root, "2d"))
+
+    def test_picker_rejects_clipped_rows_and_unsafe_label_hit_regions(self):
+        for mutation in ("scroll-top", "scroll-bottom", "row-gap", "label-gap", "second-scroll"):
+            with self.subTest(mutation=mutation):
+                root = self.tree()
+                scroll = next(node for node in root.iter("node") if node.get("class") == "android.widget.ScrollView")
+                if mutation == "scroll-top":
+                    scroll.set("bounds", "[122,920][598,1078]")
+                elif mutation == "scroll-bottom":
+                    scroll.set("bounds", "[122,532][598,940]")
+                elif mutation == "row-gap":
+                    self.row(root).set("bounds", "[190,908][307,955]")
+                elif mutation == "label-gap":
+                    self.label(root, "2D table").set("bounds", "[122,911][598,952]")
+                else:
+                    self.parent(root, scroll).append(copy.deepcopy(scroll))
+                self.assertIsNone(self.device.presentation_choice(root, "2d"))
+
+    def test_matching_exported_tags_keep_the_same_real_target(self):
+        for tag in ("presentation-choice-godot_2d", "dev.partydeck.app:id/presentation-choice-godot_2d"):
+            with self.subTest(tag=tag):
+                root = self.tree()
+                self.row(root).set("resource-id", tag)
+                self.assertIs(self.label(root, "2D table"), self.device.presentation_choice(root, "2d"))
+
+    def test_picker_does_not_reuse_stale_nodes_or_accept_unknown_modes(self):
+        first = self.device.presentation_choice(self.tree(), "2d")
+        self.device.presentation_choice(self.tree(), "3d")
+        with self.assertRaisesRegex(RuntimeError, "current visible viewport"):
+            self.device.tap_node(first, "stale-picker-target")
+        self.assertEqual([], self.device.commands)
+        with self.assertRaises(smoke.CheckFailure):
+            self.device.presentation_choice(self.tree(), "4d")
 
 
 class SessionSmokeSafetyTests(unittest.TestCase):

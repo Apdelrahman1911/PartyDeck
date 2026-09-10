@@ -36,7 +36,7 @@ def cfg(bounds=(0, 0, 1920, 1080), orientation="land", rotation="ROTATION_90", m
 
 def activity_block(record_id, target, task, pid, process, config=None, visible=True):
     visible = str(visible).lower()
-    return (f"  * Hist #0: ActivityRecord{{{record_id} u0 {target} t{task}}}\n"
+    return (f"  * Hist  #0: ActivityRecord{{{record_id} u0 {target} t{task}}}\n"
             f"    packageName={process.split(':')[0]} processName={process}\n"
             f"    app=ProcessRecord{{ab {pid}:{process}/u0a234}}\n"
             f"    CurrentConfiguration={config or cfg()}\n"
@@ -88,6 +88,37 @@ def input_dump(active=True, down=1_000_000_000):
 
 
 class ObservationTests(unittest.TestCase):
+    def test_history_spacing_keeps_full_record_and_focus_attribution(self):
+        # Android 16 dumpActivity adds " #" to TaskFragment's "Hist " label.
+        # The four API 36 consumers in run 34475052568 retained this spacing.
+        for spacing in (" ", "  ", "\t", " \t "):
+            with self.subTest(spacing=spacing):
+                records, resumed = obs.activity_records(activities().replace("Hist  #", "Hist" + spacing + "#"))
+                self.assertEqual(3, len(records))
+                focus = obs.attributed_focus(records, resumed, obs.window_display(windows()))
+                self.assertEqual((NATIVE, 602, PACKAGE + ":godot", "RESUMED"),
+                                 (focus["component"], focus["app_pid"], focus["process_name"], focus["lifecycle_state"]))
+                self.assertEqual([1920, 1080], focus["configuration"]["window_size"])
+
+    def test_non_history_or_malformed_headers_cannot_supply_focused_records(self):
+        for header in ("Hist#", "Hist X#", "Hist\u00a0#", "Fin  #", "Stop #", "History #"):
+            with self.subTest(header=header):
+                records, resumed = obs.activity_records(activities().replace("Hist  #", header))
+                self.assertEqual([], records)
+                self.assertIsNone(obs.attributed_focus(records, resumed, obs.window_display(windows())))
+
+    def test_history_spacing_does_not_relax_record_or_configuration_guards(self):
+        duplicate = activity_block("aaaa", NATIVE, 19, 602, PACKAGE + ":godot")
+        with self.assertRaisesRegex(obs.ObservationFailure, "Duplicate full Activity record"):
+            obs.activity_records(activities() + duplicate)
+        raw = activities().replace("    CurrentConfiguration=" + cfg() + "\n", "")
+        # A separate non-history list cannot restore missing full-record geometry.
+        raw += (f"  * Fin #0: ActivityRecord{{aaaa u0 {NATIVE} t19}}\n"
+                "    CurrentConfiguration=" + cfg() + "\n")
+        records, resumed = obs.activity_records(raw)
+        self.assertTrue(all("configuration" not in record for record in records))
+        self.assertIsNone(obs.attributed_focus(records, resumed, obs.window_display(windows())))
+
     def test_focus_uses_wm_identity_with_all_resumed_records_retained(self):
         records, resumed = obs.activity_records(activities())
         self.assertEqual(2, len(resumed))
@@ -358,32 +389,126 @@ class PinnedCheckerIntegrationTests(unittest.TestCase):
     def setUpClass(cls):
         cls.session = runner.load_session(Path(__file__).resolve().parents[1] / "smoke-android-godot-session.py")
 
+    def setUp(self):
+        temporary = tempfile.TemporaryDirectory(prefix="partydeck-adaptive-state-host-test-")
+        self.addCleanup(temporary.cleanup)
+        self.output = Path(temporary.name)
+
+    def replay(self, output):
+        session = self.session
+
+        class Replay(runner.AdaptiveScenarios, session.GodotSessionSmoke):
+            def __init__(self):
+                output.mkdir(exist_ok=True)
+                super().__init__(session, "synthetic-host-only", output, "debug", "1.0", 30000)
+                self.activity = activities()
+                self.pidof = {PACKAGE: [601], PACKAGE + ":godot": [602]}
+                self.commands = []
+                raw = (f"  PID   UID NAME                       \r\n601 10234 {PACKAGE}\r\n"
+                       f"602 10234 {PACKAGE}:godot\r\n800 1000 com.android.settings\r\n").encode()
+                self.process_result = subprocess.CompletedProcess([], 0, raw, b"")
+
+            def adb(self, *args, **kwargs):
+                return {("shell", "dumpsys", "activity", "activities"): self.activity,
+                        ("shell", "dumpsys", "window", "displays"): windows()}[args]
+
+            def pids(self, name):
+                return self.pidof[name]
+
+            def command(self, *args, **kwargs):
+                self.commands.append((args, kwargs))
+                if args != ("shell", "ps", "-A", "-n", "-w", "-o", "PID,UID,NAME") or kwargs != {"binary": True}:
+                    raise AssertionError("Unexpected synthetic process-table command")
+                if isinstance(self.process_result, Exception):
+                    raise self.process_result
+                return self.process_result
+
+        return Replay()
+
     def test_observer_does_not_mutate_the_accepted_single_window_parser(self):
         with self.assertRaises(self.session.CheckFailure):
             self.session.parse_focused_activity(activities())
 
     def test_state_keeps_raw_samples_and_attributes_exact_native_focus(self):
-        with tempfile.TemporaryDirectory(prefix="partydeck-adaptive-state-host-test-") as directory:
-            output = Path(directory)
-            original_parser = self.session.parse_focused_activity
-            session = self.session
-            class Replay(runner.AdaptiveScenarios, session.GodotSessionSmoke):
-                def adb(self, *args, **kwargs):
-                    values = {
-                        ("shell", "dumpsys", "activity", "activities"): activities(),
-                        ("shell", "dumpsys", "window", "displays"): windows(),
-                        ("shell", "ps", "-A", "-o", "PID,UID,NAME"): f"PID UID NAME\n601 10234 {PACKAGE}\n602 10234 {PACKAGE}:godot\n800 1000 com.android.settings\n",
-                    }
-                    return values[args]
-                def pids(self, name):
-                    return [602 if name.endswith(":godot") else 601]
-            replay = Replay(session, "synthetic-host-only", output, "debug", "1.0", 30000)
+        replay = self.replay(self.output)
+        original_parser = self.session.parse_focused_activity
+        process_parser = self.session.parse_process_table
+        raw = replay.process_result.stdout
+
+        def parse_saved_sample(value):
+            receipt = json.loads((self.output / "logs/process-table-0001.json").read_text())
+            self.assertEqual(raw, (self.output / receipt["stdout"]["file"]).read_bytes())
+            self.assertEqual(b"", (self.output / receipt["stderr"]["file"]).read_bytes())
+            self.assertEqual(runner.sha256(self.output / receipt["stdout"]["file"]), receipt["stdout"]["sha256"])
+            self.assertEqual(["adb", "-s", "synthetic-host-only", "shell", "ps", "-A", "-n", "-w", "-o", "PID,UID,NAME"],
+                             receipt["argv"])
+            self.assertEqual(0, receipt["returncode"])
+            return process_parser(value)
+
+        with patch.object(self.session, "parse_process_table", side_effect=parse_saved_sample):
             state = replay.state()
-            self.assertEqual(NATIVE, state["foreground"]["component"])
-            self.assertEqual(2, len(state["resumed"]))
-            self.assertEqual(activities(), (output / "states/00001-activity.log").read_text())
-            self.assertEqual(windows(), (output / "states/00001-window.log").read_text())
-            self.assertIs(original_parser, session.parse_focused_activity)
+        self.assertEqual(1, len(replay.commands))
+        self.assertEqual(NATIVE, state["foreground"]["component"])
+        self.assertEqual(2, len(state["resumed"]))
+        self.assertEqual(activities(), (self.output / "states/00001-activity.log").read_text())
+        self.assertEqual(windows(), (self.output / "states/00001-window.log").read_text())
+        self.assertEqual(raw, (self.output / "states/00001-processes.log").read_bytes())
+        self.assertIs(original_parser, self.session.parse_focused_activity)
+
+    def test_state_rejects_inconsistent_process_identity_and_preserves_each_sample(self):
+        for change in ("similar-name", "padded-name", "extra-exact-process", "multiple-pidof", "wrong-app-pid", "wrong-app-name"):
+            with self.subTest(change=change):
+                output = self.output / change
+                replay = self.replay(output)
+                raw = replay.process_result.stdout
+                if change == "similar-name":
+                    raw = raw.replace((PACKAGE + ":godot\r\n").encode(), (PACKAGE + ":godot-other\r\n").encode())
+                elif change == "padded-name":
+                    raw = raw.replace((PACKAGE + ":godot\r\n").encode(), (PACKAGE + ":godot \r\n").encode())
+                elif change in ("extra-exact-process", "multiple-pidof"):
+                    raw += f"603 10234 {PACKAGE}:godot\r\n".encode()
+                    if change == "multiple-pidof":
+                        replay.pidof[PACKAGE + ":godot"] = [602, 603]
+                elif change == "wrong-app-pid":
+                    replay.activity = replay.activity.replace("ab 602:", "ab 999:")
+                elif change == "wrong-app-name":
+                    replay.activity = replay.activity.replace("ab 602:" + PACKAGE + ":godot/", "ab 602:unrelated/")
+                replay.process_result.stdout = raw
+                with patch.object(runner.time, "sleep"), self.assertRaises(obs.ObservationFailure):
+                    replay.state()
+                samples = 1 if change == "multiple-pidof" else 3
+                self.assertEqual(samples, len(replay.commands))
+                for sequence in range(1, samples + 1):
+                    receipt = json.loads((output / f"logs/process-table-{sequence:04d}.json").read_text())
+                    self.assertEqual(raw, (output / receipt["stdout"]["file"]).read_bytes())
+
+    def test_state_process_transport_and_schema_failures_keep_the_available_receipts(self):
+        partial = b"PID UID NAME\r\n601 10234 "
+        outcomes = (
+            subprocess.CompletedProcess([], 2, partial, b"ps failed\xff\r\n"),
+            subprocess.CompletedProcess([], 0, partial, b"ps diagnostic\r\n"),
+            subprocess.CompletedProcess([], 0, b"PID USER NAME\r\n", b""),
+            subprocess.CompletedProcess([], 0, partial + b"\xff\r\n", b""),
+            subprocess.TimeoutExpired("synthetic-host-only", 20, output=partial, stderr=None),
+        )
+        for index, outcome in enumerate(outcomes):
+            with self.subTest(index=index):
+                output = self.output / str(index)
+                replay = self.replay(output)
+                replay.process_result = outcome
+                with self.assertRaises((self.session.CheckFailure, UnicodeDecodeError, subprocess.TimeoutExpired)):
+                    replay.state()
+                self.assertEqual(1, len(replay.commands))
+                receipt = json.loads((output / "logs/process-table-0001.json").read_text())
+                self.assertEqual(outcome.stdout, (output / receipt["stdout"]["file"]).read_bytes())
+                if isinstance(outcome, subprocess.TimeoutExpired):
+                    self.assertIsNone(receipt["returncode"])
+                    self.assertEqual({"available": False}, receipt["stderr"])
+                    self.assertEqual("timeout", receipt["error"])
+                else:
+                    self.assertEqual(outcome.returncode, receipt["returncode"])
+                    self.assertEqual(outcome.stderr, (output / receipt["stderr"]["file"]).read_bytes())
+                self.assertFalse((output / "states/00001.json").exists())
 
 
 if __name__ == "__main__":

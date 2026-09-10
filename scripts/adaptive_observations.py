@@ -93,8 +93,8 @@ def activity_records(value):
             continue
         if re.match(r"^\s+Resumed:\s", line):
             resumed.append(activity_identity(line, display))
-        # dumpHistoryList prints '* Hist #N: ActivityRecord{...}'.
-        if re.match(r"^\s*\*?\s*Hist #\d+:\s+ActivityRecord\{", line):
+        # dumpActivity adds " #" to TaskFragment's "Hist " label.
+        if re.match(r"^\s*\*?\s*Hist[ \t]+#\d+:\s+ActivityRecord\{", line):
             current = activity_identity(line, display)
             current_indent = len(line) - len(line.lstrip())
             records.append(current)

@@ -622,17 +622,99 @@ class GodotSessionSmoke(ui.AndroidSmoke):
         after = self.observe_match(prefix)
         return compare_continuity(baseline, after)
 
+    def presentation_picker(self, root):
+        """Locate the actual modal even when its separate Compose tree omits test IDs."""
+        self.bind_ui(root)
+        def labels(text):
+            return [node for node in root.iter("node")
+                    if node.get("package") == PACKAGE and node.get("text") == text
+                    and node.get("class") == "android.widget.TextView"
+                    and node.get("enabled") == "true" and self.visible(node)]
+
+        titles, done_labels = labels("Table style"), labels("Done")
+        if len(titles) != 1 or len(done_labels) != 1 or titles[0].get("clickable") != "false":
+            return None
+        done = done_labels[0]
+        while done is not None and done.get("clickable") != "true":
+            done = self.ui_parents.get(done)
+        if (done is None or done.get("package") != PACKAGE or done.get("enabled") != "true"
+                or done.get("checkable") == "true" or not self.visible(done)):
+            return None
+        panel = self.ui_parents.get(titles[0])
+        while panel is not None and done not in panel.iter("node"):
+            panel = self.ui_parents.get(panel)
+        if panel is None or panel.get("package") != PACKAGE or not self.visible(panel):
+            return None
+        scrolls = [node for node in panel.iter("node")
+                   if node.get("package") == PACKAGE and node.get("class") == "android.widget.ScrollView"]
+        if (len(scrolls) != 1 or scrolls[0].get("enabled") != "true" or not self.visible(scrolls[0])
+                or titles[0] in scrolls[0].iter("node") or done in scrolls[0].iter("node")):
+            return None
+        return panel, scrolls[0]
+
+    def presentation_choice(self, root, mode):
+        """Return a safe text hit region inside one current, enabled radio row."""
+        require(mode in ("2d", "3d"), "Unknown production presentation choice.")
+        picker = self.presentation_picker(root)
+        if picker is None:
+            return None
+        panel, scroll = picker
+        text = {"2d": "2D table", "3d": "3D table"}[mode]
+        labels = [node for node in scroll.iter("node") if node.get("text") == text]
+        if len(labels) != 1:
+            return None
+        label = labels[0]
+        row = self.ui_parents.get(label)
+        while row is not None and row is not scroll and row.get("checkable") != "true":
+            row = self.ui_parents.get(row)
+        if (row is None or row is scroll or row.get("package") != PACKAGE
+                or row.get("enabled") != "true" or row.get("clickable") != "true"
+                or row.get("checked") != "false" or label.get("package") != PACKAGE
+                or label.get("class") != "android.widget.TextView" or label.get("enabled") != "true"
+                or not self.visible(row) or not self.visible(label)):
+            return None
+        descendant = label
+        while descendant is not row:
+            if (descendant is None or descendant.get("package") != PACKAGE
+                    or descendant.get("enabled") != "true" or descendant.get("clickable") != "false"):
+                return None
+            descendant = self.ui_parents.get(descendant)
+        tag = f"presentation-choice-godot_{mode}"
+        resource_id = row.get("resource-id", "")
+        if resource_id and resource_id != tag and not resource_id.endswith("/" + tag):
+            return None
+        radios = [node for node in row.iter("node") if node.get("class") == "android.widget.RadioButton"]
+        if (len(radios) != 1 or radios[0].get("package") != PACKAGE
+                or radios[0].get("enabled") != "true" or not self.visible(radios[0])
+                or (radios[0] is not row and radios[0].get("clickable") != "false")):
+            return None
+        bounds, target = ui.node_bounds(row), ui.node_bounds(label)
+        if (ui.intersect_bounds(bounds, ui.node_bounds(panel)) != bounds
+                or ui.intersect_bounds(target, bounds) != target):
+            return None
+        # Selectable rows intentionally meet the ScrollView's horizontal edges.
+        # Keep the existing clearance at the actual text hit region inside the
+        # fully visible row; do not weaken the generic button/action helper.
+        viewport = ui.intersect_bounds(bounds, self.viewport(row))
+        if min(target[0] - viewport[0], target[1] - viewport[1],
+               viewport[2] - target[2], viewport[3] - target[3]) < ui.ACTION_VIEWPORT_CLEARANCE_PX:
+            return None
+        return label
+
+    def wait_for_presentation_choice(self, mode):
+        return self.wait_until(
+            f"Expected one current enabled {mode} radio row in the production Table style dialog",
+            lambda root: self.presentation_choice(root, mode), scroll="down",
+        )
+
     def enter_native(self, mode, prefix, ready=True):
         self.wait_activity(MAIN_COMPONENT, child_absent=True)
-        try:
-            self.tap_action("presentation-picker", "Table style", scroll="up")
-            self.wait_for_tag("presentation-options", enabled=None)
-            self.wait_for_action(f"presentation-choice-godot_{mode}", scroll="down")
-        except RuntimeError as error:
-            raise CheckFailure(f"The production selector does not expose an enabled {mode} choice. "
-                               "Only externally qualified choices may be enabled; this checker never changes availability.") from error
-        self.capture_evidence(f"{prefix}-selector", MAIN_COMPONENT)
-        self.tap_action(f"presentation-choice-godot_{mode}")
+        self.tap_action("presentation-picker", "Table style", scroll="up")
+        self.wait_until("Expected the production Table style dialog", self.presentation_picker)
+        self.wait_for_presentation_choice(mode)
+        self.capture_evidence(f"{prefix}-selector", MAIN_COMPONENT, ui_assertion=lambda root: require(
+            self.presentation_choice(root, mode) is not None, "The requested picker row changed before capture."))
+        self.tap_node(self.wait_for_presentation_choice(mode), f"presentation-choice-godot_{mode}")
         state = self.wait_activity(NATIVE_COMPONENT)
         require(len(state["renderer_pids"]) == 1, "Native Activity has no sole renderer process.")
         pid = state["renderer_pids"][0]

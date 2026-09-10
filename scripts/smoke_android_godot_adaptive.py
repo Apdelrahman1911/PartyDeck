@@ -28,7 +28,7 @@ from adaptive_observations import (
 )
 
 
-SESSION_SHA256 = "1cbea59f42d1fe9ffc49e21b5e54a3dd803454ed55a5c63ef36bc97810b791b0"
+SESSION_SHA256 = "2f814a30f9d3b38ac3e40667a9ed46e0b2cf29960b7a041a111d2cd306437186"
 UI_SHA256 = "7d6cef007b3d4fb64c6aaaf2e55c3039dc02853332607ccba4a239bc8cd1e5f3"
 
 
@@ -277,7 +277,7 @@ class AdaptiveScenarios:
             activity = self.adb("shell", "dumpsys", "activity", "activities")
             window = self.adb("shell", "dumpsys", "window", "displays")
             shell_pids, child_pids = self.pids(self.session.PACKAGE), self.pids(self.session.RENDERER_PROCESS)
-            processes = self.adb("shell", "ps", "-A", "-o", "PID,UID,NAME")
+            processes = self.read_process_table()
             prefix = f"states/{self.state_sequence:05d}"
             for kind, raw in (("activity", activity), ("window", window), ("processes", processes)):
                 self.write_text(f"{prefix}-{kind}.log", raw)
