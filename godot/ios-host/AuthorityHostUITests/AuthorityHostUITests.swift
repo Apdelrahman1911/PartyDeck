@@ -1,6 +1,8 @@
 import XCTest
 
 final class AuthorityHostUITests: XCTestCase {
+    private var lastObservedMetrics: [String: Any] = [:]
+
     override func setUpWithError() throws {
         continueAfterFailure = false
     }
@@ -80,13 +82,8 @@ final class AuthorityHostUITests: XCTestCase {
                 try require(!(value["winnerId"] as? String ?? "").isEmpty, "The real authority must identify its winner.")
                 capture("07 real winner \(mode) text \(textScale)", app)
                 _ = try await tapControl("lobby", app)
-                if mode == "2d" {
-                    _ = try await currentDiagnostics(app) {
-                        self.control("lobby_confirm", in: $0).map { self.flag("visible", $0) } ?? false
-                    }
-                    capture("08 return confirmation \(mode) text \(textScale)", app)
-                    _ = try await tapControl("lobby_confirm", app)
-                }
+                // Both renderers return directly after FINISHED. The 2D
+                // confirmation belongs only to leaving an unfinished match.
                 let closed = try await assertClosed(app, reason: "RETURN_TO_LOBBY")
                 XCTAssertEqual(number("acceptedViewerPlays", closed), 2)
                 XCTAssertEqual(number("acceptedViewerChallenges", closed), 2)
@@ -169,7 +166,12 @@ final class AuthorityHostUITests: XCTestCase {
         try await revealAndSelect(app)
         let beforeHome = try await currentDiagnostics(app)
         XCUIDevice.shared.press(.home)
-        try require(app.wait(for: .runningBackground, timeout: 10), "The real application must enter the background.")
+        let observedBackground = try await waitForBackground(app)
+        let enteredBackground = observedBackground == .runningBackground || observedBackground == .runningBackgroundSuspended
+        attachJSON(["observedApplicationState": observedBackground.rawValue, "enteredBackground": enteredBackground],
+                   name: "Actual application state after Home")
+        if !enteredBackground { capture("Failed native Home transition", app) }
+        try require(enteredBackground, "The real application must enter the background.")
         let home = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
         home.name = "Actual home screen while game is backgrounded"
         home.lifetime = .keepAlways
@@ -180,8 +182,24 @@ final class AuthorityHostUITests: XCTestCase {
                 self.number("privacyCoverCount", self.native($0)) > self.number("privacyCoverCount", self.native(beforeHome))
         }
         assertLocalOnly(beforeHome, returned)
+        XCTAssertEqual(diagnostics(beforeHome)["presentationId"] as? String, diagnostics(returned)["presentationId"] as? String)
         XCTAssertEqual(number("bootstrapCount", native(returned)), 1)
         capture("Same authority resumed with concealed cards", app)
+    }
+
+    @MainActor
+    private func waitForBackground(_ app: XCUIApplication) async throws -> XCUIApplication.State {
+        // Native evidence includes a roughly 12-second Home transition.
+        // Keep the wait bounded while allowing that measured transition.
+        // Apple also defines suspended background as a legitimate state.
+        // https://developer.apple.com/documentation/xcuiautomation/xcuiapplication/state-swift.enum
+        let deadline = Date().addingTimeInterval(20)
+        while Date() < deadline {
+            let state = app.state
+            if state == .runningBackground || state == .runningBackgroundSuspended || state == .notRunning { return state }
+            try await Task.sleep(nanoseconds: 150_000_000)
+        }
+        return app.state
     }
 
     @MainActor
@@ -229,6 +247,21 @@ final class AuthorityHostUITests: XCTestCase {
     private func tapControl(_ action: String, _ app: XCUIApplication, cardIndex: Int = -1) async throws -> [String: Any] {
         var value = try await currentDiagnostics(app)
         for _ in 0..<8 {
+            guard let candidate = control(action, in: value, cardIndex: cardIndex) else { throw Failure.controlMissing }
+            let candidateViewport = viewportSize(value)
+            let candidateRevision = value["revision"] as? String
+            let candidateIterations = number("iterations", native(value))
+            // A view command changes state synchronously, but Godot containers
+            // finish layout during later frames. Require a newer observation
+            // after a rendered iteration with the same target and clip before
+            // judging clipping, scrolling or synthesizing a touch.
+            let confirmed = try await currentDiagnostics(app, after: value) {
+                self.number("iterations", self.native($0)) > candidateIterations
+            }
+            value = confirmed
+            guard value["revision"] as? String == candidateRevision, viewportSize(value) == candidateViewport,
+                  let confirmedTarget = control(action, in: value, cardIndex: cardIndex),
+                  NSDictionary(dictionary: candidate).isEqual(to: confirmedTarget) else { continue }
             try validateGeometry(value, app)
             guard let target = control(action, in: value, cardIndex: cardIndex) else { throw Failure.controlMissing }
             try require(flag("enabled", target), "The actual Godot control must be enabled.")
@@ -236,6 +269,9 @@ final class AuthorityHostUITests: XCTestCase {
             let clip = try rectangle(target["clipRect"])
             let viewport = viewportSize(value)
             let bounds = CGRect(origin: .zero, size: viewport)
+            // Preserve the rejected geometry too. A fit assertion must not
+            // leave only the preceding successful tap in the native evidence.
+            attachJSON(["action": action, "control": target, "measurements": value], name: "Observed control before input: \(action)")
             try require(bounds.insetBy(dx: -0.5, dy: -0.5).contains(clip), "The reported clip must stay inside the root viewport.")
             let surface = element("godot-surface", app)
             if flag("visible", target), clip.insetBy(dx: -0.5, dy: -0.5).contains(rect) {
@@ -253,8 +289,9 @@ final class AuthorityHostUITests: XCTestCase {
                 surface.coordinate(withNormalizedOffset: CGVector(dx: rect.midX / viewport.width, dy: rect.midY / viewport.height)).tap()
                 return value
             }
-            try require(clip.width >= 32 && clip.height >= 32 && rect.width <= clip.width + 0.5 && rect.height <= clip.height + 0.5,
-                        "The control must fit wholly inside its real scroll viewport.")
+            let fitsClip = clip.width >= 32 && clip.height >= 32 && rect.width <= clip.width + 0.5 && rect.height <= clip.height + 0.5
+            if !fitsClip { capture("Control does not fit its reported viewport: \(action)", app) }
+            try require(fitsClip, "The control must fit wholly inside its real scroll viewport.")
             let start: CGPoint
             let end: CGPoint
             if rect.minY < clip.minY {
@@ -300,6 +337,11 @@ final class AuthorityHostUITests: XCTestCase {
         let deadline = Date().addingTimeInterval(timeout)
         while Date() < deadline {
             let value = metrics(app)
+            if app.state == .notRunning {
+                capture("Actual authority application stopped", app)
+                XCTFail("The native authority application stopped during the test.")
+                throw Failure.nativeFailure
+            }
             if value["failureCode"] != nil || native(value)["state"] as? String == "failed" {
                 capture("Failed authority runtime", app)
                 XCTFail("The native authority owner reported a terminal failure.")
@@ -365,9 +407,17 @@ final class AuthorityHostUITests: XCTestCase {
 
     @MainActor
     private func metrics(_ app: XCUIApplication) -> [String: Any] {
+        let applicationState = app.state
+        // Querying accessibility while the application is stopped or suspended
+        // can fail before its last foreground measurements can be attached.
+        guard applicationState == .runningForeground else {
+            return ["observedApplicationState": applicationState.rawValue]
+        }
         guard let document = element("authority-metrics", app).value as? String,
               let bytes = document.data(using: .utf8),
-              let value = try? JSONSerialization.jsonObject(with: bytes) as? [String: Any] else { return [:] }
+              var value = try? JSONSerialization.jsonObject(with: bytes) as? [String: Any] else { return [:] }
+        value["observedApplicationState"] = applicationState.rawValue
+        lastObservedMetrics = value
         return value
     }
 
@@ -387,11 +437,14 @@ final class AuthorityHostUITests: XCTestCase {
 
     @MainActor
     private func capture(_ name: String, _ app: XCUIApplication) {
-        let screenshot = XCTAttachment(screenshot: app.screenshot())
+        let screenshot = XCTAttachment(screenshot: app.state == .runningForeground ? app.screenshot() : XCUIScreen.main.screenshot())
         screenshot.name = name
         screenshot.lifetime = .keepAlways
         add(screenshot)
         attachJSON(metrics(app), name: "\(name) measurements")
+        if app.state != .runningForeground, !lastObservedMetrics.isEmpty {
+            attachJSON(lastObservedMetrics, name: "\(name) last observed foreground measurements")
+        }
     }
 
     private func attachGeometry(_ action: String, value: [String: Any], target: [String: Any]) {
