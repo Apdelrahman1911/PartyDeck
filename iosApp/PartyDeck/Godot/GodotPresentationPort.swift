@@ -360,6 +360,8 @@ final class GodotPresentationPort: NSObject, IosGodotNativePort {
 
     private func dismiss(_ lifetime: Lifetime) {
         guard active === lifetime, lifetime.closing, !lifetime.finished, !lifetime.dismissalRequested else { return }
+        // UIKit disappearance stops the render loop needed by deferred native cleanup.
+        guard lifetime.nativeCleaned != nil else { return }
         if lifetime.presentationRequested && !lifetime.presentationCompleted { return }
         guard let screen = lifetime.screen, screen.presentingViewController != nil else {
             lifetime.dismissed = true

@@ -1837,6 +1837,8 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 - (void)leavePresentation {
 	if (!NSThread.isMainThread || !_retainedPolicy || !_presentationActive || _leaveRequested || _closeRequested || _closed) { return; }
 	_presentationActive = NO;
+	_authorityForeground = NO;
+	_authorityReadyConfirmed = NO;
 	[_retainedOwner invalidatePresentationForFailure:NO];
 	_leaveRequested = YES;
 	_state = @"leaving";
