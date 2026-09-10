@@ -1,7 +1,8 @@
 # PartyDeck status report
 
-**Snapshot: 2026-09-10, 19:05 UTC.** Published source is through `0f00f17`;
-the published gallery remains through `1c714e6`.
+**Snapshot: 2026-09-10, 20:55 UTC.** Published main source is through `8030efe`;
+the published gallery is through `7ef426e`. Production and uninstrumented retained
+iOS runs use `c65e264`; later integrations do not inherit their results.
 Estimated completion of the original app release scope is **81%**. The added
 Godot scope has **3 of 6 acceptance groups complete (50%)**. These are different
 scopes and must not be averaged. **The app is not yet ready for production.**
@@ -11,9 +12,12 @@ real Godot presentations, **2D and 3D**, exist and remain until the user chooses
 Desktop scenarios and all four Android comparison cases passed. Expanded
 production-app checks complete Android API 35 native lifecycle and API 36 native
 Reveal, selection and Play in debug and optimized builds. Android checker and 2D
-phone-layout fixes are integrated, and the separate iOS UIKit layout gate passes.
-Adaptive cleanup and iOS native responsiveness/entry acceptance remain project
-work. Earlier passing baselines do not qualify the current integrated release.
+phone-layout fixes also pass the current-pack Android production run, and the
+separate iOS UIKit layout gate passes. Current iOS production logs now reach
+concealed entry, selection, Hide and accepted native Play in both modes, then
+fail on Standard return. Adaptive recording/recovery, iOS return and retained
+re-entry acceptance remain project work. Earlier passing
+baselines do not qualify the current integrated release.
 
 ## Completion calculation
 
@@ -79,8 +83,11 @@ after host process death are outside the agreed first-release scope.
 
 Each result belongs to its stated source/run. Repeated runs are not added as new
 coverage, and earlier successes are not assigned to a new pack or host.
-The newest adaptive counts are initial original-result triage; corrected MSAA
-outcomes come from named CI test lines. Their complete artifact audits continue.
+The newest Android adaptive and retained results have completed original-artifact
+audits. Current production iOS has independently audited shared tests; its
+ordinary/UIKit successes have job-step evidence, and the original production
+log proves progress through source-bound native action checks before Standard
+return failures. Full XCTest/attachment audits and exact rejected fields remain pending.
 
 | Verification | Executed result |
 | --- | --- |
@@ -98,11 +105,16 @@ outcomes come from named CI test lines. Their complete artifact audits continue.
 | Retained diagnostic, [34505106959](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34505106959), `16d828e` | Retained suite passes 1/3. Repeated-entry and stale first-ready fail the unchanged diagnostics wait. One of six sampler invocations yields a usable identity-bound raw stack. Original app streams identify Apple Software Renderer; the stack shows GLES drawing and a separate LLVM compiler queue. This proves observed work, not exclusive causality for a stalled iteration. Sampling may affect timing; further renderer work is active |
 | Android adaptive API 36, [34506161751](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34506161751), `d06f83a` | Producer and four installations pass; initial native entries no longer crash. Across 96 scopes: 15 pass, one fails, eight are unsupported and 72 are not reached. Both 1× variants scroll the wrong Standard pane during unsupported recovery. Debug 2× rejects a clipped read-only concealment marker; original before-UP success is unproved. Optimized 2× passes twelve 2D/3D entry/return/leave checks but held rotations and split-window automation remain unsupported. No held-transition or split acceptance is claimed |
 | Android production API 36, [34506173394](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34506173394), `d06f83a` | Run succeeds: debug 30 native checks pass; optimized 28 pass and two renderer-death checks are explicitly skipped. 262 canonical JUnit cases and 172 Python tests pass. Original XML verifies actual Reveal, slot-zero selection and one Play in both modes/APKs: 2D hand count 5 → 4; 3D concrete same-round result. This acceptance uses the earlier `d6adbba1…` pack |
-| iOS production retry, [34509634154](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34509634154), `b080780` | Shared 156/156, ordinary 9/9 with five unchanged unfiltered accessibility audits, and separate guarded UIKit layout 3/3 pass. Unsigned device job passes. Both production Godot sessions fail the fresh-current diagnostics assertion during initial entry, before the concealed-entry checkpoint. Final observations show ACTIVE/Ready and a 402 × 657-point native surface; actual native selection/Play, Standard return, Leave and re-entry remain unreached |
+| iOS production retry, [34509634154](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34509634154), `b080780` | Shared 156/156, ordinary 9/9 with five unchanged unfiltered accessibility audits, and separate guarded UIKit layout 3/3 pass. Unsigned device job passes. Both production sessions fail during initial entry. The later original-stream audit identifies the second fresh-frame wait: presented frames remain 3 in 2D and 4 in 3D while other currentness fields advance. Final observations show ACTIVE/Ready and a 402 × 657-point surface; native selection/Play, Standard return, Leave and re-entry remain unreached |
 | Initial MSAA diagnostic, [34512412329](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34512412329), `c058bdc` | All three retained cases stop at the unchanged exact-pack guard before native preparation. No engine iteration or rendering experiment is reached; no rendering, speed or MSAA-effect conclusion follows |
-| Latest Android adaptive API 36, [34514544296](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34514544296), `286b7ff` | Producer and four installations pass. Initial original-result triage records 28 passed, four failed, twelve unsupported and 52 unreached scopes out of 96. Each case passes six 2D lifecycle checks plus split capability; three recorder-dependent scopes are unsupported. All four then fail configuration stabilization with an owned-split cleanup error. The failure is labelled `3d-landscape.initial-landscape`, but the 2D renderer remains active and no split-entry request or actual 3D launch is established. Held transitions and split interaction remain unqualified |
-| Current combined production, [34515669045](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34515669045), `0f00f17` | Android API 36 and iOS production sessions are enabled with the integrated checker/layout changes and corrected main native pack pin. The iOS pack export passes; Android and iOS jobs remain in progress at this snapshot. No final current-source production acceptance is available |
+| Latest Android adaptive API 36, [34514544296](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34514544296), `286b7ff` | Producer and four installations pass. Completed original-byte/source audit verifies 28 passed, four failed, twelve unsupported and 52 unreached scopes out of 96. Each case passes six 2D lifecycle checks plus split capability. All twelve original recorder startups lack observed growth in their eight-second windows. All four cases then fail preparation/stabilization after unavailable split-entry recording, with owned-split cleanup errors. The `3d-landscape.initial-landscape` label does not establish a 3D launch: the 2D renderer remains active and no split-entry request is observed. Held transitions and split interaction remain unqualified |
+| Android adaptive retry, [34528538284](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34528538284), `8030efe` | Dispatched with integrated recorder/recovery changes after 259 host tests and independent source/lifetime review. Debug and optimized builds, normal/200% text, both modes: native results pending |
+| Android production API 36, [34515669045](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34515669045), `0f00f17` | Android job succeeds; the combined workflow fails because its separate iOS job fails. Debug: 30 native checks pass; optimized: 28 pass and two renderer-death checks are explicitly skipped. 262 JUnit cases/41 suites and 207 Python cases pass; zero lint errors/eleven warnings. Four original Reveal → slot-zero → one Play chains pass the same-round Standard public-result acceptance branch, with zero corrective swipes and verified sampled ownership/teardown. Current outcome XML has no card nodes: no current five-to-four or unchecked remaining-hand observation is claimed. Package audit binds the `557b2297…` pack |
+| iOS in combined production, [34515669045](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34515669045), `0f00f17` | Completed original-artifact audit: shared 156/156, ordinary 9/9 with five unchanged unfiltered accessibility audits, and separate guarded UIKit layout 3/3 pass; unsigned device job passes. Production sessions are 0/2. Both fail initial entry at the second `live(after: opened)` fresh-frame wait: presented frames remain 4 in 2D and 3 in 3D while other currentness fields advance. Later gameplay/return checkpoints remain unreached. This iOS failure makes the combined workflow fail despite Android success |
 | Corrected MSAA diagnostic, [34515678208](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34515678208), `3616960` | After the exact diagnostic pack pin correction, native producers pass and the retained suite executes: background/resume and repeated 2D/3D entry pass; stale first-ready/re-entry fails the current-renderer-diagnostics wait. Result: 2/3, overall failure. This isolated diagnostic does not establish production acceptance or an MSAA performance cause |
+| Current iOS production, [34520365907](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34520365907), `c65e264` | Workflow fails. Shared XML independently verifies 156/156 cases in 24 suites; export and unsigned device job pass. Ordinary app and guarded UIKit steps succeed. The original production log, checked against exact throwing test control flow, verifies both modes reach concealed entry with advancing frames, real native selection/Hide and the authority-receipt accepted-Play checks. Both then fail on Standard return: 2D controller/port health assertion; 3D native-close/concealed-Standard return wait. Production: 0/2 by original log. Full XCTest/attachment audit and exact rejected fields remain pending; later return/action/re-entry acceptance is unproved |
+| Current retained iOS, [34520375602](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34520375602), `c65e264` | Completed original-result/source/producer audit: background/concealment and repeated 2D/3D entries pass; stale first-ready/close-completion re-entry fails the unchanged diagnostics wait. Result: 2/3, exit 65, overall failure; retained lifecycle and same-process re-entry remain unqualified. Last rejected second-3D observation is prepared / WAITING_FOR_READY with empty diagnostics; a later observation passes the predicate. Main `557b2297…` pack and reviewed redraw are bound. These observations do not identify startup phase cost or MSAA/redraw causality |
+| iOS startup-phase diagnostic, [34525504734](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34525504734), `fa0fabb` | Original artifacts/source audited: background and repeated 2D/3D entry pass; stale first-ready/re-entry fails, result 2/3 and exit 65. Complete samples measure 13.46 s and 11.69 s between pre/post-draw callback deliveries. The later snapshot still fails the cover predicate. Stack sampling is off, main pack unchanged. These intervals do not isolate GPU, shader or mesh cost; production qualification remains open |
 | Packed renderer, `4d8bd92` / `c6ea1dd` | 677 real-render assertions pass: 155 boundary, 216 terminal-return and 306 redraw |
 
 Historical screenshot reports are excluded from current test totals. The latest
@@ -111,26 +123,33 @@ Disposable CI signing is
 not publisher signing. Comparison acceptance does not qualify the production
 shell, physical LAN or hardware GPUs. API 36 native Play acceptance is inferred
 from the immediate Standard UI outcome, with sampled ownership/currentness;
-it is not an internal authority-revision receipt.
+it is not an internal authority-revision receipt. The older `d06f83a` run
+retains its own 2D five-to-four observation; the current `0f00f17` run shows
+same-round public results in all four cases. Its 3D outcomes include later
+opponent actions and do not directly expose acceptance of the human input.
+The exact `0f00f17` and `c65e264` source snapshots are explicitly derived
+from verified retained source; neither is a newly collected target-head archive.
 
 ## Fixes and parallel work
 
 | Work | Done | What remains |
 | --- | --- | --- |
 | iOS linkage and test headers | Corrected archive extraction and native header search paths. Actual Simulator/device links, sole framework ownership, unit compilation and baseline XCTest pass | Closed for the tested packages; retain regression checks |
-| Android presentation selection | Bounded pending choice integrated; 73 focused controller/lifecycle/observation tests passed. Completed API 35/36 production runs launch both modes in debug and optimized APKs | Complete current-pack and adaptive lifecycle acceptance |
+| Android presentation selection | Bounded pending choice integrated; 73 focused controller/lifecycle/observation tests passed. Completed API 35/36 production runs launch both modes in debug and optimized APKs, including the current main pack at `0f00f17` | Complete adaptive lifecycle acceptance and preserve regression checks for later source |
 | Common deferred mode switch | Narrow correction integrated and pushed after two independent source reviews; 35 focused common tests pass. The original failing iOS regression and all six new common cases now pass in the 156-case native suite | Complete real production mode switching; factory, focus, binding, privacy and the original five-second deadline remain enforced |
 | Optimized Android JNI | Independently reviewed retention rules pushed. Rebuilt APK passes all 122 selected native-interface declarations, versus 69/122 originally. Completed API 35/36 optimized lifecycle and API 36 gameplay pass; those optimized APKs share the complete DEX of the audited APK | Retain checks on current-source packages. The static audit covers the exercised string/primitive boundary, not every optional Godot reflection feature |
-| Android adaptive scenarios | Awaited-control pane routing, read-only concealment observation and split-capability corrections are independently reviewed and integrated; all 207 host tests pass, preserving the prior 172. The latest native retry passes six 2D lifecycle checks per APK/text case | Correct cleanup/stabilization after unavailable split recording and complete affected native cases. Preserve before-UP proof, action visibility, privacy, deadlines and recorder growth requirements; unsupported/unreached scopes remain open |
+| Android adaptive scenarios | Recorder setup, split recovery and entry/exit wiring are integrated in `8030efe`; 259 root host tests pass. Independent review passes 29 cleanup, 18 composed-flow and 22 lifetime cases; final source pins/workflow match | Complete the full four-consumer native retry `34528538284`, preserving before-UP proof, visibility, privacy, deadlines and recorder growth. Unsupported/unreached scopes remain open |
+| Android recorder foundation | Recorder observation/lifecycle foundation is pushed in `9b2a8c9`: 225 root host tests and 26 independent probes pass, with source-only security approval. Split integration is pushed in `8030efe` | Execute the integrated native qualification. Host-only results do not alter the earlier failed adaptive run |
 | Android runtime budget | Bounded twenty-minute cumulative budget on API 35 and 36; both completed production retries finish debug and optimized sequences with passing final results | Closed for those tested runs; retain unchanged per-stage deadlines and current-source regression checks |
 | iOS production layout | Content sizing, hidden-ancestor observation and the one-line negative-fixture correction are integrated. The actual separate guarded UIKit gate now passes 3/3; production failure observations show the enlarged native surface | Complete real production entry, interaction and return acceptance; the layout gate alone does not qualify engine responsiveness |
-| iOS native responsiveness | One identity-bound sampled stack records software GLES and concurrent compiler work. The isolated 3D MSAA-disabled experiment is exported and both native pack pins are corrected without changing guards. Its corrected retained run passes 2/3 | Resolve the remaining diagnostics/liveness failure and complete retained plus production acceptance. Bounded redraw work is active; sampling, simulator attribution and partial diagnostic passes do not establish a performance cause |
-| Android Standard accessibility | Extended five-card, checked-state, selection-limit, Hide and Standard action checks pass in the completed API 35/36 native sequences | Complete current adaptive return scenarios and current-pack regression checks; actual TalkBack remains separate |
+| iOS native responsiveness | Earlier `b080780` and `0f00f17` runs stall at the second entry-frame wait. Reviewed diagnostic redraw is integrated in `c65e264`, with nine independent source-derived host probes. Its production log now reaches advancing concealed entry and accepted native Play in both modes, then fails on Standard return. Retained retry passes 2/3. Separate startup-phase diagnostic is dispatched at `fa0fabb` | Audit exact rejected return fields, resolve production Standard return and retained READY/re-entry failures, and complete acceptance. The earlier static-frame failure is not assigned to this run; source settings and partial passes do not establish exclusive causality |
+| Retained pack preflight | `67fe711` adds retained-only actual pack size/hash and unique native-pin checks before Swift build/runtime. Nineteen root host tests, seven independent probes and the real current pack/pin check pass; the subsequent phase run passes staging and executes native tests | Preserve the native guards; no separate native rerun is needed solely for this preflight |
+| Android Standard accessibility | Extended five-card, checked-state, selection-limit, Hide and Standard action checks pass in completed API 35/36 sequences. Current engine actions clear local renderer selection and pass the public-result acceptance branch | Complete adaptive return scenarios and preserve later-source regression checks; actual TalkBack remains separate. Current public-result XML has zero cards, so unchecked remaining Standard cards are an evidence limit, not an added release gate |
 | iOS Standard accessibility | Feedback semantics have a 48-dp minimum height. Seven layout tests and ordinary iOS 9/9 pass, including five unchanged unfiltered audits. The failed production sessions also reach five Standard hand checkpoints each before native entry | Qualify authoritative Standard action after Godot return. Those production checkpoints do not invoke the ordinary unfiltered audits; actual VoiceOver remains separate |
-| Android native gameplay evidence | Qualification geometry and the real Reveal/card/Play checker are integrated. The completed API 36 original XML audit verifies one actual Play per mode/APK, with the expected immediate Standard UI outcome | Repeat against the current pack/source. Renderer state and sampled observations remain distinct from an internal authority receipt |
-| 2D initial phone layout | One-file Reveal-fit correction independently reviewed and integrated; canonical export rebuilt. The earlier 22 geometry cases and three source input/privacy checks pass, followed by packed input/privacy/drag checks at 378 × 655/1× and 320 × 568/2× | Complete affected native visual and interaction acceptance on the new pack. The existing 200% scrolling path remains; 3D source is unchanged on main |
+| Android native gameplay evidence | Qualification geometry and the real Reveal/card/Play checker are integrated. The current `0f00f17` / `557b2297…` original audit verifies one actual Play per mode/APK and immediate same-round Standard public results, with 198 stable sampled owner records and teardown | Preserve newer-source regression checks and complete adaptive/physical qualification. Local renderer state and sampled observations remain distinct from an internal authority receipt |
+| 2D initial phone layout | One-file Reveal-fit correction and canonical export are integrated. Twenty-two geometry cases, source and packed input/privacy/drag checks pass; the current `557b2297…` native API 36 run completes 2D Reveal/selection/Play in both APKs | Complete remaining adaptive visual/interaction and hardware acceptance. The existing 200% scrolling path remains; 3D source is unchanged on main |
 | 3D large-text scrolling | Independent audit verifies seven original images and 29 fully clipped-safe touch geometries. Tested controls remain reachable by native scrolling; no source patch is warranted by this evidence | Human usability and hardware acceptance remain separate |
-| Screenshots | 2,355 originals plus 13 supplements pushed at `1c714e6`; all 1,125 new/changed paths verified. Two authored EOF blank lines corrected without changing preserved originals | Publish the following batch from current native runs and 2D prototypes with actual failure/currentness context |
+| Screenshots | 2,815 originals plus 13 supplements are pushed at `7ef426e`, with 10,361 evidence files, 13,181 checksum entries and 114 collections. All 3,230 publication delta paths were verified; preserved original bytes remain unchanged | Publish the next reviewed native-run batch with its actual failure/currentness context. Prepared adaptive/retained captures remain unpublished and are excluded from these totals |
 
 Agents use **gpt-6-astra with max reasoning**. Android, iOS, checker,
 accessibility and rendering work proceeds concurrently with independent review.
@@ -138,7 +157,10 @@ Root owns shared builds, integration and Git. Security review remains source-onl
 
 The current main PCK is **1,549,560 bytes / 136 entries**, SHA-256
 `557b2297bed133a433acc25efa4837462465dd4e06da659ae5a4cbd792f77fe0`.
-It contains the integrated 2D layout correction. The separate MSAA diagnostic pack
+It contains the integrated 2D layout correction and is byte-bound to the current
+Android production and `c65e264` retained runs. The `c65e264` 3D source requests
+MSAA_2X; effective GPU sample count is not measured. Its iOS diagnostics redraw
+changes native runtime source, while the PCK stays unchanged. The separate MSAA diagnostic pack
 is **1,549,656 bytes / 136 entries**, SHA-256
 `c8d2b0989524c66715fd7469b7a8315a6fd2fb8563ec87bd2294d60b4ebbcd4a`.
 Each branch's native module pins its own exact pack. Independent review verifies
@@ -150,10 +172,12 @@ input-currentness or timeout gate is relaxed for a pass.
 
 ## What still needs to be done to finish
 
-1. **Complete implementation and automated native qualification.** Resolve
-   Android adaptive cleanup/stabilization and iOS diagnostics/liveness failures.
-   Qualify the integrated checker, 2D layout and exact native pack changes in the
-   current production builds; complete both platforms' 2D/3D gameplay,
+1. **Complete implementation and automated native qualification.** Integrate
+   approved Android recovery, finish recorder wiring and affected adaptive
+   cases, and resolve iOS Standard return and retained READY/re-entry failures.
+   Current-pack Android production gameplay passes; current iOS logs reach
+   accepted native Play but fail return. Complete current iOS production and
+   retained acceptance plus later-source regressions. Complete both platforms' 2D/3D gameplay,
    lifecycle/return/process-loss and remaining adaptive cases. Finish supported
    accessibility assertions and visual review, rerun affected baselines, publish
    the next reviewed evidence batch, and enable shipping Godot modes only after
@@ -173,10 +197,13 @@ input-currentness or timeout gate is relaxed for a pass.
 
 ## Published deliverables
 
-- Source milestones pushed through `0f00f17`; the published gallery remains at `1c714e6`.
-- [Screenshot gallery](screenshots/README.md): **2,355 original PNGs plus 13 supplemental images**,
-  with 7,623 evidence files and 9,983 checksum entries. Recent captures are being
-  prepared with their actual run/failure context.
+- Main source milestones pushed through `8030efe`; the published gallery is at `7ef426e`.
+  Android adaptive retry `34528538284` is running. The separate `fa0fabb`
+  startup-phase diagnostic completes 2/3 and remains unqualified.
+- [Screenshot gallery](screenshots/README.md): **2,815 original PNGs plus 13 supplemental images**,
+  with 10,361 evidence files, 13,181 checksum entries and 114 collections. The
+  next batch is being prepared with its actual run/failure context and is not
+  included in these published totals.
 - [Verified Android 2D/3D preview download](../godot/comparison/README.md),
   [main instructions](../README.md), [validation commands](../scripts/README.md)
   and [iOS setup](../iosApp/README.md).
