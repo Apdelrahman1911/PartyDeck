@@ -1,6 +1,6 @@
 # Last Light renderer prototypes
 
-This real Godot 4.7.2 project contains both the 2D and 3D Last Light presentations. The Kotlin shell owns authority, navigation, networking, preferences and lifetime. A launch chooses one presentation; neither prototype is a production catalog entry. The existing Compose application remains independently runnable.
+This real Godot 4.7.2 project contains both the 2D and 3D Last Light presentations. The Kotlin shell owns authority, navigation, networking, preferences and lifetime. The same scenes serve the standalone comparisons and the implemented Android/iOS session adapters. Mobile Godot styles remain behind explicit qualification profiles; Standard table remains the shipping default.
 
 ## Run
 
@@ -10,10 +10,13 @@ From the repository root, use the verified editor installed by [the packaging to
 flock /tmp/partydeck-godot.lock /opt/partydeck-godot/godot --headless --path godot/renderer --editor --import
 
 /opt/partydeck-godot/godot --path godot/renderer -- \
-  --presentation=3d --launch-file=/absolute/path/to/godot/bridge/fixtures/launch-3d.json
+  --presentation=2d --launch-file="$PWD/godot/bridge/fixtures/launch-2d.json"
+
+/opt/partydeck-godot/godot --path godot/renderer -- \
+  --presentation=3d --launch-file="$PWD/godot/bridge/fixtures/launch-3d.json"
 ```
 
-Use `--presentation=2d` and the matching launch fixture for the flat presentation. A standalone fixture allows local reveal, selection and concealment; submitted intents have no authority loop. For a playable match or an automated full-match comparison, use [the JVM authority runner](../comparison/README.md). Use [the packaging commands](../tools/README.md) to produce and verify one PCK containing both presentations.
+Close one preview before opening the other. A standalone fixture allows local reveal, selection and concealment; submitted intents have no authority loop. For a playable match or an automated full-match comparison, use [the JVM authority runner](../comparison/README.md). To choose either style in an existing mobile session, follow [the session preview instructions](../README.md#build-isolation). Use [the packaging commands](../tools/README.md) to produce and verify one PCK containing both presentations.
 
 ## Runtime boundary
 

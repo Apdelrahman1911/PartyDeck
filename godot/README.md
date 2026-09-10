@@ -70,13 +70,20 @@ and `--presentation 3d` options select the same rules with different graphics.
 The [renderer instructions](renderer/README.md) explain scene checks and
 [export tooling](tools/README.md) verifies the packed inputs.
 
-The [Android comparison host](android-host/README.md) builds an installable APK
-with separate **Play Last Light · 2D** and **Play Last Light · 3D** choices. It
-has real local practice and an explicit repeatable reference match. Its native
-runtime qualification is still in progress; it does not yet integrate the
-shipping application's LAN sessions. The [iOS probe](ios-host/README.md) and
-[Swift-facing authority](bridge/IOS_FACADE.md) have separate native validation
-gates before a playable iOS comparison can be delivered.
+The [Android comparison host](android-host/README.md) builds a standalone
+local-practice APK with **Play Last Light · 2D** and **Play Last Light · 3D**
+choices and an explicit repeatable reference match.
+
+Session attachment is also implemented in the actual PartyDeck Android and iOS
+apps. Their shipping profiles currently expose only Standard table; both Godot
+styles require an explicit qualification build. Follow the
+[Android session preview](android-host/README.md#production-session-preview)
+or the [iOS app and session qualification instructions](../iosApp/README.md).
+In an enabled game, **Table style** offers **2D table** and **3D table**;
+returning to **Standard table** preserves the same session. Native lifecycle,
+mobile accessibility, physical-device and multiplayer qualification remain
+separate gates. The [iOS probes](ios-host/README.md) retain their separate
+embedding and retained-engine evidence.
 
 All inspected screenshots are published in the
 [review gallery](../docs/screenshots/README.md), with original image files,

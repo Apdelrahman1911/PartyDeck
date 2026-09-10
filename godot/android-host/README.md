@@ -2,8 +2,9 @@
 
 This standalone app offers **Play Last Light · 2D** and **Play Last Light · 3D**.
 Both load the real shared Godot project and use `QualificationAuthorityDriver`
-with the existing Last Light rules. The shipping `androidApp`, its networking,
-and its Compose game catalog are separate.
+with the existing Last Light rules. This app owns its local practice authority.
+The actual `androidApp` also has an implemented session adapter; see
+[Production session preview](#production-session-preview) for its explicit build opt-in.
 
 Normal practice uses Android `SecureRandom`. **Use the reference match** is an
 explicit chooser option that uses the audited seed `2` and the same four-seat
@@ -58,6 +59,34 @@ values; the engine error checks remain strict.
 Native input/background/re-entry checks live in `../android-checks/`. A successful
 APK build or a Godot setup callback alone does not establish runtime acceptance.
 
+## Production session preview
+
+The actual PartyDeck app can attach either renderer to its existing practice or
+LAN session. Its checked-in shipping mode list is empty, so enable both styles
+with the qualification build property below. From the repository root, with
+JDK 21, Python 3 and the Android SDK configured:
+
+```sh
+bash scripts/prepare-godot-renderer.sh
+flock /tmp/partydeck-gradle.lock ./gradlew \
+  -PpartydeckGodotQualificationModes=2d,3d :androidApp:assembleDebug --console=plain
+adb install -r androidApp/build/outputs/apk/debug/androidApp-debug.apk
+adb shell am start -n dev.partydeck.app/.MainActivity
+```
+
+The preparation script verifies a current PCK or exports one. Its automatic
+editor installer supports Linux x86_64; on another host, provide your verified
+Godot 4.7.2 executable through `PARTYDECK_GODOT_EXECUTABLE`.
+
+Start a practice game, or enter a LAN game, then open **Table style** and choose
+**2D table** or **3D table**. The native **Standard table** button returns to the
+same session; use the picker again to try the other style once it is available.
+Standard table provides the screen-reader controls. The build opt-in does not
+qualify native lifecycle, Godot mobile accessibility, physical-device performance
+or real LAN behavior; those checks remain separate. See the
+[session transport](../../androidApp/src/main/kotlin/dev/partydeck/app/godot/README.md)
+and [current status](../../docs/STATUS.md).
+
 ## Native ownership and threading
 
 `ComparisonActivity` runs in the default app process and never initializes a
@@ -66,10 +95,10 @@ an actual AndroidX `GodotFragment`, implementing `GodotHost`. A per-process guar
 single-top Activity and disabled chooser buttons prevent a second live host.
 The chooser requires the old engine process to disappear before another launch.
 
-One main-thread authority owns the entire local practice match. This is an
-isolated practice host, **not** online session integration: putting a shipping
-network authority in the KMP shell would require a separately designed process
-boundary and native session ownership. This app declares no network permission.
+One main-thread authority owns this standalone local practice match, and this
+app declares no network permission. The implemented production session adapter
+keeps authority in the KMP shell and uses its private IPC boundary to the native
+renderer process; it does not use this comparison authority.
 
 `getHostPlugins()` registers one runtime `PartyDeckBridgePlugin`; there is no
 manifest plugin auto-discovery entry. Exact Godot singleton surface:

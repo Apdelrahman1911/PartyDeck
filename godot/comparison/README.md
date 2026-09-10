@@ -51,8 +51,10 @@ Interactive play uses native `SecureRandom` output for every authority random
 request. An explicit `--seed` changes it to a documented, reproducible comparison
 session. Other seats use the driver's bounded policy, reading only each seat's
 own safe view. Continue is a real host action; round outcomes are never skipped
-automatically. Lobby/Leave closes the presentation. The qualification session
-is not LAN multiplayer or a shipping application catalog entry.
+automatically. Lobby/Leave closes the presentation. This runner owns a local
+practice session. The [mobile session adapters](../README.md#build-isolation)
+attach the same renderers to the actual PartyDeck app behind qualification
+profiles; they have separate native and multiplayer acceptance gates.
 
 To exercise an exported PCK, first use the separately owned pack tool, then pass
 `--pack godot/qualification/build/renderer/partydeck-last-light.pck`. The probe
