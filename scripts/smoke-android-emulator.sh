@@ -176,6 +176,11 @@ import json
 from pathlib import Path
 import sys
 import zipfile
+import os
+import subprocess
+
+sys.path.insert(0, str(Path("scripts").resolve()))
+from android_godot_activation import parse_build_expectation, parse_packaged_manifest, require_qualification_match
 
 variant, apk_name, output_name, revision = sys.argv[1:]
 apk, output = Path(apk_name), Path(output_name)
@@ -200,6 +205,27 @@ try:
         record['embeddedPackSha256'] = hashlib.sha256(archive.read(entry)).hexdigest()
     if record['embeddedPackSha256'] != record['packSha256']:
         raise RuntimeError('The production APK differs from the source-checked renderer pack.')
+    # The Gradle receipt is intent; decode and compare the actual APK before native execution.
+    expectation = Path('build/ci/android/godot-activation-build.json')
+    expected_bytes = expectation.read_bytes()
+    (output / 'activation-build-expectation.json').write_bytes(expected_bytes)
+    record['activation'] = {'verified': False, 'expectationSha256': hashlib.sha256(expected_bytes).hexdigest()}
+    record['activation']['expected'] = parse_build_expectation(expected_bytes)
+    analyzer = Path(os.environ['ANDROID_HOME']) / 'cmdline-tools/latest/bin/apkanalyzer'
+    command = [str(analyzer), 'manifest', 'print', str(apk)]
+    manifest = subprocess.run(command, capture_output=True, timeout=60)
+    (output / 'packaged-manifest.xml').write_bytes(manifest.stdout)
+    (output / 'packaged-manifest-error.log').write_bytes(manifest.stderr)
+    record['activation']['manifestCommand'] = command
+    record['activation']['manifestCommandExitCode'] = manifest.returncode
+    record['activation']['manifestSha256'] = hashlib.sha256(manifest.stdout).hexdigest()
+    if manifest.returncode != 0:
+        raise RuntimeError('Cannot decode the actual production APK manifest.')
+    record['activation']['packaged'] = parse_packaged_manifest(manifest.stdout)
+    require_qualification_match(record['activation']['expected'], record['activation']['packaged'], '2d,3d')
+    if digest(apk) != record['apkSha256']:
+        raise RuntimeError('The APK changed during packaged activation verification.')
+    record['activation']['verified'] = True
     if variant == 'optimized-test-signed':
         unsigned = Path('androidApp/build/outputs/apk/release/androidApp-release-unsigned.apk')
         signing = json.loads(Path('build/ci/android/packages/runtime-package.json').read_text())
@@ -213,6 +239,9 @@ try:
             raise RuntimeError('The optimized APK does not match its CI signing receipt.')
         record['certificateSha256'] = signing['certificateSha256']
     record['verified'] = True
+except Exception as error:
+    record['error'] = f'{type(error).__name__}: {error}'
+    raise
 finally:
     (output / 'package-inputs.json').write_text(json.dumps(record, indent=2) + '\n')
 PY

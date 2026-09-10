@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import dev.partydeck.app.controller.AppScreen
+import dev.partydeck.app.godot.GodotPresentationActivation
 import dev.partydeck.app.platform.InvitationScannerHost
 import kotlinx.coroutines.launch
 
@@ -50,7 +51,10 @@ class MainActivity : ComponentActivity(), InvitationScannerHost {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 require(modelClass == PartyDeckAndroidViewModel::class.java)
                 @Suppress("UNCHECKED_CAST")
-                return PartyDeckAndroidViewModel(application) as T
+                return PartyDeckAndroidViewModel(
+                    application,
+                    qualifiedPresentations = GodotPresentationActivation.read(application),
+                ) as T
             }
         })[PartyDeckAndroidViewModel::class.java]
         privacy = SessionPrivacyGuard(this)

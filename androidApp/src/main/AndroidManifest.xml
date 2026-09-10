@@ -25,6 +25,13 @@
         android:enableOnBackInvokedCallback="true"
         android:supportsRtl="true"
         android:usesCleartextTraffic="false">
+        <!-- Build-resolved exposure; qualification metadata does not grant shipping acceptance. -->
+        <meta-data
+            android:name="dev.partydeck.GODOT_ACTIVATION_PROFILE"
+            android:value="${partydeckGodotActivationProfile}" />
+        <meta-data
+            android:name="dev.partydeck.GODOT_PRESENTATION_MODES"
+            android:value="${partydeckGodotPresentationModes}" />
         <!-- Typography is bundled; do not start a downloadable emoji-font provider. -->
         <provider
             android:name="androidx.startup.InitializationProvider"

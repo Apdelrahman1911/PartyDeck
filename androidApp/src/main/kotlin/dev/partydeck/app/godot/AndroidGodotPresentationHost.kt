@@ -28,6 +28,7 @@ import kotlinx.coroutines.withContext
 class AndroidGodotPresentationHost(
     context: Context,
     listener: Listener,
+    // Build-packaged exposure, including explicit qualification; this set is not an acceptance receipt.
     qualifiedPresentations: Set<GameplayPresentation>,
 ) : EmbeddedPresentationHost {
     interface Listener {

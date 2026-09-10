@@ -1,6 +1,8 @@
 # Session-backed Android Godot transport
 
-`AndroidGodotPresentationHost` implements the common presentation factory seam. Its caller supplies only qualified modes. Creating a factory is inert; `open` captures the selected 2D/3D mode and launch preferences, requires shell-owned sound (`soundEnabled=false`), and encodes the existing recipient-safe `EngineLaunch` with `LastLightWireCodec`.
+`AndroidGodotPresentationHost` implements the common presentation factory seam. Its caller supplies the modes allowed by the packaged activation profile. Shipping exposure requires recorded qualification; the checked-in shipping list remains empty. Creating a factory is inert; `open` captures the selected 2D/3D mode and launch preferences, requires shell-owned sound (`soundEnabled=false`), and encodes the existing recipient-safe `EngineLaunch` with `LastLightWireCodec`.
+
+The explicit build property `-PpartydeckGodotQualificationModes=2d,3d` enables both modes for qualification through the same picker and session path. The build writes the profile and canonical mode list into manifest metadata; malformed metadata fails closed. The runtime does not accept an activation override from an Intent or preference. CI's production-session opt-in passes this property before packaging and verifies the actual APK metadata against its recorded build expectation before executing the unchanged session checker. A qualification profile does not grant shipping acceptance.
 
 The shell retains the controller, runtime, projection adapter, single renderer-event gate, and authority submission path. These Android classes never construct a session authority or qualification driver. Renderer actions remain typed `EngineEvent` values consumed by the common coordinator. Transport acknowledgements cannot acknowledge a game action or authority receipt.
 

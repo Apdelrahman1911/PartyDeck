@@ -21,6 +21,7 @@ import kotlinx.coroutines.launch
 /** The session survives Activity recreation; process death intentionally starts a fresh session. */
 class PartyDeckAndroidViewModel(
     application: Application,
+    // Packaged exposure allowlist: qualification builds can exercise modes before shipping acceptance.
     qualifiedPresentations: Set<GameplayPresentation> = emptySet(),
 ) : AndroidViewModel(application), AndroidGodotPresentationHost.Listener {
     private data class PendingLaunch(val presentationId: String, val attachment: Long)
@@ -36,8 +37,8 @@ class PartyDeckAndroidViewModel(
     private val visibilityDeadline = Runnable { publishVisibility() }
 
     val services = AndroidPlatformServices(application)
-    // Product entries stay absent until their real session/lifecycle capability is qualified.
-    // The host creates no renderer until a qualified factory is opened by the common owner.
+    // The shipping build allowlist stays empty until session/lifecycle acceptance.
+    // Explicit qualification exposure uses this same host and common authority path.
     private val rendererHost = AndroidGodotPresentationHost(
         context = application,
         listener = this,

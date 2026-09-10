@@ -38,8 +38,10 @@ data class GameplayPresentationState(
 }
 
 /**
- * Supplied by the retained native owner. Advertise only installed, qualified presentations which
- * can open now. Losing availability prevents a future open; it does not end an existing engine.
+ * Supplied by the retained native owner. Advertise only installed presentations allowed by the
+ * packaged profile which can open now. Shipping requires recorded qualification; an explicit
+ * qualification profile can exercise pending modes through this same path. Losing availability
+ * prevents a future open; it does not end an existing engine.
  *
  * Creating a factory is inert. The factory captures these preferences and owns native attachment
  * only during [EmbeddedGameFactory.open]. Its engine ID must be godot-2d or godot-3d respectively.

@@ -2,6 +2,41 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.compose.compiler)
 }
+// Shipping exposure changes only after acceptance. Qualification is an explicit build opt-in.
+fun resolveGodotPresentationActivation(qualificationModes: String?): Pair<String, String> {
+    val modeOrder = listOf("2d", "3d")
+    val shippingModes = emptySet<String>()
+    require(shippingModes.all { it in modeOrder }) { "Unknown shipping Godot presentation mode." }
+    if (qualificationModes == null) {
+        return "shipping" to modeOrder.filter { it in shippingModes }.joinToString(",")
+    }
+    val requested = qualificationModes.split(',')
+    require(requested.all { it in modeOrder } && requested.distinct().size == requested.size) {
+        "partydeckGodotQualificationModes requires distinct 2d or 3d tokens separated by commas, without empty tokens or whitespace."
+    }
+    return "qualification" to modeOrder.filter { it in requested }.joinToString(",")
+}
+val godotActivation = resolveGodotPresentationActivation(
+    providers.gradleProperty("partydeckGodotQualificationModes").orNull,
+)
+val godotActivationProfile = godotActivation.first
+val godotPresentationModes = godotActivation.second
+
+// Intended build values, shared with manifest placeholders; APK metadata is checked separately.
+tasks.register("recordGodotPresentationActivation") {
+    inputs.property("profile", godotActivationProfile)
+    inputs.property("modesCsv", godotPresentationModes)
+    outputs.file(rootProject.layout.buildDirectory.file("ci/android/godot-activation-build.json"))
+    doLast {
+        val output = outputs.files.singleFile
+        output.parentFile.mkdirs()
+        output.writeText(
+            "{\"schemaVersion\":1,\"profile\":\"${inputs.properties.getValue("profile")}\"," +
+                "\"modesCsv\":\"${inputs.properties.getValue("modesCsv")}\"}\n",
+        )
+    }
+}
+
 val releaseSigningValues = listOf(
     "PARTYDECK_KEYSTORE_PATH", "PARTYDECK_KEYSTORE_PASSWORD", "PARTYDECK_KEY_ALIAS", "PARTYDECK_KEY_PASSWORD",
 ).associateWith { providers.environmentVariable(it).orNull }
@@ -20,6 +55,8 @@ android {
         targetSdk = 36
         versionCode = 1
         versionName = "1.0.0"
+        manifestPlaceholders["partydeckGodotActivationProfile"] = godotActivationProfile
+        manifestPlaceholders["partydeckGodotPresentationModes"] = godotPresentationModes
     }
     buildFeatures { compose = true }
     if (hasReleaseSigning) {
