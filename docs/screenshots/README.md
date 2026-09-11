@@ -1,10 +1,16 @@
 # Screenshot review gallery
 
-This collection preserves **4,773 original app and renderer captures**, including failed attempts, and **2,806 supplemental images**, plus four existing asset proofs. Open a collection and click any thumbnail for its full original image. [manifest.json](manifest.json) retains filenames, dimensions, hashes, source paths, exact source revisions and timestamp metadata.
+This collection preserves **4,825 original app and renderer captures**, including failed attempts, and **2,806 supplemental images**, plus four existing asset proofs. Open a collection and click any thumbnail for its full original image. [manifest.json](manifest.json) retains filenames, dimensions, hashes, source paths, exact source revisions and timestamp metadata.
 
-The latest addition preserves **nine original iOS shipping-profile route stills** from run 34607946293: **nine attributed direct views, zero reviewed byte matches and zero unviewed originals**. The Debug Simulator test passed (1/1); all ten stage exit codes are zero.
+The latest addition preserves **52 original Android 3D public-context stills** from run 34609437169: **52 attributed direct views, zero reviewed byte matches and zero unviewed originals**. The optimized and debug sections each retain their Standard anchor and all native positions 00–24, including repeated endpoints. Eight focused and two installation outcomes passed within their stated scope.
 
 | Latest preserved collection | Images | Review scope |
+| --- | ---: | --- |
+| [Android 3D public-context sweep — run 34609437169](godot-android-focused-34609437169/README.md) | 52 originals | API 36, font scale 2.0, landscape multi-window. Exact observed captions preserve visible context and control limits. No Challenge-action, native-body-bottom or shipping acceptance. |
+
+The preceding addition preserves **nine original iOS shipping-profile route stills** from run 34607946293: **nine attributed direct views, zero reviewed byte matches and zero unviewed originals**. The Debug Simulator test passed (1/1); all ten stage exit codes are zero.
+
+| Previous preserved collection | Images | Review scope |
 | --- | ---: | --- |
 | [iOS shipping-profile route — run 34607946293](ios-shipping-34607946293/README.md) | 9 originals | Home, both pickers, native 2D/3D readiness, both Standard returns and Home after confirmed shared Leave. Debug Simulator scope; lower controls/details remain clipped. Native Leave was not exercised. |
 
