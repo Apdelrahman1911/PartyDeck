@@ -78,16 +78,16 @@ Session attachment is also implemented in the actual PartyDeck Android and iOS
 apps. Their shipping profiles currently expose only Standard table; both Godot
 styles require an explicit qualification build. Follow the
 [Android session preview](android-host/README.md#production-session-preview)
-or the [iOS app and session qualification instructions](../iosApp/README.md).
+or the [iOS comparison app instructions](../iosApp/README.md#compare-2d-and-3d).
 In an enabled game, **Table style** offers **2D table** and **3D table**;
 returning to **Standard table** preserves the same session. Native lifecycle,
 mobile accessibility, physical-device and multiplayer qualification remain
 separate gates. The [iOS probes](ios-host/README.md) retain their separate
 embedding and retained-engine evidence.
 
-All inspected screenshots are published in the
+Captured screenshots are preserved in the
 [review gallery](../docs/screenshots/README.md), with original image files,
-source/evidence links, and labeled failed or superseded iterations. Current
+source/evidence links, explicit review status, and labeled failed or superseded iterations. Current
 progress and remaining production gates are recorded in
 [the status report](../docs/STATUS.md).
 
@@ -105,9 +105,10 @@ progress and remaining production gates are recorded in
    and teardown; no active engine in the home/lobby. Test each supported host
    independently and report source-only/export-only evidence accurately.
 5. Review visual hierarchy, touch targets, responsive layout, safe areas,
-   reduced motion and sound. Godot's desktop accessibility support does not
-   prove TalkBack/VoiceOver support; native accessible controls remain a mobile
-   production acceptance gate.
+   reduced motion and sound. Standard table remains the accessible gameplay
+   route. Verify its actual TalkBack/VoiceOver behavior and the native controls
+   for returning to it; Godot's desktop accessibility support does not establish
+   mobile screen-reader acceptance.
 6. Deliver both independently selectable previews. Keep both implementations
    until the user chooses. A later production renderer must also pass the
    existing physical-device, multiplayer, performance and publisher gates.

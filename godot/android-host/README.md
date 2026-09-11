@@ -33,15 +33,19 @@ Expected APK SHA-256:
 Choose **Play Last Light · 2D** or **Play Last Light · 3D** in the app. CI artifacts
 are retained for fourteen days; use the source build below after expiry.
 
-From the repository root, with the Android SDK configured:
+From the repository root, with JDK 21, Python 3.11 or later and the Android SDK configured:
 
 ```sh
-python3 godot/tools/renderer.py pack --godot /opt/partydeck-godot/godot
-env ANDROID_HOME=/opt/android-sdk flock /tmp/partydeck-gradle.lock ./gradlew \
+bash scripts/prepare-godot-renderer.sh
+flock /tmp/partydeck-gradle.lock ./gradlew \
   -p godot/qualification :androidHost:assembleDebug :androidHost:testDebugUnitTest --console=plain
 adb install -r godot/qualification/build/modules/androidHost/outputs/apk/debug/androidHost-debug.apk
 adb shell am start -n dev.partydeck.godot.compare/.ComparisonActivity
 ```
+
+The preparation script verifies a current pack or installs the pinned Linux
+x86_64 editor and exports it. On another host, set `PARTYDECK_GODOT_EXECUTABLE`
+to your verified official Godot 4.7.2 executable before preparation.
 
 The generated asset task verifies the canonical pack and source freshness before
 copying only `partydeck-last-light.pck` into Android assets. The pack receipt is
@@ -64,7 +68,7 @@ APK build or a Godot setup callback alone does not establish runtime acceptance.
 The actual PartyDeck app can attach either renderer to its existing practice or
 LAN session. Its checked-in shipping mode list is empty, so enable both styles
 with the qualification build property below. From the repository root, with
-JDK 21, Python 3 and the Android SDK configured:
+JDK 21, Python 3.11 or later and the Android SDK configured:
 
 ```sh
 bash scripts/prepare-godot-renderer.sh

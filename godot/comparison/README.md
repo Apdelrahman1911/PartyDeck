@@ -17,16 +17,24 @@ events and the shared adapter. The scenario manifest is [scenarios.json](scenari
 
 ## Build and run
 
-Use JDK 21 and the repository's verified Godot 4.7.2 executable. On Linux without
-a display, install/use Xvfb; the runner automatically launches `xvfb-run` when
-`DISPLAY` is absent. Godot's real OpenGL compatibility renderer runs under X11;
-headless dummy rendering cannot qualify screenshots.
+Use Linux with the repository's [build prerequisites](../../README.md#build-and-run)
+and verified Godot 4.7.2 executable. This runner explicitly selects X11 and
+OpenGL compatibility. Its automatic editor installer supports Linux x86_64.
+Without a display, install/use Xvfb; the runner automatically launches
+`xvfb-run` when `DISPLAY` is absent. Interactive play needs a visible desktop
+session; Xvfb runs are useful for automated captures.
+
+From the repository root, install the pinned editor and prepare the packed
+resources before building the launcher:
 
 ```sh
+python3 godot/tools/renderer.py install
+bash scripts/prepare-godot-renderer.sh
 flock /tmp/partydeck-gradle.lock ./gradlew -p godot/qualification :comparison:installDist --console=plain
 
 godot/qualification/build/modules/comparison/install/partydeck-godot-compare/bin/partydeck-godot-compare \
-  --godot /opt/partydeck-godot/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64 \
+  --godot godot/qualification/build/toolchain/godot \
+  --pack godot/qualification/build/renderer/partydeck-last-light.pck \
   --presentation both --size 430x932
 ```
 
@@ -34,16 +42,20 @@ The runner finds the repository from its working directory, or accepts
 `--repository /absolute/path/to/PartyDeck`. `--output` selects a fresh evidence
 directory; existing reports are not overwritten. `--size`, `--text-scale`,
 `--seed`, and `--seconds` select a bounded comparison configuration. Run `--help`
-for all options. Source project assets must already be imported using the
-renderer owner's/tooling's normal import check before the first graphical run.
+for all options. These commands use the PCK, which contains the imported runtime
+resources. To run the loose source project, omit `--pack` only after the
+[source-project import](../renderer/README.md#run). The packaging tool imports a
+temporary copy and does not populate the source project's import cache.
 
 To play either variant directly, use a real desktop display and choose it:
 
 ```sh
 godot/qualification/build/modules/comparison/install/partydeck-godot-compare/bin/partydeck-godot-compare \
+  --pack godot/qualification/build/renderer/partydeck-last-light.pck \
   --presentation 2d --interactive
 
 godot/qualification/build/modules/comparison/install/partydeck-godot-compare/bin/partydeck-godot-compare \
+  --pack godot/qualification/build/renderer/partydeck-last-light.pck \
   --presentation 3d --interactive
 ```
 
@@ -56,9 +68,9 @@ practice session. The [mobile session adapters](../README.md#build-isolation)
 attach the same renderers to the actual PartyDeck app behind qualification
 profiles; they have separate native and multiplayer acceptance gates.
 
-To exercise an exported PCK, first use the separately owned pack tool, then pass
-`--pack godot/qualification/build/renderer/partydeck-last-light.pck`. The probe
-script stays outside the PCK and is passed explicitly by this desktop runner.
+The launcher finds the installed editor at
+`godot/qualification/build/toolchain/godot`; use `--godot` for another verified
+executable. The probe script stays outside the PCK and is passed explicitly by this desktop runner.
 Both packaged presentations use the same root bridge entry point.
 
 ## Evidence
@@ -78,7 +90,9 @@ iteration in a new directory and pass its paths/receipts to the screenshot
 gallery owner; root owns publishing reviewed evidence.
 
 Automated captures use Reduce Motion and muted audio for deterministic input
-and frames. Interactive play uses ordinary motion/audio preferences. Desktop
+and frames. Interactive play enables ordinary motion and sound preferences in
+the renderer, but the launcher always selects Godot's `Dummy` audio driver, so
+this desktop harness produces no audible output. Desktop
 software-rendered frames demonstrate input/bridge behavior and appearance;
 native device accessibility, suspension, touch feel, GPU performance and LAN
 behavior still need their own qualification.

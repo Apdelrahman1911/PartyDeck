@@ -10,7 +10,7 @@ and the Kotlin bridge/comparison scenarios remain separate checks.
 
 ## Install and validate
 
-The packaging scripts require Python 3.10 or later and the official standard
+Use Python 3.11 or later and the official standard
 Godot **4.7.2-stable** editor. No Python packages are needed by `renderer.py`.
 The automatic installer supports Linux x86_64. Other desktop hosts can provide
 the matching official editor with `--godot`; those hosts are not asserted to
@@ -155,8 +155,8 @@ not qualify rendered appearance or a complete match. A mode mismatch fails
 before launch. The tool passes the renderer's actual `--presentation=...` and
 `--launch-file=...` user arguments and records the fixture hash. It does not
 rewrite the launch document. For interactive authoritative input and scenario
-capture, use the [JVM comparison runner](../comparison/README.md) and its
-`--manual-bridge` driver.
+capture, use the [JVM comparison runner](../comparison/README.md). It supplies
+the renderer's `--manual-bridge` argument internally; that is not a runner CLI option.
 
 A successful preview receipt requires the renderer's actual standalone Ready
 event and no Failed event. Ready confirms initialization only; it is never

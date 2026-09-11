@@ -1,6 +1,6 @@
 # PartyDeck for iOS
 
-Open `PartyDeck.xcodeproj` and select the shared **PartyDeck** scheme. Use an ARM64 Mac with Xcode **26.4.1**, JDK **21**, Python 3 with `venv`, Git, and the repository's Gradle/Android SDK setup. The app supports iPhone and iPad on **iOS 15+**. Kotlin device and simulator targets are arm64; Intel simulators are not configured.
+Open `PartyDeck.xcodeproj` and select the shared **PartyDeck** scheme. Use an ARM64 Mac with Xcode **26.4.1**, JDK **21**, Python 3.11 or later with `venv`, Git, and the repository's Gradle/Android SDK setup. The app supports iPhone and iPad on **iOS 15+**. Kotlin device and simulator targets are arm64; Intel simulators are not configured.
 
 Xcode's first build uses the committed SwiftPM lock to resolve Swift Certificates **1.20.0** and its dependencies, then invokes `:composeApp:embedAndSignAppleFrameworkForXcode`. That task builds the static **PartyDeckKit** framework and packages Compose resources. A Run Script phase runs before Swift compilation; user script sandboxing is disabled as required by JetBrains' direct integration. Kotlin integration does not use CocoaPods.
 
@@ -17,6 +17,63 @@ xcodebuild -project iosApp/PartyDeck.xcodeproj -scheme PartyDeck \
 ```
 
 The native helper fetches the pinned upstream source, applies the repository patches, installs the pinned SCons dependency in its own virtual environment, and records archive/source receipts under `godot/ios-host/build`. Xcode's Prepare Godot inputs phase verifies the PCK, native source hashes, archive hashes, architecture, SDK and configuration before staging them. Supported pairs are **Debug/iphonesimulator** and **Release/iphoneos**. For device or archive builds, first run `bash godot/ios-host/build-probe.sh engine device-release`; those inputs live under `godot/ios-host/build/device-release`.
+
+## Compare 2D and 3D
+
+The default build above uses the shipping profile and offers only **Standard
+table**. After preparing the PCK and Simulator native inputs above, build a
+comparison app from the repository root:
+
+```sh
+PARTYDECK_IOS_PREVIEW="$PWD/build/ios-godot-preview"
+python3 -B scripts/prepare-ios-godot-activation.py --modes 2d,3d \
+  --output-plist "$PARTYDECK_IOS_PREVIEW/activation/Info.plist" \
+  --expectation "$PARTYDECK_IOS_PREVIEW/activation/expectation.json"
+xcodebuild -project iosApp/PartyDeck.xcodeproj -scheme PartyDeck \
+  -configuration Debug -sdk iphonesimulator \
+  -destination 'generic/platform=iOS Simulator' \
+  -derivedDataPath "$PARTYDECK_IOS_PREVIEW/DerivedData" \
+  "PARTYDECK_APP_INFO_PLIST=$PARTYDECK_IOS_PREVIEW/activation/Info.plist" \
+  "PARTYDECK_GODOT_ACTIVATION_EXPECTATION=$PARTYDECK_IOS_PREVIEW/activation/expectation.json" \
+  CODE_SIGNING_ALLOWED=NO build
+```
+
+Boot one compatible iPhone Simulator with the selected Xcode, then install and
+launch the app. These commands use `booted` for that one running simulator:
+
+```sh
+xcrun simctl install booted "$PARTYDECK_IOS_PREVIEW/DerivedData/Build/Products/Debug-iphonesimulator/PartyDeck.app"
+xcrun simctl launch booted dev.partydeck.app
+```
+
+Start Practice, open **Table style**, and choose **2D table** or **3D table**.
+Use the native **Standard table** button to return to the same session before
+trying the other style. These settings enable the comparison profile; they do
+not grant native production acceptance. Standard table remains the accessible
+gameplay route.
+
+To reuse a CI Simulator build, select a Validate run requested with
+`platform=ios` and `ios_godot_session=true`, and download its
+`ios-reports-and-simulator-app` artifact. Replace `RUN_ID` with that run's ID:
+
+```sh
+gh run download RUN_ID --repo Apdelrahman1911/PartyDeck \
+  --name ios-reports-and-simulator-app --dir partydeck-ios-preview
+tar -xzf partydeck-ios-preview/build/ci/ios/godot-session/PartyDeck-session-simulator.app.tar.gz \
+  -C partydeck-ios-preview
+xcrun simctl install booted partydeck-ios-preview/PartyDeck.app
+xcrun simctl launch booted dev.partydeck.app
+```
+
+For a focused `platform=ios-godot-production` run, use artifact name
+`ios-focused-production-reports-and-simulator-app`; the session tarball path is
+the same. The baseline `PartyDeck-simulator.app.tar.gz` contains the shipping
+profile. Check the chosen run's source revision and test results: archives can
+be retained after a failed test. Artifacts normally expire after fourteen days;
+the local build above remains available. An unsigned device archive needs the
+device build and signing steps below and cannot replace the Simulator app.
+
+## Automated validation
 
 After PCK preparation, run `scripts/validate-ios-app.sh` on macOS for the baseline **Debug Simulator** build and native transport/shared UI tests. It builds the Simulator engine unless `PARTYDECK_IOS_SIMULATOR_GODOT_ENGINE_ROOT` names prepared inputs with matching receipts. The script discovers an available iPhone simulator, verifies the packaged resources and production link, and saves `PartyDeck.xcresult`, screenshots, logs, link maps, and `PartyDeck-simulator.app.tar.gz` under `build/ci/ios`.
 
@@ -36,11 +93,13 @@ Request the separate production Godot session qualification from GitHub Actions 
 gh workflow run validate.yml --ref main -f platform=ios -f ios_godot_session=true
 ```
 
-`ios_godot_session` defaults to false. When requested, the workflow first runs the baseline Simulator suite, then `scripts/validate-ios-godot-session.sh` selects exactly `testProduction2DPracticeSession` and `testProduction3DPracticeSession` in `PartyDeckGodotSessionUITests`. These use the real practice controller and presentation picker, measured coordinates for Reveal/card/Hide/Play input on the native surface, Standard return, canceled and confirmed Leave, and re-entry with the retained native owner. The result checker requires both named cases to execute and pass, plus original screenshots and sanitized observation attachments.
+`ios_godot_session` defaults to false. When requested, the workflow attempts the baseline Simulator suite, UIKit layout suite and production session suite independently after the shared native inputs succeed. `scripts/validate-ios-godot-session.sh` selects exactly `testProduction2DPracticeSession` and `testProduction3DPracticeSession` in `PartyDeckGodotSessionUITests`. These use the real practice controller and presentation picker, measured coordinates for Reveal/card/Hide/Play input on the native surface, Standard return, canceled and confirmed Leave, and re-entry with the retained native owner. The result checker requires both named cases to execute and pass, plus original screenshots and sanitized observation attachments.
 
 The session wrapper generates a qualification `Info.plist` and expectation using `scripts/prepare-ios-godot-activation.py` with `--modes 2d,3d`. It supplies the app-only `PARTYDECK_APP_INFO_PLIST` override and `PARTYDECK_GODOT_ACTIVATION_EXPECTATION`; test bundles keep their own generated plists. It also sets `PARTYDECK_SESSION_QUALIFICATION_CONDITION=PARTYDECK_GODOT_SESSION_QUALIFICATION` for the app and UI-test Debug targets, preserving inherited `DEBUG`. The tests' `--partydeck-observe-godot-session` argument enables observation only; the generated bundled profile grants the requested modes subject to the native/pack checks. The checked-in shipping profile keeps `PartyDeckQualifiedGodotPresentations` empty. Production native runtime is not yet accepted; a qualification request or successful package/link receipt does not grant that acceptance.
 
 Session evidence uses a separate `build/ci/ios/godot-session` directory, including `activation/`, `PartyDeckGodotSessions.xcresult`, `attachments/`, `result.json`, the link receipt, and `PartyDeck-session-simulator.app.tar.gz`. CI includes it in `ios-reports-and-simulator-app`. Preserve the previous baseline `.xcresult` and the entire session evidence directory before rerunning. See [the validation commands](../scripts/README.md#ios-on-macos-or-github-actions) for local qualification and artifact details.
+
+## Device builds and signing
 
 Run `scripts/validate-ios-device.sh` separately on macOS to build an unsigned arm64 device app with Xcode's **Release** configuration. It requires the current PCK and builds the device engine unless `PARTYDECK_IOS_DEVICE_GODOT_ENGINE_ROOT` supplies matching prepared inputs. This selects the optimized Kotlin/Native release framework and Swift release settings. The script checks that the build reports `:composeApp:linkReleaseFrameworkIosArm64`, verifies the packaged resources and production link, and saves `xcodebuild-device.log`, a link map, and `PartyDeck-device-unsigned.app.tar.gz` under `build/ci/ios`. With `ios_godot_session=true`, CI also builds this unsigned device app with a generated qualification profile; it performs no device runtime test and enables no Debug observation code in Release. CI runs the device and Simulator jobs independently after one shared PCK export. Signing and device execution remain separate steps.
 

@@ -8,7 +8,7 @@ entry creates the retained `PDGodotEngineOwner`.
 
 ## Production target integration
 
-- Compile the three Swift files in this directory in the PartyDeck application.
+- Compile the Swift files in this directory in the PartyDeck application.
 - Set `SWIFT_OBJC_BRIDGING_HEADER` to
   `$(SRCROOT)/PartyDeck/Godot/PartyDeckGodot-Bridging-Header.h` and expose
   `godot/ios-host/modules/partydeck_ios_probe` through the header search path.
@@ -21,9 +21,12 @@ entry creates the retained `PDGodotEngineOwner`.
   `ProbeResources/partydeck-last-light.pck`. Its project path is the application's
   resource root. Native code checks this path and the compiled pack digest before
   acquisition; a standalone `project.godot` is unnecessary with this main pack.
-- Advertise only qualified installed modes through the Info.plist array
-  `PartyDeckQualifiedGodotPresentations`, with values `2d` and/or `3d`. Without an
-  installed pack and an explicit mode, the adapter offers no Godot choice.
+- The shipping Info.plist uses `PartyDeckQualifiedGodotPresentations`, which is
+  currently empty. For a comparison build, generate a qualification plist and
+  expectation using the [app instructions](../../README.md#compare-2d-and-3d).
+  That profile selects `PartyDeckQualificationGodotPresentations`, with values
+  `2d` and/or `3d`. Without an installed pack and an explicit mode, the adapter
+  offers no Godot choice.
 
 The native owner is source-coupled to the pinned Godot build. Its header is
 [`PDGodotEngineOwner.h`](../../../godot/ios-host/modules/partydeck_ios_probe/PDGodotEngineOwner.h).

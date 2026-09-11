@@ -220,7 +220,7 @@ scope; they do not turn an unsupported or failed case into a pass.
 
 ## iOS on macOS or GitHub Actions
 
-Use an ARM64 Mac with Xcode 26.4.1, JDK 21, Python 3 with `venv`, Git, and the
+Use an ARM64 Mac with Xcode 26.4.1, JDK 21, Python 3.11 or later with `venv`, Git, and the
 Android SDK listed above for KMP configuration. The native build helper fetches
 the pinned Godot source and installs the hash-pinned SCons dependency in its own
 virtual environment.
@@ -303,9 +303,10 @@ qualification. Focused outputs use the distinct
 log, the original session XCResult, attachments and packaged application.
 
 For the full `platform=ios` run, the session input defaults to false; omit it for
-the baseline. When true, the Simulator
-job first completes the baseline suite, then runs
-`validate-ios-godot-session.sh` in a separate build/result directory. It selects
+the baseline. When true, the Simulator job attempts the baseline, UIKit layout
+and production session suites independently once their shared native inputs
+succeed; a baseline or layout failure does not skip the session suite.
+`validate-ios-godot-session.sh` uses a separate build/result directory. It selects
 exactly these two cases in `PartyDeckUITests/PartyDeckGodotSessionUITests`:
 
 - `testProduction2DPracticeSession`
@@ -318,7 +319,7 @@ re-enters with the retained engine. The checker requires both named cases to
 start and pass exactly once, an independent XCResult summary with exactly two
 passes, and original screenshots plus sanitized observation attachments.
 
-For the default local paths, after the baseline Simulator validation succeeds:
+For the default local paths, after preparing the PCK and Simulator native inputs:
 
 ```sh
 PARTYDECK_IOS_GODOT_SESSION_SMOKE=1 \
