@@ -14,7 +14,7 @@ MODULE_FILES = {
     f"partydeck_ios_probe/{name}" for name in (
         "AppleExportPlugins.mm", "PDGodotEngineOwner.h", "PDGodotRuntime.h",
         "PDGodotRuntime.mm", "SCsub", "config.py", "engine_surface_probe.mm",
-        "register_types.h", "strict_json.h",
+        "frame_timing.h", "register_types.h", "strict_json.h",
     )
 }
 
