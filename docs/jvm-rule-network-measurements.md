@@ -1,5 +1,11 @@
 # JVM rule and network measurements
 
+The [2026-09-11 baseline](measurements/jvm-20260911/README.md) preserves all six raw CSVs,
+source pins and artifact hashes from run `34547302716`. All three real TLS integration cases
+passed, and both measurement suites completed two warmups and five samples. The report
+summarizes sample-only medians and observed ranges for the six-controller JVM fixture;
+mobile hardware and physical-LAN qualification remain pending.
+
 Run this opt-in harness on the existing JVM test classpath. It adds no dependency or default test
 run, and the standalone init script leaves shared Gradle configuration unchanged. Use a new output
 directory for every run:

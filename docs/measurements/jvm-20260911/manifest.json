@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "run": {
+    "id": 34547302716,
+    "url": "https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34547302716",
+    "attempt": 1,
+    "headSha": "5341ffe873df5a571905b8bfd0dfdd6554ea3247",
+    "workflowPath": ".github/workflows/jvm-rule-network-measurements.yml",
+    "jobId": 103102608005,
+    "conclusion": "success"
+  },
+  "originalArtifact": {
+    "id": 10179568012,
+    "name": "jvm-rule-network-measurements",
+    "format": "zip",
+    "bytes": 68838,
+    "sha256": "8f00df30eae3bf8068d228cfb7508599235bb0acf13ad01fe340280efe4b30a0",
+    "createdAtUtc": "2026-09-11T00:41:31Z",
+    "expiresAtUtc": "2026-09-25T00:41:30Z"
+  },
+  "sourceFiles": [
+    {
+      "path": "composeApp/src/jvmTest/kotlin/dev/partydeck/app/LanMultiplayerIntegrationTest.kt",
+      "bytes": 48183,
+      "sha256": "f14ab2dd0c440928d60dedb84209ab6db29b93e3ec3e80191771e6eaa6423901"
+    },
+    {
+      "path": "composeApp/src/jvmTest/kotlin/dev/partydeck/app/JvmMeasurementTypes.kt",
+      "bytes": 2452,
+      "sha256": "cebeeca249764948b160d2bd944aae6341203064bccb17934a907c1dcfbb0de2"
+    },
+    {
+      "path": "composeApp/src/jvmTest/kotlin/dev/partydeck/app/JvmRuleNetworkMeasurements.kt",
+      "bytes": 24300,
+      "sha256": "2570300d0e658a2071eee591ad1ffe0623507057f6397927edd84b608fac3039"
+    },
+    {
+      "path": "scripts/jvm-rule-network-measurements.init.gradle",
+      "bytes": 1767,
+      "sha256": "415dedeafee88ac99b2a9a4a26118817f1dfbad312ea45ca5997f8eac9733467"
+    },
+    {
+      "path": ".github/workflows/jvm-rule-network-measurements.yml",
+      "bytes": 3446,
+      "sha256": "7171c68189485e5e633dc0f098fff2f216240e2f2451de1688a835e29d7a0ac7"
+    }
+  ],
+  "integrationTests": {
+    "suite": "LanMultiplayerIntegrationTest[jvm]",
+    "passed": 3,
+    "failed": 0,
+    "skipped": 0,
+    "junitArchiveMember": "composeApp/build/test-results/jvmTest/TEST-dev.partydeck.app.LanMultiplayerIntegrationTest.xml",
+    "junitBytes": 825,
+    "junitSha256": "c72f269a5b1a2497e3b3af6f73de98246256bcd3b7ef64bc913747be7846813c",
+    "cases": [
+      {
+        "name": "realTlsGuestsPlayPrivateHandsResolveAChallengeRedealAndReleaseTheListener[jvm]",
+        "classname": "dev.partydeck.app.LanMultiplayerIntegrationTest",
+        "status": "passed"
+      },
+      {
+        "name": "interruptedRealTlsLinkResumesTheSamePrivateTurnAndUsesAFreshCommandId[jvm]",
+        "classname": "dev.partydeck.app.LanMultiplayerIntegrationTest",
+        "status": "passed"
+      },
+      {
+        "name": "sixRealTlsSeatsFinishRematchAndRehostUsingTheSameControllers[jvm]",
+        "classname": "dev.partydeck.app.LanMultiplayerIntegrationTest",
+        "status": "passed"
+      }
+    ]
+  },
+  "measurementCompletion": {
+    "completed": true,
+    "seed": 20260910,
+    "seats": 6,
+    "warmupsPerSuite": 2,
+    "samplesPerSuite": 5,
+    "completedAuthorityTrials": 7,
+    "completedTlsTrials": 7,
+    "tlsIntervals": 14,
+    "summarizedRunKind": "sample"
+  },
+  "csvFiles": [
+    {
+      "path": "authority-steps.csv",
+      "archiveMember": "build/ci/jvm-rule-network/raw/authority-steps.csv",
+      "bytes": 38347,
+      "rows": 385,
+      "sha256": "d65a6a21c39a09f0c92ad072d3f99ea4f32f81379d7aa793c1cf067b0102b313"
+    },
+    {
+      "path": "codec-messages.csv",
+      "archiveMember": "build/ci/jvm-rule-network/raw/codec-messages.csv",
+      "bytes": 322247,
+      "rows": 2926,
+      "sha256": "b47bbce9e507ccd7ab8deaaa256d50af8aaa15aaa6fb1a25dd1e972951303c5f"
+    },
+    {
+      "path": "completed-trials.csv",
+      "archiveMember": "build/ci/jvm-rule-network/raw/completed-trials.csv",
+      "bytes": 711,
+      "rows": 14,
+      "sha256": "bbdd877d9e1440b95ae246a321d6c89e2c5f0f20ca3343833bd69f949e04bfbb"
+    },
+    {
+      "path": "metadata.csv",
+      "archiveMember": "build/ci/jvm-rule-network/raw/metadata.csv",
+      "bytes": 2181,
+      "rows": 37,
+      "sha256": "56e482e69ab8ebbcb4a4c6ddf42dcb0c333afbc8c9eb09e9dbbc58fb34892860"
+    },
+    {
+      "path": "rule-views.csv",
+      "archiveMember": "build/ci/jvm-rule-network/raw/rule-views.csv",
+      "bytes": 97607,
+      "rows": 1848,
+      "sha256": "bab70361e1d1d8f9123deffb327b6874cc8ef2ae90969fb2e1120ed7f6230f1e"
+    },
+    {
+      "path": "tls-payload-intervals.csv",
+      "archiveMember": "build/ci/jvm-rule-network/raw/tls-payload-intervals.csv",
+      "bytes": 7134,
+      "rows": 84,
+      "sha256": "8a93dce53e450f343c1167944ce51cae180b5a8264f5f30174b8508fd30f8c1d"
+    }
+  ],
+  "readme": {
+    "path": "README.md",
+    "bytes": 4226,
+    "sha256": "1dc58bdf44d311b64203f658a01fbb0e4faadf84d2d2cbeed6dc1acd1d9f7a58"
+  },
+  "scope": "Exploratory repeated seeded JVM fixture. Raw CSVs retain warmups; README statistics exclude them. Real TLS uses six controllers in one JVM. Application payload excludes framing, keepalives, TLS and TCP/IP bytes. No device, physical-LAN or performance-threshold qualification."
+}

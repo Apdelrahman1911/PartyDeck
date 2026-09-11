@@ -1,6 +1,6 @@
 # PartyDeck implementation and acceptance plan
 
-The user brief is preserved in `plan.md`. This is the executable plan, prepared from independent toolchain, gameplay, security, platform, design and release research before feature implementation. The coordinator integrates changes; ten implementation owners and five independent reviewers use `gpt-6-astra` with `max` reasoning.
+The user brief is preserved in `plan.md`. This is the executable plan, prepared from independent toolchain, gameplay, security, platform, design and release research before feature implementation. The coordinator integrates changes. The resumed work uses **30 delegated agents, all `gpt-6-astra` with `max` reasoning**; current boundaries and deliverables are in the [agent ownership ledger](AGENT-OWNERSHIP.md). This current allocation supersedes the original ten-implementation/five-reviewer allocation.
 
 ## Product and scope
 
@@ -9,6 +9,8 @@ Ship a Kotlin Multiplatform application shell for Android and iOS, with one comp
 People can learn through a short rules sheet and a full practice match, host a LAN table, or join a host's invitation. Hosts and guests use the same versioned authority and game rules as practice. Accounts, a hosted backend, advertising, analytics and internet matchmaking are unnecessary. Devices must share a reachable local network; access-point isolation and permission failures must produce actionable errors. No Bluetooth/offline-hotspot compatibility is claimed without verification.
 
 ## Architecture and ownership
+
+The table below retains the original module boundaries and baseline owner roles. The [current agent ledger](AGENT-OWNERSHIP.md) assigns the narrower resumed tasks; root continues to own shared Gradle configuration and Git integration.
 
 | Module / files | Responsibility | Implementation owner | Review owner |
 |---|---|---|---|

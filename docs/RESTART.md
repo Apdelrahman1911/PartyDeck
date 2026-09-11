@@ -1,7 +1,18 @@
 # PartyDeck paused-session checkpoint
 
+> **Resumed on 2026-09-11 at the user's request.** This checkpoint preserves the
+> historical stopping state. Use [STATUS.md](STATUS.md) for current verified
+> results and [AGENT-OWNERSHIP.md](AGENT-OWNERSHIP.md) for the 30-agent allocation.
+
+## Historical pause instruction — superseded by the resume above
+
 **Paused at the user's request on 2026-09-11, approximately 01:05 UTC.**
-Do not resume agents, collectors, builds, decoders, or CI until the user asks to resume.
+The instruction at that stopping point was:
+
+> Do not resume agents, collectors, builds, decoders, or CI until the user asks to resume.
+
+The [original checkpoint](https://github.com/Apdelrahman1911/PartyDeck/blob/085a07338b3f79c0fa6d167bf07ebe62dc6a99d1/docs/RESTART.md)
+preserves its exact wording. The remaining sections record that historical state.
 
 The working branch is `checkpoint/pause-20260911`. Its application source is based on
 the already-pushed main commit `ac2200aed8d170e55009257a9ab5b48ef0b02081`.
