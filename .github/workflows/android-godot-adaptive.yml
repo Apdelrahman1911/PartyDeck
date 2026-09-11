@@ -2,12 +2,21 @@ name: Android Godot adaptive execution
 
 on:
   workflow_dispatch:
+    inputs:
+      scenario:
+        description: Full adaptive execution or focused 3D public-context scrolling
+        required: true
+        type: choice
+        default: adaptive
+        options:
+          - adaptive
+          - short-public-context
 
 permissions:
   contents: read
 
 concurrency:
-  group: android-godot-adaptive-${{ github.ref }}
+  group: android-godot-adaptive-${{ github.ref }}-${{ inputs.scenario || 'adaptive' }}
   cancel-in-progress: false
 
 defaults:
@@ -97,7 +106,7 @@ jobs:
           if-no-files-found: warn
 
   adaptive:
-    name: API36 / ${{ matrix.variant }} / ${{ matrix.font_scale }}x text / both modes
+    name: API36 / ${{ matrix.variant }} / ${{ matrix.font_scale }}x text / ${{ inputs.scenario == 'short-public-context' && '3D public context' || 'both modes' }}
     needs: packages
     runs-on: ubuntu-24.04
     timeout-minutes: 55
@@ -105,7 +114,7 @@ jobs:
       fail-fast: false
       matrix:
         variant: ['debug', 'optimized-test-signed']
-        font_scale: ['1.0', '2.0']
+        font_scale: ${{ fromJSON(inputs.scenario == 'short-public-context' && '["2.0"]' || '["1.0","2.0"]') }}
     steps:
       - name: Check out the same source revision
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -146,13 +155,14 @@ jobs:
         run: |
           test -e /dev/kvm
           sudo chmod a+rw /dev/kvm
-      - name: Run both modes through the adaptive runner on a fresh AVD
+      - name: Run the selected native scenario on a fresh AVD
         timeout-minutes: 40
         env:
           PARTYDECK_ANDROID_API: '36'
           PARTYDECK_ANDROID_GODOT_ADAPTIVE_SMOKE: '1'
           PARTYDECK_ANDROID_GODOT_SESSION_SMOKE: '0'
           PARTYDECK_SOURCE_REVISION: ${{ github.sha }}
+          PARTYDECK_ADAPTIVE_SCENARIO: ${{ inputs.scenario || 'adaptive' }}
           PARTYDECK_ADAPTIVE_VARIANT: ${{ matrix.variant }}
           PARTYDECK_ADAPTIVE_FONT_SCALE: ${{ matrix.font_scale }}
           PARTYDECK_ADAPTIVE_MANIFEST_SHA256: ${{ needs.packages.outputs.inputs-sha256 }}
@@ -164,7 +174,7 @@ jobs:
         if: always()
         uses: ./.github/actions/upload-artifact
         with:
-          name: android-adaptive-api36-${{ matrix.variant }}-font-${{ matrix.font_scale }}-${{ github.run_id }}-${{ github.run_attempt }}
+          name: android-adaptive-api36-${{ matrix.variant }}-font-${{ matrix.font_scale }}-${{ github.run_id }}-${{ github.run_attempt }}${{ inputs.scenario == 'short-public-context' && '-short-public-context' || '' }}
           path: |
             build/ci/android/godot-adaptive/**
             build/ci/android/preparation/**

@@ -8,6 +8,7 @@ PARTYDECK_ANDROID_SDK="${ANDROID_HOME:?Set ANDROID_HOME to the installed Android
 PARTYDECK_ANDROID_API="${PARTYDECK_ANDROID_API:-35}"
 PARTYDECK_ANDROID_GODOT_SESSION_SMOKE="${PARTYDECK_ANDROID_GODOT_SESSION_SMOKE:-0}"
 PARTYDECK_ANDROID_GODOT_ADAPTIVE_SMOKE="${PARTYDECK_ANDROID_GODOT_ADAPTIVE_SMOKE:-0}"
+PARTYDECK_ADAPTIVE_SCENARIO="${PARTYDECK_ADAPTIVE_SCENARIO:-adaptive}"
 PARTYDECK_SOURCE_REVISION="${PARTYDECK_SOURCE_REVISION:-${GITHUB_SHA:-}}"
 if [[ "$PARTYDECK_ANDROID_API" != 35 && "$PARTYDECK_ANDROID_API" != 36 ]]; then
   printf '%s\n' 'PARTYDECK_ANDROID_API must be 35 or 36.' >&2
@@ -19,6 +20,15 @@ if [[ "$PARTYDECK_ANDROID_GODOT_SESSION_SMOKE" != 0 && "$PARTYDECK_ANDROID_GODOT
 fi
 if [[ "$PARTYDECK_ANDROID_GODOT_ADAPTIVE_SMOKE" != 0 && "$PARTYDECK_ANDROID_GODOT_ADAPTIVE_SMOKE" != 1 ]]; then
   printf '%s\n' 'PARTYDECK_ANDROID_GODOT_ADAPTIVE_SMOKE must be 0 or 1.' >&2
+  exit 1
+fi
+
+if [[ "$PARTYDECK_ADAPTIVE_SCENARIO" != adaptive && "$PARTYDECK_ADAPTIVE_SCENARIO" != short-public-context ]]; then
+  printf '%s\n' 'PARTYDECK_ADAPTIVE_SCENARIO must be adaptive or short-public-context.' >&2
+  exit 1
+fi
+if [[ "$PARTYDECK_ADAPTIVE_SCENARIO" == short-public-context && "$PARTYDECK_ANDROID_GODOT_ADAPTIVE_SMOKE" != 1 ]]; then
+  printf '%s\n' 'Focused public-context execution requires the adaptive package verification route.' >&2
   exit 1
 fi
 
@@ -67,6 +77,10 @@ if [[ "$PARTYDECK_ANDROID_GODOT_ADAPTIVE_SMOKE" == 1 ]]; then
   if [[ "$PARTYDECK_ADAPTIVE_VARIANT" != debug && "$PARTYDECK_ADAPTIVE_VARIANT" != optimized-test-signed ]] || \
      [[ "$PARTYDECK_ADAPTIVE_FONT_SCALE" != 1.0 && "$PARTYDECK_ADAPTIVE_FONT_SCALE" != 2.0 ]]; then
     printf '%s\n' 'Adaptive CI requires debug/optimized-test-signed and 1.0/2.0 text.' >&2
+    exit 1
+  fi
+  if [[ "$PARTYDECK_ADAPTIVE_SCENARIO" == short-public-context && "$PARTYDECK_ADAPTIVE_FONT_SCALE" != 2.0 ]]; then
+    printf '%s\n' 'Focused public-context execution requires 2.0 text.' >&2
     exit 1
   fi
   PARTYDECK_ADAPTIVE_BUNDLE="$PARTYDECK_ANDROID_OUTPUT/adaptive-inputs"
@@ -267,23 +281,37 @@ PY
     PARTYDECK_ADAPTIVE_APK="$PARTYDECK_ADAPTIVE_BUNDLE/PartyDeck-release-ci-test-signed.apk"
   fi
   PARTYDECK_ADAPTIVE_STATUS=0
-  python3 -B scripts/smoke_android_godot_adaptive.py \
-    --session-checker scripts/smoke-android-godot-session.py \
-    --serial "$PARTYDECK_EMULATOR_SERIAL" --apk "$PARTYDECK_ADAPTIVE_APK" \
-    --source-revision "$PARTYDECK_SOURCE_REVISION" --variant "$PARTYDECK_ADAPTIVE_VARIANT" \
-    --font-scale "$PARTYDECK_ADAPTIVE_FONT_SCALE" --modes 2d 3d \
-    --output "$PARTYDECK_ADAPTIVE_OUTPUT/runtime" || PARTYDECK_ADAPTIVE_STATUS=$?
+  if [[ "$PARTYDECK_ADAPTIVE_SCENARIO" == short-public-context ]]; then
+    python3 -B scripts/smoke_android_godot_public_context.py \
+      --session-checker scripts/smoke-android-godot-session.py \
+      --serial "$PARTYDECK_EMULATOR_SERIAL" --apk "$PARTYDECK_ADAPTIVE_APK" \
+      --source-revision "$PARTYDECK_SOURCE_REVISION" --variant "$PARTYDECK_ADAPTIVE_VARIANT" \
+      --bundle "$PARTYDECK_ADAPTIVE_BUNDLE" \
+      --package-inputs "$PARTYDECK_ADAPTIVE_OUTPUT/package-inputs/package-inputs.json" \
+      --manifest-sha256 "$PARTYDECK_ADAPTIVE_MANIFEST_SHA256" \
+      --output "$PARTYDECK_ADAPTIVE_OUTPUT/runtime" || PARTYDECK_ADAPTIVE_STATUS=$?
+  else
+    python3 -B scripts/smoke_android_godot_adaptive.py \
+      --session-checker scripts/smoke-android-godot-session.py \
+      --serial "$PARTYDECK_EMULATOR_SERIAL" --apk "$PARTYDECK_ADAPTIVE_APK" \
+      --source-revision "$PARTYDECK_SOURCE_REVISION" --variant "$PARTYDECK_ADAPTIVE_VARIANT" \
+      --font-scale "$PARTYDECK_ADAPTIVE_FONT_SCALE" --modes 2d 3d \
+      --output "$PARTYDECK_ADAPTIVE_OUTPUT/runtime" || PARTYDECK_ADAPTIVE_STATUS=$?
+  fi
   python3 - "$PARTYDECK_ADAPTIVE_OUTPUT" "$PARTYDECK_ADAPTIVE_STATUS" \
-    "$PARTYDECK_ADAPTIVE_VARIANT" "$PARTYDECK_ADAPTIVE_FONT_SCALE" <<'PY'
+    "$PARTYDECK_ADAPTIVE_VARIANT" "$PARTYDECK_ADAPTIVE_FONT_SCALE" "$PARTYDECK_ADAPTIVE_SCENARIO" <<'PY'
 import json
 from pathlib import Path
 import sys
 
-output, status, variant, font = Path(sys.argv[1]), int(sys.argv[2]), sys.argv[3], sys.argv[4]
+output, status, variant, font, scenario = Path(sys.argv[1]), int(sys.argv[2]), sys.argv[3], sys.argv[4], sys.argv[5]
+focused = scenario == 'short-public-context'
 (output / 'execution.json').write_text(json.dumps({
-    'runnerExitCode': status, 'variant': variant, 'fontScale': font, 'modes': ['2d', '3d'],
+    'runnerExitCode': status, 'variant': variant, 'fontScale': font,
+    'scenario': scenario, 'modes': ['3d'] if focused else ['2d', '3d'],
     'androidApi': 36, 'unsupported': status == 2,
-    'scope': 'Adaptive automated scope only; original pixel privacy review remains required.',
+    'scope': ('Focused 3D public-context geometry and collection only; public-text and Challenge pixel review remains required.'
+              if focused else 'Adaptive automated scope only; original pixel privacy review remains required.'),
 }, indent=2) + '\n')
 PY
   # Exit 2 remains unsupported and fails the job; ordinary baseline flows do not run here.
