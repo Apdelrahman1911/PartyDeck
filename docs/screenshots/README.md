@@ -1,10 +1,16 @@
 # Screenshot review gallery
 
-This collection preserves **4,754 original app and renderer captures**, including failed attempts, and **2,806 supplemental images**, plus four existing asset proofs. Open a collection and click any thumbnail for its full original image. [manifest.json](manifest.json) retains filenames, dimensions, hashes, source paths, exact source revisions and timestamp metadata.
+This collection preserves **4,758 original app and renderer captures**, including failed attempts, and **2,806 supplemental images**, plus four existing asset proofs. Open a collection and click any thumbnail for its full original image. [manifest.json](manifest.json) retains filenames, dimensions, hashes, source paths, exact source revisions and timestamp metadata.
 
-The latest addition preserves **51 original iOS simulator stills** from CI 34559902607: **51 direct views, 0 reviewed byte matches and 0 unviewed originals**. Both production sessions, nine ordinary tests and three UIKit tests passed with separately scoped native evidence.
+The latest addition preserves **four original Android 3D diagnostic stills** from run 34575134242: **four attributed direct views, zero reviewed byte matches and zero unviewed images**. The Debug and optimized test-signed selections retain failed half-page overlap results.
 
 | Latest preserved collection | Images | Review scope |
+| --- | ---: | --- |
+| [Android 3D scroll diagnostics — run 34575134242](godot-android-focused-diagnostics-34575134242/README.md) | 4 originals | Bounded HTTP-range diagnostic extraction. Final displacements 52 and 86 exceed 51.5; a bright border does not prove focus. No whole-archive, canonical-collection or native acceptance. |
+
+The preceding addition preserves **51 original iOS simulator stills** from CI 34559902607: **51 direct views, 0 reviewed byte matches and 0 unviewed originals**. Both production sessions, nine ordinary tests and three UIKit tests passed with separately scoped native evidence.
+
+| Previous preserved collection | Images | Review scope |
 | --- | ---: | --- |
 | [iOS simulator qualification — CI 34559902607](ios-34559902607/README.md) | 51 originals | Current 2D/3D and ordinary UI pixels, exact source/observation pairing, clipping and timing limitations. Available post-scroll Challenge was not executed; no hardware-performance or shipping qualification. |
 

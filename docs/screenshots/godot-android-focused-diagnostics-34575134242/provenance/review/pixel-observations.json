@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/pixel_d1_split",
+  "run": "34575134242",
+  "source_revision_attributed_by_retained_records": "094ea9aee48d927173f3afa659a0bf35101d1b3d",
+  "scope": "Four selected original PNGs and their two selected original result JSONs. No full archive or canonical collection acceptance.",
+  "root_png_receipt": {
+    "path": "artifacts/evidence-storage/restart-20260911T0457/root/run9-fix-integration/run10-diagnostic-pngs.json",
+    "bytes": 5613,
+    "sha256": "33954470ae41b36fcde834aca76b3506bd8835e302dd3823763ff989cca5fa34",
+    "verification": "Receipt read and hashed; selected PNG sizes and SHA-256 values independently matched. ZIP CRC verification is root-attributed; no archive re-read was performed."
+  },
+  "results": [
+    {
+      "path": "/tmp/partydeck-android-focused-diagnostics-34575134242/debug-result.json",
+      "bytes": 740422,
+      "sha256": "a718910eac92860a7c8ec3d841b11062ea60438187e5d05caff19663153f02c0",
+      "independently_hashed": true,
+      "status": "failed",
+      "selected_indices": [6, 7],
+      "play_y": [682, 630],
+      "last_swipe_index": 6,
+      "last_swipe_displacement": 52
+    },
+    {
+      "path": "/tmp/partydeck-android-focused-diagnostics-34575134242/optimized-test-signed-result.json",
+      "bytes": 1147941,
+      "sha256": "034800de4d7a75a52204d0e421c6b551fd4e7ed062f4874ffeb70fec58d7b713",
+      "independently_hashed": true,
+      "status": "failed",
+      "selected_indices": [11, 12],
+      "play_y": [550, 464],
+      "last_swipe_index": 11,
+      "last_swipe_displacement": 86
+    }
+  ],
+  "common_recorded_geometry": {
+    "surface": [136, 343, 681, 377],
+    "viewport": [389.142852783203, 215.428573608398],
+    "clip": [16, 96, 357, 103],
+    "play_width_height": [349, 68],
+    "play_fully_enclosed_in_all_four_records": false,
+    "half_page_limit": 51.5,
+    "last_swipe_origin_in_both_variants": "centred-body",
+    "last_swipe": {"start": [476, 637], "end": [476, 565], "duration_ms": 600},
+    "earlier_optimized_alternate": "The earlier upper-body [476,601] -> [476,529] swipe recovered 48 units between positions 09 and 10. It was not the final 86-unit swipe."
+  },
+  "coverage": {
+    "direct_original_detail_views": 4,
+    "additional_byte_match_view_credits": 0,
+    "assigned_unviewed": 0,
+    "png_dimensions": [1600, 720],
+    "inspection_method": "tools.view_image, detail original, once per listed identity",
+    "selected_result_screenshot_records_match_png_sha256": true
+  },
+  "captures": [
+    {
+      "path": "/tmp/partydeck-android-focused-diagnostics-34575134242/optimized-test-signed-3d-context-position-11.png",
+      "member": "godot-adaptive/runtime/captures/3d-context-position-11.png",
+      "bytes": 104121,
+      "sha256": "956d62fcb9d8514f7a047c68a373aa45c89fceda5277a1199f84ccaa3a611ca0",
+      "crc32_of_local_png": "252a60dc",
+      "observation": "Below Show hand, the Swipe seats instruction is visible. The Last round review button begins around physical Y562 and extends below the body bottom near Y691. Its first line reads Last round · review; the lower reveal line is clipped. The actual DOWN at [476,637] lies inside this partly clipped button."
+    },
+    {
+      "path": "/tmp/partydeck-android-focused-diagnostics-34575134242/optimized-test-signed-3d-context-position-12.png",
+      "member": "godot-adaptive/runtime/captures/3d-context-position-12.png",
+      "bytes": 79826,
+      "sha256": "7fa882501454b5b617cd6721c659fd07dd0bcaa9502b429b5d2c4235c7a20a63",
+      "crc32_of_local_png": "aba3ab4d",
+      "observation": "The lower reveal line and button bottom are now visible; the button top and first line are clipped above the body. Its border is bright yellow-green. That color is compatible with table.gd hover/pressed styling and does not alone prove keyboard focus. Body scroll position has changed while the header remains fixed."
+    },
+    {
+      "path": "/tmp/partydeck-android-focused-diagnostics-34575134242/debug-3d-context-position-06.png",
+      "member": "godot-adaptive/runtime/captures/3d-context-position-06.png",
+      "bytes": 99581,
+      "sha256": "f39a9ce32471862d2c4a8bc386fe686789b5b447e39ae91fe2d1b254794e7568",
+      "crc32_of_local_png": "e2a2cc7a",
+      "observation": "Guest, Moxie and public card-count/fuse text occupy the body. The DOWN at [476,637] lies in blank roster space below the card-count text. No button is visible at that origin, and the horizontal roster track has not yet entered the visible body."
+    },
+    {
+      "path": "/tmp/partydeck-android-focused-diagnostics-34575134242/debug-3d-context-position-07.png",
+      "member": "godot-adaptive/runtime/captures/3d-context-position-07.png",
+      "bytes": 101348,
+      "sha256": "f84f89f47a93ea7a6b50155bd7e2103f885334c449af44d2ef45a29f7ddf1e91",
+      "crc32_of_local_png": "689c7c0b",
+      "observation": "Roster text has moved up about 91 physical pixels, consistent with the recorded 52 logical units. The horizontal track is now visible around Y614 and the Swipe seats instruction below it. Native chrome and Show hand remain fixed."
+    }
+  ],
+  "conclusion": "The debug placement supports a timing/inertia explanation without a visible button at the origin. The optimized placement, the clipped history button and inspected follow-focus code support an additional focus-induced scroll contribution. The records contain no native receiver/focus event trace and do not establish an exact numerical decomposition of either jump.",
+  "limits": [
+    "Both original overlap failures remain valid: 52 and 86 exceed 51.5.",
+    "Native chrome and Show hand are visible in all four selections; no full current claim, Play, private rank text or card faces are visible in them.",
+    "Four direct views do not establish complete public-context text coverage or continuous privacy.",
+    "No new native input, package download, archive verification, device test or physical-network test was performed.",
+    "Candidate review and focused host verification will be recorded separately."
+  ]
+}
