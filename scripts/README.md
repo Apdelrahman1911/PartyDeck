@@ -83,7 +83,7 @@ The input sets `PARTYDECK_ANDROID_GODOT_SESSION_SMOKE=1` for
 `validate-android.sh`, which passes `-PpartydeckGodotQualificationModes=2d,3d`
 to Gradle before packaging and records `build/ci/android/godot-activation-build.json`.
 The APKs contain the `qualification` profile and `2d,3d` mode metadata. Default
-shipping builds retain empty native mode lists. Explicit qualification makes the
+Android shipping builds retain empty native mode lists. Explicit qualification makes the
 real picker choices available for testing; it does not grant shipping acceptance.
 
 For the equivalent local flow, use the same source checkout for both calls and
@@ -339,16 +339,17 @@ observation condition. The tests launch with `--partydeck-observe-godot-session`
 which enables observation only. Mode availability comes from the generated
 bundled qualification profile and the existing native/pack checks.
 
-The checked-in shipping profile still has an empty
-`PartyDeckQualifiedGodotPresentations` array. Qualification requests populate
+The checked-in iOS shipping profile lists `2d` and `3d` in
+`PartyDeckQualifiedGodotPresentations`, making both Godot styles available alongside
+the initially selected Standard table. Qualification requests separately populate
 `PartyDeckQualificationGodotPresentations` in the generated plist. The same
 workflow input makes the separate device job generate a qualification profile
 under `build/ci/ios/device-activation` for its unsigned Release package. Locally,
 set `PARTYDECK_IOS_GODOT_SESSION_SMOKE=1` when invoking
 `validate-ios-device.sh` to request that profile. Release contains no Debug
-observation code, and the device job performs no runtime tests. Production native
-runtime is not yet accepted; build/link receipts retain
-`ios_runtime_executed: false` and `kmp_factory_qualified: false`.
+observation code, and the device job performs no runtime tests. Build/link receipts
+retain `ios_runtime_executed: false` and `kmp_factory_qualified: false`; they do not
+by themselves establish native runtime acceptance.
 
 CI exports the PCK once in the Linux `ios-renderer-pack` job. Both ARM64
 `macos-26` jobs verify its source revision/receipt, select Xcode 26.4.1, and then

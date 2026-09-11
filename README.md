@@ -21,15 +21,16 @@ and preserves failed and superseded iterations.
 
 ## Try both Godot tables
 
-Both real presentations are implemented and retained for comparison. The default
-Android and iOS builds currently expose **Standard table**; explicit qualification
-builds enable **2D table** and **3D table** in the same app session.
+Both real presentations are implemented and retained for comparison. iOS shipping
+builds offer **Standard table**, **2D table** and **3D table** in the same app
+session, with Standard table selected initially. Android shipping builds offer
+**Standard table**; explicit qualification builds enable the two Godot styles.
 
 | Target | Build, install and compare |
 | --- | --- |
 | Android app session | [Enable both styles in PartyDeck](godot/android-host/README.md#production-session-preview) |
 | Android standalone practice | [Download the comparison APK or build it locally](godot/android-host/README.md#build-and-run) |
-| iOS Simulator app session | [Build or download the qualification app](iosApp/README.md#compare-2d-and-3d) |
+| iOS Simulator app session | [Compare both styles in PartyDeck](iosApp/README.md#compare-2d-and-3d) |
 | Linux desktop practice | [Run either packed presentation interactively](godot/comparison/README.md#build-and-run) |
 
 Native qualification remains in progress. The comparison profiles and unsigned

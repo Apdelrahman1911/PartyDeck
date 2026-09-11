@@ -20,9 +20,11 @@ The native helper fetches the pinned upstream source, applies the repository pat
 
 ## Compare 2D and 3D
 
-The default build above uses the shipping profile and offers only **Standard
-table**. After preparing the PCK and Simulator native inputs above, build a
-comparison app from the repository root:
+The default build above uses the shipping profile with **Standard table**,
+**2D table** and **3D table** available in the same session. Standard table remains
+the initial, accessible gameplay route. An explicit qualification app remains
+available for separate comparison and validation. After preparing the PCK and
+Simulator native inputs above, build that app from the repository root:
 
 ```sh
 PARTYDECK_IOS_PREVIEW="$PWD/build/ios-godot-preview"
@@ -95,7 +97,7 @@ gh workflow run validate.yml --ref main -f platform=ios -f ios_godot_session=tru
 
 `ios_godot_session` defaults to false. When requested, the workflow attempts the baseline Simulator suite, UIKit layout suite and production session suite independently after the shared native inputs succeed. `scripts/validate-ios-godot-session.sh` selects exactly `testProduction2DPracticeSession` and `testProduction3DPracticeSession` in `PartyDeckGodotSessionUITests`. These use the real practice controller and presentation picker, measured coordinates for Reveal/card/Hide/Play input on the native surface, Standard return, canceled and confirmed Leave, and re-entry with the retained native owner. The result checker requires both named cases to execute and pass, plus original screenshots and sanitized observation attachments.
 
-The session wrapper generates a qualification `Info.plist` and expectation using `scripts/prepare-ios-godot-activation.py` with `--modes 2d,3d`. It supplies the app-only `PARTYDECK_APP_INFO_PLIST` override and `PARTYDECK_GODOT_ACTIVATION_EXPECTATION`; test bundles keep their own generated plists. It also sets `PARTYDECK_SESSION_QUALIFICATION_CONDITION=PARTYDECK_GODOT_SESSION_QUALIFICATION` for the app and UI-test Debug targets, preserving inherited `DEBUG`. The tests' `--partydeck-observe-godot-session` argument enables observation only; the generated bundled profile grants the requested modes subject to the native/pack checks. The checked-in shipping profile keeps `PartyDeckQualifiedGodotPresentations` empty. Production native runtime is not yet accepted; a qualification request or successful package/link receipt does not grant that acceptance.
+The session wrapper generates a qualification `Info.plist` and expectation using `scripts/prepare-ios-godot-activation.py` with `--modes 2d,3d`. It supplies the app-only `PARTYDECK_APP_INFO_PLIST` override and `PARTYDECK_GODOT_ACTIVATION_EXPECTATION`; test bundles keep their own generated plists. It also sets `PARTYDECK_SESSION_QUALIFICATION_CONDITION=PARTYDECK_GODOT_SESSION_QUALIFICATION` for the app and UI-test Debug targets, preserving inherited `DEBUG`. The tests' `--partydeck-observe-godot-session` argument enables observation only; the generated bundled profile grants the requested modes subject to the native/pack checks. The checked-in shipping profile lists `2d` and `3d` in `PartyDeckQualifiedGodotPresentations`; observation remains confined to explicit qualification builds. The dedicated shipping picker smoke remains pending. A qualification request or successful package/link receipt does not by itself grant native production acceptance.
 
 Session evidence uses a separate `build/ci/ios/godot-session` directory, including `activation/`, `PartyDeckGodotSessions.xcresult`, `attachments/`, `result.json`, the link receipt, and `PartyDeck-session-simulator.app.tar.gz`. CI includes it in `ios-reports-and-simulator-app`. Preserve the previous baseline `.xcresult` and the entire session evidence directory before rerunning. See [the validation commands](../scripts/README.md#ios-on-macos-or-github-actions) for local qualification and artifact details.
 
