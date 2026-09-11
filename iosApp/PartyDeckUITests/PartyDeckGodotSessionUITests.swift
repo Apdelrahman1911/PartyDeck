@@ -614,21 +614,11 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
     @MainActor
     private func read(_ app: XCUIApplication) throws -> Observation? {
         guard app.state == .runningForeground else { return nil }
-        // Leave can remove native chrome between an existence check and a live value query.
-        // Select and read from one captured hierarchy, keeping native status ahead of the badge.
-        var pending: [any XCUIElementSnapshot] = [try app.snapshot()]
-        var node: (any XCUIElementSnapshot)?
-        while let snapshot = pending.popLast() {
-            if snapshot.identifier == "godot-session-status" {
-                node = snapshot
-                break
-            }
-            if snapshot.identifier == "partydeck-session-qualification" && node == nil {
-                node = snapshot
-            }
-            pending.append(contentsOf: snapshot.children.reversed())
-        }
-        guard let text = node?.value as? String, !text.isEmpty else { return nil }
+        // The captured hierarchy selects the route, but its value was incomplete at 512 bytes.
+        // Read the actual element's value and accept it only while that route remains current.
+        guard let before = try observationNode(app) else { return nil }
+        let node = app.descendants(matching: before.elementType).matching(identifier: before.identifier).firstMatch
+        guard node.exists, let text = node.value as? String, !text.isEmpty else { return nil }
         guard let data = text.data(using: .utf8), data.count <= 32768 else {
             throw malformedObservation("encoding_or_size", [], text.utf8.count)
         }
@@ -646,7 +636,6 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
         } catch {
             throw malformedObservation("other", [], data.count)
         }
-        lastDocument = data
         try require(value.schemaVersion == 1 && value.observationInstalled && value.port.activationValid &&
             value.port.profile == "qualification" && value.port.enabledModes.count == 2 &&
             Set(value.port.enabledModes) == Set([Mode.twoD, Mode.threeD]),
@@ -663,8 +652,40 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
             try require(value.observationSequence >= lastObservation.observationSequence,
                         "The selected production observation must not regress to an older sample.")
         }
+        guard app.state == .runningForeground, let after = try observationNode(app),
+              after.identifier == before.identifier, after.elementType == before.elementType,
+              after.frame == before.frame else { return nil }
+        lastDocument = data
         lastObservation = value
         return value
+    }
+
+    @MainActor
+    private func observationNode(_ app: XCUIApplication) throws -> (any XCUIElementSnapshot)? {
+        var pending: [any XCUIElementSnapshot] = [try app.snapshot()]
+        var nativeStatus: (any XCUIElementSnapshot)?
+        var badge: (any XCUIElementSnapshot)?
+        var standardEnabled = false
+        var leaveEnabled = false
+        while let snapshot = pending.popLast() {
+            switch snapshot.identifier {
+            case "godot-session-status":
+                if nativeStatus == nil { nativeStatus = snapshot }
+            case "partydeck-session-qualification":
+                if badge == nil { badge = snapshot }
+            case "godot-standard-table": standardEnabled = snapshot.isEnabled
+            case "godot-leave-table": leaveEnabled = snapshot.isEnabled
+            default: break
+            }
+            pending.append(contentsOf: snapshot.children.reversed())
+        }
+        if let nativeStatus {
+            // beginClosing disables both native controls before dismissing its status label.
+            // Wait for a current route instead of querying that departing native element.
+            guard standardEnabled && leaveEnabled else { return nil }
+            return nativeStatus
+        }
+        return badge
     }
 
     // Rejected documents may contain private data. Export only fixed categories and schema keys.
