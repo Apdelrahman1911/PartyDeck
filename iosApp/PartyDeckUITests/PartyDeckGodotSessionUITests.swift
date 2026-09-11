@@ -3,7 +3,7 @@ import Foundation
 import XCTest
 
 /// Explicit qualification cases for the production owner, controller, runtime, authority and renderer.
-/// The build must select these two names and independently verify that both actually ran and passed.
+/// The runner binds the selected scope and verifies that every selected named case actually ran and passed.
 final class PartyDeckGodotSessionUITests: XCTestCase {
     private var lastObservation: Observation?
     private var lastDocument: Data?
@@ -15,6 +15,140 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
 
     @MainActor
     func testProduction3DPracticeSession() async throws { try await exercise(.threeD) }
+
+
+    @MainActor
+    func testProduction2DConcealedLobbyScrollAndCancel() async throws { try await exerciseConcealedLobbyScroll(.twoD) }
+
+    @MainActor
+    func testProduction3DConcealedLobbyScrollAndCancel() async throws { try await exerciseConcealedLobbyScroll(.threeD) }
+
+    /// Targeted input coverage in an observation-enabled qualification app, not the shipping profile.
+    /// The selected phone viewport must actually clip the lower lobby control at entry.
+    @MainActor
+    private func exerciseConcealedLobbyScroll(_ mode: Mode) async throws {
+        lastObservation = nil
+        lastDocument = nil
+        let app = XCUIApplication()
+        app.launchArguments = ["--partydeck-observe-godot-session"]
+        app.launchEnvironment = [:]
+        app.launch()
+        defer { app.terminate() }
+
+        let home = try await wait(app, "The opted-in observation must exist on actual Home.", timeout: 30) {
+            $0.controller?.screen == "HOME" && $0.controller?.sessionPresent == false &&
+                self.element("home-practice", app).isHittable
+        }
+        try require(!home.port.ownerCreated, "Observation must not acquire an engine before renderer selection.")
+        try await tapElement("home-practice", app)
+        let practice = try await playablePractice(app)
+        let state = try controller(practice)
+        try require(!practice.port.ownerCreated && state.handCount == 5,
+                    "Scroll qualification must start from the real five-card Standard practice hand.")
+        try StandardTableAcceptance(app).concealed()
+
+        let origin = try await enter(mode, app, session: state.sessionGeneration)
+        try require(origin.state.phase == "PLAYING" && origin.state.ownTurn && origin.state.canPlay &&
+                    origin.state.canSendAction && origin.state.pending == nil && origin.native.queuedEvents == 0 &&
+                    origin.renderer.concealed,
+                    "Concealed scrolling requires an idle human turn and no private faces, labels or selection.")
+        _ = try measuredFrame(origin, app)
+        guard let originalLobby = origin.renderer.control("lobby", index: -1) else {
+            throw Failure("The real lower Return to lobby control must be observed.")
+        }
+        let originalRect = try rectangle(originalLobby.rect)
+        let originalClip = try rectangle(originalLobby.clipRect)
+        try require(originalLobby.enabled && originalRect.maxY > originalClip.maxY + 0.5 &&
+                    originalRect.width <= originalClip.width + 0.5 && originalRect.height <= originalClip.height + 0.5,
+                    "This qualification viewport must exercise lower-control overflow; an already fitting layout is not offscreen coverage.")
+        try captureConcealedScroll("\(mode.rawValue) native scroll concealed before drag", app, value: origin)
+
+        let reached = try await reachRenderer("lobby", mode, app, session: state.sessionGeneration, performTap: false,
+            afterScroll: { value, gestures in
+                try self.requireScrollPreservedInput(origin, value)
+                try self.captureConcealedScroll("\(mode.rawValue) native scroll concealed body drag \(gestures)", app, value: value)
+            })
+        try require(reached.gestures > 0, "A whole control without an actual native drag does not establish scroll reachability.")
+        try requireScrollPreservedInput(origin, reached.value)
+        try requireWholeScrollControl("lobby", reached.value, app)
+        try captureConcealedScroll("\(mode.rawValue) native scroll full lobby bounds", app, value: reached.value)
+        guard let reachedLobby = reached.value.renderer.control("lobby", index: -1) else {
+            throw Failure("The reached real lobby control disappeared.")
+        }
+        let evidence: [String: Any] = [
+            "schemaVersion": 1, "kind": "native_concealed_body_lobby_reachability", "mode": mode.rawValue,
+            "scrollGestures": reached.gestures,
+            "beforeObservationSequence": String(origin.observation.observationSequence.value),
+            "afterObservationSequence": String(reached.value.observation.observationSequence.value),
+            "beforeRendererSequence": String(origin.renderer.sequence.value),
+            "afterRendererSequence": String(reached.value.renderer.sequence.value),
+            "beforeRect": originalLobby.rect, "beforeClipRect": originalLobby.clipRect,
+            "afterRect": reachedLobby.rect,
+            "afterClipRect": reachedLobby.clipRect,
+            "nativeFrame": reached.value.geometry.frame, "nativeBounds": reached.value.geometry.bounds,
+            "rendererViewport": [reached.value.renderer.viewport.width, reached.value.renderer.viewport.height],
+            "concealed": reached.value.renderer.concealed,
+            "authorityIntentCountBefore": origin.native.intentEvents,
+            "authorityIntentCountAfter": reached.value.native.intentEvents,
+            "lastSeatVisibility": "independent_pixel_review_required",
+            "horizontalRoster": "not_exercised_no_observed_target",
+        ]
+        attach(try JSONSerialization.data(withJSONObject: evidence, options: [.sortedKeys]),
+               "\(mode.rawValue) native scroll measured lobby reachability")
+
+        // This actual coordinate tap must open the renderer's own local confirmation.
+        // Never submit the destructive lobby_confirm action.
+        let beforeOpen = try await tapRenderer("lobby", mode, app, session: state.sessionGeneration)
+        try requireScrollPreservedInput(origin, beforeOpen)
+        _ = try await live(mode, app, session: state.sessionGeneration, after: beforeOpen) {
+            $0.renderer.control("lobby_confirm", index: -1)?.visible == true &&
+                $0.renderer.control("lobby_cancel", index: -1)?.visible == true
+        }
+        let dialog = try await reachRenderer("lobby_cancel", mode, app, session: state.sessionGeneration, performTap: false)
+        try requireScrollPreservedInput(origin, dialog.value)
+        try requireWholeScrollControl("lobby_cancel", dialog.value, app)
+        try require(dialog.value.renderer.control("lobby_confirm", index: -1)?.enabled == true,
+                    "Opening Return to lobby must expose its actual confirmation, not the shared Leave dialog.")
+        try captureConcealedScroll("\(mode.rawValue) native scroll lobby confirmation", app, value: dialog.value)
+        let beforeCancel = try await tapRenderer("lobby_cancel", mode, app, session: state.sessionGeneration)
+        try requireScrollPreservedInput(origin, beforeCancel)
+        let cancelled = try await live(mode, app, session: state.sessionGeneration, after: beforeCancel) {
+            $0.renderer.control("lobby_confirm", index: -1) == nil &&
+                $0.renderer.control("lobby_cancel", index: -1) == nil &&
+                $0.renderer.control("lobby", index: -1)?.enabled == true && $0.renderer.concealed
+        }
+        try requireScrollPreservedInput(origin, cancelled)
+        try captureConcealedScroll("\(mode.rawValue) native scroll lobby cancelled", app, value: cancelled)
+
+        try await tapElement("godot-leave-table", app)
+        try await leaveDialog(app)
+        try await tapElement("leave-confirm", app)
+        let finished = try await homeAfterLeave(app, after: state.sessionGeneration)
+        try retained(finished, first: origin)
+        capture("\(mode.rawValue) native scroll cleanup Home", app)
+    }
+
+    @MainActor
+    private func requireWholeScrollControl(_ action: String, _ value: Live, _ app: XCUIApplication) throws {
+        _ = try measuredFrame(value, app)
+        guard let control = value.renderer.control(action, index: -1) else {
+            throw Failure("The real scroll target disappeared.")
+        }
+        let rect = try rectangle(control.rect)
+        let clip = try rectangle(control.clipRect)
+        let viewport = CGRect(origin: .zero, size: value.renderer.viewport.size)
+        try require(control.enabled && control.visible && rect.width >= 48 && rect.height >= 48 &&
+                    viewport.insetBy(dx: -0.5, dy: -0.5).contains(clip) && clip.insetBy(dx: -0.5, dy: -0.5).contains(rect),
+                    "The actual touch target must have its complete 48-point bounds inside the measured native clip.")
+    }
+
+    @MainActor
+    private func captureConcealedScroll(_ name: String, _ app: XCUIApplication, value: Live) throws {
+        try require(app.state == .runningForeground && value.isInteractive && value.renderer.concealed &&
+                    privateCards(app).count == 0 && !element("invitation-dialog", app).exists,
+                    "Scroll captures require the active concealed practice renderer and no invitation.")
+        capture(name, app)
+    }
 
     @MainActor
     private func exercise(_ mode: Mode) async throws {
@@ -467,7 +601,8 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
 
     @MainActor
     private func reachRenderer(_ action: String, _ mode: Mode, _ app: XCUIApplication, session: Counter,
-                               cardIndex: Int = -1, performTap: Bool) async throws -> (value: Live, gestures: Int) {
+                               cardIndex: Int = -1, performTap: Bool,
+                               afterScroll: ((Live, Int) throws -> Void)? = nil) async throws -> (value: Live, gestures: Int) {
         var value = try await live(mode, app, session: session)
         var gestures = 0
         for _ in 0..<16 {
@@ -535,6 +670,7 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
                 }
                 try requireScrollPreservedInput(latest, value)
             }
+            try afterScroll?(value, gestures)
         }
         throw Failure("The actual renderer target did not settle inside its clip within the bounded touch attempts.")
     }

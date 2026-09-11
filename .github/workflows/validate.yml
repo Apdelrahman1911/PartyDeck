@@ -17,6 +17,14 @@ on:
           - ios
           - ios-godot-production
           - ios-godot-shipping
+      ios_session_scope:
+        description: Focused ios-godot-production scope; production is unchanged and scroll uses separate named evidence
+        required: true
+        type: choice
+        default: production
+        options:
+          - production
+          - qualification-scroll
       ios_shipping_scope:
         description: Focused shipping scope; each scope has separate named tests and evidence
         required: true
@@ -48,7 +56,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: validate-${{ github.workflow }}-${{ github.ref }}-${{ inputs.platform || 'all' }}-${{ inputs.android_api || '35' }}-${{ inputs.ios_shipping_scope || 'picker' }}
+  group: validate-${{ github.workflow }}-${{ github.ref }}-${{ inputs.platform || 'all' }}-${{ inputs.android_api || '35' }}-${{ inputs.ios_shipping_scope || 'picker' }}-${{ inputs.ios_session_scope || 'production' }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
@@ -195,7 +203,7 @@ jobs:
           if-no-files-found: warn
 
   ios:
-    name: ${{ inputs.platform == 'ios-godot-production' && 'Focused iOS production Godot sessions' || inputs.platform == 'ios-godot-shipping' && inputs.ios_shipping_scope == 'native-leave' && 'Focused iOS shipping native Leave' || inputs.platform == 'ios-godot-shipping' && 'Focused iOS shipping Godot entry' || 'iOS native tests and app smoke' }}
+    name: ${{ inputs.platform == 'ios-godot-production' && inputs.ios_session_scope == 'qualification-scroll' && 'Focused iOS concealed body scroll and lobby cancel' || inputs.platform == 'ios-godot-production' && 'Focused iOS production Godot sessions' || inputs.platform == 'ios-godot-shipping' && inputs.ios_shipping_scope == 'native-leave' && 'Focused iOS shipping native Leave' || inputs.platform == 'ios-godot-shipping' && 'Focused iOS shipping Godot entry' || 'iOS native tests and app smoke' }}
     needs: [ios-renderer-pack]
     if: ${{ github.event_name != 'workflow_dispatch' || inputs.platform == 'all' || inputs.platform == 'ios' || inputs.platform == 'ios-godot-production' || inputs.platform == 'ios-godot-shipping' }}
     runs-on: macos-26
@@ -314,26 +322,41 @@ jobs:
           PARTYDECK_IOS_GODOT_SESSION_SMOKE: '1'
           PARTYDECK_IOS_SIMULATOR_GODOT_ENGINE_ROOT: ${{ github.workspace }}/godot/ios-host/build
         run: bash scripts/validate-ios-godot-session.sh
-      - name: Exercise the focused production Godot practice sessions
-        if: ${{ !cancelled() && inputs.platform == 'ios-godot-production' && steps.apple-toolchain.outcome == 'success' && steps.renderer-pack.outcome == 'success' && steps.native-engine.outcome == 'success' }}
+      - name: Test qualification-scroll evidence accounting
+        id: qualification-scroll-checker-tests
+        if: ${{ inputs.platform == 'ios-godot-production' && inputs.ios_session_scope == 'qualification-scroll' }}
+        timeout-minutes: 2
+        run: python3 -B -m unittest discover -s scripts/tests -p 'test_ios_godot_scroll.py' -v
+      - name: ${{ inputs.ios_session_scope == 'qualification-scroll' && 'Exercise concealed body scroll and lobby cancel in both Godot modes' || 'Exercise the focused production Godot practice sessions' }}
+        if: ${{ !cancelled() && inputs.platform == 'ios-godot-production' && steps.apple-toolchain.outcome == 'success' && steps.renderer-pack.outcome == 'success' && steps.native-engine.outcome == 'success' && (inputs.ios_session_scope != 'qualification-scroll' || steps.qualification-scroll-checker-tests.outcome == 'success') }}
         timeout-minutes: 45
         shell: bash
         env:
           PARTYDECK_IOS_GODOT_SESSION_SMOKE: '1'
           PARTYDECK_IOS_SIMULATOR_GODOT_ENGINE_ROOT: ${{ github.workspace }}/godot/ios-host/build
+          PARTYDECK_IOS_SESSION_SCOPE: ${{ inputs.ios_session_scope || 'production' }}
         run: |
           mkdir -p build/ci/ios
           {
-            printf '%s\n' 'Focused iOS production Godot session evidence'
+            if [[ "$PARTYDECK_IOS_SESSION_SCOPE" == qualification-scroll ]]; then
+              printf '%s\n' \
+                'Focused iOS qualification concealed body scroll and local lobby cancel evidence' \
+                'Runs exactly the 2D and 3D concealed lobby scroll/cancel XCTest cases.' \
+                'Requires actual lower-control overflow, body drags and whole lobby bounds in each mode.' \
+                'Independent pixel review is still required; last-seat acceptance is not automatic.' \
+                'Horizontal roster interaction and shipping-profile input are not exercised.'
+            else
+              printf '%s\n' 'Focused iOS production Godot session evidence' \
+                'Runs exactly the real production 2D and 3D session XCTest cases.'
+            fi
             printf 'Source revision: %s\n' "$GITHUB_SHA"
             printf '%s\n' \
-              'Runs exactly the real production 2D and 3D session XCTest cases.' \
               'Uses the current-run renderer pack, native Simulator engine, and production Kotlin framework build.' \
               'Scope excludes shared native, ordinary app/interop, UIKit layout, and unsigned-device validation.' \
               'Full Validate remains required for final qualification.'
-          } | tee build/ci/ios/focused-production-scope.log >> "$GITHUB_STEP_SUMMARY"
-          bash scripts/validate-ios-godot-session.sh \
-            2>&1 | tee build/ci/ios/focused-production-session.log
+          } | tee "build/ci/ios/focused-${PARTYDECK_IOS_SESSION_SCOPE}-scope.log" >> "$GITHUB_STEP_SUMMARY"
+          bash scripts/validate-ios-godot-session.sh "$PARTYDECK_IOS_SESSION_SCOPE" \
+            2>&1 | tee "build/ci/ios/focused-${PARTYDECK_IOS_SESSION_SCOPE}-session.log"
       - name: Test native Leave evidence accounting
         id: native-leave-checker-tests
         if: ${{ inputs.platform == 'ios-godot-shipping' && inputs.ios_shipping_scope == 'native-leave' }}
@@ -356,7 +379,7 @@ jobs:
         if: always()
         uses: ./.github/actions/upload-artifact
         with:
-          name: ${{ inputs.platform == 'ios-godot-production' && 'ios-focused-production-reports-and-simulator-app' || inputs.platform == 'ios-godot-shipping' && inputs.ios_shipping_scope == 'native-leave' && 'ios-focused-shipping-native-leave-reports-and-simulator-app' || inputs.platform == 'ios-godot-shipping' && 'ios-focused-shipping-reports-and-simulator-app' || 'ios-reports-and-simulator-app' }}
+          name: ${{ inputs.platform == 'ios-godot-production' && inputs.ios_session_scope == 'qualification-scroll' && 'ios-focused-qualification-scroll-reports-and-simulator-app' || inputs.platform == 'ios-godot-production' && 'ios-focused-production-reports-and-simulator-app' || inputs.platform == 'ios-godot-shipping' && inputs.ios_shipping_scope == 'native-leave' && 'ios-focused-shipping-native-leave-reports-and-simulator-app' || inputs.platform == 'ios-godot-shipping' && 'ios-focused-shipping-reports-and-simulator-app' || 'ios-reports-and-simulator-app' }}
           path: |
             build/ci/ios/*.log
             build/ci/ios/*.json
@@ -375,6 +398,13 @@ jobs:
             build/ci/ios/godot-session/*.json
             build/ci/ios/godot-session/*.tar.gz
             build/ci/ios/godot-session/activation/**
+            build/ci/ios/godot-session-scroll/*.log
+            build/ci/ios/godot-session-scroll/*.json
+            build/ci/ios/godot-session-scroll/*.tar.gz
+            build/ci/ios/godot-session-scroll/activation/**
+            build/ci/ios/godot-session-scroll/PartyDeckGodotSessions.xcresult/**
+            build/ci/ios/godot-session-scroll/attachments/**
+            build/ci/ios/godot-session-scroll/DerivedData/Build/Products/Debug-iphonesimulator/PartyDeckGodotInputs/inputs.json
             build/ci/ios/godot-shipping/*.log
             build/ci/ios/godot-shipping/*.json
             build/ci/ios/godot-shipping/*.tar.gz

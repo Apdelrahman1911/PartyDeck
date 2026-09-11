@@ -1,21 +1,56 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if [[ "$#" -gt 1 ]]; then
+  printf '%s\n' 'Usage: validate-ios-godot-session.sh [production|qualification-scroll]' >&2
+  exit 2
+fi
+PARTYDECK_SESSION_SCOPE="${1-production}"
+case "$PARTYDECK_SESSION_SCOPE" in
+  production)
+    PARTYDECK_SESSION_OUTPUT_NAME=godot-session
+    PARTYDECK_SESSION_TESTS=(
+      -only-testing:PartyDeckUITests/PartyDeckGodotSessionUITests/testProduction2DPracticeSession
+      -only-testing:PartyDeckUITests/PartyDeckGodotSessionUITests/testProduction3DPracticeSession
+    )
+    ;;
+  qualification-scroll)
+    PARTYDECK_SESSION_OUTPUT_NAME=godot-session-scroll
+    PARTYDECK_SESSION_TESTS=(
+      -only-testing:PartyDeckUITests/PartyDeckGodotSessionUITests/testProduction2DConcealedLobbyScrollAndCancel
+      -only-testing:PartyDeckUITests/PartyDeckGodotSessionUITests/testProduction3DConcealedLobbyScrollAndCancel
+    )
+    ;;
+  *)
+    printf '%s\n' 'Select production or qualification-scroll; evidence scopes cannot be combined.' >&2
+    exit 2
+    ;;
+esac
+
 if [[ "$(uname -s)" != Darwin || "$(uname -m)" != arm64 ]]; then
-  printf '%s\n' 'Production Godot session validation requires the ARM64 macOS/Xcode runner.' >&2
+  printf '%s\n' 'Godot session qualification requires the ARM64 macOS/Xcode runner.' >&2
   exit 1
 fi
 if [[ "${PARTYDECK_IOS_GODOT_SESSION_SMOKE:-0}" != 1 ]]; then
-  printf '%s\n' 'Select the explicit production Godot session qualification input before running this script.' >&2
+  printf '%s\n' 'Select the explicit Godot session qualification input before running this script.' >&2
   exit 1
 fi
 
 PARTYDECK_SESSION_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$PARTYDECK_SESSION_ROOT"
-PARTYDECK_SESSION_OUTPUT="$PARTYDECK_SESSION_ROOT/build/ci/ios/godot-session"
+PARTYDECK_SESSION_OUTPUT="$PARTYDECK_SESSION_ROOT/build/ci/ios/$PARTYDECK_SESSION_OUTPUT_NAME"
 if [[ -e "$PARTYDECK_SESSION_OUTPUT" ]]; then
-  printf '%s\n' 'Preserve the existing production session evidence before another execution.' >&2
+  printf '%s\n' 'Preserve the existing selected session evidence before another execution.' >&2
   exit 1
+fi
+if [[ "$PARTYDECK_SESSION_SCOPE" == qualification-scroll ]]; then
+  # Fail before building or launching if the reviewed route or its cleanup changed.
+  python3 -B - "$PARTYDECK_SESSION_ROOT/scripts/check-ios-production-session-smoke.py" \
+    "$PARTYDECK_SESSION_ROOT/iosApp/PartyDeckUITests/PartyDeckGodotSessionUITests.swift" <<'PY'
+from pathlib import Path
+import runpy, sys
+runpy.run_path(sys.argv[1])["check_scroll_source"](Path(sys.argv[2]))
+PY
 fi
 PARTYDECK_SESSION_PACK="${PARTYDECK_IOS_GODOT_PACK:-$PARTYDECK_SESSION_ROOT/godot/qualification/build/renderer/partydeck-last-light.pck}"
 PARTYDECK_SESSION_ENGINE="${PARTYDECK_IOS_SIMULATOR_GODOT_ENGINE_ROOT:?Supply the receipt-checked Simulator engine from this run.}"
@@ -71,6 +106,8 @@ PY
     session_exit=1
   fi
   python3 scripts/check-ios-production-session-smoke.py \
+    --scope "$PARTYDECK_SESSION_SCOPE" \
+    --test-source "$PARTYDECK_SESSION_ROOT/iosApp/PartyDeckUITests/PartyDeckGodotSessionUITests.swift" \
     --test-log "$PARTYDECK_SESSION_OUTPUT/test.log" \
     --xcresult "$PARTYDECK_SESSION_RESULT" \
     --attachments "$PARTYDECK_SESSION_OUTPUT/attachments" \
@@ -145,7 +182,7 @@ if tests.get("GENERATE_INFOPLIST_FILE") != "YES" or tests.get("INFOPLIST_FILE") 
 PY
 
 # Use a separate build/result directory so the ordinary app's receipts and
-# original package remain intact. Only the two named production cases run here.
+# original package remain intact. Only the selected scope's two named cases run here.
 xcodebuild test \
   -project iosApp/PartyDeck.xcodeproj -scheme PartyDeck -configuration Debug -sdk iphonesimulator \
   -destination "platform=iOS Simulator,id=$PARTYDECK_SESSION_SIMULATOR" \
@@ -153,7 +190,6 @@ xcodebuild test \
   -clonedSourcePackagesDirPath "$PARTYDECK_SESSION_ROOT/build/ci/ios/SourcePackages" \
   -resultBundlePath "$PARTYDECK_SESSION_RESULT" \
   -parallel-testing-enabled NO \
-  -only-testing:PartyDeckUITests/PartyDeckGodotSessionUITests/testProduction2DPracticeSession \
-  -only-testing:PartyDeckUITests/PartyDeckGodotSessionUITests/testProduction3DPracticeSession \
+  "${PARTYDECK_SESSION_TESTS[@]}" \
   "${PARTYDECK_SESSION_SETTINGS[@]}" \
   2>&1 | tee "$PARTYDECK_SESSION_OUTPUT/test.log"
