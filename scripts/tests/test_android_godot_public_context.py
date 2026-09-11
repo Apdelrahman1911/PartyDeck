@@ -170,17 +170,37 @@ class GeometryTests(unittest.TestCase):
         value["controls"].append(dict(value["controls"][0], role="select", slot=0))
         cases.append(value)
         for value in cases:
-            with self.subTest(value=value), self.assertRaises(engine.ObservationFailure):
-                focused.body_swipe(value)
+            for upper in (False, True):
+                with self.subTest(value=value, upper_origin=upper), self.assertRaises(engine.ObservationFailure):
+                    focused.body_swipe(value, upper_origin=upper)
+
+    def test_alternate_origin_preserves_the_recorded_drag_length_in_another_body_strip(self):
+        # Measured run 34568971032 position-07 geometry. The alternate coordinates
+        # are a host calculation, not an executed native recovery result.
+        value = snapshot(524)
+        value["controls"][0].update(clip=[16, 96, 357, 103], rect=[16, 524, 349, 68], visible=False)
+        original = copy.deepcopy(value)
+        centred = focused.body_swipe(value)
+        upper = focused.body_swipe(value, upper_origin=True)
+        self.assertEqual({"start": [476, 637], "end": [476, 565], "duration_ms": 600}, centred)
+        self.assertEqual({"start": [476, 601], "end": [476, 529], "duration_ms": 600}, upper)
+        self.assertEqual(centred["start"][1] - centred["end"][1], upper["start"][1] - upper["end"][1])
+        self.assertEqual(original, value)
+        for gesture in (centred, upper):
+            for point in (gesture["start"], gesture["end"]):
+                logical = [(point[index] - value["surface"][index]) / 1.75 for index in (0, 1)]
+                self.assertTrue(16 < logical[0] < 373)
+                self.assertTrue(96 < logical[1] < 199)
 
     def test_near_play_drag_aims_inside_the_full_enclosure_interval(self):
         value = snapshot(160)
-        swipe = focused.body_swipe(value)
-        distance = (swipe["start"][1] - swipe["end"][1]) / 1.75
-        target = value["controls"][0]["rect"].copy()
-        target[1] -= distance
-        self.assertTrue(engine.encloses(value["controls"][0]["clip"], target))
-        self.assertLess(distance, value["controls"][0]["clip"][3] * 0.4)
+        for upper in (False, True):
+            swipe = focused.body_swipe(value, upper_origin=upper)
+            distance = (swipe["start"][1] - swipe["end"][1]) / 1.75
+            target = value["controls"][0]["rect"].copy()
+            target[1] -= distance
+            self.assertTrue(engine.encloses(value["controls"][0]["clip"], target))
+            self.assertLess(distance, value["controls"][0]["clip"][3] * 0.4)
 
     def test_overlap_depends_on_measured_motion_and_not_the_requested_swipe(self):
         before = snapshot(300)
@@ -300,22 +320,23 @@ class SweepTests(unittest.TestCase):
         return focused.ContextSweep(smoke, probe), smoke, probe
 
     def test_motion_full_play_and_terminal_no_progress_leave_pixel_review_pending(self):
-        sweep, smoke, probe = self.sweep([240, 180, 120, 120])
+        sweep, smoke, probe = self.sweep([240, 180, 120, 120, 120])
         result = sweep.run()
         self.assertEqual("passed", result["automated_geometry"])
         self.assertEqual(120, result["body_displacement"])
         self.assertEqual("pending-independent-review", result["public_context_pixel_acceptance"])
         self.assertIn("bottom is not established", result["termination"])
-        self.assertEqual([False, False, True, True], [p["play_fully_enclosed"] for p in result["positions"]])
-        self.assertEqual(3, len(smoke.calls))
-        self.assertEqual(4, len(smoke.captures))
+        self.assertEqual([False, False, True, True, True], [p["play_fully_enclosed"] for p in result["positions"]])
+        self.assertEqual(4, len(smoke.calls))
+        self.assertEqual(5, len(smoke.captures))
+        self.assertEqual(["centred-body", "upper-body"], [s["origin"] for s in sweep.swipes[-2:]])
         self.assertTrue(all(s["status"] == "observed" and s["input"] and s["after"] for s in sweep.swipes))
         self.assertTrue(all(not p["after"]["observation"]["controls"][0]["enabled"] for p in sweep.positions))
 
     def test_small_clip_long_traversal_uses_its_own_budget_beyond_eight_action_swipes(self):
         # 103 is the prior desktop body height; these internal rectangles are host fixtures,
         # not native measurements. Live qualification must observe its own actual geometry.
-        ys = list(range(958, 27, -30)) + [28]
+        ys = list(range(958, 27, -30)) + [28, 28]
         values = []
         for index, y in enumerate(ys):
             value = snapshot(y, index * 8)
@@ -324,18 +345,54 @@ class SweepTests(unittest.TestCase):
             values.append(value)
         sweep, smoke, _ = self.sweep([], values=values)
         result = sweep.run()
-        self.assertEqual(32, len(smoke.calls))
+        self.assertEqual(33, len(smoke.calls))
         self.assertEqual(930, result["body_displacement"])
         self.assertTrue(result["play_fully_enclosed"])
         self.assertEqual("pending-independent-review", result["public_context_pixel_acceptance"])
         self.assertTrue(all(s["content_displacement"] <= 103 / 2 for s in sweep.swipes))
 
     def test_input_stamps_without_motion_or_without_full_play_cannot_pass(self):
-        for ys in ([240, 240], [100, 100], [350, 300, 300]):
+        for ys in ([240, 240, 240], [100, 100, 100], [350, 300, 300, 300]):
             sweep, smoke, _ = self.sweep(ys)
             with self.subTest(ys=ys), self.assertRaisesRegex(engine.ObservationFailure, "before meaningful"):
                 sweep.run()
             self.assertEqual(len(ys), len(smoke.captures))
+
+    def test_subunit_plateaus_cannot_add_up_to_new_meaningful_movement(self):
+        sweep, smoke, _ = self.sweep([100, 99.4, 98.8])
+        with self.assertRaisesRegex(engine.ObservationFailure, "before meaningful"):
+            sweep.run()
+        self.assertEqual(2, len(smoke.calls))
+        self.assertTrue(all(p["play_fully_enclosed"] for p in sweep.positions))
+        self.assertTrue(all(0 < s["content_displacement"] < 1 for s in sweep.swipes))
+        self.assertGreater(sum(s["content_displacement"] for s in sweep.swipes), 1)
+
+    def test_recorded_no_progress_uses_upper_origin_then_resumes_centred_collection(self):
+        # The first nine positions reproduce recorded geometry. All remaining
+        # responses are explicit host fixtures; no native recovery is asserted.
+        ys = [842, 800, 754, 709, 665, 617, 569, 524, 524]
+        ys += [480, 436, 392, 348, 304, 260, 216, 172, 128, 84, 40, 40, 40]
+        values = []
+        for index, y in enumerate(ys):
+            value = snapshot(y, index * 8)
+            value["controls"][0].update(clip=[16, 96, 357, 103], rect=[16, y, 349, 68],
+                                         visible=y < 199 and y + 68 > 96)
+            values.append(value)
+        sweep, smoke, _ = self.sweep([], values=values)
+        result = sweep.run()
+        self.assertEqual("passed", result["automated_geometry"])
+        self.assertEqual(len(ys) - 1, len(smoke.calls))
+        self.assertEqual(0, sweep.swipes[7]["content_displacement"])
+        self.assertFalse(sweep.positions[8]["play_fully_enclosed"])
+        self.assertEqual("centred-body", sweep.swipes[7]["origin"])
+        self.assertEqual([476, 637], sweep.swipes[7]["gesture"]["start"])
+        self.assertEqual("upper-body", sweep.swipes[8]["origin"])
+        self.assertEqual([476, 601], sweep.swipes[8]["gesture"]["start"])
+        self.assertEqual(44, sweep.swipes[8]["content_displacement"])
+        self.assertEqual("centred-body", sweep.swipes[9]["origin"])
+        self.assertTrue(result["play_fully_enclosed"])
+        self.assertEqual("pending-independent-review", result["public_context_pixel_acceptance"])
+        self.assertTrue(all(s["status"] == "observed" and s["content_displacement"] <= 103 / 2 for s in sweep.swipes))
 
     def test_observed_gap_and_reverse_motion_keep_the_reached_image_and_receipts(self):
         for ys, message in (([300, 200], "overlap"), ([200, 210], "opposite")):
@@ -355,11 +412,26 @@ class SweepTests(unittest.TestCase):
             with self.subTest(change=change), self.assertRaisesRegex(engine.ObservationFailure, "stamps"):
                 sweep.run()
             self.assertEqual(1, len(smoke.calls))
-        values = [snapshot(), snapshot(180, 8) | {"generation": "12"}, snapshot(120, 16), snapshot(120, 24)]
+        values = [snapshot(), snapshot(180, 8) | {"generation": "12"}, snapshot(120, 16), snapshot(120, 24), snapshot(120, 32)]
         # One expiry invalidation is legal in addition to the delivered input events.
         for value in values[2:]:
             value["generation"] = str(int(value["generation"]) + 1)
         self.assertEqual("passed", self.sweep([], values=values)[0].run()["automated_geometry"])
+
+    def test_alternate_origin_cannot_continue_after_an_observation_or_overlap_failure(self):
+        cases = (
+            (snapshot(180, 16) | {"input": "8"}, "stamps"),
+            (snapshot(180, 16) | {"projectionRevision": "8"}, "projectionRevision"),
+            (snapshot(180, 16) | {"handConcealed": False}, "settlement predicate"),
+            (snapshot(120, 16), "overlap"),
+            (snapshot(250, 16), "opposite"),
+        )
+        for after, message in cases:
+            sweep, smoke, _ = self.sweep([], values=[snapshot(240, 0), snapshot(240, 8), after])
+            with self.subTest(message=message), self.assertRaisesRegex(engine.ObservationFailure, message):
+                sweep.run()
+            self.assertEqual(2, len(smoke.calls))
+            self.assertEqual("upper-body", sweep.swipes[-1]["origin"])
 
     def test_changed_projection_fails_before_a_second_swipe(self):
         values = [snapshot(), snapshot(180, 8) | {"projectionRevision": "8"}]
@@ -401,6 +473,44 @@ class SweepTests(unittest.TestCase):
         with patch.object(focused, "SWEEP_SECONDS", 0), self.assertRaisesRegex(engine.ObservationFailure, "deadline"):
             sweep.run()
         self.assertEqual([], smoke.calls)
+
+    def test_alternate_origin_cannot_escape_the_existing_count_or_time_budget(self):
+        sweep, smoke, _ = self.sweep([240, 240, 240])
+        with patch.object(focused, "MAX_SWIPES", 1), self.assertRaisesRegex(engine.ObservationFailure, "finite swipe budget"):
+            sweep.run()
+        self.assertEqual(1, len(smoke.calls))
+        self.assertEqual("centred-body", sweep.swipes[-1]["origin"])
+
+        sweep, smoke, _ = self.sweep([240, 240, 240])
+        measure = focused.measured_displacement
+        with patch.object(focused.time, "monotonic", return_value=100.0) as clock:
+            def expire_after_measurement(before, after):
+                displacement = measure(before, after)
+                clock.return_value = 100.0 + focused.SWEEP_SECONDS + 1
+                return displacement
+            with patch.object(focused, "measured_displacement", side_effect=expire_after_measurement), \
+                    self.assertRaisesRegex(engine.ObservationFailure, "finite time budget"):
+                sweep.run()
+        self.assertEqual(1, len(smoke.calls))
+        self.assertEqual(2, len(smoke.captures))
+
+    def test_uncertain_alternate_input_is_preserved_and_never_repeated(self):
+        sweep, smoke, _ = self.sweep([240, 240, 180])
+        send = smoke.adb
+        def second_input_fails(*arguments, **kwargs):
+            if len(smoke.calls) == 1:
+                smoke.transport_error = subprocess.TimeoutExpired(["adb", "shell", "input", "swipe"], 10)
+            return send(*arguments, **kwargs)
+        smoke.adb = second_input_fails
+        with self.assertRaisesRegex(engine.ObservationFailure, "transport did not complete"):
+            sweep.run()
+        self.assertEqual(2, len(smoke.calls))
+        self.assertTrue(smoke.input_incomplete)
+        self.assertEqual("upper-body", sweep.swipes[-1]["origin"])
+        self.assertEqual("requested", sweep.swipes[-1]["status"])
+        with self.assertRaisesRegex(engine.ObservationFailure, "prior input"):
+            smoke.adb("shell", "input", "tap", "1", "1")
+        self.assertEqual(2, len(smoke.calls))
 
     def test_uncertain_swipe_is_retained_once_and_all_further_input_is_forbidden(self):
         error = subprocess.TimeoutExpired(["adb", "shell", "input", "swipe"], 10)
@@ -466,6 +576,9 @@ class StagingTests(unittest.TestCase):
                 if expire_after_play:
                     self.context_staging_deadline = focused.time.monotonic() - 1
                 return {"host_only_outcome": True}
+            def conceal_after_staging_play(self, prefix):
+                # This class tests the staging driver; real hand UI behavior is exercised below.
+                self.actions.append("conceal-after-confirmed-play")
             def dump_ui(self):
                 return table_tree()[0]
             def retain_standard_ui(self, name, observation):
@@ -485,6 +598,7 @@ class StagingTests(unittest.TestCase):
         smoke.stage_context()
         self.assertEqual(1, smoke.plays)
         self.assertEqual(2, smoke.turn_waits)
+        self.assertEqual(1, smoke.actions.count("conceal-after-confirmed-play"))
         self.assertTrue(smoke.context_practice_active)
 
     def test_acknowledged_practice_launch_is_owned_even_if_first_table_wait_fails(self):
@@ -501,6 +615,7 @@ class StagingTests(unittest.TestCase):
         current, plays = smoke.stage_context(records)
         self.assertEqual("claim", current["claim"]["kind"])
         self.assertEqual(3, smoke.plays)
+        self.assertEqual(3, smoke.actions.count("conceal-after-confirmed-play"))
         self.assertEqual([1, 5, 9], [play["before"]["public"]["round"] for play in plays])
         self.assertTrue(all(play["status"] == "confirmed" and "outcome" in play for play in plays))
         self.assertEqual(3, len({play["prefix"] for play in plays}))
@@ -546,6 +661,7 @@ class StagingTests(unittest.TestCase):
         attempts = [event for event in records if event["kind"] == "standard-staging-play"]
         self.assertEqual(2, smoke.plays)
         self.assertEqual(2, smoke.turn_waits)
+        self.assertEqual(1, smoke.actions.count("conceal-after-confirmed-play"))
         self.assertEqual(["confirmed", "input-acknowledged"], [event["status"] for event in attempts])
         self.assertIn("outcome", attempts[0])
         self.assertNotIn("outcome", attempts[1])
@@ -796,6 +912,136 @@ class StagingEvidenceTests(unittest.TestCase):
         with self.assertRaisesRegex(engine.ObservationFailure, "Uncertain prior input"):
             smoke.adb("shell", "input", "keyevent", "KEYCODE_BACK")
         self.assertEqual(1, len(smoke.transport_calls))
+
+
+class StagingHandTests(unittest.TestCase):
+    """Original run-9 starting XML plus explicit host-only later scroll/tap responses."""
+    @staticmethod
+    def hand_frame(*, shown, clipped=False):
+        root = ET.Element("hierarchy", rotation="1")
+        table = node(root, tag="game-table", bounds="[136,271][1516,720]")
+        pane = node(table, bounds="[136,271][1516,720]", scrollable="true")
+        hand = node(pane, tag="game-hand", bounds="[136,271][1516,610]")
+        node(hand, tag="game-hide-hand" if shown else "game-reveal-hand",
+             text="Hide hand" if shown else "Show hand", clickable="true",
+             bounds="[171,150][600,250]" if clipped else "[171,350][600,450]")
+        if shown:
+            node(hand, tag="game-card-0", bounds="[171,470][1481,550]",
+                 **{"content-desc": "Star. Card 1 of 5."})
+        return root
+
+    def host(self, frames, *, original_first=False):
+        directory = tempfile.TemporaryDirectory(prefix="partydeck-staging-hand-host-")
+        self.addCleanup(directory.cleanup)
+        smoke = StagingUiHost(Path(directory.name), frames)
+        smoke.display_size = [720, 1600]
+        if original_first:
+            path = SCRIPTS / "tests/fixtures/android-focused-34568971032/debug-post-progression.xml"
+            raw = path.read_bytes()
+            self.assertEqual("ea61b13aaa764e0529224ea90c5b480c93e2376643c2e6431e1288feb6de44b7",
+                             hashlib.sha256(raw).hexdigest())
+            smoke.frames.insert(0, raw)
+        return smoke
+
+    def virtual_wait_clock(self):
+        elapsed = [0.0]
+        def advance(seconds):
+            elapsed[0] += seconds
+        for mock in (patch.object(session.ui.time, "monotonic", side_effect=lambda: elapsed[0]),
+                     patch.object(session.ui.time, "sleep", side_effect=advance)):
+            mock.start()
+            self.addCleanup(mock.stop)
+
+    def test_run9_private_hand_without_toggles_discovers_hide_once_and_then_proves_concealment(self):
+        smoke = self.host([self.hand_frame(shown=True), self.hand_frame(shown=False)], original_first=True)
+        original = smoke.dump_ui()
+        self.assertIsNotNone(session.tagged_node(original, "game-card-4"))
+        self.assertIsNone(session.tagged_node(original, "game-hide-hand"))
+        self.assertIsNone(session.tagged_node(original, "game-reveal-hand"))
+        self.assertIsNotNone(smoke.find(original, "game-play", enabled=False))
+        with patch.object(session.ui.time, "sleep", return_value=None):
+            smoke.conceal_after_staging_play("host-run9")
+            smoke.assert_concealed()
+        self.assertEqual(["swipe", "tap"], [call[2] for call in smoke.transport_calls])
+        event = smoke.context_staging_records[0]
+        self.assertEqual("game-hide-hand", event["control"])
+        self.assertEqual("input-acknowledged", event["status"])
+        receipt = event["control_xml"]
+        self.assertEqual(smoke.frames[1], (smoke.output / receipt["file"]).read_bytes())
+        self.assertIsNotNone(session.tagged_node(smoke.ui_root, "game-reveal-hand"))
+        self.assertIsNone(session.tagged_node(smoke.ui_root, "game-card-0"))
+
+    def test_already_concealed_hand_needs_no_input(self):
+        smoke = self.host([self.hand_frame(shown=False)])
+        smoke.conceal_after_staging_play("host-concealed")
+        smoke.assert_concealed()
+        self.assertEqual([], smoke.transport_calls)
+        self.assertEqual("game-reveal-hand", smoke.context_staging_records[0]["control"])
+        self.assertEqual("control-observed", smoke.context_staging_records[0]["status"])
+
+    def test_clipped_hide_requires_new_visible_geometry_before_input(self):
+        smoke = self.host([self.hand_frame(shown=True, clipped=True),
+                           self.hand_frame(shown=True), self.hand_frame(shown=False)])
+        with patch.object(session.ui.time, "sleep", return_value=None):
+            smoke.conceal_after_staging_play("host-clipped")
+        self.assertEqual(["swipe", "tap"], [call[2] for call in smoke.transport_calls])
+        geometry = [json.loads(line) for line in (smoke.output / "input-geometry.log").read_text().splitlines()]
+        self.assertEqual([171, 350, 600, 450], geometry[-1]["bounds"])
+        self.assertEqual("game-hide-hand", geometry[-1]["label"])
+
+    def test_invalid_current_table_or_contradictory_controls_fail_before_input(self):
+        for kind in ("both-controls", "outside-table", "problem", "result", "foreign-table"):
+            root = self.hand_frame(shown=True)
+            if kind == "both-controls":
+                node(session.tagged_node(root, "game-hand"), tag="game-reveal-hand")
+            elif kind == "outside-table":
+                hand = session.tagged_node(root, "game-hand")
+                hide = session.tagged_node(root, "game-hide-hand")
+                hand.remove(hide)
+                root.append(hide)
+            elif kind == "problem":
+                node(root, tag="problem-panel")
+            elif kind == "result":
+                node(root, tag="game-round-result")
+            else:
+                session.tagged_node(root, "game-table").set("package", "foreign.app")
+            smoke = self.host([root])
+            with self.subTest(kind=kind), self.assertRaises(engine.ObservationFailure):
+                smoke.conceal_after_staging_play("host-invalid")
+            self.assertEqual([], smoke.transport_calls)
+
+    def test_uncertain_discovery_swipe_or_hide_tap_stops_all_further_input(self):
+        for during_discovery in (True, False):
+            smoke = self.host([self.hand_frame(shown=True)], original_first=during_discovery)
+            smoke.transport_error = subprocess.TimeoutExpired(["adb", "shell", "input"], 20)
+            with self.subTest(during_discovery=during_discovery), \
+                 self.assertRaisesRegex(engine.ObservationFailure, "transport did not complete"):
+                smoke.conceal_after_staging_play("host-uncertain-hand")
+            self.assertTrue(smoke.input_incomplete)
+            self.assertEqual(1, len(smoke.transport_calls))
+            if not during_discovery:
+                self.assertEqual("input-requested", smoke.context_staging_records[0]["status"])
+            with self.assertRaisesRegex(engine.ObservationFailure, "Uncertain prior input"):
+                smoke.adb("shell", "input", "keyevent", "KEYCODE_BACK")
+            self.assertEqual(1, len(smoke.transport_calls))
+
+    def test_acknowledged_but_ineffective_hide_cannot_bypass_strict_context_assertion(self):
+        smoke = self.host([self.hand_frame(shown=True)])
+        self.virtual_wait_clock()
+        smoke.conceal_after_staging_play("host-ineffective")
+        with self.assertRaisesRegex(RuntimeError, "game-reveal-hand.*45 seconds"):
+            smoke.observe_context("host-after-ineffective", allow_opening=True)
+        self.assertEqual(1, sum(call[2] == "tap" for call in smoke.transport_calls))
+        self.assertEqual("input-acknowledged", smoke.context_staging_records[0]["status"])
+
+    def test_initial_or_returned_context_never_automatically_hides_an_exposed_hand(self):
+        for prefix in ("3d-context-initial", "3d-context-return"):
+            smoke = self.host([self.hand_frame(shown=True)])
+            self.virtual_wait_clock()
+            with self.subTest(prefix=prefix), self.assertRaisesRegex(RuntimeError, "game-reveal-hand.*45 seconds"):
+                smoke.observe_context(prefix, allow_opening=True)
+            self.assertFalse(any(call[2] == "tap" for call in smoke.transport_calls))
+            self.assertEqual([], smoke.context_staging_records)
 
 
 class CleanupHarness(focused.PublicContextScenarios):

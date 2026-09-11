@@ -162,7 +162,7 @@ def same_context(before, after):
             and first["rect"][2:] == second["rect"][2:], "The body/action geometry reflowed during scrolling.")
 
 
-def body_swipe(value):
+def body_swipe(value, *, upper_origin=False):
     """Scroll only; disabled Play is a geometry anchor and is never tapped or relabelled."""
     play = context_control(value)
     target, clip = play["rect"], play["clip"]
@@ -172,7 +172,11 @@ def body_swipe(value):
         # Aim inside Play's full-fit interval rather than jumping over it.
         distance = min(distance, gap + (clip[3] - target[3]) / 2)
     require(distance >= 12, "There is insufficient bounded drag room in the real body clip.")
-    start = [clip[0] + clip[2] / 2, clip[1] + clip[3] / 2 + distance / 2]
+    # A horizontal scrollbar can consume a vertical drag starting on its track.
+    # After an acknowledged no-progress sample, move the origin to another strip
+    # without changing drag length or the required overlap.
+    centre_y = clip[1] + clip[3] * (0.3 if upper_origin else 0.5)
+    start = [clip[0] + clip[2] / 2, centre_y + distance / 2]
     end = [start[0], start[1] - distance]
     surface, viewport = value["surface"], value["viewport"]
     scales = [surface[index + 2] / viewport[index] for index in (0, 1)]
@@ -227,12 +231,15 @@ class ContextSweep:
         current = self.capture(current, deadline)
         play_reached = self.positions[-1]["play_fully_enclosed"]
         moved = 0.0
+        meaningful_movement = False
+        upper_origin = False
         for index in range(MAX_SWIPES):
             require(time.monotonic() < deadline, "Context sweep exceeded its finite time budget.")
             before = current["value"]
-            gesture = body_swipe(before)
+            gesture = body_swipe(before, upper_origin=upper_origin)
             receipt = self.probe._before_input(current, "play", -1, gesture, "context-swipe")
-            swipe = {"index": index, "input": receipt, "gesture": gesture, "status": "requested"}
+            swipe = {"index": index, "input": receipt, "gesture": gesture, "status": "requested",
+                     "origin": "upper-body" if upper_origin else "centred-body"}
             self.swipes.append(swipe)
             self.smoke.adb("shell", "input", "swipe", *(str(part) for part in
                 (*gesture["start"], *gesture["end"], gesture["duration_ms"])), timeout=10)
@@ -252,16 +259,24 @@ class ContextSweep:
                          - context_control(current["value"])["rect"][1])
             displacement = measured_displacement(before, current["value"])
             moved += displacement
+            meaningful_movement |= displacement >= 1
             play_reached |= self.positions[-1]["play_fully_enclosed"]
             swipe.update(status="observed", content_displacement=displacement,
                          after=current["receipt"])
             if displacement < 1:
-                require(play_reached and moved >= 1, "Body scrolling stopped before meaningful movement and full Play enclosure.")
+                if not upper_origin:
+                    # The input completed and its resulting state/capture passed every
+                    # check above. Count one alternative origin within the same budgets.
+                    upper_origin = True
+                    continue
+                require(play_reached and moved >= 1 and meaningful_movement,
+                        "Body scrolling stopped before meaningful movement and full Play enclosure.")
                 return {"automated_geometry": "passed", "body_displacement": moved,
                         "play_fully_enclosed": True, "positions": self.positions, "swipes": self.swipes,
                         "termination": "settled-no-progress-after-play; body bottom is not established",
                         "public_context_pixel_acceptance": "pending-independent-review",
                         "max_swipes": MAX_SWIPES, "sweep_budget_seconds": SWEEP_SECONDS}
+            upper_origin = False
         raise engine.ObservationFailure("Context sweep exhausted its finite swipe budget; collection is incomplete.")
 
 
@@ -332,6 +347,40 @@ class PublicContextScenarios:
                      final_ui=self.retain_standard_ui(prefix + "-human-play", {"projected_play": True}))
         self.staging_time()
 
+    def conceal_after_staging_play(self, prefix):
+        """Locate the actual hand control after Play; absence in one scrolled dump is not concealment."""
+        self.staging_time()
+        self.wait_activity(self.session.MAIN_COMPONENT, child_absent=True)
+        tags = ("game-hide-hand", "game-reveal-hand")
+
+        def current_control(root):
+            for tag in ("problem-panel", "game-round-result", "game-winner", "game-next-round"):
+                require(self.session.tagged_node(root, tag) is None,
+                        "A problem/result cannot restore a staged human-turn hand.")
+            table = self.session.tagged_node(root, "game-table")
+            require(table is not None, "The owned Standard table disappeared while locating its hand control.")
+            controls = [(tag, self.session.tagged_node(root, tag)) for tag in tags]
+            present = [(tag, control) for tag, control in controls if control is not None]
+            require(len(present) <= 1, "Shown and concealed hand controls are contradictory.")
+            for tag, control in present:
+                require(control in set(table.iter("node")), "The staged hand control is outside the current table.")
+                action = self.find_action(root, tag)
+                if action is not None:
+                    return tag, action
+            return None
+
+        tag, action = self.wait_until("Expected a reachable Hide hand or Show hand control after the confirmed Play",
+            current_control, seconds=45, scroll="up", target_tags=tags)
+        self.staging_time()
+        event = {"kind": "staging-hand-visibility", "control": tag, "status": "control-observed",
+                 "control_xml": self.retain_standard_ui(prefix + "-hand-control", {"control": tag})}
+        self.context_staging_records.append(event)
+        if tag == "game-hide-hand":
+            event["status"] = "input-requested"
+            self.tap_node(action, tag)
+            event["status"] = "input-acknowledged"
+        # The subsequent unchanged observe_context assertion must prove actual concealment.
+
     def observe_context(self, prefix, allow_opening=False):
         self.wait_activity(self.session.MAIN_COMPONENT, child_absent=True)
         self.assert_concealed()
@@ -391,9 +440,7 @@ class PublicContextScenarios:
                 plays.append(event)
                 self.context_staging_action = None
                 self.wait_context_turn(prefix)
-                root = self.dump_ui()
-                if self.session.tagged_node(root, "game-hide-hand") is not None:
-                    self.tap_action("game-hide-hand", scroll="up")
+                self.conceal_after_staging_play(prefix)
                 current = self.observe_context(prefix + "-after", allow_opening=True)
                 self.context_staging_records.append({"kind": "observed-context", "context": current})
                 require(current["public"]["round"] >= baseline["public"]["round"], "Staging moved to an older round.")
