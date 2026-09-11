@@ -1,0 +1,199 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "/root/pixel_d2_sea",
+  "reviewedAtUtc": "2026-09-11T02:35:50.747688+00:00",
+  "sourceCommit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+  "sources": [
+    {
+      "path": "/root/projects/PartyDeck/godot/ios-host/build/upstream/scene/gui/margin_container.cpp",
+      "bytes": 5258,
+      "sha256": "351f311a1a362a9b95fcca8f4062a0d0f5f10a4ba3bce8e1898d3aa9efa5b1ec",
+      "lines": [
+        128
+      ],
+      "supports": "Integer inner width equals container width minus theme left/right margins.",
+      "matchesPinnedCommit": true,
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/scene/gui/margin_container.cpp"
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/ios-host/build/upstream/scene/gui/box_container.cpp",
+      "bytes": 13187,
+      "sha256": "46b3ac01582618ceb65c248b474187f857f0af22bbc1f745a234f5785b55cea6",
+      "lines": [
+        70,
+        104,
+        291
+      ],
+      "supports": "VBox uses ceil child minimum heights and separations; negative spare stretch is clamped to zero.",
+      "matchesPinnedCommit": true,
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/scene/gui/box_container.cpp"
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/ios-host/build/upstream/scene/gui/label.cpp",
+      "bytes": 60264,
+      "sha256": "7a4145cf66b27f74bbf11f3100888aa6c02f0e849b0e20872f95252feef372fe",
+      "lines": [
+        144,
+        919,
+        927,
+        991
+      ],
+      "supports": "Assigned width drives line wrapping; resize invalidates line shape; minimum size and character bounds ensure shaping synchronously.",
+      "matchesPinnedCommit": true,
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/scene/gui/label.cpp"
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/ios-host/build/upstream/scene/gui/scroll_container.cpp",
+      "bytes": 42052,
+      "sha256": "ed4e16ea3022b44503b09b854a9ddff57c8db384fde4748ddbc3ff708f8a5c1d",
+      "lines": [
+        176,
+        230
+      ],
+      "supports": "A roster with hidden vertical scrollbar consumes vertical wheel input as horizontal movement when its value changes.",
+      "matchesPinnedCommit": true,
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/scene/gui/scroll_container.cpp"
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/ios-host/build/upstream/scene/gui/scroll_bar.cpp",
+      "bytes": 22189,
+      "sha256": "c8ba665ac6a4c468c54d86f53e57ac4e9d3efcc3d36750edd1e7213252c2f57e",
+      "lines": [
+        87
+      ],
+      "supports": "Wheel input on the real scrollbar scrolls by its page divided by PAGE_DIVISOR.",
+      "matchesPinnedCommit": true,
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/scene/gui/scroll_bar.cpp"
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/ios-host/build/upstream/scene/gui/scroll_bar.h",
+      "bytes": 5040,
+      "sha256": "232b9b432946371b4229d9221355aa942bc751c101f28ccd77967c3bfee027ba",
+      "lines": [
+        116
+      ],
+      "supports": "PAGE_DIVISOR equals 8.",
+      "matchesPinnedCommit": true,
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/scene/gui/scroll_bar.h"
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/ios-host/build/upstream/scene/main/viewport.cpp",
+      "bytes": 200690,
+      "sha256": "db949779da96c93cbbdd3d97976efe00211fe900ca2e1283d67ce44671c4a652",
+      "lines": [
+        1467,
+        3515
+      ],
+      "supports": "Input coordinates are mapped through the inverse final transform before local GUI dispatch.",
+      "matchesPinnedCommit": true,
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/scene/main/viewport.cpp"
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/ios-host/build/upstream/scene/main/window.cpp",
+      "bytes": 135562,
+      "sha256": "1e94ba6ccef7fea34b00aab4e40d06730e796471f232d21ced7255d06d45f9fb",
+      "lines": [
+        1328
+      ],
+      "supports": "Disabled content scaling preserves physical surface while logical dimensions depend on content_scale_factor.",
+      "matchesPinnedCommit": true,
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/scene/main/window.cpp"
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/ios-host/build/upstream/core/input/input_event.cpp",
+      "bytes": 66668,
+      "sha256": "9db80036240de31076480b94914b19666e107eb1d5d2a0c3bff5ddaad3f387b0",
+      "lines": [
+        976,
+        1505
+      ],
+      "supports": "xformed_by maps positions and relative motion; mouse global position is separate.",
+      "matchesPinnedCommit": true,
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/core/input/input_event.cpp"
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/ios-host/build/upstream/doc/classes/Viewport.xml",
+      "bytes": 70622,
+      "sha256": "823814573d14d4579fde29854d5bda9a8be108078eac131b8e89fb67ef39a1b3",
+      "lines": [
+        76
+      ],
+      "supports": "get_final_transform maps viewport coordinates to embedder coordinates.",
+      "matchesPinnedCommit": true,
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/doc/classes/Viewport.xml"
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/ios-host/build/upstream/doc/classes/Label.xml",
+      "bytes": 11654,
+      "sha256": "42089065f29c53a62b276c65f5890a53f9a3d929347477b8585febe80702553a",
+      "lines": [],
+      "supports": "Pinned documentation for Label minimum-size/wrapping and character bounds API.",
+      "matchesPinnedCommit": true,
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/doc/classes/Label.xml"
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/ios-host/build/upstream/doc/classes/Control.xml",
+      "bytes": 113375,
+      "sha256": "07187df29c9cc0ccb1516457821e0a5827b7735743ad9e458cf45ebef63048bf",
+      "lines": [],
+      "supports": "Pinned documentation for size, minimum sizes and control geometry.",
+      "matchesPinnedCommit": true,
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/doc/classes/Control.xml"
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/ios-host/build/upstream/doc/classes/Window.xml",
+      "bytes": 68307,
+      "sha256": "b1cf64d5c9b142cf779bc6c7082ee2658fa8d4e3d0ca64153deb8b7d6fda67c3",
+      "lines": [],
+      "supports": "Pinned documentation for content scale mode/factor.",
+      "matchesPinnedCommit": true,
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/doc/classes/Window.xml"
+    }
+  ],
+  "finalProbe": {
+    "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/inputs/context_layout_probe.gd",
+    "bytes": 11023,
+    "sha256": "36b518b7ba8da49b5527d6a5872fe684de6eb1c8754d8ab352edeee533e64880"
+  },
+  "runner": {
+    "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/run_private.py",
+    "bytes": 6016,
+    "sha256": "8128d7e71e78edf0e732612ebb210f96782937494711e9512f2e7f319befc378"
+  },
+  "retainedProbeVersionsBySha256": {
+    "025114bfc1c915cf37b7069e8852db1e77b3d17a66c40bba72f3aea4daac3aa9": [
+      "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/inputs/context_layout_probe-v4-center-wheel.gd"
+    ],
+    "6d9c7d1949bafac65a78e995c92a34034031ccbcb0454f4ca6118ea2fd15648c": [
+      "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/inputs/context_layout_probe-v3-claim-only.gd"
+    ],
+    "5e6fdaaa8c27fe3bb9fa5fcbba042eb67ef91bd17257e64ad1b9f3f0da202749": [
+      "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/inputs/context_layout_probe-v2-unscaled-input.gd"
+    ],
+    "72adca805494b2514cca0e949b6b584e623c195172d905f7e8393cb90b3aad41": [
+      "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/inputs/context_layout_probe-v1-parse-failed.gd"
+    ],
+    "36b518b7ba8da49b5527d6a5872fe684de6eb1c8754d8ab352edeee533e64880": [
+      "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/inputs/context_layout_probe.gd"
+    ]
+  },
+  "finalProbeReview": [
+    "Loads the real main.tscn, applies actual native density configuration, and supplies an authority-derived recipient-safe launch.",
+    "Finds the actual Label containing the claim; records its ancestor ScrollContainer relation, glyph-cell bounds, clip, line count and real scroll offset.",
+    "Uses actual VScrollBar geometry for wheel coordinates; injects through Input.parse_input_event after mapping logical positions to physical using get_final_transform.",
+    "Records actual hovered control class/path and both logical/physical input coordinates for every wheel event.",
+    "Finds projected Play and Challenge Button nodes and requires their entire rectangles to be enclosed after wheel input; records disabled state and captures each newly reached action.",
+    "No action intent, selected card or authoritative state is manufactured. Ready-event count, revision, selection and private nodes are checked at the end.",
+    "Original shared observer and strict scene/redraw scripts remain unmodified; the density adapter normalizes to the originals as separately recorded."
+  ],
+  "historicalAttemptInterpretation": [
+    "The initial unscaled density wheel attempt targeted the wrong physical location; its original probe is retained and it is not success evidence.",
+    "The first action exposure probe stopped on nested RosterScroll horizontal consumption; targeting the visible outer scrollbar fixes input routing while preserving whole-control assertions.",
+    "A prior long-name expectation assumed more wrapped lines than actual font layout and is retained as an incorrect test expectation; final expectations use observed pinned/fallback cases."
+  ],
+  "limits": [
+    "Cumulative Label character-bound enclosure is geometric evidence; direct captures provide the separate pixel inspection.",
+    "No continuous privacy, native input/accessibility, UTC alignment, authority acceptance or native rendering qualification.",
+    "Historical attempts retain their own source/probe/outcome identities and do not inherit final V2 approval."
+  ]
+}

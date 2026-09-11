@@ -1,0 +1,85 @@
+{
+  "reviewer": "/root/pixel_d2_sea",
+  "generatorSourceInspected": {
+    "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/inputs/ClaimFixtures.java",
+    "bytes": 4827,
+    "sha256": "2c0b243c908932ee09fbd3978d0a7ac5fa766137dcb894b32ad890df4752d9a4"
+  },
+  "authorityGenerationExecutedByReviewer": false,
+  "checks": [
+    {
+      "fixture": "ordinary",
+      "documents": {
+        "initial": {
+          "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/inputs/ordinary-initial-launch.json",
+          "bytes": 1150,
+          "sha256": "bed628118b3251a03d248abd60676286e077d685df4a78cc9f8d404fc576b0f7"
+        },
+        "view": {
+          "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/inputs/ordinary-claim-view.json",
+          "bytes": 1271,
+          "sha256": "86f0e4845e149367b548be40724fb50748915b143366dc5ebc695249b8ddb7d6"
+        },
+        "launch": {
+          "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/inputs/ordinary-claim-launch.json",
+          "bytes": 1392,
+          "sha256": "e2ebe47a74369422fe9c45feb4836d757a5e3bd5238a1c3aaaa3b980be533671"
+        }
+      },
+      "launchEqualsInitialWithAuthorityViewPayloadAndRevision": true,
+      "preferencesUnchanged": true,
+      "revision": "10",
+      "publicPhase": "PLAYING",
+      "publicRound": 4,
+      "publicRank": "CROWN",
+      "publicClaim": {
+        "playerId": "seat-4",
+        "cardCount": 1
+      },
+      "publicNames": [
+        "Ari",
+        "Moxie",
+        "Pip",
+        "Orbit"
+      ]
+    },
+    {
+      "fixture": "duplicate-name",
+      "documents": {
+        "initial": {
+          "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/inputs/duplicate-name-initial-launch.json",
+          "bytes": 1224,
+          "sha256": "798066819abea297e4974bbc80bfd441996c80683fccabc11b51d3e7cc1c765f"
+        },
+        "view": {
+          "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/inputs/duplicate-name-claim-view.json",
+          "bytes": 1345,
+          "sha256": "613b98999d5868734bcbf20baaea4e0e0103f4f895ed726230bc998ce5a7e638"
+        },
+        "launch": {
+          "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/inputs/duplicate-name-claim-launch.json",
+          "bytes": 1466,
+          "sha256": "b3700401c143c70a6d20fb74cc3aab6f7527089c93f6638587e92297815e699f"
+        }
+      },
+      "launchEqualsInitialWithAuthorityViewPayloadAndRevision": true,
+      "preferencesUnchanged": true,
+      "revision": "10",
+      "publicPhase": "PLAYING",
+      "publicRound": 4,
+      "publicRank": "CROWN",
+      "publicClaim": {
+        "playerId": "seat-4",
+        "cardCount": 1
+      },
+      "publicNames": [
+        "Alexandria Montgomery",
+        "Alexandria Montgomery",
+        "Alexandria Montgomery",
+        "Alexandria Montgomery"
+      ]
+    }
+  ],
+  "interpretation": "Source uses the existing QualificationAuthorityDriver and codec, deterministic seed 2, and accepted authority events/opponent policy until a current claim with canPlay and canChallenge. Recipient payload and revision are transferred unchanged into a launch envelope.",
+  "limits": "This validates the retained fixture derivation and source inspection; it is not a new authority execution or recreation of the original native Star round."
+}

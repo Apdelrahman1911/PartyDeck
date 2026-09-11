@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "/root/pixel_d2_sea",
+  "reviewedAtUtc": "2026-09-11T02:15:52.480949+00:00",
+  "status": "v1-real-short-claim-recovery-confirmed-round-number-finding-awaits-v2",
+  "candidateSource": {
+    "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/candidate-v1-table.gd",
+    "bytes": 42141,
+    "sha256": "aa351d4ed7a7ff51cb1292e4eabdb93408b3507c60c02018cfb6a962a7bde0fe"
+  },
+  "patch": {
+    "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/candidate-v1.patch",
+    "bytes": 2329,
+    "sha256": "447b48a20a915aef6626508ecb6b7dae504d64484b89647b3da5feab050c2e86"
+  },
+  "layoutReport": {
+    "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-short-density-v2/layout-report.json",
+    "bytes": 3886,
+    "sha256": "183b121fc842c068230cd6bd054107e6bb9aabb4f13084365b2de2e80e5d12d8"
+  },
+  "runReceipt": {
+    "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-short-density-v2/run-receipt.json",
+    "bytes": 52585,
+    "sha256": "d3e784575f2255d46e2979abff7ac38dca3a454a3b81ad02415d07eb207a45e6"
+  },
+  "captureViews": [
+    {
+      "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-short-density-v2/01-initial.png",
+      "bytes": 38659,
+      "sha256": "638958deda7588604bb2826fd783316347dccd3421a07507318cfae89b8979a9",
+      "directlyViewed": true,
+      "viewMethod": "view_image(detail=original)",
+      "observations": [
+        "Show hand and back chevron remain visible.",
+        "Your turn is visible inside the newly available body.",
+        "Large Crown table title is partly clipped at the lower body boundary; the claim is initially offscreen.",
+        "A visible vertical scrollbar supports the report that this is scrollable content; the still alone does not establish movement.",
+        "No private card faces are visibly exposed in this still."
+      ]
+    },
+    {
+      "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-short-density-v2/02-claim-scroll.png",
+      "bytes": 53210,
+      "sha256": "c3b9cd9990fe6c727b2cfce673f18c9a3fce6ef7277d22a988a31744ed21f708",
+      "directlyViewed": true,
+      "viewMethod": "view_image(detail=original)",
+      "observations": [
+        "Show hand and back chevron remain visible.",
+        "Crown table title is partly clipped at the upper body boundary.",
+        "Orbit claimed 1 Crown. is fully readable; following guidance is below the capture.",
+        "No private card faces are visibly exposed in this still."
+      ]
+    },
+    {
+      "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-short-density-v2/03-claim-scroll.png",
+      "bytes": 49438,
+      "sha256": "bc589896db0d92cc68cc11f473cc9d8e2c1facbf715afbd51b756d4e01450c68",
+      "directlyViewed": true,
+      "viewMethod": "view_image(detail=original)",
+      "observations": [
+        "Show hand and back chevron remain visible.",
+        "Orbit claimed 1 Crown. and Challenge or play on. are fully readable inside the body.",
+        "Rank and turn content have scrolled above the body.",
+        "No private card faces are visibly exposed in this still."
+      ]
+    }
+  ],
+  "executionInspected": {
+    "executedBy": "/root/pixel_o1_land2",
+    "reviewerExecutedRenderer": false,
+    "sourceBeforeFingerprint": "6416ab747e32135e4f95dc20ea9f8d1fbe7e18e77f5ed976c3ee7d33d30d4e31",
+    "sourceAfterFingerprint": "6416ab747e32135e4f95dc20ea9f8d1fbe7e18e77f5ed976c3ee7d33d30d4e31",
+    "commandExitCodes": [
+      0
+    ],
+    "engineErrorDiagnostics": [
+      false
+    ],
+    "physicalSurface": [
+      681,
+      377
+    ],
+    "density": 1.75,
+    "logicalViewport": [
+      389.142852783203,
+      215.428573608398
+    ],
+    "textScale": 2.0,
+    "pinned": false,
+    "claimInBodyScroll": true,
+    "scrollBodyRect": [
+      16.0,
+      96.0,
+      357.0,
+      103.0
+    ],
+    "wheelInputs": 10,
+    "scrollBefore": 0,
+    "scrollAfter": 128,
+    "finalClaimRect": [
+      16.0,
+      100.0,
+      349.0,
+      93.0
+    ],
+    "finalClaimFullyEnclosed": true,
+    "allNonWhitespaceCharactersGeometricallyReached": true,
+    "publicClaimAndGuidanceText": "Orbit claimed 1 Crown. Challenge or play on.",
+    "passiveEndpointChecksPassed": true,
+    "revisionBefore": "10",
+    "revisionAfter": "10",
+    "eventTypes": [
+      "ready"
+    ]
+  },
+  "findings": [
+    {
+      "id": "D2SEA-ROUND-001",
+      "status": "accepted-by-owner-pending-v2",
+      "detail": "Rejected pinning on narrow layouts removes the fixed Crown table \u00b7 round 4 label, while header ROUND is hidden by the hand-toggle condition and _public_info rank title omits the round. The current round number is no longer available in reachable public context.",
+      "ownerPlannedResolution": "A secondary ROUND n label in _public_info only when not pinned and _hand_toggle_in_header and size.x < 500; verify on fresh final-candidate runs."
+    }
+  ],
+  "limits": [
+    "V1 evidence is not approval of a later candidate.",
+    "No native device, native accessibility, authority-accepted action, input/UTC alignment, or continuous privacy qualification.",
+    "Final candidate tall/duplicate-name captures and unchanged strict interaction/redraw results remain pending.",
+    "No prior frozen pixel review evidence was modified or reopened."
+  ]
+}

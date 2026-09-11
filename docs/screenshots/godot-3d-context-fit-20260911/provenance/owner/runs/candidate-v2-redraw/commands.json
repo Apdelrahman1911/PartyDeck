@@ -1,0 +1,45 @@
+{
+  "commands": [
+    {
+      "label": "godot",
+      "argv": [
+        "xvfb-run",
+        "-a",
+        "-s",
+        "-screen 0 1280x1600x24",
+        "/root/projects/PartyDeck/godot/qualification/build/toolchain/godot",
+        "--path",
+        "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/candidate-project",
+        "--rendering-method",
+        "gl_compatibility",
+        "--display-driver",
+        "x11",
+        "--audio-driver",
+        "Dummy",
+        "--resolution",
+        "390x844",
+        "--position",
+        "0,0",
+        "--script",
+        "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/inputs/three_d_redraw_check.gd",
+        "--",
+        "--manual-bridge",
+        "--presentation=3d",
+        "--check-output=/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-v2-redraw",
+        "--check-fixture=/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/inputs/launch-3d.json",
+        "--check-width=390",
+        "--check-height=844",
+        "--check-density=1.0",
+        "--check-text-scale=1.0",
+        "--check-expect=observe"
+      ],
+      "cwd": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/candidate-project",
+      "started_utc": "2026-09-11T02:25:55.805069+00:00",
+      "elapsed_seconds": 3.035,
+      "exit_code": 0,
+      "engine_error_diagnostic": false,
+      "log": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-v2-redraw/godot.log",
+      "log_sha256": "a365d7274eaf31d68a7e4be06c3035a35a066311e8b58e85505ac4620a0fff50"
+    }
+  ]
+}

@@ -1,0 +1,298 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "/root/pixel_d2_sea",
+  "reviewedAtUtc": "2026-09-11T02:34:00.434028+00:00",
+  "status": "final-v2-strict-scene-and-redraw-evidence-verified",
+  "executedBy": "/root/pixel_o1_land2",
+  "reviewerExecutedRenderer": false,
+  "directCaptureViews": 15,
+  "exactByteAliases": 1,
+  "sceneRuns": [
+    {
+      "run": "candidate-v2-short-input",
+      "runReceipt": {
+        "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-v2-short-input/run-receipt.json",
+        "bytes": 53998,
+        "sha256": "0cbbb42c6810e67a6648ac5b317a888f140f5817afc2290f39a159eb65688496"
+      },
+      "report": {
+        "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-v2-short-input/report.json",
+        "bytes": 23063,
+        "sha256": "3f95bfc8fa33a97487a8a8d23e4fed80345456af53dda2b8a185017d5f0a62b5"
+      },
+      "sourceFingerprint": "df3f323e06fcc8cfdd99998eb405044ccf3eaf4607bcac96507df334211adc79",
+      "allRecordedCaptureLogAndInputHashesReverified": true,
+      "originalSharedCheckerSha256": "5d36c98fc638ebeb28c906350950bb6e7b7e5f111d560e2c62461db0c5e3d32e",
+      "usesDensityAdapter": true,
+      "arguments": {
+        "operation": "scene",
+        "project": "candidate",
+        "name": "candidate-v2-short-input",
+        "fixture": "ordinary-claim-launch.json",
+        "width": 681,
+        "height": 377,
+        "density": 1.75,
+        "text_scale": 2.0,
+        "expect": "observe",
+        "touch_drag": true
+      },
+      "gesture": {
+        "after": 1151,
+        "authorityEvents": 1,
+        "before": 827,
+        "distance": -120.0,
+        "input": "emulated-touch-vertical-drag-on-card",
+        "selectedCount": 0,
+        "touchscreenReported": true
+      },
+      "reportPassed": true,
+      "captureViews": [
+        {
+          "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-v2-short-input/01-concealed.png",
+          "bytes": 30545,
+          "sha256": "9b1b22d7477f20b98c5ed543ec9128a3019c348031cfacb6dd9e3a56b66cf7e6",
+          "coverage": "exact-byte-match-to-direct-view",
+          "directViewSource": {
+            "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-v2-short-density-final/01-initial.png",
+            "bytes": 30545,
+            "sha256": "9b1b22d7477f20b98c5ed543ec9128a3019c348031cfacb6dd9e3a56b66cf7e6"
+          },
+          "byteForByteComparison": true,
+          "observations": [
+            "Identical to directly viewed final-short initial capture: Show hand, Your turn and ROUND 4 are visible."
+          ]
+        },
+        {
+          "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-v2-short-input/01a-emulated-touch-drag.png",
+          "bytes": 34251,
+          "sha256": "d3bb35dba691a7f30e92501f723fba34014b0d7a33b81f75e45eae1b7d9c782a",
+          "coverage": "direct-original-resolution-view",
+          "observations": [
+            "Hide hand remains visible after reveal.",
+            "Challenge Orbit is fully visible and Select cards is partly clipped above it; own-hand rank controls and cards are outside this capture."
+          ]
+        },
+        {
+          "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-v2-short-input/02-revealed-selected.png",
+          "bytes": 35987,
+          "sha256": "a6437598062f10277684dcb15714120569b98c83d8e40504fe4e14283e982a08",
+          "coverage": "direct-original-resolution-view",
+          "observations": [
+            "Hide hand and an intentionally revealed Selected \u00b7 Crown control are fully visible.",
+            "The following control begins at the clipped lower edge."
+          ]
+        },
+        {
+          "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-v2-short-input/02a-selection-limit.png",
+          "bytes": 33255,
+          "sha256": "34dc40771e6af38ffed5f91cf5e9ac245b5d812d2db6a4df897836cfb054307f",
+          "coverage": "direct-original-resolution-view",
+          "observations": [
+            "Hide hand and the intentionally revealed Select \u00b7 Moon control are fully visible.",
+            "Other selection state and feedback are outside this capture; the count limit is established by the strict report assertions."
+          ]
+        },
+        {
+          "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-v2-short-input/02b-deselected-last.png",
+          "bytes": 33194,
+          "sha256": "b18dcde5bdee245ec41d78f2d7b6c057c3d967e8320e8a98ca92700451493785",
+          "coverage": "direct-original-resolution-view",
+          "observations": [
+            "Hide hand and the intentionally revealed Select \u00b7 Crown control are fully visible.",
+            "The following action begins at the clipped lower edge."
+          ]
+        },
+        {
+          "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-v2-short-input/03-covered-again.png",
+          "bytes": 37737,
+          "sha256": "bf7284c8165c4e87fa4834553e31238bd0bffc8b0282799262802f080d1254cb",
+          "coverage": "direct-original-resolution-view",
+          "observations": [
+            "Show hand and Challenge Orbit are fully visible.",
+            "No private rank words or faces are visible; the hand itself is offscreen."
+          ]
+        },
+        {
+          "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-v2-short-input/04-resumed-covered.png",
+          "bytes": 36493,
+          "sha256": "613277c6d087b68d02fe13cb975f2b02196852a18485253388ad693771f9e06b",
+          "coverage": "direct-original-resolution-view",
+          "observations": [
+            "Show hand and Challenge Orbit are fully visible.",
+            "No private rank words or faces are visible; the hand itself is offscreen."
+          ]
+        },
+        {
+          "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-v2-short-input/04a-previous-round.png",
+          "bytes": 40823,
+          "sha256": "440d38878a00d9b23ac4e19b67e4537d0b3703efb837175d19e8b59d9107ab6a",
+          "coverage": "direct-original-resolution-view",
+          "observations": [
+            "Show hand and Hide last round are fully visible.",
+            "ROUND 3 \u00b7 PREVIOUS REVEAL begins at the lower clipped edge.",
+            "No private rank words or faces are visibly exposed."
+          ]
+        }
+      ]
+    },
+    {
+      "run": "candidate-v2-original-input",
+      "runReceipt": {
+        "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-v2-original-input/run-receipt.json",
+        "bytes": 54049,
+        "sha256": "8ac9e73597c1d6051b6c2ab95def9616d78727e26f0762f8d578b43c082f0312"
+      },
+      "report": {
+        "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-v2-original-input/report.json",
+        "bytes": 22571,
+        "sha256": "785706c7ff0cfadadc4ba96489e0e540611ae4b26a4f9ae62302dd29d259b7e0"
+      },
+      "sourceFingerprint": "df3f323e06fcc8cfdd99998eb405044ccf3eaf4607bcac96507df334211adc79",
+      "allRecordedCaptureLogAndInputHashesReverified": true,
+      "originalSharedCheckerSha256": "5d36c98fc638ebeb28c906350950bb6e7b7e5f111d560e2c62461db0c5e3d32e",
+      "usesDensityAdapter": false,
+      "arguments": {
+        "operation": "scene-original",
+        "project": "candidate",
+        "name": "candidate-v2-original-input",
+        "fixture": "ordinary-claim-launch.json",
+        "width": 390,
+        "height": 844,
+        "density": 1.0,
+        "text_scale": 2.0,
+        "expect": "observe",
+        "touch_drag": true
+      },
+      "gesture": {
+        "after": 404,
+        "authorityEvents": 1,
+        "before": 80,
+        "distance": -120.0,
+        "input": "emulated-touch-vertical-drag-on-card",
+        "selectedCount": 0,
+        "touchscreenReported": true
+      },
+      "reportPassed": true,
+      "captureViews": [
+        {
+          "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-v2-original-input/01-concealed.png",
+          "bytes": 83627,
+          "sha256": "389f255872d9bc3af658f5c11da268a784c1c52ff5f73e74375b34c43460d2f2",
+          "coverage": "direct-original-resolution-view",
+          "observations": [
+            "Pinned round/turn/current claim and Show hand are readable.",
+            "Five own-hand card backs, the public claim back and hand count are visible; no own-hand rank words or faces are exposed."
+          ]
+        },
+        {
+          "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-v2-original-input/01a-emulated-touch-drag.png",
+          "bytes": 67425,
+          "sha256": "0365888bd41086b747c09948962a1cfb3065397356037dced187fa30043bd00e",
+          "coverage": "direct-original-resolution-view",
+          "observations": [
+            "Pinned public context and Hide hand remain readable.",
+            "Five intentionally revealed own-hand rank controls are fully visible and unselected; Select cards and Challenge Orbit are visible."
+          ]
+        },
+        {
+          "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-v2-original-input/02-revealed-selected.png",
+          "bytes": 66790,
+          "sha256": "b2882c06cc4224187b588271b4981c7641190af26934ee321a68c3da74bb06f5",
+          "coverage": "direct-original-resolution-view",
+          "observations": [
+            "Pinned public context and Hide hand remain readable.",
+            "First Star and last Crown controls are highlighted as selected; other rank controls remain unselected.",
+            "Play 2 and Challenge Orbit are fully visible."
+          ]
+        },
+        {
+          "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-v2-original-input/02a-selection-limit.png",
+          "bytes": 68520,
+          "sha256": "25cef6517f58bec9705d6b878fde87de20acfdba92b8b16aea299faa70cd9776",
+          "coverage": "direct-original-resolution-view",
+          "observations": [
+            "Pinned public context and Hide hand remain readable.",
+            "Three controls show Selected, with the first partly clipped at the body top; Select \u00b7 Moon stays unselected.",
+            "Play 3, Challenge Orbit and Choose up to 3 cards. are readable."
+          ]
+        },
+        {
+          "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-v2-original-input/02b-deselected-last.png",
+          "bytes": 66990,
+          "sha256": "eb3972ee35848928ca14964cb2e674210f3806c7687d5d7d607c3423b0146c58",
+          "coverage": "direct-original-resolution-view",
+          "observations": [
+            "Pinned public context and Hide hand remain readable.",
+            "Star and the first Crown remain selected; the final Crown is unselected.",
+            "Play 2 and Challenge Orbit are fully visible."
+          ]
+        },
+        {
+          "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-v2-original-input/03-covered-again.png",
+          "bytes": 82440,
+          "sha256": "d30f3a449501d56d64423d1dd8e9aa3cf8c92d7f663c707a96e085ff46583595",
+          "coverage": "direct-original-resolution-view",
+          "observations": [
+            "Pinned public context and Show hand remain readable.",
+            "Five own-hand card backs and the public claim back are visible, with no own-hand rank words or faces exposed.",
+            "Hand count, disabled Select cards and Challenge Orbit are fully visible."
+          ]
+        },
+        {
+          "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-v2-original-input/04-resumed-covered.png",
+          "bytes": 81908,
+          "sha256": "f93bf5634f09b99d2ce13f8e473c2d8bca4263f21378683a16435add5d9a45dc",
+          "coverage": "direct-original-resolution-view",
+          "observations": [
+            "Pinned public context and Show hand remain readable.",
+            "Five own-hand card backs and the public claim back are visible, with no own-hand rank words or faces exposed.",
+            "Hand count, disabled Select cards and Challenge Orbit are fully visible."
+          ]
+        },
+        {
+          "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-v2-original-input/04a-previous-round.png",
+          "bytes": 91558,
+          "sha256": "9aeb37db3879009d78372c09672a9723320f25156810ca822889bc48913c5e8d",
+          "coverage": "direct-original-resolution-view",
+          "observations": [
+            "Pinned current round 4 context and Show hand remain readable.",
+            "ROUND 3 \u00b7 PREVIOUS REVEAL, Bluff caught., claimant/challenger description and public Moon \u00b7 Doesn\u2019t match proof text are readable.",
+            "Own-hand cards remain backs; the historical proof wording is public and separately labeled."
+          ]
+        }
+      ]
+    }
+  ],
+  "redraw": {
+    "runReceipt": {
+      "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-v2-redraw/run-receipt.json",
+      "bytes": 52026,
+      "sha256": "e18fbf02c702b9568e9d39affa5704741cb6ca4b0a19286acdb9ef03926475c7"
+    },
+    "report": {
+      "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/runs/candidate-v2-redraw/report.json",
+      "bytes": 44819,
+      "sha256": "45aec89343ae70e4b3a7e21a043a1d81ffa698f47b2e5a88cebe7d5e5fbbfe1b"
+    },
+    "originalSharedScriptSha256": "3ef5f9a49c8279aa39171cc90a91efbdf9313b2fcbace91b635444bc6172d287",
+    "checksPassed": 306,
+    "checksFailed": 0,
+    "realPixelBufferFrames": 50,
+    "pngFilesWritten": 0,
+    "sourceFingerprint": "df3f323e06fcc8cfdd99998eb405044ccf3eaf4607bcac96507df334211adc79",
+    "allRecordedLogAndInputHashesReverified": true
+  },
+  "scope": [
+    "The original scene checker and redraw checker are byte-identical to shared repository originals.",
+    "The short density adapter preserves both overridden click/drag functions verbatim after only input dispatch normalization; original scene runner is used directly at density 1.",
+    "Strict scene assertions cover reveal, non-selecting emulated touch drag, target size/separation, selection/deselection, fourth-card limit, selected-card clip enclosure, cover, foreground, prior-round disclosure and close.",
+    "No Play or Challenge click is dispatched by these scene scripts.",
+    "Redraw script uses actual desktop GL pixel buffers, actual Tween steps, viewport update modes, resize/zero-size gates and lifecycle checks; no PNG rendering is fabricated."
+  ],
+  "limits": [
+    "The scene script uses ensure_control_visible before clicks; this proves event/target behavior after engine-assisted positioning, not arbitrary manual scroll reachability.",
+    "The focused layout probe separately covers actual scrollbar wheel exposure for claim/actions.",
+    "Native privacy covers, retained timing, accessibility, physical input and continuous privacy require native execution.",
+    "Revealed screenshots intentionally show own-hand rank labels; no blanket claim of no private content across all scene states is made."
+  ]
+}

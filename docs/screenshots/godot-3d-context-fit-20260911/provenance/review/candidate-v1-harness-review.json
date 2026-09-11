@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "/root/pixel_d2_sea",
+  "reviewedAtUtc": "2026-09-11T02:15:03.484642+00:00",
+  "upstreamSources": [
+    {
+      "path": "/root/projects/PartyDeck/godot/ios-host/build/upstream/scene/main/viewport.cpp",
+      "bytes": 200690,
+      "sha256": "db949779da96c93cbbdd3d97976efe00211fe900ca2e1283d67ce44671c4a652",
+      "commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+      "matchesCommit": true,
+      "referenceLines": [
+        1467,
+        3515
+      ],
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/scene/main/viewport.cpp"
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/ios-host/build/upstream/core/input/input.cpp",
+      "bytes": 81241,
+      "sha256": "932d50b4682057f2c56fa060b160cf39d7b17306d2a76cf85aba3fa801b7f28f",
+      "commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+      "matchesCommit": true,
+      "referenceLines": [
+        1519
+      ],
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/core/input/input.cpp"
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/ios-host/build/upstream/doc/classes/Viewport.xml",
+      "bytes": 70622,
+      "sha256": "823814573d14d4579fde29854d5bda9a8be108078eac131b8e89fb67ef39a1b3",
+      "commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+      "matchesCommit": true,
+      "referenceLines": [
+        76
+      ],
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/doc/classes/Viewport.xml"
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/ios-host/build/upstream/core/input/input_event.cpp",
+      "bytes": 66668,
+      "sha256": "9db80036240de31076480b94914b19666e107eb1d5d2a0c3bff5ddaad3f387b0",
+      "commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+      "matchesCommit": true,
+      "referenceLines": [
+        976,
+        1505
+      ],
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/core/input/input_event.cpp"
+    }
+  ],
+  "originalChecker": {
+    "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/inputs/three_d_scene_check.gd",
+    "bytes": 16311,
+    "sha256": "5d36c98fc638ebeb28c906350950bb6e7b7e5f111d560e2c62461db0c5e3d32e"
+  },
+  "densityAdapter": {
+    "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/inputs/density_scene_check.gd",
+    "bytes": 5399,
+    "sha256": "ad527a0b1bbfa9aae5166ba6b5e12193b9c838a7b4b8896cb3004ba27954c860"
+  },
+  "normalizedFunctionEquality": {
+    "_click": true,
+    "_check_hand_drag": true
+  },
+  "correctedProbe": {
+    "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/inputs/context_layout_probe.gd",
+    "bytes": 7068,
+    "sha256": "6d9c7d1949bafac65a78e995c92a34034031ccbcb0454f4ca6118ea2fd15648c"
+  },
+  "retainedHistoricalProbe": {
+    "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/inputs/context_layout_probe-v2-unscaled-input.gd",
+    "bytes": 6661,
+    "sha256": "5e6fdaaa8c27fe3bb9fa5fcbba042eb67ef91bd17257e64ad1b9f3f0da202749"
+  },
+  "findings": [
+    "Adapter overrides only _run, _native_input, _click and _check_hand_drag.",
+    "_run adds native density/content scaling before invoking the unchanged parent run.",
+    "Logical mouse position, global position and relative motion are mapped through final_transform; viewport input applies the inverse before GUI dispatch.",
+    "Original gesture steps, scroll threshold, selection/event checks, target size/overlap and post-selection enclosure assertions are preserved.",
+    "Corrected probe adds revision endpoint equality and renames passive endpoint assertion to describe its actual scope.",
+    "Character coverage counts non-whitespace character bounds wholly enclosed within the actual ancestor clip; it records cumulative exposure across actual wheel events."
+  ],
+  "limitations": [
+    "No real-renderer execution was performed by this reviewer.",
+    "Probe allClaimCharactersReached is a geometric cumulative-visibility observation; pixels are independently inspected separately.",
+    "Static fixture and endpoint assertions do not establish native accessibility, authority acceptance or continuous privacy."
+  ]
+}

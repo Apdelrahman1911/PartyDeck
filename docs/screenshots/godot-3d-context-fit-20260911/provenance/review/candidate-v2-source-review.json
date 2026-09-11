@@ -1,0 +1,227 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "/root/pixel_d2_sea",
+  "reviewedAtUtc": "2026-09-11T02:19:31.137441+00:00",
+  "status": "static-review-passed-rendering-and-behavior-review-pending",
+  "baseline": {
+    "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/baseline-table.gd",
+    "bytes": 40950,
+    "sha256": "a9edd383b71832b41d3fd307d3cf4397fe33df099c54471cb16006da0246e061"
+  },
+  "candidate": {
+    "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/candidate-v2-table.gd",
+    "bytes": 42269,
+    "sha256": "a91e94b910f763efb9c108d9e7602230736c503c6e53e4bd018a61ad9eebeb4d"
+  },
+  "patch": {
+    "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/candidate-v2.patch",
+    "bytes": 2833,
+    "sha256": "557b8de3eb1b65da1b6fd1156a851412a93797596f60aeb4932f4017602c82ea"
+  },
+  "privatePatchReplay": {
+    "checkExitCode": 0,
+    "applyExitCode": 0,
+    "exactCandidateBytes": true
+  },
+  "changedExistingFunctions": [
+    "_build_layout",
+    "_public_info"
+  ],
+  "addedFunctions": [
+    "_pinned_context_fits"
+  ],
+  "unchangedExistingFunctions": [
+    "_enter_tree",
+    "_ready",
+    "bind",
+    "store_state",
+    "apply_state",
+    "_controls_current",
+    "_render",
+    "_make_stage",
+    "_result_info",
+    "_proof_words",
+    "_roster",
+    "_hand_controls",
+    "_show_cards",
+    "_create_card",
+    "_add_card",
+    "_position_targets",
+    "_process",
+    "_prepare_viewport_frame",
+    "_viewport_frame_signature",
+    "_request_target_update",
+    "_resize",
+    "_button",
+    "_label",
+    "_style",
+    "_cylinder",
+    "_rank",
+    "_name",
+    "_viewer",
+    "_clear",
+    "_toggle_card",
+    "_play",
+    "_challenge",
+    "_queue_sound",
+    "_sound",
+    "_remember_scrolls",
+    "_restore_scrolls",
+    "_keep_control_inside_scroll",
+    "_restore_scroll_node",
+    "_remember_focus",
+    "_toggle_history",
+    "_request_lobby",
+    "_show_lobby_dialog",
+    "_confirm_return_to_lobby",
+    "_close_lobby_dialog",
+    "_remove_lobby_dialog",
+    "_public_sound",
+    "_exit_tree",
+    "_hand_toggle",
+    "_reveal_hand",
+    "_bring_hand_into_view",
+    "_claim_line"
+  ],
+  "smallSourceComparison": [
+    {
+      "path": "main.tscn",
+      "baselineSha256": "0eaba43494ffa3e8f46b30712564e609938bbeb18daa690b5b1a68249334536f",
+      "candidateSha256": "0eaba43494ffa3e8f46b30712564e609938bbeb18daa690b5b1a68249334536f",
+      "equal": true
+    },
+    {
+      "path": "presentations/three_d/card_3d.gd",
+      "baselineSha256": "6383be0e044f1f54792ab3f575917ef29a2d843e697f792d748627059c9bcba5",
+      "candidateSha256": "6383be0e044f1f54792ab3f575917ef29a2d843e697f792d748627059c9bcba5",
+      "equal": true
+    },
+    {
+      "path": "presentations/three_d/table.gd",
+      "baselineSha256": "a9edd383b71832b41d3fd307d3cf4397fe33df099c54471cb16006da0246e061",
+      "candidateSha256": "a91e94b910f763efb9c108d9e7602230736c503c6e53e4bd018a61ad9eebeb4d",
+      "equal": false
+    },
+    {
+      "path": "presentations/three_d/table.tscn",
+      "baselineSha256": "90e347f9fd7c5283ddab1b31b09afd86cf6343ea5f49e612cf95be31480b417a",
+      "candidateSha256": "90e347f9fd7c5283ddab1b31b09afd86cf6343ea5f49e612cf95be31480b417a",
+      "equal": true
+    },
+    {
+      "path": "presentations/two_d/deck_style.gd",
+      "baselineSha256": "0ca38f06b16c0b1f829131c6fd88f7defc5541a0145ed8f86fdf21f3e69e8823",
+      "candidateSha256": "0ca38f06b16c0b1f829131c6fd88f7defc5541a0145ed8f86fdf21f3e69e8823",
+      "equal": true
+    },
+    {
+      "path": "presentations/two_d/hand_card.gd",
+      "baselineSha256": "db697ead3a631b6c838ee5f2f53d4f601b9e6060a1d59a44486c4f19ee2a119b",
+      "candidateSha256": "db697ead3a631b6c838ee5f2f53d4f601b9e6060a1d59a44486c4f19ee2a119b",
+      "equal": true
+    },
+    {
+      "path": "presentations/two_d/seat_view.gd",
+      "baselineSha256": "21fece61a8c171e1bd7665ef0ab3751c156ff780d11f7cf7eac8135d8c6d6dae",
+      "candidateSha256": "21fece61a8c171e1bd7665ef0ab3751c156ff780d11f7cf7eac8135d8c6d6dae",
+      "equal": true
+    },
+    {
+      "path": "presentations/two_d/table.gd",
+      "baselineSha256": "de0bec7b083327f1210a9413d0236208be832ed49c0cec329b4999fb2994ba9a",
+      "candidateSha256": "de0bec7b083327f1210a9413d0236208be832ed49c0cec329b4999fb2994ba9a",
+      "equal": true
+    },
+    {
+      "path": "presentations/two_d/table.tscn",
+      "baselineSha256": "036e401b2d1b92b15b5bdf118759d150e9a5c40b4a63d1acdb77379fdd38998a",
+      "candidateSha256": "036e401b2d1b92b15b5bdf118759d150e9a5c40b4a63d1acdb77379fdd38998a",
+      "equal": true
+    },
+    {
+      "path": "presentations/two_d/table_surface.gd",
+      "baselineSha256": "f90f764b8e5789c92f9ec8685c64f45ba0941fb89b5a4e50377ba388a6f995b2",
+      "candidateSha256": "f90f764b8e5789c92f9ec8685c64f45ba0941fb89b5a4e50377ba388a6f995b2",
+      "equal": true
+    },
+    {
+      "path": "project.godot",
+      "baselineSha256": "44e386494e8711fa537781bc55f2f5fe061efc073d589d872328a892fcd6c07f",
+      "candidateSha256": "44e386494e8711fa537781bc55f2f5fe061efc073d589d872328a892fcd6c07f",
+      "equal": true
+    },
+    {
+      "path": "scripts/main.gd",
+      "baselineSha256": "e8f4fa5ca26ef5ec7ea7f9c853c41788b04d10ab1fb6dba4ed0abe73dfebf4b6",
+      "candidateSha256": "e8f4fa5ca26ef5ec7ea7f9c853c41788b04d10ab1fb6dba4ed0abe73dfebf4b6",
+      "equal": true
+    },
+    {
+      "path": "scripts/renderer_controller.gd",
+      "baselineSha256": "b9086357bc985cad84079ec080955a4ce85df9b7eebd997deb575b37a8b38276",
+      "candidateSha256": "b9086357bc985cad84079ec080955a4ce85df9b7eebd997deb575b37a8b38276",
+      "equal": true
+    },
+    {
+      "path": "scripts/strict_json.gd",
+      "baselineSha256": "0696e5741c915c42c5b386dd27b6ed3611f3b7a3780d8fb8e0fabd88d6f2f4b3",
+      "candidateSha256": "0696e5741c915c42c5b386dd27b6ed3611f3b7a3780d8fb8e0fabd88d6f2f4b3",
+      "equal": true
+    },
+    {
+      "path": "scripts/view_validator.gd",
+      "baselineSha256": "0ea110b7851614644c36ab97536433d19fadfd026a92e2f156cdaf1aa4e206ba",
+      "candidateSha256": "0ea110b7851614644c36ab97536433d19fadfd026a92e2f156cdaf1aa4e206ba",
+      "equal": true
+    }
+  ],
+  "originalCheckers": [
+    {
+      "name": "three_d_scene_check.gd",
+      "shared": {
+        "path": "/root/projects/PartyDeck/godot/renderer/tests/three_d_scene_check.gd",
+        "bytes": 16311,
+        "sha256": "5d36c98fc638ebeb28c906350950bb6e7b7e5f111d560e2c62461db0c5e3d32e"
+      },
+      "ownerInput": {
+        "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/inputs/three_d_scene_check.gd",
+        "bytes": 16311,
+        "sha256": "5d36c98fc638ebeb28c906350950bb6e7b7e5f111d560e2c62461db0c5e3d32e"
+      },
+      "equal": true
+    },
+    {
+      "name": "three_d_redraw_check.gd",
+      "shared": {
+        "path": "/root/projects/PartyDeck/godot/renderer/tests/three_d_redraw_check.gd",
+        "bytes": 20952,
+        "sha256": "3ef5f9a49c8279aa39171cc90a91efbdf9313b2fcbace91b635444bc6172d287"
+      },
+      "ownerInput": {
+        "path": "/tmp/partydeck-3d-context-fit-20260911-_jvzo1j7/inputs/three_d_redraw_check.gd",
+        "bytes": 20952,
+        "sha256": "3ef5f9a49c8279aa39171cc90a91efbdf9313b2fcbace91b635444bc6172d287"
+      },
+      "equal": true
+    }
+  ],
+  "findingsClosedBySource": [
+    {
+      "id": "D2SEA-ROUND-001",
+      "resolution": "_public_info adds ROUND n only when context is not pinned and the narrow hand-toggle header hides its round label. Existing visible header or pinned-context rounds are not duplicated.",
+      "pixelConfirmation": "pending"
+    }
+  ],
+  "staticRationale": [
+    "Measured fixed context uses wrapped label minimum heights at the integer MarginContainer inner width, with ceil per VBox child and current theme separations/margins.",
+    "Pinning is rejected unless fixed header/context plus existing 220-unit scroll-stage budget fits. Rejected context is removed and queued for deletion; unchanged public-info fallback retains rank, turn, full claim and guidance.",
+    "The hand toggle remains governed by the original header condition; fixed-context fit does not alter hand visibility state.",
+    "All existing action callbacks, action enablement, private rendering, controller and diagnostic observer functions remain unchanged.",
+    "Only one renderer source file differs; no bridge, authority, admission, discovery, or observer changes."
+  ],
+  "limits": [
+    "This source review does not by itself establish real input reachability, native acceptance or continuous privacy.",
+    "Owner-executed final-candidate rendering and strict behavior evidence still requires inspection.",
+    "Comparison covers small source/scene/project files; no duplicate asset hashing or engine execution."
+  ]
+}

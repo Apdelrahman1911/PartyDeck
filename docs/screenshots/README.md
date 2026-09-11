@@ -1,10 +1,16 @@
 # Screenshot review gallery
 
-This collection preserves **4,600 original app and renderer captures**, including failed attempts, and **2,806 supplemental images**, plus four existing asset proofs. Open a collection and click any thumbnail for its full original image. [manifest.json](manifest.json) retains filenames, dimensions, hashes, source paths, exact source revisions and timestamp metadata.
+This collection preserves **4,663 original app and renderer captures**, including failed attempts, and **2,806 supplemental images**, plus four existing asset proofs. Open a collection and click any thumbnail for its full original image. [manifest.json](manifest.json) retains filenames, dimensions, hashes, source paths, exact source revisions and timestamp metadata.
 
-The latest addition preserves **two original iOS diagnostic stills** from CI 34550903117: **one direct view and one reviewed byte match**, with zero unviewed images. The separate 2D and 3D case identities and export timestamps are retained.
+The latest addition preserves **63 original 3D desktop captures**: **36 attributed direct views, one reviewed byte match and 26 historical unviewed images**. Its **33 final V2 captures** have **32 direct views and one byte match**; the 30 earlier captures retain their original outcomes.
 
 | Latest preserved collection | Images | Review scope |
+| --- | ---: | --- |
+| [3D context fitting — desktop correction evidence](godot-3d-context-fit-20260911/README.md) | 63 originals | Scoped desktop checks expose the complete claim and actions through scrollbar input; the round is shown initially. Final V2 has 33 captures, with 30 earlier captures retained. Native acceptance remains separate. |
+
+The preceding addition preserves **two original iOS diagnostic stills** from CI 34550903117: **one direct view and one reviewed byte match**, with zero unviewed images. The separate 2D and 3D case identities and export timestamps are retained.
+
+| Previous preserved collection | Images | Review scope |
 | --- | ---: | --- |
 | [iOS focused production diagnostic — CI 34550903117](ios-34550903117/README.md) | 2 originals | Both production cases fail the initial Home observation decode (`category=data_corrupted, path=$, bytes=512`). One direct view and one byte match; no gameplay or body-scroll evidence. |
 
