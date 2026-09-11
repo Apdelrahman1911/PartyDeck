@@ -21,6 +21,41 @@ if [[ "$PARTYDECK_ANDROID_GODOT_ADAPTIVE_SMOKE" != 0 && "$PARTYDECK_ANDROID_GODO
   printf '%s\n' 'PARTYDECK_ANDROID_GODOT_ADAPTIVE_SMOKE must be 0 or 1.' >&2
   exit 1
 fi
+
+select_godot_shipping_smoke() {
+  python3 -B - <<'PY'
+from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path("scripts").resolve()))
+from android_godot_activation import parse_build_expectation
+
+with Path('build/ci/android/godot-activation-build.json').open('rb') as stream:
+    raw = stream.read(4097)
+if len(raw) > 4096:
+    raise ValueError('The activation build receipt is oversized.')
+expected = parse_build_expectation(raw)
+if expected['profile'] != 'shipping':
+    raise ValueError('Ordinary Android smoke requires a shipping activation build receipt.')
+if expected['modes'] not in ([], ['2d', '3d']):
+    raise ValueError('Shipping smoke requires both modes or the empty shipping baseline.')
+print('1' if expected['modes'] else '0')
+PY
+}
+
+PARTYDECK_ANDROID_GODOT_SHIPPING_SMOKE=0
+if [[ "$PARTYDECK_ANDROID_GODOT_SESSION_SMOKE" == 0 && "$PARTYDECK_ANDROID_GODOT_ADAPTIVE_SMOKE" == 0 ]]; then
+  # Select from the actual build receipt; qualification and adaptive keep their own routes.
+  PARTYDECK_ANDROID_GODOT_SHIPPING_SMOKE="$(select_godot_shipping_smoke)"
+  if [[ "$PARTYDECK_ANDROID_GODOT_SHIPPING_SMOKE" == 1 ]]; then
+    if [[ ! "$PARTYDECK_SOURCE_REVISION" =~ ^([0-9a-f]{40}|[0-9a-f]{64})$ ]]; then
+      printf '%s\n' 'Shipping smoke requires the full source revision used to build these APKs.' >&2
+      exit 1
+    fi
+    test -f scripts/smoke-android-godot-shipping.py
+  fi
+fi
+
 if [[ "$PARTYDECK_ANDROID_GODOT_ADAPTIVE_SMOKE" == 1 ]]; then
   if [[ "$PARTYDECK_ANDROID_API" != 36 || "$PARTYDECK_ANDROID_GODOT_SESSION_SMOKE" != 0 || \
         "$PARTYDECK_SOURCE_REVISION" != "${GITHUB_SHA:-}" ]]; then
@@ -255,6 +290,33 @@ PY
   exit "$PARTYDECK_ADAPTIVE_STATUS"
 fi
 
+run_godot_shipping_phase() {
+  local phase="$1" variant="$2" apk="$3" output="$4"
+  local arguments=(--apk "$apk" --variant "$variant" --source-revision "$PARTYDECK_SOURCE_REVISION"
+    --build-expectation build/ci/android/godot-activation-build.json
+    --renderer-pack godot/qualification/build/renderer/partydeck-last-light.pck
+    --inputs "$output/build-inputs.json")
+  if [[ "$variant" == optimized-test-signed ]]; then
+    arguments+=(--signing-receipt "$PARTYDECK_ANDROID_OUTPUT/packages/runtime-package.json"
+      --unsigned-apk androidApp/build/outputs/apk/release/androidApp-release-unsigned.apk)
+  fi
+  mkdir -p "$output" || return "$?"
+  case "$phase" in
+    record-inputs)
+      timeout --signal=TERM --kill-after=15s 3m \
+        python3 -B scripts/smoke-android-godot-shipping.py record-inputs "${arguments[@]}" \
+        2>&1 | tee "$output/record-inputs-command.log"
+      ;;
+    run)
+      timeout --signal=TERM --kill-after=15s 20m \
+        python3 -B scripts/smoke-android-godot-shipping.py run "${arguments[@]}" \
+          --serial "$PARTYDECK_EMULATOR_SERIAL" --output "$output/run" --font-scale 1.0 \
+        2>&1 | tee "$output/command.log"
+      ;;
+    *) return 2 ;;
+  esac
+}
+
 run_godot_session_smoke() {
   local variant="$1" apk="$2" output="$3"
   shift 3
@@ -350,6 +412,16 @@ PY
 }
 
 PARTYDECK_DEBUG_STATUS=0
+PARTYDECK_SHIPPING_DEBUG_INPUT_STATUS=''
+PARTYDECK_SHIPPING_DEBUG_STATUS=''
+PARTYDECK_SHIPPING_OPTIMIZED_INPUT_STATUS=''
+PARTYDECK_SHIPPING_OPTIMIZED_STATUS=''
+if [[ "$PARTYDECK_ANDROID_GODOT_SHIPPING_SMOKE" == 1 ]]; then
+  # Bind debug build outputs before any variant UI smoke can run.
+  PARTYDECK_SHIPPING_DEBUG_INPUT_STATUS=0
+  run_godot_shipping_phase record-inputs debug androidApp/build/outputs/apk/debug/androidApp-debug.apk \
+    "$PARTYDECK_ANDROID_OUTPUT/godot-shipping/debug" || PARTYDECK_SHIPPING_DEBUG_INPUT_STATUS=$?
+fi
 python3 scripts/smoke-android-ui.py \
   --serial "$PARTYDECK_EMULATOR_SERIAL" \
   --apk androidApp/build/outputs/apk/debug/androidApp-debug.apk \
@@ -363,9 +435,21 @@ if [[ "$PARTYDECK_ANDROID_GODOT_SESSION_SMOKE" == 1 ]]; then
   run_godot_session_smoke debug androidApp/build/outputs/apk/debug/androidApp-debug.apk \
     "$PARTYDECK_ANDROID_OUTPUT/godot-session/debug" || PARTYDECK_GODOT_DEBUG_STATUS=$?
 fi
+if [[ "$PARTYDECK_ANDROID_GODOT_SHIPPING_SMOKE" == 1 && "$PARTYDECK_SHIPPING_DEBUG_INPUT_STATUS" == 0 ]]; then
+  PARTYDECK_SHIPPING_DEBUG_STATUS=0
+  run_godot_shipping_phase run debug androidApp/build/outputs/apk/debug/androidApp-debug.apk \
+    "$PARTYDECK_ANDROID_OUTPUT/godot-shipping/debug" || PARTYDECK_SHIPPING_DEBUG_STATUS=$?
+fi
 
 PARTYDECK_OPTIMIZED_STATUS=0
 if ./scripts/prepare-android-runtime-apk.sh; then
+  if [[ "$PARTYDECK_ANDROID_GODOT_SHIPPING_SMOKE" == 1 ]]; then
+    # Only the newly signed optimized copy can produce this variant's input receipt.
+    PARTYDECK_SHIPPING_OPTIMIZED_INPUT_STATUS=0
+    run_godot_shipping_phase record-inputs optimized-test-signed \
+      "$PARTYDECK_ANDROID_OUTPUT/packages/PartyDeck-release-ci-test-signed.apk" \
+      "$PARTYDECK_ANDROID_OUTPUT/godot-shipping/optimized-test-signed" || PARTYDECK_SHIPPING_OPTIMIZED_INPUT_STATUS=$?
+  fi
   # The optimized copy has its own disposable certificate. Remove any debug
   # install first; Python's install/clear/launch assertions verify replacement.
   timeout 30s adb -s "$PARTYDECK_EMULATOR_SERIAL" uninstall dev.partydeck.app \
@@ -384,12 +468,20 @@ if ./scripts/prepare-android-runtime-apk.sh; then
       "$PARTYDECK_ANDROID_OUTPUT/godot-session/optimized-test-signed" \
       --skip-renderer-death || PARTYDECK_GODOT_OPTIMIZED_STATUS=$?
   fi
+  if [[ "$PARTYDECK_ANDROID_GODOT_SHIPPING_SMOKE" == 1 && "$PARTYDECK_SHIPPING_OPTIMIZED_INPUT_STATUS" == 0 ]]; then
+    PARTYDECK_SHIPPING_OPTIMIZED_STATUS=0
+    run_godot_shipping_phase run optimized-test-signed \
+      "$PARTYDECK_ANDROID_OUTPUT/packages/PartyDeck-release-ci-test-signed.apk" \
+      "$PARTYDECK_ANDROID_OUTPUT/godot-shipping/optimized-test-signed" || PARTYDECK_SHIPPING_OPTIMIZED_STATUS=$?
+  fi
 else
   PARTYDECK_OPTIMIZED_STATUS=$?
 fi
 
 python3 - "$PARTYDECK_ANDROID_OUTPUT" "$PARTYDECK_DEBUG_STATUS" "$PARTYDECK_OPTIMIZED_STATUS" \
-  "$PARTYDECK_ANDROID_GODOT_SESSION_SMOKE" "$PARTYDECK_GODOT_DEBUG_STATUS" "$PARTYDECK_GODOT_OPTIMIZED_STATUS" <<'PY'
+  "$PARTYDECK_ANDROID_GODOT_SESSION_SMOKE" "$PARTYDECK_GODOT_DEBUG_STATUS" "$PARTYDECK_GODOT_OPTIMIZED_STATUS" \
+  "$PARTYDECK_ANDROID_GODOT_SHIPPING_SMOKE" "$PARTYDECK_SHIPPING_DEBUG_INPUT_STATUS" "$PARTYDECK_SHIPPING_DEBUG_STATUS" \
+  "$PARTYDECK_SHIPPING_OPTIMIZED_INPUT_STATUS" "$PARTYDECK_SHIPPING_OPTIMIZED_STATUS" <<'PY'
 import json
 from pathlib import Path
 import sys
@@ -399,6 +491,11 @@ debug_status, optimized_status = map(int, sys.argv[2:4])
 godot_requested = sys.argv[4] == '1'
 godot_debug, godot_optimized = (int(value) if value else None for value in sys.argv[5:7])
 godot_passed = not godot_requested or (godot_debug == 0 and godot_optimized == 0)
+shipping_requested = sys.argv[7] == '1'
+shipping_debug_inputs, shipping_debug, shipping_optimized_inputs, shipping_optimized = (
+    int(value) if value else None for value in sys.argv[8:12])
+shipping_passed = not shipping_requested or all(value == 0 for value in (
+    shipping_debug_inputs, shipping_debug, shipping_optimized_inputs, shipping_optimized))
 (output / "runtime-variants.json").write_text(json.dumps({
     "sameEmulatorBoot": True,
     "debugExitCode": debug_status,
@@ -414,13 +511,30 @@ godot_passed = not godot_requested or (godot_debug == 0 and godot_optimized == 0
         "fontScale": 1.0,
         "scope": "Real selector and native session lifecycle at normal text; renderer gameplay and pixel privacy require separate evidence.",
     },
-    "passed": debug_status == 0 and optimized_status == 0 and godot_passed,
+    "godotShippingSmoke": {
+        "requested": shipping_requested,
+        "debugInputExitCode": shipping_debug_inputs,
+        "debugPhaseExitCode": shipping_debug,
+        "optimizedTestSignedInputExitCode": shipping_optimized_inputs,
+        "optimizedTestSignedPhaseExitCode": shipping_optimized,
+        "allRequestedPhasesPassed": shipping_passed if shipping_requested else None,
+        "modes": ['2d', '3d'] if shipping_requested else [],
+        "fontScale": 1.0,
+        "qualificationObservationRequested": False,
+        "engineGameplayRequested": False,
+        "scope": "Shipping picker, real native entry and Standard return; renderer gameplay and pixel privacy retain separate evidence.",
+    },
+    "passed": debug_status == 0 and optimized_status == 0 and godot_passed and shipping_passed,
 }, indent=2) + "\n")
 PY
 if (( PARTYDECK_DEBUG_STATUS != 0 || PARTYDECK_OPTIMIZED_STATUS != 0 )) || \
-  [[ "$PARTYDECK_ANDROID_GODOT_SESSION_SMOKE" == 1 && ( "$PARTYDECK_GODOT_DEBUG_STATUS" != 0 || "$PARTYDECK_GODOT_OPTIMIZED_STATUS" != 0 ) ]]; then
-  printf 'Android runtime validation failed: debug=%s optimized-test-signed=%s godot-debug=%s godot-optimized=%s\n' \
+  [[ "$PARTYDECK_ANDROID_GODOT_SESSION_SMOKE" == 1 && ( "$PARTYDECK_GODOT_DEBUG_STATUS" != 0 || "$PARTYDECK_GODOT_OPTIMIZED_STATUS" != 0 ) ]] || \
+  [[ "$PARTYDECK_ANDROID_GODOT_SHIPPING_SMOKE" == 1 && ( "$PARTYDECK_SHIPPING_DEBUG_INPUT_STATUS" != 0 || \
+     "$PARTYDECK_SHIPPING_DEBUG_STATUS" != 0 || "$PARTYDECK_SHIPPING_OPTIMIZED_INPUT_STATUS" != 0 || "$PARTYDECK_SHIPPING_OPTIMIZED_STATUS" != 0 ) ]]; then
+  printf 'Android runtime validation failed: debug=%s optimized-test-signed=%s godot-debug=%s godot-optimized=%s shipping-debug-input=%s shipping-debug=%s shipping-optimized-input=%s shipping-optimized=%s\n' \
     "$PARTYDECK_DEBUG_STATUS" "$PARTYDECK_OPTIMIZED_STATUS" \
-    "${PARTYDECK_GODOT_DEBUG_STATUS:-not-run}" "${PARTYDECK_GODOT_OPTIMIZED_STATUS:-not-run}" >&2
+    "${PARTYDECK_GODOT_DEBUG_STATUS:-not-run}" "${PARTYDECK_GODOT_OPTIMIZED_STATUS:-not-run}" \
+    "${PARTYDECK_SHIPPING_DEBUG_INPUT_STATUS:-not-run}" "${PARTYDECK_SHIPPING_DEBUG_STATUS:-not-run}" \
+    "${PARTYDECK_SHIPPING_OPTIMIZED_INPUT_STATUS:-not-run}" "${PARTYDECK_SHIPPING_OPTIMIZED_STATUS:-not-run}" >&2
   exit 1
 fi

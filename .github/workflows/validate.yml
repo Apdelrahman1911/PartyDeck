@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       platform:
-        description: Platforms or focused iOS production Godot sessions to validate for this manual run
+        description: Platforms or focused iOS Godot qualification/shipping checks for this manual run
         required: true
         type: choice
         default: all
@@ -16,6 +16,7 @@ on:
           - android
           - ios
           - ios-godot-production
+          - ios-godot-shipping
       android_api:
         description: Android runtime API (API 35 and API 36 have separate qualification evidence)
         required: true
@@ -47,7 +48,8 @@ jobs:
     name: Android and shared JVM tests
     if: ${{ github.event_name != 'workflow_dispatch' || inputs.platform == 'all' || inputs.platform == 'android' }}
     runs-on: ubuntu-24.04
-    timeout-minutes: ${{ inputs.android_godot_session && 70 || 45 }}
+    # Shipping builds add both native entry runs to the ordinary UI checks.
+    timeout-minutes: ${{ inputs.android_godot_session && 70 || 80 }}
     env:
       PARTYDECK_ANDROID_API: ${{ inputs.android_api || '35' }}
       PARTYDECK_ANDROID_GODOT_SESSION_SMOKE: ${{ inputs.android_godot_session && '1' || '0' }}
@@ -102,7 +104,7 @@ jobs:
           sudo chmod a+rw /dev/kvm
       - name: Exercise debug and optimized Android APKs
         if: ${{ !cancelled() && hashFiles('androidApp/build/outputs/apk/debug/*.apk') != '' }}
-        timeout-minutes: ${{ inputs.android_godot_session && 55 || 30 }}
+        timeout-minutes: ${{ inputs.android_godot_session && 55 || 65 }}
         run: ./scripts/smoke-android-emulator.sh
       - name: Upload test and lint reports
         if: always()
@@ -118,6 +120,7 @@ jobs:
             build/ci/android/**/*.xml
             build/ci/android/**/*.png
             build/ci/android/godot-session/**/*-invalid-screencap.bin
+            build/ci/android/godot-shipping/**/*-invalid-screencap.bin
             godot/qualification/build/renderer/*.json
             godot/qualification/build/renderer/pack-logs/**
             godot/qualification/build/toolchain/install.receipt.json
@@ -141,7 +144,7 @@ jobs:
 
   ios-renderer-pack:
     name: Export the shared iOS renderer pack
-    if: ${{ github.event_name != 'workflow_dispatch' || inputs.platform == 'all' || inputs.platform == 'ios' || inputs.platform == 'ios-godot-production' }}
+    if: ${{ github.event_name != 'workflow_dispatch' || inputs.platform == 'all' || inputs.platform == 'ios' || inputs.platform == 'ios-godot-production' || inputs.platform == 'ios-godot-shipping' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
@@ -184,9 +187,9 @@ jobs:
           if-no-files-found: warn
 
   ios:
-    name: ${{ inputs.platform == 'ios-godot-production' && 'Focused iOS production Godot sessions' || 'iOS native tests and app smoke' }}
+    name: ${{ inputs.platform == 'ios-godot-production' && 'Focused iOS production Godot sessions' || inputs.platform == 'ios-godot-shipping' && 'Focused iOS shipping Godot entry' || 'iOS native tests and app smoke' }}
     needs: [ios-renderer-pack]
-    if: ${{ github.event_name != 'workflow_dispatch' || inputs.platform == 'all' || inputs.platform == 'ios' || inputs.platform == 'ios-godot-production' }}
+    if: ${{ github.event_name != 'workflow_dispatch' || inputs.platform == 'all' || inputs.platform == 'ios' || inputs.platform == 'ios-godot-production' || inputs.platform == 'ios-godot-shipping' }}
     runs-on: macos-26
     timeout-minutes: 180
     env:
@@ -238,11 +241,11 @@ jobs:
           xcodebuild -showsdks
           xcrun simctl help
       - name: Run native shared tests and link device framework
-        if: ${{ inputs.platform != 'ios-godot-production' }}
+        if: ${{ inputs.platform != 'ios-godot-production' && inputs.platform != 'ios-godot-shipping' }}
         timeout-minutes: 35
         run: ./scripts/validate-ios-shared.sh
       - name: Preserve native shared test evidence before app compilation
-        if: ${{ always() && inputs.platform != 'ios-godot-production' }}
+        if: ${{ always() && inputs.platform != 'ios-godot-production' && inputs.platform != 'ios-godot-shipping' }}
         uses: ./.github/actions/upload-artifact
         with:
           name: ios-shared-native-reports
@@ -281,7 +284,7 @@ jobs:
           key: ${{ steps.native-engine-cache.outputs.cache-primary-key }}
       - name: Build and test the iOS Simulator application
         id: ios-app
-        if: ${{ !cancelled() && inputs.platform != 'ios-godot-production' && steps.apple-toolchain.outcome == 'success' && steps.renderer-pack.outcome == 'success' && steps.native-engine.outcome == 'success' }}
+        if: ${{ !cancelled() && inputs.platform != 'ios-godot-production' && inputs.platform != 'ios-godot-shipping' && steps.apple-toolchain.outcome == 'success' && steps.renderer-pack.outcome == 'success' && steps.native-engine.outcome == 'success' }}
         timeout-minutes: 40
         env:
           PARTYDECK_IOS_SIMULATOR_GODOT_ENGINE_ROOT: ${{ github.workspace }}/godot/ios-host/build
@@ -290,14 +293,14 @@ jobs:
       # ordinary or layout test must not prevent the other native checks.
       - name: Qualify native UIKit Godot shell layout
         id: ios-godot-layout
-        if: ${{ !cancelled() && inputs.platform != 'ios-godot-production' && inputs.ios_godot_session && steps.apple-toolchain.outcome == 'success' && steps.renderer-pack.outcome == 'success' && steps.native-engine.outcome == 'success' }}
+        if: ${{ !cancelled() && inputs.platform != 'ios-godot-production' && inputs.platform != 'ios-godot-shipping' && inputs.ios_godot_session && steps.apple-toolchain.outcome == 'success' && steps.renderer-pack.outcome == 'success' && steps.native-engine.outcome == 'success' }}
         timeout-minutes: 20
         env:
           PARTYDECK_IOS_GODOT_SESSION_SMOKE: '1'
           PARTYDECK_IOS_SIMULATOR_GODOT_ENGINE_ROOT: ${{ github.workspace }}/godot/ios-host/build
         run: bash scripts/validate-ios-godot-layout.sh
       - name: Exercise both real production Godot practice sessions
-        if: ${{ !cancelled() && inputs.platform != 'ios-godot-production' && inputs.ios_godot_session && steps.apple-toolchain.outcome == 'success' && steps.renderer-pack.outcome == 'success' && steps.native-engine.outcome == 'success' }}
+        if: ${{ !cancelled() && inputs.platform != 'ios-godot-production' && inputs.platform != 'ios-godot-shipping' && inputs.ios_godot_session && steps.apple-toolchain.outcome == 'success' && steps.renderer-pack.outcome == 'success' && steps.native-engine.outcome == 'success' }}
         timeout-minutes: 45
         env:
           PARTYDECK_IOS_GODOT_SESSION_SMOKE: '1'
@@ -323,11 +326,19 @@ jobs:
           } | tee build/ci/ios/focused-production-scope.log >> "$GITHUB_STEP_SUMMARY"
           bash scripts/validate-ios-godot-session.sh \
             2>&1 | tee build/ci/ios/focused-production-session.log
+      - name: Exercise both shipping Godot picker entries
+        if: ${{ !cancelled() && inputs.platform == 'ios-godot-shipping' && steps.apple-toolchain.outcome == 'success' && steps.renderer-pack.outcome == 'success' && steps.native-engine.outcome == 'success' }}
+        timeout-minutes: 45
+        shell: bash
+        env:
+          PARTYDECK_IOS_SIMULATOR_GODOT_ENGINE_ROOT: ${{ github.workspace }}/godot/ios-host/build
+        run: |
+          bash scripts/validate-ios-godot-shipping.sh "$PWD" "$PWD/build/ci/ios/godot-shipping"
       - name: Upload iOS reports and simulator app
         if: always()
         uses: ./.github/actions/upload-artifact
         with:
-          name: ${{ inputs.platform == 'ios-godot-production' && 'ios-focused-production-reports-and-simulator-app' || 'ios-reports-and-simulator-app' }}
+          name: ${{ inputs.platform == 'ios-godot-production' && 'ios-focused-production-reports-and-simulator-app' || inputs.platform == 'ios-godot-shipping' && 'ios-focused-shipping-reports-and-simulator-app' || 'ios-reports-and-simulator-app' }}
           path: |
             build/ci/ios/*.log
             build/ci/ios/*.json
@@ -346,6 +357,12 @@ jobs:
             build/ci/ios/godot-session/*.json
             build/ci/ios/godot-session/*.tar.gz
             build/ci/ios/godot-session/activation/**
+            build/ci/ios/godot-shipping/*.log
+            build/ci/ios/godot-shipping/*.json
+            build/ci/ios/godot-shipping/*.tar.gz
+            build/ci/ios/godot-shipping/PartyDeckShipping.xcresult/**
+            build/ci/ios/godot-shipping/attachments/**
+            build/ci/ios/godot-shipping/DerivedData/Build/Products/Debug-iphonesimulator/PartyDeckGodotInputs/inputs.json
             build/ci/ios/godot-session/PartyDeckGodotSessions.xcresult/**
             build/ci/ios/godot-session/attachments/**
             build/ci/ios/godot-session/DerivedData/Build/Products/Debug-iphonesimulator/PartyDeckGodotInputs/inputs.json
