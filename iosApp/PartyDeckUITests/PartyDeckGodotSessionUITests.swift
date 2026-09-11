@@ -692,15 +692,15 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
     private func malformedObservation(_ category: String, _ codingPath: [any CodingKey], _ byteCount: Int) -> Failure {
         let allowedKeys: Set<String> = [
             "accepted", "action", "activationValid", "active", "applicationBackgrounded", "authorityForegroundGrant",
-            "authorityReadyConfirmed", "backgrounded", "bootstrapCount", "bounds", "canAdvanceRound", "canChallenge",
+            "authorityReadyConfirmed", "backgrounded", "bootstrapCount", "bootstrapPhase", "bounds", "canAdvanceRound", "canChallenge",
             "canPlay", "canSendAction", "cardIndex", "clipRect", "closing", "controller", "controls", "coordinateSpace",
-            "disposed", "dormant", "drawCalls", "emptyTree", "enabled", "enabledModes", "engineAccessibilityHidden",
-            "error", "exhausted", "exitEvents", "expectedRevision", "failurePresent", "foreground", "frame", "geometry",
+            "creationElapsedSeconds", "creationPhase", "disposed", "dormant", "drawCalls", "elapsedSeconds", "emptyTree", "enabled", "enabledModes", "engineAccessibilityHidden",
+            "error", "exhausted", "exitEvents", "expectedRevision", "failurePresent", "fallbackReason", "foreground", "frame", "geometry",
             "group", "handConcealed", "handCount", "height", "inputGeneration", "inputViewEnabled", "intentEvents",
             "iterations", "lastCloseSucceeded", "lastViewerReceipt", "leaveConfirmation", "lifecycle",
-            "lifecycleGeneration", "mode", "native", "nativeFailedPresentations", "nativeForeground",
+            "lifecycleGeneration", "maxBootstrapSeconds", "maxDrainSeconds", "maxDrawSeconds", "maxIterateSeconds", "mode", "native", "nativeFailedPresentations", "nativeForeground",
             "nativePresentedFrames", "observationInstalled", "observationSequence", "outerCoverVisible", "ownTurn",
-            "ownerCreated", "pending", "phase", "port", "portReadyConfirmed", "practice", "presentationGeneration",
+            "ownerCreated", "pending", "phase", "port", "portReadyConfirmed", "practice", "preparation", "presentationGeneration",
             "presentationMode", "presentationOrdinal", "privacyCoverVisible", "privacyEpoch", "privateFaceCount",
             "privateLabelCount", "problem", "processIdentifier", "profile", "projectedRendererRevision",
             "projectedSessionRevision", "quarantined", "queuedBytes", "queuedCommands", "queuedEvents", "readyEvents",
@@ -798,6 +798,7 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
         let sessionRevision: Counter?, projectedRendererRevision: Counter?, projectedSessionRevision: Counter?
         let screen: String, mode: String, lifecycle: String
         let phase: String?, pending: String?, problem: String?
+        let fallbackReason: String?
         let round: Int, handCount: Int
         let ownTurn: Bool, canSendAction: Bool, canPlay: Bool, canChallenge: Bool, canAdvanceRound: Bool
         let foreground: Bool, backgrounded: Bool, leaveConfirmation: Bool
@@ -817,12 +818,28 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
         let native: Native?
         let geometry: Geometry?
         let renderer: Renderer?
+        let preparation: Preparation?
+    }
+    private struct Preparation: Decodable {
+        enum Phase: String, Decodable { case preparing, succeeded, failed, rejected }
+        enum CreationPhase: String, Decodable {
+            case notStarted = "not_started"
+            case running, returned, threw
+        }
+        let phase: Phase, creationPhase: CreationPhase
+        let elapsedSeconds: Double?, creationElapsedSeconds: Double?
     }
     private struct Native: Decodable {
+        enum BootstrapPhase: String, Decodable {
+            case notStarted = "not_started"
+            case running, returned
+        }
         let bootstrapCount: UInt64, processIdentifier: UInt64
         let presentationGeneration: Counter, lifecycleGeneration: Counter, inputGeneration: Counter
         let readyEvents: UInt64, intentEvents: UInt64, exitEvents: UInt64, rejectedEvents: UInt64
         let nativePresentedFrames: UInt64, nativeFailedPresentations: UInt64, iterations: UInt64, drawCalls: UInt64
+        let maxDrawSeconds: Double?, maxIterateSeconds: Double?, maxDrainSeconds: Double?
+        let maxBootstrapSeconds: Double?, bootstrapPhase: BootstrapPhase?
         let authorityReadyConfirmed: Bool, nativeForeground: Bool, authorityForegroundGrant: Bool, applicationBackgrounded: Bool
         let inputViewEnabled: Bool, privacyCoverVisible: Bool, renderLoopActive: Bool, dormant: Bool, emptyTree: Bool
         let surfaceAttached: Bool, surfaceAccessibilityHidden: Bool, retainedEnginePolicy: Bool

@@ -87,6 +87,7 @@ struct PDNativeStageTiming {
 };
 
 struct PDNativeTimings {
+	PDNativeStageTiming bootstrap;
 	PDNativeStageTiming draw_view;
 	PDNativeStageTiming uikit_pump;
 	PDNativeStageTiming setup_view;
@@ -1036,6 +1037,8 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 		[self close];
 		return;
 	}
+	// Cold engine initialization only; retained warm-up and neutral retirement return above.
+	PDNativeTimingScope bootstrapTiming(_nativeTimings.bootstrap);
 	processConsumed = YES;
 	++processBootstrapCount;
 	_bootstrapAttempted = YES;
@@ -2108,6 +2111,7 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 		@"iterations": @(_iterations), @"drawCalls": @(_drawCalls), @"drawDepth": @(_drawDepth),
 		@"timings": @{
 			@"schemaVersion": @1, @"snapshotUptime": @(timingSnapshotUptime),
+			@"bootstrap": PDNativeStageTimingSnapshot(_nativeTimings.bootstrap),
 			@"drawView": PDNativeStageTimingSnapshot(_nativeTimings.draw_view),
 			@"uikitPump": PDNativeStageTimingSnapshot(_nativeTimings.uikit_pump),
 			@"setupView": PDNativeStageTimingSnapshot(_nativeTimings.setup_view),

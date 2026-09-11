@@ -17,6 +17,7 @@ final class GodotPresentationPort: NSObject, IosGodotNativePort {
     private var disposed = false
     #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION
     private var qualificationIdentityBaseline: [String: String] = [:]
+    private var qualificationPreparation: PreparationObservation?
     #endif
 
     init(presenter: UIViewController, configuration: GodotPresentationConfiguration = .bundled()) {
@@ -65,11 +66,18 @@ final class GodotPresentationPort: NSObject, IosGodotNativePort {
               presenter.presentedViewController == nil,
               !presenter.isBeingPresented, !presenter.isBeingDismissed else {
             // No native acquisition occurred; a subsequent close for this attempt is already clean.
+            #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION
+            if active == nil { qualificationPreparation = PreparationObservation(rejected: true) }
+            #endif
             unacquiredPresentationID = presentationId
             completion.complete(success: false)
             return
         }
 
+        #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION
+        let preparationObservation = PreparationObservation()
+        qualificationPreparation = preparationObservation
+        #endif
         let lifetime = Lifetime(
             id: presentationId, callbacks: callbacks, completion: completion,
             foreground: isForeground, backgrounded: isBackgrounded
@@ -77,14 +85,21 @@ final class GodotPresentationPort: NSObject, IosGodotNativePort {
         active = lifetime
         #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION
         lifetime.qualificationMode = mode.rawValue
+        lifetime.preparation?.qualificationFinished = { success in preparationObservation.finish(success) }
         #endif
         unacquiredPresentationID = nil
         let owner = engineOwner ?? PDGodotEngineOwner()
         engineOwner = owner
         do {
+            #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION
+            preparationObservation.beginCreation()
+            #endif
             let created: PDGodotPresentation? = try owner.createPresentation(
                 withProjectPath: project.path, packPath: pack.path, launchDocument: launchDocument
             )
+            #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION
+            preparationObservation.finishCreation(threw: false)
+            #endif
             guard let native = created, native.presentationID == presentationId,
                   let controller = native.viewController else {
                 preparationFailed(lifetime)
@@ -158,6 +173,9 @@ final class GodotPresentationPort: NSObject, IosGodotNativePort {
                 prepared?.finish(lifetime.publishedLifecycle != nil)
             }
         } catch {
+            #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION
+            preparationObservation.finishCreation(threw: true)
+            #endif
             // Native may have acquired process resources before rejecting; quarantine until shutdown.
             preparationFailed(lifetime)
         }
@@ -441,8 +459,9 @@ final class GodotPresentationPort: NSObject, IosGodotNativePort {
             "ownerCreated": engineOwner != nil, "active": active != nil,
             "closing": active?.closing == true, "quarantined": quarantined, "disposed": disposed,
             "portReadyConfirmed": active?.readyConfirmed == true,
-            "native": NSNull(), "geometry": NSNull(), "renderer": NSNull(),
+            "native": NSNull(), "geometry": NSNull(), "renderer": NSNull(), "preparation": NSNull(),
         ]
+        if let qualificationPreparation { output["preparation"] = qualificationPreparation.snapshot() }
         if let lastClosed { output["lastCloseSucceeded"] = lastClosed.success }
         else { output["lastCloseSucceeded"] = NSNull() }
         guard activationValid, let engineOwner else { return output }
@@ -456,6 +475,24 @@ final class GodotPresentationPort: NSObject, IosGodotNativePort {
             "queuedCommands", "queuedEvents", "queuedBytes", "surfaceSize", "retainedEnginePolicy", "quarantined"]
         var native: [String: Any] = [:]
         for key in nativeKeys { native[key] = raw[key] ?? NSNull() }
+        // Existing cumulative, inclusive maxima for completed native scopes; these overlap.
+        // Missing or uncompleted scopes stay unknown. Timing never grants readiness.
+        let timings = raw["timings"] as? [String: Any]
+        for (key, stage) in [("maxDrawSeconds", "drawView"), ("maxIterateSeconds", "iterate"),
+                             ("maxDrainSeconds", "drain"), ("maxBootstrapSeconds", "bootstrap")] {
+            if let timing = timings?[stage] as? [String: Any],
+               let completed = timing["completedCount"] as? UInt64, completed > 0,
+               let maximum = timing["maxSeconds"] as? Double,
+               maximum.isFinite, maximum >= 0 {
+                native[key] = maximum
+            } else { native[key] = NSNull() }
+        }
+        if let bootstrap = timings?["bootstrap"] as? [String: Any],
+           let completed = bootstrap["completedCount"] as? UInt64,
+           let depth = bootstrap["currentDepth"] as? UInt64 {
+            // Scope return is independent of bootstrap success, Ready, and gameplay iteration.
+            native["bootstrapPhase"] = depth > 0 ? "running" : (completed > 0 ? "returned" : "not_started")
+        } else { native["bootstrapPhase"] = NSNull() }
         if let failure = raw["failure"] as? String { native["failurePresent"] = !failure.isEmpty }
         else { native["failurePresent"] = NSNull() }
         let identityKeys = ["engineIdentity", "controllerIdentity", "viewIdentity", "layerIdentity"]
@@ -502,6 +539,60 @@ final class GodotPresentationPort: NSObject, IosGodotNativePort {
         requireMainThread()
         active?.screen?.setSessionQualificationValue(document)
     }
+
+    /// Accepted prepare entry through its existing asynchronous completion, before external callbacks.
+    /// Creation is only native preflight/container creation; native bootstrap has its own timing scope.
+    private final class PreparationObservation {
+        private enum Phase: String { case preparing, succeeded, failed, rejected }
+        private enum CreationPhase: String {
+            case notStarted = "not_started"
+            case running, returned, threw
+        }
+        private let started: TimeInterval?
+        private var ended: TimeInterval?
+        private var phase: Phase
+        private var creationStarted: TimeInterval?
+        private var creationEnded: TimeInterval?
+        private var creationPhase = CreationPhase.notStarted
+
+        init(rejected: Bool = false) {
+            started = rejected ? nil : ProcessInfo.processInfo.systemUptime
+            phase = rejected ? .rejected : .preparing
+        }
+
+        func beginCreation() {
+            guard creationPhase == .notStarted else { return }
+            creationStarted = ProcessInfo.processInfo.systemUptime
+            creationPhase = .running
+        }
+
+        func finishCreation(threw: Bool) {
+            guard creationPhase == .running else { return }
+            creationEnded = ProcessInfo.processInfo.systemUptime
+            creationPhase = threw ? .threw : .returned
+        }
+
+        func finish(_ success: Bool) {
+            guard phase == .preparing else { return }
+            ended = ProcessInfo.processInfo.systemUptime
+            phase = success ? .succeeded : .failed
+        }
+
+        func snapshot() -> [String: Any] {
+            let now = ProcessInfo.processInfo.systemUptime
+            func elapsed(_ start: TimeInterval?, _ end: TimeInterval?) -> Any {
+                guard let start, start.isFinite else { return NSNull() }
+                let finish = end ?? now
+                guard finish.isFinite, finish >= start else { return NSNull() }
+                let seconds = finish - start
+                guard seconds.isFinite else { return NSNull() }
+                return seconds
+            }
+            return ["phase": phase.rawValue, "elapsedSeconds": elapsed(started, ended),
+                    "creationPhase": creationPhase.rawValue,
+                    "creationElapsedSeconds": elapsed(creationStarted, creationEnded)]
+        }
+    }
     #endif
 
     private func requireMainThread() { precondition(Thread.isMainThread) }
@@ -514,10 +605,18 @@ final class GodotPresentationPort: NSObject, IosGodotNativePort {
 
     private final class Completion {
         private var callback: (any IosGodotNativeCompletion)?
+        #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION
+        var qualificationFinished: ((Bool) -> Void)?
+        #endif
         init(_ callback: any IosGodotNativeCompletion) { self.callback = callback }
         func finish(_ success: Bool) {
             let callback = callback
             self.callback = nil
+            #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION
+            let observation = qualificationFinished
+            qualificationFinished = nil
+            observation?(success)
+            #endif
             callback?.complete(success: success)
         }
     }
