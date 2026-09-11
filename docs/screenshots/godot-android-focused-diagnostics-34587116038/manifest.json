@@ -1,0 +1,455 @@
+{
+  "schema_version": 1,
+  "id": "godot-android-focused-diagnostics-34587116038",
+  "title": "Android 3D failed body swipe — run 34587116038",
+  "run_id": "34587116038",
+  "head_sha": "b2566f53b2144dc5e17b1611b68aa692f7ffa092",
+  "attempt": 1,
+  "review_counts": {
+    "direct": 2,
+    "reviewed_byte_match": 0,
+    "unviewed": 0
+  },
+  "additional_direct_reviews_of_same_originals": 0,
+  "pixel_review": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land2/run11-diagnostic/PIXEL-REVIEW.json",
+    "destination": "godot-android-focused-diagnostics-34587116038/provenance/review/PIXEL-REVIEW.json",
+    "bytes": 4696,
+    "sha256": "a32cd2309e4c413be9aacca7cda6e62dec298292b88e33fe0b3dcf6280d7b31e"
+  },
+  "failure": {
+    "status": "failed",
+    "failed_stage": "3d.context-body-sweep",
+    "error": "Actual content jump leaves a gap in the required half-page capture overlap.",
+    "final_swipe": {
+      "index": 12,
+      "origin": "centred-body",
+      "start": [
+        476,
+        637
+      ],
+      "end": [
+        476,
+        565
+      ],
+      "duration_ms": 1646,
+      "play_y_before": 432,
+      "play_y_after": 328,
+      "measured_displacement": 104,
+      "clip": [
+        16,
+        96,
+        357,
+        103
+      ],
+      "maximum_allowed_displacement": 51.5
+    },
+    "source_result": {
+      "file": "/tmp/partydeck-android-focused-diagnostics-34587116038/optimized-test-signed-result.json",
+      "bytes": 1141915,
+      "sha256": "96777c945500deb096cdff248b6b943b2df9fccbf816ecab0e29e32eb037150d",
+      "crc32": "bfe67be1"
+    },
+    "source_result_published": false,
+    "selected_telemetry": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land2/run11-diagnostic/OBSERVED.json",
+      "destination": "godot-android-focused-diagnostics-34587116038/provenance/result/OBSERVED.json",
+      "bytes": 18374,
+      "sha256": "c5e9562be2d2d5a77aafe434a8674db3a0c2ff624465911f139e6e8c3571fa0a"
+    },
+    "result_extraction": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land2/run11-diagnostic/optimized-test-signed-result.json.receipt.json",
+      "destination": "godot-android-focused-diagnostics-34587116038/provenance/extraction/optimized-test-signed-result.json.receipt.json",
+      "bytes": 1678,
+      "sha256": "89e3449019a7015ab83bb88acfab168f0efec1bddf2da0c3fa81f385b592308a"
+    }
+  },
+  "causality_limit": "Neither image is an input/focus trace. The recorded DOWN is in displayed stage background, so a direct hit on the clipped prior button is not supported; the cause of the excessive movement remains under source/reproduction review.",
+  "limits": [
+    "Selected failed-run diagnostic only; no complete public-context sequence, full claim/Play/Challenge reachability, package or native acceptance."
+  ],
+  "extraction_scope": {
+    "method": "bounded HTTP-range diagnostic selection",
+    "artifact_id": 10194646227,
+    "artifact_name": "android-adaptive-api36-optimized-test-signed-font-2.0-34587116038-1-short-public-context",
+    "api_declared_archive_bytes": 122043654,
+    "api_declared_archive_sha256_unverified": "497a094f17545960150a808a190dad1304fc723217dd868c2bedaff9c6f14889",
+    "whole_archive_hash_verified": false,
+    "original_archive_retained": false,
+    "png_receipt": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land2/run11-diagnostic/PNG-WINDOW.json",
+      "destination": "godot-android-focused-diagnostics-34587116038/provenance/extraction/PNG-WINDOW.json",
+      "bytes": 5912,
+      "sha256": "ea2e7a93f6690ee7335f14d560d802cac1b0aba6fb01da35f9e1ff2d15ad32b4"
+    },
+    "canonical_collection_acceptance": false
+  },
+  "native_acceptance": false,
+  "shipping_acceptance": false,
+  "selection_scope": "Two original PNGs and four pinned pixel/extraction/selected-telemetry receipts. Other result/receipt references add no image, view or archive acceptance.",
+  "captures": [
+    {
+      "id": "godot-android-focused-diagnostics-34587116038/optimized-test-signed-3d-context-position-12",
+      "path": "godot-android-focused-diagnostics-34587116038/originals/optimized-test-signed-3d-context-position-12.png",
+      "collection": "godot-android-focused-diagnostics-34587116038",
+      "role": "original_capture",
+      "source_original": "/tmp/partydeck-android-focused-diagnostics-34587116038/optimized-test-signed-3d-context-position-12.png",
+      "original_filename": "optimized-test-signed-3d-context-position-12.png",
+      "original_member_filename": "3d-context-position-12.png",
+      "original_archive_member": "godot-adaptive/runtime/captures/3d-context-position-12.png",
+      "bytes": 79313,
+      "sha256": "26f2290fa4d2cfcdc6214a7f4d98aac45c154a716c53d19d8fc2ecaaa83db443",
+      "width_px": 1600,
+      "height_px": 720,
+      "source_file_mtime_ns": 1789123444006027848,
+      "source_file_mode": "0o444",
+      "ci_run": "34587116038",
+      "attempt": 1,
+      "source_revision": "b2566f53b2144dc5e17b1611b68aa692f7ffa092",
+      "platform": "Android",
+      "variant": "optimized-test-signed",
+      "case": "optimized-test-signed",
+      "font_scale": "2.0",
+      "scenario": "short-public-context",
+      "artifact_id": 10194646227,
+      "artifact_name": "android-adaptive-api36-optimized-test-signed-font-2.0-34587116038-1-short-public-context",
+      "artifact_type": "selected_native_diagnostic",
+      "execution_outcome": "failed",
+      "diagnostic_only": true,
+      "whole_archive_hash_verified": false,
+      "original_archive_retained": false,
+      "canonical_collection_acceptance": false,
+      "native_acceptance": false,
+      "shipping_acceptance": false,
+      "source_extraction": {
+        "method": "bounded HTTP byte ranges for selected ZIP members",
+        "selected_member_crc_verification": "pixel_o1_land2 extraction receipt attribution",
+        "crc32": "8ed540b9",
+        "receipt": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land2/run11-diagnostic/PNG-WINDOW.json",
+          "destination": "godot-android-focused-diagnostics-34587116038/provenance/extraction/PNG-WINDOW.json",
+          "bytes": 5912,
+          "sha256": "ea2e7a93f6690ee7335f14d560d802cac1b0aba6fb01da35f9e1ff2d15ad32b4"
+        },
+        "receipt_json_pointer": "/members/0"
+      },
+      "source_result": {
+        "file": "/tmp/partydeck-android-focused-diagnostics-34587116038/optimized-test-signed-result.json",
+        "bytes": 1141915,
+        "sha256": "96777c945500deb096cdff248b6b943b2df9fccbf816ecab0e29e32eb037150d",
+        "crc32": "bfe67be1",
+        "published_copy": false,
+        "selected_telemetry_receipt": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land2/run11-diagnostic/OBSERVED.json",
+          "destination": "godot-android-focused-diagnostics-34587116038/provenance/result/OBSERVED.json",
+          "bytes": 18374,
+          "sha256": "c5e9562be2d2d5a77aafe434a8674db3a0c2ff624465911f139e6e8c3571fa0a"
+        },
+        "original_member": "godot-adaptive/runtime/godot-public-context-result.json",
+        "extraction_receipt": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land2/run11-diagnostic/optimized-test-signed-result.json.receipt.json",
+          "destination": "godot-android-focused-diagnostics-34587116038/provenance/extraction/optimized-test-signed-result.json.receipt.json",
+          "bytes": 1678,
+          "sha256": "89e3449019a7015ab83bb88acfab168f0efec1bddf2da0c3fa81f385b592308a"
+        }
+      },
+      "source_result_capture_json_pointer": "/captures/17",
+      "source_result_position_json_pointer": "/checks/3d.context-body-sweep/positions/12",
+      "source_result_join_attribution": {
+        "reviewer": "/root/pixel_d1_sea",
+        "receipt": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_d1_sea/failures-20260911-review/SOURCE-BASIS.json",
+          "bytes": 22617,
+          "sha256": "e141751c308d01adf07d10e753a1e656ac9bca50f30b6006160d8eaaa7d1afa3",
+          "physical_source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_d1_sea/failures-20260911-review/SOURCE-BASIS.json",
+          "source_stat": {
+            "device": 24,
+            "inode": 5777723,
+            "bytes": 22617,
+            "mtime_ns": 1789124258717979287,
+            "ctime_ns": 1789124258717979287,
+            "mode": "0o444"
+          }
+        },
+        "scope": "Prior independent selected original-result joins; publisher does not reopen the raw result."
+      },
+      "capture_timestamp_metadata": "Capture timestamps are not supplied in the selected telemetry receipts; source file mtime is retained separately.",
+      "recorded_geometry": {
+        "position_index": 12,
+        "play_rect": [
+          16,
+          432,
+          349,
+          68
+        ],
+        "clip": [
+          16,
+          96,
+          357,
+          103
+        ],
+        "play_fully_enclosed": false,
+        "source_receipt": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land2/run11-diagnostic/OBSERVED.json",
+          "destination": "godot-android-focused-diagnostics-34587116038/provenance/result/OBSERVED.json",
+          "bytes": 18374,
+          "sha256": "c5e9562be2d2d5a77aafe434a8674db3a0c2ff624465911f139e6e8c3571fa0a"
+        },
+        "source_receipt_json_pointer": "/positions/12",
+        "scope": "Separate result telemetry, not a rendered-text or input/focus trace."
+      },
+      "review": {
+        "status": "direct",
+        "directly_viewed": true,
+        "reviewer": "/root/pixel_o1_land2",
+        "source_reviewer_value": "pixel_o1_land2",
+        "receipt": "godot-android-focused-diagnostics-34587116038/provenance/review/PIXEL-REVIEW.json",
+        "source_receipt": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land2/run11-diagnostic/PIXEL-REVIEW.json",
+          "destination": "godot-android-focused-diagnostics-34587116038/provenance/review/PIXEL-REVIEW.json",
+          "bytes": 4696,
+          "sha256": "a32cd2309e4c413be9aacca7cda6e62dec298292b88e33fe0b3dcf6280d7b31e"
+        },
+        "source_receipt_json_pointer": "/images/0",
+        "caption": "Before the failed final body swipe: the Show hand header, a clipped button and the top of the concealed tabletop are visible. The recorded DOWN at [476,637] lies in the tabletop area below that button.",
+        "caption_json_pointer": "/images/0/caption",
+        "detail": "original",
+        "representative_id": "godot-android-focused-diagnostics-34587116038/optimized-test-signed-3d-context-position-12",
+        "representative_path": "godot-android-focused-diagnostics-34587116038/originals/optimized-test-signed-3d-context-position-12.png",
+        "limits": [
+          "No private card face or private rank label is visible in this selected image.",
+          "Selected failed-run diagnostic only; no complete public-context sequence, full claim/Play/Challenge reachability, package or native acceptance.",
+          "Neither image is an input/focus trace. The recorded DOWN is in displayed stage background, so a direct hit on the clipped prior button is not supported; the cause of the excessive movement remains under source/reproduction review."
+        ]
+      }
+    },
+    {
+      "id": "godot-android-focused-diagnostics-34587116038/optimized-test-signed-3d-context-position-13",
+      "path": "godot-android-focused-diagnostics-34587116038/originals/optimized-test-signed-3d-context-position-13.png",
+      "collection": "godot-android-focused-diagnostics-34587116038",
+      "role": "original_capture",
+      "source_original": "/tmp/partydeck-android-focused-diagnostics-34587116038/optimized-test-signed-3d-context-position-13.png",
+      "original_filename": "optimized-test-signed-3d-context-position-13.png",
+      "original_member_filename": "3d-context-position-13.png",
+      "original_archive_member": "godot-adaptive/runtime/captures/3d-context-position-13.png",
+      "bytes": 132208,
+      "sha256": "0a833c55b91bdc22e49c110d83d3bdd74219cdbf15e7ab415d7d5daa0baa6eda",
+      "width_px": 1600,
+      "height_px": 720,
+      "source_file_mtime_ns": 1789123454287027235,
+      "source_file_mode": "0o444",
+      "ci_run": "34587116038",
+      "attempt": 1,
+      "source_revision": "b2566f53b2144dc5e17b1611b68aa692f7ffa092",
+      "platform": "Android",
+      "variant": "optimized-test-signed",
+      "case": "optimized-test-signed",
+      "font_scale": "2.0",
+      "scenario": "short-public-context",
+      "artifact_id": 10194646227,
+      "artifact_name": "android-adaptive-api36-optimized-test-signed-font-2.0-34587116038-1-short-public-context",
+      "artifact_type": "selected_native_diagnostic",
+      "execution_outcome": "failed",
+      "diagnostic_only": true,
+      "whole_archive_hash_verified": false,
+      "original_archive_retained": false,
+      "canonical_collection_acceptance": false,
+      "native_acceptance": false,
+      "shipping_acceptance": false,
+      "source_extraction": {
+        "method": "bounded HTTP byte ranges for selected ZIP members",
+        "selected_member_crc_verification": "pixel_o1_land2 extraction receipt attribution",
+        "crc32": "f1642b22",
+        "receipt": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land2/run11-diagnostic/PNG-WINDOW.json",
+          "destination": "godot-android-focused-diagnostics-34587116038/provenance/extraction/PNG-WINDOW.json",
+          "bytes": 5912,
+          "sha256": "ea2e7a93f6690ee7335f14d560d802cac1b0aba6fb01da35f9e1ff2d15ad32b4"
+        },
+        "receipt_json_pointer": "/members/1"
+      },
+      "source_result": {
+        "file": "/tmp/partydeck-android-focused-diagnostics-34587116038/optimized-test-signed-result.json",
+        "bytes": 1141915,
+        "sha256": "96777c945500deb096cdff248b6b943b2df9fccbf816ecab0e29e32eb037150d",
+        "crc32": "bfe67be1",
+        "published_copy": false,
+        "selected_telemetry_receipt": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land2/run11-diagnostic/OBSERVED.json",
+          "destination": "godot-android-focused-diagnostics-34587116038/provenance/result/OBSERVED.json",
+          "bytes": 18374,
+          "sha256": "c5e9562be2d2d5a77aafe434a8674db3a0c2ff624465911f139e6e8c3571fa0a"
+        },
+        "original_member": "godot-adaptive/runtime/godot-public-context-result.json",
+        "extraction_receipt": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land2/run11-diagnostic/optimized-test-signed-result.json.receipt.json",
+          "destination": "godot-android-focused-diagnostics-34587116038/provenance/extraction/optimized-test-signed-result.json.receipt.json",
+          "bytes": 1678,
+          "sha256": "89e3449019a7015ab83bb88acfab168f0efec1bddf2da0c3fa81f385b592308a"
+        }
+      },
+      "source_result_capture_json_pointer": "/captures/18",
+      "source_result_position_json_pointer": "/checks/3d.context-body-sweep/positions/13",
+      "source_result_join_attribution": {
+        "reviewer": "/root/pixel_d1_sea",
+        "receipt": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_d1_sea/failures-20260911-review/SOURCE-BASIS.json",
+          "bytes": 22617,
+          "sha256": "e141751c308d01adf07d10e753a1e656ac9bca50f30b6006160d8eaaa7d1afa3",
+          "physical_source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_d1_sea/failures-20260911-review/SOURCE-BASIS.json",
+          "source_stat": {
+            "device": 24,
+            "inode": 5777723,
+            "bytes": 22617,
+            "mtime_ns": 1789124258717979287,
+            "ctime_ns": 1789124258717979287,
+            "mode": "0o444"
+          }
+        },
+        "scope": "Prior independent selected original-result joins; publisher does not reopen the raw result."
+      },
+      "capture_timestamp_metadata": "Capture timestamps are not supplied in the selected telemetry receipts; source file mtime is retained separately.",
+      "recorded_geometry": {
+        "position_index": 13,
+        "play_rect": [
+          16,
+          328,
+          349,
+          68
+        ],
+        "clip": [
+          16,
+          96,
+          357,
+          103
+        ],
+        "play_fully_enclosed": false,
+        "source_receipt": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land2/run11-diagnostic/OBSERVED.json",
+          "destination": "godot-android-focused-diagnostics-34587116038/provenance/result/OBSERVED.json",
+          "bytes": 18374,
+          "sha256": "c5e9562be2d2d5a77aafe434a8674db3a0c2ff624465911f139e6e8c3571fa0a"
+        },
+        "source_receipt_json_pointer": "/positions/13",
+        "scope": "Separate result telemetry, not a rendered-text or input/focus trace."
+      },
+      "review": {
+        "status": "direct",
+        "directly_viewed": true,
+        "reviewer": "/root/pixel_o1_land2",
+        "source_reviewer_value": "pixel_o1_land2",
+        "receipt": "godot-android-focused-diagnostics-34587116038/provenance/review/PIXEL-REVIEW.json",
+        "source_receipt": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land2/run11-diagnostic/PIXEL-REVIEW.json",
+          "destination": "godot-android-focused-diagnostics-34587116038/provenance/review/PIXEL-REVIEW.json",
+          "bytes": 4696,
+          "sha256": "a32cd2309e4c413be9aacca7cda6e62dec298292b88e33fe0b3dcf6280d7b31e"
+        },
+        "source_receipt_json_pointer": "/images/1",
+        "caption": "After the failed final body swipe: concealed card backs and the tabletop are visible below Show hand. The measured body movement is 104 logical units, exceeding the 51.5-unit half-clip limit; Play remains outside the body clip.",
+        "caption_json_pointer": "/images/1/caption",
+        "detail": "original",
+        "representative_id": "godot-android-focused-diagnostics-34587116038/optimized-test-signed-3d-context-position-13",
+        "representative_path": "godot-android-focused-diagnostics-34587116038/originals/optimized-test-signed-3d-context-position-13.png",
+        "limits": [
+          "No private card face or private rank label is visible in this selected image.",
+          "Selected failed-run diagnostic only; no complete public-context sequence, full claim/Play/Challenge reachability, package or native acceptance.",
+          "Neither image is an input/focus trace. The recorded DOWN is in displayed stage background, so a direct hit on the clipped prior button is not supported; the cause of the excessive movement remains under source/reproduction review."
+        ]
+      }
+    }
+  ],
+  "preserved_source_files": [
+    {
+      "path": "docs/screenshots/godot-android-focused-diagnostics-34587116038/originals/optimized-test-signed-3d-context-position-12.png",
+      "source": "/tmp/partydeck-android-focused-diagnostics-34587116038/optimized-test-signed-3d-context-position-12.png",
+      "bytes": 79313,
+      "sha256": "26f2290fa4d2cfcdc6214a7f4d98aac45c154a716c53d19d8fc2ecaaa83db443",
+      "role": "original_capture",
+      "source_stat": {
+        "device": 27,
+        "inode": 60830,
+        "bytes": 79313,
+        "mtime_ns": 1789123444006027848,
+        "ctime_ns": 1789123444006027848,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/godot-android-focused-diagnostics-34587116038/originals/optimized-test-signed-3d-context-position-13.png",
+      "source": "/tmp/partydeck-android-focused-diagnostics-34587116038/optimized-test-signed-3d-context-position-13.png",
+      "bytes": 132208,
+      "sha256": "0a833c55b91bdc22e49c110d83d3bdd74219cdbf15e7ab415d7d5daa0baa6eda",
+      "role": "original_capture",
+      "source_stat": {
+        "device": 27,
+        "inode": 60831,
+        "bytes": 132208,
+        "mtime_ns": 1789123454287027235,
+        "ctime_ns": 1789123454287027235,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/godot-android-focused-diagnostics-34587116038/provenance/extraction/PNG-WINDOW.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land2/run11-diagnostic/PNG-WINDOW.json",
+      "bytes": 5912,
+      "sha256": "ea2e7a93f6690ee7335f14d560d802cac1b0aba6fb01da35f9e1ff2d15ad32b4",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5777684,
+        "bytes": 5912,
+        "mtime_ns": 1789123454288027235,
+        "ctime_ns": 1789123454288027235,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/godot-android-focused-diagnostics-34587116038/provenance/extraction/optimized-test-signed-result.json.receipt.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land2/run11-diagnostic/optimized-test-signed-result.json.receipt.json",
+      "bytes": 1678,
+      "sha256": "89e3449019a7015ab83bb88acfab168f0efec1bddf2da0c3fa81f385b592308a",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5777661,
+        "bytes": 1678,
+        "mtime_ns": 1789123092824048780,
+        "ctime_ns": 1789123092824048780,
+        "mode": "0o600"
+      }
+    },
+    {
+      "path": "docs/screenshots/godot-android-focused-diagnostics-34587116038/provenance/result/OBSERVED.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land2/run11-diagnostic/OBSERVED.json",
+      "bytes": 18374,
+      "sha256": "c5e9562be2d2d5a77aafe434a8674db3a0c2ff624465911f139e6e8c3571fa0a",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5777685,
+        "bytes": 18374,
+        "mtime_ns": 1789123526366022939,
+        "ctime_ns": 1789123526366022939,
+        "mode": "0o600"
+      }
+    },
+    {
+      "path": "docs/screenshots/godot-android-focused-diagnostics-34587116038/provenance/review/PIXEL-REVIEW.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land2/run11-diagnostic/PIXEL-REVIEW.json",
+      "bytes": 4696,
+      "sha256": "a32cd2309e4c413be9aacca7cda6e62dec298292b88e33fe0b3dcf6280d7b31e",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5777718,
+        "bytes": 4696,
+        "mtime_ns": 1789124048513991816,
+        "ctime_ns": 1789124048513991816,
+        "mode": "0o444"
+      }
+    }
+  ],
+  "new_pixel_views_by_publisher": 0
+}

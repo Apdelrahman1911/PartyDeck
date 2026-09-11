@@ -1,0 +1,472 @@
+{
+  "schema_version": 1,
+  "id": "ios-shipping-34589069960",
+  "title": "iOS shipping guarded failure still — run 34589069960",
+  "run_id": "34589069960",
+  "head_sha": "d9ae05003e931334e2304b89db926b67a76ab9e8",
+  "attempt": 1,
+  "review_counts": {
+    "direct": 1,
+    "reviewed_byte_match": 0,
+    "unviewed": 0
+  },
+  "additional_direct_reviews_of_same_originals": 1,
+  "pixel_review": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_fix/shipping-34589069960/DIRECT-FAILURE-PIXEL-AND-QUERY-REVIEW-v1.json",
+    "destination": "ios-shipping-34589069960/provenance/review/DIRECT-FAILURE-PIXEL-AND-QUERY-REVIEW-v1.json",
+    "bytes": 14653,
+    "sha256": "ca48edc39e8c932f3f3645c67584e79d7f5d797f7dece653a32dcb07458c66fe"
+  },
+  "additional_review": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_review_shipping_34589069960/selected-diagnostics-and-png-independent-review-v1.json",
+    "destination": "ios-shipping-34589069960/provenance/review/selected-diagnostics-and-png-independent-review-v1.json",
+    "bytes": 18357,
+    "sha256": "b021289655ee2430344f8c5e98d219dc89e0993ae8854582b85a67317857f9b1"
+  },
+  "failure": {
+    "status": "failed",
+    "summary_counts": {
+      "totalTestCount": 1,
+      "passedTests": 0,
+      "failedTests": 1,
+      "skippedTests": 0,
+      "expectedFailures": 0
+    },
+    "test_identifier": "PartyDeckGodotShippingUITests/testShippingPickerOpensBothNativeTablesAndReturnsToStandard()",
+    "failure_text": "failed: caught error: \"Native entry must leave the shared game surface and picker.\"",
+    "diagnostic_json": {
+      "path": "/tmp/partydeck-ios-shipping-diagnostics-34589069960/shipping-2d-native-entry-absence-diagnostic.json",
+      "destination": "ios-shipping-34589069960/provenance/original-reports/shipping-2d-native-entry-absence-diagnostic.json",
+      "bytes": 2159,
+      "sha256": "2d24b6032ab159b57cadacc97b38f5356e61af5045e19dc1acbb6bdfa4cc1237"
+    },
+    "original_summary": {
+      "path": "/tmp/partydeck-ios-shipping-diagnostics-34589069960/test-summary.json",
+      "destination": "ios-shipping-34589069960/provenance/original-reports/test-summary.json",
+      "bytes": 1537,
+      "sha256": "fd58228a4d06f076976523ad470ede0e85eda94e26999b9bc8d3986075ab5cc2"
+    },
+    "original_result": {
+      "path": "/tmp/partydeck-ios-shipping-diagnostics-34589069960/result.json",
+      "destination": "ios-shipping-34589069960/provenance/original-reports/result.json",
+      "bytes": 281,
+      "sha256": "caaad285fc46cf257ddde27d13a5998bf8c934aae0c878285c74fed436e7e8bc"
+    },
+    "original_stage_exits": {
+      "path": "/tmp/partydeck-ios-shipping-diagnostics-34589069960/stage-exits.json",
+      "destination": "ios-shipping-34589069960/provenance/original-reports/stage-exits.json",
+      "bytes": 218,
+      "sha256": "27d4206ec9983f46db0d878786d85523c93928707ef98e6c75d86c9fdc2511a2"
+    },
+    "interpretation": [
+      "Both retained picker reference and fresh picker query exist and are not hittable in each sample; fresh query match count is one.",
+      "Fresh game-table query has zero matches in each sample; fresh native-table query has one match and is hittable.",
+      "All picker frames are the same finite [41,211,320,480] points; native frame is [0,0,402,874].",
+      "Two sequential samples span about 2.49 seconds around guarded capture. They are not an atomic snapshot or uninterrupted persistence measurement.",
+      "Fresh and retained agreement means retained-reference-only behavior is not a sufficient explanation for these observations.",
+      "No new label/value/private-hand/hierarchy fields are emitted. Cause still requires the actual Dialog and native lifecycle source."
+    ],
+    "capture_phase": "before_original_error_rethrow_and_deferred_termination",
+    "sampling": "sequential_queries_not_an_atomic_snapshot",
+    "sample_span_seconds": 2.4881380000001627,
+    "sample_span_is_continuous_lifetime_or_latency_evidence": false
+  },
+  "limits": [
+    "No full archive, new collection, native compilation, host-suite rerun or native test rerun performed by reviewer.",
+    "Earlier full qualification and failed #41 retain their own source/package/result scopes.",
+    "The actual picker is a conditional Material3 AlertDialog, not DropdownMenu. No exit-animation or paused-frame-clock cause is concluded in this evidence receipt.",
+    "No narrow product candidate is approved by this selected-diagnostics receipt."
+  ],
+  "attachment_inventory": {
+    "manifestCount": 16,
+    "originalPngCount": 4,
+    "selectedAndViewedPngCount": 1,
+    "diagnosticJsonCount": 1,
+    "opaqueItemsNotOpened": 10,
+    "recordingsNotViewed": 1,
+    "allManifestFailureAssociationFlagsFalse": true,
+    "otherThreePreEntryPngsNotViewedForThisRun": true
+  },
+  "extraction_scope": {
+    "method": "bounded HTTP-range selected diagnostics",
+    "selection_receipt": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_fix/shipping-34589069960/SELECTED-DIAGNOSTICS-v1.json",
+      "destination": "ios-shipping-34589069960/provenance/extraction/SELECTED-DIAGNOSTICS-v1.json",
+      "bytes": 11372,
+      "sha256": "fd422e4a0c996d8ad97d279d3dd7ed02a25a15755faa1bc2654e65f6c60f6abd"
+    },
+    "api_declared_archive_bytes": 197965221,
+    "api_declared_archive_sha256_unverified": "e052ff186c5544e5df17c1118d015eee30a1d437eefbcedfb6095a37fc0f4d34",
+    "artifact_id": 10195622505,
+    "whole_archive_hash_verified": false,
+    "original_archive_retained": false,
+    "canonical_collection_acceptance": false
+  },
+  "native_acceptance": false,
+  "shipping_acceptance": false,
+  "selection_scope": "One guarded failure PNG, five safe original JSON members, six selected-member receipts and exact primary/corroborating pixel records. The three other pre-entry PNGs, opaque bodies, recording, logs and source tree are outside this gallery selection.",
+  "captures": [
+    {
+      "id": "ios-shipping-34589069960/shipping-2d-native-entry-absence-failure",
+      "path": "ios-shipping-34589069960/originals/shipping-2d-native-entry-absence-failure.png",
+      "collection": "ios-shipping-34589069960",
+      "role": "original_capture",
+      "source_original": "/tmp/partydeck-ios-shipping-diagnostics-34589069960/shipping-2d-native-entry-absence-failure.png",
+      "original_filename": "shipping-2d-native-entry-absence-failure.png",
+      "original_member_filename": "9FFDE00C-DC18-4CF3-9C2F-B6F819C7F2FD.png",
+      "original_exported_filename": "9FFDE00C-DC18-4CF3-9C2F-B6F819C7F2FD.png",
+      "original_human_readable_name": "shipping-2d-native-entry-absence-failure_0_6727B9A0-7D4B-4D63-9A9D-CC09BF843AF6.png",
+      "original_archive_member": "build/ci/ios/godot-shipping/attachments/9FFDE00C-DC18-4CF3-9C2F-B6F819C7F2FD.png",
+      "source_capture_label": "shipping-2d-native-entry-absence-failure",
+      "bytes": 254976,
+      "sha256": "f3328297ce6eb5b6673d442a2d1957c512525041d268895a76e9380349516452",
+      "width_px": 1206,
+      "height_px": 2622,
+      "source_file_mtime_ns": 1789124528349963216,
+      "source_file_mode": "0o444",
+      "ci_run": "34589069960",
+      "attempt": 1,
+      "source_revision": "d9ae05003e931334e2304b89db926b67a76ab9e8",
+      "platform": "iOS Simulator",
+      "artifact_id": 10195622505,
+      "artifact_name": "ios-focused-shipping-reports-and-simulator-app",
+      "artifact_type": "selected_shipping_guarded_failure_diagnostic",
+      "case": "PartyDeckGodotShippingUITests/testShippingPickerOpensBothNativeTablesAndReturnsToStandard()",
+      "execution_outcome": "failed",
+      "before_native_entry": false,
+      "manual_guarded_failure_capture": true,
+      "isAssociatedWithFailure": false,
+      "native_acceptance": false,
+      "shipping_acceptance": false,
+      "whole_archive_hash_verified": false,
+      "original_archive_retained": false,
+      "canonical_collection_acceptance": false,
+      "original_manifest_entry_ordinal": 0,
+      "original_manifest_ordinal": 1,
+      "original_capture_timestamp": 1789123642.029,
+      "capture_timestamp_utc": "2026-09-11T10:47:22.029000+00:00",
+      "source_attachment_manifest": {
+        "path": "/tmp/partydeck-ios-shipping-diagnostics-34589069960/attachment-manifest.json",
+        "destination": "ios-shipping-34589069960/provenance/original-reports/attachment-manifest.json",
+        "bytes": 6884,
+        "sha256": "e17e78ffd2eef15947dad29277df7ee51fdf745f70db0e0167a3f5814e71ce40"
+      },
+      "source_attachment_manifest_json_pointer": "/0/attachments/1",
+      "source_extraction": {
+        "method": "bounded HTTP byte ranges for selected ZIP members",
+        "receipt": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_fix/shipping-34589069960/shipping-2d-native-entry-absence-failure.png.member-receipt.json",
+          "destination": "ios-shipping-34589069960/provenance/extraction/shipping-2d-native-entry-absence-failure.png.member-receipt.json",
+          "bytes": 3088,
+          "sha256": "3811e7da0439c8ab23afea9dc1c476eece6391150efbcffa0873a4875c651f2b"
+        },
+        "crc32": "f840c3a7",
+        "selected_member_crc_verification": "ios_fix extraction with ios_review independent local CRC corroboration"
+      },
+      "source_failure_diagnostic": {
+        "path": "/tmp/partydeck-ios-shipping-diagnostics-34589069960/shipping-2d-native-entry-absence-diagnostic.json",
+        "destination": "ios-shipping-34589069960/provenance/original-reports/shipping-2d-native-entry-absence-diagnostic.json",
+        "bytes": 2159,
+        "sha256": "2d24b6032ab159b57cadacc97b38f5356e61af5045e19dc1acbb6bdfa4cc1237"
+      },
+      "review": {
+        "status": "direct",
+        "directly_viewed": true,
+        "reviewer": "/root/ios_fix",
+        "receipt": "ios-shipping-34589069960/provenance/review/DIRECT-FAILURE-PIXEL-AND-QUERY-REVIEW-v1.json",
+        "source_receipt": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_fix/shipping-34589069960/DIRECT-FAILURE-PIXEL-AND-QUERY-REVIEW-v1.json",
+          "destination": "ios-shipping-34589069960/provenance/review/DIRECT-FAILURE-PIXEL-AND-QUERY-REVIEW-v1.json",
+          "bytes": 14653,
+          "sha256": "ca48edc39e8c932f3f3645c67584e79d7f5d797f7dece653a32dcb07458c66fe"
+        },
+        "source_receipt_json_pointer": "/directPixelReview",
+        "caption": "iOS shipping diagnostic #42, 2D entry: the native table and Standard/Leave controls are visible with the hand covered. No picker is visible in this frame, while the paired diagnostic reports a nonhittable picker in both fresh and retained queries. The test failed its unchanged picker-absence assertion; shipping acceptance remains incomplete.",
+        "caption_source": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_fix/shipping-34589069960/shipping-34589069960-2d-entry-failure-caption-v1.txt",
+          "destination": "ios-shipping-34589069960/provenance/review/shipping-34589069960-2d-entry-failure-caption-v1.txt",
+          "bytes": 344,
+          "sha256": "870ec3a14556c1fd8f3deb95adc30cad500ba8c4a439944b54351d19c1b931b1"
+        },
+        "caption_source_pointer_in_review": "/galleryCaption",
+        "detail": "original",
+        "representative_id": "ios-shipping-34589069960/shipping-2d-native-entry-absence-failure",
+        "representative_path": "ios-shipping-34589069960/originals/shipping-2d-native-entry-absence-failure.png",
+        "limits": [
+          "This is the newly guarded failure capture before the original error is rethrown and deferred app termination runs. It does not establish continuity, later return/3D success, complete native qualification, physical accessibility or latency.",
+          "No picker visible in one frame does not establish absence; paired query samples are sequential, not atomic or continuous persistence evidence.",
+          "The manual failure-only attachment has isAssociatedWithFailure=false; the strict absence test remains failed."
+        ]
+      },
+      "additional_direct_reviews": [
+        {
+          "reviewer": "/root/ios_review",
+          "directly_viewed": true,
+          "detail": "original",
+          "receipt": "ios-shipping-34589069960/provenance/review/selected-diagnostics-and-png-independent-review-v1.json",
+          "source_receipt": {
+            "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_review_shipping_34589069960/selected-diagnostics-and-png-independent-review-v1.json",
+            "destination": "ios-shipping-34589069960/provenance/review/selected-diagnostics-and-png-independent-review-v1.json",
+            "bytes": 18357,
+            "sha256": "b021289655ee2430344f8c5e98d219dc89e0993ae8854582b85a67317857f9b1"
+          },
+          "source_receipt_json_pointer": "/originalDirectPixelReview",
+          "observations": [
+            "Native 2D Last Light table visibly rendered below the platform status and return strip.",
+            "Your table is ready status and both Standard table and Leave table controls are fully visible.",
+            "Hand panel reads five cards covered and offers Reveal my hand; no private hand ranks are visible.",
+            "Public turn/claim/table content and lower choose-cards and challenge controls are visible; the table body has a scroll indicator.",
+            "No Table style picker is visibly overlaid on the native scene; no shared Standard game surface or qualification badge is visible.",
+            "This manual failure-only attachment is recorded before original-error rethrow/deferred termination. Its manifest failure-association flag is false; that flag does not make this a success capture."
+          ],
+          "approved_caption": "Diagnostic failure after 2D entry: native table is visibly ready with Standard/Leave controls and a covered hand. No picker is visible, while fresh and retained picker queries still report one nonhittable element. The strict absence assertion failed.",
+          "additional_unique_original_credit": 0,
+          "native_acceptance": false
+        }
+      ]
+    }
+  ],
+  "preserved_source_files": [
+    {
+      "path": "docs/screenshots/ios-shipping-34589069960/originals/shipping-2d-native-entry-absence-failure.png",
+      "source": "/tmp/partydeck-ios-shipping-diagnostics-34589069960/shipping-2d-native-entry-absence-failure.png",
+      "bytes": 254976,
+      "sha256": "f3328297ce6eb5b6673d442a2d1957c512525041d268895a76e9380349516452",
+      "role": "original_capture",
+      "source_stat": {
+        "device": 27,
+        "inode": 60854,
+        "bytes": 254976,
+        "mtime_ns": 1789124528349963216,
+        "ctime_ns": 1789124528349963216,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34589069960/provenance/extraction/SELECTED-DIAGNOSTICS-v1.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_fix/shipping-34589069960/SELECTED-DIAGNOSTICS-v1.json",
+      "bytes": 11372,
+      "sha256": "fd422e4a0c996d8ad97d279d3dd7ed02a25a15755faa1bc2654e65f6c60f6abd",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5777753,
+        "bytes": 11372,
+        "mtime_ns": 1789124528354963215,
+        "ctime_ns": 1789124528354963215,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34589069960/provenance/extraction/attachment-manifest.json.member-receipt.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_fix/shipping-34589069960/attachment-manifest.json.member-receipt.json",
+      "bytes": 3033,
+      "sha256": "a22fd898d8c3873b55dfbcea9477eccde966d6c1ce52f6c018ae9dd630cfb3b8",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5777748,
+        "bytes": 3033,
+        "mtime_ns": 1789124512070964186,
+        "ctime_ns": 1789124512071964186,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34589069960/provenance/extraction/result.json.member-receipt.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_fix/shipping-34589069960/result.json.member-receipt.json",
+      "bytes": 3002,
+      "sha256": "2d8464183413ee9f5d1a0fff575a1e76801957a352faa6f829c6ec8fc4efebbd",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5777741,
+        "bytes": 3002,
+        "mtime_ns": 1789124487368965658,
+        "ctime_ns": 1789124487369965658,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34589069960/provenance/extraction/shipping-2d-native-entry-absence-diagnostic.json.member-receipt.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_fix/shipping-34589069960/shipping-2d-native-entry-absence-diagnostic.json.member-receipt.json",
+      "bytes": 3083,
+      "sha256": "0fcfb36e26ecffd48334224230400dbd28815d67f2a7d757306b0cb837bdd313",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5777751,
+        "bytes": 3083,
+        "mtime_ns": 1789124519906963719,
+        "ctime_ns": 1789124519907963719,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34589069960/provenance/extraction/shipping-2d-native-entry-absence-failure.png.member-receipt.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_fix/shipping-34589069960/shipping-2d-native-entry-absence-failure.png.member-receipt.json",
+      "bytes": 3088,
+      "sha256": "3811e7da0439c8ab23afea9dc1c476eece6391150efbcffa0873a4875c651f2b",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5777752,
+        "bytes": 3088,
+        "mtime_ns": 1789124528350963216,
+        "ctime_ns": 1789124528351963216,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34589069960/provenance/extraction/stage-exits.json.member-receipt.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_fix/shipping-34589069960/stage-exits.json.member-receipt.json",
+      "bytes": 3012,
+      "sha256": "16d8393bd9937a81ad42386acdf5ca29893863bad0cf6dcd0e8170b35501a65a",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5777746,
+        "bytes": 3012,
+        "mtime_ns": 1789124496352965123,
+        "ctime_ns": 1789124496354965123,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34589069960/provenance/extraction/test-summary.json.member-receipt.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_fix/shipping-34589069960/test-summary.json.member-receipt.json",
+      "bytes": 3016,
+      "sha256": "d06ce2643287fe73d451d9b7192952225265e112a43e13a636f61cb3d2bac3cf",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5777747,
+        "bytes": 3016,
+        "mtime_ns": 1789124504200964655,
+        "ctime_ns": 1789124504202964655,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34589069960/provenance/original-reports/attachment-manifest.json",
+      "source": "/tmp/partydeck-ios-shipping-diagnostics-34589069960/attachment-manifest.json",
+      "bytes": 6884,
+      "sha256": "e17e78ffd2eef15947dad29277df7ee51fdf745f70db0e0167a3f5814e71ce40",
+      "role": "original_capture_companion",
+      "source_stat": {
+        "device": 27,
+        "inode": 60852,
+        "bytes": 6884,
+        "mtime_ns": 1789124512069964186,
+        "ctime_ns": 1789124512069964186,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34589069960/provenance/original-reports/result.json",
+      "source": "/tmp/partydeck-ios-shipping-diagnostics-34589069960/result.json",
+      "bytes": 281,
+      "sha256": "caaad285fc46cf257ddde27d13a5998bf8c934aae0c878285c74fed436e7e8bc",
+      "role": "original_capture_companion",
+      "source_stat": {
+        "device": 27,
+        "inode": 60849,
+        "bytes": 281,
+        "mtime_ns": 1789124487367965658,
+        "ctime_ns": 1789124487367965658,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34589069960/provenance/original-reports/shipping-2d-native-entry-absence-diagnostic.json",
+      "source": "/tmp/partydeck-ios-shipping-diagnostics-34589069960/shipping-2d-native-entry-absence-diagnostic.json",
+      "bytes": 2159,
+      "sha256": "2d24b6032ab159b57cadacc97b38f5356e61af5045e19dc1acbb6bdfa4cc1237",
+      "role": "original_capture_companion",
+      "source_stat": {
+        "device": 27,
+        "inode": 60853,
+        "bytes": 2159,
+        "mtime_ns": 1789124519904963719,
+        "ctime_ns": 1789124519904963719,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34589069960/provenance/original-reports/stage-exits.json",
+      "source": "/tmp/partydeck-ios-shipping-diagnostics-34589069960/stage-exits.json",
+      "bytes": 218,
+      "sha256": "27d4206ec9983f46db0d878786d85523c93928707ef98e6c75d86c9fdc2511a2",
+      "role": "original_capture_companion",
+      "source_stat": {
+        "device": 27,
+        "inode": 60850,
+        "bytes": 218,
+        "mtime_ns": 1789124496349965123,
+        "ctime_ns": 1789124496349965123,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34589069960/provenance/original-reports/test-summary.json",
+      "source": "/tmp/partydeck-ios-shipping-diagnostics-34589069960/test-summary.json",
+      "bytes": 1537,
+      "sha256": "fd58228a4d06f076976523ad470ede0e85eda94e26999b9bc8d3986075ab5cc2",
+      "role": "original_capture_companion",
+      "source_stat": {
+        "device": 27,
+        "inode": 60851,
+        "bytes": 1537,
+        "mtime_ns": 1789124504198964655,
+        "ctime_ns": 1789124504198964655,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34589069960/provenance/review/DIRECT-FAILURE-PIXEL-AND-QUERY-REVIEW-v1.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_fix/shipping-34589069960/DIRECT-FAILURE-PIXEL-AND-QUERY-REVIEW-v1.json",
+      "bytes": 14653,
+      "sha256": "ca48edc39e8c932f3f3645c67584e79d7f5d797f7dece653a32dcb07458c66fe",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5777797,
+        "bytes": 14653,
+        "mtime_ns": 1789125357560913791,
+        "ctime_ns": 1789125357560913791,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34589069960/provenance/review/selected-diagnostics-and-png-independent-review-v1.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_review_shipping_34589069960/selected-diagnostics-and-png-independent-review-v1.json",
+      "bytes": 18357,
+      "sha256": "b021289655ee2430344f8c5e98d219dc89e0993ae8854582b85a67317857f9b1",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5777787,
+        "bytes": 18357,
+        "mtime_ns": 1789125279075918469,
+        "ctime_ns": 1789125279075918469,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34589069960/provenance/review/shipping-34589069960-2d-entry-failure-caption-v1.txt",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_fix/shipping-34589069960/shipping-34589069960-2d-entry-failure-caption-v1.txt",
+      "bytes": 344,
+      "sha256": "870ec3a14556c1fd8f3deb95adc30cad500ba8c4a439944b54351d19c1b931b1",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5777796,
+        "bytes": 344,
+        "mtime_ns": 1789125357559913791,
+        "ctime_ns": 1789125357559913791,
+        "mode": "0o444"
+      }
+    }
+  ],
+  "new_pixel_views_by_publisher": 0
+}

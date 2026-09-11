@@ -1,10 +1,18 @@
 # Screenshot review gallery
 
-This collection preserves **4,758 original app and renderer captures**, including failed attempts, and **2,806 supplemental images**, plus four existing asset proofs. Open a collection and click any thumbnail for its full original image. [manifest.json](manifest.json) retains filenames, dimensions, hashes, source paths, exact source revisions and timestamp metadata.
+This collection preserves **4,764 original app and renderer captures**, including failed attempts, and **2,806 supplemental images**, plus four existing asset proofs. Open a collection and click any thumbnail for its full original image. [manifest.json](manifest.json) retains filenames, dimensions, hashes, source paths, exact source revisions and timestamp metadata.
 
-The latest addition preserves **four original Android 3D diagnostic stills** from run 34575134242: **four attributed direct views, zero reviewed byte matches and zero unviewed images**. The Debug and optimized test-signed selections retain failed half-page overlap results.
+The latest addition preserves **six original stills from three failed runs**: **six attributed direct views, zero reviewed byte matches and zero unviewed originals**. Additional reviews of the same iOS originals retain their attribution without increasing the image counts.
 
-| Latest preserved collection | Images | Review scope |
+| Latest preserved collections | Images | Review scope |
+| --- | ---: | --- |
+| [iOS shipping pre-entry stills — run 34577058494](ios-shipping-34577058494/README.md) | 3 originals | Home, Standard and picker before native entry; Standard is selected. The shipping test failed after first 2D readiness. No post-entry or completed-route pixel evidence. |
+| [Android 3D failed body swipe — run 34587116038](godot-android-focused-diagnostics-34587116038/README.md) | 2 originals | Optimized test-signed positions 12 and 13. The 1646 ms swipe moves 104 logical units against a 51.5-unit limit; the cause remains unresolved. Selected diagnostics only. |
+| [iOS shipping guarded failure still — run 34589069960](ios-shipping-34589069960/README.md) | 1 original | Native 2D, readiness, Standard/Leave and covered hand are visible; no picker is visible. Separate failure JSON still reports fresh and retained nonhittable picker queries. No absence or route acceptance. |
+
+The preceding addition preserves **four original Android 3D diagnostic stills** from run 34575134242: **four attributed direct views, zero reviewed byte matches and zero unviewed images**. The Debug and optimized test-signed selections retain failed half-page overlap results.
+
+| Previous preserved collection | Images | Review scope |
 | --- | ---: | --- |
 | [Android 3D scroll diagnostics — run 34575134242](godot-android-focused-diagnostics-34575134242/README.md) | 4 originals | Bounded HTTP-range diagnostic extraction. Final displacements 52 and 86 exceed 51.5; a bright border does not prove focus. No whole-archive, canonical-collection or native acceptance. |
 

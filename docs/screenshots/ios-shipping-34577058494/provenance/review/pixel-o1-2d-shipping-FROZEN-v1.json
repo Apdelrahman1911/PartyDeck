@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "status": "review-complete-frozen",
+  "reviewer": "/root/pixel_o1_2d",
+  "frozen_at_utc": "2026-09-11T10:25:04.815897+00:00",
+  "run_id": 34577058494,
+  "attempt": 1,
+  "source_revision": "4df1b6114aad70f6d84807ea956ec48832f361a5",
+  "decision": "approved_with_scope_limits",
+  "scope": "Visible pre-entry layout and options in the three exact original shipping-run PNGs only; no approval of the failed test or completed native routes.",
+  "attachment_index_receipt": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34577058494/shipping-original-attachment-index-v1.json",
+    "bytes": 16938,
+    "sha256": "ac67386d7fc43590371b98559a4c443cfa35618e5ecc88a4a953017dffed7881"
+  },
+  "coverage": {
+    "assigned_original_png_identities": 3,
+    "direct_original_detail_views": 3,
+    "byte_match_substitutions": 0,
+    "assigned_unviewed": 0,
+    "source_payload_sha256_passes_per_image": 1,
+    "manifest_non_png_items_not_viewed_or_decoded": 11
+  },
+  "files": [
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34577058494/reviews/pixel-o1-2d-shipping-review-v1.json",
+      "bytes": 16930,
+      "sha256": "a7b55460586ed406d484cd7cd6ccc4a2343f0f8dd4d10d3f32a74cf2e7044c29"
+    }
+  ],
+  "control_storage": {
+    "guard": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34577058494/audit-tools/metadata_guard_v3.py",
+      "bytes": 12506,
+      "sha256": "921e84e155a3307ff7f691a032c638914b6323704f9a1d4fe6877a0977eb9af6",
+      "modified_by_this_review": false
+    },
+    "canonical_base": "/root/projects/PartyDeck/artifacts/evidence-storage/34577058494",
+    "canonical_ceiling_bytes": 4194304,
+    "minimum_available_bytes": 1073741824,
+    "review_new_allocated_ceiling_bytes": 65536,
+    "serialization": "Each exclusive control-file write and chmod runs inside the unchanged MetadataGuard.reserve lock.",
+    "temporary_write_files": 0,
+    "file_mode": "0444"
+  },
+  "verification": "Source rows, direct-view references, coverage and per-image captions were validated before sealing. Both new metadata files are read back against their computed SHA-256 after exclusive guarded writes; source PNG payload hashes are not repeated."
+}

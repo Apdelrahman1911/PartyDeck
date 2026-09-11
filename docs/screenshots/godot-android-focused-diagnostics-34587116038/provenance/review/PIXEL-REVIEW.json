@@ -1,0 +1,107 @@
+{
+  "reviewer": "pixel_o1_land2",
+  "run": 34587116038,
+  "attempt": 1,
+  "source_revision": "b2566f53b2144dc5e17b1611b68aa692f7ffa092",
+  "variant": "optimized-test-signed",
+  "artifact_id": 10194646227,
+  "artifact_name": "android-adaptive-api36-optimized-test-signed-font-2.0-34587116038-1-short-public-context",
+  "declared_zip_bytes": 122043654,
+  "api_declared_zip_sha256": "497a094f17545960150a808a190dad1304fc723217dd868c2bedaff9c6f14889",
+  "whole_archive_hash_verified": false,
+  "failed_stage": "3d.context-body-sweep",
+  "exact_error": "Actual content jump leaves a gap in the required half-page capture overlap.",
+  "final_swipe": {
+    "index": 12,
+    "origin": "centred-body",
+    "start": [
+      476,
+      637
+    ],
+    "end": [
+      476,
+      565
+    ],
+    "duration_ms": 1646,
+    "play_y_before": 432,
+    "play_y_after": 328,
+    "measured_displacement": 104,
+    "clip": [
+      16,
+      96,
+      357,
+      103
+    ],
+    "maximum_allowed_displacement": 51.5
+  },
+  "source_result": {
+    "file": "/tmp/partydeck-android-focused-diagnostics-34587116038/optimized-test-signed-result.json",
+    "bytes": 1141915,
+    "sha256": "96777c945500deb096cdff248b6b943b2df9fccbf816ecab0e29e32eb037150d",
+    "crc32": "bfe67be1"
+  },
+  "source_receipts": [
+    {
+      "file": "artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land2/run11-diagnostic/optimized-test-signed-result.json.receipt.json",
+      "bytes": 1678,
+      "sha256": "89e3449019a7015ab83bb88acfab168f0efec1bddf2da0c3fa81f385b592308a"
+    },
+    {
+      "file": "artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land2/run11-diagnostic/PNG-WINDOW.json",
+      "bytes": 5912,
+      "sha256": "ea2e7a93f6690ee7335f14d560d802cac1b0aba6fb01da35f9e1ff2d15ad32b4"
+    },
+    {
+      "file": "artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land2/run11-diagnostic/OBSERVED.json",
+      "bytes": 18374,
+      "sha256": "c5e9562be2d2d5a77aafe434a8674db3a0c2ff624465911f139e6e8c3571fa0a"
+    }
+  ],
+  "images": [
+    {
+      "position": 12,
+      "original_path": "/tmp/partydeck-android-focused-diagnostics-34587116038/optimized-test-signed-3d-context-position-12.png",
+      "bytes": 79313,
+      "sha256": "26f2290fa4d2cfcdc6214a7f4d98aac45c154a716c53d19d8fc2ecaaa83db443",
+      "zip_member_crc32": "8ed540b9",
+      "zip_member": "godot-adaptive/runtime/captures/3d-context-position-12.png",
+      "dimensions": [
+        1600,
+        720
+      ],
+      "direct_view": {
+        "reviewer": "pixel_o1_land2",
+        "tool": "view_image",
+        "detail": "original",
+        "performed": true,
+        "source": "Already completed direct view; no image was reopened to create this record."
+      },
+      "caption": "Before the failed final body swipe: the Show hand header, a clipped button and the top of the concealed tabletop are visible. The recorded DOWN at [476,637] lies in the tabletop area below that button.",
+      "visible_privacy": "No private card face or private rank label is visible in this selected image.",
+      "scope_limit": "Selected failed-run diagnostic only; no complete public-context sequence, full claim/Play/Challenge reachability, package or native acceptance."
+    },
+    {
+      "position": 13,
+      "original_path": "/tmp/partydeck-android-focused-diagnostics-34587116038/optimized-test-signed-3d-context-position-13.png",
+      "bytes": 132208,
+      "sha256": "0a833c55b91bdc22e49c110d83d3bdd74219cdbf15e7ab415d7d5daa0baa6eda",
+      "zip_member_crc32": "f1642b22",
+      "zip_member": "godot-adaptive/runtime/captures/3d-context-position-13.png",
+      "dimensions": [
+        1600,
+        720
+      ],
+      "direct_view": {
+        "reviewer": "pixel_o1_land2",
+        "tool": "view_image",
+        "detail": "original",
+        "performed": true,
+        "source": "Already completed direct view; no image was reopened to create this record."
+      },
+      "caption": "After the failed final body swipe: concealed card backs and the tabletop are visible below Show hand. The measured body movement is 104 logical units, exceeding the 51.5-unit half-clip limit; Play remains outside the body clip.",
+      "visible_privacy": "No private card face or private rank label is visible in this selected image.",
+      "scope_limit": "Selected failed-run diagnostic only; no complete public-context sequence, full claim/Play/Challenge reachability, package or native acceptance."
+    }
+  ],
+  "causality_limit": "Neither image is an input/focus trace. The recorded DOWN is in displayed stage background, so a direct hit on the clipped prior button is not supported; the cause of the excessive movement remains under source/reproduction review."
+}
