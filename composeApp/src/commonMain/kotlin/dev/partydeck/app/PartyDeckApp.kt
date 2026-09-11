@@ -168,7 +168,9 @@ fun PartyDeckApp(
                 SnackbarHost(snackbars, Modifier.align(Alignment.BottomCenter).padding(16.dp))
             }
         }
-        if (state.leaveConfirmationRequested) {
+        // Preserve the immediate Leave intent while native close is still pending.
+        // Create the dialog's platform layer after that return transition resolves.
+        if (state.leaveConfirmationRequested && state.presentation.lifecycle == PresentationLifecycle.COMPOSE) {
             LeaveTableDialog(
                 state,
                 onLeave = controller::leaveSession,
