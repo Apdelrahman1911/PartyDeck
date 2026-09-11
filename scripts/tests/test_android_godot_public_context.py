@@ -182,8 +182,8 @@ class GeometryTests(unittest.TestCase):
         original = copy.deepcopy(value)
         centred = focused.body_swipe(value)
         upper = focused.body_swipe(value, upper_origin=True)
-        self.assertEqual({"start": [476, 637], "end": [476, 565], "duration_ms": 600}, centred)
-        self.assertEqual({"start": [476, 601], "end": [476, 529], "duration_ms": 600}, upper)
+        self.assertEqual({"start": [476, 637], "end": [476, 565], "duration_ms": 1646}, centred)
+        self.assertEqual({"start": [476, 601], "end": [476, 529], "duration_ms": 1646}, upper)
         self.assertEqual(centred["start"][1] - centred["end"][1], upper["start"][1] - upper["end"][1])
         self.assertEqual(original, value)
         for gesture in (centred, upper):
@@ -191,6 +191,25 @@ class GeometryTests(unittest.TestCase):
                 logical = [(point[index] - value["surface"][index]) / 1.75 for index in (0, 1)]
                 self.assertTrue(16 < logical[0] < 373)
                 self.assertTrue(96 < logical[1] < 199)
+
+    def test_body_swipe_limits_requested_speed_without_extending_short_drags(self):
+        # Real Android release has no stationary dwell. Slow the ordinary drag
+        # while leaving the short-stroke floor unchanged near full Play enclosure.
+        # This host geometry check does not predict or accept native displacement.
+        for y in (160, 240, 900):
+            for upper in (False, True):
+                value = snapshot(y)
+                swipe = focused.body_swipe(value, upper_origin=upper)
+                distance = (swipe["start"][1] - swipe["end"][1]) / 1.75
+                with self.subTest(y=y, upper_origin=upper):
+                    self.assertLessEqual(distance / (swipe["duration_ms"] / 1000), 25)
+                    self.assertGreaterEqual(swipe["duration_ms"], 600)
+        # A 32-unit clip yields the smallest admitted 12.8-unit requested stroke.
+        value = snapshot(200)
+        value["controls"][0].update(clip=[16, 96, 357, 32], rect=[16, 200, 349, 24], visible=False)
+        for upper in (False, True):
+            swipe = focused.body_swipe(value, upper_origin=upper)
+            self.assertEqual(600, swipe["duration_ms"])
 
     def test_near_play_drag_aims_inside_the_full_enclosure_interval(self):
         value = snapshot(160)
@@ -403,6 +422,30 @@ class SweepTests(unittest.TestCase):
             self.assertEqual(2, len(sweep.positions))
             self.assertEqual("sampled", sweep.swipes[0]["status"])
             self.assertEqual(ys[0] - ys[1], sweep.swipes[0]["content_displacement"])
+            self.assertIn("after", sweep.swipes[0])
+
+    def test_run10_recorded_displacements_still_fail_the_half_clip_overlap_gate(self):
+        # Selected run 34575134242 geometry is replayed under host doubles only.
+        # Neither the slower requested gesture nor the renderer correction may
+        # relabel these already observed 52/86-unit jumps as acceptable evidence.
+        for before_y, after_y in ((682, 630), (550, 464)):
+            values = []
+            for index, y in enumerate((before_y, after_y)):
+                value = snapshot(y, index * 8)
+                value["projectionRevision"] = "5"
+                value["controls"][0].update(clip=[16, 96, 357, 103], rect=[16, y, 349, 68], visible=False)
+                values.append(value)
+            sweep, smoke, _ = self.sweep([], values=values)
+            with self.subTest(displacement=before_y - after_y), \
+                    self.assertRaisesRegex(engine.ObservationFailure, "half-page capture overlap"):
+                sweep.run()
+            self.assertEqual(1, len(smoke.calls))
+            self.assertEqual(2, len(smoke.captures))
+            self.assertEqual("centred-body", sweep.swipes[0]["origin"])
+            self.assertEqual(1646, sweep.swipes[0]["gesture"]["duration_ms"])
+            self.assertEqual("sampled", sweep.swipes[0]["status"])
+            self.assertEqual(before_y - after_y, sweep.swipes[0]["content_displacement"])
+            self.assertEqual(103 / 2, sweep.positions[-1]["clip"][3] / 2)
             self.assertIn("after", sweep.swipes[0])
 
     def test_missing_input_or_inconsistent_generation_stamp_fails_after_one_swipe(self):

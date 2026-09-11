@@ -34,8 +34,8 @@ PINS = {
     "scripts/smoke_android_godot_adaptive.py": "9ed771c96e7f16a8c669e4db5c11904836c0e3937341ad3513a76f037401b918",
     "scripts/android_godot_session_observation.py": "4a9340d49e69d596d2d6ed3cfd12b69eb567ab0fb49fed0fa49a643dfc877a8f",
     "scripts/tests/test_android_engine_gameplay.py": "d4cdec6444f4b7dd8240e5b8ae5b1f1ee26717ebac61efc68f92944ae7eb9f83",
-    "scripts/smoke_android_godot_public_context.py": "86555cd27b7342fec48af00df07fab07883e3e5de88bcabf3e61e3a3ec3f112c",
-    "scripts/tests/test_android_godot_public_context.py": "3e02a6f8e9bc9b036e0661a234095cd56f16d5dbbbdd6cbe4054bc9ee4dc8324",
+    "scripts/smoke_android_godot_public_context.py": "33486944e9afbc9976460e0e00723bad9053d0419f9f414639f87bab28f1bcc6",
+    "scripts/tests/test_android_godot_public_context.py": "14b28b00cf12f89f4d9c72215ff541719efdfbf32daf9dbd27b60c04a6f6467a",
     "scripts/tests/fixtures/android-focused-34568971032/debug-post-progression.xml": "ea61b13aaa764e0529224ea90c5b480c93e2376643c2e6431e1288feb6de44b7",
 }
 

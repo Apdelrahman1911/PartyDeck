@@ -185,7 +185,9 @@ def body_swipe(value, *, upper_origin=False):
     actual = (start[1] - end[1]) / scales[1]
     require(0 < actual <= clip[3] / 2 and all(surface[index] < point[index] < surface[index] + surface[index + 2]
                 for point in (start, end) for index in (0, 1)), "Mapped body swipe is empty or outside its native surface.")
-    return {"start": start, "end": end, "duration_ms": max(600, math.ceil(actual / 100 * 1000))}
+    # Leave room for release inertia while retaining the existing short-drag floor.
+    # The measured overlap gate still rejects excessive actual content movement.
+    return {"start": start, "end": end, "duration_ms": max(600, math.ceil(actual / 25 * 1000))}
 
 
 def measured_displacement(before, after):

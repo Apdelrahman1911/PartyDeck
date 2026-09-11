@@ -3,6 +3,7 @@ extends Control
 signal redraw_requested
 
 const Card3D = preload("res://presentations/three_d/card_3d.gd")
+const BodyScroll = preload("res://presentations/three_d/body_scroll.gd")
 const SCROLL_STAGE_MIN_HEIGHT := 220.0
 const INK := Color("#191526")
 const PAPER := Color("#f4f0e8")
@@ -266,7 +267,7 @@ func _build_layout(preserve_scroll: bool = true) -> void:
 		row.add_theme_constant_override("separation", 24)
 		column.add_child(row)
 		row.add_child(_stage)
-		var scroll := ScrollContainer.new()
+		var scroll := BodyScroll.new()
 		scroll.name = "TableBodyScroll"
 		scroll.follow_focus = true
 		scroll.scroll_deadzone = 8
@@ -280,7 +281,7 @@ func _build_layout(preserve_scroll: bool = true) -> void:
 		_public_info(sidebar, true)
 		_hand_controls(sidebar, false)
 	elif scrollable:
-		var scroll := ScrollContainer.new()
+		var scroll := BodyScroll.new()
 		scroll.name = "TableBodyScroll"
 		scroll.follow_focus = true
 		scroll.scroll_deadzone = 8
