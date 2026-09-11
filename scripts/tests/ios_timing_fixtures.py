@@ -75,6 +75,30 @@ def baseline(mode="2d"):
                      "renderer": renderer, "preparation": None, "jointVisibility": joint}}
 
 
+def with_phases(value=None):
+    """Independent fixed numeric companion, including ordinary elapsed oversleep."""
+    value = deepcopy(baseline() if value is None else value)
+    native = value["port"]["native"]
+    frame = native["frameTiming"]
+    result = {"schemaVersion": 1}
+    for name, association in (("draw", "firstNativeReleaseDraw"), ("iterate", "lastIterationInReleaseDraw")):
+        stage = frame[name]
+        candidates = [stage["last"], stage["maximum"], *stage["slowSamples"], frame[association]]
+        records = {}
+        for sample in candidates:
+            if sample is None:
+                continue
+            key = (sample["scopeOrdinal"], sample["completedOrdinal"])
+            seconds = sample["seconds"]
+            parts = [seconds, 0, 0, 0, 0, 0] if name == "draw" else [0, 0, seconds * 0.8, 0, 0, 0, seconds * 0.2, 0]
+            records[key] = {"scopeOrdinal": key[0], "completedOrdinal": key[1], "status": "complete",
+                            "seenMask": 1 if name == "draw" else 255, "seconds": parts,
+                            "sleeps": None if name == "draw" else [[0, "0", 0], [1, "1000", seconds * 0.1]]}
+        result[name] = list(records.values())
+    native.update(framePhasesStatus="available", framePhases=result)
+    return value
+
+
 def timing(value):
     return value["port"]["native"]["frameTiming"]
 

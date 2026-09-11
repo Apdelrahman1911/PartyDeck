@@ -110,27 +110,89 @@ class PDNativeTimingScope {
 	void *context_owner;
 	PDFrameTiming::Token frame_token{ PDFrameTiming::Kind::Draw };
 	PDFrameTiming::Context frame_begin;
+	PDFrameTiming::PhaseClock phases;
+	IOSFrameTimingObserver observer;
+	IOSFrameTimingObserver *previous_observer = nullptr;
+	bool observes_iteration = false, main_open = false, main_seen = false;
+	uint8_t engine_phase = 0;
+
+	static void engine_event(void *owner, IOSFrameTimingObserver::Event event, uint32_t request) {
+		auto &scope = *static_cast<PDNativeTimingScope *>(owner);
+		using Event = IOSFrameTimingObserver::Event;
+		const double now = PDNativeTimingUptime();
+		if (event == Event::MainBegin) {
+			if (scope.main_seen || scope.main_open) { scope.phases.invalidate(); return; }
+			scope.main_seen = scope.main_open = true;
+			scope.engine_phase = 1; scope.phases.change(1, now); return;
+		}
+		if (!scope.main_open) { scope.phases.invalidate(); return; }
+		if (event == Event::FixedSleepBegin || event == Event::DynamicSleepBegin) {
+			scope.phases.begin_sleep(event == Event::FixedSleepBegin ? 0 : 1, request, now); return;
+		}
+		if (event == Event::SleepEnd) { scope.phases.end_sleep(now); return; }
+		uint8_t next = 0;
+		switch (event) {
+			case Event::Process: next = 2; break;
+			case Event::RenderSync: next = 3; break;
+			case Event::RenderDraw: next = 4; break;
+			case Event::PostRender: next = 5; break;
+			case Event::PacingBegin: next = 6; break;
+			case Event::PacingEnd: next = 7; break;
+			case Event::MainEnd:
+				if (scope.engine_phase != 5 && scope.engine_phase != 7) { scope.phases.invalidate(); }
+				scope.main_open = false; scope.phases.change(7, now); return;
+			default: scope.phases.invalidate(); return;
+		}
+		if (next != scope.engine_phase + 1 || scope.phases.sleeping != -1) { scope.phases.invalidate(); return; }
+		scope.engine_phase = next; scope.phases.change(next, now);
+	}
 
 public:
 	explicit PDNativeTimingScope(PDNativeStageTiming &p_stage,
 			PDFrameTiming::Recorder *p_frames = nullptr, PDFrameTiming::Kind kind = PDFrameTiming::Kind::Draw,
 			PDFrameTiming::Context (*p_reader)(void *) = nullptr, void *p_owner = nullptr) :
 			stage(p_stage), started(PDNativeTimingUptime()), frame_recorder(p_frames),
-			context_reader(p_reader), context_owner(p_owner) {
+			context_reader(p_reader), context_owner(p_owner), phases(started) {
 		stage.begin(started);
 		if (frame_recorder) {
 			frame_token = frame_recorder->begin(kind);
 			frame_begin = context_reader(context_owner);
+			if (kind == PDFrameTiming::Kind::Iterate) {
+				observes_iteration = true;
+				observer = {this, engine_event};
+				previous_observer = IOSFrameTimingObserver::current;
+				IOSFrameTimingObserver::current = &observer;
+			}
 		}
 	}
 	~PDNativeTimingScope() {
 		const PDFrameTiming::Context end = frame_recorder ? context_reader(context_owner) : PDFrameTiming::Context{};
 		const double completed = PDNativeTimingUptime();
 		stage.finish(started, completed);
-		if (frame_recorder) { frame_recorder->finish(frame_token, started, completed, frame_begin, end); }
+		if (observes_iteration) {
+			if (main_open || IOSFrameTimingObserver::current != &observer) { phases.invalidate(); }
+			IOSFrameTimingObserver::current = previous_observer;
+		}
+		if (frame_recorder) { frame_recorder->finish(frame_token, started, completed, frame_begin, end, phases.finish(completed)); }
 	}
+	uint8_t enter_phase(uint8_t phase) {
+		const uint8_t previous = phases.current;
+		phases.change(phase, PDNativeTimingUptime());
+		return previous;
+	}
+	void restore_phase(uint8_t phase) { phases.change(phase, PDNativeTimingUptime()); }
 	PDNativeTimingScope(const PDNativeTimingScope &) = delete;
 	PDNativeTimingScope &operator=(const PDNativeTimingScope &) = delete;
+};
+
+class PDNativePhaseScope {
+	PDNativeTimingScope &owner;
+	uint8_t previous;
+public:
+	PDNativePhaseScope(PDNativeTimingScope &p_owner, uint8_t phase) : owner(p_owner), previous(owner.enter_phase(phase)) {}
+	~PDNativePhaseScope() { owner.restore_phase(previous); }
+	PDNativePhaseScope(const PDNativePhaseScope &) = delete;
+	PDNativePhaseScope &operator=(const PDNativePhaseScope &) = delete;
 };
 
 // Dictionary allocation stays in the existing snapshot path, outside the timed
@@ -182,6 +244,49 @@ static NSDictionary *PDFrameTimingSnapshot(const PDFrameTiming::Recorder &value,
 		@"firstNativeCoverRelease": PDFrameMarkerSnapshot(value.first_native_release),
 		@"firstNativeReleaseDraw": PDFrameSampleSnapshot(value.first_release_draw),
 		@"lastIterationInReleaseDraw": PDFrameSampleSnapshot(value.last_iteration_in_release_draw) };
+}
+
+// Derived from the SAME retained Sample copies; no independently rolling ring.
+// Ordinal joins inherit timestamps, owning draw and contexts from frameTiming v1.
+static NSDictionary *PDFramePhasesRecord(const PDFrameTiming::Sample &sample, bool draw) {
+	const auto &value = sample.phases;
+	NSString *status = value.status == PDFrameTiming::PhaseStatus::Complete ? @"complete" :
+		(value.status == PDFrameTiming::PhaseStatus::Invalid ? @"invalid" : @"unavailable");
+	id seconds = NSNull.null, sleeps = NSNull.null, seen = NSNull.null;
+	if (value.status == PDFrameTiming::PhaseStatus::Complete) {
+		NSMutableArray *parts = [NSMutableArray arrayWithCapacity:draw ? 6 : 8];
+		for (size_t index = 0; index < (draw ? 6u : 8u); ++index) { [parts addObject:@(value.seconds[index])]; }
+		seconds = parts; seen = @(value.seen);
+		if (!draw) {
+			NSMutableArray *requests = [NSMutableArray arrayWithCapacity:2];
+			for (const auto &sleep : value.sleeps) {
+				[requests addObject:@[ @(sleep.calls), @(sleep.requested_usec).stringValue, @(sleep.seconds) ]];
+			}
+			sleeps = requests;
+		}
+	}
+	return @{ @"scopeOrdinal": @(sample.ordinal).stringValue, @"completedOrdinal": @(sample.completed_ordinal).stringValue,
+		@"status": status, @"seenMask": seen, @"seconds": seconds, @"sleeps": sleeps };
+}
+static NSArray *PDFramePhaseStage(const PDFrameTiming::Stage &stage, const PDFrameTiming::Sample &associated, bool draw) {
+	NSMutableArray *records = [NSMutableArray arrayWithCapacity:PDFrameTiming::Capacity + 3];
+	std::array<uint64_t, PDFrameTiming::Capacity + 3> emitted{};
+	size_t count = 0;
+	auto append = [&](const PDFrameTiming::Sample &sample) {
+		if (!sample.valid) { return; }
+		for (size_t index = 0; index < count; ++index) { if (emitted[index] == sample.ordinal) { return; } }
+		emitted[count++] = sample.ordinal;
+		[records addObject:PDFramePhasesRecord(sample, draw)];
+	};
+	append(stage.last); append(stage.maximum);
+	for (size_t index = 0; index < stage.retained; ++index) { append(stage.ordered(index)); }
+	append(associated);
+	return records;
+}
+static NSDictionary *PDFramePhasesSnapshot(const PDFrameTiming::Recorder &value) {
+	return @{ @"schemaVersion": @1,
+		@"draw": PDFramePhaseStage(value.draw, value.first_release_draw, true),
+		@"iterate": PDFramePhaseStage(value.iterate, value.last_iteration_in_release_draw, false) };
 }
 
 static BOOL processConsumed = NO;
@@ -652,6 +757,7 @@ static PDFrameTiming::Context PDReadFrameTimingContext(void *owner) {
 	// the nested loop cannot reach an FBO bind or buffer presentation.
 	if (self.useCADisplayLink) {
 		PDNativeTimingScope pumpTiming(timings->uikit_pump);
+		PDNativePhaseScope phase(drawTiming, 1);
 		[self.displayLink setPaused:YES];
 		while (CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.0, TRUE) == kCFRunLoopRunHandledSource) {}
 		[self.displayLink setPaused:NO];
@@ -672,6 +778,7 @@ static PDFrameTiming::Context PDReadFrameTimingContext(void *owner) {
 		BOOL setupPending = YES;
 		if (validDrawable) {
 			PDNativeTimingScope setupTiming(timings->setup_view);
+			PDNativePhaseScope phase(drawTiming, 2);
 			setupPending = [self.renderer setupView:self];
 		}
 		if (validDrawable && !setupPending) {
@@ -693,6 +800,7 @@ static PDFrameTiming::Context PDReadFrameTimingContext(void *owner) {
 				uint64_t framesBefore = Engine::get_singleton()->get_frames_drawn();
 				{
 					PDNativeTimingScope renderTiming(timings->render_on_view);
+					PDNativePhaseScope phase(drawTiming, 3);
 					[self.renderer renderOnView:self];
 				}
 				if (self.isActive && [runtime canDraw]) {
@@ -703,6 +811,7 @@ static PDFrameTiming::Context PDReadFrameTimingContext(void *owner) {
 						glBindRenderbuffer(GL_RENDERBUFFER, static_cast<GLuint>(colorRenderbuffer));
 						{
 							PDNativeTimingScope presentTiming(timings->present_renderbuffer);
+							PDNativePhaseScope phase(drawTiming, 4);
 							presented = [EAGLContext.currentContext presentRenderbuffer:GL_RENDERBUFFER] && glGetError() == GL_NO_ERROR;
 						}
 					}
@@ -711,7 +820,10 @@ static PDFrameTiming::Context PDReadFrameTimingContext(void *owner) {
 			}
 		}
 	}
-	[runtime endDrawPresented:presented];
+	{
+		PDNativePhaseScope phase(drawTiming, 5);
+		[runtime endDrawPresented:presented];
+	}
 }
 - (void)startRendering {
 	if ([self.runtime canDraw]) {
@@ -2198,6 +2310,7 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 		@"rejectedDiagnostics": @(_rejectedDiagnostics), @"unansweredDiagnostics": @(_unansweredDiagnostics),
 		@"iterations": @(_iterations), @"drawCalls": @(_drawCalls), @"drawDepth": @(_drawDepth),
 		@"frameTiming": PDFrameTimingSnapshot(_frameTimings, timingSnapshotUptime),
+		@"framePhases": PDFramePhasesSnapshot(_frameTimings),
 		@"timings": @{
 			@"schemaVersion": @1, @"snapshotUptime": @(timingSnapshotUptime),
 			@"bootstrap": PDNativeStageTimingSnapshot(_nativeTimings.bootstrap),

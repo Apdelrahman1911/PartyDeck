@@ -20,6 +20,7 @@ PATCH_FILES_BY_NAME = {
         "servers/audio/audio_server.h",
         "servers/audio/audio_server.cpp",
     },
+    "iteration-phases": {"core/os/os.h", "core/os/os.cpp", "main/main.cpp"},
     "main-loop-access": {
         "drivers/apple_embedded/os_apple_embedded.h",
     },

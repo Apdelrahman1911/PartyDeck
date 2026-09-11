@@ -514,6 +514,9 @@ final class GodotPresentationPort: NSObject, IosGodotNativePort {
         let frameTiming = sanitizedFrameTiming(raw["frameTiming"])
         native["frameTiming"] = frameTiming as Any? ?? NSNull()
         native["frameTimingStatus"] = frameTiming == nil ? "invalid" : "available"
+        let framePhases = frameTiming.flatMap { sanitizedFramePhases(raw["framePhases"], frame: $0) }
+        native["framePhases"] = framePhases as Any? ?? NSNull()
+        native["framePhasesStatus"] = raw["framePhases"] == nil ? "unavailable" : (framePhases == nil ? "invalid" : "available")
         output["native"] = native
         if let geometry = active?.screen?.sessionQualificationGeometry(), !geometry.isEmpty {
             output["geometry"] = geometry
@@ -646,6 +649,93 @@ final class GodotPresentationPort: NSObject, IosGodotNativePort {
                 "slowThresholdSeconds": 1.0, "sampleCapacity": 4, "draw": draw, "iterate": iterate,
                 "readyConfirmed": ready, "firstNativeCoverRelease": first, "firstNativeReleaseDraw": firstDraw,
                 "lastIterationInReleaseDraw": lastIteration]
+    }
+
+    /// Companion records join the original sample by BOTH ordinals. They never
+    /// replace v1 context or time, and retain no arbitrary native keys or strings.
+    private func sanitizedFramePhases(_ raw: Any?, frame: [String: Any]) -> [String: Any]? {
+        func shape(_ raw: Any?, _ keys: [String]) -> [String: Any]? {
+            guard let value = raw as? [String: Any], Set(value.keys) == Set(keys) else { return nil }
+            return value
+        }
+        func number(_ raw: Any?) -> Double? {
+            guard let value = raw as? NSNumber, CFGetTypeID(value) != CFBooleanGetTypeID(),
+                  value.doubleValue.isFinite, value.doubleValue >= 0 else { return nil }
+            return value.doubleValue
+        }
+        func counter(_ raw: Any?) -> String? {
+            guard let text = raw as? String, text.utf8.count <= 20,
+                  let value = UInt64(text), String(value) == text else { return nil }
+            return text
+        }
+        guard let value = shape(raw, ["schemaVersion", "draw", "iterate"]),
+              number(value["schemaVersion"]) == 1 else { return nil }
+        var output: [String: Any] = ["schemaVersion": 1]
+        for (name, association, width) in [("draw", "firstNativeReleaseDraw", 6), ("iterate", "lastIterationInReleaseDraw", 8)] {
+            guard let stage = frame[name] as? [String: Any],
+                  let slow = stage["slowSamples"] as? [[String: Any]],
+                  let records = value[name] as? [[String: Any]], records.count <= 7 else { return nil }
+            let candidates = [stage["last"], stage["maximum"], frame[association]].compactMap { $0 as? [String: Any] } + slow
+            var samples: [String: [String: Any]] = [:]
+            var completions: [String: String] = [:]
+            for sample in candidates {
+                guard let ordinal = sample["scopeOrdinal"] as? String,
+                      let completed = sample["completedOrdinal"] as? String else { return nil }
+                if let existing = samples[ordinal], !NSDictionary(dictionary: existing).isEqual(NSDictionary(dictionary: sample)) { return nil }
+                if let existing = completions[completed], existing != ordinal { return nil }
+                samples[ordinal] = sample; completions[completed] = ordinal
+            }
+            guard records.count == samples.count else { return nil }
+            var emitted: Set<String> = []
+            var sanitized: [[String: Any]] = []
+            for rawRecord in records {
+                guard let record = shape(rawRecord, ["scopeOrdinal", "completedOrdinal", "status", "seenMask", "seconds", "sleeps"]),
+                      let ordinal = counter(record["scopeOrdinal"]), let completed = counter(record["completedOrdinal"]),
+                      emitted.insert(ordinal).inserted, let sample = samples[ordinal],
+                      sample["completedOrdinal"] as? String == completed,
+                      let duration = number(sample["seconds"]), let status = record["status"] as? String,
+                      ["complete", "unavailable", "invalid"].contains(status) else { return nil }
+                var result: [String: Any] = ["scopeOrdinal": ordinal, "completedOrdinal": completed, "status": status,
+                                           "seenMask": NSNull(), "seconds": NSNull(), "sleeps": NSNull()]
+                if status != "complete" {
+                    guard record["seenMask"] is NSNull, record["seconds"] is NSNull, record["sleeps"] is NSNull else { return nil }
+                } else {
+                    guard let maskNumber = number(record["seenMask"]), maskNumber.rounded(.towardZero) == maskNumber,
+                          maskNumber < Double(1 << width), Int(maskNumber) & 1 == 1,
+                          let rawParts = record["seconds"] as? [Any], rawParts.count == width else { return nil }
+                    let mask = Int(maskNumber)
+                    if name == "iterate", ![1, 191, 255].contains(mask) { return nil }
+                    var parts: [Double] = []
+                    for (index, rawPart) in rawParts.enumerated() {
+                        guard let part = number(rawPart), mask & (1 << index) != 0 || part == 0 else { return nil }
+                        parts.append(part)
+                    }
+                    let total = parts.reduce(0, +)
+                    guard total.isFinite, abs(total - duration) <= 0.000001 else { return nil }
+                    result["seenMask"] = mask; result["seconds"] = parts
+                    if name == "draw" {
+                        guard record["sleeps"] is NSNull else { return nil }
+                    } else {
+                        guard let entries = record["sleeps"] as? [[Any]], entries.count == 2 else { return nil }
+                        var sleeps: [[Any]] = []; var elapsed = 0.0
+                        for entry in entries {
+                            guard entry.count == 3, let calls = number(entry[0]), calls == 0 || calls == 1,
+                                  let request = counter(entry[1]), let usec = UInt64(request), usec <= UInt64(UInt32.max),
+                                  let seconds = number(entry[2]),
+                                  calls != 0 || (usec == 0 && seconds == 0),
+                                  mask & 64 != 0 || calls == 0 else { return nil }
+                            elapsed += seconds
+                            sleeps.append([Int(calls), request, seconds])
+                        }
+                        guard elapsed.isFinite, elapsed <= parts[6] + 0.000001 else { return nil }
+                        result["sleeps"] = sleeps
+                    }
+                }
+                sanitized.append(result)
+            }
+            output[name] = sanitized
+        }
+        return output
     }
 
     func setSessionQualificationValue(_ document: String) {

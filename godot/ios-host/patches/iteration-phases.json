@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+  "baseVersion": "4.7.2-stable",
+  "upstreamRepository": "https://github.com/godotengine/godot",
+  "patchFile": "iteration-phases.patch",
+  "patchSha256": "427853b855c9cbd8342c0b585eaefceda9d5058c5f9bb91b79bccea7ce3c25e9",
+  "platformGuard": "IOS_ENABLED",
+  "files": [
+    {
+      "path": "core/os/os.cpp",
+      "originalSha256": "9c5dab86487ea5dfa7391336510aec451717891f312cfec89aeb0a8b75a898f1",
+      "patchedSha256": "5683ca2f58761842c5acf100f94b99a78afd84158c4ddb097a4cc12ce98507c1",
+      "originalGitBlob": "ffc0dff1c747abb5f0ba60f2cf375db74cb60f65",
+      "patchedGitBlob": "7b772467d4aee1041bb1ca2bf630cab5a3db5f1e"
+    },
+    {
+      "path": "core/os/os.h",
+      "originalSha256": "b0664bf945179714e59907127d7751111153b903dd8b5eb8bdce47e97a7a7ccd",
+      "patchedSha256": "43964cfb587dd91c6aba4a409c7642896021c3acc0a22aaca08e4c0adc7b345c",
+      "originalGitBlob": "fd7b0c896a969ed2a2a59bd78a08f4bf8f1e0938",
+      "patchedGitBlob": "63b89cbaf11b488c51b8791d74dbacf428d944e4"
+    },
+    {
+      "path": "main/main.cpp",
+      "originalSha256": "1831257f5c8eb0707d278f04b21b1e4b3ba863f8dca5cab36022d4b19e36b8c1",
+      "patchedSha256": "20c1aff8b07c31318c74e3a8c739ef1c02adb9cac25d271599c69adfe299c53d",
+      "originalGitBlob": "2fc62fdc54303e51951a69317055aa2982f3f945",
+      "patchedGitBlob": "9981b7d6f50845c7a8b3dfd3bf5c0577fa60c9be"
+    }
+  ],
+  "validationScope": "Portable source/recorder validation only. iOS compilation and native execution remain unexecuted. Exact uint32 sleep requests and elapsed inclusive wrappers are diagnostics, not GPU/display/performance acceptance."
+}

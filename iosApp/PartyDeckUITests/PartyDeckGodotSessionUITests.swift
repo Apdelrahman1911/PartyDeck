@@ -760,6 +760,13 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
         }
         let value: Observation
         do {
+            // Optional companion keys are an all-or-neither extension of v1.
+            if let object = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+               let port = object["port"] as? [String: Any], let native = port["native"] as? [String: Any] {
+                try require((native["framePhases"] != nil) == (native["framePhasesStatus"] != nil) &&
+                            !(native["framePhasesStatus"] is NSNull),
+                            "The optional phase companion requires both fixed envelope fields.")
+            }
             value = try JSONDecoder().decode(Observation.self, from: data)
         } catch DecodingError.keyNotFound(let key, let context) {
             throw malformedObservation("key_not_found", context.codingPath + [key], data.count)
@@ -846,6 +853,7 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
             "selected", "selectedCount", "sequence", "serial", "sessionGeneration", "sessionPresent", "sessionRevision",
             "supported", "surfaceAccessibilityHidden", "surfaceAccessibilityHiddenByContainer", "surfaceAttached",
             "surfaceSize", "viewport", "visible", "width",
+            "framePhases", "framePhasesStatus", "status", "seenMask", "sleeps",
             "frameTiming", "frameTimingStatus", "clock", "snapshotUptime", "slowThresholdSeconds", "sampleCapacity",
             "draw", "iterate", "startedCount", "completedCount", "slowCompletedCount", "overwrittenCount",
             "invalidCompletedCount", "counterExhausted", "last", "maximum", "slowSamples", "scopeOrdinal",
@@ -881,6 +889,7 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
                     "The frame measurement must use the supported bounded schema and current generation.")
         try validateTimingStage(frame.draw, draw: true, frame: frame, native: native)
         try validateTimingStage(frame.iterate, draw: false, frame: frame, native: native)
+        try validateFramePhases(native, frame: frame)
         for marker in [frame.readyConfirmed.value, frame.firstNativeCoverRelease.value].compactMap({ $0 }) {
             try validateTimingContext(marker.context, frame: frame, native: native)
             try require(frame.presentationGeneration.value > 0 &&
@@ -990,6 +999,101 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
                                 (before.shell.firstReleaseUptime.value == nil ||
                                  before.shell.firstReleaseUptime.value == after.shell.firstReleaseUptime.value),
                                 "The same shell must retain monotonic cover transitions and its first release marker.")
+                }
+            }
+        }
+    }
+
+    private func validateFramePhases(_ native: Native, frame: FrameMeasurement) throws {
+        guard let status = native.framePhasesStatus else {
+            try require(native.framePhases == nil, "A phase companion requires its fixed status.")
+            return // Historical v1.
+        }
+        try require((status == .available) == (native.framePhases != nil), "Omitted phase measurements must remain explicit unknown.")
+        guard let phases = native.framePhases else { return }
+        try require(phases.schemaVersion == 1, "Unsupported phase companion version.")
+        for (records, stage, associated, width) in [
+            (phases.draw, frame.draw, frame.firstNativeReleaseDraw.value, 6),
+            (phases.iterate, frame.iterate, frame.lastIterationInReleaseDraw.value, 8)
+        ] {
+            let candidates = [stage.last.value, stage.maximum.value, associated].compactMap { $0 } + stage.slowSamples
+            var samples: [String: FrameSample] = [:]
+            var completions: [UInt64: UInt64] = [:]
+            var ordinals: [UInt64: UInt64] = [:]
+            for sample in candidates {
+                let key = "\(sample.scopeOrdinal.value)/\(sample.completedOrdinal.value)"
+                try require(samples[key] == nil || samples[key] == sample, "One phase join cannot have different sample contexts.")
+                try require(completions[sample.completedOrdinal.value] == nil ||
+                            completions[sample.completedOrdinal.value] == sample.scopeOrdinal.value,
+                            "Completion identity cannot collide between phase samples.")
+                try require(ordinals[sample.scopeOrdinal.value] == nil ||
+                            ordinals[sample.scopeOrdinal.value] == sample.completedOrdinal.value,
+                            "Scope identity cannot collide between phase samples.")
+                samples[key] = sample; completions[sample.completedOrdinal.value] = sample.scopeOrdinal.value
+                ordinals[sample.scopeOrdinal.value] = sample.completedOrdinal.value
+            }
+            try require(records.count <= 7 && records.count == samples.count, "Every retained sample needs exactly one bounded phase record.")
+            var seen: Set<String> = []
+            for record in records {
+                let key = "\(record.scopeOrdinal.value)/\(record.completedOrdinal.value)"
+                guard let sample = samples[key], seen.insert(key).inserted else {
+                    throw Failure("Phase records must join both ordinals without missing, extra or duplicate records.")
+                }
+                if record.status != .complete {
+                    try require(record.seenMask.value == nil && record.seconds.value == nil && record.sleeps.value == nil,
+                                "Invalid or unavailable phase data must use canonical nulls.")
+                    continue
+                }
+                guard let mask = record.seenMask.value, mask > 0, mask < (1 << width), mask & 1 == 1,
+                      width == 6 || [1, 191, 255].contains(mask),
+                      let parts = record.seconds.value, parts.count == width else {
+                    throw Failure("A complete phase partition requires its fixed vector and visited mask.")
+                }
+                for (index, part) in parts.enumerated() {
+                    try require(part.isFinite && part >= 0 && (mask & (1 << index) != 0 || part == 0),
+                                "Phase durations must be finite and unseen phases must be zero.")
+                }
+                let total = parts.reduce(0, +)
+                try require(total.isFinite && abs(total - sample.seconds) <= 0.000001,
+                            "The phase partition must equal its paired inclusive scope.")
+                if width == 6 {
+                    try require(record.sleeps.value == nil, "Draw records do not own iteration sleep requests.")
+                } else {
+                    guard let sleeps = record.sleeps.value, sleeps.count == 2 else {
+                        throw Failure("Iteration pacing needs fixed and dynamic call observations.")
+                    }
+                    for sleep in sleeps {
+                        try require(sleep.calls <= 1 && sleep.requestedUsec.value <= UInt64(UInt32.max) &&
+                                    sleep.seconds.isFinite && sleep.seconds >= 0 &&
+                                    (sleep.calls != 0 || (sleep.requestedUsec.value == 0 && sleep.seconds == 0)) &&
+                                    (mask & 64 != 0 || sleep.calls == 0),
+                                    "Pacing must retain exact passed requests and distinguish skipped or zero-call paths.")
+                    }
+                    let elapsed = sleeps.reduce(0) { $0 + $1.seconds }
+                    try require(elapsed.isFinite && elapsed <= parts[6] + 0.000001,
+                                "Observed sleep is nested inside pacing and cannot exceed it.")
+                }
+            }
+        }
+        if let previous = lastObservation?.port.native, previous.processIdentifier == native.processIdentifier,
+           let old = previous.framePhases, let previousFrame = previous.frameTiming.value {
+            for (before, after) in [(old.draw, phases.draw), (old.iterate, phases.iterate)] {
+                for prior in before {
+                    for current in after where prior.scopeOrdinal == current.scopeOrdinal || prior.completedOrdinal == current.completedOrdinal {
+                        try require(prior == current, "A retained phase record cannot change between observations.")
+                    }
+                }
+            }
+            for (oldStage, newStage, oldAssociated, newAssociated) in [
+                (previousFrame.draw, frame.draw, previousFrame.firstNativeReleaseDraw.value, frame.firstNativeReleaseDraw.value),
+                (previousFrame.iterate, frame.iterate, previousFrame.lastIterationInReleaseDraw.value, frame.lastIterationInReleaseDraw.value)
+            ] {
+                let oldSamples = [oldStage.last.value, oldStage.maximum.value, oldAssociated].compactMap { $0 } + oldStage.slowSamples
+                let newSamples = [newStage.last.value, newStage.maximum.value, newAssociated].compactMap { $0 } + newStage.slowSamples
+                for prior in oldSamples {
+                    for current in newSamples where prior.scopeOrdinal == current.scopeOrdinal || prior.completedOrdinal == current.completedOrdinal {
+                        try require(prior == current, "A surviving phase join must retain the exact original v1 sample context and times.")
+                    }
                 }
             }
         }
@@ -1205,6 +1309,54 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
             end = try values.decode(FrameContext.self, forKey: .end)
         }
     }
+    private enum PhaseAvailability: String, Decodable {
+        case available, unavailable, invalid
+        case payloadBudget = "payload_budget"
+    }
+    private struct PhaseSleep: Decodable, Equatable {
+        let calls: UInt8, requestedUsec: Counter, seconds: Double
+        init(from decoder: Decoder) throws {
+            var values = try decoder.unkeyedContainer()
+            calls = try values.decode(UInt8.self); requestedUsec = try values.decode(Counter.self)
+            seconds = try values.decode(Double.self)
+            guard values.isAtEnd else {
+                throw DecodingError.dataCorruptedError(in: values, debugDescription: "A pacing entry has unexpected values.")
+            }
+        }
+    }
+    private struct PhaseRecord: Decodable, Equatable {
+        enum Status: String, Decodable { case complete, unavailable, invalid }
+        let scopeOrdinal: Counter, completedOrdinal: Counter, status: Status
+        let seenMask: TimingNullable<UInt16>, seconds: TimingNullable<[Double]>, sleeps: TimingNullable<[PhaseSleep]>
+        enum CodingKeys: String, CodingKey, CaseIterable { case scopeOrdinal, completedOrdinal, status, seenMask, seconds, sleeps }
+        init(from decoder: Decoder) throws {
+            try TimingShape.require(decoder, CodingKeys.allCases.map(\.rawValue))
+            let values = try decoder.container(keyedBy: CodingKeys.self)
+            scopeOrdinal = try values.decode(Counter.self, forKey: .scopeOrdinal)
+            completedOrdinal = try values.decode(Counter.self, forKey: .completedOrdinal)
+            status = try values.decode(Status.self, forKey: .status)
+            seenMask = try values.decode(TimingNullable<UInt16>.self, forKey: .seenMask)
+            seconds = try values.decode(TimingNullable<[Double]>.self, forKey: .seconds)
+            sleeps = try values.decode(TimingNullable<[PhaseSleep]>.self, forKey: .sleeps)
+        }
+        static func == (lhs: Self, rhs: Self) -> Bool {
+            lhs.scopeOrdinal == rhs.scopeOrdinal && lhs.completedOrdinal == rhs.completedOrdinal &&
+            lhs.status == rhs.status && lhs.seenMask.value == rhs.seenMask.value &&
+            lhs.seconds.value == rhs.seconds.value && lhs.sleeps.value == rhs.sleeps.value
+        }
+    }
+    private struct FramePhases: Decodable {
+        let schemaVersion: Int, draw: [PhaseRecord], iterate: [PhaseRecord]
+        enum CodingKeys: String, CodingKey, CaseIterable { case schemaVersion, draw, iterate }
+        init(from decoder: Decoder) throws {
+            try TimingShape.require(decoder, CodingKeys.allCases.map(\.rawValue))
+            let values = try decoder.container(keyedBy: CodingKeys.self)
+            schemaVersion = try values.decode(Int.self, forKey: .schemaVersion)
+            draw = try values.decode([PhaseRecord].self, forKey: .draw)
+            iterate = try values.decode([PhaseRecord].self, forKey: .iterate)
+        }
+    }
+
     private struct FrameMarker: Decodable, Equatable {
         let uptime: Double
         let context: FrameContext
@@ -1361,6 +1513,7 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
         let maxDrawSeconds: Double?, maxIterateSeconds: Double?, maxDrainSeconds: Double?
         let frameTimingStatus: FrameTimingStatus
         let frameTiming: TimingNullable<FrameMeasurement>
+        let framePhasesStatus: PhaseAvailability?, framePhases: FramePhases?
         let maxBootstrapSeconds: Double?, bootstrapPhase: BootstrapPhase?
         let authorityReadyConfirmed: Bool, nativeForeground: Bool, authorityForegroundGrant: Bool, applicationBackgrounded: Bool
         let inputViewEnabled: Bool, privacyCoverVisible: Bool, renderLoopActive: Bool, dormant: Bool, emptyTree: Bool

@@ -522,5 +522,166 @@ class TimingValidationTests(unittest.TestCase):
                 self.assertFalse(report["attachmentContext"]["externalApplicationFrameVerified"])
 
 
+class PhaseValidationTests(unittest.TestCase):
+    def validate(self, value, previous=None):
+        return validator.validate_attachment(fixtures.encoded(value), "2d", fixtures.source_name(),
+            previous_payload=None if previous is None else fixtures.encoded(previous),
+            previous_source_name=None if previous is None else fixtures.source_name())
+
+    def rejected(self, value, code=None):
+        with self.assertRaises(validator.ValidationError) as caught:
+            self.validate(value)
+        self.assertIn(caught.exception.code, validator.CODES)
+        self.assertEqual(str(caught.exception), caught.exception.code)
+        if code is not None:
+            self.assertEqual(caught.exception.code, code)
+
+    def record(self, value, name="iterate"):
+        return value["port"]["native"]["framePhases"][name][0]
+
+    def test_exact_join_keeps_context_timestamps_and_false_acceptance(self):
+        value = fixtures.with_phases(fixtures.nested())
+        before = deepcopy(value)
+        report = self.validate(value)
+        for name, records in report["joinedPhases"].items():
+            for joined in records:
+                sample, phases = joined["sample"], joined["phases"]
+                self.assertEqual(sample["scopeOrdinal"], phases["scopeOrdinal"])
+                self.assertEqual(sample["completedOrdinal"], phases["completedOrdinal"])
+                self.assertIn("begin", sample); self.assertIn("end", sample)
+                self.assertIn("startedUptime", sample); self.assertIn("completedUptime", sample)
+        for key in ("stableActivityIntervalQualified", "performanceAccepted", "firstDisplayEstablished", "nativeAcceptance"):
+            self.assertFalse(report[key])
+        self.assertEqual(value, before)
+
+    def test_absent_unavailable_and_budget_preserve_v1(self):
+        baseline = fixtures.baseline()
+        self.assertEqual(self.validate(baseline)["phaseStatus"], "absent")
+        for status in ("unavailable", "invalid", "payload_budget"):
+            value = deepcopy(baseline)
+            value["port"]["native"].update(framePhasesStatus=status, framePhases=None)
+            report = self.validate(value)
+            self.assertEqual(report["phaseStatus"], status)
+            self.assertIsNone(report["joinedPhases"])
+            self.assertEqual(report["stages"], self.validate(baseline)["stages"])
+
+    def test_zero_calls_skipped_pacing_and_exact_uint32_request(self):
+        for mask in (1, 191, 255):
+            value = fixtures.with_phases()
+            record = self.record(value)
+            record.update(seenMask=mask, seconds=[fixtures.timing(value)["iterate"]["last"]["seconds"]] + [0] * 7,
+                          sleeps=[[0, "0", 0], [0, "0", 0]])
+            self.validate(value)
+        value = fixtures.with_phases()
+        record = self.record(value)
+        record["sleeps"] = [[1, str(2**32 - 1), 0], [1, "0", 0]]
+        self.validate(value)  # requested vs actual must not be conflated
+
+    def test_null_records_are_canonical_unknowns(self):
+        for status in ("invalid", "unavailable"):
+            value = fixtures.with_phases()
+            self.record(value).update(status=status, seenMask=None, seconds=None, sleeps=None)
+            self.validate(value)
+            self.record(value)["seconds"] = [0] * 8
+            self.rejected(value, "PHASE_SHAPE")
+
+    def test_missing_duplicate_colliding_and_extra_joins(self):
+        for change in ("missing", "duplicate", "scope", "completion", "extra"):
+            value = fixtures.with_phases(fixtures.nested())
+            records = value["port"]["native"]["framePhases"]["draw"]
+            if change == "missing": records.pop()
+            elif change == "duplicate": records.append(deepcopy(records[0]))
+            elif change == "scope": records[0]["scopeOrdinal"] = "999"
+            elif change == "completion": records[0]["completedOrdinal"] = records[1]["completedOrdinal"]
+            else:
+                records.append({**records[0], "scopeOrdinal": "999", "completedOrdinal": "999"})
+            with self.subTest(change=change):
+                self.rejected(value, "PHASE_JOIN")
+
+    def test_vector_mask_sleep_bounds_and_types(self):
+        mutations = [
+            ("seenMask", 0), ("seenMask", 256), ("seenMask", True), ("seenMask", 127),
+            ("seconds", [0] * 7), ("seconds", [1e308] * 8), ("seconds", [-1] + [0] * 7),
+            ("seconds", [True] + [0] * 7), ("sleeps", [[2, "1", 0], [0, "0", 0]]),
+            ("sleeps", [[True, "1", 0], [0, "0", 0]]),
+            ("sleeps", [[1, str(2**32), 0], [0, "0", 0]]),
+            ("sleeps", [[1, "01", 0], [0, "0", 0]]),
+            ("sleeps", [[1, 1, 0], [0, "0", 0]]),
+            ("sleeps", [[0, "1", 0], [0, "0", 0]]),
+            ("sleeps", [[0, "0", 1], [0, "0", 0]]),
+            ("sleeps", [[1, "1", 1], [0, "0", 0]]),
+            ("sleeps", [[1, "1", -1], [0, "0", 0]]),
+        ]
+        for key, new in mutations:
+            value = fixtures.with_phases()
+            self.record(value)[key] = new
+            with self.subTest(key=key, new=new):
+                self.rejected(value)
+
+    def test_unseen_phase_and_sleep_are_rejected(self):
+        value = fixtures.with_phases()
+        record = self.record(value)
+        record["seenMask"] = 191
+        self.rejected(value, "PHASE_BOUNDS")
+        record["seconds"][2] += record["seconds"][6]; record["seconds"][6] = 0
+        self.rejected(value, "PHASE_BOUNDS")  # remaining observed sleep without pacing
+        value = fixtures.with_phases()
+        self.record(value, "draw")["sleeps"] = [[0, "0", 0], [0, "0", 0]]
+        self.rejected(value, "PHASE_SHAPE")
+
+    def test_envelope_pair_and_unknown_private_fields_fail_before_projection(self):
+        for key in ("framePhases", "framePhasesStatus"):
+            value = fixtures.with_phases()
+            del value["port"]["native"][key]
+            self.rejected(value, "PHASE_SHAPE")
+        for where in ("root", "record"):
+            value = fixtures.with_phases()
+            target = value["port"]["native"]["framePhases"] if where == "root" else self.record(value)
+            target["unapproved"] = "synthetic private canary"
+            self.rejected(value, "PHASE_SHAPE")
+        for status in ("available", None, True, "other"):
+            value = fixtures.with_phases()
+            value["port"]["native"].update(framePhases=None, framePhasesStatus=status)
+            self.rejected(value, "PHASE_SHAPE")
+
+    def test_phase_history_survives_ring_and_marker_retention(self):
+        before, after = fixtures.with_phases(), fixtures.with_phases(fixtures.recurrence())
+        self.validate(after, before)
+        old = fixtures.with_phases()
+        changed = deepcopy(old)
+        record = self.record(changed)
+        record["seconds"][2] -= 0.01; record["seconds"][5] += 0.01
+        self.validate(changed)
+        with self.assertRaises(validator.ValidationError) as caught:
+            self.validate(changed, old)
+        self.assertEqual(caught.exception.code, "PHASE_HISTORY")
+        changed["port"]["native"]["processIdentifier"] += 1
+        self.assertEqual(self.validate(changed, old)["comparison"], "different_process")
+
+    def test_phase_shape_does_not_reclassify_mixed_generations(self):
+        value = fixtures.with_phases(fixtures.mixed_generation())
+        report = self.validate(value)
+        self.assertEqual(report["stages"]["draw"]["maximumContext"], "historical_or_mixed_generations")
+        self.assertFalse(report["performanceAccepted"])
+
+    def test_raw_nonfinite_duplicate_and_overbudget_inputs_fail(self):
+        payload = fixtures.encoded(fixtures.with_phases())
+        variants = [payload.replace(b'"seenMask":255', b'"seenMask":255,"seenMask":255', 1),
+                    payload.replace(b'"seconds":[0,0,', b'"seconds":[NaN,0,', 1),
+                    payload + b" " * validator.MAX_BYTES]
+        for raw in variants:
+            with self.assertRaises(validator.ValidationError):
+                validator.validate_attachment(raw, "2d", fixtures.source_name())
+
+    def test_bounded_maximum_companion_and_empty_completed_history(self):
+        value = fixtures.with_phases(fixtures.recurrence())
+        self.assertLessEqual(len(fixtures.encoded(value)), validator.MAX_BYTES)
+        self.validate(value)
+        value = fixtures.with_phases(fixtures.in_flight())
+        self.validate(value)
+        for records in value["port"]["native"]["framePhases"].values():
+            if isinstance(records, list): self.assertEqual(records, [])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

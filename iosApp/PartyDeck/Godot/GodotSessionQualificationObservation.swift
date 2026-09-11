@@ -43,6 +43,17 @@ final class GodotSessionQualificationObservation: ObservableObject {
         if let data = encodedData, data.count > 32768,
            var portDocument = payload["port"] as? [String: Any],
            var native = portDocument["native"] as? [String: Any] {
+            native["framePhases"] = NSNull()
+            native["framePhasesStatus"] = "payload_budget"
+            portDocument["native"] = native
+            payload["port"] = portDocument
+            encodedData = try? JSONSerialization.data(withJSONObject: payload, options: [.sortedKeys])
+        }
+        // The phase companion is optional; retain existing timing and privacy
+        // measurements whenever removing that companion is sufficient.
+        if let data = encodedData, data.count > 32768,
+           var portDocument = payload["port"] as? [String: Any],
+           var native = portDocument["native"] as? [String: Any] {
             native["frameTiming"] = NSNull()
             native["frameTimingStatus"] = "payload_budget"
             portDocument["native"] = native

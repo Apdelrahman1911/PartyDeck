@@ -1,0 +1,145 @@
+--- a/core/os/os.cpp
++++ b/core/os/os.cpp
+@@ -705,6 +705,10 @@
+ 	return frame_delay + dynamic_delay;
+ }
+ 
++#ifdef IOS_ENABLED
++thread_local IOSFrameTimingObserver *IOSFrameTimingObserver::current = nullptr;
++#endif
++
+ void OS::add_frame_delay(bool p_can_draw, bool p_wake_for_events) {
+ 	const uint32_t frame_delay = Engine::get_singleton()->get_frame_delay();
+ 	if (frame_delay) {
+@@ -712,7 +716,15 @@
+ 		// the actual frame time into account.
+ 		// Due to the high fluctuation of the actual sleep duration, it's not recommended
+ 		// to use this as a FPS limiter.
++#ifdef IOS_ENABLED
++		// Preserve the exact uint32_t argument passed by the original call.
++		const uint32_t requested_usec = frame_delay * 1000;
++		IOSFrameTimingObserver::emit(IOSFrameTimingObserver::Event::FixedSleepBegin, requested_usec);
++		delay_usec(requested_usec);
++		IOSFrameTimingObserver::emit(IOSFrameTimingObserver::Event::SleepEnd);
++#else
+ 		delay_usec(frame_delay * 1000);
++#endif
+ 	}
+ 
+ 	// Add a dynamic frame delay to decrease CPU/GPU usage. This takes the
+@@ -732,7 +744,15 @@
+ 		uint64_t current_ticks = get_ticks_usec();
+ 
+ 		if (current_ticks < target_ticks) {
++#ifdef IOS_ENABLED
++			// Preserve the exact uint32_t argument passed by the original call.
++			const uint32_t requested_usec = target_ticks - current_ticks;
++			IOSFrameTimingObserver::emit(IOSFrameTimingObserver::Event::DynamicSleepBegin, requested_usec);
++			delay_usec(requested_usec);
++			IOSFrameTimingObserver::emit(IOSFrameTimingObserver::Event::SleepEnd);
++#else
+ 			delay_usec(target_ticks - current_ticks);
++#endif
+ 		}
+ 
+ 		current_ticks = get_ticks_usec();
+--- a/core/os/os.h
++++ b/core/os/os.h
+@@ -43,6 +43,34 @@
+ 
+ class MainLoop;
+ 
++// PartyDeck diagnostics: scoped on the calling thread, absent outside a native
++// iteration. No scheduling, renderer, input, state or lifetime decisions.
++#ifdef IOS_ENABLED
++struct IOSFrameTimingObserver {
++	enum class Event { MainBegin, Process, RenderSync, RenderDraw, PostRender,
++		PacingBegin, PacingEnd, MainEnd, FixedSleepBegin, DynamicSleepBegin, SleepEnd };
++	void *context = nullptr;
++	void (*callback)(void *, Event, uint32_t) = nullptr;
++	static thread_local IOSFrameTimingObserver *current;
++	static void emit(Event event, uint32_t request_usec = 0) {
++		if (current && current->callback) { current->callback(current->context, event, request_usec); }
++	}
++};
++struct IOSFrameTimingMainScope {
++	IOSFrameTimingObserver *observer = IOSFrameTimingObserver::current;
++	IOSFrameTimingMainScope() {
++		if (observer && observer->callback) {
++			observer->callback(observer->context, IOSFrameTimingObserver::Event::MainBegin, 0);
++		}
++	}
++	~IOSFrameTimingMainScope() {
++		if (observer && observer->callback) {
++			observer->callback(observer->context, IOSFrameTimingObserver::Event::MainEnd, 0);
++		}
++	}
++};
++#endif
++
+ class OS {
+ public:
+ 	typedef void (*ImeCallback)(void *p_inp, const String &p_text, Point2 p_selection);
+--- a/main/main.cpp
++++ b/main/main.cpp
+@@ -4919,6 +4919,9 @@
+ // will terminate the program. In case of failure, the OS exit code needs
+ // to be set explicitly here (defaults to EXIT_SUCCESS).
+ bool Main::iteration() {
++#ifdef IOS_ENABLED
++	IOSFrameTimingMainScope frame_timing_scope;
++#endif
+ 	GodotProfileZone("Main::iteration");
+ 	GodotProfileZoneGroupedFirst(_profile_zone, "prepare");
+ 	iterating++;
+@@ -5058,6 +5061,9 @@
+ 
+ 	uint64_t process_begin = OS::get_singleton()->get_ticks_usec();
+ 
++#ifdef IOS_ENABLED
++	IOSFrameTimingObserver::emit(IOSFrameTimingObserver::Event::Process);
++#endif
+ 	GodotProfileZoneGrouped(_profile_zone, "process");
+ 	if (OS::get_singleton()->get_main_loop()->process(process_step * time_scale)) {
+ 		exit = true;
+@@ -5073,9 +5079,15 @@
+ 	NavigationServer3D::get_singleton()->process(process_step * time_scale);
+ #endif // NAVIGATION_3D_DISABLED
+ 
++#ifdef IOS_ENABLED
++	IOSFrameTimingObserver::emit(IOSFrameTimingObserver::Event::RenderSync);
++#endif
+ 	GodotProfileZoneGrouped(_profile_zone, "RenderingServer::sync");
+ 	RenderingServer::get_singleton()->sync(); //sync if still drawing from previous frames.
+ 
++#ifdef IOS_ENABLED
++	IOSFrameTimingObserver::emit(IOSFrameTimingObserver::Event::RenderDraw);
++#endif
+ 	GodotProfileZoneGrouped(_profile_zone, "RenderingServer::draw");
+ 	const bool has_pending_resources_for_processing = RD::get_singleton() && RD::get_singleton()->has_pending_resources_for_processing();
+ 	bool wants_present = (DisplayServer::get_singleton()->can_any_window_draw() ||
+@@ -5096,6 +5108,9 @@
+ 		}
+ 	}
+ 
++#ifdef IOS_ENABLED
++	IOSFrameTimingObserver::emit(IOSFrameTimingObserver::Event::PostRender);
++#endif
+ 	process_ticks = OS::get_singleton()->get_ticks_usec() - process_begin;
+ 	process_max = MAX(process_ticks, process_max);
+ 	uint64_t frame_time = OS::get_singleton()->get_ticks_usec() - ticks;
+@@ -5174,8 +5189,14 @@
+ 	SceneTree *scene_tree = SceneTree::get_singleton();
+ 	bool wake_for_events = scene_tree && scene_tree->is_accessibility_enabled();
+ 
++#ifdef IOS_ENABLED
++	IOSFrameTimingObserver::emit(IOSFrameTimingObserver::Event::PacingBegin);
++#endif
+ 	GodotProfileZoneGrouped(_profile_zone, "OS::add_frame_delay");
+ 	OS::get_singleton()->add_frame_delay(DisplayServer::get_singleton()->window_can_draw(), wake_for_events);
++#ifdef IOS_ENABLED
++	IOSFrameTimingObserver::emit(IOSFrameTimingObserver::Event::PacingEnd);
++#endif
+ 
+ #ifdef TOOLS_ENABLED
+ 	if (auto_build_solutions) {

@@ -19,6 +19,7 @@ CODES = frozenset((
     "TIMING_NUMBER", "TIMING_COUNTER", "TIMING_FLAGS", "TIMING_COUNTERS",
     "TIMING_SAMPLE", "TIMING_GENERATION", "TIMING_ORDER", "TIMING_MARKER",
     "TIMING_ASSOCIATION", "TIMING_JOINT", "TIMING_HISTORY", "INTERNAL_VALIDATION",
+    "PHASE_SHAPE", "PHASE_JOIN", "PHASE_BOUNDS", "PHASE_HISTORY",
 ))
 
 
@@ -132,6 +133,96 @@ def _frame_shape(frame):
     for key in ASSOCIATIONS:
         if frame[key] is not None:
             _sample_shape(frame[key])
+
+
+PHASE_FIELDS = ("framePhases", "framePhasesStatus")
+
+
+def _phase_shape(native):
+    # Historical v1 documents have neither field. Validate the entire optional
+    # companion BEFORE stripping it for the immutable base-schema projection.
+    if not any(key in native for key in PHASE_FIELDS):
+        return
+    require(all(key in native for key in PHASE_FIELDS), "PHASE_SHAPE")
+    status, value = native["framePhasesStatus"], native["framePhases"]
+    require(type(status) is str and status in ("available", "unavailable", "invalid", "payload_budget"), "PHASE_SHAPE")
+    require((status == "available") == (value is not None), "PHASE_SHAPE")
+    if value is None:
+        return
+    require(type(value) is dict and set(value) == {"schemaVersion", "draw", "iterate"} and
+            type(value["schemaVersion"]) is int and value["schemaVersion"] == 1, "PHASE_SHAPE")
+    for name, width in (("draw", 6), ("iterate", 8)):
+        records = value[name]
+        require(type(records) is list and len(records) <= 7, "PHASE_SHAPE")
+        for record in records:
+            require(type(record) is dict and set(record) ==
+                    {"scopeOrdinal", "completedOrdinal", "status", "seenMask", "seconds", "sleeps"}, "PHASE_SHAPE")
+            _counter(record["scopeOrdinal"]); _counter(record["completedOrdinal"])
+            require(type(record["status"]) is str and record["status"] in ("complete", "invalid", "unavailable"), "PHASE_SHAPE")
+            mask, parts, sleeps = record["seenMask"], record["seconds"], record["sleeps"]
+            if record["status"] != "complete":
+                require(mask is None and parts is None and sleeps is None, "PHASE_SHAPE")
+                continue
+            require(type(mask) is int and 0 < mask < (1 << width) and mask & 1 and
+                    (name == "draw" or mask in (1, 191, 255)), "PHASE_SHAPE")
+            require(type(parts) is list and len(parts) == width, "PHASE_SHAPE")
+            for index, part in enumerate(parts):
+                _time(part)
+                require(mask & (1 << index) or part == 0, "PHASE_BOUNDS")
+            if name == "draw":
+                require(sleeps is None, "PHASE_SHAPE")
+            else:
+                require(type(sleeps) is list and len(sleeps) == 2, "PHASE_SHAPE")
+                for entry in sleeps:
+                    require(type(entry) is list and len(entry) == 3 and type(entry[0]) is int and entry[0] in (0, 1), "PHASE_SHAPE")
+                    request = _counter(entry[1]); _time(entry[2])
+                    require(request <= 0xffffffff and (entry[0] or request == entry[2] == 0) and
+                            (mask & 64 or entry[0] == 0), "PHASE_BOUNDS")
+                require(sum(entry[2] for entry in sleeps) <= parts[6] + 0.000001, "PHASE_BOUNDS")
+
+
+def _phase_samples(frame, name):
+    association = "firstNativeReleaseDraw" if name == "draw" else "lastIterationInReleaseDraw"
+    candidates = _samples(frame[name]) + ([frame[association]] if frame[association] is not None else [])
+    return {(sample["scopeOrdinal"], sample["completedOrdinal"]): sample for sample in candidates}
+
+
+def _phase_join(native):
+    value = native.get("framePhases")
+    if value is None:
+        return
+    for name in ("draw", "iterate"):
+        samples = _phase_samples(native["frameTiming"], name)
+        seen = set()
+        for record in value[name]:
+            key = (record["scopeOrdinal"], record["completedOrdinal"])
+            require(key in samples and key not in seen, "PHASE_JOIN")
+            seen.add(key)
+            if record["status"] == "complete":
+                require(abs(sum(record["seconds"]) - samples[key]["seconds"]) <= 0.000001, "PHASE_BOUNDS")
+        require(seen == set(samples), "PHASE_JOIN")
+
+
+def _phase_history(old_native, native):
+    old, new = old_native.get("framePhases"), native.get("framePhases")
+    if old is None or new is None:
+        return
+    for name in ("draw", "iterate"):
+        for prior in old[name]:
+            for current in new[name]:
+                if (prior["scopeOrdinal"] == current["scopeOrdinal"] or
+                        prior["completedOrdinal"] == current["completedOrdinal"]):
+                    require(prior == current, "PHASE_HISTORY")
+
+
+def _phase_summary(native):
+    value = native.get("framePhases")
+    if value is None:
+        return None
+    # Keep the exact sample/context/time join in the report, not unrelated maxima.
+    return {name: [{"sample": _phase_samples(native["frameTiming"], name)[
+                        (record["scopeOrdinal"], record["completedOrdinal"])],
+                    "phases": record} for record in value[name]] for name in ("draw", "iterate")}
 
 
 def _joint_shape(joint):
@@ -305,7 +396,9 @@ def _decode(payload, mode, source_name):
     if native is not None:
         require(type(native) is dict, "BASE_SCHEMA")
         require({"frameTiming", "frameTimingStatus"} <= set(native), "TIMING_REQUIRED")
-        legacy["port"]["native"] = {key: item for key, item in native.items() if key not in ("frameTiming", "frameTimingStatus")}
+        _phase_shape(native)
+        legacy["port"]["native"] = {key: item for key, item in native.items()
+                                    if key not in ("frameTiming", "frameTimingStatus") + PHASE_FIELDS}
     _check(lambda item, _path: _BASE.validate_observation(item, mode), legacy, "BASE_SCHEMA")
     if joint is not None:
         _joint_shape(joint)
@@ -318,6 +411,7 @@ def _decode(payload, mode, source_name):
     require(frame["presentationGeneration"] == native["presentationGeneration"], "TIMING_GENERATION")
     _stage(frame["draw"], True, frame, native, frame["firstNativeReleaseDraw"])
     _stage(frame["iterate"], False, frame, native, frame["lastIterationInReleaseDraw"])
+    _phase_join(native)
     _markers(frame, native)
     _joint(joint, frame, port, native)
     return value, source[1]
@@ -388,6 +482,7 @@ def _history(before, after):
                 require(shell["lastTransitionUptime"] >= previous_shell["snapshotUptime"], "TIMING_HISTORY")
                 if previous_shell["firstReleaseUptime"] is None:
                     require(shell["firstReleaseUptime"] >= previous_shell["snapshotUptime"], "TIMING_HISTORY")
+    _phase_history(old_native, native)
     return "same_process_monotonic"
 
 
@@ -473,6 +568,7 @@ def validate_attachment(payload, mode, source_name, *, previous_payload=None, pr
             "payloadBytes": len(payload), "payloadSha256": hashlib.sha256(payload).hexdigest(),
             "observationSequence": value["observationSequence"], "processIdentifier": native["processIdentifier"],
             "presentationGeneration": frame["presentationGeneration"], "snapshotUptime": frame["snapshotUptime"],
+            "phaseStatus": native.get("framePhasesStatus", "absent"), "joinedPhases": _phase_summary(native),
             "stages": stages, "firstNativeCoverReleaseUptime": None if frame["firstNativeCoverRelease"] is None else frame["firstNativeCoverRelease"]["uptime"],
             "completedReleaseDrawRecorded": frame["firstNativeReleaseDraw"] is not None,
             "releaseAssociatedIterationRecorded": frame["lastIterationInReleaseDraw"] is not None,

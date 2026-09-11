@@ -49,7 +49,7 @@ def digest(path: Path) -> str:
 SCROLL_SCOPE = "qualification-scroll"
 SCROLL_METHODS = {mode: f"testProduction{mode.upper()}ConcealedLobbyScrollAndCancel" for mode in ("2d", "3d")}
 SCROLL_EXPECTED = {("PartyDeckUITests.PartyDeckGodotSessionUITests", method) for method in SCROLL_METHODS.values()}
-SCROLL_TEST_SHA256 = "769b3c190d6a07313ac7d4ac883ec8a2a4fb3e17b50c79c99b14d2cb2bf3eda4"
+SCROLL_TEST_SHA256 = "ab18eed6377df5959fde79bb3198f573a8a78c645bd9725db9cad6b6cd745f2f"
 SCROLL_FIXED_CAPTURES = ("concealed before drag", "full lobby bounds", "lobby confirmation", "lobby cancelled", "cleanup Home")
 
 
