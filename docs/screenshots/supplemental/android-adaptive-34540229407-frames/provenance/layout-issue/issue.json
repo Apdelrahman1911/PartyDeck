@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/pixel_o1_land2",
+  "recorded_utc": "2026-09-11T01:52:40.269611+00:00",
+  "issue_id": "native-3d-font2-short-split-pinned-claim-truncation",
+  "status": "source_supported_old_source_layout_defect; correction_pending",
+  "recording_run_id": 34540229407,
+  "recording_source_revision": "4ee4563def1c9a1b5060572efa2c3959c7d7677e",
+  "baseline_source": {
+    "path": "/root/projects/PartyDeck/godot/renderer/presentations/three_d/table.gd",
+    "bytes": 40950,
+    "sha256": "a9edd383b71832b41d3fd307d3cf4397fe33df099c54471cb16006da0246e061"
+  },
+  "baseline_matches_git_revision_exactly": true,
+  "summary": "The native 3D latest-claim line is cut at the bottom of the font2 split viewport. This particular line belongs to fixed context outside TableBodyScroll, and is omitted from the scrollable public info while pinned. Scrolling the body cannot recover this fixed label.",
+  "source_evidence": [
+    {
+      "path": "/root/projects/PartyDeck/godot/renderer/presentations/three_d/table.gd",
+      "start_line": 205,
+      "end_line": 210,
+      "fact": "Large text selects a scrollable layout and enables pinned context for PLAYING without an available-height condition."
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/renderer/presentations/three_d/table.gd",
+      "start_line": 249,
+      "end_line": 257,
+      "fact": "Rank, turn and latest claim are added to a fixed VBox child of the root column, before the scroll container."
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/renderer/presentations/three_d/table.gd",
+      "start_line": 277,
+      "end_line": 292,
+      "fact": "TableBodyScroll is a separate later root-column child containing _public_info and the hand/stage content."
+    },
+    {
+      "path": "/root/projects/PartyDeck/godot/renderer/presentations/three_d/table.gd",
+      "start_line": 311,
+      "end_line": 320,
+      "fact": "Scrollable _public_info suppresses the latest-claim line when _context_pinned is true."
+    }
+  ],
+  "pixel_evidence": [
+    {
+      "recording_id": "debug-font-2.0/3d-split-exit",
+      "source_receipt": {
+        "path": "/tmp/partydeck-adaptive-pixel-d2-split-34540229407-v1-0kzrj2_z/reviews/3d-split-exit.json",
+        "bytes": 245004,
+        "sha256": "ddec6d6a0c780703601ca8b60365abd296c0679d7dc8933dffc7b01a0dd00225"
+      },
+      "reported_findings": [
+        {
+          "id": "debug2-exit-native-ready-viewport",
+          "classification": "visible_viewport_clipping",
+          "observation": "Native Ready in the split pane shows a full readable Show hand label, Star table · round 1 and Your turn, but the public claim line is cut off by the lower edge. The hand, card area and lower game actions are outside the recorded viewport.",
+          "first_source_frame_index": 39,
+          "last_source_frame_index": 52,
+          "limits": "Scroll availability and control reachability are not established; this is not a confirmed interaction defect.",
+          "media_span": {
+            "first_original_packet_pts": 759092,
+            "last_original_packet_pts": 1224333,
+            "time_base": "1/90000"
+          },
+          "direct_evidence": [
+            {
+              "reviewer": "/root/pixel_d2_split",
+              "recording_id": "debug-font-2.0/3d-split-exit",
+              "source_frame_index_zero_based": 39,
+              "path": "/tmp/partydeck-android-adaptive-decode-ui-game-34540229407-v1/recordings/debug-font-2.0/3d-split-exit/frames/frame-0039.webp",
+              "sha256": "9c64fc2197c44923107e5b83472285862e00051883851dce5f6e1f3e87045154",
+              "bytes": 78798,
+              "original_packet_pts": 759092,
+              "time_base": "1/90000",
+              "detail": "original",
+              "tool": "tools.view_image"
+            },
+            {
+              "reviewer": "/root/pixel_d2_split",
+              "recording_id": "debug-font-2.0/3d-split-exit",
+              "source_frame_index_zero_based": 41,
+              "path": "/tmp/partydeck-android-adaptive-decode-ui-game-34540229407-v1/recordings/debug-font-2.0/3d-split-exit/frames/frame-0041.webp",
+              "sha256": "f449763a58ea7e7311956ed1489dc606378cd837689ea3b8d8eee6890d3fa0d8",
+              "bytes": 78730,
+              "original_packet_pts": 838952,
+              "time_base": "1/90000",
+              "detail": "original",
+              "tool": "tools.view_image"
+            },
+            {
+              "reviewer": "/root/pixel_d2_split",
+              "recording_id": "debug-font-2.0/3d-split-exit",
+              "source_frame_index_zero_based": 52,
+              "path": "/tmp/partydeck-android-adaptive-decode-ui-game-34540229407-v1/recordings/debug-font-2.0/3d-split-exit/frames/frame-0052.webp",
+              "sha256": "d1e11f70c0edbc4e4a14f8928db5ad4fa29f9713ddb6abc4288dde84370a7655",
+              "bytes": 78458,
+              "original_packet_pts": 1224333,
+              "time_base": "1/90000",
+              "detail": "original",
+              "tool": "tools.view_image"
+            }
+          ]
+        }
+      ],
+      "attribution": "Existing independent pixel reviewer; no images reopened for this source triage."
+    },
+    {
+      "recording_id": "optimized-font-2.0/3d-split-exit",
+      "source_receipt": {
+        "path": "/tmp/partydeck-pixel-o2-split-34540229407-20260911-ozcqnq45/3d-split-exit-review.json",
+        "bytes": 145540,
+        "sha256": "568e8338355e44c3c7169c19a9f3488cc43b5aa60069687860d264391e0ff77f"
+      },
+      "reported_findings": [
+        {
+          "id": "3d-split-exit-native-layout",
+          "classification": "visible_viewport_observation",
+          "observation": "Frames 33–43 show a readable native Show hand control and readable Standard table wrapped across two lines beside Leave table in the left split pane. Moon table round 2 and Your turn are readable; the Orbit claimed 3 Moons line is cut at the bottom viewport edge. The hand itself is outside the captured viewport.",
+          "limit": "Visible text fit is not an interaction or accessibility qualification."
+        }
+      ],
+      "attribution": "Existing independent pixel reviewer; no images reopened for this source triage."
+    }
+  ],
+  "native_geometry_evidence": [
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34540229407/extracted/android-adaptive-api36-debug-font-2.0-34540229407-1/godot-adaptive/runtime/captures/3d-split-pane-native-ready.xml",
+      "bytes": 4833,
+      "sha256": "98da51a825b9d8cdeaec410149e0dd45452be9a27b6e65bb5817e6deb10ee070",
+      "native_surface_bounds": [
+        136,
+        343,
+        817,
+        720
+      ],
+      "native_surface_physical_size": [
+        681,
+        377
+      ],
+      "standard_button_bounds": [
+        150,
+        186,
+        476,
+        343
+      ]
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34540229407/extracted/android-adaptive-api36-optimized-test-signed-font-2.0-34540229407-1/godot-adaptive/runtime/captures/3d-split-pane-native-ready.xml",
+      "bytes": 4833,
+      "sha256": "98da51a825b9d8cdeaec410149e0dd45452be9a27b6e65bb5817e6deb10ee070",
+      "native_surface_bounds": [
+        136,
+        343,
+        817,
+        720
+      ],
+      "native_surface_physical_size": [
+        681,
+        377
+      ],
+      "standard_button_bounds": [
+        150,
+        186,
+        476,
+        343
+      ]
+    }
+  ],
+  "aggregate_pin": {
+    "path": "/tmp/partydeck-gallery-next-frames-v1-y2mvtfwb/reviewed-findings-29-v1.json",
+    "bytes": 249672,
+    "sha256": "8adddce9dc6d28967871ec8a1a831faff9a72e6ace05ffe0a111cf5e8dd188c3"
+  },
+  "classification_separation": {
+    "native_fixed_claim": "Source-supported truncation of fixed public information in the observed short split viewport.",
+    "native_hand_and_lower_actions": "Offscreen body content; these stills alone do not prove interaction failure or unreachable controls.",
+    "native_show_hand_and_standard_table": "Labels are reported visible; Standard table is a separate fixed Android toolbar control.",
+    "compose_return_body_and_picker": "Scroll-container clipping is distinct and must not inherit the fixed-context defect classification."
+  },
+  "limits": [
+    "No new image view, capture, decode, build or renderer execution was performed for this issue note.",
+    "Old-source recordings remain immutable and factual; this note is not a corrected-renderer result.",
+    "No control activation, continuous privacy, native hidden-hand state or action/UTC timing claim is added.",
+    "Candidate correction and focused real-renderer verification are pending in a separate private task; root owns PCK rebuild/integration/CI."
+  ]
+}

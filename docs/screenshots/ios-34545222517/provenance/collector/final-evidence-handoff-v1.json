@@ -1,0 +1,438 @@
+{
+  "runId": 34545222517,
+  "headSha": "3d73b34390d376f37554361d64c23fdcfc822c04",
+  "attempt": 1,
+  "runConclusion": "failure",
+  "collectorComplete": true,
+  "originalArchiveCount": 5,
+  "originalArchiveBytes": 332271269,
+  "ownedOriginalJobLogs": 3,
+  "missingExpectedArtifacts": [],
+  "collectionErrors": {},
+  "outcomes": {
+    "rendererProducer": "success; actual PCK, all 132 renderer files and four tool inputs bind to the exact source; 136 packed entries",
+    "sharedNativeJUnit": {
+      "passed": 156,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "suites": 24
+    },
+    "ordinarySimulator": {
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0,
+      "nativeUnitCases": 6,
+      "uiCases": 3,
+      "javaSwiftTwoDirectionTLSPassed": true,
+      "hostNameWaitCasePassed": true
+    },
+    "UIKitLayout": {
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "overlapWithOrdinaryCases": "Three UIKit cases are also included in the ordinary nine; this is the separate dedicated execution."
+    },
+    "productionSessions": {
+      "tests": 2,
+      "passed": 0,
+      "failed": 2,
+      "skipped": 0,
+      "xcodebuildExitCode": 65,
+      "cases": [
+        {
+          "case": "PartyDeckUITests.PartyDeckGodotSessionUITests/testProduction2DPracticeSession",
+          "status": "failed",
+          "seconds": "18.838"
+        },
+        {
+          "case": "PartyDeckUITests.PartyDeckGodotSessionUITests/testProduction3DPracticeSession",
+          "status": "failed",
+          "seconds": "7.663"
+        }
+      ],
+      "failureSourceLine": 112,
+      "failureMessage": "Production qualification observation is malformed; missing values cannot pass a privacy assertion.",
+      "effectiveQualificationFlagsVerifiedForBothTargets": true,
+      "initialHomeObservationReadAttempted": true,
+      "practiceEntryOrBodyScrollQualified": false
+    },
+    "productionSummaryExportExitCode": 0,
+    "productionAttachmentExportExitCode": 0,
+    "packagedSimulatorApps": {
+      "verifiedCount": 3,
+      "scopes": [
+        "ordinary",
+        "native-layout",
+        "production-sessions"
+      ],
+      "actualMachOResourcesPackAndActivationVerified": true
+    },
+    "unsignedDevice": {
+      "jobConclusion": "success",
+      "verifiedPackages": 1,
+      "actualMachOResourcesPackAndActivationVerified": true,
+      "signedOrRunOnPhysicalDevice": false
+    },
+    "android": "not selected",
+    "shippingAcceptance": false
+  },
+  "capturedEvidence": {
+    "ordinaryPngs": 10,
+    "productionFailurePngs": 2,
+    "productionRecordingsRetainedInZip": 2,
+    "sanitizedProductionObservationJson": 0,
+    "passiveBodyScrollAttachments": 0,
+    "productionCapturePointers": [
+      {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "B422B819-67D4-4AAA-932C-9F377A249B3E.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d production smoke failure_0_BD41B117-1512-4E5F-93D9-157A0D756547.png",
+          "timestamp": 1789087451.756
+        },
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34545222517/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/B422B819-67D4-4AAA-932C-9F377A249B3E.png",
+          "bytes": 298389,
+          "sha256": "cd289b6af7723d2fc222d394fcc35af363d67fd9829e36f89465fd77440081f5",
+          "archiveMember": "build/ci/ios/godot-session/attachments/B422B819-67D4-4AAA-932C-9F377A249B3E.png",
+          "retainedExtracted": true
+        },
+        "mediaDirectlyViewedByCollector": false
+      },
+      {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "3EAEECB2-14CF-4788-BDC4-CB416F9337B8.mp4",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Screen Recording 2026-09-11 at 12.43.55 AM.mp4",
+          "timestamp": 1789087435.714
+        },
+        "original": {
+          "archivePath": "/root/projects/PartyDeck/artifacts/evidence-storage/34545222517/artifact-zips/10179678163-ios-reports-and-simulator-app.zip",
+          "archiveMember": "build/ci/ios/godot-session/attachments/3EAEECB2-14CF-4788-BDC4-CB416F9337B8.mp4",
+          "bytes": 1364893,
+          "sha256": "053b25414f71ee1abe8ba41f55a7e4dd796afa723c8403c02700c27ed589d436",
+          "zipCRC32": "632a385d",
+          "retainedExtracted": false
+        },
+        "mediaDirectlyViewedByCollector": false
+      },
+      {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "77397327-DE50-4252-A28C-40124C2608FF.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d production smoke failure_0_52BA69EF-EF05-4CC8-822A-F7DABD502811.png",
+          "timestamp": 1789087469.612
+        },
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34545222517/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/77397327-DE50-4252-A28C-40124C2608FF.png",
+          "bytes": 298389,
+          "sha256": "cd289b6af7723d2fc222d394fcc35af363d67fd9829e36f89465fd77440081f5",
+          "archiveMember": "build/ci/ios/godot-session/attachments/77397327-DE50-4252-A28C-40124C2608FF.png",
+          "retainedExtracted": true
+        },
+        "mediaDirectlyViewedByCollector": false
+      },
+      {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "F742E84D-5442-4744-99CA-48567B5404FE.mp4",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Screen Recording 2026-09-11 at 12.44.22 AM.mp4",
+          "timestamp": 1789087462.09
+        },
+        "original": {
+          "archivePath": "/root/projects/PartyDeck/artifacts/evidence-storage/34545222517/artifact-zips/10179678163-ios-reports-and-simulator-app.zip",
+          "archiveMember": "build/ci/ios/godot-session/attachments/F742E84D-5442-4744-99CA-48567B5404FE.mp4",
+          "bytes": 491161,
+          "sha256": "362361980b787cc0558a0289ef50b7bfcf51ca37fb6bda84de57cc91fb583fb9",
+          "zipCRC32": "5be8d0b0",
+          "retainedExtracted": false
+        },
+        "mediaDirectlyViewedByCollector": false
+      }
+    ],
+    "ordinaryCapturePointers": [
+      {
+        "scope": "ordinary",
+        "testIdentifier": "PartyDeckUITests/testNativeHostCanNavigateSharedSettings()",
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "7B0FEA18-597A-4C42-90CE-552398B35290.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Settings_0_DE3F50F2-75C5-41CD-A307-C06796584D9A.png",
+          "timestamp": 1789086611.241
+        },
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34545222517/ios-reports-and-simulator-app/build/ci/ios/attachments/7B0FEA18-597A-4C42-90CE-552398B35290.png",
+          "bytes": 288419,
+          "sha256": "f72b153dbc7dd9fff9da270e38779529b44036057e6f3b4913fd095c2deab216",
+          "archiveMember": "build/ci/ios/attachments/7B0FEA18-597A-4C42-90CE-552398B35290.png",
+          "retainedExtracted": true
+        },
+        "mediaViewedByCollector": false
+      },
+      {
+        "scope": "ordinary",
+        "testIdentifier": "PartyDeckUITests/testSharedControllerHostsANativeTableAndShowsItsInvitation()",
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "4C9B91D9-118F-4B91-877E-F7548F5E468C.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Native host invitation closed_0_7C8F87F3-E754-4E3C-8B16-09CB69C72FF9.png",
+          "timestamp": 1789086655.063
+        },
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34545222517/ios-reports-and-simulator-app/build/ci/ios/attachments/4C9B91D9-118F-4B91-877E-F7548F5E468C.png",
+          "bytes": 225036,
+          "sha256": "2dd584d9b4186c63e54bfcfff0a34cbcac774a25783c014c330a1f92e8a00fe1",
+          "archiveMember": "build/ci/ios/attachments/4C9B91D9-118F-4B91-877E-F7548F5E468C.png",
+          "retainedExtracted": true
+        },
+        "mediaViewedByCollector": false
+      },
+      {
+        "scope": "ordinary",
+        "testIdentifier": "PartyDeckUITests/testSharedControllerHostsANativeTableAndShowsItsInvitation()",
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "DE08BEA8-0BA2-4343-B31E-D3EC1D7C2BDD.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Native host lobby_0_106079A8-D67D-4A47-AD67-B487A32D2ED3.png",
+          "timestamp": 1789086644.351
+        },
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34545222517/ios-reports-and-simulator-app/build/ci/ios/attachments/DE08BEA8-0BA2-4343-B31E-D3EC1D7C2BDD.png",
+          "bytes": 225036,
+          "sha256": "2dd584d9b4186c63e54bfcfff0a34cbcac774a25783c014c330a1f92e8a00fe1",
+          "archiveMember": "build/ci/ios/attachments/DE08BEA8-0BA2-4343-B31E-D3EC1D7C2BDD.png",
+          "retainedExtracted": true
+        },
+        "mediaViewedByCollector": false
+      },
+      {
+        "scope": "ordinary",
+        "testIdentifier": "PartyDeckUITests/testSharedHomeOpensAPlayablePracticeTable()",
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "913B2DD5-9A9E-4E00-8FAF-AD4DDD58E335.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Practice after accepted play_0_7D72ED56-63DB-46F7-B942-2F780489ADED.png",
+          "timestamp": 1789086899.526
+        },
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34545222517/ios-reports-and-simulator-app/build/ci/ios/attachments/913B2DD5-9A9E-4E00-8FAF-AD4DDD58E335.png",
+          "bytes": 226981,
+          "sha256": "8c3359f59125f91486f19600ee4a77801dea35f5dce1388c3b04412c899dc97c",
+          "archiveMember": "build/ci/ios/attachments/913B2DD5-9A9E-4E00-8FAF-AD4DDD58E335.png",
+          "retainedExtracted": true
+        },
+        "mediaViewedByCollector": false
+      },
+      {
+        "scope": "ordinary",
+        "testIdentifier": "PartyDeckUITests/testSharedHomeOpensAPlayablePracticeTable()",
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "5123BA2F-F2C5-489D-B1D9-0D6A8DCB2D5E.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Practice Standard fresh Reveal is unselected_0_92DCB024-3F36-4E29-AE82-25E1EA026802.png",
+          "timestamp": 1789086859.253
+        },
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34545222517/ios-reports-and-simulator-app/build/ci/ios/attachments/5123BA2F-F2C5-489D-B1D9-0D6A8DCB2D5E.png",
+          "bytes": 214110,
+          "sha256": "04a19b6c114234b80b8740d1c977b18d997a8e67a3c223568aa6635f7fc17804",
+          "archiveMember": "build/ci/ios/attachments/5123BA2F-F2C5-489D-B1D9-0D6A8DCB2D5E.png",
+          "retainedExtracted": true
+        },
+        "mediaViewedByCollector": false
+      },
+      {
+        "scope": "ordinary",
+        "testIdentifier": "PartyDeckUITests/testSharedHomeOpensAPlayablePracticeTable()",
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "51BBA598-B230-4BE2-A999-1398F2950E75.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Practice Standard Hide removes private nodes and selection_0_F75B400E-CFCE-4B95-B368-89A2F1FF6366.png",
+          "timestamp": 1789086833.816
+        },
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34545222517/ios-reports-and-simulator-app/build/ci/ios/attachments/51BBA598-B230-4BE2-A999-1398F2950E75.png",
+          "bytes": 239751,
+          "sha256": "82982ec921460cae9f1f73d9027a404c3a902fa2ef799baf04ef76e9b7de01e8",
+          "archiveMember": "build/ci/ios/attachments/51BBA598-B230-4BE2-A999-1398F2950E75.png",
+          "retainedExtracted": true
+        },
+        "mediaViewedByCollector": false
+      },
+      {
+        "scope": "ordinary",
+        "testIdentifier": "PartyDeckUITests/testSharedHomeOpensAPlayablePracticeTable()",
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "7059BCC9-5AD1-40C6-B422-AA78ECD3AE3D.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Practice Standard maximum selection and count-only feedback_0_9CA5E3A0-F78E-4861-9196-5DCD919DEAD8.png",
+          "timestamp": 1789086799.248
+        },
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34545222517/ios-reports-and-simulator-app/build/ci/ios/attachments/7059BCC9-5AD1-40C6-B422-AA78ECD3AE3D.png",
+          "bytes": 224155,
+          "sha256": "2b3343a2c8ec227a910ffc9a34718b28e78156a45ec94efaec4bacb62d3db1ec",
+          "archiveMember": "build/ci/ios/attachments/7059BCC9-5AD1-40C6-B422-AA78ECD3AE3D.png",
+          "retainedExtracted": true
+        },
+        "mediaViewedByCollector": false
+      },
+      {
+        "scope": "ordinary",
+        "testIdentifier": "PartyDeckUITests/testSharedHomeOpensAPlayablePracticeTable()",
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "BE1944BF-1BA6-4EA3-AFB7-13C2DDD5AA38.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Practice Standard all five native card descriptions_0_64CF10CB-2176-4C4A-8EDD-3F980C0129CD.png",
+          "timestamp": 1789086712.05
+        },
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34545222517/ios-reports-and-simulator-app/build/ci/ios/attachments/BE1944BF-1BA6-4EA3-AFB7-13C2DDD5AA38.png",
+          "bytes": 213570,
+          "sha256": "28937d2616c3a3105df05d60883e58a07d78c583f3a2d220dd6c022105db1df4",
+          "archiveMember": "build/ci/ios/attachments/BE1944BF-1BA6-4EA3-AFB7-13C2DDD5AA38.png",
+          "retainedExtracted": true
+        },
+        "mediaViewedByCollector": false
+      },
+      {
+        "scope": "ordinary",
+        "testIdentifier": "PartyDeckUITests/testSharedHomeOpensAPlayablePracticeTable()",
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "301AA8B3-5D5E-45F0-8E16-71F75B345128.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Practice Standard concealed_0_F0CE6558-A479-4E86-BE21-DD4F334E9D55.png",
+          "timestamp": 1789086683.293
+        },
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34545222517/ios-reports-and-simulator-app/build/ci/ios/attachments/301AA8B3-5D5E-45F0-8E16-71F75B345128.png",
+          "bytes": 239593,
+          "sha256": "7ee77c2a0b19d5e3221ab45938d35930151fc14d77b2fa484c042d89a63fd399",
+          "archiveMember": "build/ci/ios/attachments/301AA8B3-5D5E-45F0-8E16-71F75B345128.png",
+          "retainedExtracted": true
+        },
+        "mediaViewedByCollector": false
+      },
+      {
+        "scope": "ordinary",
+        "testIdentifier": "PartyDeckUITests/testSharedHomeOpensAPlayablePracticeTable()",
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "CA9D8C7A-7B40-4192-91D3-F480A6AF80FA.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Home_0_49D46323-B533-4016-B24F-4840BD68FDDD.png",
+          "timestamp": 1789086678.03
+        },
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34545222517/ios-reports-and-simulator-app/build/ci/ios/attachments/CA9D8C7A-7B40-4192-91D3-F480A6AF80FA.png",
+          "bytes": 297892,
+          "sha256": "80d16a0791d3bca1809b22d45d7e39cc3baf40dbbe16237bb9f8b211eae48b0a",
+          "archiveMember": "build/ci/ios/attachments/CA9D8C7A-7B40-4192-91D3-F480A6AF80FA.png",
+          "retainedExtracted": true
+        },
+        "mediaViewedByCollector": false
+      }
+    ],
+    "collectorViewedOrDecodedMedia": false
+  },
+  "diagnosticLimits": "Both production cases failed the initial Home observation read. Rejected JSON was not retained; no decoder category, field path or precise cause is established. XCTest wall durations do not measure CPU/GPU performance. Standalone native .a hashes remain runner receipt evidence; the four packaged app byte audits are completed separately.",
+  "references": {
+    "preservation": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34545222517/final-preservation-audit-v1.json",
+      "bytes": 180101,
+      "sha256": "9fa1d7242bb7d20f899595736c7e17826fecd0f9da1a95f34fe4250f5d6fe3dd"
+    },
+    "collectionCompletion": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34545222517/collection-complete.json",
+      "bytes": 790,
+      "sha256": "7796a30b922bdbd40499f9768977d766dfb982e21bad534b26edc58127887013"
+    },
+    "collectorConfigurationFreeze": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34545222517/collector-configuration-frozen-v1.json",
+      "bytes": 2338,
+      "sha256": "b80a3d1cdb36c25a796c981af52b1baa25521ed1145c67c81fdea475add0fd23"
+    },
+    "sourceProducerNativeBinding": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34545222517/source-producer-native-binding-v1.json",
+      "bytes": 83558,
+      "sha256": "68a064f0bb5c2455936e5839016eebae535158ebab9784406edf94519c85d64b"
+    },
+    "packagedSimulatorBytes": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34545222517/simulator-packaged-bytes-verification-v1.json",
+      "bytes": 202926,
+      "sha256": "e87945b21b05eb3e32a2532583b78a09467a3d8837d42de6490a34f989b89c2f"
+    },
+    "packagedUnsignedDeviceBytes": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34545222517/unsigned-device-packaged-bytes-verification-v1.json",
+      "bytes": 55511,
+      "sha256": "a7d473a9a308ac5731c318c65301788bbb5b4b9f0f09b713e8af1c37bb82d050"
+    },
+    "productionOutcomeAndCaptures": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34545222517/production-session-outcome-v1.json",
+      "bytes": 20853,
+      "sha256": "a405c6ffc623c5cb442d1c3e22b768963de06ffd0fdd960a30d1f02cc9056f5d"
+    },
+    "ordinaryAndUIKitOutcomes": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34545222517/ordinary-and-uikit-outcomes-v1.json",
+      "bytes": 31496,
+      "sha256": "ccc7f0526dfd1a3b029e990629b85ebc77ff431b6005b4cf3d71bc28f06b979c"
+    },
+    "sharedNativeJUnit": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34545222517/shared-native-junit-audit-v1.json",
+      "bytes": 62459,
+      "sha256": "f43fa64f3bf7d4ab6036cffbf0b7d554203c6ac6f44b41a1c7c2956b7f1e3cc8"
+    },
+    "completedNativeJobLogOutcomes": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34545222517/completed-native-job-log-outcomes-v1.json",
+      "bytes": 21562,
+      "sha256": "16bcfbb30649e509d74a2fee60617ca00e2d52e7f41e1885562dc3566053a60c"
+    }
+  },
+  "scope": "Final preservation and handoff for this exact full iOS retry. All completed source/package/outcome audits are retained and reconciled without repeating tests, native builds, PCK parsing, app tar streaming, video decoding or downloads. No successful production qualification, signing, physical-device, shipping or hardware performance claim is added. New diagnostics and fixes belong to separate runs."
+}

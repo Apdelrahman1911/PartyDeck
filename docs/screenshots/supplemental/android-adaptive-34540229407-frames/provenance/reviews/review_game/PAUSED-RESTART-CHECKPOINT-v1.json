@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "status": "paused-by-user",
+  "created_at_utc": "2026-09-11T01:00:46.989685+00:00",
+  "reviewer": "/root/review_game",
+  "run_id": "34540229407",
+  "run_attempt": 1,
+  "head": "4ee4563def1c9a1b5060572efa2c3959c7d7677e",
+  "variant": "debug",
+  "font_scale": "2.0",
+  "workspace": "/tmp/partydeck-android-adaptive-debug2-pixels-review-game-v1",
+  "workspace_frozen": false,
+  "published": false,
+  "checkpoint_basis": "Saved previously completed coverage plus the final already displayed 3D landscape representatives 72,73,74,75,76,77,78,79,80; no new imageviews or additional audit after pause request.",
+  "totals": {
+    "source_frames": 646,
+    "direct": 207,
+    "reviewed-byte-match": 206,
+    "unviewed": 233,
+    "complete_recordings": 5,
+    "remaining_recordings": 3
+  },
+  "recordings": [
+    {
+      "clip": "2d-landscape-rotation",
+      "source_frames": 91,
+      "direct": 43,
+      "reviewed-byte-match": 48,
+      "unviewed": 0,
+      "status": "complete"
+    },
+    {
+      "clip": "2d-seascape-rotation",
+      "source_frames": 84,
+      "direct": 38,
+      "reviewed-byte-match": 46,
+      "unviewed": 0,
+      "status": "complete"
+    },
+    {
+      "clip": "2d-split-entry",
+      "source_frames": 84,
+      "direct": 41,
+      "reviewed-byte-match": 43,
+      "unviewed": 0,
+      "status": "complete"
+    },
+    {
+      "clip": "2d-split-exit",
+      "source_frames": 69,
+      "direct": 33,
+      "reviewed-byte-match": 36,
+      "unviewed": 0,
+      "status": "complete"
+    },
+    {
+      "clip": "3d-landscape-rotation",
+      "source_frames": 85,
+      "direct": 52,
+      "reviewed-byte-match": 33,
+      "unviewed": 0,
+      "status": "complete"
+    },
+    {
+      "clip": "3d-seascape-rotation",
+      "source_frames": 87,
+      "direct": 0,
+      "reviewed-byte-match": 0,
+      "unviewed": 87,
+      "status": "awaiting-sole-decoder-frozen-handoff"
+    },
+    {
+      "clip": "3d-split-entry",
+      "source_frames": 78,
+      "direct": 0,
+      "reviewed-byte-match": 0,
+      "unviewed": 78,
+      "status": "awaiting-sole-decoder-frozen-handoff"
+    },
+    {
+      "clip": "3d-split-exit",
+      "source_frames": 68,
+      "direct": 0,
+      "reviewed-byte-match": 0,
+      "unviewed": 68,
+      "status": "awaiting-sole-decoder-frozen-handoff"
+    }
+  ],
+  "last_persisted_batch": "recordings/3d-landscape-rotation/direct-observations/batch-0015.json",
+  "viewed_but_unrecorded_indices": [],
+  "observations": [
+    "No private card faces observed in any directly reviewed frame; exact-byte matches inherit only directly inspected representative observations.",
+    "2D Ready landscape/seascape/pre-split entry has readable 5 cards, covered. but lower lime hand control label below viewport; scrolling not verified.",
+    "2D split-exit native Ready has hand panel and controls entirely below recorded viewport.",
+    "2D split-entry and split-exit returned Standard has hand panel/concealment UI/controls entirely below viewport; no hidden hand-state or reachability claim.",
+    "2D seascape picker has tiny unreadable pale top marks of uncertain intended content; not established as a defect.",
+    "3D landscape Ready has readable Show hand and public Star table round 1 claim; hand/table area beyond bottom of viewport is not verified.",
+    "3D landscape returned Standard portrait displays complete readable Show hand and For your eyes only. / Your cards stay hidden until you’re ready. panel; decorative card back, no private faces."
+  ],
+  "timing_and_privacy_limits": "Packet PTS/time base establishes media order only. No input DOWN/UP, device monotonic or host UTC alignment. Complete recorded-frame coverage does not establish continuous on-device privacy between encoded frames or beyond clips.",
+  "process_status": {
+    "reviewer_live_process": false,
+    "basis": "All reviewer exec commands completed with exit 0; no background, native, build or decoder process was launched by this reviewer. Sole decoder process ownership belongs to /root/ui_game and is not inspected here."
+  },
+  "restart_steps": [
+    "Resume only when user authorizes continuation.",
+    "Keep completed observations and bindings; do not re-view completed exact-byte representatives.",
+    "Obtain frozen callbacks from /root/ui_game for 3d-seascape-rotation, 3d-split-entry, 3d-split-exit; none was delivered at pause.",
+    "Bind each new set with bind_frame_set.py and its callback freeze SHA, then directly inspect every exact-byte representative using view_image detail original; record each already viewed batch with record_views.py.",
+    "Build final per-clip/frame receipts and media-order state sequences after all remaining frames are reviewed, then freeze this new supplement and hand it to /root and /root/review_design. Do not publish."
+  ],
+  "constraints": "No product/shared edits, Git, downloads, archive extraction, video decoding, crops/collages/resizing, bulk media copies, builds or native/device execution; private metadata/receipt work only. Preserve older frozen reviews.",
+  "prior_frozen_reviews_preserved": [
+    "/tmp/partydeck-adaptive-run-34540229407-review-game-v1",
+    "/tmp/partydeck-six-seat-tls-review-game-v1"
+  ]
+}

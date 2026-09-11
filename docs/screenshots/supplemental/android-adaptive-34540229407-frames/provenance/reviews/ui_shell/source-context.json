@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-09-11T00:24:28.627345+00:00",
+  "run_id": 34540229407,
+  "head_sha": "4ee4563def1c9a1b5060572efa2c3959c7d7677e",
+  "sources": [
+    {
+      "path": "scripts/smoke_android_godot_adaptive.py",
+      "commit": "4ee4563def1c9a1b5060572efa2c3959c7d7677e",
+      "sha256": "9ed771c96e7f16a8c669e4db5c11904836c0e3937341ad3513a76f037401b918",
+      "matches_current_source": true
+    },
+    {
+      "path": "scripts/smoke-android-godot-session.py",
+      "commit": "4ee4563def1c9a1b5060572efa2c3959c7d7677e",
+      "sha256": "610971b22dc8ee60d62fa4e213224833cdd43fb0fa533c0fdd5fa39227a39fc4",
+      "matches_current_source": true
+    },
+    {
+      "path": "scripts/smoke-android-ui.py",
+      "commit": "4ee4563def1c9a1b5060572efa2c3959c7d7677e",
+      "sha256": "831b57634a0cee99a466e6820059bb55209a26db3723b2ffff703b2ee0f60836",
+      "matches_current_source": true
+    },
+    {
+      "path": "composeApp/src/commonMain/kotlin/dev/partydeck/app/ui/game/GameplayScreen.kt",
+      "commit": "4ee4563def1c9a1b5060572efa2c3959c7d7677e",
+      "sha256": "7be35a72979b54d899a2737890e32b76f63cb8d78210ac2c50638abe396bae83",
+      "matches_current_source": true
+    },
+    {
+      "path": "androidApp/src/main/kotlin/dev/partydeck/app/godot/SessionGodotActivity.kt",
+      "commit": "4ee4563def1c9a1b5060572efa2c3959c7d7677e",
+      "sha256": "b3184678433f78906582bee005430a2b35aedfea25ed86b380fcc89c1120859c",
+      "matches_current_source": true
+    }
+  ],
+  "source_findings": [
+    {
+      "path": "scripts/smoke-android-godot-session.py",
+      "lines": [
+        970,
+        1128
+      ],
+      "finding": "The practice baseline reveals and selects a private card. Each recording starts at the production Table style picker before the native choice. The initial picker/selected-hand pixels precede the native session; their mere visibility is not evidence of a returned-surface leak."
+    },
+    {
+      "path": "scripts/smoke_android_godot_adaptive.py",
+      "lines": [
+        852,
+        1055
+      ],
+      "finding": "Rotation scenarios start in landscape or reverse landscape, hold native input, request portrait, and require a read-only concealed Compose return before matching UP. The recorded stream ends before later continuity reveal/re-entry checks."
+    },
+    {
+      "path": "scripts/smoke_android_godot_adaptive.py",
+      "lines": [
+        1214,
+        1287
+      ],
+      "finding": "Split-entry recordings launch the native renderer fullscreen and request split with Settings; split-exit recordings launch native in the stable split pane and request fullscreen. Both paths separately assert a concealed Compose return."
+    },
+    {
+      "path": "androidApp/src/main/kotlin/dev/partydeck/app/godot/SessionGodotActivity.kt",
+      "lines": [
+        340,
+        436,
+        655,
+        729
+      ],
+      "finding": "Tracked geometry/configuration change closes the native table. Concealment puts an opaque ink cover over the engine stage and disables engine input; Ready/uncover is generation/foreground guarded. Native status and toolbar remain outside the stage cover."
+    },
+    {
+      "path": "composeApp/src/commonMain/kotlin/dev/partydeck/app/ui/game/GameplayScreen.kt",
+      "lines": [
+        89,
+        180
+      ],
+      "finding": "The Compose hand shows private cards only while private content is visible, privacy epoch is current, and the local hand is revealed. A privacy change conceals and clears selection."
+    }
+  ],
+  "runtime_context": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34540229407/extracted/android-adaptive-api36-optimized-test-signed-font-2.0-34540229407-1/godot-adaptive/runtime/godot-adaptive-result.json",
+    "sha256": "aebe6720483e96efddc3c1aa5ff862452aae507c6ab07665cb41181dab706dec",
+    "reported_status": "passed-automated-scope",
+    "reported_font_scale": "2.0",
+    "reported_variant": "optimized-test-signed",
+    "reported_checks": {
+      "2d-landscape.held-rotation": "passed",
+      "2d-landscape.initial-landscape": "passed",
+      "2d-landscape.native-leave-home": "passed",
+      "2d-landscape.portrait-reentry-standard": "passed",
+      "2d-seascape.held-rotation": "passed",
+      "2d-seascape.initial-landscape": "passed",
+      "2d-seascape.native-leave-home": "passed",
+      "2d-seascape.portrait-reentry-standard": "passed",
+      "2d-split.entry-after-ready": "passed",
+      "2d-split.fullscreen-reentry-leave-home": "passed",
+      "2d-split.stable-split-launch-exit": "passed",
+      "2d-split.support": "passed",
+      "3d-landscape.held-rotation": "passed",
+      "3d-landscape.initial-landscape": "passed",
+      "3d-landscape.native-leave-home": "passed",
+      "3d-landscape.portrait-reentry-standard": "passed",
+      "3d-seascape.held-rotation": "passed",
+      "3d-seascape.initial-landscape": "passed",
+      "3d-seascape.native-leave-home": "passed",
+      "3d-seascape.portrait-reentry-standard": "passed",
+      "3d-split.entry-after-ready": "passed",
+      "3d-split.fullscreen-reentry-leave-home": "passed",
+      "3d-split.stable-split-launch-exit": "passed",
+      "3d-split.support": "passed",
+      "installation": "passed"
+    },
+    "pixel_privacy_review": "required"
+  },
+  "limits": [
+    "These are source and runtime-metadata findings, not actual pixel findings.",
+    "No media PTS has been bound to device uptime, host UTC, or a held-input event in this review.",
+    "Runtime predicate success alone does not establish concealment-cover order or visual layout quality.",
+    "Package/source/build qualification remains with its assigned owners."
+  ]
+}

@@ -1,0 +1,695 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/pixel_d1_land",
+  "run_id": 34545222517,
+  "source_revision": "3d73b34390d376f37554361d64c23fdcfc822c04",
+  "sources": [
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-3d73b34/source-3d73b34/iosApp/PartyDeck/PartyDeckApp.swift",
+      "repository_path": "iosApp/PartyDeck/PartyDeckApp.swift",
+      "bytes": 7186,
+      "sha256": "9537651d618b68c009e486473b223d064537a8572fe605b8a0f76fdd0f1a0085",
+      "exact_git_blob_match_verified": true,
+      "git_revision": "3d73b34390d376f37554361d64c23fdcfc822c04",
+      "excerpts": [
+        {
+          "start_line": 112,
+          "end_line": 145,
+          "lines": [
+            {
+              "line": 112,
+              "text": "    @ObservedObject var owner: PartyDeckOwner"
+            },
+            {
+              "line": 113,
+              "text": "    @Environment(\\.scenePhase) private var scenePhase"
+            },
+            {
+              "line": 114,
+              "text": "    #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION"
+            },
+            {
+              "line": 115,
+              "text": "    private let qualificationClock = Timer.publish(every: 0.2, on: .main, in: .common).autoconnect()"
+            },
+            {
+              "line": 116,
+              "text": "    #endif"
+            },
+            {
+              "line": 117,
+              "text": ""
+            },
+            {
+              "line": 118,
+              "text": "    var body: some View {"
+            },
+            {
+              "line": 119,
+              "text": "        ZStack {"
+            },
+            {
+              "line": 120,
+              "text": "            Color(red: 25 / 255, green: 21 / 255, blue: 38 / 255).ignoresSafeArea()"
+            },
+            {
+              "line": 121,
+              "text": "            ComposeContent(controller: owner.handle.viewController)"
+            },
+            {
+              "line": 122,
+              "text": "                .ignoresSafeArea()"
+            },
+            {
+              "line": 123,
+              "text": "                .accessibilityHidden(scenePhase != .active)"
+            },
+            {
+              "line": 124,
+              "text": "                .allowsHitTesting(scenePhase == .active)"
+            },
+            {
+              "line": 125,
+              "text": "            if scenePhase != .active {"
+            },
+            {
+              "line": 126,
+              "text": "                PrivacyCover()"
+            },
+            {
+              "line": 127,
+              "text": "                    .accessibilityIdentifier(\"native-privacy-cover\")"
+            },
+            {
+              "line": 128,
+              "text": "            }"
+            },
+            {
+              "line": 129,
+              "text": "            #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION"
+            },
+            {
+              "line": 130,
+              "text": "            if scenePhase == .active, let observation = owner.qualificationObservation {"
+            },
+            {
+              "line": 131,
+              "text": "                SessionQualificationBadge(observation: observation)"
+            },
+            {
+              "line": 132,
+              "text": "                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)"
+            },
+            {
+              "line": 133,
+              "text": "                    .padding(.top, 2).padding(.trailing, 2)"
+            },
+            {
+              "line": 134,
+              "text": "                    .allowsHitTesting(false)"
+            },
+            {
+              "line": 135,
+              "text": "            }"
+            },
+            {
+              "line": 136,
+              "text": "            #endif"
+            },
+            {
+              "line": 137,
+              "text": "        }"
+            },
+            {
+              "line": 138,
+              "text": "        #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION"
+            },
+            {
+              "line": 139,
+              "text": "        .onReceive(qualificationClock) { _ in owner.pollSessionQualification() }"
+            },
+            {
+              "line": 140,
+              "text": "        #endif"
+            },
+            {
+              "line": 141,
+              "text": "        .onAppear { owner.updateScenePhase(scenePhase) }"
+            },
+            {
+              "line": 142,
+              "text": "        .onChange(of: scenePhase) { phase in"
+            },
+            {
+              "line": 143,
+              "text": "            owner.updateScenePhase(phase)"
+            },
+            {
+              "line": 144,
+              "text": "        }"
+            },
+            {
+              "line": 145,
+              "text": "    }"
+            }
+          ]
+        },
+        {
+          "start_line": 175,
+          "end_line": 185,
+          "lines": [
+            {
+              "line": 175,
+              "text": "#if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION"
+            },
+            {
+              "line": 176,
+              "text": "private struct SessionQualificationBadge: View {"
+            },
+            {
+              "line": 177,
+              "text": "    @ObservedObject var observation: GodotSessionQualificationObservation"
+            },
+            {
+              "line": 178,
+              "text": "    var body: some View {"
+            },
+            {
+              "line": 179,
+              "text": "        Text(\"Q\").font(.system(size: 10)).foregroundStyle(.gray)"
+            },
+            {
+              "line": 180,
+              "text": "            .accessibilityLabel(\"Production session qualification\")"
+            },
+            {
+              "line": 181,
+              "text": "            .accessibilityValue(observation.document)"
+            },
+            {
+              "line": 182,
+              "text": "            .accessibilityIdentifier(\"partydeck-session-qualification\")"
+            },
+            {
+              "line": 183,
+              "text": "    }"
+            },
+            {
+              "line": 184,
+              "text": "}"
+            },
+            {
+              "line": 185,
+              "text": "#endif"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-3d73b34/source-3d73b34/iosApp/PartyDeckUITests/PartyDeckUITests.swift",
+      "repository_path": "iosApp/PartyDeckUITests/PartyDeckUITests.swift",
+      "bytes": 18107,
+      "sha256": "fcc57b669ca638da439b8a42d93d518d273b2df88b625e1dfe8408bc1d68f23d",
+      "exact_git_blob_match_verified": true,
+      "git_revision": "3d73b34390d376f37554361d64c23fdcfc822c04",
+      "excerpts": [
+        {
+          "start_line": 9,
+          "end_line": 39,
+          "lines": [
+            {
+              "line": 9,
+              "text": "    func testSharedHomeOpensAPlayablePracticeTable() throws {"
+            },
+            {
+              "line": 10,
+              "text": "        let app = XCUIApplication()"
+            },
+            {
+              "line": 11,
+              "text": "        app.launch()"
+            },
+            {
+              "line": 12,
+              "text": ""
+            },
+            {
+              "line": 13,
+              "text": "        let practice = element(\"home-practice\", in: app)"
+            },
+            {
+              "line": 14,
+              "text": "        XCTAssertTrue(practice.waitForExistence(timeout: 30), \"The shared Compose home must render.\")"
+            },
+            {
+              "line": 15,
+              "text": "        XCTAssertTrue(element(\"home-host\", in: app).exists)"
+            },
+            {
+              "line": 16,
+              "text": "        XCTAssertTrue(element(\"home-join\", in: app).exists)"
+            },
+            {
+              "line": 17,
+              "text": "        capture(\"Home\", app: app)"
+            },
+            {
+              "line": 18,
+              "text": ""
+            },
+            {
+              "line": 19,
+              "text": "        practice.tap()"
+            },
+            {
+              "line": 20,
+              "text": "        XCTAssertTrue(element(\"game-table\", in: app).waitForExistence(timeout: 15), \"Practice must reach the actual game UI.\")"
+            },
+            {
+              "line": 21,
+              "text": "        waitForPlayableTurn(in: app)"
+            },
+            {
+              "line": 22,
+              "text": ""
+            },
+            {
+              "line": 23,
+              "text": "        let standard = StandardTableAcceptance(app)"
+            },
+            {
+              "line": 24,
+              "text": "        try standard.exerciseFiveCardHand { checkpoint in"
+            },
+            {
+              "line": 25,
+              "text": "            capture(\"Practice Standard \\(checkpoint)\", app: app)"
+            },
+            {
+              "line": 26,
+              "text": "            try standard.audit()"
+            },
+            {
+              "line": 27,
+              "text": "        }"
+            },
+            {
+              "line": 28,
+              "text": "        _ = try standard.reveal(count: 5)"
+            },
+            {
+              "line": 29,
+              "text": "        try standard.toggle(index: 0, count: 5, selected: true)"
+            },
+            {
+              "line": 30,
+              "text": "        let lastCard = element(\"game-card-4\", in: app)"
+            },
+            {
+              "line": 31,
+              "text": "        let play = try standard.control(\"game-play\")"
+            },
+            {
+              "line": 32,
+              "text": "        play.tap()"
+            },
+            {
+              "line": 33,
+              "text": "        let fourthCard = element(\"game-card-3\", in: app)"
+            },
+            {
+              "line": 34,
+              "text": "        let roundResult = element(\"game-round-result\", in: app)"
+            },
+            {
+              "line": 35,
+              "text": "        let winner = element(\"game-winner\", in: app)"
+            },
+            {
+              "line": 36,
+              "text": "        waitUntil(\"Playing one card must change the authoritative hand or produce a round outcome.\") {"
+            },
+            {
+              "line": 37,
+              "text": "            !lastCard.exists && (fourthCard.exists || roundResult.exists || winner.exists)"
+            },
+            {
+              "line": 38,
+              "text": "        }"
+            },
+            {
+              "line": 39,
+              "text": "        capture(\"Practice after accepted play\", app: app)"
+            }
+          ]
+        },
+        {
+          "start_line": 192,
+          "end_line": 229,
+          "lines": [
+            {
+              "line": 192,
+              "text": "    func exerciseFiveCardHand(checkpoint: (String) throws -> Void = { _ in }) throws {"
+            },
+            {
+              "line": 193,
+              "text": "        try concealed()"
+            },
+            {
+              "line": 194,
+              "text": "        try checkpoint(\"concealed\")"
+            },
+            {
+              "line": 195,
+              "text": "        let labels = try reveal(count: 5)"
+            },
+            {
+              "line": 196,
+              "text": "        try checkpoint(\"all five native card descriptions\")"
+            },
+            {
+              "line": 197,
+              "text": ""
+            },
+            {
+              "line": 198,
+              "text": "        // The fifth card must be reached and activated, including a scrolling hand."
+            },
+            {
+              "line": 199,
+              "text": "        try toggle(index: 4, count: 5, selected: true)"
+            },
+            {
+              "line": 200,
+              "text": "        try wait(\"Selecting the fifth card must enable Play.\") { element(\"game-play\").isEnabled }"
+            },
+            {
+              "line": 201,
+              "text": "        try toggle(index: 4, count: 5, selected: false)"
+            },
+            {
+              "line": 202,
+              "text": "        try wait(\"Deselecting the fifth card must disable Play.\") { !element(\"game-play\").isEnabled }"
+            },
+            {
+              "line": 203,
+              "text": "        for index in 0..<3 { try toggle(index: index, count: 5, selected: true) }"
+            },
+            {
+              "line": 204,
+              "text": "        try card(index: 3, count: 5).tap()"
+            },
+            {
+              "line": 205,
+              "text": "        try wait(\"A fourth choice must expose the count-only selection limit.\") { text(limitMessage).count == 1 }"
+            },
+            {
+              "line": 206,
+              "text": "        let feedback = try reach(text(limitMessage).firstMatch)"
+            },
+            {
+              "line": 207,
+              "text": "        if let value = feedback.value {"
+            },
+            {
+              "line": 208,
+              "text": "            try require((value as? String).map { $0.isEmpty || $0 == limitMessage } == true,"
+            },
+            {
+              "line": 209,
+              "text": "                        \"Selection-limit feedback must not add private card information.\")"
+            },
+            {
+              "line": 210,
+              "text": "        }"
+            },
+            {
+              "line": 211,
+              "text": "        for index in 0..<5 {"
+            },
+            {
+              "line": 212,
+              "text": "            try state(index: index, count: 5, selected: index < 3, expectedLabel: labels[index])"
+            },
+            {
+              "line": 213,
+              "text": "        }"
+            },
+            {
+              "line": 214,
+              "text": "        try require(text(\"3 of 3 selected\").count == 1 && element(\"game-play\").isEnabled,"
+            },
+            {
+              "line": 215,
+              "text": "                    \"Rejecting a fourth card must retain exactly the first three selections.\")"
+            },
+            {
+              "line": 216,
+              "text": "        try checkpoint(\"maximum selection and count-only feedback\")"
+            },
+            {
+              "line": 217,
+              "text": ""
+            },
+            {
+              "line": 218,
+              "text": "        try toggle(index: 1, count: 5, selected: false)"
+            },
+            {
+              "line": 219,
+              "text": "        try wait(\"Deselecting must clear the limit feedback and update the public count.\") {"
+            },
+            {
+              "line": 220,
+              "text": "            text(limitMessage).count == 0 && text(\"2 of 3 selected\").count == 1"
+            },
+            {
+              "line": 221,
+              "text": "        }"
+            },
+            {
+              "line": 222,
+              "text": "        for index in 0..<5 {"
+            },
+            {
+              "line": 223,
+              "text": "            try state(index: index, count: 5, selected: index == 0 || index == 2, expectedLabel: labels[index])"
+            },
+            {
+              "line": 224,
+              "text": "        }"
+            },
+            {
+              "line": 225,
+              "text": "        try hide(labels: labels)"
+            },
+            {
+              "line": 226,
+              "text": "        try checkpoint(\"Hide removes private nodes and selection\")"
+            },
+            {
+              "line": 227,
+              "text": "        _ = try reveal(count: 5, expectedLabels: labels)"
+            },
+            {
+              "line": 228,
+              "text": "        try checkpoint(\"fresh Reveal is unselected\")"
+            },
+            {
+              "line": 229,
+              "text": "        try hide(labels: labels)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-3d73b34/source-3d73b34/iosApp/PartyDeckUITests/PartyDeckGodotSessionUITests.swift",
+      "repository_path": "iosApp/PartyDeckUITests/PartyDeckGodotSessionUITests.swift",
+      "bytes": 54406,
+      "sha256": "6c1a307b6f33f72e2219ccf6ac99f5f00251c2f00440ce4ea430999d3c7c55c5",
+      "exact_git_blob_match_verified": true,
+      "git_revision": "3d73b34390d376f37554361d64c23fdcfc822c04",
+      "excerpts": [
+        {
+          "start_line": 20,
+          "end_line": 55,
+          "lines": [
+            {
+              "line": 20,
+              "text": "    private func exercise(_ mode: Mode) async throws {"
+            },
+            {
+              "line": 21,
+              "text": "        lastObservation = nil"
+            },
+            {
+              "line": 22,
+              "text": "        lastDocument = nil"
+            },
+            {
+              "line": 23,
+              "text": "        let app = XCUIApplication()"
+            },
+            {
+              "line": 24,
+              "text": "        app.launchArguments = [\"--partydeck-observe-godot-session\"] // Observation only; never enables a mode."
+            },
+            {
+              "line": 25,
+              "text": "        app.launch()"
+            },
+            {
+              "line": 26,
+              "text": "        do {"
+            },
+            {
+              "line": 27,
+              "text": "            let home = try await wait(app, \"The opted-in observation must exist on the actual Home screen.\", timeout: 30) {"
+            },
+            {
+              "line": 28,
+              "text": "                $0.controller?.screen == \"HOME\" && $0.controller?.sessionPresent == false &&"
+            },
+            {
+              "line": 29,
+              "text": "                    self.element(\"home-practice\", app).isHittable"
+            },
+            {
+              "line": 30,
+              "text": "            }"
+            },
+            {
+              "line": 31,
+              "text": "            try require(!home.port.ownerCreated, \"Observation must not acquire a native engine before the user selects a renderer.\")"
+            },
+            {
+              "line": 32,
+              "text": "            try await tapElement(\"home-practice\", app)"
+            },
+            {
+              "line": 33,
+              "text": "            let practice = try await playablePractice(app)"
+            },
+            {
+              "line": 34,
+              "text": "            let practiceState = try controller(practice)"
+            },
+            {
+              "line": 35,
+              "text": "            let generation = practiceState.sessionGeneration"
+            },
+            {
+              "line": 36,
+              "text": "            try require(!practice.port.ownerCreated, \"The real Standard practice session must not eagerly acquire Godot.\")"
+            },
+            {
+              "line": 37,
+              "text": "            try require(practiceState.handCount == 5, \"Full native hand acceptance requires the fresh five-card hand before any Play.\")"
+            },
+            {
+              "line": 38,
+              "text": "            try StandardTableAcceptance(app).exerciseFiveCardHand { checkpoint in"
+            },
+            {
+              "line": 39,
+              "text": "                guard let observed = try read(app) else { throw Failure(\"Native hand acceptance requires the real session observation.\") }"
+            },
+            {
+              "line": 40,
+              "text": "                let state = try controller(observed)"
+            },
+            {
+              "line": 41,
+              "text": "                try require(state.sessionGeneration == generation && state.sessionRevision == practiceState.sessionRevision &&"
+            },
+            {
+              "line": 42,
+              "text": "                    state.lastViewerReceipt?.serial == practiceState.lastViewerReceipt?.serial && state.handCount == 5 &&"
+            },
+            {
+              "line": 43,
+              "text": "                    state.mode == \"COMPOSE\" && state.ownTurn && state.canPlay && !observed.port.ownerCreated,"
+            },
+            {
+              "line": 44,
+              "text": "                    \"Reveal, native card toggles and Hide must preserve the real session without an authority action or engine acquisition.\")"
+            },
+            {
+              "line": 45,
+              "text": "                capture(\"\\(mode.rawValue) Standard \\(checkpoint)\", app)"
+            },
+            {
+              "line": 46,
+              "text": "            }"
+            },
+            {
+              "line": 47,
+              "text": ""
+            },
+            {
+              "line": 48,
+              "text": "            let first = try await enter(mode, app, session: generation)"
+            },
+            {
+              "line": 49,
+              "text": "            capture(\"\\(mode.rawValue) production concealed entry\", app)"
+            },
+            {
+              "line": 50,
+              "text": "            try await revealSelectHide(mode, app, session: generation)"
+            },
+            {
+              "line": 51,
+              "text": "            let reveal = try await tapRenderer(\"reveal\", mode, app, session: generation)"
+            },
+            {
+              "line": 52,
+              "text": "            _ = try await live(mode, app, session: generation, after: reveal) { !$0.renderer.handConcealed }"
+            },
+            {
+              "line": 53,
+              "text": "            let card = try await tapRenderer(\"card\", mode, app, session: generation, cardIndex: 0)"
+            },
+            {
+              "line": 54,
+              "text": "            _ = try await live(mode, app, session: generation, after: card) {"
+            },
+            {
+              "line": 55,
+              "text": "                $0.renderer.selectedCount == 1 && $0.renderer.control(\"card\", index: 0)?.selected == true"
+            }
+          ]
+        },
+        {
+          "start_line": 110,
+          "end_line": 114,
+          "lines": [
+            {
+              "line": 110,
+              "text": "        } catch {"
+            },
+            {
+              "line": 111,
+              "text": "            capture(\"\\(mode.rawValue) production smoke failure\", app)"
+            },
+            {
+              "line": 112,
+              "text": "            XCTFail((error as? Failure)?.message ?? \"Production smoke could not complete; retained observations and screenshots are authoritative.\")"
+            },
+            {
+              "line": 113,
+              "text": "            throw error"
+            },
+            {
+              "line": 114,
+              "text": "        }"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Read-only source context for interpretation of capture labels, the explicit local-hand reveal exercise, accepted-play round outcome alternative, and qualification-only Q badge. Exact frozen source files were compared byte-for-byte with git show of this revision. No source execution or current-head behavior is inferred."
+}

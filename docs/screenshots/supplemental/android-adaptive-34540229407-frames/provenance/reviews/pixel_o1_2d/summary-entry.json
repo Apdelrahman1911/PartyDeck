@@ -1,0 +1,75 @@
+{
+  "recording_id": "optimized-font-1.0/2d-split-entry",
+  "reviewer": "/root/pixel_o1_2d",
+  "conclusion": "All 75 retained source identities are covered by 47 directly viewed full-resolution WebP and 28 independently verified exact-byte repeats. No exposed private card face or Leave confirmation dialog was observed. The native ready table shows a concealed hand, and split entry shows opaque covers. The recovered Standard split-screen hand panel lies below the visible lower edge, so its concealment cannot be checked in these recovery frames.",
+  "findings": [
+    {
+      "id": "O1-2D-ENTRY-01",
+      "kind": "visible viewport clipping",
+      "source_frame_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "observation": "The Table style description meets the upper content clipping edge; the third option is mostly below the lower content edge. Standard table, 2D table, and Done remain readable.",
+      "qualification": "Scroll position and option reachability are unknown from these stills."
+    },
+    {
+      "id": "O1-2D-ENTRY-02",
+      "kind": "visible viewport clipping",
+      "source_frame_indices": [
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56
+      ],
+      "observation": "The native ready concealed-hand panel is clipped below the short body viewport; only the top of the green hand control is shown, with its label below the edge. A scrollbar and both fixed bottom actions are visible.",
+      "qualification": "This is captured clipping, not proof that scroll/reveal or accessibility focus is unreachable."
+    },
+    {
+      "id": "O1-2D-ENTRY-03",
+      "kind": "recovery visibility limitation",
+      "source_frame_indices": [
+        69,
+        70,
+        71,
+        72,
+        73,
+        74
+      ],
+      "observation": "The Standard table first reappears at source 69. Its split-screen viewport ends at Your hand / 5 cards; the hand panel, Show hand, and bottom action row are outside these visible pixels.",
+      "qualification": "The recovered hand panel's concealment and action reachability cannot be verified from these frames. No conclusion about offscreen content follows from absence of a visible private face."
+    }
+  ],
+  "limits": [
+    "The review covers retained source frames only; no continuous or between-frame privacy guarantee is inferred.",
+    "Original MP4 packet PTS/time base are media time only, without host UTC, input-down/up, action, or test-clock alignment.",
+    "No previously exposed hand was observed; re-concealment of a revealed hand is not demonstrated.",
+    "The recovered hand panel is outside the visible split-screen viewport. Scroll/reveal reachability, hit targets, accessibility focus/semantics, physical-device behavior and input outcomes are unverified.",
+    "No new decoding, captures, resizes or collages were performed."
+  ]
+}

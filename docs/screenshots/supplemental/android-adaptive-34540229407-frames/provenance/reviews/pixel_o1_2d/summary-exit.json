@@ -1,0 +1,77 @@
+{
+  "recording_id": "optimized-font-1.0/2d-split-exit",
+  "reviewer": "/root/pixel_o1_2d",
+  "conclusion": "All 57 retained source identities are covered by 36 directly viewed full-resolution WebP and 21 independently verified exact-byte repeats. No exposed private card face or Leave confirmation dialog was observed. The native split-screen viewport cuts through the hand heading, so the offscreen native hand content cannot be checked. Full-landscape closing/privacy covers are followed by a recovered Standard hand panel with card-back artwork and a complete Show hand control; the recovered bottom action labels are below the visible viewport.",
+  "findings": [
+    {
+      "id": "O1-2D-EXIT-01",
+      "kind": "visible viewport clipping",
+      "source_frame_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "observation": "The left split-screen Table style description is clipped at the top of its content area. Standard table, 2D table, 3D table and Done remain visible; Display settings occupies the right pane.",
+      "qualification": "These stills do not establish the current scroll position or option reachability."
+    },
+    {
+      "id": "O1-2D-EXIT-02",
+      "kind": "native hand visibility limitation",
+      "source_frame_indices": [
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42
+      ],
+      "observation": "The native left pane shows Moon table and Orbit claimed 3, but its body viewport ends through the heading '5 cards. Yours to keep close.' The rest of the hand panel, its card imagery and the hand control are outside the visible area. Both stacked fixed actions fit. The right pane shows Display settings through source 41 and is black at source 42.",
+      "qualification": "Offscreen native hand concealment, reveal/scroll reachability and accessibility focus cannot be verified from these pixels."
+    },
+    {
+      "id": "O1-2D-EXIT-03",
+      "kind": "observed recovery",
+      "source_frame_indices": [
+        52,
+        53,
+        54,
+        55,
+        56
+      ],
+      "observation": "Standard full-landscape recovery first appears at source 52. The complete hand panel shows card-back artwork, 'For your eyes only.', concealment instructions and a fully visible Show hand control.",
+      "qualification": "No earlier exposed hand was observed, and this review does not execute a hand reveal or prove re-concealment of a revealed hand."
+    },
+    {
+      "id": "O1-2D-EXIT-04",
+      "kind": "visible viewport clipping",
+      "source_frame_indices": [
+        52,
+        53,
+        54,
+        55,
+        56
+      ],
+      "observation": "Recovered Standard landscape player rows are cut at the lower viewport edge. Only the upper border traces of the bottom action controls are visible; their labels and full controls are below the visible area.",
+      "qualification": "The captured clipping does not establish whether scrolling or accessibility focus can reach the lower controls."
+    }
+  ],
+  "limits": [
+    "The review covers retained source frames only; no continuous, between-frame or uncaptured-update privacy guarantee is inferred.",
+    "Original MP4 packet PTS/time base remain media time only; no host UTC, action, held-input, input-up or test-clock alignment is inferred.",
+    "No previously exposed hand was observed; re-concealment of a revealed hand is not demonstrated.",
+    "The native split-screen hand content is offscreen. Absence of a visible private rank face does not verify concealment outside the visible area.",
+    "Hit targets, actual scroll/reveal reachability, accessibility focus/semantics, physical-device behavior and input outcomes remain unverified.",
+    "No new decoding, captures, resizing or collages were performed."
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "status": "complete",
+  "scope": "Independent pixel review of debug-font-1.0/3d-split-entry and debug-font-1.0/3d-split-exit only",
+  "reviewer": "/root/pixel_d1_split",
+  "run_id": 34540229407,
+  "source_revision": "4ee4563def1c9a1b5060572efa2c3959c7d7677e",
+  "recordings": [
+    {
+      "path": "/tmp/partydeck-adaptive-pixel-review-d1-split-34540229407-v1-RLsZ9l/3d-split-entry.json",
+      "bytes": 268150,
+      "sha256": "0726f388bb5d118d21e448554da76d6e9e9a4f77b4a8dcdbf525d64ee5779556",
+      "recording_id": "debug-font-1.0/3d-split-entry",
+      "coverage": {
+        "source_frame_count": 84,
+        "direct": 50,
+        "reviewed_byte_match": 34,
+        "unviewed": 0,
+        "distinct_payloads": 50
+      }
+    },
+    {
+      "path": "/tmp/partydeck-adaptive-pixel-review-d1-split-34540229407-v1-RLsZ9l/3d-split-exit.json",
+      "bytes": 219627,
+      "sha256": "f3e0a5e0dcd10aad5a7bd5bbd03dff11b9a1fc78077ed0a67c6250fd4fc7e55b",
+      "recording_id": "debug-font-1.0/3d-split-exit",
+      "coverage": {
+        "source_frame_count": 69,
+        "direct": 38,
+        "reviewed_byte_match": 31,
+        "unviewed": 0,
+        "distinct_payloads": 38
+      }
+    }
+  ],
+  "files": [
+    {
+      "path": "/tmp/partydeck-adaptive-pixel-review-d1-split-34540229407-v1-RLsZ9l/3d-split-entry.json",
+      "bytes": 268150,
+      "sha256": "0726f388bb5d118d21e448554da76d6e9e9a4f77b4a8dcdbf525d64ee5779556",
+      "mode": "0o444"
+    },
+    {
+      "path": "/tmp/partydeck-adaptive-pixel-review-d1-split-34540229407-v1-RLsZ9l/3d-split-exit.json",
+      "bytes": 219627,
+      "sha256": "f3e0a5e0dcd10aad5a7bd5bbd03dff11b9a1fc78077ed0a67c6250fd4fc7e55b",
+      "mode": "0o444"
+    },
+    {
+      "path": "/tmp/partydeck-adaptive-pixel-review-d1-split-34540229407-v1-RLsZ9l/build-receipts.py",
+      "bytes": 16780,
+      "sha256": "155f21f7d46f949e65f6ca33d2b70f8af009ebabb1026da0851f498a2efadbc6",
+      "mode": "0o444"
+    },
+    {
+      "path": "/tmp/partydeck-adaptive-pixel-review-d1-split-34540229407-v1-RLsZ9l/inspection-input.json",
+      "bytes": 103262,
+      "sha256": "c6bd3a198c11a5dbab35aca408394b0b9b89d210aa027f3ab1030da4148c6b10",
+      "mode": "0o444"
+    }
+  ],
+  "totals": {
+    "source_frame_count": 153,
+    "direct": 88,
+    "reviewed_byte_match": 65,
+    "unviewed": 0
+  },
+  "limits": [
+    "Review covers only the retained source frames of the two assigned original recordings. Full retained-frame coverage does not establish behavior between captured frames or in other runs.",
+    "Packet PTS/DTS and time base are media coordinates. No UTC, host-action, input-down/up, lifecycle-event, or other clock alignment is inferred.",
+    "No continuous privacy or concealment-before-action guarantee is claimed. Opaque-cover and hand observations refer only to the represented frame pixels.",
+    "Pixel visibility, clipping, scrollbars, control labels and button tone do not establish interaction reachability, scrolling behavior, enabled state, touch-target dimensions in dp, or accessibility semantics.",
+    "No new original-video decoding, captures, builds, downloads, device interaction, physical-network tests, or shared repository mutations were performed.",
+    "Recording identity and style assignment come from pinned source manifests. A compact frame without 3D geometry cannot by itself qualify the real 3D renderer."
+  ]
+}

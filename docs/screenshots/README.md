@@ -1,12 +1,21 @@
 # Screenshot review gallery
 
-This collection preserves **4,586 original app and renderer captures**, including failed attempts, and **330 supplemental images**, plus four existing asset proofs. Open a collection and click any thumbnail for its full original image. [manifest.json](manifest.json) retains filenames, dimensions, hashes, source paths, exact source revisions and timestamp metadata.
+This collection preserves **4,598 original app and renderer captures**, including failed attempts, and **2,806 supplemental images**, plus four existing asset proofs. Open a collection and click any thumbnail for its full original image. [manifest.json](manifest.json) retains filenames, dimensions, hashes, source paths, exact source revisions and timestamp metadata.
 
-This batch adds **909 original PNGs**: **31 direct views, 18 reviewed byte matches and 860 explicitly unviewed originals**. It also adds the **84 retained iOS Host-name failure frames**: five direct views, seven additional attributed peer identities and 72 unviewed frames. Matching bytes keep separate capture identities. [Batch source and review scope](provenance/20260911-4586/review-summary.json).
+The latest addition preserves **12 original iOS stills**: **10 direct views and two reviewed byte matches**; and **2,476 Android adaptive video-frame identities**: **1,379 attributed direct views and 1,097 reviewed byte matches**, with zero unviewed identities in this addition. The 32 existing Android MP4s are reused. Earlier collections retain their original review status.
 
-The 548 adaptive Android stills and 32 original recordings are included here. Their concurrent decoded-frame review and derivative publication will follow separately; no adaptive frame finding is asserted by this batch. The two focused iOS failure recordings remain unviewed in their intact source ZIP.
+| Latest preserved collection | Images | Review scope |
+| --- | ---: | --- |
+| [Android adaptive recording frames — CI 34540229407](supplemental/android-adaptive-34540229407-frames/README.md) | 2,476 supplements | All source identities covered directly or by exact bytes; packet PTS preserved. Old-source font-2.0 3D split-exit claim truncation is confirmed; continuous privacy and control reachability remain separate. |
+| [Full iOS retry — CI 34545222517](ios-34545222517/README.md) | 12 originals | Ten direct views and two byte matches. Ordinary 9/9 and separate UIKit 3/3 pass; both production cases fail initial Home observation decoding. Two iOS videos remain archive-only and unviewed. |
 
-| New preserved collection | Images | Review scope |
+The [confirmed 3D layout issue](supplemental/android-adaptive-34540229407-frames/provenance/layout-issue/issue.json) concerns fixed latest-claim text outside the body scroll container in a short font-2.0 split viewport. These older recordings do not validate a correction. Offscreen scroll-body content is not classified as unreachable from static pixels.
+
+The preceding batch added **909 original PNGs**: **31 direct views, 18 reviewed byte matches and 860 explicitly unviewed originals**. It also adds the **84 retained iOS Host-name failure frames**: five direct views, seven additional attributed peer identities and 72 unviewed frames. Matching bytes keep separate capture identities. [Batch source and review scope](provenance/20260911-4586/review-summary.json).
+
+The 548 adaptive Android stills and 32 original recordings are included here. Their decoded-frame review and derivative publication are linked above; the preceding batch's original-still review counts remain unchanged. The two focused iOS failure recordings remain unviewed in their intact source ZIP.
+
+| Previous preserved collection | Images | Review scope |
 | --- | ---: | --- |
 | [Full Android 34538972728](android-34538972728/README.md) | 320 originals | Fourteen direct views; native entry, selection, public results and Recents/resume stills. Scroll limits remain. |
 | [Adaptive Android 34540229407](godot-android-adaptive-34540229407/README.md) | 548 originals | Two reviewed Home byte matches; 546 unviewed. Predicate and recording evidence remain distinct from pixel review. |
