@@ -1,0 +1,7 @@
+Recovered Android four-still review for run 34555402070, source aa10e0bd9055aa9fd1b5d80021754f06a8eff3c7.
+
+Coverage remains 4 historical direct views, 0 byte matches, 0 unviewed, and 0 new pixel views. The historical complete review and freeze were restored byte-for-byte by the gallery owner. The original direct-view receipt was independently recovered from literal transcript data and restored to SHA-256 33017ace04b307a4b038408aaf019980c94d66e261c46696ce41496c64f184fb. No transcript command was replayed and no image payload or raw transcript was copied.
+
+This eight-file successor has new review/freeze hashes. It records a fresh check of only the 12 surviving original PNG/JSON/XML files against the 04:53 frozen collection and the exact historical review. Whole archives, packages, earlier gallery audits and native execution were not repeated. Historical /tmp references remain historical.
+
+The four source records are /source_images/0 through /source_images/3 in review.json, with their original canonical run/attempt/artifact/member IDs. Captions and observations are verbatim historical data. Fullscreen shows Your turn, ROUND 1 and Moon table (debug) or Crown table (optimized). Both split panes show turn and ROUND 1 without a table title. Current-claim text, the hand area and lower actions are not visible. Show hand is readable, but visible-hand concealment and scrolling reachability remain unverified.

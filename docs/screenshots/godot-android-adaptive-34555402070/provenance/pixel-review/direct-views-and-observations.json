@@ -1,0 +1,195 @@
+{
+  "schema_version": 1,
+  "status": "complete-pixel-inspection",
+  "reviewer": "/root/pixel_d1_land",
+  "run_id": "34555402070",
+  "completed_utc": "2026-09-11T04:28:53.224Z",
+  "direct_view_calls": [
+    {
+      "id": "34555402070/1/10183443556/godot-adaptive/runtime/captures/3d-split-full-native-ready.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34555402070/extracted/android-adaptive-api36-debug-font-2.0-34555402070-1/godot-adaptive/runtime/captures/3d-split-full-native-ready.png",
+      "sha256": "9efd265232af7932c8e3b19c9e67ce84fb895383b6000b2c2d8c8b868a85e992",
+      "bytes": 80077,
+      "width_px": 1600,
+      "height_px": 720,
+      "detail": "original",
+      "tool_return_recorded_utc": "2026-09-11T04:26:48.102Z",
+      "reviewer": "/root/pixel_d1_land",
+      "variant": "debug",
+      "checkpoint": "full",
+      "original_screenshot_started_utc": "2026-09-11T03:21:34.428+00:00"
+    },
+    {
+      "id": "34555402070/1/10183443556/godot-adaptive/runtime/captures/3d-split-pane-native-ready.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34555402070/extracted/android-adaptive-api36-debug-font-2.0-34555402070-1/godot-adaptive/runtime/captures/3d-split-pane-native-ready.png",
+      "sha256": "572083a85c5c7d722e6e72b9094d1ab533c9bca316180e2f85d3cfe477c05d95",
+      "bytes": 82717,
+      "width_px": 1600,
+      "height_px": 720,
+      "detail": "original",
+      "tool_return_recorded_utc": "2026-09-11T04:26:48.110Z",
+      "reviewer": "/root/pixel_d1_land",
+      "variant": "debug",
+      "checkpoint": "pane",
+      "original_screenshot_started_utc": "2026-09-11T03:24:06.707+00:00"
+    },
+    {
+      "id": "34555402070/1/10183394128/godot-adaptive/runtime/captures/3d-split-full-native-ready.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34555402070/extracted/android-adaptive-api36-optimized-test-signed-font-2.0-34555402070-1/godot-adaptive/runtime/captures/3d-split-full-native-ready.png",
+      "sha256": "667f026295ee77b0c2bcbdc63cfee6d3a2adabe59c169af0cc14f505b01b8bcd",
+      "bytes": 81483,
+      "width_px": 1600,
+      "height_px": 720,
+      "detail": "original",
+      "tool_return_recorded_utc": "2026-09-11T04:27:45.052Z",
+      "reviewer": "/root/pixel_d1_land",
+      "variant": "optimized",
+      "checkpoint": "full",
+      "original_screenshot_started_utc": "2026-09-11T03:19:38.207+00:00"
+    },
+    {
+      "id": "34555402070/1/10183394128/godot-adaptive/runtime/captures/3d-split-pane-native-ready.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34555402070/extracted/android-adaptive-api36-optimized-test-signed-font-2.0-34555402070-1/godot-adaptive/runtime/captures/3d-split-pane-native-ready.png",
+      "sha256": "c7dc95c6750ee87241eb542ecc9573e89d5e30bb62a564a5bd624792442499bb",
+      "bytes": 82521,
+      "width_px": 1600,
+      "height_px": 720,
+      "detail": "original",
+      "tool_return_recorded_utc": "2026-09-11T04:27:45.052Z",
+      "reviewer": "/root/pixel_d1_land",
+      "variant": "optimized",
+      "checkpoint": "pane",
+      "original_screenshot_started_utc": "2026-09-11T03:22:00.412+00:00"
+    }
+  ],
+  "observations": [
+    {
+      "id": "34555402070/1/10183443556/godot-adaptive/runtime/captures/3d-split-full-native-ready.png",
+      "state": "Debug font 2.0 fullscreen native-ready initial viewport",
+      "public_context": {
+        "turn_text": "Your turn",
+        "round_text": "ROUND 1",
+        "table_text": "Moon table",
+        "complete_current_claim_visible": false,
+        "current_claim_fragment_visible": false
+      },
+      "private_hand_faces_visible": false,
+      "hand_area_visible": false,
+      "concealment_verified_from_visible_hand": false,
+      "sensitive_invitation_material_visible": false,
+      "observation": "The native wrapper says Table ready and shows readable Standard table and Leave table controls. The game HUD shows Last Light, ROUND 1, a complete Show hand label, Your turn, and Moon table. A vertical body scrollbar is visible. No current-claim sentence, hand area, card faces, or Play/Challenge action is in view.",
+      "layout_observation": "The visible labels and native controls are readable without clipping or overlap. Initial body context extends through the table title; the claim, hand, and lower actions remain outside the captured viewport.",
+      "visible_controls": [
+        "Standard table",
+        "Leave table",
+        "back chevron",
+        "Show hand"
+      ],
+      "viewport_findings": [
+        "Complete current claim, hand area, and lower Play/Challenge actions are absent from the initial viewport."
+      ],
+      "concrete_visual_defects": [],
+      "limits": [
+        "Show hand is consistent with an unrevealed control state, but the hand area is offscreen, so visual hand concealment is unverified.",
+        "A drawn scrollbar does not establish scrolling input or reachability.",
+        "No 3D table geometry is visible in this short initial viewport."
+      ]
+    },
+    {
+      "id": "34555402070/1/10183443556/godot-adaptive/runtime/captures/3d-split-pane-native-ready.png",
+      "state": "Debug font 2.0 short split-pane native-ready initial viewport",
+      "public_context": {
+        "turn_text": "Your turn",
+        "round_text": "ROUND 1",
+        "table_text": null,
+        "complete_current_claim_visible": false,
+        "current_claim_fragment_visible": false
+      },
+      "private_hand_faces_visible": false,
+      "hand_area_visible": false,
+      "concealment_verified_from_visible_hand": false,
+      "sensitive_invitation_material_visible": false,
+      "observation": "PartyDeck occupies the left split pane beside Android Display settings. Its wrapper shows Table ready, Standard table wrapped over two lines, and Leave table. The HUD shows a back chevron, the complete Show hand label, Your turn, and ROUND 1. A short vertical scrollbar thumb is visible. The table title, current claim, hand, card faces, and lower actions are outside the viewport.",
+      "layout_observation": "The visible native controls and Show hand fit; the public body shows turn and round only. There is no cut-off current-claim fragment in this initial still because no claim text is visible.",
+      "visible_controls": [
+        "Standard table",
+        "Leave table",
+        "back chevron",
+        "Show hand"
+      ],
+      "viewport_findings": [
+        "Table title, complete current claim, hand area, and lower Play/Challenge actions are absent from the initial split viewport."
+      ],
+      "concrete_visual_defects": [],
+      "limits": [
+        "No private faces are visible, but the hand is offscreen; this does not verify the concealed-hand panel.",
+        "Initial pixels do not establish body-scroll reachability, native input, or complete public context.",
+        "The Android Display settings pane is separate from the PartyDeck game viewport."
+      ]
+    },
+    {
+      "id": "34555402070/1/10183394128/godot-adaptive/runtime/captures/3d-split-full-native-ready.png",
+      "state": "Optimized test-signed font 2.0 fullscreen native-ready initial viewport",
+      "public_context": {
+        "turn_text": "Your turn",
+        "round_text": "ROUND 1",
+        "table_text": "Crown table",
+        "complete_current_claim_visible": false,
+        "current_claim_fragment_visible": false
+      },
+      "private_hand_faces_visible": false,
+      "hand_area_visible": false,
+      "concealment_verified_from_visible_hand": false,
+      "sensitive_invitation_material_visible": false,
+      "observation": "The native wrapper says Table ready and shows readable Standard table and Leave table controls. The game HUD shows Last Light, ROUND 1, a complete Show hand label, Your turn, and Crown table. A vertical body scrollbar is visible. No current-claim sentence, hand area, card faces, or Play/Challenge action is in view.",
+      "layout_observation": "Visible headings and controls fit without clipped labels or overlap. Initial public context reaches the table title; the claim, hand, and lower actions are outside the captured viewport.",
+      "visible_controls": [
+        "Standard table",
+        "Leave table",
+        "back chevron",
+        "Show hand"
+      ],
+      "viewport_findings": [
+        "Complete current claim, hand area, and lower Play/Challenge actions are absent from the initial viewport."
+      ],
+      "concrete_visual_defects": [],
+      "limits": [
+        "The shown Crown table and ROUND 1 belong to this capture and must not be conflated with a separate desktop authority fixture.",
+        "Show hand alone does not establish hidden hand pixels because the hand area is offscreen.",
+        "The scrollbar does not establish native input, scrolling, or reachability."
+      ]
+    },
+    {
+      "id": "34555402070/1/10183394128/godot-adaptive/runtime/captures/3d-split-pane-native-ready.png",
+      "state": "Optimized test-signed font 2.0 short split-pane native-ready initial viewport",
+      "public_context": {
+        "turn_text": "Your turn",
+        "round_text": "ROUND 1",
+        "table_text": null,
+        "complete_current_claim_visible": false,
+        "current_claim_fragment_visible": false
+      },
+      "private_hand_faces_visible": false,
+      "hand_area_visible": false,
+      "concealment_verified_from_visible_hand": false,
+      "sensitive_invitation_material_visible": false,
+      "observation": "PartyDeck occupies the left split pane beside Android Display settings. Table ready, Standard table wrapped over two lines, Leave table, the back chevron, and the complete Show hand label are readable. The body shows Your turn, ROUND 1, and a short vertical scrollbar thumb. Table title, current claim, hand/card area, and lower actions are outside the viewport.",
+      "layout_observation": "The visible controls and turn/round text fit the short pane. No current-claim fragment is visible; complete public context is not presented in this initial still.",
+      "visible_controls": [
+        "Standard table",
+        "Leave table",
+        "back chevron",
+        "Show hand"
+      ],
+      "viewport_findings": [
+        "Table title, complete current claim, hand area, and lower Play/Challenge actions are absent from the initial split viewport."
+      ],
+      "concrete_visual_defects": [],
+      "limits": [
+        "No private faces are visible, but the offscreen hand prevents visual concealment verification.",
+        "This separate capture does not inherit the table rank or actual claim from another screenshot or fixture.",
+        "Initial stills do not establish body-scroll reachability, gesture acceptance, or continuous privacy."
+      ]
+    }
+  ]
+}

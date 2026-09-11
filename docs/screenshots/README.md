@@ -1,10 +1,16 @@
 # Screenshot review gallery
 
-This collection preserves **4,699 original app and renderer captures**, including failed attempts, and **2,806 supplemental images**, plus four existing asset proofs. Open a collection and click any thumbnail for its full original image. [manifest.json](manifest.json) retains filenames, dimensions, hashes, source paths, exact source revisions and timestamp metadata.
+This collection preserves **4,703 original app and renderer captures**, including failed attempts, and **2,806 supplemental images**, plus four existing asset proofs. Open a collection and click any thumbnail for its full original image. [manifest.json](manifest.json) retains filenames, dimensions, hashes, source paths, exact source revisions and timestamp metadata.
 
-The latest addition preserves **36 original stills**: **27 from focused iOS CI 34554200601** and **nine from a separate desktop regression**. It records **32 attributed direct views, 4 reviewed byte matches and 0 unviewed images**.
+The latest addition preserves **four original Android native-ready stills** from CI 34555402070 at font scale 2.0: **four attributed historical direct views, zero reviewed byte matches and zero unviewed images**. Each PNG retains its original JSON/XML pair. The review records were recovered after a runtime restart; no new pixel view was performed for this publication.
 
-| Latest preserved collections | Images | Review scope |
+| Latest preserved collection | Images | Review scope |
+| --- | ---: | --- |
+| [Android font-2.0 native-ready checkpoints — CI 34555402070](godot-android-adaptive-34555402070/README.md) | 4 originals | Debug and optimized fullscreen/short split-pane initial views. Claim text, hand area and lower Play/Challenge actions are outside the captured viewports; reachability and visual hand concealment remain unverified. Recorded automated passes retain their separate scope. |
+
+The preceding addition preserves **36 original stills**: **27 from focused iOS CI 34554200601** and **nine from a separate desktop regression**. It records **32 attributed direct views, 4 reviewed byte matches and 0 unviewed images**.
+
+| Previous preserved collections | Images | Review scope |
 | --- | ---: | --- |
 | [Focused iOS practice sessions — CI 34554200601](ios-34554200601/README.md) | 27 originals | Six stills belong to the failed 2D case and 21 to the passed 3D case; the combined gate failed. This native run uses the earlier 3D renderer source. |
 | [3D short-context desktop regression](godot-3d-short-context-regression-20260911/README.md) | 9 originals | Two expected-failure baseline captures and seven passing fixed-source captures. Executed geometry checks and the narrower static pixel findings are recorded separately. |

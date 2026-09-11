@@ -1,0 +1,167 @@
+{
+  "schema_version": 2,
+  "status": "recovered-historical-comparison",
+  "recovered_utc": "2026-09-11T06:26:34.625441+00:00",
+  "run_id": "34555402070",
+  "current_source_revision": "aa10e0bd9055aa9fd1b5d80021754f06a8eff3c7",
+  "historical_source_revision": "4ee4563def1c9a1b5060572efa2c3959c7d7677e",
+  "historical_run_id": 34540229407,
+  "historical_original_comparison_pin": {
+    "path": "/tmp/partydeck-android-native-ready-34555402070-pixel-d1-land-v1/historical-comparison.json",
+    "bytes": 10964,
+    "sha256": "790ae921537b491f1a3be14d2e104ee70b14fc868375ad015ec7fdc90053dd1a"
+  },
+  "literal_source_record": {
+    "path": "/root/.codex/sessions/2026/09/11/rollout-2026-09-11T01-27-36-01a08e13-c8b6-7003-9fc7-a72233486ecc.jsonl",
+    "line_1_based": 774,
+    "raw_record_bytes": 22305,
+    "raw_record_sha256": "b6dc0b5f41b8f1a7309fba6fa97b99bf82249d868bf09b81fe6beb1049e30a3d",
+    "event_timestamp_utc": "2026-09-11T04:24:38.234Z",
+    "exit_code": 0
+  },
+  "historical_pixel_evidence": [
+    {
+      "recording_id": "debug-font-2.0/3d-split-exit",
+      "source_receipt": {
+        "path": "/tmp/partydeck-adaptive-pixel-d2-split-34540229407-v1-0kzrj2_z/reviews/3d-split-exit.json",
+        "bytes": 245004,
+        "sha256": "ddec6d6a0c780703601ca8b60365abd296c0679d7dc8933dffc7b01a0dd00225"
+      },
+      "reported_findings": [
+        {
+          "id": "debug2-exit-native-ready-viewport",
+          "classification": "visible_viewport_clipping",
+          "observation": "Native Ready in the split pane shows a full readable Show hand label, Star table \u00b7 round 1 and Your turn, but the public claim line is cut off by the lower edge. The hand, card area and lower game actions are outside the recorded viewport.",
+          "first_source_frame_index": 39,
+          "last_source_frame_index": 52,
+          "limits": "Scroll availability and control reachability are not established; this is not a confirmed interaction defect.",
+          "media_span": {
+            "first_original_packet_pts": 759092,
+            "last_original_packet_pts": 1224333,
+            "time_base": "1/90000"
+          },
+          "direct_evidence": [
+            {
+              "reviewer": "/root/pixel_d2_split",
+              "recording_id": "debug-font-2.0/3d-split-exit",
+              "source_frame_index_zero_based": 39,
+              "path": "/tmp/partydeck-android-adaptive-decode-ui-game-34540229407-v1/recordings/debug-font-2.0/3d-split-exit/frames/frame-0039.webp",
+              "sha256": "9c64fc2197c44923107e5b83472285862e00051883851dce5f6e1f3e87045154",
+              "bytes": 78798,
+              "original_packet_pts": 759092,
+              "time_base": "1/90000",
+              "detail": "original",
+              "tool": "tools.view_image"
+            },
+            {
+              "reviewer": "/root/pixel_d2_split",
+              "recording_id": "debug-font-2.0/3d-split-exit",
+              "source_frame_index_zero_based": 41,
+              "path": "/tmp/partydeck-android-adaptive-decode-ui-game-34540229407-v1/recordings/debug-font-2.0/3d-split-exit/frames/frame-0041.webp",
+              "sha256": "f449763a58ea7e7311956ed1489dc606378cd837689ea3b8d8eee6890d3fa0d8",
+              "bytes": 78730,
+              "original_packet_pts": 838952,
+              "time_base": "1/90000",
+              "detail": "original",
+              "tool": "tools.view_image"
+            },
+            {
+              "reviewer": "/root/pixel_d2_split",
+              "recording_id": "debug-font-2.0/3d-split-exit",
+              "source_frame_index_zero_based": 52,
+              "path": "/tmp/partydeck-android-adaptive-decode-ui-game-34540229407-v1/recordings/debug-font-2.0/3d-split-exit/frames/frame-0052.webp",
+              "sha256": "d1e11f70c0edbc4e4a14f8928db5ad4fa29f9713ddb6abc4288dde84370a7655",
+              "bytes": 78458,
+              "original_packet_pts": 1224333,
+              "time_base": "1/90000",
+              "detail": "original",
+              "tool": "tools.view_image"
+            }
+          ]
+        }
+      ],
+      "attribution": "Existing independent pixel reviewer; no images reopened for this source triage."
+    },
+    {
+      "recording_id": "optimized-font-2.0/3d-split-exit",
+      "source_receipt": {
+        "path": "/tmp/partydeck-pixel-o2-split-34540229407-20260911-ozcqnq45/3d-split-exit-review.json",
+        "bytes": 145540,
+        "sha256": "568e8338355e44c3c7169c19a9f3488cc43b5aa60069687860d264391e0ff77f"
+      },
+      "reported_findings": [
+        {
+          "id": "3d-split-exit-native-layout",
+          "classification": "visible_viewport_observation",
+          "observation": "Frames 33\u201343 show a readable native Show hand control and readable Standard table wrapped across two lines beside Leave table in the left split pane. Moon table round 2 and Your turn are readable; the Orbit claimed 3 Moons line is cut at the bottom viewport edge. The hand itself is outside the captured viewport.",
+          "limit": "Visible text fit is not an interaction or accessibility qualification."
+        }
+      ],
+      "attribution": "Existing independent pixel reviewer; no images reopened for this source triage."
+    }
+  ],
+  "historical_geometry_evidence": [
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34540229407/extracted/android-adaptive-api36-debug-font-2.0-34540229407-1/godot-adaptive/runtime/captures/3d-split-pane-native-ready.xml",
+      "bytes": 4833,
+      "sha256": "98da51a825b9d8cdeaec410149e0dd45452be9a27b6e65bb5817e6deb10ee070",
+      "native_surface_bounds": [
+        136,
+        343,
+        817,
+        720
+      ],
+      "native_surface_physical_size": [
+        681,
+        377
+      ],
+      "standard_button_bounds": [
+        150,
+        186,
+        476,
+        343
+      ]
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34540229407/extracted/android-adaptive-api36-optimized-test-signed-font-2.0-34540229407-1/godot-adaptive/runtime/captures/3d-split-pane-native-ready.xml",
+      "bytes": 4833,
+      "sha256": "98da51a825b9d8cdeaec410149e0dd45452be9a27b6e65bb5817e6deb10ee070",
+      "native_surface_bounds": [
+        136,
+        343,
+        817,
+        720
+      ],
+      "native_surface_physical_size": [
+        681,
+        377
+      ],
+      "standard_button_bounds": [
+        150,
+        186,
+        476,
+        343
+      ]
+    }
+  ],
+  "historical_classification_separation": {
+    "native_fixed_claim": "Source-supported truncation of fixed public information in the observed short split viewport.",
+    "native_hand_and_lower_actions": "Offscreen body content; these stills alone do not prove interaction failure or unreachable controls.",
+    "native_show_hand_and_standard_table": "Labels are reported visible; Standard table is a separate fixed Android toolbar control.",
+    "compose_return_body_and_picker": "Scroll-container clipping is distinct and must not inherit the fixed-context defect classification."
+  },
+  "historical_limits": [
+    "No new image view, capture, decode, build or renderer execution was performed for this issue note.",
+    "Old-source recordings remain immutable and factual; this note is not a corrected-renderer result.",
+    "No control activation, continuous privacy, native hidden-hand state or action/UTC timing claim is added.",
+    "Candidate correction and focused real-renderer verification are pending in a separate private task; root owns PCK rebuild/integration/CI."
+  ],
+  "current_capture_observations_origin": "Restored byte-identical historical review.json and literal direct-view receipt; zero new views.",
+  "historical_current_viewport_conclusion": "All four native-ready initial stills show readable Show hand and native Standard table/Leave table controls. Fullscreen shows turn, ROUND 1 and a table title (debug Moon, optimized Crown); the short split panes show turn and ROUND 1 only. No current-claim text, hand/card area, or lower Play/Challenge action is visible. No private faces are observed, but the offscreen hand leaves visual concealment unverified. No clear overlap or clipped visible label is observed.",
+  "historical_xml_byte_match_count": 4,
+  "historical_xml_comparison_repeated_now": false,
+  "comparison_scope": "Earlier native reviews described a clipped claim fragment. The reviewed current-run initial PNGs show no claim text; this is not a complete-claim or scroll-reachability acceptance. Historical temp-path references describe earlier evidence, not current filesystem referents.",
+  "fixture_scope": "Current historical fullscreen observations are Moon/debug or Crown/optimized, both ROUND 1. Both split views show turn and ROUND 1 without table title or claim. No split rank/claim or desktop-fixture claim is inferred.",
+  "new_pixel_views": 0,
+  "source_or_package_audits_repeated_now": false
+}
