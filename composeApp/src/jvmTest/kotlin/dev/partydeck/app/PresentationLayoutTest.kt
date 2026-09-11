@@ -33,6 +33,7 @@ import dev.partydeck.app.controller.GameplayPresentation
 import dev.partydeck.app.controller.GameplayPresentationState
 import dev.partydeck.app.controller.PendingAction
 import dev.partydeck.app.controller.PresentationLifecycle
+import dev.partydeck.app.controller.PresentationSelection
 import dev.partydeck.app.controller.SessionMode
 import dev.partydeck.app.ui.shell.GameplayPresentationPicker
 import dev.partydeck.app.ui.theme.PartyDeckColors
@@ -63,7 +64,9 @@ class PresentationLayoutTest {
             PresentationTestFrame {
                 GameplayPresentationPicker(
                     state = state,
-                    onSelect = { choices += it; state = state.copy(selected = it) },
+                    onPrepareSelection = { choice ->
+                        afterPickerDisposal { choices += choice; state = state.copy(selected = choice) }
+                    },
                 )
             }
         }
@@ -77,6 +80,7 @@ class PresentationLayoutTest {
         onNodeWithTag("presentation-choice-godot_2d").performScrollTo().assertIsDisplayed()
         onNodeWithTag("presentation-options").presentationSnapshot("picker-two-available-large-text")
         onNodeWithTag("presentation-choice-godot_2d").performClick()
+        waitForIdle()
         assertEquals(listOf(GameplayPresentation.GODOT_2D), choices)
 
         runOnUiThread { state = state.copy(available = GameplayPresentation.entries.toSet()) }
@@ -84,9 +88,11 @@ class PresentationLayoutTest {
         onNodeWithTag("presentation-choice-godot_3d").performScrollTo().assertIsDisplayed()
         onNodeWithTag("presentation-options").presentationSnapshot("picker-three-available-large-text")
         onNodeWithTag("presentation-choice-godot_3d").performClick()
+        waitForIdle()
         assertEquals(listOf(GameplayPresentation.GODOT_2D, GameplayPresentation.GODOT_3D), choices)
         onNodeWithTag("presentation-picker").performClick()
         onNodeWithTag("presentation-choice-compose").performScrollTo().assertIsDisplayed().performClick()
+        waitForIdle()
         assertEquals(GameplayPresentation.COMPOSE, choices.last())
     }
 
@@ -103,14 +109,16 @@ class PresentationLayoutTest {
                 Column(Modifier.fillMaxSize()) {
                     GameplayPresentationPicker(
                         state.presentation,
-                        onSelect = {
-                            state = state.copy(
-                                privacyEpoch = state.privacyEpoch + 1,
-                                presentation = state.presentation.copy(
-                                    selected = it, lifecycle = PresentationLifecycle.OPENING,
-                                    presentationId = "ui-state-fixture",
-                                ),
-                            )
+                        onPrepareSelection = { choice ->
+                            afterPickerDisposal {
+                                state = state.copy(
+                                    privacyEpoch = state.privacyEpoch + 1,
+                                    presentation = state.presentation.copy(
+                                        selected = choice, lifecycle = PresentationLifecycle.OPENING,
+                                        presentationId = "ui-state-fixture",
+                                    ),
+                                )
+                            }
                         },
                         modifier = Modifier.fillMaxWidth(),
                     )
@@ -175,6 +183,10 @@ class PresentationLayoutTest {
         assertEquals(1, plays, "A fresh selection is required after returning to the standard table")
     }
 }
+
+private fun afterPickerDisposal(onCommit: () -> Unit) = PresentationSelection(
+    onCommit = { onCommit() }, onCancel = {},
+)
 
 @Composable
 private fun PresentationTestFrame(content: @Composable () -> Unit) {

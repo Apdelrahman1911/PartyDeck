@@ -19,6 +19,8 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import dev.partydeck.app.controller.GameplayPresentation
 import dev.partydeck.app.controller.GameplayPresentationState
 import dev.partydeck.app.controller.PresentationLifecycle
+import dev.partydeck.app.controller.PresentationSelection
 import dev.partydeck.app.ui.theme.DeckButton
 import dev.partydeck.app.ui.theme.LocalReduceMotion
 import dev.partydeck.app.ui.theme.PartyDeckColors
@@ -44,15 +47,23 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 internal fun GameplayPresentationPicker(
     state: GameplayPresentationState,
-    onSelect: (GameplayPresentation) -> Unit,
+    onPrepareSelection: (GameplayPresentation) -> PresentationSelection?,
     modifier: Modifier = Modifier,
 ) {
     val choices = GameplayPresentation.entries.filter { it in state.available }
     if (choices.none { it != GameplayPresentation.COMPOSE }) return
     var expanded by remember { mutableStateOf(false) }
+    var selection by remember { mutableStateOf<PresentationSelection?>(null) }
+    DisposableEffect(Unit) {
+        onDispose { selection?.cancel() }
+    }
     val selectedLabel = presentationLabel(state.selected)
     TextButton(
-        onClick = { expanded = true },
+        onClick = {
+            selection?.cancel()
+            selection = null
+            expanded = true
+        },
         modifier = modifier.heightIn(min = 48.dp).testTag("presentation-picker")
             .semantics { stateDescription = selectedLabel },
     ) {
@@ -61,6 +72,7 @@ internal fun GameplayPresentationPicker(
     if (expanded) {
         AlertDialog(
             onDismissRequest = { expanded = false },
+            properties = presentationPickerDialogProperties(),
             modifier = Modifier.testTag("presentation-options"),
             title = { Text(stringResource(Res.string.presentation_choose)) },
             text = {
@@ -78,7 +90,8 @@ internal fun GameplayPresentationPicker(
                                         selected = choice == state.selected,
                                         onClick = {
                                             expanded = false
-                                            onSelect(choice)
+                                            selection?.cancel()
+                                            selection = onPrepareSelection(choice)
                                         },
                                         role = Role.RadioButton,
                                     )
@@ -105,6 +118,10 @@ internal fun GameplayPresentationPicker(
             },
             containerColor = PartyDeckColors.Surface,
         )
+    } else {
+        val disposedPickerSelection = selection
+        // SideEffect follows Dialog's disposal; this picker disables Skiko's deferred exit.
+        SideEffect { disposedPickerSelection?.commit() }
     }
 }
 

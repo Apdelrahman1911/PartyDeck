@@ -113,7 +113,20 @@ internal class EmbeddedPresentationCoordinator(
         if (!value) cancelPendingSelection()
     }
 
-    fun select(choice: GameplayPresentation): Boolean {
+    fun select(choice: GameplayPresentation): Boolean = select(choice, pickerSelection = null)
+
+    /** Capture the existing binding and deadline now; acquisition waits for actual picker disposal. */
+    fun selectFromPicker(choice: GameplayPresentation): PresentationSelection? {
+        val selection = PresentationSelection(
+            onCommit = { if (pendingOpen?.pickerSelection === it) openPendingIfReady() },
+            onCancel = { if (pendingOpen?.pickerSelection === it) cancelPendingSelection() },
+        )
+        if (!select(choice, selection)) return null
+        // Standard and an already active choice complete without a new native acquisition.
+        return selection.takeIf { pendingOpen?.pickerSelection === it }
+    }
+
+    private fun select(choice: GameplayPresentation, pickerSelection: PresentationSelection?): Boolean {
         if (closed) return false
         cancelPendingSelection()
         if (choice == GameplayPresentation.COMPOSE) {
@@ -132,6 +145,7 @@ internal class EmbeddedPresentationCoordinator(
             Binding(sessionGeneration(), session.sessionId, session.selfPlayerId),
             preferences(state),
             selectionTimeSource.markNow() + SELECTION_TIMEOUT_MS.milliseconds,
+            pickerSelection,
         )
         pendingOpen = pending
         pending.timeout = scope.launch(start = CoroutineStart.UNDISPATCHED) {
@@ -176,7 +190,9 @@ internal class EmbeddedPresentationCoordinator(
         }
         // Both close completion and actual foreground publication may arrive first. Neither a
         // dismissed-dialog flag nor the expiration timer is evidence of current window focus.
-        if (active != null || closing != null || !state.isForeground) return true
+        if (pending.pickerSelection?.committed == false ||
+            active != null || closing != null || !state.isForeground
+        ) return true
         val factory = factories[pending.choice] ?: return false
         cancelPendingSelection() // Consume before publishing or entering an undispatched factory.
         val choice = pending.choice
@@ -490,6 +506,7 @@ internal class EmbeddedPresentationCoordinator(
         val binding: Binding,
         val preferences: PresentationPreferences,
         val deadline: TimeMark,
+        val pickerSelection: PresentationSelection?,
     ) {
         var timeout: Job? = null
     }

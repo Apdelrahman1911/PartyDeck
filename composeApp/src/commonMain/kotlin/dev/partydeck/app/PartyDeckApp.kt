@@ -23,6 +23,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -217,11 +218,13 @@ private fun SessionScreen(state: AppUiState, controller: PartyDeckController, on
                         { controller.navigate(AppScreen.SETTINGS) },
                     )
                 }
-                GameplayPresentationPicker(
-                    state = state.presentation,
-                    onSelect = { controller.selectPresentation(it) },
-                    modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth(),
-                )
+                key(controller) {
+                    GameplayPresentationPicker(
+                        state = state.presentation,
+                        onPrepareSelection = controller::preparePresentationSelection,
+                        modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth(),
+                    )
+                }
                 SessionGameSurface(
                     state = state,
                     onUseCompose = controller::useComposePresentation,
