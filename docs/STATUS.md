@@ -1,6 +1,7 @@
 # PartyDeck status report
 
-**Updated 2026-09-11, 10:51 UTC. The app is not yet production-ready.**
+**Updated 2026-09-11, 13:21 UTC; terminal/source update 13:38 UTC.
+The app is not yet production-ready.**
 The original release scope remains **81%** complete by the existing milestone
 estimate. The additional Godot scope remains **3 of 6 acceptance groups (50%)**.
 These scopes are separate and are not averaged.
@@ -10,7 +11,7 @@ recipient-private game views, TLS transport, reconnect handling, settings and
 licensed/original assets are implemented. Both real **Godot 2D and 3D**
 presentations and native hosts are retained for comparison. iOS now enables both
 Godot modes in shipping source configuration after reviewed native, package and
-visual acceptance; its dedicated shipping run failed and remains unqualified.
+visual acceptance; its dedicated shipping runs failed and remain unqualified.
 Android Godot remains qualification-only, with Standard in its shipping profile. Standard also
 remains available on iOS.
 
@@ -19,13 +20,22 @@ remains available on iOS.
 | Work and source | Recorded result | Remaining limit |
 | --- | --- | --- |
 | [Android adaptive rerun — #8 / 34555402070](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34555402070), `aa10e0bd` | All 96 adaptive outcomes and four installations are independently accepted. Package/source/four-consumer closure is complete, and all six original ZIPs survive. Four reviewed stills are now published. | The recorded stills and adaptive passes do not complete focused public-claim scrolling or offscreen interaction reachability acceptance. |
-| [Focused Android — #9 / 34568971032](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34568971032), `69500a9c` | Independent original-outcome accounting verifies **2 focused passes, 2 failures and 4 not reached**, plus **2 installation passes**. Debug failed real-claim staging; optimized passed real claim and short split, then failed the sweep. Both consumer ZIPs and selected originals are retained. | The producer passed CI, but producer collection remains incomplete: a failed partial is preserved and producer inputs/log are still uncollected. Final collection closure, package and native/pixel acceptance remain open. |
+| [Focused Android — #9 / 34568971032](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34568971032), `69500a9c` | Independent original-outcome accounting verifies **2 focused passes, 2 failures and 4 not reached**, plus **2 installation passes**. Debug failed real-claim staging; optimized passed real claim and short split, then failed the sweep. Both consumer ZIPs and selected originals are retained; the producer-build ZIP has now been recovered in place and all 39 files verified. | Producer inputs/log, final collection closure, package and native/pixel acceptance remain open. Recovery does not change the failed run or its accepted outcome accounting. |
 | [Focused Android rerun — #10 / 34575134242](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34575134242), `094ea9ae` | The producer passed and both native consumers failed. Root’s bounded diagnostics record successful installation, real-claim/native entry and short split in both variants, followed by a failed half-page-overlap check during the body sweep. Four diagnostic images are now published. | These selected diagnostics and images are not canonical full-archive or native acceptance. The reviewed correction is integrated in `b2566f53` for #11; complete package bindings and independent 3D claim/guidance/Challenge reachability acceptance remain open. |
-| [Focused Android rerun — #11 / 34587116038](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34587116038), `b2566f53` | The 10:27 UTC terminal capture records overall failure: producer and debug passed; optimized failed its native-scenario step. The source correction had independent review, **395 configured Python tests**, a real renderer export and pack checks; local source/PCK integration is independently accepted. | The debug job pass is not yet accepted outcome/package/pixel evidence. The optimized cause awaits bounded diagnosis; no native fix or Android shipping acceptance is established by the host checks or CI job statuses. |
+| [Focused Android rerun — #11 / 34587116038](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34587116038), `b2566f53` | The run failed: producer and debug jobs passed; optimized failed. Collector accounting from both verified consumer ZIPs records **6 focused passes, 1 failure and 1 not reached**, plus **2 installation passes**. All four original ZIPs and their 6,776 members are verified, including 6,729 consumer members. | The optimized body sweep moved **104 units against a 51.5-unit limit**; the cause remains unproven. Logs, remaining metadata selections and canonical closure are pending. Independent outcome, package and native/pixel acceptance remain separate; no native fix or Android shipping acceptance is established. |
 | [Full iOS follow-up — 34559902607](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34559902607), `39405bb0` | Shared Native passes 156 tests across 24 suites; ordinary Simulator passes 9/9, separate UIKit passes 3/3, and the actual production 2D/3D cases pass 2/2. The dedicated original-result/64-observation audit and inspection of all four actual app packages are independently accepted. All 51 original screenshots have direct independent review; both assigned mode reviews and canonical metadata preservation are sealed. | This Debug arm64 Simulator qualification skipped the shipping-picker test. The measured timing concern and capture limits below remain open; metadata sealing creates no reboot-persistent bulk archive. |
-| [Dedicated iOS shipping — #41 / 34577058494](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34577058494), `4df1b611` | The single shipping XCTest failed at the first 2D entry: nativeReady returned, the shared game-table query was absent, and the retained picker query still existed. Original accounting is **0 passed / 1 failed / 0 skipped**. All three ZIPs and two logs are collected; independent original-result/source/settings review and direct review of all three pre-entry PNGs are complete. | Picker persistence versus a transient/stale query remains unproven. No post-entry or failure-associated PNG was retained, and Standard return, 3D, Leave and shipping native-frame acceptance remain unverified. Package and final preservation review remain separate. |
-| [iOS shipping diagnostic — #42 / 34589069960](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34589069960), `d9ae0500` | Dispatched at 10:24:36 UTC on the reviewed failure-only diagnostic with both qualification flags false. The exact two-file change is integrated; 11 host gates and source preflight pass. **Terminal update, 2026-09-11 11:01 UTC:** producer passed; shipping job failed. | Individual testcase outcomes, diagnostic captures and the failure cause await collection and review. The original assertion and deadlines remain unchanged; no native/shipping acceptance or fresh engine/app binding follows from CI metadata alone. |
+| [Dedicated iOS shipping — #41 / 34577058494](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34577058494), `4df1b611` | The sole shipping XCTest failed at first 2D entry after nativeReady: **0 passed / 1 failed / 0 skipped**. All three ZIPs, two logs and assigned independent reviews are complete. Its one shipping Simulator app is **accepted within packaged-byte scope**, with 2D/3D enabled, no qualification override and the old `83b79592` PCK. All three pre-entry PNGs are independently reviewed. | Package acceptance does not repair the failed native route. No post-entry or failure-associated PNG was retained; Standard return, 3D, Leave and shipping native-frame acceptance remain unverified. This package does not qualify later source or the new PCK. |
+| [iOS shipping diagnostic — #42 / 34589069960](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34589069960), `d9ae0500` | Producer passed; the shipping case failed: **0 passed / 1 failed / 0 skipped**. Independent selected-original review finds native 2D visible with no visible picker, while fresh and retained picker queries still exist and are nonhittable. Exact library-source review supports delayed Dialog disposal as a hypothesis. | The actual delayed stage and cause are unproven; the sequential queries do not measure continuous picker lifetime. A private product candidate was frozen for independent review; its authored tests were unexecuted at the 13:21 snapshot. Root’s later local application for validation is recorded below. Full collection, fresh package binding and shipping route/pixel acceptance remain open. |
+| [iOS timing — #43 / 34593991142](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34593991142), `825b730d` | The producer passed, but the native Simulator engine step failed during strict input staging because `frame_timing.h` was absent from the allowlist. The focused session/timing step was explicitly skipped. | No native testcase or timing outcome was produced. The reviewed one-line staging correction is integrated in `56bb91f1` for #44. |
+| [iOS timing rerun — #44 / 34600728293](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34600728293), `56bb91f1` | The sole monitor records successful native Simulator engine compilation, **12:50:44–12:53:48 UTC**. Focused session execution started **12:53:58 UTC**. **Terminal update, 2026-09-11 13:38 UTC:** the run and focused production step completed successfully; the sole monitor is closed. | The original testcase, timing and package payloads have not been collected or reviewed. Successful CI steps do not establish functional, performance or shipping acceptance; exact outcomes and package bindings still require independent review. |
 | [JVM TLS and measurements — 34547302716](https://github.com/Apdelrahman1911/PartyDeck/actions/runs/34547302716), `5341ffe8` | All three real TLS integration cases pass, including six-seat winner, rematch and same-controller rehost. Both measured suites complete two warmups and five samples; independent raw-data interpretation and accounting pass. The planned JVM integration and meaningful profiling work is complete. | These are JVM and local TLS measurements. Physical LAN and mobile hardware measurements remain separate. |
+
+**Local source/build update, 2026-09-11 13:38 UTC.** Root applied the 13-file picker
+candidate locally for validation; its independent review and behavioral/native
+qualification remain pending. The Android continuous-touch helper module is
+integrated locally, and its `assembleDebug` APK build passed at 13:32:37 UTC.
+Runner/producer integration, actual device input and native recovery remain
+separate gates. Neither change has native fix acceptance.
 
 The current full-iOS collection contains **five original ZIPs and 713 members**.
 Its canonical metadata freeze binds all eight final review outcomes. Bulk
@@ -45,10 +55,16 @@ The cumulative counters do not identify an exact frame, a CPU/GPU cause, or the
 cause of the older focused failure; unchanged maxima do not rule out later
 stalls. Performance acceptance remains open.
 
+The new timing instrumentation and strict validator have host verification:
+**449 configured Python tests pass**, including the **52-test validator suite**.
+The independently reviewed staging correction leaves the timing sources and PCK
+unchanged. These host results do not supply native timing or performance
+acceptance; #44's actual results still require collection and review.
+
 The current locally verified renderer pack is **1,553,628 bytes / 138 entries**,
 SHA-256 `e516e6b8e1bd6c82b8779fa18a9a15503e39f66b2029427a6babb53848747cad`,
 from the reviewed `b2566f53` source integration. The earlier accepted full-iOS
-packages contain the preceding **1,551,096 bytes / 136 entries** pack, SHA-256
+packages and the accepted #41 shipping package contain the preceding **1,551,096 bytes / 136 entries** pack, SHA-256
 `83b79592cb1542f2b0f7ad18222f686f9bc23cd7810b8072662bf502b9d605b1`.
 The updated native PCK pin requires fresh Simulator/device engine builds and
 matching module, staged-input, link and actual-package evidence for the new pack.
@@ -70,35 +86,44 @@ retained source archive and restore records. Current documentation and original
 CI archives were preserved. The **V14/V15 evidence-control installations passed
 independent review**, and **V16 registration for rerun #10 is installed and
 verified**. Registration does not establish payload collection or native results.
-The corrected focused Android collector v3 is independently approved after
+The corrected focused Android collector v3 remains independently approved after
 59 source/host test methods. Both #9 consumer windows were released and their
-original outcomes independently accounted; the producer partial and missing
-producer inputs/log keep collection closure open. #10 still has no canonical
-collection from the collector. Registration, collection and job status do not
-establish native acceptance. Durable receipts remain under
+original outcomes independently accounted. Its producer-build recovery is now
+verified, while inputs/log and final closure remain pending. #10 still has no
+canonical collection from the collector. #11's source-approved collector has
+accounted both consumer archives and verified all four original ZIPs; remaining
+logs/selections, final closure and independent outcome/package/pixel acceptance
+are distinct.
+**V19 registration for iOS #42 is installed and independently verified**. Its
+collector is prepared, with independent source review pending; registration and
+preparation do not establish collection. Durable receipts remain under
 `artifacts/evidence-storage/restart-20260911T0457/` and each run's recorded evidence
 directory.
 
 ## Work remaining
 
-1. **Investigate measured iOS timing.** The full-run collection and all assigned
-   reviews are sealed. Resolve the measured long completed 3D timing scopes before
-   accepting Simulator performance, preserving strict privacy, observation and
-   lifecycle checks. No frame or CPU/GPU cause is established yet.
-2. **Finish Android native acceptance.** Complete #9 producer collection and
-   preservation, then obtain complete #10/#11 outcome and package bindings.
-   Diagnose #11's optimized failure while independently reviewing the debug
-   outcome. Verify full public claim text, guidance and Challenge reachability at
-   200% text in short views for both variants. Host tests, a CI job pass and
-   geometry checks do not supply native screenshot acceptance.
-3. **Complete native delivery work.** Review #42's actual diagnostic results for
-   the enabled iOS shipping profile, preserving the original assertion and
-   privacy guards. Rebuild and bind the appropriate iOS engines and actual apps
-   for the new pack; obtain accepted shipping packages, both picker routes and
-   independent pixels. The diagnostic has no causal-fix or shipping acceptance.
-   Keep Android shipping activation conditional on its remaining native and
-   delivery checks. Standard table remains the accessible route; both real Godot
-   implementations stay available for comparison.
+1. **Investigate measured iOS timing.** Collect and independently review #44's
+   actual native sessions and timing records. Resolve the measured long completed
+   3D timing scopes before accepting Simulator performance, preserving strict
+   privacy, observation and lifecycle checks. No exact frame or CPU/GPU cause is
+   established yet.
+2. **Finish Android native acceptance.** Complete #9 inputs/log and final
+   preservation, #10 canonical collection and #11's remaining collection,
+   independent outcome review and package bindings. The continuous-touch helper
+   has a passing local APK build; runner/producer integration and final review
+   remain in progress, with no native fix acceptance. Verify full public claim text, guidance and
+   Challenge reachability at 200% text in short views for both variants.
+   Host tests, job status and geometry checks do not supply native pixel or
+   interaction acceptance.
+3. **Complete native delivery work.** Finish #42 collection/package binding and
+   review, compile and execute the private picker-disposal candidate against the
+   unchanged shipping assertion and privacy guards. Rebuild and bind appropriate
+   iOS engines and actual apps for the new pack; obtain accepted shipping
+   packages, both picker routes and independent pixels. #41's accepted packaged
+   bytes and #42's selected diagnostics do not establish a causal fix or complete
+   shipping acceptance. Keep Android shipping activation conditional on its
+   remaining native and delivery checks. Standard table remains the accessible
+   route; both real Godot implementations stay available for comparison.
 4. **Execute the physical-device release matrix.** Android/iPhone and mixed LAN
    sessions with 2–6 players, reconnect/rematch and host loss; actual permissions,
    QR/sharing, background privacy and process loss; TalkBack/VoiceOver, responsive
@@ -168,14 +193,18 @@ is committed in `456d40e1`. Native public-claim scrolling acceptance remains ope
 
 - [Run the app](../README.md), [compare 2D and 3D](../godot/comparison/README.md),
   and [build or qualify iOS](../iosApp/README.md).
-- [Review gallery](screenshots/README.md): **4,758 original images + 2,806
-  supplements + four asset proofs**, with **26,218 checksum paths**, are published.
+- [Review gallery](screenshots/README.md): **4,764 original images + 2,806
+  supplements + four asset proofs**, with **26,261 checksum paths** across
+  **203 collections**, are published.
   The four reviewed Android #8 stills were pushed in
   [`0c646e1b`](https://github.com/Apdelrahman1911/PartyDeck/commit/0c646e1ba0657beda36d82e28ede509209b2462a);
   the 51 full-iOS originals in
   [`00e8c4ac`](https://github.com/Apdelrahman1911/PartyDeck/commit/00e8c4ac9968bb50f35e0acc38a820ac9c17db8d);
   and four Android #10 diagnostic images in
   [`695cd5eb`](https://github.com/Apdelrahman1911/PartyDeck/commit/695cd5eb79b926260d0486581ee62ea3acbf4edc).
+  Six further original diagnostics from failed Android/iOS runs are published in
+  [`6cc9266b`](https://github.com/Apdelrahman1911/PartyDeck/commit/6cc9266b053f1f750fc7465b0bca74dae545bff9),
+  after independent source and destination review.
   Each collection retains its actual result and viewing scope; publication does
   not imply every original was viewed or add native reachability acceptance.
 - [Verified JVM baseline](measurements/jvm-20260911/README.md) and
