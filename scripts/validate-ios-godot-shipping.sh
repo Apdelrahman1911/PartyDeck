@@ -9,6 +9,27 @@ fi
 shipping_repo="$(cd -- "${1:?Supply the integrated repository root.}" && pwd)"
 shipping_output="${2:?Supply a new absolute evidence directory.}"
 shipping_tools="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+# Keep the historical picker run separate from the two-case native Leave run.
+shipping_scope="${3:-picker}"
+case "$shipping_scope" in
+  picker)
+    shipping_checker="$shipping_tools/check-ios-godot-shipping-smoke.py"
+    shipping_selections=(
+      -only-testing:PartyDeckUITests/PartyDeckGodotShippingUITests/testShippingPickerOpensBothNativeTablesAndReturnsToStandard
+    )
+    ;;
+  native-leave)
+    shipping_checker="$shipping_tools/check-ios-godot-native-leave-smoke.py"
+    shipping_selections=(
+      -only-testing:PartyDeckUITests/PartyDeckGodotNativeLeaveShippingUITests/testShipping2DNativeLeaveCancelAndConfirm
+      -only-testing:PartyDeckUITests/PartyDeckGodotNativeLeaveShippingUITests/testShipping3DNativeLeaveCancelAndConfirm
+    )
+    ;;
+  *)
+    printf '%s\n' 'Shipping scope must be picker or native-leave.' >&2
+    exit 2
+    ;;
+esac
 shipping_engine="${PARTYDECK_IOS_SIMULATOR_GODOT_ENGINE_ROOT:?Supply the existing receipt-checked Simulator engine.}"
 shipping_pack="${PARTYDECK_IOS_GODOT_PACK:-$shipping_repo/godot/qualification/build/renderer/partydeck-last-light.pck}"
 if [[ "$shipping_output" != /* || -e "$shipping_output" ]]; then
@@ -59,7 +80,7 @@ with Path(sys.argv[1]).open('x') as output:
     output.write('\n')
 PY
   shipping_receipt_exit=$?
-  python3 -B "$shipping_tools/check-ios-godot-shipping-smoke.py" result --directory "$shipping_output" \
+  python3 -B "$shipping_checker" result --directory "$shipping_output" \
     > "$shipping_output/result-check.log" 2>&1
   shipping_check_exit=$?
   if [[ "$shipping_primary_exit" != 0 ]]; then exit "$shipping_primary_exit"; fi
@@ -69,7 +90,7 @@ PY
 trap shipping_preserve EXIT
 cd "$shipping_repo"
 
-if python3 -B "$shipping_tools/check-ios-godot-shipping-smoke.py" preflight --repo "$shipping_repo" --directory "$shipping_output" \
+if python3 -B "$shipping_checker" preflight --repo "$shipping_repo" --directory "$shipping_output" \
     > "$shipping_output/preflight.log" 2>&1; then
   shipping_preflight_exit=0
 else
@@ -95,7 +116,7 @@ else
   shipping_build_settings_exit=$?
   exit "$shipping_build_settings_exit"
 fi
-if python3 -B "$shipping_tools/check-ios-godot-shipping-smoke.py" settings --repo "$shipping_repo" --directory "$shipping_output" \
+if python3 -B "$shipping_checker" settings --repo "$shipping_repo" --directory "$shipping_output" \
     > "$shipping_output/settings-check.log" 2>&1; then
   shipping_settings_check_exit=0
 else
@@ -110,7 +131,7 @@ xcodebuild test -project iosApp/PartyDeck.xcodeproj -scheme PartyDeck -configura
   -destination "platform=iOS Simulator,id=$shipping_simulator" \
   -derivedDataPath "$shipping_derived" -clonedSourcePackagesDirPath "$shipping_repo/build/ci/ios/SourcePackages" \
   -resultBundlePath "$shipping_result" -parallel-testing-enabled NO \
-  -only-testing:PartyDeckUITests/PartyDeckGodotShippingUITests/testShippingPickerOpensBothNativeTablesAndReturnsToStandard \
+  "${shipping_selections[@]}" \
   "${shipping_settings[@]}" 2>&1 | tee "$shipping_output/test.log"
 shipping_pipeline_exits=("${PIPESTATUS[@]}")
 set -e

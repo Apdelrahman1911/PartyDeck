@@ -17,6 +17,14 @@ on:
           - ios
           - ios-godot-production
           - ios-godot-shipping
+      ios_shipping_scope:
+        description: Focused shipping scope; each scope has separate named tests and evidence
+        required: true
+        type: choice
+        default: picker
+        options:
+          - picker
+          - native-leave
       android_api:
         description: Android runtime API (API 35 and API 36 have separate qualification evidence)
         required: true
@@ -40,7 +48,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: validate-${{ github.workflow }}-${{ github.ref }}-${{ inputs.platform || 'all' }}-${{ inputs.android_api || '35' }}
+  group: validate-${{ github.workflow }}-${{ github.ref }}-${{ inputs.platform || 'all' }}-${{ inputs.android_api || '35' }}-${{ inputs.ios_shipping_scope || 'picker' }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
@@ -187,7 +195,7 @@ jobs:
           if-no-files-found: warn
 
   ios:
-    name: ${{ inputs.platform == 'ios-godot-production' && 'Focused iOS production Godot sessions' || inputs.platform == 'ios-godot-shipping' && 'Focused iOS shipping Godot entry' || 'iOS native tests and app smoke' }}
+    name: ${{ inputs.platform == 'ios-godot-production' && 'Focused iOS production Godot sessions' || inputs.platform == 'ios-godot-shipping' && inputs.ios_shipping_scope == 'native-leave' && 'Focused iOS shipping native Leave' || inputs.platform == 'ios-godot-shipping' && 'Focused iOS shipping Godot entry' || 'iOS native tests and app smoke' }}
     needs: [ios-renderer-pack]
     if: ${{ github.event_name != 'workflow_dispatch' || inputs.platform == 'all' || inputs.platform == 'ios' || inputs.platform == 'ios-godot-production' || inputs.platform == 'ios-godot-shipping' }}
     runs-on: macos-26
@@ -326,19 +334,29 @@ jobs:
           } | tee build/ci/ios/focused-production-scope.log >> "$GITHUB_STEP_SUMMARY"
           bash scripts/validate-ios-godot-session.sh \
             2>&1 | tee build/ci/ios/focused-production-session.log
-      - name: Exercise both shipping Godot picker entries
-        if: ${{ !cancelled() && inputs.platform == 'ios-godot-shipping' && steps.apple-toolchain.outcome == 'success' && steps.renderer-pack.outcome == 'success' && steps.native-engine.outcome == 'success' }}
+      - name: Test native Leave evidence accounting
+        id: native-leave-checker-tests
+        if: ${{ inputs.platform == 'ios-godot-shipping' && inputs.ios_shipping_scope == 'native-leave' }}
+        timeout-minutes: 2
+        run: python3 -B -m unittest discover -s scripts/tests -p 'test_ios_godot_native_leave.py' -v
+      - name: ${{ inputs.ios_shipping_scope == 'native-leave' && 'Exercise native Leave in both shipping Godot tables' || 'Exercise both shipping Godot picker entries' }}
+        if: ${{ !cancelled() && inputs.platform == 'ios-godot-shipping' && steps.apple-toolchain.outcome == 'success' && steps.renderer-pack.outcome == 'success' && steps.native-engine.outcome == 'success' && (inputs.ios_shipping_scope != 'native-leave' || steps.native-leave-checker-tests.outcome == 'success') }}
         timeout-minutes: 45
         shell: bash
         env:
           PARTYDECK_IOS_SIMULATOR_GODOT_ENGINE_ROOT: ${{ github.workspace }}/godot/ios-host/build
+          PARTYDECK_IOS_SHIPPING_SCOPE: ${{ inputs.ios_shipping_scope || 'picker' }}
         run: |
-          bash scripts/validate-ios-godot-shipping.sh "$PWD" "$PWD/build/ci/ios/godot-shipping"
+          shipping_scope_output="$PWD/build/ci/ios/godot-shipping"
+          if [[ "$PARTYDECK_IOS_SHIPPING_SCOPE" == native-leave ]]; then
+            shipping_scope_output="$PWD/build/ci/ios/godot-shipping-native-leave"
+          fi
+          bash scripts/validate-ios-godot-shipping.sh "$PWD" "$shipping_scope_output" "$PARTYDECK_IOS_SHIPPING_SCOPE"
       - name: Upload iOS reports and simulator app
         if: always()
         uses: ./.github/actions/upload-artifact
         with:
-          name: ${{ inputs.platform == 'ios-godot-production' && 'ios-focused-production-reports-and-simulator-app' || inputs.platform == 'ios-godot-shipping' && 'ios-focused-shipping-reports-and-simulator-app' || 'ios-reports-and-simulator-app' }}
+          name: ${{ inputs.platform == 'ios-godot-production' && 'ios-focused-production-reports-and-simulator-app' || inputs.platform == 'ios-godot-shipping' && inputs.ios_shipping_scope == 'native-leave' && 'ios-focused-shipping-native-leave-reports-and-simulator-app' || inputs.platform == 'ios-godot-shipping' && 'ios-focused-shipping-reports-and-simulator-app' || 'ios-reports-and-simulator-app' }}
           path: |
             build/ci/ios/*.log
             build/ci/ios/*.json
@@ -363,6 +381,12 @@ jobs:
             build/ci/ios/godot-shipping/PartyDeckShipping.xcresult/**
             build/ci/ios/godot-shipping/attachments/**
             build/ci/ios/godot-shipping/DerivedData/Build/Products/Debug-iphonesimulator/PartyDeckGodotInputs/inputs.json
+            build/ci/ios/godot-shipping-native-leave/*.log
+            build/ci/ios/godot-shipping-native-leave/*.json
+            build/ci/ios/godot-shipping-native-leave/*.tar.gz
+            build/ci/ios/godot-shipping-native-leave/PartyDeckShipping.xcresult/**
+            build/ci/ios/godot-shipping-native-leave/attachments/**
+            build/ci/ios/godot-shipping-native-leave/DerivedData/Build/Products/Debug-iphonesimulator/PartyDeckGodotInputs/inputs.json
             build/ci/ios/godot-session/PartyDeckGodotSessions.xcresult/**
             build/ci/ios/godot-session/attachments/**
             build/ci/ios/godot-session/DerivedData/Build/Products/Debug-iphonesimulator/PartyDeckGodotInputs/inputs.json
