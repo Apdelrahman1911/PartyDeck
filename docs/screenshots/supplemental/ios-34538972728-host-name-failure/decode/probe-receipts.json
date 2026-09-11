@@ -1,0 +1,74 @@
+{
+  "created_utc": "2026-09-10T23:53:16.074929+00:00",
+  "original": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34538972728-ios-engine_ci/ordinary-failure-attachments-v1/kXCTAttachmentScreenRecording_0_BF940F39-DFBE-4F33-8046-7521018A3BC5.mp4",
+    "bytes": 3255255,
+    "sha256": "2c86f1c16af32595a022327f3e059d8f4e131043406ce941cf28d289b8820e9d"
+  },
+  "scope": "Tool versions, stream/container metadata and demuxed packet timestamps only; no frame export and no -show_frames.",
+  "commands": [
+    {
+      "name": "ffmpeg-version",
+      "argv": [
+        "ffmpeg",
+        "-version"
+      ],
+      "returncode": 0,
+      "stdout": "/tmp/partydeck-ios-host-name-decode-ui-game-34538972728-v1/ffmpeg-version.txt",
+      "stdout_sha256": "5b320c97f515e79171f10a2147d875ffb6b14bd2b25681047b73c46fe0a527ee",
+      "stderr": "/tmp/partydeck-ios-host-name-decode-ui-game-34538972728-v1/ffmpeg-version.stderr.txt",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "ffprobe-version",
+      "argv": [
+        "ffprobe",
+        "-version"
+      ],
+      "returncode": 0,
+      "stdout": "/tmp/partydeck-ios-host-name-decode-ui-game-34538972728-v1/ffprobe-version.txt",
+      "stdout_sha256": "1b6410f756d8b5ef5308d712b51d2543bf8c8e6bc5796b7ede9570d099131e0b",
+      "stderr": "/tmp/partydeck-ios-host-name-decode-ui-game-34538972728-v1/ffprobe-version.stderr.txt",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "media-metadata",
+      "argv": [
+        "ffprobe",
+        "-v",
+        "error",
+        "-show_format",
+        "-show_streams",
+        "-of",
+        "json",
+        "/root/projects/PartyDeck/artifacts/evidence-storage/34538972728-ios-engine_ci/ordinary-failure-attachments-v1/kXCTAttachmentScreenRecording_0_BF940F39-DFBE-4F33-8046-7521018A3BC5.mp4"
+      ],
+      "returncode": 0,
+      "stdout": "/tmp/partydeck-ios-host-name-decode-ui-game-34538972728-v1/media-metadata.json",
+      "stdout_sha256": "8eb5fb3ae84645f3128cc7119847227e2cbe2a888f33197c0397375e2735ac26",
+      "stderr": "/tmp/partydeck-ios-host-name-decode-ui-game-34538972728-v1/media-metadata.stderr.txt",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "video-packets",
+      "argv": [
+        "ffprobe",
+        "-v",
+        "error",
+        "-select_streams",
+        "v:0",
+        "-show_packets",
+        "-show_entries",
+        "packet=pts,pts_time,dts,dts_time,duration,duration_time,flags,pos,size",
+        "-of",
+        "json",
+        "/root/projects/PartyDeck/artifacts/evidence-storage/34538972728-ios-engine_ci/ordinary-failure-attachments-v1/kXCTAttachmentScreenRecording_0_BF940F39-DFBE-4F33-8046-7521018A3BC5.mp4"
+      ],
+      "returncode": 0,
+      "stdout": "/tmp/partydeck-ios-host-name-decode-ui-game-34538972728-v1/video-packets.json",
+      "stdout_sha256": "81bc29e523ea380fac8d70308adada0cc41acb07320182d14c1202f2f293814b",
+      "stderr": "/tmp/partydeck-ios-host-name-decode-ui-game-34538972728-v1/video-packets.stderr.txt",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "authoritative_xctest_type_text": {
+    "bytes": 11941,
+    "path": "/tmp/partydeck-ios-host-name-triage-34538972728-v1/authoritative/xcuielement-typetext.json",
+    "sha256": "55647f2f5864498102ecb0539bff92ab631b439f4700b642c04792aa0557c1b8"
+  },
+  "classification": {
+    "application_defect": "No app/controller defect is established. Native pixels eventually show the exact requested text, and relevant app/test/dependency source is unchanged from a retained prior pass.",
+    "infrastructure": "An iOS keyboard slide-typing tutorial remains onscreen. It is an observed environment state; its sole causality is not established, and text still eventually appears.",
+    "permanently_dropped_input": "Not supported: the later recorded field contains complete Native Host.",
+    "supported": "Missing bounded observation of settled native field value in the test. The immediate assertion saw the same intermediate Gues that appears in the recording; later frames show complete Native Host.",
+    "test_cursor": "An incorrect initial cursor position is not supported: the original frame shows the caret after Guest.",
+    "unresolved": "The original does not prove exact keyboard/Compose/AX scheduling or the UTC of each media frame. Event records are synthesized requests, not per-key acceptance receipts."
+  },
+  "correction": {
+    "behavior": "Use existing waitUntil (10-second timeout) for exact native AX value Native Host, then run the unchanged equality assertion and all original hosting/roster/invitation checks.",
+    "candidate": {
+      "bytes": 18107,
+      "path": "/tmp/partydeck-ios-host-name-triage-34538972728-v1/candidate/iosApp/PartyDeckUITests/PartyDeckUITests.swift",
+      "sha256": "fcc57b669ca638da439b8a42d93d518d273b2df88b625e1dfe8408bc1d68f23d"
+    },
+    "native_validation": "Pending root-owned native execution; static patch validation is not an XCTest pass.",
+    "patch": {
+      "bytes": 788,
+      "path": "/tmp/partydeck-ios-host-name-triage-34538972728-v1/candidate.patch",
+      "sha256": "e823c0f6b744d90d30e2c00a3c855a67a2b12b9da3be111b14beab72cb67b80c"
+    },
+    "rationale": "Wait only for the exact UI condition whose eventual visible convergence is established by the original recording.",
+    "unchanged": "No retyping, extra taps, selection changes, onboarding dismissal, different expected name, relaxed equality, test skip or product edit."
+  },
+  "directly_viewed_frames": [
+    {
+      "bytes": 463456,
+      "observed_by_this_reviewer": "Guest; keyboard tutorial with Continue",
+      "original_decoded_frame_index_zero_based": 176,
+      "path": "/tmp/partydeck-ios-host-name-decode-ui-game-34538972728-v1/frames/retained-006.png",
+      "sha256": "0065bf2e433988b6c8fc603e99b8ea1453b0f6aae7aee947467dd01190ad51ba"
+    },
+    {
+      "bytes": 463017,
+      "observed_by_this_reviewer": "Guest with caret at end; keyboard tutorial with Continue",
+      "original_decoded_frame_index_zero_based": 187,
+      "path": "/tmp/partydeck-ios-host-name-decode-ui-game-34538972728-v1/frames/retained-012.png",
+      "sha256": "0bd7346bdde1f586959633d4cc3d21e27bfefb4172bde57e463ae55f5b0448ee"
+    },
+    {
+      "bytes": 470109,
+      "observed_by_this_reviewer": "Gues with caret at end; keyboard tutorial with Continue",
+      "original_decoded_frame_index_zero_based": 215,
+      "path": "/tmp/partydeck-ios-host-name-decode-ui-game-34538972728-v1/frames/retained-040.png",
+      "sha256": "df411c5e9760733ce2becee5f18e6fa55c4cc78a6a45fefbad65e328db9ddbdd"
+    },
+    {
+      "bytes": 458304,
+      "observed_by_this_reviewer": "Native Host with caret at end; keyboard tutorial with Continue",
+      "original_decoded_frame_index_zero_based": 228,
+      "path": "/tmp/partydeck-ios-host-name-decode-ui-game-34538972728-v1/frames/retained-053.png",
+      "sha256": "c84c69a580e9d56188b51a915aa03361358976218db46dbeb65b378c7bfce219"
+    },
+    {
+      "bytes": 473085,
+      "observed_by_this_reviewer": "Native Host with caret at end; keyboard tutorial with Continue",
+      "original_decoded_frame_index_zero_based": 258,
+      "path": "/tmp/partydeck-ios-host-name-decode-ui-game-34538972728-v1/frames/retained-083.png",
+      "sha256": "448810973f138e13475ebbdb5e371cf331d9f02d7b61cbd93b42a8efac31bf5d"
+    }
+  ],
+  "event_source_correlation": {
+    "bytes": 22297,
+    "path": "/tmp/partydeck-ios-host-name-triage-34538972728-v1/event-source-correlation.json",
+    "sha256": "ec34fc539d501478604e07e9a8f41dc14c173956734c8c8140602434516292a9"
+  },
+  "failure": {
+    "expected": "Native Host",
+    "message": "The host name must replace the previous field value.",
+    "observed_ax_value": "Gues",
+    "original_source_line": 59,
+    "recorded_failure_utc": "2026-09-10T23:07:56.441Z",
+    "scope": "Failed before host-create, lobby/invitation assertions, or Godot selections. The ordinary command still failed.",
+    "test": "PartyDeckUITests.testSharedControllerHostsANativeTableAndShowsItsInvitation"
+  },
+  "independent_candidate_verdict": "/root/ui_shell explicitly approved patch e823c0f6b744d90d30e2c00a3c855a67a2b12b9da3be111b14beab72cb67b80c and Swift fcc57b669ca638da439b8a42d93d518d273b2df88b625e1dfe8408bc1d68f23d after exact source preservation and direct intermediate/final pixel review.",
+  "independent_pixel_review": {
+    "bytes": 4872,
+    "path": "/tmp/partydeck-ios-host-name-failure-34538972728-design-v1/direct-views-01.json",
+    "sha256": "5c6c085b2fbf72aa76b58cd04c9ed3b717a05ccb67012d7fbfbfd2b497f8092b"
+  },
+  "independent_source_review": {
+    "bytes": 8912,
+    "path": "/tmp/partydeck-ios-host-name-ui-shell-34538972728-v1/source-review.json",
+    "sha256": "a164d1ca83564a4c5e356f8131eadf626d7fa791167d18d8e105d3cb74907eda"
+  },
+  "issued_utc": "2026-09-11T00:07:00.193208+00:00",
+  "job_id": 103077362759,
+  "limits": [
+    "No frame PTS-to-test UTC mapping is asserted.",
+    "Visual convergence does not retroactively pass this failed test or prove that host creation/invitation completed.",
+    "Only the sole collector original payloads and the single ui_game decode were read; no duplicate transfer, archive extraction, media decode, native execution, shared edit or Git operation."
+  ],
+  "original_attachment_index": {
+    "bytes": 54808,
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34538972728-ios-engine_ci/ordinary-xctest-attachment-index-v1.json",
+    "sha256": "90242059d184dd2bdb7868694252ded07672f2a6618e36e383a76d201aabd159"
+  },
+  "original_job_log": {
+    "bytes": 3018737,
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34538972728-ios-engine_ci/job-103077362759.log",
+    "sha256": "afd900d073c43b8af2d461e5dc84250afc2f260c5c6a11fd13e04ea2a9539953"
+  },
+  "original_parsed_failure": {
+    "bytes": 34129,
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34538972728-ios-engine_ci/ordinary-failed-test-summary-parsed-v1.json",
+    "sha256": "0fc528b261c5eb70511b9e9300479d40941577f503fbecfc3e71112514001783"
+  },
+  "owner": "/root/session_protocol",
+  "pixel_checkpoint_freeze": {
+    "bytes": 30959,
+    "path": "/tmp/partydeck-ios-host-name-decode-ui-game-34538972728-v1/pixel-checkpoint-freeze.json",
+    "sha256": "7ff5b02854e7e39033e46b5073dc560ee22dd664a6ac5f61ebdff5f031762708"
+  },
+  "prior_success_source_comparison": {
+    "bytes": 7186,
+    "path": "/tmp/partydeck-ios-host-name-triage-34538972728-v1/prior-success-source-comparison.json",
+    "sha256": "c7f017d8ad3c596bbfea097309800e266a752ffd5859ff3dc44b8aecc15bf751"
+  },
+  "run_id": 34538972728,
+  "schema_version": 1,
+  "source_revision": "dd6df8a530d71b51ae4c3b0f4a05246f2e58402f",
+  "validation": {
+    "bytes": 1505,
+    "path": "/tmp/partydeck-ios-host-name-triage-34538972728-v1/source-and-patch-check.json",
+    "sha256": "4e31815c40b624b64f9faa8f69bf9f4c34fd6b4e37c2c5189cfbefe662a9a706"
+  }
+}

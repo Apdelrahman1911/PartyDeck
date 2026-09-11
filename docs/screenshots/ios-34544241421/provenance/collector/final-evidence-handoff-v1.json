@@ -1,0 +1,111 @@
+{
+  "runId": 34544241421,
+  "headSha": "aa1d1df822680debec6190d9df72ab11337501bb",
+  "attempt": 1,
+  "runConclusion": "failure",
+  "collectorComplete": true,
+  "originalArchiveCount": 3,
+  "originalArchiveBytes": 144740805,
+  "ownedOriginalJobLogs": 2,
+  "missingExpectedArtifacts": [],
+  "collectionErrors": {},
+  "outcomes": {
+    "rendererProducer": "success; actual PCK and all 132+4 frozen source inputs verified, 136 packed entries",
+    "productionSessions": {
+      "tests": 2,
+      "passed": 0,
+      "failed": 2,
+      "skipped": 0,
+      "xcodebuildExitCode": 65,
+      "cases": [
+        {
+          "case": "PartyDeckUITests.PartyDeckGodotSessionUITests/testProduction2DPracticeSession",
+          "status": "failed",
+          "seconds": "14.010"
+        },
+        {
+          "case": "PartyDeckUITests.PartyDeckGodotSessionUITests/testProduction3DPracticeSession",
+          "status": "failed",
+          "seconds": "5.212"
+        }
+      ],
+      "failureSourceLine": 112,
+      "failureMessage": "Production qualification observation is malformed; missing values cannot pass a privacy assertion.",
+      "effectiveQualificationFlagsVerifiedForBothTargets": true,
+      "initialHomeObservationReached": true,
+      "practiceEntryOrBodyScrollQualified": false
+    },
+    "summaryExportExitCode": 0,
+    "attachmentExportExitCode": 0,
+    "packagedSimulatorApp": "actual arm64 Simulator app, resources, PCK, executable/plist and qualification activation verified",
+    "sharedNativeJUnit": "not selected",
+    "ordinarySimulator": "not selected",
+    "UIKitLayout": "not selected",
+    "unsignedDevice": "not selected",
+    "android": "not selected",
+    "shippingAcceptance": false
+  },
+  "capturedEvidence": {
+    "failurePngs": 2,
+    "recordingsRetainedInZip": 2,
+    "sanitizedObservationJson": 0,
+    "passiveBodyScrollAttachments": 0,
+    "decodedLegacyMetadataObjects": 7,
+    "collectorViewedOrDecodedMedia": false,
+    "publicationOwner": "review_design"
+  },
+  "diagnosticLimits": "The complete two named summaries reference only PNG and MP4 attachments. The bounded metadata scan found no rejected JSON/hierarchy. Actual executable bytes contain the new canChallenge JSON fragment next to preceding observation fields, but this does not identify the runtime decoder path or establish a stale-framework cause.",
+  "references": {
+    "preservation": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34544241421/final-preservation-audit-v1.json",
+      "bytes": 36019,
+      "sha256": "10cbe34701d67f8f5e404d2f757a1b1840ea4448cce78ddc0fca91807daf9071"
+    },
+    "collectionCompletion": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34544241421/collection-complete.json",
+      "bytes": 685,
+      "sha256": "96437025e7c39602581dd7d2c148d10d37111c984238987e393e528777b2b44b"
+    },
+    "collectorConfigurationFreeze": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34544241421/collector-configuration-frozen-v1.json",
+      "bytes": 2301,
+      "sha256": "c3c3350965efde7a4a0baa14521e7272e9177700d0ccbb538ee6b26fbe6077a5"
+    },
+    "sourceProducerNativeBinding": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34544241421/source-producer-native-binding-v1.json",
+      "bytes": 60449,
+      "sha256": "bbdff6193a57c6d1de412a753902465629a3a1275c2d172509a915ea8fdd16b3"
+    },
+    "packagedSimulatorBytes": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34544241421/simulator-packaged-bytes-verification-v1.json",
+      "bytes": 70914,
+      "sha256": "f983f26bbf6ca1ee71ac098a4aebf6f125e7fb6806c88538c06a44d803d8f831"
+    },
+    "focusedOutcomeAndCaptures": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34544241421/focused-production-outcome-v1.json",
+      "bytes": 20587,
+      "sha256": "365f2939013bb976c7b14cf26b34f017b947505bde8ed40f29c1c3bb2dfd36fe"
+    },
+    "namedXCResultOutcomes": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34544241421/focused-named-xcresult-results-v1.json",
+      "bytes": 2302,
+      "sha256": "7aa39676109b189e231bb4dc87532d393bf8c33b3ad8d34d43d58f31d3e2ee1a"
+    },
+    "boundedXCResultMetadata": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34544241421/focused-xcresult-metadata-index-v1.json",
+      "bytes": 571238,
+      "sha256": "c61687ea11f88bf6e3a2ebd646da8b0ef5801dfe6d0997aed32eff2204eb7575"
+    },
+    "parsedFailureSummariesAndDiagnosticReferences": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34544241421/focused-failure-diagnostic-reference-audit-v1.json",
+      "bytes": 45601,
+      "sha256": "aebc194777774c887618907b5dfe94b4b35790f4289ff25049727b2408ec6e48"
+    },
+    "packagedObservationLiteralsAndCompileContext": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34544241421/packaged-observation-literal-audit-v1.json",
+      "bytes": 21016,
+      "sha256": "b0bba482ceab3873898320ea909fb661fb39153b10c9f5e966e483800009c813"
+    }
+  },
+  "scope": "Final collection for this exact focused run. Source, producer, native compile receipts, actual packaged bytes, named failures and media references are kept separate. Complete ZIPs preserve all original diagnostics and videos. No new native execution, body-scroll qualification, runtime cause, CPU/GPU timing, full-iOS, physical-device or shipping acceptance is inferred. Future fixes/runs use separate evidence."
+}

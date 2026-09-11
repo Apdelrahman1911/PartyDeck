@@ -1,0 +1,36 @@
+{
+  "baseline": {
+    "bytes": 17949,
+    "path": "/tmp/partydeck-ios-host-name-triage-34538972728-v1/baseline/iosApp/PartyDeckUITests/PartyDeckUITests.swift",
+    "sha256": "b332a3576d7b13fdcca082459f9dc0abc5cf8b1e7be5c68d2641e332dca66d17"
+  },
+  "candidate": {
+    "bytes": 18107,
+    "path": "/tmp/partydeck-ios-host-name-triage-34538972728-v1/candidate/iosApp/PartyDeckUITests/PartyDeckUITests.swift",
+    "sha256": "fcc57b669ca638da439b8a42d93d518d273b2df88b625e1dfe8408bc1d68f23d"
+  },
+  "exact_value_condition": "Native Host",
+  "exactly_three_lines_added": true,
+  "existing_wait_until_timeout_seconds": 10,
+  "no_product_source_change": true,
+  "original_input_actions_assertions_and_downstream_acceptance_unchanged": true,
+  "patch": {
+    "bytes": 788,
+    "path": "/tmp/partydeck-ios-host-name-triage-34538972728-v1/candidate.patch",
+    "sha256": "e823c0f6b744d90d30e2c00a3c855a67a2b12b9da3be111b14beab72cb67b80c"
+  },
+  "patch_command": [
+    "patch",
+    "--batch",
+    "--forward",
+    "-p1",
+    "-i",
+    "/tmp/partydeck-ios-host-name-triage-34538972728-v1/candidate.patch"
+  ],
+  "patch_exit_code": 0,
+  "patch_stderr": "",
+  "patch_stdout": "patching file iosApp/PartyDeckUITests/PartyDeckUITests.swift\n",
+  "patched_file_byte_identical_to_candidate": true,
+  "removing_only_addition_restores_original_bytes": true,
+  "validation_scope": "Read-only source preservation checks and isolated host patch replay; no Swift compile, XCTest execution, native build or simulator execution."
+}

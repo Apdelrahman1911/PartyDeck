@@ -1,10 +1,21 @@
 # Screenshot review gallery
 
-This collection preserves **3,677 original app and renderer captures**, including failed attempts, and links to **four existing asset proofs**. Click a collection, then any thumbnail to open the full PNG. Every record includes its original filename, scenario, platform, pixel dimensions and full SHA-256; [manifest.json](manifest.json) also records source locations, exact revisions where known, CI runs, receipts and duplicate-source aliases.
+This collection preserves **4,586 original app and renderer captures**, including failed attempts, and **330 supplemental images**, plus four existing asset proofs. Open a collection and click any thumbnail for its full original image. [manifest.json](manifest.json) retains filenames, dimensions, hashes, source paths, exact source revisions and timestamp metadata.
 
-This batch preserves **118 additional originals**: **15 directly viewed by review_design, 10 attributed peer direct views, five reviewed identical-byte matches and 88 explicitly unviewed**. It retains four distinct JVM iterations and the complete focused iOS attachment set. Unviewed originals carry no visual acceptance; identical bytes never merge capture identities. The focused iOS MP4 remains unviewed/undecoded.
+This batch adds **909 original PNGs**: **31 direct views, 18 reviewed byte matches and 860 explicitly unviewed originals**. It also adds the **84 retained iOS Host-name failure frames**: five direct views, seven additional attributed peer identities and 72 unviewed frames. Matching bytes keep separate capture identities. [Batch source and review scope](provenance/20260911-4586/review-summary.json).
 
-An additional **246 supplemental images** comprise [233 full-size Android video derivatives](supplemental/android-34528538284-debug-font-2.0-video/README.md), [nine earlier decoded launch-video frames](supplemental/ios-34478720554-launch-video/README.md) and [four existing adaptive review sheets](supplemental/android-adaptive-34485033488-review-sheets/README.md). The 233 new frame identities are covered by 122 direct views and 111 verified byte matches. They remain separate from the original PNG total; their three original Android MP4s and decode/clock evidence are preserved. [Batch source and review summary](provenance/20260910-3677/review-summary.json).
+The 548 adaptive Android stills and 32 original recordings are included here. Their concurrent decoded-frame review and derivative publication will follow separately; no adaptive frame finding is asserted by this batch. The two focused iOS failure recordings remain unviewed in their intact source ZIP.
+
+| New preserved collection | Images | Review scope |
+| --- | ---: | --- |
+| [Full Android 34538972728](android-34538972728/README.md) | 320 originals | Fourteen direct views; native entry, selection, public results and Recents/resume stills. Scroll limits remain. |
+| [Adaptive Android 34540229407](godot-android-adaptive-34540229407/README.md) | 548 originals | Two reviewed Home byte matches; 546 unviewed. Predicate and recording evidence remain distinct from pixel review. |
+| [Ordinary iOS 34538972728](ios-34538972728/ordinary/README.md) | 8 originals | All eight directly viewed. Ordinary UI 2/3; Host-name assertion failed. |
+| [Host-name failure recording](supplemental/ios-34538972728-host-name-failure/README.md) | 84 supplements | Guest → Gues → later Native Host appears in reviewed frames; the original assertion remains failed. |
+| [Retained native iOS 34540908385](ios-retained-34540908385/README.md) | 31 originals | Three test-harness cases pass; eight direct views. Production/device gates remain unqualified. |
+| [Focused iOS failure 34544241421](ios-34544241421/README.md) | 2 originals | Both fail Home observation decoding before Practice. One direct view, one byte match. |
+
+Earlier preserved collections and their original outcomes follow below.
 
 [Open the published first batch](first-batch/README.md) for the 125 initially published native, shared-UI and first desktop 2D views. The collection pages below add complete source records and original-filename mappings without duplicating those images.
 

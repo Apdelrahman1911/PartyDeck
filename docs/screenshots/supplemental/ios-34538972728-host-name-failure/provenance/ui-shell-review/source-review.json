@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-09-10T23:46:58.259417+00:00",
+  "reviewer": "ui_shell",
+  "run_id": "34538972728",
+  "source_head": "dd6df8a530d71b51ae4c3b0f4a05246f2e58402f",
+  "status": "source_review_complete_visual_review_pending_selected_originals",
+  "source_files": [
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-dd6df8a/source-dd6df8a/iosApp/PartyDeckUITests/PartyDeckUITests.swift",
+      "source_relative_path": "iosApp/PartyDeckUITests/PartyDeckUITests.swift",
+      "bytes": 17949,
+      "sha256": "b332a3576d7b13fdcca082459f9dc0abc5cf8b1e7be5c68d2641e332dca66d17",
+      "verified_identical_to_git_commit": "dd6df8a530d71b51ae4c3b0f4a05246f2e58402f"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-dd6df8a/source-dd6df8a/composeApp/src/commonMain/kotlin/dev/partydeck/app/ui/shell/HostJoinScreen.kt",
+      "source_relative_path": "composeApp/src/commonMain/kotlin/dev/partydeck/app/ui/shell/HostJoinScreen.kt",
+      "bytes": 9917,
+      "sha256": "a9fcca74197ab97d9cebb7e7a29a144bd326e6f74cbf01795f348341a2c991c2",
+      "verified_identical_to_git_commit": "dd6df8a530d71b51ae4c3b0f4a05246f2e58402f"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-dd6df8a/source-dd6df8a/composeApp/src/commonMain/kotlin/dev/partydeck/app/controller/PartyDeckController.kt",
+      "source_relative_path": "composeApp/src/commonMain/kotlin/dev/partydeck/app/controller/PartyDeckController.kt",
+      "bytes": 28031,
+      "sha256": "e677b03ffff11fa175f7ee6bba0af3dc2c49908db5872a87039d8376de5c7287",
+      "verified_identical_to_git_commit": "dd6df8a530d71b51ae4c3b0f4a05246f2e58402f"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-dd6df8a/source-dd6df8a/composeApp/src/commonMain/kotlin/dev/partydeck/app/PartyDeckApp.kt",
+      "source_relative_path": "composeApp/src/commonMain/kotlin/dev/partydeck/app/PartyDeckApp.kt",
+      "bytes": 15947,
+      "sha256": "692c5e7e88d497df0a907043ea068407dd3ad5ef52ce5c5eed2e9b53188a0b54",
+      "verified_identical_to_git_commit": "dd6df8a530d71b51ae4c3b0f4a05246f2e58402f"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-dd6df8a/source-dd6df8a/composeApp/src/iosMain/kotlin/dev/partydeck/app/IosAppHandle.kt",
+      "source_relative_path": "composeApp/src/iosMain/kotlin/dev/partydeck/app/IosAppHandle.kt",
+      "bytes": 4326,
+      "sha256": "1a76eee93675d89b1a743cf6b552d68caf8f4d07ca19e1a79c725aa95ff28313",
+      "verified_identical_to_git_commit": "dd6df8a530d71b51ae4c3b0f4a05246f2e58402f"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-dd6df8a/source-dd6df8a/composeApp/src/iosMain/kotlin/dev/partydeck/app/IosPlatformServices.kt",
+      "source_relative_path": "composeApp/src/iosMain/kotlin/dev/partydeck/app/IosPlatformServices.kt",
+      "bytes": 5746,
+      "sha256": "eb49383ddf9a85cb60576f72594264050d0bf127e34ad76ee7fe5f2c460d07c6",
+      "verified_identical_to_git_commit": "dd6df8a530d71b51ae4c3b0f4a05246f2e58402f"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-dd6df8a/source-dd6df8a/iosApp/PartyDeck/PartyDeckApp.swift",
+      "source_relative_path": "iosApp/PartyDeck/PartyDeckApp.swift",
+      "bytes": 7186,
+      "sha256": "9537651d618b68c009e486473b223d064537a8572fe605b8a0f76fdd0f1a0085",
+      "verified_identical_to_git_commit": "dd6df8a530d71b51ae4c3b0f4a05246f2e58402f"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-dd6df8a/source-dd6df8a/gradle/libs.versions.toml",
+      "source_relative_path": "gradle/libs.versions.toml",
+      "bytes": 3297,
+      "sha256": "73fc12a63f69d8b0105267f37803d781d02ae21c8b3864b21d417b05b890cc4c",
+      "verified_identical_to_git_commit": "dd6df8a530d71b51ae4c3b0f4a05246f2e58402f"
+    }
+  ],
+  "original_job_log": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34538972728-ios-engine_ci/job-103077362759.log",
+    "sha256": "afd900d073c43b8af2d461e5dc84250afc2f260c5c6a11fd13e04ea2a9539953",
+    "sha256_independently_verified": true,
+    "relevant_lines": [
+      11433,
+      11477
+    ]
+  },
+  "source_findings": [
+    "HostJoinScreen uses an enabled-unless-busy, single-line OutlinedTextField with raw displayName and a direct setDisplayName callback. Explicit focus clearing occurs only on submit or accepted Done action.",
+    "setDisplayName synchronously stores value.take(128), including blank values; normalizedName is used for saved settings separately and does not overwrite the raw field value.",
+    "The test waits for existence, taps once, reads the accessibility value, sends that many deletes in one typeText call, types Native Host in a second call, then immediately asserts its accessibility value. It does not record the post-delete value, a keyboard checkpoint, or a first-responder checkpoint.",
+    "Compose assigns the TextView accessibility trait to EditableText semantic nodes and adds its editing trait only for Focused semantics; the logged TextView type alone does not identify a UIKit class or establish keyboard focus.",
+    "Compose accessibility value uses nonblank EditableText, then a semantic Text fallback. A future clear-value check must not assume blank edits always expose an empty String.",
+    "The legacy editing chain synchronously applies EditProcessor commands, updates its input-service state, and forwards the app callback; the iOS input connection invokes editText, updateView, and then stateSnapshot in that order. This does not establish when pixels or the accessibility snapshot become current."
+  ],
+  "cause_limit": "Current source and text log establish failed observed name replacement. They do not determine missed key delivery, focus/session loss, stale AX value, or a persistent product defect. No production change is justified solely by these reads.",
+  "authoritative_sources": [
+    {
+      "path": "/tmp/partydeck-mobile-accessibility-audit-20260910/ui-iosarm64-1.12.0-sources.jar",
+      "sha256": "db7a743cfdd14af5c2490f232bea0f53df166583b55d7fdc2a36ea0849089f5c",
+      "url": "https://repo.maven.apache.org/maven2/org/jetbrains/compose/ui/ui-iosarm64/1.12.0/ui-iosarm64-1.12.0-sources.jar",
+      "source_members": [
+        {
+          "member": "iosMain/androidx/compose/ui/platform/accessibility/SemanticConfigurationUtils.ios.kt",
+          "bytes": 8130,
+          "sha256": "59cbcde8b7e02785cd2d15524788f5589e3d00e156ee874885d2d38725de9daa"
+        },
+        {
+          "member": "iosMain/androidx/compose/ui/platform/UIKitTextInputService.ios.kt",
+          "bytes": 10930,
+          "sha256": "92ecd089e324ed386b935b58d6d29fb7d240d16ad3429759c76fcd1bce42ef68"
+        },
+        {
+          "member": "iosMain/androidx/compose/ui/scene/UIKitTextInputServiceAdapter.kt",
+          "bytes": 7974,
+          "sha256": "ed1b0b9ece59f32d04bfec28c7d587ad403156c45c37e5e1398460f419790cb0"
+        },
+        {
+          "member": "iosMain/androidx/compose/ui/text/input/TextInputConnection.ios.kt",
+          "bytes": 16649,
+          "sha256": "43e7288d8475a1c67156f6690e1e611f3ff5745d592dec2cb668c893f1430728"
+        },
+        {
+          "member": "iosMain/androidx/compose/ui/window/ComposeTextInputView.ios.kt",
+          "bytes": 17872,
+          "sha256": "72c461042119582dbeb37b0af03a99f50623419d270532d6b3d2f1dd0a486748"
+        },
+        {
+          "member": "skikoMain/androidx/compose/ui/platform/PlatformTextInputMethodRequest.skiko.kt",
+          "bytes": 4391,
+          "sha256": "662d5768f3e4073972ee05ae8a4b0a6455b5043f6bca0f10c69fba22e60d1d7a"
+        }
+      ]
+    },
+    {
+      "path": "/tmp/partydeck-ios-feedback-bounds-review-v1/research/foundation-1.12.0-sources.jar",
+      "sha256": "e37aec842c1f083b7f76bdf75e7bee7380d5e799d270504b22b729fa5f169f15",
+      "url": "https://repo.maven.apache.org/maven2/org/jetbrains/compose/foundation/foundation/1.12.0/foundation-1.12.0-sources.jar",
+      "source_members": [
+        {
+          "member": "commonMain/androidx/compose/foundation/text/BasicTextField.kt",
+          "bytes": 54838,
+          "sha256": "0b701f61532d77c2d31f0548585885558797d9503a8c9b4610033755b445be07"
+        },
+        {
+          "member": "commonMain/androidx/compose/foundation/text/TextFieldDelegate.kt",
+          "bytes": 19368,
+          "sha256": "c2768db72ee00d88a6c37acbdf71220e71249880eb1a7451a755d46b8aaa1c2e"
+        },
+        {
+          "member": "skikoMain/androidx/compose/foundation/text/input/internal/LegacyPlatformTextInputServiceAdapter.skiko.kt",
+          "bytes": 7500,
+          "sha256": "3dd44ab139c807bd10180c0274ef769edd65da6e54ad7fc54e4a63f1d94a03e4"
+        }
+      ]
+    }
+  ],
+  "runtime_executions_started": false,
+  "original_evidence_changed": false,
+  "duplicate_artifact_downloads": false
+}

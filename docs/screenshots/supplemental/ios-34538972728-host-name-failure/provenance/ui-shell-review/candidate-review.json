@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-09-11T00:12:04.629917+00:00",
+  "reviewer": "ui_shell",
+  "decision": "source_approved_for_root_integration",
+  "patch": {
+    "path": "/tmp/partydeck-ios-host-name-triage-34538972728-v1/candidate.patch",
+    "bytes": 788,
+    "sha256": "e823c0f6b744d90d30e2c00a3c855a67a2b12b9da3be111b14beab72cb67b80c"
+  },
+  "candidate": {
+    "path": "/tmp/partydeck-ios-host-name-triage-34538972728-v1/candidate/iosApp/PartyDeckUITests/PartyDeckUITests.swift",
+    "sha256": "fcc57b669ca638da439b8a42d93d518d273b2df88b625e1dfe8408bc1d68f23d"
+  },
+  "verification": "Removing precisely the three inserted waitUntil lines reproduces the pinned dd6 test byte-for-byte. The existing 10-second helper, fail-fast setup, all input actions, the exact equality assertion and all downstream roster/invitation checks are unchanged.",
+  "basis": "Independently viewed Gues and eventual complete Native Host in the same original recording. A bounded exact-value predicate is supported without changing how text is entered or assigning sole causality to the tutorial.",
+  "native_runtime_validation": "Required; no native test execution performed by this reviewer."
+}
