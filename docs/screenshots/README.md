@@ -1,10 +1,16 @@
 # Screenshot review gallery
 
-This collection preserves **4,764 original app and renderer captures**, including failed attempts, and **2,806 supplemental images**, plus four existing asset proofs. Open a collection and click any thumbnail for its full original image. [manifest.json](manifest.json) retains filenames, dimensions, hashes, source paths, exact source revisions and timestamp metadata.
+This collection preserves **4,773 original app and renderer captures**, including failed attempts, and **2,806 supplemental images**, plus four existing asset proofs. Open a collection and click any thumbnail for its full original image. [manifest.json](manifest.json) retains filenames, dimensions, hashes, source paths, exact source revisions and timestamp metadata.
 
-The latest addition preserves **six original stills from three failed runs**: **six attributed direct views, zero reviewed byte matches and zero unviewed originals**. Additional reviews of the same iOS originals retain their attribution without increasing the image counts.
+The latest addition preserves **nine original iOS shipping-profile route stills** from run 34607946293: **nine attributed direct views, zero reviewed byte matches and zero unviewed originals**. The Debug Simulator test passed (1/1); all ten stage exit codes are zero.
 
-| Latest preserved collections | Images | Review scope |
+| Latest preserved collection | Images | Review scope |
+| --- | ---: | --- |
+| [iOS shipping-profile route — run 34607946293](ios-shipping-34607946293/README.md) | 9 originals | Home, both pickers, native 2D/3D readiness, both Standard returns and Home after confirmed shared Leave. Debug Simulator scope; lower controls/details remain clipped. Native Leave was not exercised. |
+
+The preceding addition preserves **six original stills from three failed runs**: **six attributed direct views, zero reviewed byte matches and zero unviewed originals**. Additional reviews of the same iOS originals retain their attribution without increasing the image counts.
+
+| Previous preserved collections | Images | Review scope |
 | --- | ---: | --- |
 | [iOS shipping pre-entry stills — run 34577058494](ios-shipping-34577058494/README.md) | 3 originals | Home, Standard and picker before native entry; Standard is selected. The shipping test failed after first 2D readiness. No post-entry or completed-route pixel evidence. |
 | [Android 3D failed body swipe — run 34587116038](godot-android-focused-diagnostics-34587116038/README.md) | 2 originals | Optimized test-signed positions 12 and 13. The 1646 ms swipe moves 104 logical units against a 51.5-unit limit; the cause remains unresolved. Selected diagnostics only. |

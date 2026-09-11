@@ -1,0 +1,23 @@
+{
+  "scope": "effective build settings only",
+  "targets": {
+    "PartyDeck": {
+      "conditions": [
+        "DEBUG"
+      ],
+      "configuration": "Debug",
+      "platform": "iphonesimulator",
+      "info_plist": "/Users/runner/work/PartyDeck/PartyDeck/iosApp/PartyDeck/Info.plist"
+    },
+    "PartyDeckUITests": {
+      "conditions": [
+        "DEBUG",
+        "PARTYDECK_GODOT_SHIPPING_SMOKE"
+      ],
+      "configuration": "Debug",
+      "platform": "iphonesimulator",
+      "info_plist": null
+    }
+  },
+  "native_execution_performed": false
+}

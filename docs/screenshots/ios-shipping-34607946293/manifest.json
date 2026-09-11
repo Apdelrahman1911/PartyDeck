@@ -1,0 +1,1636 @@
+{
+  "schema_version": 1,
+  "id": "ios-shipping-34607946293",
+  "title": "iOS shipping-profile route — run 34607946293",
+  "run_id": 34607946293,
+  "run_number": 45,
+  "head_sha": "5d6b1f868723109fde858279b11ae64b599f2bf1",
+  "attempt": 1,
+  "review_counts": {
+    "direct": 9,
+    "byte_match": 0,
+    "unviewed": 0
+  },
+  "testcase": {
+    "identifier": "PartyDeckGodotShippingUITests/testShippingPickerOpensBothNativeTablesAndReturnsToStandard()",
+    "identifierURL": "test://com.apple.xcode/PartyDeck/PartyDeckUITests/PartyDeckGodotShippingUITests/testShippingPickerOpensBothNativeTablesAndReturnsToStandard",
+    "passCount": 1,
+    "startCount": 1,
+    "summaryCounts": {
+      "expectedFailures": 0,
+      "failedTests": 0,
+      "passedTests": 1,
+      "skippedTests": 0,
+      "totalTestCount": 1
+    },
+    "testFailedMarkerAbsent": true,
+    "testFailures": [],
+    "testSucceededMarker": true
+  },
+  "stages": {
+    "attachments_export": 0,
+    "build_settings": 0,
+    "package_archive": 0,
+    "package_verify": 0,
+    "preflight": 0,
+    "primary_exit": 0,
+    "settings_check": 0,
+    "summary_export": 0,
+    "tee": 0,
+    "xcodebuild": 0
+  },
+  "original_result_flags": {
+    "named_ui_route_evidence_complete": true,
+    "native_acceptance_or_shipping_promotion": false,
+    "native_pixel_review_complete": false
+  },
+  "shipping_activation": {
+    "accepted_shipping_modes": [
+      "2d",
+      "3d"
+    ],
+    "configured_enabled_native_modes": [
+      "2d",
+      "3d"
+    ],
+    "profile": "shipping",
+    "qualification_modes": []
+  },
+  "independent_effective_settings": {
+    "native_execution_performed": false,
+    "scope": "effective build settings only",
+    "targets": {
+      "PartyDeck": {
+        "conditions": [
+          "DEBUG"
+        ],
+        "configuration": "Debug",
+        "info_plist": "/Users/runner/work/PartyDeck/PartyDeck/iosApp/PartyDeck/Info.plist",
+        "platform": "iphonesimulator"
+      },
+      "PartyDeckUITests": {
+        "conditions": [
+          "DEBUG",
+          "PARTYDECK_GODOT_SHIPPING_SMOKE"
+        ],
+        "configuration": "Debug",
+        "info_plist": null,
+        "platform": "iphonesimulator"
+      }
+    }
+  },
+  "pixel_approved_scope": "Visible content of all nine exact source-bound original shipping-run PNGs, including both native tables and concealed Standard returns. Primary route controls are visible; the recorded scroll-viewport clipping prevents a blanket claim that every control and seat detail is fully visible.",
+  "pixel_scope_limits": [
+    "Screenshots establish visible presentation only. Route/controller identity, same-session returns, readiness and final confirmed shared Leave are attributed to the separately pinned ios_review audit.",
+    "The native Leave button is visible here; execution of that button is not established by these stills. The separately audited route used native Standard returns and final shared Leave.",
+    "No accessibility, hit testing, scroll reachability, continuous privacy, network-authority behavior, physical-device/LAN behavior, performance/timing, device signing, store delivery or shipping promotion is established.",
+    "No private card label values, invitation/admission/reconnect values, raw accessibility text trees or raw logs are reproduced in findings or captions.",
+    "No historical PNG or prior run has been substituted; original image bytes were neither copied nor transformed for display.",
+    "The image tool calls were serialized under the same live lease with before/after worker/lease identity checks, but ran outside the read worker's 128 MiB RLIMIT. No process-enforced memory claim is made for the image tool itself."
+  ],
+  "clipping_findings": [
+    {
+      "capture": "shipping-2d-native-ready",
+      "observation": "Lower seat-card content is clipped at the vertical scroll viewport boundary.",
+      "impact": "Primary fixed actions and the complete covered-hand panel/reveal control remain visible; offscreen seat content is outside this review."
+    },
+    {
+      "capture": "shipping-3d-native-ready",
+      "observation": "The right seat's secondary text is clipped at the horizontal viewport edge, and the lower Return to lobby control is only partly visible at the bottom of the vertical viewport.",
+      "impact": "The top Standard/Leave and Show hand controls and primary action labels are visible; full lower-control bounds and reachability after scrolling remain unverified."
+    }
+  ],
+  "native_leave_action_exercised": false,
+  "native_leave_coverage": "Enabled/hittable visibility only; actual successful route uses native Standard twice and final shared confirmation Leave.",
+  "native_acceptance_added_by_gallery": false,
+  "shipping_acceptance": false,
+  "package_review": null,
+  "selection_scope": "All nine reviewed original named #45 shipping-profile Debug iOS Simulator route PNGs. Source route order, exact original metadata and clipped lower-control limits are preserved. No new archive audit, native acceptance or shipping promotion is added by publication.",
+  "collector_attribution": {
+    "archive": {
+      "bytes": 77032848,
+      "path": "/tmp/partydeck-ios-shipping-34607946293/artifact-zips/10268296893-ios-focused-shipping-reports-and-simulator-app.zip",
+      "sha256": "76a76996d8155afe8e282156eb1f64e3869259e0cf50f12f9f4299b19b8ea904"
+    },
+    "artifact_id": 10268296893,
+    "members_stream_hashed_and_crc_checked": 113,
+    "selected_working_members": 47,
+    "verification_performed_by_gallery": false
+  },
+  "pixel_scope_limits_attribution": {
+    "reviewer": "/root/pixel_o1_2d",
+    "receipt": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_2d/ios45-pixel-review-v1/review.json",
+      "destination": "ios-shipping-34607946293/provenance/review/pixel/review.json",
+      "bytes": 16380,
+      "sha256": "c74a50fc62de04f1e8dba3fc49be35016ea913834f825d8478bbec50043877cd"
+    },
+    "json_pointer": "/limits",
+    "scope": "collection; native Leave visibility refers to the two native-ready captures"
+  },
+  "captures": [
+    {
+      "id": "ios-shipping-34607946293/69EB7CE3-CF16-40E7-94EF-DC51D0293C67",
+      "path": "ios-shipping-34607946293/originals/69EB7CE3-CF16-40E7-94EF-DC51D0293C67.png",
+      "collection": "ios-shipping-34607946293",
+      "role": "original_capture",
+      "source_original": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/69EB7CE3-CF16-40E7-94EF-DC51D0293C67.png",
+      "original_filename": "69EB7CE3-CF16-40E7-94EF-DC51D0293C67.png",
+      "original_archive_member": "build/ci/ios/godot-shipping/attachments/69EB7CE3-CF16-40E7-94EF-DC51D0293C67.png",
+      "source_capture_label": "shipping-home",
+      "source_order_index": 0,
+      "source_order_is_not_original_manifest_ordinal": true,
+      "original_human_readable_name": "shipping-home_0_51EE372E-52AA-42C2-B391-CC8DF123A04A.png",
+      "original_manifest_association": {
+        "configurationName": "Test Scheme Action",
+        "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+        "deviceName": "iPhone 17",
+        "exportedFileName": "69EB7CE3-CF16-40E7-94EF-DC51D0293C67.png",
+        "isAssociatedWithFailure": false,
+        "suggestedHumanReadableName": "shipping-home_0_51EE372E-52AA-42C2-B391-CC8DF123A04A.png",
+        "timestamp": 1789136772.233
+      },
+      "original_capture_timestamp": 1789136772.233,
+      "capture_timestamp_utc": "2026-09-11T14:26:12.233+00:00",
+      "bytes": 297860,
+      "sha256": "943d575aa4681eedf221bd7b41898451843cda80b02c1c43735f8d01c5c42d28",
+      "width_px": 1206,
+      "height_px": 2622,
+      "source_file_mtime_ns": 1789141840904931307,
+      "source_file_mode": "0o600",
+      "ci_run": "34607946293",
+      "run_number": 45,
+      "attempt": 1,
+      "source_revision": "5d6b1f868723109fde858279b11ae64b599f2bf1",
+      "profile": "shipping",
+      "configuration": "Debug",
+      "platform": "iOS Simulator",
+      "artifact_id": 10268296893,
+      "artifact_name": "ios-focused-shipping-reports-and-simulator-app",
+      "artifact_type": "original_shipping_profile_route_capture",
+      "case": "PartyDeckGodotShippingUITests/testShippingPickerOpensBothNativeTablesAndReturnsToStandard()",
+      "execution_outcome": "passed",
+      "isAssociatedWithFailure": false,
+      "native_acceptance_added_by_gallery": false,
+      "shipping_acceptance": false,
+      "full_archive_acceptance_added": false,
+      "original_ci_file": {
+        "path": "/Users/runner/work/PartyDeck/PartyDeck/build/ci/ios/godot-shipping/attachments/69EB7CE3-CF16-40E7-94EF-DC51D0293C67.png",
+        "bytes": 297860,
+        "sha256": "943d575aa4681eedf221bd7b41898451843cda80b02c1c43735f8d01c5c42d28"
+      },
+      "source_result": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/result.json",
+        "destination": "ios-shipping-34607946293/provenance/original-reports/result.json",
+        "bytes": 5266,
+        "sha256": "95d61ca8d74905b28a632652f904b2b20ffd6d8db76fde2e617c41419f3479d1"
+      },
+      "source_result_json_pointer": "/captures/0",
+      "source_attachment_manifest": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/manifest.json",
+        "destination": "ios-shipping-34607946293/provenance/original-reports/attachments/manifest.json",
+        "bytes": 4175,
+        "sha256": "67b994277bbc24ab05697eea5991e3aeeaf1e46352d669326372274201906e66"
+      },
+      "route_review": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_review/ios45-route-review-v1/original-route-independent-review-v1.json",
+        "destination": "ios-shipping-34607946293/provenance/review/original-route-independent-review-v1.json",
+        "bytes": 51328,
+        "sha256": "a2f5c6573f566702287f57bdeb4a40f11fd116f7b58b7c5224f8a2ba30151e52"
+      },
+      "route_review_json_pointer": "/namedCaptures/0",
+      "source_archive_integrity": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app.archive-integrity.json",
+        "destination": "ios-shipping-34607946293/provenance/collector/archive-integrity.json",
+        "bytes": 1443,
+        "sha256": "e7caae72d7d86b5e6c8470ad40539aa27700294d5385911fde2cdec01694e8bd"
+      },
+      "source_extraction_integrity": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app.integrity.json",
+        "destination": "ios-shipping-34607946293/provenance/collector/extraction-integrity.json",
+        "bytes": 1903,
+        "sha256": "7e651d6a33c0aebbafcea05c047b7c34688921d5cb2c951704be5842454b2f12"
+      },
+      "source_member_crc32": "63096e3a",
+      "parent_original_zip_sha256": "76a76996d8155afe8e282156eb1f64e3869259e0cf50f12f9f4299b19b8ea904",
+      "archive_integrity_scope": "Existing collector whole-ZIP/member SHA/CRC checks; no additional gallery archive audit.",
+      "review": {
+        "status": "direct",
+        "directly_viewed": true,
+        "reviewer": "/root/pixel_o1_2d",
+        "receipt": "ios-shipping-34607946293/provenance/review/pixel/review.json",
+        "source_receipt": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_2d/ios45-pixel-review-v1/review.json",
+          "destination": "ios-shipping-34607946293/provenance/review/pixel/review.json",
+          "bytes": 16380,
+          "sha256": "c74a50fc62de04f1e8dba3fc49be35016ea913834f825d8478bbec50043877cd"
+        },
+        "source_receipt_json_pointer": "/source_captures/0",
+        "caption_json_pointer": "/source_captures/0/pixels/caption",
+        "caption": "Shipping-run home with Host, Join, practice and How to play fully visible. The large cards are promotional artwork.",
+        "detail": "original",
+        "representative_id": "ios-shipping-34607946293/69EB7CE3-CF16-40E7-94EF-DC51D0293C67",
+        "representative_path": "ios-shipping-34607946293/originals/69EB7CE3-CF16-40E7-94EF-DC51D0293C67.png",
+        "visible": [
+          "Home branding, settings, promotional artwork and the full Host/Join/practice/How to play controls are visible."
+        ],
+        "concealment": "Promotional artwork only; no gameplay hand is shown.",
+        "limits": []
+      }
+    },
+    {
+      "id": "ios-shipping-34607946293/E997FE6F-E746-4D9F-A02F-679CC2612530",
+      "path": "ios-shipping-34607946293/originals/E997FE6F-E746-4D9F-A02F-679CC2612530.png",
+      "collection": "ios-shipping-34607946293",
+      "role": "original_capture",
+      "source_original": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/E997FE6F-E746-4D9F-A02F-679CC2612530.png",
+      "original_filename": "E997FE6F-E746-4D9F-A02F-679CC2612530.png",
+      "original_archive_member": "build/ci/ios/godot-shipping/attachments/E997FE6F-E746-4D9F-A02F-679CC2612530.png",
+      "source_capture_label": "shipping-standard-before-entry",
+      "source_order_index": 1,
+      "source_order_is_not_original_manifest_ordinal": true,
+      "original_human_readable_name": "shipping-standard-before-entry_0_9E48CADC-EB55-4A84-97FC-683085964023.png",
+      "original_manifest_association": {
+        "configurationName": "Test Scheme Action",
+        "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+        "deviceName": "iPhone 17",
+        "exportedFileName": "E997FE6F-E746-4D9F-A02F-679CC2612530.png",
+        "isAssociatedWithFailure": false,
+        "suggestedHumanReadableName": "shipping-standard-before-entry_0_9E48CADC-EB55-4A84-97FC-683085964023.png",
+        "timestamp": 1789136796.535
+      },
+      "original_capture_timestamp": 1789136796.535,
+      "capture_timestamp_utc": "2026-09-11T14:26:36.535+00:00",
+      "bytes": 241362,
+      "sha256": "79b17467901c23dc75567d549eccbed5494ec92571741be00e513127ea0d7fcf",
+      "width_px": 1206,
+      "height_px": 2622,
+      "source_file_mtime_ns": 1789141840918931306,
+      "source_file_mode": "0o600",
+      "ci_run": "34607946293",
+      "run_number": 45,
+      "attempt": 1,
+      "source_revision": "5d6b1f868723109fde858279b11ae64b599f2bf1",
+      "profile": "shipping",
+      "configuration": "Debug",
+      "platform": "iOS Simulator",
+      "artifact_id": 10268296893,
+      "artifact_name": "ios-focused-shipping-reports-and-simulator-app",
+      "artifact_type": "original_shipping_profile_route_capture",
+      "case": "PartyDeckGodotShippingUITests/testShippingPickerOpensBothNativeTablesAndReturnsToStandard()",
+      "execution_outcome": "passed",
+      "isAssociatedWithFailure": false,
+      "native_acceptance_added_by_gallery": false,
+      "shipping_acceptance": false,
+      "full_archive_acceptance_added": false,
+      "original_ci_file": {
+        "path": "/Users/runner/work/PartyDeck/PartyDeck/build/ci/ios/godot-shipping/attachments/E997FE6F-E746-4D9F-A02F-679CC2612530.png",
+        "bytes": 241362,
+        "sha256": "79b17467901c23dc75567d549eccbed5494ec92571741be00e513127ea0d7fcf"
+      },
+      "source_result": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/result.json",
+        "destination": "ios-shipping-34607946293/provenance/original-reports/result.json",
+        "bytes": 5266,
+        "sha256": "95d61ca8d74905b28a632652f904b2b20ffd6d8db76fde2e617c41419f3479d1"
+      },
+      "source_result_json_pointer": "/captures/1",
+      "source_attachment_manifest": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/manifest.json",
+        "destination": "ios-shipping-34607946293/provenance/original-reports/attachments/manifest.json",
+        "bytes": 4175,
+        "sha256": "67b994277bbc24ab05697eea5991e3aeeaf1e46352d669326372274201906e66"
+      },
+      "route_review": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_review/ios45-route-review-v1/original-route-independent-review-v1.json",
+        "destination": "ios-shipping-34607946293/provenance/review/original-route-independent-review-v1.json",
+        "bytes": 51328,
+        "sha256": "a2f5c6573f566702287f57bdeb4a40f11fd116f7b58b7c5224f8a2ba30151e52"
+      },
+      "route_review_json_pointer": "/namedCaptures/1",
+      "source_archive_integrity": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app.archive-integrity.json",
+        "destination": "ios-shipping-34607946293/provenance/collector/archive-integrity.json",
+        "bytes": 1443,
+        "sha256": "e7caae72d7d86b5e6c8470ad40539aa27700294d5385911fde2cdec01694e8bd"
+      },
+      "source_extraction_integrity": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app.integrity.json",
+        "destination": "ios-shipping-34607946293/provenance/collector/extraction-integrity.json",
+        "bytes": 1903,
+        "sha256": "7e651d6a33c0aebbafcea05c047b7c34688921d5cb2c951704be5842454b2f12"
+      },
+      "source_member_crc32": "02cec3d6",
+      "parent_original_zip_sha256": "76a76996d8155afe8e282156eb1f64e3869259e0cf50f12f9f4299b19b8ea904",
+      "archive_integrity_scope": "Existing collector whole-ZIP/member SHA/CRC checks; no additional gallery archive audit.",
+      "review": {
+        "status": "direct",
+        "directly_viewed": true,
+        "reviewer": "/root/pixel_o1_2d",
+        "receipt": "ios-shipping-34607946293/provenance/review/pixel/review.json",
+        "source_receipt": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_2d/ios45-pixel-review-v1/review.json",
+          "destination": "ios-shipping-34607946293/provenance/review/pixel/review.json",
+          "bytes": 16380,
+          "sha256": "c74a50fc62de04f1e8dba3fc49be35016ea913834f825d8478bbec50043877cd"
+        },
+        "source_receipt_json_pointer": "/source_captures/1",
+        "caption_json_pointer": "/source_captures/1/pixels/caption",
+        "caption": "Standard table before native entry with a fully visible covered five-card hand panel, Show hand and both bottom actions.",
+        "detail": "original",
+        "representative_id": "ios-shipping-34607946293/E997FE6F-E746-4D9F-A02F-679CC2612530",
+        "representative_path": "ios-shipping-34607946293/originals/E997FE6F-E746-4D9F-A02F-679CC2612530.png",
+        "visible": [
+          "Standard gameplay headings, public claim, three visible seat entries and Table style are readable.",
+          "The full five-card covered-hand panel and Show hand control fit, with Select cards and Challenge Orbit fully visible below."
+        ],
+        "concealment": "No private card fronts are visible in the covered-hand panel.",
+        "limits": []
+      }
+    },
+    {
+      "id": "ios-shipping-34607946293/9011F273-B533-4DFF-AD78-20D4EDB35852",
+      "path": "ios-shipping-34607946293/originals/9011F273-B533-4DFF-AD78-20D4EDB35852.png",
+      "collection": "ios-shipping-34607946293",
+      "role": "original_capture",
+      "source_original": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/9011F273-B533-4DFF-AD78-20D4EDB35852.png",
+      "original_filename": "9011F273-B533-4DFF-AD78-20D4EDB35852.png",
+      "original_archive_member": "build/ci/ios/godot-shipping/attachments/9011F273-B533-4DFF-AD78-20D4EDB35852.png",
+      "source_capture_label": "shipping-2d-picker",
+      "source_order_index": 2,
+      "source_order_is_not_original_manifest_ordinal": true,
+      "original_human_readable_name": "shipping-2d-picker_0_8007A296-7C5A-4D95-BEDF-747E2795BCB2.png",
+      "original_manifest_association": {
+        "configurationName": "Test Scheme Action",
+        "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+        "deviceName": "iPhone 17",
+        "exportedFileName": "9011F273-B533-4DFF-AD78-20D4EDB35852.png",
+        "isAssociatedWithFailure": false,
+        "suggestedHumanReadableName": "shipping-2d-picker_0_8007A296-7C5A-4D95-BEDF-747E2795BCB2.png",
+        "timestamp": 1789136799.988
+      },
+      "original_capture_timestamp": 1789136799.988,
+      "capture_timestamp_utc": "2026-09-11T14:26:39.988+00:00",
+      "bytes": 228986,
+      "sha256": "650897fb9866d708629175507c88afc9744eea502f8252f51eb1223d6aaa9829",
+      "width_px": 1206,
+      "height_px": 2622,
+      "source_file_mtime_ns": 1789141840913931306,
+      "source_file_mode": "0o600",
+      "ci_run": "34607946293",
+      "run_number": 45,
+      "attempt": 1,
+      "source_revision": "5d6b1f868723109fde858279b11ae64b599f2bf1",
+      "profile": "shipping",
+      "configuration": "Debug",
+      "platform": "iOS Simulator",
+      "artifact_id": 10268296893,
+      "artifact_name": "ios-focused-shipping-reports-and-simulator-app",
+      "artifact_type": "original_shipping_profile_route_capture",
+      "case": "PartyDeckGodotShippingUITests/testShippingPickerOpensBothNativeTablesAndReturnsToStandard()",
+      "execution_outcome": "passed",
+      "isAssociatedWithFailure": false,
+      "native_acceptance_added_by_gallery": false,
+      "shipping_acceptance": false,
+      "full_archive_acceptance_added": false,
+      "original_ci_file": {
+        "path": "/Users/runner/work/PartyDeck/PartyDeck/build/ci/ios/godot-shipping/attachments/9011F273-B533-4DFF-AD78-20D4EDB35852.png",
+        "bytes": 228986,
+        "sha256": "650897fb9866d708629175507c88afc9744eea502f8252f51eb1223d6aaa9829"
+      },
+      "source_result": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/result.json",
+        "destination": "ios-shipping-34607946293/provenance/original-reports/result.json",
+        "bytes": 5266,
+        "sha256": "95d61ca8d74905b28a632652f904b2b20ffd6d8db76fde2e617c41419f3479d1"
+      },
+      "source_result_json_pointer": "/captures/2",
+      "source_attachment_manifest": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/manifest.json",
+        "destination": "ios-shipping-34607946293/provenance/original-reports/attachments/manifest.json",
+        "bytes": 4175,
+        "sha256": "67b994277bbc24ab05697eea5991e3aeeaf1e46352d669326372274201906e66"
+      },
+      "route_review": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_review/ios45-route-review-v1/original-route-independent-review-v1.json",
+        "destination": "ios-shipping-34607946293/provenance/review/original-route-independent-review-v1.json",
+        "bytes": 51328,
+        "sha256": "a2f5c6573f566702287f57bdeb4a40f11fd116f7b58b7c5224f8a2ba30151e52"
+      },
+      "route_review_json_pointer": "/namedCaptures/2",
+      "source_archive_integrity": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app.archive-integrity.json",
+        "destination": "ios-shipping-34607946293/provenance/collector/archive-integrity.json",
+        "bytes": 1443,
+        "sha256": "e7caae72d7d86b5e6c8470ad40539aa27700294d5385911fde2cdec01694e8bd"
+      },
+      "source_extraction_integrity": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app.integrity.json",
+        "destination": "ios-shipping-34607946293/provenance/collector/extraction-integrity.json",
+        "bytes": 1903,
+        "sha256": "7e651d6a33c0aebbafcea05c047b7c34688921d5cb2c951704be5842454b2f12"
+      },
+      "source_member_crc32": "4105bd68",
+      "parent_original_zip_sha256": "76a76996d8155afe8e282156eb1f64e3869259e0cf50f12f9f4299b19b8ea904",
+      "archive_integrity_scope": "Existing collector whole-ZIP/member SHA/CRC checks; no additional gallery archive audit.",
+      "review": {
+        "status": "direct",
+        "directly_viewed": true,
+        "reviewer": "/root/pixel_o1_2d",
+        "receipt": "ios-shipping-34607946293/provenance/review/pixel/review.json",
+        "source_receipt": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_2d/ios45-pixel-review-v1/review.json",
+          "destination": "ios-shipping-34607946293/provenance/review/pixel/review.json",
+          "bytes": 16380,
+          "sha256": "c74a50fc62de04f1e8dba3fc49be35016ea913834f825d8478bbec50043877cd"
+        },
+        "source_receipt_json_pointer": "/source_captures/2",
+        "caption_json_pointer": "/source_captures/2/pixels/caption",
+        "caption": "Pre-entry Table style picker with Standard selected, both native options visible and Done fully displayed.",
+        "detail": "original",
+        "representative_id": "ios-shipping-34607946293/9011F273-B533-4DFF-AD78-20D4EDB35852",
+        "representative_path": "ios-shipping-34607946293/originals/9011F273-B533-4DFF-AD78-20D4EDB35852.png",
+        "visible": [
+          "The complete Table style dialog is displayed over a dimmed Standard table.",
+          "Standard is selected; 2D and 3D are unselected. Instructions and Done fit without an obvious crop."
+        ],
+        "concealment": "The visible background retains the covered-hand presentation; the dialog occludes part of the background.",
+        "limits": []
+      }
+    },
+    {
+      "id": "ios-shipping-34607946293/24F41BCD-635D-474C-A785-79F87865E7ED",
+      "path": "ios-shipping-34607946293/originals/24F41BCD-635D-474C-A785-79F87865E7ED.png",
+      "collection": "ios-shipping-34607946293",
+      "role": "original_capture",
+      "source_original": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/24F41BCD-635D-474C-A785-79F87865E7ED.png",
+      "original_filename": "24F41BCD-635D-474C-A785-79F87865E7ED.png",
+      "original_archive_member": "build/ci/ios/godot-shipping/attachments/24F41BCD-635D-474C-A785-79F87865E7ED.png",
+      "source_capture_label": "shipping-2d-native-ready",
+      "source_order_index": 3,
+      "source_order_is_not_original_manifest_ordinal": true,
+      "original_human_readable_name": "shipping-2d-native-ready_0_70F55381-6337-4C60-99E8-D51164F83FCE.png",
+      "original_manifest_association": {
+        "configurationName": "Test Scheme Action",
+        "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+        "deviceName": "iPhone 17",
+        "exportedFileName": "24F41BCD-635D-474C-A785-79F87865E7ED.png",
+        "isAssociatedWithFailure": false,
+        "suggestedHumanReadableName": "shipping-2d-native-ready_0_70F55381-6337-4C60-99E8-D51164F83FCE.png",
+        "timestamp": 1789136806.706
+      },
+      "original_capture_timestamp": 1789136806.706,
+      "capture_timestamp_utc": "2026-09-11T14:26:46.706+00:00",
+      "bytes": 256245,
+      "sha256": "e8e2870ec736698c299523156c04032cda14bf0935a39214a02a8e29f948bda3",
+      "width_px": 1206,
+      "height_px": 2622,
+      "source_file_mtime_ns": 1789141840901931307,
+      "source_file_mode": "0o600",
+      "ci_run": "34607946293",
+      "run_number": 45,
+      "attempt": 1,
+      "source_revision": "5d6b1f868723109fde858279b11ae64b599f2bf1",
+      "profile": "shipping",
+      "configuration": "Debug",
+      "platform": "iOS Simulator",
+      "artifact_id": 10268296893,
+      "artifact_name": "ios-focused-shipping-reports-and-simulator-app",
+      "artifact_type": "original_shipping_profile_route_capture",
+      "case": "PartyDeckGodotShippingUITests/testShippingPickerOpensBothNativeTablesAndReturnsToStandard()",
+      "execution_outcome": "passed",
+      "isAssociatedWithFailure": false,
+      "native_acceptance_added_by_gallery": false,
+      "shipping_acceptance": false,
+      "full_archive_acceptance_added": false,
+      "original_ci_file": {
+        "path": "/Users/runner/work/PartyDeck/PartyDeck/build/ci/ios/godot-shipping/attachments/24F41BCD-635D-474C-A785-79F87865E7ED.png",
+        "bytes": 256245,
+        "sha256": "e8e2870ec736698c299523156c04032cda14bf0935a39214a02a8e29f948bda3"
+      },
+      "source_result": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/result.json",
+        "destination": "ios-shipping-34607946293/provenance/original-reports/result.json",
+        "bytes": 5266,
+        "sha256": "95d61ca8d74905b28a632652f904b2b20ffd6d8db76fde2e617c41419f3479d1"
+      },
+      "source_result_json_pointer": "/captures/3",
+      "source_attachment_manifest": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/manifest.json",
+        "destination": "ios-shipping-34607946293/provenance/original-reports/attachments/manifest.json",
+        "bytes": 4175,
+        "sha256": "67b994277bbc24ab05697eea5991e3aeeaf1e46352d669326372274201906e66"
+      },
+      "route_review": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_review/ios45-route-review-v1/original-route-independent-review-v1.json",
+        "destination": "ios-shipping-34607946293/provenance/review/original-route-independent-review-v1.json",
+        "bytes": 51328,
+        "sha256": "a2f5c6573f566702287f57bdeb4a40f11fd116f7b58b7c5224f8a2ba30151e52"
+      },
+      "route_review_json_pointer": "/namedCaptures/3",
+      "source_archive_integrity": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app.archive-integrity.json",
+        "destination": "ios-shipping-34607946293/provenance/collector/archive-integrity.json",
+        "bytes": 1443,
+        "sha256": "e7caae72d7d86b5e6c8470ad40539aa27700294d5385911fde2cdec01694e8bd"
+      },
+      "source_extraction_integrity": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app.integrity.json",
+        "destination": "ios-shipping-34607946293/provenance/collector/extraction-integrity.json",
+        "bytes": 1903,
+        "sha256": "7e651d6a33c0aebbafcea05c047b7c34688921d5cb2c951704be5842454b2f12"
+      },
+      "source_member_crc32": "331faa0f",
+      "parent_original_zip_sha256": "76a76996d8155afe8e282156eb1f64e3869259e0cf50f12f9f4299b19b8ea904",
+      "archive_integrity_scope": "Existing collector whole-ZIP/member SHA/CRC checks; no additional gallery archive audit.",
+      "review": {
+        "status": "direct",
+        "directly_viewed": true,
+        "reviewer": "/root/pixel_o1_2d",
+        "receipt": "ios-shipping-34607946293/provenance/review/pixel/review.json",
+        "source_receipt": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_2d/ios45-pixel-review-v1/review.json",
+          "destination": "ios-shipping-34607946293/provenance/review/pixel/review.json",
+          "bytes": 16380,
+          "sha256": "c74a50fc62de04f1e8dba3fc49be35016ea913834f825d8478bbec50043877cd"
+        },
+        "source_receipt_json_pointer": "/source_captures/3",
+        "caption_json_pointer": "/source_captures/3/pixels/caption",
+        "caption": "Native 2D capture with substantive table content, covered hand and complete return, Leave, reveal and fixed action controls. Lower seat content extends beyond the visible scroll viewport.",
+        "detail": "original",
+        "representative_id": "ios-shipping-34607946293/24F41BCD-635D-474C-A785-79F87865E7ED",
+        "representative_path": "ios-shipping-34607946293/originals/24F41BCD-635D-474C-A785-79F87865E7ED.png",
+        "visible": [
+          "The shipping native header displays Your table is ready with complete Standard table and Leave table buttons.",
+          "The 2D body contains its Exit/Last Light heading, turn/public-round information, a complete covered five-card panel and Reveal my hand.",
+          "Choose cards to play and Call the bluff are fully visible in the fixed action area. The table body has a visible scrollbar and lower seat-card content meets the clipped viewport boundary."
+        ],
+        "concealment": "No private card fronts are visible; the covered-hand panel is intact.",
+        "limits": [
+          "Lower seat content and offscreen scrolling are not visually covered.",
+          "Readiness, hit testing and native/controller identity require the separate route/source evidence."
+        ]
+      }
+    },
+    {
+      "id": "ios-shipping-34607946293/72B7AB4F-B69C-499A-BF63-DB38375E9C17",
+      "path": "ios-shipping-34607946293/originals/72B7AB4F-B69C-499A-BF63-DB38375E9C17.png",
+      "collection": "ios-shipping-34607946293",
+      "role": "original_capture",
+      "source_original": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/72B7AB4F-B69C-499A-BF63-DB38375E9C17.png",
+      "original_filename": "72B7AB4F-B69C-499A-BF63-DB38375E9C17.png",
+      "original_archive_member": "build/ci/ios/godot-shipping/attachments/72B7AB4F-B69C-499A-BF63-DB38375E9C17.png",
+      "source_capture_label": "shipping-2d-standard-return",
+      "source_order_index": 4,
+      "source_order_is_not_original_manifest_ordinal": true,
+      "original_human_readable_name": "shipping-2d-standard-return_0_E7BEAE76-D8FA-468F-A11D-2B5DDCE00B16.png",
+      "original_manifest_association": {
+        "configurationName": "Test Scheme Action",
+        "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+        "deviceName": "iPhone 17",
+        "exportedFileName": "72B7AB4F-B69C-499A-BF63-DB38375E9C17.png",
+        "isAssociatedWithFailure": false,
+        "suggestedHumanReadableName": "shipping-2d-standard-return_0_E7BEAE76-D8FA-468F-A11D-2B5DDCE00B16.png",
+        "timestamp": 1789136848.059
+      },
+      "original_capture_timestamp": 1789136848.059,
+      "capture_timestamp_utc": "2026-09-11T14:27:28.059+00:00",
+      "bytes": 240593,
+      "sha256": "cfd6bdb388f918f392987273288e9b757b0cebde6aa536eef88d7e9d04845f99",
+      "width_px": 1206,
+      "height_px": 2622,
+      "source_file_mtime_ns": 1789141840906931307,
+      "source_file_mode": "0o600",
+      "ci_run": "34607946293",
+      "run_number": 45,
+      "attempt": 1,
+      "source_revision": "5d6b1f868723109fde858279b11ae64b599f2bf1",
+      "profile": "shipping",
+      "configuration": "Debug",
+      "platform": "iOS Simulator",
+      "artifact_id": 10268296893,
+      "artifact_name": "ios-focused-shipping-reports-and-simulator-app",
+      "artifact_type": "original_shipping_profile_route_capture",
+      "case": "PartyDeckGodotShippingUITests/testShippingPickerOpensBothNativeTablesAndReturnsToStandard()",
+      "execution_outcome": "passed",
+      "isAssociatedWithFailure": false,
+      "native_acceptance_added_by_gallery": false,
+      "shipping_acceptance": false,
+      "full_archive_acceptance_added": false,
+      "original_ci_file": {
+        "path": "/Users/runner/work/PartyDeck/PartyDeck/build/ci/ios/godot-shipping/attachments/72B7AB4F-B69C-499A-BF63-DB38375E9C17.png",
+        "bytes": 240593,
+        "sha256": "cfd6bdb388f918f392987273288e9b757b0cebde6aa536eef88d7e9d04845f99"
+      },
+      "source_result": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/result.json",
+        "destination": "ios-shipping-34607946293/provenance/original-reports/result.json",
+        "bytes": 5266,
+        "sha256": "95d61ca8d74905b28a632652f904b2b20ffd6d8db76fde2e617c41419f3479d1"
+      },
+      "source_result_json_pointer": "/captures/4",
+      "source_attachment_manifest": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/manifest.json",
+        "destination": "ios-shipping-34607946293/provenance/original-reports/attachments/manifest.json",
+        "bytes": 4175,
+        "sha256": "67b994277bbc24ab05697eea5991e3aeeaf1e46352d669326372274201906e66"
+      },
+      "route_review": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_review/ios45-route-review-v1/original-route-independent-review-v1.json",
+        "destination": "ios-shipping-34607946293/provenance/review/original-route-independent-review-v1.json",
+        "bytes": 51328,
+        "sha256": "a2f5c6573f566702287f57bdeb4a40f11fd116f7b58b7c5224f8a2ba30151e52"
+      },
+      "route_review_json_pointer": "/namedCaptures/4",
+      "source_archive_integrity": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app.archive-integrity.json",
+        "destination": "ios-shipping-34607946293/provenance/collector/archive-integrity.json",
+        "bytes": 1443,
+        "sha256": "e7caae72d7d86b5e6c8470ad40539aa27700294d5385911fde2cdec01694e8bd"
+      },
+      "source_extraction_integrity": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app.integrity.json",
+        "destination": "ios-shipping-34607946293/provenance/collector/extraction-integrity.json",
+        "bytes": 1903,
+        "sha256": "7e651d6a33c0aebbafcea05c047b7c34688921d5cb2c951704be5842454b2f12"
+      },
+      "source_member_crc32": "e74dfa9c",
+      "parent_original_zip_sha256": "76a76996d8155afe8e282156eb1f64e3869259e0cf50f12f9f4299b19b8ea904",
+      "archive_integrity_scope": "Existing collector whole-ZIP/member SHA/CRC checks; no additional gallery archive audit.",
+      "review": {
+        "status": "direct",
+        "directly_viewed": true,
+        "reviewer": "/root/pixel_o1_2d",
+        "receipt": "ios-shipping-34607946293/provenance/review/pixel/review.json",
+        "source_receipt": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_2d/ios45-pixel-review-v1/review.json",
+          "destination": "ios-shipping-34607946293/provenance/review/pixel/review.json",
+          "bytes": 16380,
+          "sha256": "c74a50fc62de04f1e8dba3fc49be35016ea913834f825d8478bbec50043877cd"
+        },
+        "source_receipt_json_pointer": "/source_captures/4",
+        "caption_json_pointer": "/source_captures/4/pixels/caption",
+        "caption": "Standard table after the 2D route, with the complete covered-hand panel, Show hand and both bottom actions visible.",
+        "detail": "original",
+        "representative_id": "ios-shipping-34607946293/72B7AB4F-B69C-499A-BF63-DB38375E9C17",
+        "representative_path": "ios-shipping-34607946293/originals/72B7AB4F-B69C-499A-BF63-DB38375E9C17.png",
+        "visible": [
+          "The Standard gameplay layout is displayed with its public round/claim information, Table style and the visible seat strip.",
+          "The full covered five-card hand panel, Show hand and both bottom actions fit. Native header/control chrome and the picker are absent."
+        ],
+        "concealment": "No private card fronts are visible in the restored Standard hand panel.",
+        "limits": [
+          "The image establishes the visible Standard return layout; same-session/controller identity is attributed to the separate route audit."
+        ]
+      }
+    },
+    {
+      "id": "ios-shipping-34607946293/83FDFFAA-E968-48D7-8729-BE82D51EE91C",
+      "path": "ios-shipping-34607946293/originals/83FDFFAA-E968-48D7-8729-BE82D51EE91C.png",
+      "collection": "ios-shipping-34607946293",
+      "role": "original_capture",
+      "source_original": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/83FDFFAA-E968-48D7-8729-BE82D51EE91C.png",
+      "original_filename": "83FDFFAA-E968-48D7-8729-BE82D51EE91C.png",
+      "original_archive_member": "build/ci/ios/godot-shipping/attachments/83FDFFAA-E968-48D7-8729-BE82D51EE91C.png",
+      "source_capture_label": "shipping-3d-picker",
+      "source_order_index": 5,
+      "source_order_is_not_original_manifest_ordinal": true,
+      "original_human_readable_name": "shipping-3d-picker_0_C906A744-D78A-44C3-A11D-822B375BF413.png",
+      "original_manifest_association": {
+        "configurationName": "Test Scheme Action",
+        "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+        "deviceName": "iPhone 17",
+        "exportedFileName": "83FDFFAA-E968-48D7-8729-BE82D51EE91C.png",
+        "isAssociatedWithFailure": false,
+        "suggestedHumanReadableName": "shipping-3d-picker_0_C906A744-D78A-44C3-A11D-822B375BF413.png",
+        "timestamp": 1789136851.99
+      },
+      "original_capture_timestamp": 1789136851.99,
+      "capture_timestamp_utc": "2026-09-11T14:27:31.990+00:00",
+      "bytes": 228206,
+      "sha256": "e7752bfcbd0cd619ad150ea37a367fe26f114c87918d9cc790908d2ad49d6d31",
+      "width_px": 1206,
+      "height_px": 2622,
+      "source_file_mtime_ns": 1789141840911931307,
+      "source_file_mode": "0o600",
+      "ci_run": "34607946293",
+      "run_number": 45,
+      "attempt": 1,
+      "source_revision": "5d6b1f868723109fde858279b11ae64b599f2bf1",
+      "profile": "shipping",
+      "configuration": "Debug",
+      "platform": "iOS Simulator",
+      "artifact_id": 10268296893,
+      "artifact_name": "ios-focused-shipping-reports-and-simulator-app",
+      "artifact_type": "original_shipping_profile_route_capture",
+      "case": "PartyDeckGodotShippingUITests/testShippingPickerOpensBothNativeTablesAndReturnsToStandard()",
+      "execution_outcome": "passed",
+      "isAssociatedWithFailure": false,
+      "native_acceptance_added_by_gallery": false,
+      "shipping_acceptance": false,
+      "full_archive_acceptance_added": false,
+      "original_ci_file": {
+        "path": "/Users/runner/work/PartyDeck/PartyDeck/build/ci/ios/godot-shipping/attachments/83FDFFAA-E968-48D7-8729-BE82D51EE91C.png",
+        "bytes": 228206,
+        "sha256": "e7752bfcbd0cd619ad150ea37a367fe26f114c87918d9cc790908d2ad49d6d31"
+      },
+      "source_result": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/result.json",
+        "destination": "ios-shipping-34607946293/provenance/original-reports/result.json",
+        "bytes": 5266,
+        "sha256": "95d61ca8d74905b28a632652f904b2b20ffd6d8db76fde2e617c41419f3479d1"
+      },
+      "source_result_json_pointer": "/captures/5",
+      "source_attachment_manifest": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/manifest.json",
+        "destination": "ios-shipping-34607946293/provenance/original-reports/attachments/manifest.json",
+        "bytes": 4175,
+        "sha256": "67b994277bbc24ab05697eea5991e3aeeaf1e46352d669326372274201906e66"
+      },
+      "route_review": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_review/ios45-route-review-v1/original-route-independent-review-v1.json",
+        "destination": "ios-shipping-34607946293/provenance/review/original-route-independent-review-v1.json",
+        "bytes": 51328,
+        "sha256": "a2f5c6573f566702287f57bdeb4a40f11fd116f7b58b7c5224f8a2ba30151e52"
+      },
+      "route_review_json_pointer": "/namedCaptures/5",
+      "source_archive_integrity": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app.archive-integrity.json",
+        "destination": "ios-shipping-34607946293/provenance/collector/archive-integrity.json",
+        "bytes": 1443,
+        "sha256": "e7caae72d7d86b5e6c8470ad40539aa27700294d5385911fde2cdec01694e8bd"
+      },
+      "source_extraction_integrity": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app.integrity.json",
+        "destination": "ios-shipping-34607946293/provenance/collector/extraction-integrity.json",
+        "bytes": 1903,
+        "sha256": "7e651d6a33c0aebbafcea05c047b7c34688921d5cb2c951704be5842454b2f12"
+      },
+      "source_member_crc32": "1e0d6f45",
+      "parent_original_zip_sha256": "76a76996d8155afe8e282156eb1f64e3869259e0cf50f12f9f4299b19b8ea904",
+      "archive_integrity_scope": "Existing collector whole-ZIP/member SHA/CRC checks; no additional gallery archive audit.",
+      "review": {
+        "status": "direct",
+        "directly_viewed": true,
+        "reviewer": "/root/pixel_o1_2d",
+        "receipt": "ios-shipping-34607946293/provenance/review/pixel/review.json",
+        "source_receipt": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_2d/ios45-pixel-review-v1/review.json",
+          "destination": "ios-shipping-34607946293/provenance/review/pixel/review.json",
+          "bytes": 16380,
+          "sha256": "c74a50fc62de04f1e8dba3fc49be35016ea913834f825d8478bbec50043877cd"
+        },
+        "source_receipt_json_pointer": "/source_captures/5",
+        "caption_json_pointer": "/source_captures/5/pixels/caption",
+        "caption": "Picker before the 3D route: Standard selected, both native options visible, and the full dialog including Done fits.",
+        "detail": "original",
+        "representative_id": "ios-shipping-34607946293/83FDFFAA-E968-48D7-8729-BE82D51EE91C",
+        "representative_path": "ios-shipping-34607946293/originals/83FDFFAA-E968-48D7-8729-BE82D51EE91C.png",
+        "visible": [
+          "The complete Table style dialog is displayed above the dimmed Standard table.",
+          "Standard is selected; both 2D and 3D option rows are unselected. The explanatory copy and Done are fully visible."
+        ],
+        "concealment": "The exposed background retains the covered-hand panel; part of the background is occluded by the dialog.",
+        "limits": []
+      }
+    },
+    {
+      "id": "ios-shipping-34607946293/ED435CCA-F5EF-4C4E-B89C-A006FB3F2FDF",
+      "path": "ios-shipping-34607946293/originals/ED435CCA-F5EF-4C4E-B89C-A006FB3F2FDF.png",
+      "collection": "ios-shipping-34607946293",
+      "role": "original_capture",
+      "source_original": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/ED435CCA-F5EF-4C4E-B89C-A006FB3F2FDF.png",
+      "original_filename": "ED435CCA-F5EF-4C4E-B89C-A006FB3F2FDF.png",
+      "original_archive_member": "build/ci/ios/godot-shipping/attachments/ED435CCA-F5EF-4C4E-B89C-A006FB3F2FDF.png",
+      "source_capture_label": "shipping-3d-native-ready",
+      "source_order_index": 6,
+      "source_order_is_not_original_manifest_ordinal": true,
+      "original_human_readable_name": "shipping-3d-native-ready_0_D8C1BB86-3CCA-49C8-935C-4C2F0775B7E5.png",
+      "original_manifest_association": {
+        "configurationName": "Test Scheme Action",
+        "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+        "deviceName": "iPhone 17",
+        "exportedFileName": "ED435CCA-F5EF-4C4E-B89C-A006FB3F2FDF.png",
+        "isAssociatedWithFailure": false,
+        "suggestedHumanReadableName": "shipping-3d-native-ready_0_D8C1BB86-3CCA-49C8-935C-4C2F0775B7E5.png",
+        "timestamp": 1789136881.283
+      },
+      "original_capture_timestamp": 1789136881.283,
+      "capture_timestamp_utc": "2026-09-11T14:28:01.283+00:00",
+      "bytes": 389158,
+      "sha256": "bd226f76d16d77383bf55b0eadc98c51a33cbd05f3517a37b031ea7bba57859a",
+      "width_px": 1206,
+      "height_px": 2622,
+      "source_file_mtime_ns": 1789141840921931306,
+      "source_file_mode": "0o600",
+      "ci_run": "34607946293",
+      "run_number": 45,
+      "attempt": 1,
+      "source_revision": "5d6b1f868723109fde858279b11ae64b599f2bf1",
+      "profile": "shipping",
+      "configuration": "Debug",
+      "platform": "iOS Simulator",
+      "artifact_id": 10268296893,
+      "artifact_name": "ios-focused-shipping-reports-and-simulator-app",
+      "artifact_type": "original_shipping_profile_route_capture",
+      "case": "PartyDeckGodotShippingUITests/testShippingPickerOpensBothNativeTablesAndReturnsToStandard()",
+      "execution_outcome": "passed",
+      "isAssociatedWithFailure": false,
+      "native_acceptance_added_by_gallery": false,
+      "shipping_acceptance": false,
+      "full_archive_acceptance_added": false,
+      "original_ci_file": {
+        "path": "/Users/runner/work/PartyDeck/PartyDeck/build/ci/ios/godot-shipping/attachments/ED435CCA-F5EF-4C4E-B89C-A006FB3F2FDF.png",
+        "bytes": 389158,
+        "sha256": "bd226f76d16d77383bf55b0eadc98c51a33cbd05f3517a37b031ea7bba57859a"
+      },
+      "source_result": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/result.json",
+        "destination": "ios-shipping-34607946293/provenance/original-reports/result.json",
+        "bytes": 5266,
+        "sha256": "95d61ca8d74905b28a632652f904b2b20ffd6d8db76fde2e617c41419f3479d1"
+      },
+      "source_result_json_pointer": "/captures/6",
+      "source_attachment_manifest": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/manifest.json",
+        "destination": "ios-shipping-34607946293/provenance/original-reports/attachments/manifest.json",
+        "bytes": 4175,
+        "sha256": "67b994277bbc24ab05697eea5991e3aeeaf1e46352d669326372274201906e66"
+      },
+      "route_review": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_review/ios45-route-review-v1/original-route-independent-review-v1.json",
+        "destination": "ios-shipping-34607946293/provenance/review/original-route-independent-review-v1.json",
+        "bytes": 51328,
+        "sha256": "a2f5c6573f566702287f57bdeb4a40f11fd116f7b58b7c5224f8a2ba30151e52"
+      },
+      "route_review_json_pointer": "/namedCaptures/6",
+      "source_archive_integrity": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app.archive-integrity.json",
+        "destination": "ios-shipping-34607946293/provenance/collector/archive-integrity.json",
+        "bytes": 1443,
+        "sha256": "e7caae72d7d86b5e6c8470ad40539aa27700294d5385911fde2cdec01694e8bd"
+      },
+      "source_extraction_integrity": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app.integrity.json",
+        "destination": "ios-shipping-34607946293/provenance/collector/extraction-integrity.json",
+        "bytes": 1903,
+        "sha256": "7e651d6a33c0aebbafcea05c047b7c34688921d5cb2c951704be5842454b2f12"
+      },
+      "source_member_crc32": "a8cbd585",
+      "parent_original_zip_sha256": "76a76996d8155afe8e282156eb1f64e3869259e0cf50f12f9f4299b19b8ea904",
+      "archive_integrity_scope": "Existing collector whole-ZIP/member SHA/CRC checks; no additional gallery archive audit.",
+      "review": {
+        "status": "direct",
+        "directly_viewed": true,
+        "reviewer": "/root/pixel_o1_2d",
+        "receipt": "ios-shipping-34607946293/provenance/review/pixel/review.json",
+        "source_receipt": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_2d/ios45-pixel-review-v1/review.json",
+          "destination": "ios-shipping-34607946293/provenance/review/pixel/review.json",
+          "bytes": 16380,
+          "sha256": "c74a50fc62de04f1e8dba3fc49be35016ea913834f825d8478bbec50043877cd"
+        },
+        "source_receipt_json_pointer": "/source_captures/6",
+        "caption_json_pointer": "/source_captures/6/pixels/caption",
+        "caption": "Native 3D capture with rendered table geometry and face-down cards; Standard, Leave, Show hand and the primary action labels are visible. The lower Return to lobby control and right seat details are clipped at scroll viewport edges.",
+        "detail": "original",
+        "representative_id": "ios-shipping-34607946293/ED435CCA-F5EF-4C4E-B89C-A006FB3F2FDF",
+        "representative_path": "ios-shipping-34607946293/originals/ED435CCA-F5EF-4C4E-B89C-A006FB3F2FDF.png",
+        "visible": [
+          "The native header displays Your table is ready and complete Standard table and Leave table controls.",
+          "The 3D body shows a back control, Show hand, public table/turn/claim information, a seat strip with a horizontal scrollbar and swipe hint, and a rendered perspective table with face-down cards.",
+          "The Select cards and Challenge Orbit labels are fully visible. The lower Return to lobby control is partially cut by the bottom of the scroll viewport, and the right seat's secondary text is cut at the horizontal viewport edge."
+        ],
+        "concealment": "The visible table and hand cards are face down; no private card fronts are visible.",
+        "limits": [
+          "The lower Return to lobby control is only partially visible in this still; its full bounds and access after scrolling are not established.",
+          "The right seat's secondary text and other offscreen seat content are not fully covered.",
+          "Pixels do not establish hit testing, native engine/controller identity or successful navigation."
+        ]
+      }
+    },
+    {
+      "id": "ios-shipping-34607946293/A418AA3C-813F-4EB8-A6AF-4BFD79782223",
+      "path": "ios-shipping-34607946293/originals/A418AA3C-813F-4EB8-A6AF-4BFD79782223.png",
+      "collection": "ios-shipping-34607946293",
+      "role": "original_capture",
+      "source_original": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/A418AA3C-813F-4EB8-A6AF-4BFD79782223.png",
+      "original_filename": "A418AA3C-813F-4EB8-A6AF-4BFD79782223.png",
+      "original_archive_member": "build/ci/ios/godot-shipping/attachments/A418AA3C-813F-4EB8-A6AF-4BFD79782223.png",
+      "source_capture_label": "shipping-3d-standard-return",
+      "source_order_index": 7,
+      "source_order_is_not_original_manifest_ordinal": true,
+      "original_human_readable_name": "shipping-3d-standard-return_0_7A1F0F90-F379-4489-AA9A-D5259D0A97D9.png",
+      "original_manifest_association": {
+        "configurationName": "Test Scheme Action",
+        "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+        "deviceName": "iPhone 17",
+        "exportedFileName": "A418AA3C-813F-4EB8-A6AF-4BFD79782223.png",
+        "isAssociatedWithFailure": false,
+        "suggestedHumanReadableName": "shipping-3d-standard-return_0_7A1F0F90-F379-4489-AA9A-D5259D0A97D9.png",
+        "timestamp": 1789136922.377
+      },
+      "original_capture_timestamp": 1789136922.377,
+      "capture_timestamp_utc": "2026-09-11T14:28:42.377+00:00",
+      "bytes": 241317,
+      "sha256": "946c5dd9d489deaa94d5a9c19beee69f9e79178c595807f216d749a641654dcf",
+      "width_px": 1206,
+      "height_px": 2622,
+      "source_file_mtime_ns": 1789141840916931306,
+      "source_file_mode": "0o600",
+      "ci_run": "34607946293",
+      "run_number": 45,
+      "attempt": 1,
+      "source_revision": "5d6b1f868723109fde858279b11ae64b599f2bf1",
+      "profile": "shipping",
+      "configuration": "Debug",
+      "platform": "iOS Simulator",
+      "artifact_id": 10268296893,
+      "artifact_name": "ios-focused-shipping-reports-and-simulator-app",
+      "artifact_type": "original_shipping_profile_route_capture",
+      "case": "PartyDeckGodotShippingUITests/testShippingPickerOpensBothNativeTablesAndReturnsToStandard()",
+      "execution_outcome": "passed",
+      "isAssociatedWithFailure": false,
+      "native_acceptance_added_by_gallery": false,
+      "shipping_acceptance": false,
+      "full_archive_acceptance_added": false,
+      "original_ci_file": {
+        "path": "/Users/runner/work/PartyDeck/PartyDeck/build/ci/ios/godot-shipping/attachments/A418AA3C-813F-4EB8-A6AF-4BFD79782223.png",
+        "bytes": 241317,
+        "sha256": "946c5dd9d489deaa94d5a9c19beee69f9e79178c595807f216d749a641654dcf"
+      },
+      "source_result": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/result.json",
+        "destination": "ios-shipping-34607946293/provenance/original-reports/result.json",
+        "bytes": 5266,
+        "sha256": "95d61ca8d74905b28a632652f904b2b20ffd6d8db76fde2e617c41419f3479d1"
+      },
+      "source_result_json_pointer": "/captures/7",
+      "source_attachment_manifest": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/manifest.json",
+        "destination": "ios-shipping-34607946293/provenance/original-reports/attachments/manifest.json",
+        "bytes": 4175,
+        "sha256": "67b994277bbc24ab05697eea5991e3aeeaf1e46352d669326372274201906e66"
+      },
+      "route_review": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_review/ios45-route-review-v1/original-route-independent-review-v1.json",
+        "destination": "ios-shipping-34607946293/provenance/review/original-route-independent-review-v1.json",
+        "bytes": 51328,
+        "sha256": "a2f5c6573f566702287f57bdeb4a40f11fd116f7b58b7c5224f8a2ba30151e52"
+      },
+      "route_review_json_pointer": "/namedCaptures/7",
+      "source_archive_integrity": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app.archive-integrity.json",
+        "destination": "ios-shipping-34607946293/provenance/collector/archive-integrity.json",
+        "bytes": 1443,
+        "sha256": "e7caae72d7d86b5e6c8470ad40539aa27700294d5385911fde2cdec01694e8bd"
+      },
+      "source_extraction_integrity": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app.integrity.json",
+        "destination": "ios-shipping-34607946293/provenance/collector/extraction-integrity.json",
+        "bytes": 1903,
+        "sha256": "7e651d6a33c0aebbafcea05c047b7c34688921d5cb2c951704be5842454b2f12"
+      },
+      "source_member_crc32": "2305a5ef",
+      "parent_original_zip_sha256": "76a76996d8155afe8e282156eb1f64e3869259e0cf50f12f9f4299b19b8ea904",
+      "archive_integrity_scope": "Existing collector whole-ZIP/member SHA/CRC checks; no additional gallery archive audit.",
+      "review": {
+        "status": "direct",
+        "directly_viewed": true,
+        "reviewer": "/root/pixel_o1_2d",
+        "receipt": "ios-shipping-34607946293/provenance/review/pixel/review.json",
+        "source_receipt": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_2d/ios45-pixel-review-v1/review.json",
+          "destination": "ios-shipping-34607946293/provenance/review/pixel/review.json",
+          "bytes": 16380,
+          "sha256": "c74a50fc62de04f1e8dba3fc49be35016ea913834f825d8478bbec50043877cd"
+        },
+        "source_receipt_json_pointer": "/source_captures/7",
+        "caption_json_pointer": "/source_captures/7/pixels/caption",
+        "caption": "Standard table after the 3D route, with the covered-hand panel and complete Show hand and bottom actions visible.",
+        "detail": "original",
+        "representative_id": "ios-shipping-34607946293/A418AA3C-813F-4EB8-A6AF-4BFD79782223",
+        "representative_path": "ios-shipping-34607946293/originals/A418AA3C-813F-4EB8-A6AF-4BFD79782223.png",
+        "visible": [
+          "The Standard gameplay page is displayed with its public round/claim information and Table style.",
+          "The full covered five-card hand panel, Show hand and both bottom actions fit. Native chrome and picker overlays are absent."
+        ],
+        "concealment": "No private card fronts are visible in the Standard return panel.",
+        "limits": [
+          "The separate route audit supplies the same-session/controller attribution; pixels alone do not."
+        ]
+      }
+    },
+    {
+      "id": "ios-shipping-34607946293/751C5819-B72B-4EF0-A9E3-4CED3820921C",
+      "path": "ios-shipping-34607946293/originals/751C5819-B72B-4EF0-A9E3-4CED3820921C.png",
+      "collection": "ios-shipping-34607946293",
+      "role": "original_capture",
+      "source_original": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/751C5819-B72B-4EF0-A9E3-4CED3820921C.png",
+      "original_filename": "751C5819-B72B-4EF0-A9E3-4CED3820921C.png",
+      "original_archive_member": "build/ci/ios/godot-shipping/attachments/751C5819-B72B-4EF0-A9E3-4CED3820921C.png",
+      "source_capture_label": "shipping-home-after-leave",
+      "source_order_index": 8,
+      "source_order_is_not_original_manifest_ordinal": true,
+      "original_human_readable_name": "shipping-home-after-leave_0_1B9E682F-81BA-4204-BF7D-66240445E6BE.png",
+      "original_manifest_association": {
+        "configurationName": "Test Scheme Action",
+        "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+        "deviceName": "iPhone 17",
+        "exportedFileName": "751C5819-B72B-4EF0-A9E3-4CED3820921C.png",
+        "isAssociatedWithFailure": false,
+        "suggestedHumanReadableName": "shipping-home-after-leave_0_1B9E682F-81BA-4204-BF7D-66240445E6BE.png",
+        "timestamp": 1789136925.249
+      },
+      "original_capture_timestamp": 1789136925.249,
+      "capture_timestamp_utc": "2026-09-11T14:28:45.249+00:00",
+      "bytes": 297858,
+      "sha256": "d706a2cc4f54b892412f1f637ec2d9c057d3654c6e90b29a3deeb733fe4e067d",
+      "width_px": 1206,
+      "height_px": 2622,
+      "source_file_mtime_ns": 1789141840909931307,
+      "source_file_mode": "0o600",
+      "ci_run": "34607946293",
+      "run_number": 45,
+      "attempt": 1,
+      "source_revision": "5d6b1f868723109fde858279b11ae64b599f2bf1",
+      "profile": "shipping",
+      "configuration": "Debug",
+      "platform": "iOS Simulator",
+      "artifact_id": 10268296893,
+      "artifact_name": "ios-focused-shipping-reports-and-simulator-app",
+      "artifact_type": "original_shipping_profile_route_capture",
+      "case": "PartyDeckGodotShippingUITests/testShippingPickerOpensBothNativeTablesAndReturnsToStandard()",
+      "execution_outcome": "passed",
+      "isAssociatedWithFailure": false,
+      "native_acceptance_added_by_gallery": false,
+      "shipping_acceptance": false,
+      "full_archive_acceptance_added": false,
+      "original_ci_file": {
+        "path": "/Users/runner/work/PartyDeck/PartyDeck/build/ci/ios/godot-shipping/attachments/751C5819-B72B-4EF0-A9E3-4CED3820921C.png",
+        "bytes": 297858,
+        "sha256": "d706a2cc4f54b892412f1f637ec2d9c057d3654c6e90b29a3deeb733fe4e067d"
+      },
+      "source_result": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/result.json",
+        "destination": "ios-shipping-34607946293/provenance/original-reports/result.json",
+        "bytes": 5266,
+        "sha256": "95d61ca8d74905b28a632652f904b2b20ffd6d8db76fde2e617c41419f3479d1"
+      },
+      "source_result_json_pointer": "/captures/8",
+      "source_attachment_manifest": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/manifest.json",
+        "destination": "ios-shipping-34607946293/provenance/original-reports/attachments/manifest.json",
+        "bytes": 4175,
+        "sha256": "67b994277bbc24ab05697eea5991e3aeeaf1e46352d669326372274201906e66"
+      },
+      "route_review": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_review/ios45-route-review-v1/original-route-independent-review-v1.json",
+        "destination": "ios-shipping-34607946293/provenance/review/original-route-independent-review-v1.json",
+        "bytes": 51328,
+        "sha256": "a2f5c6573f566702287f57bdeb4a40f11fd116f7b58b7c5224f8a2ba30151e52"
+      },
+      "route_review_json_pointer": "/namedCaptures/8",
+      "source_archive_integrity": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app.archive-integrity.json",
+        "destination": "ios-shipping-34607946293/provenance/collector/archive-integrity.json",
+        "bytes": 1443,
+        "sha256": "e7caae72d7d86b5e6c8470ad40539aa27700294d5385911fde2cdec01694e8bd"
+      },
+      "source_extraction_integrity": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app.integrity.json",
+        "destination": "ios-shipping-34607946293/provenance/collector/extraction-integrity.json",
+        "bytes": 1903,
+        "sha256": "7e651d6a33c0aebbafcea05c047b7c34688921d5cb2c951704be5842454b2f12"
+      },
+      "source_member_crc32": "c9d4532f",
+      "parent_original_zip_sha256": "76a76996d8155afe8e282156eb1f64e3869259e0cf50f12f9f4299b19b8ea904",
+      "archive_integrity_scope": "Existing collector whole-ZIP/member SHA/CRC checks; no additional gallery archive audit.",
+      "review": {
+        "status": "direct",
+        "directly_viewed": true,
+        "reviewer": "/root/pixel_o1_2d",
+        "receipt": "ios-shipping-34607946293/provenance/review/pixel/review.json",
+        "source_receipt": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_2d/ios45-pixel-review-v1/review.json",
+          "destination": "ios-shipping-34607946293/provenance/review/pixel/review.json",
+          "bytes": 16380,
+          "sha256": "c74a50fc62de04f1e8dba3fc49be35016ea913834f825d8478bbec50043877cd"
+        },
+        "source_receipt_json_pointer": "/source_captures/8",
+        "caption_json_pointer": "/source_captures/8/pixels/caption",
+        "caption": "Final Home capture after the route's shared Leave step, with the full home actions visible and no native or picker overlay.",
+        "detail": "original",
+        "representative_id": "ios-shipping-34607946293/751C5819-B72B-4EF0-A9E3-4CED3820921C",
+        "representative_path": "ios-shipping-34607946293/originals/751C5819-B72B-4EF0-A9E3-4CED3820921C.png",
+        "visible": [
+          "The Home page shows its branding, settings, promotional artwork and complete Host, Join, practice and How to play controls.",
+          "No native table chrome, picker or leave-confirmation dialog is visible."
+        ],
+        "concealment": "Only promotional artwork is present; no gameplay private hand is shown.",
+        "limits": [
+          "The final shared Leave interaction is established by the separate route audit, not by this Home image alone."
+        ]
+      }
+    }
+  ],
+  "preserved_source_files": [
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/provenance/review/original-route-independent-review-v1.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_review/ios45-route-review-v1/original-route-independent-review-v1.json",
+      "physical_source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_review/ios45-route-review-v1/original-route-independent-review-v1.json",
+      "bytes": 51328,
+      "sha256": "a2f5c6573f566702287f57bdeb4a40f11fd116f7b58b7c5224f8a2ba30151e52",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5778839,
+        "bytes": 51328,
+        "mtime_ns": 1789143753000817337,
+        "ctime_ns": 1789143753001817337,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/provenance/review/pixel/review.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_2d/ios45-pixel-review-v1/review.json",
+      "physical_source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_2d/ios45-pixel-review-v1/review.json",
+      "bytes": 16380,
+      "sha256": "c74a50fc62de04f1e8dba3fc49be35016ea913834f825d8478bbec50043877cd",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5778961,
+        "bytes": 16380,
+        "mtime_ns": 1789145951575686292,
+        "ctime_ns": 1789145951583686291,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/provenance/review/pixel/FROZEN.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_2d/ios45-pixel-review-v1/FROZEN.json",
+      "physical_source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_2d/ios45-pixel-review-v1/FROZEN.json",
+      "bytes": 3411,
+      "sha256": "c9f4180fc8ca66fb7b3d886c3c86831e7aaab42fd4bec06190a2c885cbc2b31d",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5778962,
+        "bytes": 3411,
+        "mtime_ns": 1789145951581686292,
+        "ctime_ns": 1789145951583686291,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/provenance/review/pixel/read-view-plan-v1.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_2d/ios45-pixel-review-v1/read-view-plan-v1.json",
+      "physical_source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_2d/ios45-pixel-review-v1/read-view-plan-v1.json",
+      "bytes": 26192,
+      "sha256": "84646f7d0f6e7adf475b0c6d0c60c1d50db2f96b50dad40b0947ccd4e95c860d",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5778900,
+        "bytes": 26192,
+        "mtime_ns": 1789144795427755204,
+        "ctime_ns": 1789145951583686291,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/provenance/review/pixel/integrity-and-full-decode-v1.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_2d/ios45-pixel-review-v1/integrity-and-full-decode-v1.json",
+      "physical_source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_2d/ios45-pixel-review-v1/integrity-and-full-decode-v1.json",
+      "bytes": 11197,
+      "sha256": "9b862795b5b070b9f3d0ba976a97ffe583a25cee5c60ffbfb47b4a7488bd0781",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5778905,
+        "bytes": 11197,
+        "mtime_ns": 1789144938768746660,
+        "ctime_ns": 1789145951583686291,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/provenance/review/pixel/views-complete-v1.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_2d/ios45-pixel-review-v1/views-complete-v1.json",
+      "physical_source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_2d/ios45-pixel-review-v1/views-complete-v1.json",
+      "bytes": 10512,
+      "sha256": "91c3897804f10e9f0ce808754168bdcb90bcf14fd36fda06f630f74de6e73770",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5778908,
+        "bytes": 10512,
+        "mtime_ns": 1789145275714726576,
+        "ctime_ns": 1789145951583686291,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/provenance/review/pixel/worker-completion-v1.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_2d/ios45-pixel-review-v1/worker-completion-v1.json",
+      "physical_source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_2d/ios45-pixel-review-v1/worker-completion-v1.json",
+      "bytes": 632,
+      "sha256": "a53063c7f7d3c5252410df3bf0016353dd449ea799ce1aee13bf70774ad8ab39",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5778909,
+        "bytes": 632,
+        "mtime_ns": 1789145275954726562,
+        "ctime_ns": 1789145951583686291,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/provenance/review/pixel/gate-closure-v1.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_2d/ios45-pixel-review-v1/gate-closure-v1.json",
+      "physical_source": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_2d/ios45-pixel-review-v1/gate-closure-v1.json",
+      "bytes": 9656,
+      "sha256": "5872d31013f5537772065ad02eaeb98a4d7a2a6c7f99aaeb8a54e446c44e4ca9",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5778925,
+        "bytes": 9656,
+        "mtime_ns": 1789145378549720447,
+        "ctime_ns": 1789145951583686291,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/provenance/collector/archive-integrity.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app.archive-integrity.json",
+      "physical_source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app.archive-integrity.json",
+      "bytes": 1443,
+      "sha256": "e7caae72d7d86b5e6c8470ad40539aa27700294d5385911fde2cdec01694e8bd",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5778750,
+        "bytes": 1443,
+        "mtime_ns": 1789141839316931402,
+        "ctime_ns": 1789142279844905144,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/provenance/collector/extraction-integrity.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app.integrity.json",
+      "physical_source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app.integrity.json",
+      "bytes": 1903,
+      "sha256": "7e651d6a33c0aebbafcea05c047b7c34688921d5cb2c951704be5842454b2f12",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5778757,
+        "bytes": 1903,
+        "mtime_ns": 1789141841087931296,
+        "ctime_ns": 1789142279845905144,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/provenance/collector/collection-complete.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/collection-complete.json",
+      "physical_source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/collection-complete.json",
+      "bytes": 953,
+      "sha256": "9b2186c6653eb33794710ab47c8c23b150b80c6780c528f73787044566c6b601",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5778763,
+        "bytes": 953,
+        "mtime_ns": 1789141861981930051,
+        "ctime_ns": 1789142279843905144,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/provenance/collector/terminal-run.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/api-snapshots/20260911T155100.404093Z-run.json",
+      "physical_source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/api-snapshots/20260911T155100.404093Z-run.json",
+      "bytes": 13302,
+      "sha256": "6216ffbf815bcf2b64aefc746205be301074efdcb036f0c460e7ab261c88a631",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5778760,
+        "bytes": 13302,
+        "mtime_ns": 1789141861838930059,
+        "ctime_ns": 1789142279843905144,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/provenance/collector/terminal-jobs.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/api-snapshots/20260911T155100.404093Z-jobs.json",
+      "physical_source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/api-snapshots/20260911T155100.404093Z-jobs.json",
+      "bytes": 9333,
+      "sha256": "9407d2b9640be0f73b987d544a10cd3780be22973d1dbb66aa1bba3d7277ff22",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5778761,
+        "bytes": 9333,
+        "mtime_ns": 1789141861976930051,
+        "ctime_ns": 1789142279843905144,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/provenance/collector/terminal-artifacts.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/api-snapshots/20260911T155100.404093Z-artifacts.json",
+      "physical_source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/api-snapshots/20260911T155100.404093Z-artifacts.json",
+      "bytes": 2207,
+      "sha256": "2ddcc078346ef88efe323ca4818976db2846cf85fe9e5933c052efade41210b7",
+      "role": "review_or_source_receipt",
+      "source_stat": {
+        "device": 24,
+        "inode": 5778759,
+        "bytes": 2207,
+        "mtime_ns": 1789141861837930059,
+        "ctime_ns": 1789142279843905144,
+        "mode": "0o444"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/provenance/original-reports/result.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/result.json",
+      "physical_source": "/tmp/partydeck-ios-shipping-34607946293/extracted/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/result.json",
+      "bytes": 5266,
+      "sha256": "95d61ca8d74905b28a632652f904b2b20ffd6d8db76fde2e617c41419f3479d1",
+      "role": "original_capture_companion",
+      "source_stat": {
+        "device": 27,
+        "inode": 93811,
+        "bytes": 5266,
+        "mtime_ns": 1789141840922931306,
+        "ctime_ns": 1789141840922931306,
+        "mode": "0o600"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/provenance/original-reports/test-summary.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/test-summary.json",
+      "physical_source": "/tmp/partydeck-ios-shipping-34607946293/extracted/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/test-summary.json",
+      "bytes": 966,
+      "sha256": "7233d516d6c9aca6188a58c1e6bbb2b667827357a886cb655cae615eb6e89d9a",
+      "role": "original_capture_companion",
+      "source_stat": {
+        "device": 27,
+        "inode": 93818,
+        "bytes": 966,
+        "mtime_ns": 1789141840923931306,
+        "ctime_ns": 1789141840923931306,
+        "mode": "0o600"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/provenance/original-reports/stage-exits.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/stage-exits.json",
+      "physical_source": "/tmp/partydeck-ios-shipping-34607946293/extracted/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/stage-exits.json",
+      "bytes": 216,
+      "sha256": "73d9e3d055f6d9c0ccce23f70cd1d0c9069854e88f3adf08ce42412a07504403",
+      "role": "original_capture_companion",
+      "source_stat": {
+        "device": 27,
+        "inode": 93816,
+        "bytes": 216,
+        "mtime_ns": 1789141840923931306,
+        "ctime_ns": 1789141840923931306,
+        "mode": "0o600"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/provenance/original-reports/attachments/manifest.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/manifest.json",
+      "physical_source": "/tmp/partydeck-ios-shipping-34607946293/extracted/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/manifest.json",
+      "bytes": 4175,
+      "sha256": "67b994277bbc24ab05697eea5991e3aeeaf1e46352d669326372274201906e66",
+      "role": "original_capture_companion",
+      "source_stat": {
+        "device": 27,
+        "inode": 93804,
+        "bytes": 4175,
+        "mtime_ns": 1789141840921931306,
+        "ctime_ns": 1789141840921931306,
+        "mode": "0o600"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/provenance/original-reports/source-preflight.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/source-preflight.json",
+      "physical_source": "/tmp/partydeck-ios-shipping-34607946293/extracted/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/source-preflight.json",
+      "bytes": 3760,
+      "sha256": "f248b5747a5a6503f2e9aa792d747e466d4b6ca8ac5e63dfd81ca7da92fac835",
+      "role": "original_capture_companion",
+      "source_stat": {
+        "device": 27,
+        "inode": 93815,
+        "bytes": 3760,
+        "mtime_ns": 1789141840923931306,
+        "ctime_ns": 1789141840923931306,
+        "mode": "0o600"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/provenance/original-reports/settings-check.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/settings-check.json",
+      "physical_source": "/tmp/partydeck-ios-shipping-34607946293/extracted/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/settings-check.json",
+      "bytes": 552,
+      "sha256": "785b93e585e1663835bd722f439568d7a31bf38ef5f787aecd73a0cd6e918d73",
+      "role": "original_capture_companion",
+      "source_stat": {
+        "device": 27,
+        "inode": 93812,
+        "bytes": 552,
+        "mtime_ns": 1789141840923931306,
+        "ctime_ns": 1789141840923931306,
+        "mode": "0o600"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/provenance/original-reports/godot-shipping-link.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/godot-shipping-link.json",
+      "physical_source": "/tmp/partydeck-ios-shipping-34607946293/extracted/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/godot-shipping-link.json",
+      "bytes": 12191,
+      "sha256": "833a4b37199abcb72c6a6876f083d6c242fda8320801c8fc971515422b004e31",
+      "role": "original_capture_companion",
+      "source_stat": {
+        "device": 27,
+        "inode": 93806,
+        "bytes": 12191,
+        "mtime_ns": 1789141840922931306,
+        "ctime_ns": 1789141840922931306,
+        "mode": "0o600"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/provenance/original-reports/DerivedData/Build/Products/Debug-iphonesimulator/PartyDeckGodotInputs/inputs.json",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/DerivedData/Build/Products/Debug-iphonesimulator/PartyDeckGodotInputs/inputs.json",
+      "physical_source": "/tmp/partydeck-ios-shipping-34607946293/extracted/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/DerivedData/Build/Products/Debug-iphonesimulator/PartyDeckGodotInputs/inputs.json",
+      "bytes": 9161,
+      "sha256": "2a18313ed67ad3ee4c7c10b27b77435946cb2b787e3d51568ad4144b3dc6fd66",
+      "role": "original_capture_companion",
+      "source_stat": {
+        "device": 27,
+        "inode": 93791,
+        "bytes": 9161,
+        "mtime_ns": 1789141840520931330,
+        "ctime_ns": 1789141840520931330,
+        "mode": "0o600"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/originals/69EB7CE3-CF16-40E7-94EF-DC51D0293C67.png",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/69EB7CE3-CF16-40E7-94EF-DC51D0293C67.png",
+      "physical_source": "/tmp/partydeck-ios-shipping-34607946293/extracted/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/69EB7CE3-CF16-40E7-94EF-DC51D0293C67.png",
+      "bytes": 297860,
+      "sha256": "943d575aa4681eedf221bd7b41898451843cda80b02c1c43735f8d01c5c42d28",
+      "role": "original_capture",
+      "source_stat": {
+        "device": 27,
+        "inode": 93794,
+        "bytes": 297860,
+        "mtime_ns": 1789141840904931307,
+        "ctime_ns": 1789141840904931307,
+        "mode": "0o600"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/originals/E997FE6F-E746-4D9F-A02F-679CC2612530.png",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/E997FE6F-E746-4D9F-A02F-679CC2612530.png",
+      "physical_source": "/tmp/partydeck-ios-shipping-34607946293/extracted/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/E997FE6F-E746-4D9F-A02F-679CC2612530.png",
+      "bytes": 241362,
+      "sha256": "79b17467901c23dc75567d549eccbed5494ec92571741be00e513127ea0d7fcf",
+      "role": "original_capture",
+      "source_stat": {
+        "device": 27,
+        "inode": 93800,
+        "bytes": 241362,
+        "mtime_ns": 1789141840918931306,
+        "ctime_ns": 1789141840918931306,
+        "mode": "0o600"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/originals/9011F273-B533-4DFF-AD78-20D4EDB35852.png",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/9011F273-B533-4DFF-AD78-20D4EDB35852.png",
+      "physical_source": "/tmp/partydeck-ios-shipping-34607946293/extracted/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/9011F273-B533-4DFF-AD78-20D4EDB35852.png",
+      "bytes": 228986,
+      "sha256": "650897fb9866d708629175507c88afc9744eea502f8252f51eb1223d6aaa9829",
+      "role": "original_capture",
+      "source_stat": {
+        "device": 27,
+        "inode": 93798,
+        "bytes": 228986,
+        "mtime_ns": 1789141840913931306,
+        "ctime_ns": 1789141840913931306,
+        "mode": "0o600"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/originals/24F41BCD-635D-474C-A785-79F87865E7ED.png",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/24F41BCD-635D-474C-A785-79F87865E7ED.png",
+      "physical_source": "/tmp/partydeck-ios-shipping-34607946293/extracted/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/24F41BCD-635D-474C-A785-79F87865E7ED.png",
+      "bytes": 256245,
+      "sha256": "e8e2870ec736698c299523156c04032cda14bf0935a39214a02a8e29f948bda3",
+      "role": "original_capture",
+      "source_stat": {
+        "device": 27,
+        "inode": 93793,
+        "bytes": 256245,
+        "mtime_ns": 1789141840901931307,
+        "ctime_ns": 1789141840901931307,
+        "mode": "0o600"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/originals/72B7AB4F-B69C-499A-BF63-DB38375E9C17.png",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/72B7AB4F-B69C-499A-BF63-DB38375E9C17.png",
+      "physical_source": "/tmp/partydeck-ios-shipping-34607946293/extracted/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/72B7AB4F-B69C-499A-BF63-DB38375E9C17.png",
+      "bytes": 240593,
+      "sha256": "cfd6bdb388f918f392987273288e9b757b0cebde6aa536eef88d7e9d04845f99",
+      "role": "original_capture",
+      "source_stat": {
+        "device": 27,
+        "inode": 93795,
+        "bytes": 240593,
+        "mtime_ns": 1789141840906931307,
+        "ctime_ns": 1789141840906931307,
+        "mode": "0o600"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/originals/83FDFFAA-E968-48D7-8729-BE82D51EE91C.png",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/83FDFFAA-E968-48D7-8729-BE82D51EE91C.png",
+      "physical_source": "/tmp/partydeck-ios-shipping-34607946293/extracted/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/83FDFFAA-E968-48D7-8729-BE82D51EE91C.png",
+      "bytes": 228206,
+      "sha256": "e7752bfcbd0cd619ad150ea37a367fe26f114c87918d9cc790908d2ad49d6d31",
+      "role": "original_capture",
+      "source_stat": {
+        "device": 27,
+        "inode": 93797,
+        "bytes": 228206,
+        "mtime_ns": 1789141840911931307,
+        "ctime_ns": 1789141840911931307,
+        "mode": "0o600"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/originals/ED435CCA-F5EF-4C4E-B89C-A006FB3F2FDF.png",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/ED435CCA-F5EF-4C4E-B89C-A006FB3F2FDF.png",
+      "physical_source": "/tmp/partydeck-ios-shipping-34607946293/extracted/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/ED435CCA-F5EF-4C4E-B89C-A006FB3F2FDF.png",
+      "bytes": 389158,
+      "sha256": "bd226f76d16d77383bf55b0eadc98c51a33cbd05f3517a37b031ea7bba57859a",
+      "role": "original_capture",
+      "source_stat": {
+        "device": 27,
+        "inode": 93801,
+        "bytes": 389158,
+        "mtime_ns": 1789141840921931306,
+        "ctime_ns": 1789141840921931306,
+        "mode": "0o600"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/originals/A418AA3C-813F-4EB8-A6AF-4BFD79782223.png",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/A418AA3C-813F-4EB8-A6AF-4BFD79782223.png",
+      "physical_source": "/tmp/partydeck-ios-shipping-34607946293/extracted/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/A418AA3C-813F-4EB8-A6AF-4BFD79782223.png",
+      "bytes": 241317,
+      "sha256": "946c5dd9d489deaa94d5a9c19beee69f9e79178c595807f216d749a641654dcf",
+      "role": "original_capture",
+      "source_stat": {
+        "device": 27,
+        "inode": 93799,
+        "bytes": 241317,
+        "mtime_ns": 1789141840916931306,
+        "ctime_ns": 1789141840916931306,
+        "mode": "0o600"
+      }
+    },
+    {
+      "path": "docs/screenshots/ios-shipping-34607946293/originals/751C5819-B72B-4EF0-A9E3-4CED3820921C.png",
+      "source": "/root/projects/PartyDeck/artifacts/evidence-storage/34607946293/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/751C5819-B72B-4EF0-A9E3-4CED3820921C.png",
+      "physical_source": "/tmp/partydeck-ios-shipping-34607946293/extracted/ios-focused-shipping-reports-and-simulator-app/build/ci/ios/godot-shipping/attachments/751C5819-B72B-4EF0-A9E3-4CED3820921C.png",
+      "bytes": 297858,
+      "sha256": "d706a2cc4f54b892412f1f637ec2d9c057d3654c6e90b29a3deeb733fe4e067d",
+      "role": "original_capture",
+      "source_stat": {
+        "device": 27,
+        "inode": 93796,
+        "bytes": 297858,
+        "mtime_ns": 1789141840909931307,
+        "ctime_ns": 1789141840909931307,
+        "mode": "0o600"
+      }
+    }
+  ],
+  "new_pixel_views_by_publisher": 0
+}
