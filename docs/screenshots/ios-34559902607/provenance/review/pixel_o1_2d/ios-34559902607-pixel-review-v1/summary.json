@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/pixel_o1_2d",
+  "run_id": 34559902607,
+  "attempt": 1,
+  "source_revision": "39405bb0fd6ba0214e70ed251aab1f9f571dc9aa",
+  "case_identifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+  "decision": "approved_with_scope_limits",
+  "approved_scope": "The assigned current-run original screenshots show real native 2D gameplay, visible card selection, fully visible claim controls, captured Hide concealment, a public post-Play result, Standard result-page return, Home after Leave, and selected/covered gameplay after fresh practice re-entry. No blocking pixel contradiction was identified within these nine source identities.",
+  "coverage": {
+    "assigned_capture_identities": 9,
+    "direct": 8,
+    "reviewed_byte_match": 1,
+    "assigned_unviewed": 0,
+    "other_case_capture_identities_outside_assignment": 11
+  },
+  "blocking_pixel_defects": [],
+  "findings": [
+    {
+      "id": "IOS-345599-2D-01",
+      "kind": "observed gameplay and selection",
+      "review_positions": [
+        0,
+        1,
+        2,
+        6,
+        7,
+        8
+      ],
+      "finding": "Current native gameplay is visibly populated. Initial Crown/round-01/Orbit-claimed-2 and later Moon/round-02/Pip-claimed-2 context are readable. The first Crown and later first Moon selections have visible outlines/check badges; full Claim 1 Crown / Claim 1 Moon and Call the bluff controls fit in their selection captures."
+    },
+    {
+      "id": "IOS-345599-2D-02",
+      "kind": "captured concealment",
+      "review_positions": [
+        1,
+        2,
+        6,
+        7,
+        8
+      ],
+      "finding": "Each selected-hand capture is followed by a captured opaque '5 cards, covered.' panel with a fully visible Reveal my hand control and no visible private fronts or selection badge.",
+      "limit": "Only these captured before/after states are verified; no concealment latency, between-capture, offscreen or continuous privacy claim."
+    },
+    {
+      "id": "IOS-345599-2D-03",
+      "kind": "observed public outcome with authority context",
+      "review_positions": [
+        3,
+        4
+      ],
+      "finding": "The post-Play native image and Standard return show a public true-Crown challenge result: one public Crown proof, Moxie challenged Native Host and Moxie stays in after light 1. The native Deal the next round control is fully visible.",
+      "limit": "Accepted Play is supported by paired observation evidence, not the image alone. The source provides a pre-Play JSON attachment but no dedicated pre-Play screenshot."
+    },
+    {
+      "id": "IOS-345599-2D-04",
+      "kind": "Standard hand visibility limit",
+      "review_positions": [
+        4
+      ],
+      "finding": "Standard return is a public ROUND_ENDED result page. No private-hand panel or reveal control is visible.",
+      "limit": "Visual concealment of a Standard hand panel and its control reachability are not established by this assigned image."
+    },
+    {
+      "id": "IOS-345599-2D-05",
+      "kind": "viewport clipping",
+      "review_positions": [
+        0,
+        1,
+        2,
+        3,
+        6,
+        7,
+        8
+      ],
+      "finding": "Native lower seat content is clipped at the body viewport edge. Selection captures show three full card fronts and a partial next card; further hand cards are outside the horizontal viewport. Scrollbars are visible.",
+      "limit": "This review does not establish access to all five cards, lower seats, or offscreen controls. The named visible fixed actions fit."
+    },
+    {
+      "id": "IOS-345599-2D-06",
+      "kind": "fresh-practice context and duplicate identity",
+      "review_positions": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "finding": "Home appears after Leave. Later selected/covered native views carry different round/rank/claim pixels. Paired observations identify session generation 3 and native presentation 4, with the same PID 98860/bootstrapCount 1 as first entry. The final two hidden PNGs have exactly equal file bytes.",
+      "limit": "Both final attachment identities and times are preserved; their latest sanitized observation sequence is the same 1299. The second capture is not a second fresh-state observation."
+    }
+  ],
+  "limits": [
+    "Only the assigned nine capture identities were reviewed. Eleven other current 2D case captures remain outside this review, with no inherited pixel approval.",
+    "Original images were individually viewed at their unchanged 1206x2622 resolution. No decode, crop, resize, collage, capture, package audit or collector duplication was performed.",
+    "Native logical viewport is reported as 402x657; the original UIKit frame/bounds retain their fractional values in the evidence. No geometry value substitutes for the actual image review.",
+    "The paired latest sanitized observation was not asserted to be sampled simultaneously with the screenshot. Attachment UTC and review activity UTC are not a media/input clock alignment.",
+    "Visible private faces occur in the two intentional selected-hand captures. Crown faces on the result pages are explicitly public proof; Home card images are promotional artwork.",
+    "The Standard result image does not display a private-hand panel. No offscreen concealment, full-hand scroll reachability or blanket Standard-hand privacy acceptance follows.",
+    "No physical-device, accessibility, continuous privacy, performance, LAN, store-signing or shipping acceptance is granted by this bounded screenshot review."
+  ]
+}

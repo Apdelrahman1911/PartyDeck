@@ -1,10 +1,16 @@
 # Screenshot review gallery
 
-This collection preserves **4,703 original app and renderer captures**, including failed attempts, and **2,806 supplemental images**, plus four existing asset proofs. Open a collection and click any thumbnail for its full original image. [manifest.json](manifest.json) retains filenames, dimensions, hashes, source paths, exact source revisions and timestamp metadata.
+This collection preserves **4,754 original app and renderer captures**, including failed attempts, and **2,806 supplemental images**, plus four existing asset proofs. Open a collection and click any thumbnail for its full original image. [manifest.json](manifest.json) retains filenames, dimensions, hashes, source paths, exact source revisions and timestamp metadata.
 
-The latest addition preserves **four original Android native-ready stills** from CI 34555402070 at font scale 2.0: **four attributed historical direct views, zero reviewed byte matches and zero unviewed images**. Each PNG retains its original JSON/XML pair. The review records were recovered after a runtime restart; no new pixel view was performed for this publication.
+The latest addition preserves **51 original iOS simulator stills** from CI 34559902607: **51 direct views, 0 reviewed byte matches and 0 unviewed originals**. Both production sessions, nine ordinary tests and three UIKit tests passed with separately scoped native evidence.
 
 | Latest preserved collection | Images | Review scope |
+| --- | ---: | --- |
+| [iOS simulator qualification — CI 34559902607](ios-34559902607/README.md) | 51 originals | Current 2D/3D and ordinary UI pixels, exact source/observation pairing, clipping and timing limitations. Available post-scroll Challenge was not executed; no hardware-performance or shipping qualification. |
+
+The preceding addition preserves **four original Android native-ready stills** from CI 34555402070 at font scale 2.0: **four attributed historical direct views, zero reviewed byte matches and zero unviewed images**. Each PNG retains its original JSON/XML pair. The review records were recovered after a runtime restart; no new pixel view was performed for this publication.
+
+| Previous preserved collection | Images | Review scope |
 | --- | ---: | --- |
 | [Android font-2.0 native-ready checkpoints — CI 34555402070](godot-android-adaptive-34555402070/README.md) | 4 originals | Debug and optimized fullscreen/short split-pane initial views. Claim text, hand area and lower Play/Challenge actions are outside the captured viewports; reachability and visual hand concealment remain unverified. Recorded automated passes retain their separate scope. |
 

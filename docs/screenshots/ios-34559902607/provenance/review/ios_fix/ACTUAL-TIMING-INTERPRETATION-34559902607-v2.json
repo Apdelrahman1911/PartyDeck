@@ -1,0 +1,843 @@
+{
+  "schemaVersion": 1,
+  "createdAtUtc": "2026-09-11T07:45:13.025837+00:00",
+  "role": "/root/ios_fix",
+  "recordKind": "Interpretation of actual accepted production timing observations; no code correction",
+  "status": "complete for timing interpretation of this exact run",
+  "runId": 34559902607,
+  "attempt": 1,
+  "headSha": "39405bb0fd6ba0214e70ed251aab1f9f571dc9aa",
+  "environmentScope": "Executed Debug arm64 iOS Simulator production qualification cases; environment and named-result acceptance are independently reviewed by ios_review.",
+  "evidence": {
+    "collectorTimingHandoff": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/timing-review-inputs-v1.json",
+      "bytes": 243586,
+      "sha256": "3960ea77f2b46830885e99ab24fa7a1b36d32603bc08a15d4a9911f34fd74085"
+    },
+    "verifiedOriginalObservationExtraction": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_fix/ACTUAL-TIMING-OBSERVATION-ROWS-34559902607-v1.json",
+      "bytes": 181349,
+      "sha256": "7f389561ea063de675f131b9442468eb223407d903097d186b5ccd80de6666f7"
+    },
+    "reconstructedSourceFieldMapping": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_fix/TIMING-FIELD-MAPPING.json",
+      "bytes": 6306,
+      "sha256": "d335cfd0e1b8cd1188c5e6ed4d5c6984852630a1582133ea981b4f4db470e52f"
+    },
+    "originalProductionLineContextCheck": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_fix/ORIGINAL-PRODUCTION-CONTEXT-34559902607-v1.json",
+      "bytes": 3332,
+      "sha256": "0119264712f46dd777087babae3b6aac053168abdcff0bc08a1c47c474410357"
+    },
+    "collectorNativeJobOutcomes": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/completed-native-job-log-outcomes-v1.json",
+      "bytes": 22551,
+      "sha256": "6db6b4106b437f663db3d9ce172f6fd7d82f0c4c57a0c730e66e63d311bda5af"
+    },
+    "independentDedicatedResultReview": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_review/dedicated-native-results-independent-review-v1.json",
+      "bytes": 204620,
+      "sha256": "5a79f8b0450a6a0527b7ddf3438f501c23d0fc66ab773f2852ec9e575e2fdc53"
+    }
+  },
+  "sourceBindingFromCollector": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/source-39405bb0-ios-scope-v2-7tdjsk4j/source-scope/source-run-binding-v1.json",
+    "bytes": 265923,
+    "sha256": "f37d6cd9a91590991b7db681a15792820a67f893902b86dbfc30b5b92179bcf0"
+  },
+  "verifiedCurrentSourcePins": {
+    "port": {
+      "path": "/root/projects/PartyDeck/iosApp/PartyDeck/Godot/GodotPresentationPort.swift",
+      "bytes": 32697,
+      "sha256": "4c95c2ad3951de6f7d69e07fd83a4871a8c84f6db4a16fd413b6758a32578937"
+    },
+    "native": {
+      "path": "/root/projects/PartyDeck/godot/ios-host/modules/partydeck_ios_probe/PDGodotRuntime.mm",
+      "bytes": 110138,
+      "sha256": "aef8387bd2ce13d2134ca81ab1dbed47fd3decc9193762407531e26f69f46d69"
+    }
+  },
+  "method": {
+    "originalReadBasis": "All 64 original accepted sanitized JSON documents were read and their sizes and SHA-256 values checked when producing the pinned bounded extraction. This report aggregates that extraction and reconciles all 64 case/label/ordinal/timestamp/sequence/original pins to the frozen collector handoff. The two first native originals were directly rechecked for Ready and renderer context.",
+    "additionalSourceCheck": "Current Swift and native source bytes match the pinned reconstructed mapping. Native scope/max accumulation was read at lines 60-117, draw scope at 575-648, iteration scope at 1219-1236 and timing export at 2098-2121. Native stage snapshot keys at lines 121-126 were also checked solely to specify the unexecuted next measurement.",
+    "chronology": "Original attachment timestamps order each case. Observation sequence and process/session/native-presentation identity supply recorded context. Manifest ordinals remain their original reverse order. lastDocument can be a retained earlier observation; attachment time is not its observation time.",
+    "precision": "JSON retains the original numeric values. Markdown rounds seconds only for readability.",
+    "separateReview": "The independently pinned dedicated result review supplies named execution and source-scoped behavior acceptance; this report does not repeat or extend pixel/package acceptance.",
+    "noRuntimeExecution": "No CI polling/downloads, native rerun, package or log payload re-audit, rejected JSON/hierarchy/video read, timeout change or production source edit was performed for this interpretation.",
+    "priorRecords": "Earlier mapping/context receipts retain their historical pending statuses and were not modified. This successor adds the now-available timing interpretation."
+  },
+  "aggregate": {
+    "acceptedOriginalDocumentCount": 64,
+    "uniqueOriginalPointerCount": 64,
+    "nonnullPreparationAndNativeDocumentCount": 54,
+    "explicitNullPreparationCount": 10,
+    "missingPreparationKeyCount": 0,
+    "allNonnullPreparationPhasesSucceeded": true,
+    "allNonnullCreationPhasesReturned": true,
+    "allCompletedPreparationAndCreationDurationsFinitePositive": true,
+    "failedRejectedOrInflightPreparationSampleCount": 0,
+    "completedZeroDurationPreparationOrCreationSampleCount": 0,
+    "fallbackFieldPresentAndNullCount": 64,
+    "distinctObservedNativePreparationGenerations": 8,
+    "allObservedNativeReadyEventCountsOne": true,
+    "allObservedNativeFailureAndQuarantineFlagsFalse": true,
+    "allObservedNativeFailedPresentationCountersZero": true
+  },
+  "firstNativeEntries": [
+    {
+      "case": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+      "label": "2d production concealed entry latest sanitized observation",
+      "attachmentOrdinal": 38,
+      "labelOccurrenceByTimestamp": 1,
+      "attachmentTimestampUtc": "2026-09-11T04:32:54.921000+00:00",
+      "sequence": "743",
+      "sessionGeneration": "1",
+      "presentationOrdinal": "1",
+      "mode": "GODOT_2D",
+      "lifecycle": "ACTIVE",
+      "foreground": true,
+      "backgrounded": false,
+      "active": true,
+      "closing": false,
+      "lastCloseSucceeded": null,
+      "original": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/97880D77-5655-41C9-AB05-EFFDB26BC821.json",
+        "bytes": 3576,
+        "sha256": "fc94478ebe19c60ac0834de06d1155f3c3d5ca8bd91b413005b4467154d998e4",
+        "archiveMember": "build/ci/ios/godot-session/attachments/97880D77-5655-41C9-AB05-EFFDB26BC821.json",
+        "retainedExtracted": true
+      },
+      "modeLabel": "2d",
+      "preparation": {
+        "creationElapsedSeconds": 0.02127958333312563,
+        "creationPhase": "returned",
+        "elapsedSeconds": 2.1706234583334663,
+        "phase": "succeeded"
+      },
+      "native": {
+        "processIdentifier": 98860,
+        "bootstrapCount": 1,
+        "presentationGeneration": "1",
+        "bootstrapPhase": "returned",
+        "maxBootstrapSeconds": 1.8341622916664164,
+        "maxDrawSeconds": 3.6528102500001296,
+        "maxIterateSeconds": 3.6348284583332315,
+        "maxDrainSeconds": 0.0192538749997766,
+        "readyEvents": 1,
+        "drawCalls": 12,
+        "iterations": 12,
+        "nativePresentedFrames": 10,
+        "failurePresent": false,
+        "nativeFailedPresentations": 0,
+        "quarantined": false,
+        "dormant": false,
+        "emptyTree": false,
+        "surfaceAttached": true
+      },
+      "portReadyConfirmed": true,
+      "rendererContext": {
+        "presentationMode": "2d",
+        "sceneStateApplied": true,
+        "handConcealed": true,
+        "foreground": true,
+        "privateFaceCount": 0,
+        "privateLabelCount": 0,
+        "selectedCount": 0
+      }
+    },
+    {
+      "case": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+      "label": "3d production concealed entry latest sanitized observation",
+      "attachmentOrdinal": 46,
+      "labelOccurrenceByTimestamp": 1,
+      "attachmentTimestampUtc": "2026-09-11T04:39:58.276000+00:00",
+      "sequence": "853",
+      "sessionGeneration": "1",
+      "presentationOrdinal": "1",
+      "mode": "GODOT_3D",
+      "lifecycle": "ACTIVE",
+      "foreground": true,
+      "backgrounded": false,
+      "active": true,
+      "closing": false,
+      "lastCloseSucceeded": null,
+      "original": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/6B7971DF-9563-4180-BF60-BAAFCCFD6218.json",
+        "bytes": 3134,
+        "sha256": "53540a16117f915a4f8ae6f7c01265dac2dc0a7937603639c0aefb9d620ab92a",
+        "archiveMember": "build/ci/ios/godot-session/attachments/6B7971DF-9563-4180-BF60-BAAFCCFD6218.json",
+        "retainedExtracted": true
+      },
+      "modeLabel": "3d",
+      "preparation": {
+        "creationElapsedSeconds": 0.04201999999986583,
+        "creationPhase": "returned",
+        "elapsedSeconds": 2.9467363750000004,
+        "phase": "succeeded"
+      },
+      "native": {
+        "processIdentifier": 12118,
+        "bootstrapCount": 1,
+        "presentationGeneration": "1",
+        "bootstrapPhase": "returned",
+        "maxBootstrapSeconds": 2.5681111666667675,
+        "maxDrawSeconds": 18.76382387500007,
+        "maxIterateSeconds": 18.735129874999984,
+        "maxDrainSeconds": 0.02279983333301061,
+        "readyEvents": 1,
+        "drawCalls": 17,
+        "iterations": 16,
+        "nativePresentedFrames": 13,
+        "failurePresent": false,
+        "nativeFailedPresentations": 0,
+        "quarantined": false,
+        "dormant": false,
+        "emptyTree": false,
+        "surfaceAttached": true
+      },
+      "portReadyConfirmed": true,
+      "rendererContext": {
+        "presentationMode": "3d",
+        "sceneStateApplied": true,
+        "handConcealed": true,
+        "foreground": true,
+        "privateFaceCount": 0,
+        "privateLabelCount": 0,
+        "selectedCount": 0
+      }
+    }
+  ],
+  "preparationRecordsByObservedNativeGeneration": [
+    {
+      "caseMode": "2d",
+      "nativePresentationGeneration": "1",
+      "observedNativeDocumentCount": 12,
+      "firstRetainedObservation": {
+        "case": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "label": "2d production concealed entry latest sanitized observation",
+        "attachmentOrdinal": 38,
+        "labelOccurrenceByTimestamp": 1,
+        "attachmentTimestampUtc": "2026-09-11T04:32:54.921000+00:00",
+        "sequence": "743",
+        "sessionGeneration": "1",
+        "presentationOrdinal": "1",
+        "mode": "GODOT_2D",
+        "lifecycle": "ACTIVE",
+        "foreground": true,
+        "backgrounded": false,
+        "active": true,
+        "closing": false,
+        "lastCloseSucceeded": null,
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/97880D77-5655-41C9-AB05-EFFDB26BC821.json",
+          "bytes": 3576,
+          "sha256": "fc94478ebe19c60ac0834de06d1155f3c3d5ca8bd91b413005b4467154d998e4",
+          "archiveMember": "build/ci/ios/godot-session/attachments/97880D77-5655-41C9-AB05-EFFDB26BC821.json",
+          "retainedExtracted": true
+        }
+      },
+      "lastObservedSequence": "958",
+      "preparation": {
+        "creationElapsedSeconds": 0.02127958333312563,
+        "creationPhase": "returned",
+        "elapsedSeconds": 2.1706234583334663,
+        "phase": "succeeded"
+      },
+      "preparationUnchangedAcrossObservedGeneration": true,
+      "bootstrapCount": 1,
+      "bootstrapPhase": "returned",
+      "retainedFirstBootstrapSeconds": 1.8341622916664164,
+      "firstSavedAfterClosure": false
+    },
+    {
+      "caseMode": "2d",
+      "nativePresentationGeneration": "2",
+      "observedNativeDocumentCount": 2,
+      "firstRetainedObservation": {
+        "case": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "label": "Actual production Leave confirmation latest sanitized observation",
+        "attachmentOrdinal": 20,
+        "labelOccurrenceByTimestamp": 1,
+        "attachmentTimestampUtc": "2026-09-11T04:33:53.020000+00:00",
+        "sequence": "1017",
+        "sessionGeneration": "1",
+        "presentationOrdinal": "0",
+        "mode": "COMPOSE",
+        "lifecycle": "COMPOSE",
+        "foreground": true,
+        "backgrounded": false,
+        "active": false,
+        "closing": false,
+        "lastCloseSucceeded": true,
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/15D27285-0ED5-4427-97BB-8E3FDBFF8624.json",
+          "bytes": 2217,
+          "sha256": "8739478afccbdfcc75083e5920478fc431f517671eff3674861fdaece6e471c0",
+          "archiveMember": "build/ci/ios/godot-session/attachments/15D27285-0ED5-4427-97BB-8E3FDBFF8624.json",
+          "retainedExtracted": true
+        }
+      },
+      "lastObservedSequence": "1032",
+      "preparation": {
+        "creationElapsedSeconds": 0.007212791666461271,
+        "creationPhase": "returned",
+        "elapsedSeconds": 0.04746566666653962,
+        "phase": "succeeded"
+      },
+      "preparationUnchangedAcrossObservedGeneration": true,
+      "bootstrapCount": 1,
+      "bootstrapPhase": "returned",
+      "retainedFirstBootstrapSeconds": 1.8341622916664164,
+      "firstSavedAfterClosure": true
+    },
+    {
+      "caseMode": "2d",
+      "nativePresentationGeneration": "3",
+      "observedNativeDocumentCount": 2,
+      "firstRetainedObservation": {
+        "case": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "label": "Actual production Leave confirmation latest sanitized observation",
+        "attachmentOrdinal": 16,
+        "labelOccurrenceByTimestamp": 2,
+        "attachmentTimestampUtc": "2026-09-11T04:34:11.840000+00:00",
+        "sequence": "1103",
+        "sessionGeneration": "1",
+        "presentationOrdinal": "0",
+        "mode": "COMPOSE",
+        "lifecycle": "COMPOSE",
+        "foreground": true,
+        "backgrounded": false,
+        "active": false,
+        "closing": false,
+        "lastCloseSucceeded": true,
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/F7882F0E-E038-4DA7-BD12-7813C6C2F0EA.json",
+          "bytes": 2217,
+          "sha256": "793f21fa96aad8c213c380f60f535cd1ef6c6276e7f59ffdd9ff8b588e9d68ca",
+          "archiveMember": "build/ci/ios/godot-session/attachments/F7882F0E-E038-4DA7-BD12-7813C6C2F0EA.json",
+          "retainedExtracted": true
+        }
+      },
+      "lastObservedSequence": "1116",
+      "preparation": {
+        "creationElapsedSeconds": 0.021714125000016793,
+        "creationPhase": "returned",
+        "elapsedSeconds": 0.08223858333349199,
+        "phase": "succeeded"
+      },
+      "preparationUnchangedAcrossObservedGeneration": true,
+      "bootstrapCount": 1,
+      "bootstrapPhase": "returned",
+      "retainedFirstBootstrapSeconds": 1.8341622916664164,
+      "firstSavedAfterClosure": true
+    },
+    {
+      "caseMode": "2d",
+      "nativePresentationGeneration": "4",
+      "observedNativeDocumentCount": 8,
+      "firstRetainedObservation": {
+        "case": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "label": "2d measured reveal before actual coordinate tap",
+        "attachmentOrdinal": 13,
+        "labelOccurrenceByTimestamp": 3,
+        "attachmentTimestampUtc": "2026-09-11T04:34:34.716000+00:00",
+        "sequence": "1216",
+        "sessionGeneration": "3",
+        "presentationOrdinal": "4",
+        "mode": "GODOT_2D",
+        "lifecycle": "ACTIVE",
+        "foreground": true,
+        "backgrounded": false,
+        "active": true,
+        "closing": false,
+        "lastCloseSucceeded": true,
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/2E62B8B1-0285-4EC5-9815-08CBCBABE1B3.json",
+          "bytes": 3757,
+          "sha256": "d0ef0960da964084b99b1f292ea7277bad593b4a72331e0ecb0adde35e41acfe",
+          "archiveMember": "build/ci/ios/godot-session/attachments/2E62B8B1-0285-4EC5-9815-08CBCBABE1B3.json",
+          "retainedExtracted": true
+        }
+      },
+      "lastObservedSequence": "1346",
+      "preparation": {
+        "creationElapsedSeconds": 0.010004416666561156,
+        "creationPhase": "returned",
+        "elapsedSeconds": 0.09313441666654398,
+        "phase": "succeeded"
+      },
+      "preparationUnchangedAcrossObservedGeneration": true,
+      "bootstrapCount": 1,
+      "bootstrapPhase": "returned",
+      "retainedFirstBootstrapSeconds": 1.8341622916664164,
+      "firstSavedAfterClosure": false
+    },
+    {
+      "caseMode": "3d",
+      "nativePresentationGeneration": "1",
+      "observedNativeDocumentCount": 12,
+      "firstRetainedObservation": {
+        "case": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "label": "3d production concealed entry latest sanitized observation",
+        "attachmentOrdinal": 46,
+        "labelOccurrenceByTimestamp": 1,
+        "attachmentTimestampUtc": "2026-09-11T04:39:58.276000+00:00",
+        "sequence": "853",
+        "sessionGeneration": "1",
+        "presentationOrdinal": "1",
+        "mode": "GODOT_3D",
+        "lifecycle": "ACTIVE",
+        "foreground": true,
+        "backgrounded": false,
+        "active": true,
+        "closing": false,
+        "lastCloseSucceeded": null,
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/6B7971DF-9563-4180-BF60-BAAFCCFD6218.json",
+          "bytes": 3134,
+          "sha256": "53540a16117f915a4f8ae6f7c01265dac2dc0a7937603639c0aefb9d620ab92a",
+          "archiveMember": "build/ci/ios/godot-session/attachments/6B7971DF-9563-4180-BF60-BAAFCCFD6218.json",
+          "retainedExtracted": true
+        }
+      },
+      "lastObservedSequence": "1060",
+      "preparation": {
+        "creationElapsedSeconds": 0.04201999999986583,
+        "creationPhase": "returned",
+        "elapsedSeconds": 2.9467363750000004,
+        "phase": "succeeded"
+      },
+      "preparationUnchangedAcrossObservedGeneration": true,
+      "bootstrapCount": 1,
+      "bootstrapPhase": "returned",
+      "retainedFirstBootstrapSeconds": 2.5681111666667675,
+      "firstSavedAfterClosure": false
+    },
+    {
+      "caseMode": "3d",
+      "nativePresentationGeneration": "2",
+      "observedNativeDocumentCount": 2,
+      "firstRetainedObservation": {
+        "case": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "label": "Actual production Leave confirmation latest sanitized observation",
+        "attachmentOrdinal": 28,
+        "labelOccurrenceByTimestamp": 1,
+        "attachmentTimestampUtc": "2026-09-11T04:42:31.651000+00:00",
+        "sequence": "1122",
+        "sessionGeneration": "1",
+        "presentationOrdinal": "0",
+        "mode": "COMPOSE",
+        "lifecycle": "COMPOSE",
+        "foreground": true,
+        "backgrounded": false,
+        "active": false,
+        "closing": false,
+        "lastCloseSucceeded": true,
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/D72CB595-8FCA-401D-BEF4-BAADBA1F6842.json",
+          "bytes": 2219,
+          "sha256": "e0c779f6d53a84a6cf6bdb88d3067b5faee78f4565c05b4a82a66030322e1481",
+          "archiveMember": "build/ci/ios/godot-session/attachments/D72CB595-8FCA-401D-BEF4-BAADBA1F6842.json",
+          "retainedExtracted": true
+        }
+      },
+      "lastObservedSequence": "1133",
+      "preparation": {
+        "creationElapsedSeconds": 0.13154008333367528,
+        "creationPhase": "returned",
+        "elapsedSeconds": 0.28855475000000297,
+        "phase": "succeeded"
+      },
+      "preparationUnchangedAcrossObservedGeneration": true,
+      "bootstrapCount": 1,
+      "bootstrapPhase": "returned",
+      "retainedFirstBootstrapSeconds": 2.5681111666667675,
+      "firstSavedAfterClosure": true
+    },
+    {
+      "caseMode": "3d",
+      "nativePresentationGeneration": "3",
+      "observedNativeDocumentCount": 2,
+      "firstRetainedObservation": {
+        "case": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "label": "Actual production Leave confirmation latest sanitized observation",
+        "attachmentOrdinal": 24,
+        "labelOccurrenceByTimestamp": 2,
+        "attachmentTimestampUtc": "2026-09-11T04:43:03.031000+00:00",
+        "sequence": "1190",
+        "sessionGeneration": "1",
+        "presentationOrdinal": "0",
+        "mode": "COMPOSE",
+        "lifecycle": "COMPOSE",
+        "foreground": true,
+        "backgrounded": false,
+        "active": false,
+        "closing": false,
+        "lastCloseSucceeded": true,
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/0E6E6B29-5CD6-4749-9543-C6FD5BACFF1F.json",
+          "bytes": 2222,
+          "sha256": "12837e4c7d78663cf8df136771fd4f6f2c2fa9bfeb54362e463f511e260441be",
+          "archiveMember": "build/ci/ios/godot-session/attachments/0E6E6B29-5CD6-4749-9543-C6FD5BACFF1F.json",
+          "retainedExtracted": true
+        }
+      },
+      "lastObservedSequence": "1200",
+      "preparation": {
+        "creationElapsedSeconds": 0.011283333333267365,
+        "creationPhase": "returned",
+        "elapsedSeconds": 0.0752656666668372,
+        "phase": "succeeded"
+      },
+      "preparationUnchangedAcrossObservedGeneration": true,
+      "bootstrapCount": 1,
+      "bootstrapPhase": "returned",
+      "retainedFirstBootstrapSeconds": 2.5681111666667675,
+      "firstSavedAfterClosure": true
+    },
+    {
+      "caseMode": "3d",
+      "nativePresentationGeneration": "4",
+      "observedNativeDocumentCount": 14,
+      "firstRetainedObservation": {
+        "case": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "label": "3d measured reveal before actual coordinate tap",
+        "attachmentOrdinal": 21,
+        "labelOccurrenceByTimestamp": 3,
+        "attachmentTimestampUtc": "2026-09-11T04:43:18.376000+00:00",
+        "sequence": "1241",
+        "sessionGeneration": "3",
+        "presentationOrdinal": "4",
+        "mode": "GODOT_3D",
+        "lifecycle": "ACTIVE",
+        "foreground": true,
+        "backgrounded": false,
+        "active": true,
+        "closing": false,
+        "lastCloseSucceeded": true,
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/CF5F9FA0-7C0D-49E9-A246-2E6CE541E5A8.json",
+          "bytes": 3464,
+          "sha256": "7bfdad60599bd205fb100d4de80fe0ec7c7db911815e4e194a1ef02976362aae",
+          "archiveMember": "build/ci/ios/godot-session/attachments/CF5F9FA0-7C0D-49E9-A246-2E6CE541E5A8.json",
+          "retainedExtracted": true
+        }
+      },
+      "lastObservedSequence": "1378",
+      "preparation": {
+        "creationElapsedSeconds": 0.006861583333375165,
+        "creationPhase": "returned",
+        "elapsedSeconds": 0.06343824999976277,
+        "phase": "succeeded"
+      },
+      "preparationUnchangedAcrossObservedGeneration": true,
+      "bootstrapCount": 1,
+      "bootstrapPhase": "returned",
+      "retainedFirstBootstrapSeconds": 2.5681111666667675,
+      "firstSavedAfterClosure": false
+    }
+  ],
+  "caseSummaries": [
+    {
+      "case": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+      "mode": "2d",
+      "wholeXCTestCaseOutcome": {
+        "case": "PartyDeckUITests.PartyDeckGodotSessionUITests/testProduction2DPracticeSession",
+        "status": "passed",
+        "wallSecondsText": "316.893",
+        "line": 28717
+      },
+      "acceptedDocumentCount": 29,
+      "nonnullPreparationAndNativeCount": 24,
+      "explicitNullPreparationCount": 5,
+      "missingPreparationKeyCount": 0,
+      "noncompletedPreparationCount": 0,
+      "nonfiniteOrNonpositiveCompletedPreparationDurationCount": 0,
+      "fallbackFieldPresentAndNullCount": 29,
+      "singleObservedProcessIdentifier": 98860,
+      "nativePresentationGenerations": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "bootstrapCountConstantAtOne": true,
+      "bootstrapPhaseConstantAtReturned": true,
+      "bootstrapDurationSecondsRetainedAcrossGenerations": 1.8341622916664164,
+      "readyEventsConstantAtOneInObservedNativeDocuments": true,
+      "drawAndIterationMaximaAlreadyPresentAtFirstEntryAndUnchanged": true,
+      "maxDrawSeconds": 3.6528102500001296,
+      "maxIterateSeconds": 3.6348284583332315,
+      "firstMaxDrainSeconds": 0.0192538749997766,
+      "finalMaxDrainSeconds": 0.059386875000200234,
+      "observedNativeFailureOrQuarantineCount": 0,
+      "observedFailedPresentationCount": 0,
+      "finalRetainedObservation": {
+        "case": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "label": "2d production smoke cleanup complete latest sanitized observation",
+        "attachmentOrdinal": 1,
+        "labelOccurrenceByTimestamp": 1,
+        "attachmentTimestampUtc": "2026-09-11T04:35:04.996000+00:00",
+        "sequence": "1346",
+        "sessionGeneration": "4",
+        "presentationOrdinal": "0",
+        "mode": "COMPOSE",
+        "lifecycle": "COMPOSE",
+        "foreground": true,
+        "backgrounded": false,
+        "active": false,
+        "closing": false,
+        "lastCloseSucceeded": true,
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/96E23A6D-13E2-4AF2-8B90-194FB41E54FB.json",
+          "bytes": 2216,
+          "sha256": "311c7b2113619214e3aa0a978b6b02dac0c55f664c021c63a90d35b6be31b897",
+          "archiveMember": "build/ci/ios/godot-session/attachments/96E23A6D-13E2-4AF2-8B90-194FB41E54FB.json",
+          "retainedExtracted": true
+        }
+      }
+    },
+    {
+      "case": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+      "mode": "3d",
+      "wholeXCTestCaseOutcome": {
+        "case": "PartyDeckUITests.PartyDeckGodotSessionUITests/testProduction3DPracticeSession",
+        "status": "passed",
+        "wallSecondsText": "532.216",
+        "line": 30372
+      },
+      "acceptedDocumentCount": 35,
+      "nonnullPreparationAndNativeCount": 30,
+      "explicitNullPreparationCount": 5,
+      "missingPreparationKeyCount": 0,
+      "noncompletedPreparationCount": 0,
+      "nonfiniteOrNonpositiveCompletedPreparationDurationCount": 0,
+      "fallbackFieldPresentAndNullCount": 35,
+      "singleObservedProcessIdentifier": 12118,
+      "nativePresentationGenerations": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "bootstrapCountConstantAtOne": true,
+      "bootstrapPhaseConstantAtReturned": true,
+      "bootstrapDurationSecondsRetainedAcrossGenerations": 2.5681111666667675,
+      "readyEventsConstantAtOneInObservedNativeDocuments": true,
+      "drawAndIterationMaximaAlreadyPresentAtFirstEntryAndUnchanged": true,
+      "maxDrawSeconds": 18.76382387500007,
+      "maxIterateSeconds": 18.735129874999984,
+      "firstMaxDrainSeconds": 0.02279983333301061,
+      "finalMaxDrainSeconds": 0.0647329166667987,
+      "observedNativeFailureOrQuarantineCount": 0,
+      "observedFailedPresentationCount": 0,
+      "finalRetainedObservation": {
+        "case": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "label": "3d production smoke cleanup complete latest sanitized observation",
+        "attachmentOrdinal": 1,
+        "labelOccurrenceByTimestamp": 1,
+        "attachmentTimestampUtc": "2026-09-11T04:43:57.168000+00:00",
+        "sequence": "1378",
+        "sessionGeneration": "4",
+        "presentationOrdinal": "0",
+        "mode": "COMPOSE",
+        "lifecycle": "COMPOSE",
+        "foreground": true,
+        "backgrounded": false,
+        "active": false,
+        "closing": false,
+        "lastCloseSucceeded": true,
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/40F0B0D7-E1A3-4FDD-82F7-FE47438C77FD.json",
+          "bytes": 2217,
+          "sha256": "b0a4572dd7aa9d606242bfb636ed41de5d7a3922be6a9985e683ef991db51881",
+          "archiveMember": "build/ci/ios/godot-session/attachments/40F0B0D7-E1A3-4FDD-82F7-FE47438C77FD.json",
+          "retainedExtracted": true
+        }
+      }
+    }
+  ],
+  "fieldSemantics": [
+    {
+      "fields": [
+        "preparation.elapsedSeconds",
+        "preparation.phase"
+      ],
+      "meaning": "Accepted Swift prepare entry through its first existing preparation completion, recorded before the external callback. UIKit completion is not assumed synchronous. Preparation success alone does not mean Ready. This is not total UI-tap-to-first-frame latency.",
+      "sourceLines": {
+        "portEntry": 78,
+        "portFinish": 575,
+        "portSnapshot": 581,
+        "completionHook": 612
+      }
+    },
+    {
+      "fields": [
+        "preparation.creationElapsedSeconds",
+        "preparation.creationPhase"
+      ],
+      "meaning": "Synchronous throwing owner.createPresentation call for preflight/container creation. It does not time bootstrap; returned alone does not grant later readiness.",
+      "sourceLines": {
+        "portBegin": 95,
+        "portReturn": 101,
+        "portCatch": 177
+      }
+    },
+    {
+      "fields": [
+        "native.maxBootstrapSeconds",
+        "native.bootstrapPhase"
+      ],
+      "meaning": "Completed cold startInContainer scope after cold-entry/argument guards through function return. It covers native main/setup2/Main::start and result handling, excluding preceding waits, retained warm-up, neutral retirement and later gameplay. returned denotes timing completion independently of success or Ready.",
+      "sourceLines": {
+        "nativeScope": 1041,
+        "nativeMain": 1057,
+        "nativeSetup2": 1075,
+        "nativeMainStart": 1084,
+        "swiftExport": 480,
+        "swiftPhase": 490
+      }
+    },
+    {
+      "fields": [
+        "native.maxDrawSeconds",
+        "native.maxIterateSeconds",
+        "native.maxDrainSeconds"
+      ],
+      "meaning": "Cumulative maxima of completed inclusive scopes measured from NSProcessInfo.systemUptime. The iteration scope surrounds OS_AppleEmbedded::iterate. Maxima retain earlier completions and can overlap with other scopes; they do not expose the exact maximizing call/frame or uniquely pair draw/iterate maxima.",
+      "sourceLines": {
+        "nativeMaxAccumulator": 76,
+        "nativeClock": 100,
+        "nativeDrawScope": 581,
+        "nativeIterateScope": 1227,
+        "nativeDrainScope": 1587
+      }
+    }
+  ],
+  "findings": [
+    {
+      "id": "first-native-preparation-and-bootstrap",
+      "conclusion": "At the first accepted native entries, 2D preparation succeeded in 2.1706234583334663 s and cold-bootstrap timing returned at 1.8341622916664164 s; 3D preparation succeeded in 2.9467363750000004 s and bootstrap returned at 2.5681111666667675 s. Both observations show Ready delivered/confirmed, an ACTIVE expected-mode controller, attached foreground surface and applied concealed renderer."
+    },
+    {
+      "id": "long-completed-3d-iteration",
+      "conclusion": "The first accepted 3D native observation, sequence 853, already contains a completed iteration maximum of 18.735129874999984 s and draw maximum of 18.76382387500007 s. This establishes a long elapsed iteration scope in this successful simulator case. Both cumulative maxima remain unchanged in all 30 accepted native observations. The summarized maxima do not identify an exact iteration/first frame or prove which calls attained both maxima.",
+      "original": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/6B7971DF-9563-4180-BF60-BAAFCCFD6218.json",
+        "bytes": 3134,
+        "sha256": "53540a16117f915a4f8ae6f7c01265dac2dc0a7937603639c0aefb9d620ab92a",
+        "archiveMember": "build/ci/ios/godot-session/attachments/6B7971DF-9563-4180-BF60-BAAFCCFD6218.json",
+        "retainedExtracted": true
+      },
+      "observationSequence": "853",
+      "nativePresentationGeneration": "1",
+      "drawCallsAtFirstObservation": 17,
+      "iterationsAtFirstObservation": 16,
+      "presentedFramesAtFirstObservation": 13
+    },
+    {
+      "id": "retained-bootstrap-and-closed-preparation",
+      "conclusion": "Each case retains one process and bootstrap count 1 across native generations 1-4. Identical bootstrap duration and returned phase are the retained initial bootstrap, not four bootstraps. Preparation stays identical within each observed generation. Generations 2 and 3 first appear after closure in COMPOSE; their timing records must not be described as active entry snapshots or assigned a renderer mode from that document alone. Generation 4 first appears active in session generation 3; final cleanup is session generation 4 with native generation 4."
+    },
+    {
+      "id": "sample-presence",
+      "conclusion": "Of 64 accepted documents, 54 have nonnull succeeded/returned preparation records with finite positive durations; 10 explicitly contain null preparation (5 in each case). None lacks the key. Null does not mean zero duration. No failed/rejected/in-flight preparation is observed. All 64 fallback fields are present and null, and observed native failure/quarantine flags and failed-presentation counters report no failures. These are observations, not a claim of exhaustive continuous coverage."
+    },
+    {
+      "id": "case-duration-boundary",
+      "conclusion": "2D passed in 316.893 s and 3D passed in 532.216 s as complete XCTest case wall durations. They include the entire scripted test flow and are not renderer startup, bootstrap, CPU or GPU timings."
+    }
+  ],
+  "limits": [
+    "One successful simulator run; no physical-device, release-build performance, repeated-run latency distribution, shipping-picker or store/signing acceptance follows.",
+    "All timing values are elapsed wall durations. They do not attribute CPU work, GPU work, shader compilation, scheduling, I/O or the reason for the long 3D iteration.",
+    "Inclusive scopes overlap. Do not add the preparation, creation, bootstrap, draw, iterate or drain values, subtract their maxima to assign costs, or assume maxima describe one exact frame.",
+    "The first retained native observation is later than initial entry. Its timestamp does not identify bootstrap start, the first gameplay frame, Ready time or the slow iteration time.",
+    "No observation here identifies a watchdog-expiration branch. Short preparation/bootstrap durations also do not rule out delay outside those scopes.",
+    "A passing rerun with diagnostic-only changes does not establish a causal fix or explain the earlier focused run 34554200601 at source 253e9656.",
+    "Historical context is preserved from the prior source analysis, not re-executed or re-audited here: the failed first 2D attempt retired before counted normal gameplay; its sole draw/iteration/frame was mandatory neutral retirement. Normal production Ready forwarding requires _process, which had not occurred before that retirement. The historical cause remains unproven.",
+    "Timing interpretation never substitutes for source/authority/privacy/health/current-renderer/clean-close or independent screenshot/package review.",
+    "An unchanged cumulative maximum does not prove that later draws or iterations were smooth; repeated stalls below or equal to the existing maximum are uncounted by these exported fields."
+  ],
+  "actionDisposition": {
+    "evidenceSupportedCausalCodeFix": false,
+    "codeCandidatePrepared": false,
+    "timeoutOrDeadlineChangeJustified": false,
+    "historicalFailureCause": "unresolved",
+    "result": "No correction proposed from these measurements. Preserve the long 3D callback as a measured simulator observation without causal attribution.",
+    "performanceAccepted": false,
+    "nextMeasurementProposedButNotExecuted": true
+  },
+  "revision": 2,
+  "priorVersion": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_fix/ACTUAL-TIMING-INTERPRETATION-34559902607-v1.json",
+    "bytes": 36393,
+    "sha256": "34e94ab915aba3f56be435883c7495f4f2313248553659f849c21d6b175a69ab"
+  },
+  "revisionReason": "Clarify root-requested practical meaning of individual completed scope maxima, their unknown relation to first visible frame, limits on recurring stalls and a concrete proposed next measurement.",
+  "practicalInterpretation": {
+    "individualCompletedScopeMeaning": {
+      "completedDrawScopeSeconds": 18.76382387500007,
+      "completedIterationScopeSeconds": 18.735129874999984,
+      "maximaAreNotAccumulatedElapsedTotals": true,
+      "sourceRule": "PDNativeStageTiming::finish assigns one completed scope duration (now minus that scope start) to last_seconds and retains the largest such value in max_seconds. PDNativeTimingScope destruction calls finish. Therefore these maxima establish at least one completed 18.763823875 s draw scope and at least one completed 18.735129875 s OS_AppleEmbedded::iterate scope.",
+      "sourceLines": {
+        "accumulation": 76,
+        "scopeDestructor": 112,
+        "drawScope": 581,
+        "iterationScope": 1227
+      },
+      "inclusiveScopeLimit": "Each individual scope is inclusive elapsed time and may contain nested work or waits. The maxima do not reveal which exact draw and iteration attained them or whether the two maximizing calls were paired. They must not be added."
+    },
+    "whenRelativeToFirstView": {
+      "latestKnownObservationSequence": "853",
+      "originalAttachmentTimestampUtc": "2026-09-11T04:39:58.276000+00:00",
+      "known": "Both maxima had completed by the first accepted retained native observation, sequence 853. That document reports ACTIVE GODOT_3D, Ready confirmed, an attached foreground surface, an applied concealed renderer, 17 draw calls, 16 iterations and 13 presented frames.",
+      "unknown": "No initial-view/first-visible-frame uptime or maximizing-call completion uptime is exported in the accepted timing evidence used here. The maxima cannot be placed before or after the first visible frame, assigned to that frame or timed from the picker tap. The attachment timestamp is not a simultaneous sampling timestamp for lastDocument."
+    },
+    "laterStallEvidence": {
+      "acceptedNativeObservationCount": 30,
+      "lastObservationSequence": "1378",
+      "lastOriginalAttachmentTimestampUtc": "2026-09-11T04:43:57.168000+00:00",
+      "drawAndIterateMaximaRemainUnchanged": true,
+      "known": "Later sampled cumulative maxima, through sequence 1378 in final cleanup, show no higher completed draw or iteration duration than those already present at sequence 853.",
+      "unknown": "Unchanged maxima cannot distinguish a smooth remainder from repeated stalls of equal or shorter duration. The accepted fields provide no per-callback duration series or count above a duration threshold, and a maximum is updated only on completion. This evidence does not establish that stalls stopped or that later operation met a performance budget."
+    },
+    "performanceDisposition": "The production-case pass establishes functional qualification within its reviewed scope. These timing data do not establish production-ready performance; native/pixel preview-enablement decisions remain separate.",
+    "concreteNextMeasurement": {
+      "status": "Proposed only; no diagnostic implementation or rerun performed.",
+      "question": "Place the long completed scope relative to Ready and the first current concealed-frame presentation, then determine whether long callbacks recur after that point.",
+      "availableNativeSourceFields": {
+        "source": "PDNativeStageTimingSnapshot, PDGodotRuntime.mm lines 121-126; stage export lines 2114-2121",
+        "stages": [
+          "bootstrap",
+          "drawView",
+          "uikitPump",
+          "setupView",
+          "renderOnView",
+          "iterate",
+          "presentRenderbuffer",
+          "drain"
+        ],
+        "keys": [
+          "completedCount",
+          "currentDepth",
+          "maxDepth",
+          "activeStartedUptime",
+          "lastSeconds",
+          "maxSeconds",
+          "lastCompletedUptime",
+          "maxCompletedUptime"
+        ]
+      },
+      "proposedAcceptedDiagnosticRecord": [
+        "Expose a bounded qualification-only record of the existing native stage timing completion counts and uptime fields, bound to the same process identifier, native presentation generation and observation sequence. The accepted record currently exports only selected maxima, so these additional fields require a reviewed narrow schema/code candidate before collection.",
+        "Record Ready-confirmation and first successful current concealed-frame presentation markers on the same system-uptime clock; retain their process and presentation identity rather than inferring them from attachment time.",
+        "Retain a bounded event stream or bounded aggregate of completed draw/iteration callbacks lasting at least 1 second, with each recorded duration, completion uptime and presentation generation; include total qualifying count and truncation count. The 1-second value is a diagnostic filter, not a performance budget.",
+        "Collect at first accepted entry, after interaction, after reentry and before final cleanup on an actual reviewed rerun. Correlate maxCompletedUptime and long-callback events with the Ready/first-frame markers to distinguish early versus continuing stalls. Use nested stage durations only with matching callback/uptime identity; overlapping maxima alone cannot assign costs."
+      ],
+      "remainingCausalLimit": "Even this elapsed-time trace would locate stages and recurrence without proving CPU/GPU cause. Such attribution requires an appropriate platform performance trace.",
+      "timeoutChangeRequested": false
+    }
+  }
+}

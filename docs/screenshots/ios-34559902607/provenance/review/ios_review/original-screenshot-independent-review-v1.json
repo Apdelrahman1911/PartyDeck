@@ -1,0 +1,2830 @@
+{
+  "schemaVersion": 1,
+  "reviewedAtUtc": "2026-09-11T07:52:58.366925+00:00",
+  "reviewer": "/root/ios_review",
+  "runId": 34559902607,
+  "attempt": 1,
+  "headSha": "39405bb0fd6ba0214e70ed251aab1f9f571dc9aa",
+  "nativeJobId": 103140623784,
+  "disposition": "Direct visual review complete with explicit capture limitations",
+  "reviewMethod": {
+    "imageTool": "tools.view_image",
+    "originalPngsDirectlyViewed": 51,
+    "production": 41,
+    "ordinary": 10,
+    "uikit": 0,
+    "attribution": "The independent reviewer directly viewed all 51 original paths across this review continuation, including both same-byte host lobby images. Counts do not substitute collector statements or byte matches for a direct view.",
+    "display": "The image tool displayed the original files using its default view rendering. This is substantive visible-content review, not an automated image comparison or exhaustive accessibility audit.",
+    "integrity": "Original manifest/member hashes were independently checked in the pinned dedicated result receipt. This sealing script copies those verified references and checks receipt consistency; it does not rehash the PNGs, ZIP, job log or source tree.",
+    "sealingScript": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_review/seal-original-screenshot-review-v1.py",
+      "bytes": 28877,
+      "sha256": "fbb2275cfdde968e0799e1d54622673ee4de97f72c2f53d8c9f3a5843caf7d0b"
+    },
+    "scriptRole": "Serializes manually supplied visual findings and verifies their exact membership/pointers. Rerunning this script does not repeat the visual inspection."
+  },
+  "originalCollectionReceipt": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/collection-complete.json",
+    "bytes": 790,
+    "sha256": "2b67bf344eaf96a341dc86d700ef0db01442d31969c8e2c414583a85bc80571e"
+  },
+  "originalIntegrity": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app.integrity.json",
+    "bytes": 1832,
+    "sha256": "9d84e127bff0d0bd146ca5202c4c5f11785e2aa904878257e97262000932c75b"
+  },
+  "originalInventory": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app.files.json",
+    "bytes": 244768,
+    "sha256": "4836e751c7ff105d060bddb75f73f3ef25d6a7d5681c27d86105bddb11164c49"
+  },
+  "originalRetention": "Canonical paths refer to the newly collected originals. Earlier temporary originals were deleted during the restart; this review does not attribute them as surviving.",
+  "priorIndependentResultReceipt": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_review/dedicated-native-results-independent-review-v1.json",
+    "bytes": 204620,
+    "sha256": "5a79f8b0450a6a0527b7ddf3438f501c23d0fc66ab773f2852ec9e575e2fdc53"
+  },
+  "ownerOutcomeReceipts": {
+    "ordinaryAndUIKit": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ordinary-and-uikit-outcomes-v1.json",
+      "bytes": 33085,
+      "sha256": "9409c5f218a7b2570693e38839d6f2d1bcb550585815514be48df68448084bb5"
+    },
+    "production": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/production-session-outcome-v1.json",
+      "bytes": 365810,
+      "sha256": "03a2bf55ea8f9351b7eab0ce3ad2035c4656d78ffe01b3e538d19ff9f6aab956"
+    }
+  },
+  "originalManifests": {
+    "ordinary": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/attachments/manifest.json",
+      "bytes": 5190,
+      "sha256": "90452cc00b3acbedc81ede3ecec0154b0f44e2bef0b0dd5e6e7114824fc8df17"
+    },
+    "uikit-layout": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-layout/attachments/manifest.json",
+      "bytes": 4,
+      "sha256": "ace810d7e2cbb4f8c40ce09dc8e191ae466adb4e1a7d49c59f2215b411d38b05"
+    },
+    "production-sessions": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/manifest.json",
+      "bytes": 49111,
+      "sha256": "1ab6d5e1c35314cf1be1d5f1931a16b44ed671f7d58d0fe0248f1123e949cecb"
+    }
+  },
+  "ordering": "Production entries follow the independent result receipt chronology; manifest case/attachment/label-occurrence ordinals remain original manifest order, which is reverse chronological. Ordinary entries retain owner manifest order.",
+  "findingCatalog": {
+    "standard_concealed": {
+      "visibleFinding": "The captured Standard hand area shows the concealed hand panel and Show hand control; no private hand faces, rank labels or selected-card markers are visible.",
+      "basis": "Direct view of each named original PNG by the independent reviewer"
+    },
+    "standard_five_visible_unselected": {
+      "visibleFinding": "Five card faces and readable labels are simultaneously visible in the Standard hand. The selection text is 0 of 3 selected, with no selected-card checks visible.",
+      "basis": "Direct view of each named original PNG by the independent reviewer"
+    },
+    "standard_three_selected_and_limit_feedback": {
+      "visibleFinding": "Exactly the first three of five visible Standard cards have selected markers. The screen reads 3 of 3 selected and Choose up to 3 cards.; the Play 3 cards control is visible.",
+      "basis": "Direct view of each named original PNG by the independent reviewer"
+    },
+    "native_2d_concealed": {
+      "visibleFinding": "The 2D native hand is covered, with 5 cards, covered and Reveal visible. No private hand faces, rank labels or selected-card markers are visible.",
+      "basis": "Direct view of each named original PNG by the independent reviewer"
+    },
+    "native_2d_first_card_selected": {
+      "visibleFinding": "The 2D native hand strip shows a selected first card with check and border and readable visible card labels. Only part of the horizontal hand strip is simultaneously onscreen; this is not visual evidence that all five 2D native cards fit at once.",
+      "basis": "Direct view of each named original PNG by the independent reviewer"
+    },
+    "native_3d_concealed": {
+      "visibleFinding": "The 3D native hand shows five covered card backs, with no private hand face labels or selected-card marker visible.",
+      "basis": "Direct view of each named original PNG by the independent reviewer"
+    },
+    "native_3d_first_card_selected": {
+      "visibleFinding": "All five 3D native card faces and labels are visible, with the first-card selected marker present.",
+      "basis": "Direct view of each named original PNG by the independent reviewer"
+    },
+    "native_public_round_result": {
+      "visibleFinding": "The native capture shows public round-result content after Play. Public result-card disclosure is visible; it is distinct from private concealed-hand content. Action acceptance comes from the separately reviewed receipt, not these pixels.",
+      "basis": "Direct view of each named original PNG by the independent reviewer"
+    },
+    "standard_public_round_result": {
+      "visibleFinding": "The Standard return shows the public round-result screen. No native stage or private hand disclosure is visible in this capture.",
+      "basis": "Direct view of each named original PNG by the independent reviewer"
+    },
+    "next_round_2d_immediate_visual_limitation": {
+      "visibleFinding": "Despite its accepted NEXT_ROUND source label, this immediate 2D Standard capture still shows the preceding result panel and Next round control. Round 2 is not visually established by this image.",
+      "basis": "Direct view of each named original PNG by the independent reviewer"
+    },
+    "standard_round_two_concealed": {
+      "visibleFinding": "The Standard table visibly shows ROUND 2 and a concealed hand, with no Leave dialog or native stage visible.",
+      "basis": "Direct view of each named original PNG by the independent reviewer"
+    },
+    "leave_dialog": {
+      "visibleFinding": "The Leave the table? modal and Leave and Stay controls are visible above the Standard underlay. No private hand disclosure or native stage is visible.",
+      "basis": "Direct view of each named original PNG by the independent reviewer"
+    },
+    "home": {
+      "visibleFinding": "Home is visible with Host, Join and Practice choices. No native stage or private hand content is visible.",
+      "basis": "Direct view of each named original PNG by the independent reviewer"
+    },
+    "native_3d_whole_controls_after_scroll": {
+      "visibleFinding": "The actual post-scroll 3D image visibly includes the complete Play 1, Challenge Orbit and Return to lobby buttons, with the first-card selected marker retained. This image supports whole-button visibility after scrolling; it does not demonstrate Challenge execution.",
+      "basis": "Direct view of each named original PNG by the independent reviewer"
+    },
+    "settings": {
+      "visibleFinding": "Settings shows Sound, Haptics and Reduce motion toggles with explanatory text. The lower credits link is clipped by the scrolling viewport, so this capture does not establish complete initial visibility of that link.",
+      "basis": "Direct view of each named original PNG by the independent reviewer"
+    },
+    "host_lobby": {
+      "visibleFinding": "The host lobby shows Native Host ready, one of six seats filled and five open seats. Invite is visible and Deal appears disabled. No invitation payload or admission secret is visible in these lobby captures.",
+      "basis": "Direct view of each named original PNG by the independent reviewer"
+    },
+    "ordinary_public_round_result": {
+      "visibleFinding": "The ordinary practice capture shows a public round result with the revealed public card and opponent result/fuse information. The lower next action is partly clipped by the scrolling viewport.",
+      "basis": "Direct view of each named original PNG by the independent reviewer"
+    },
+    "native_3d_initial_bottom_clipping": {
+      "visibleFinding": "The initial unscrolled 3D viewport visibly clips the bottom Return to lobby action. These initial images do not establish full action-button bounds; the separate actual post-scroll image does.",
+      "basis": "Direct view of each named original PNG by the independent reviewer"
+    },
+    "ordinary_home_no_qualification_marker": {
+      "visibleFinding": "The ordinary Home capture has no visible Q qualification marker.",
+      "basis": "Direct view of each named original PNG by the independent reviewer"
+    }
+  },
+  "productionCaptures": [
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 49,
+        "sourceAttachmentName": "2d Standard concealed",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/30F6BE67-8F7C-4579-82C5-D8354FBB1DC1.png",
+          "bytes": 240006,
+          "sha256": "9168896238f3036db1e954e183710678aff1f718c0a05161eff1b6dc753525af"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "30F6BE67-8F7C-4579-82C5-D8354FBB1DC1.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d Standard concealed_0_C226AB5A-3BAF-443C-9949-8B6098D2D233.png",
+          "timestamp": 1789101006.969
+        },
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 48,
+        "sourceAttachmentName": "2d Standard concealed latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/78220379-6CE2-4A08-AE9A-C27D422012D2.json",
+          "bytes": 947,
+          "sha256": "408c1bfdde64682831eed65662cb1c02042dd7e5f0e3255660ee942546fd5401"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "78220379-6CE2-4A08-AE9A-C27D422012D2.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d Standard concealed latest sanitized observation_0_589AD6DE-0A37-4BE1-AB8E-874E3AE79E0E.json",
+          "timestamp": 1789101006.97
+        },
+        "observationSequence": "34",
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.0009999275207519531,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/0",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "standard_concealed"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 47,
+        "sourceAttachmentName": "2d Standard all five native card descriptions",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/4F3265E9-3332-476A-94A5-52D730FE2CB4.png",
+          "bytes": 208423,
+          "sha256": "94328fae4b38e33aa903f172389c7c82c9a52f10c861921765948cba79f8980a"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "4F3265E9-3332-476A-94A5-52D730FE2CB4.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d Standard all five native card descriptions_0_F1CECD54-4843-468C-AF8E-CD3EE36D71CA.png",
+          "timestamp": 1789101028.355
+        },
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 46,
+        "sourceAttachmentName": "2d Standard all five native card descriptions latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/C79BB1FE-33C3-4A6C-80E9-645557D61D88.json",
+          "bytes": 948,
+          "sha256": "540bbfa5ae21ebcb6e8d69552b521d33965d72e4fac34b017e546d4f728049f6"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "C79BB1FE-33C3-4A6C-80E9-645557D61D88.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d Standard all five native card descriptions latest sanitized observation_0_2842C845-A089-4BC9-B0FC-3DE1C830969D.json",
+          "timestamp": 1789101028.356
+        },
+        "observationSequence": "133",
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.0009999275207519531,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/1",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "standard_five_visible_unselected"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 45,
+        "sourceAttachmentName": "2d Standard maximum selection and count-only feedback",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/0FF55D21-15F2-48CE-BA7F-92A4D7443CFD.png",
+          "bytes": 225120,
+          "sha256": "fde27ec6aed3f908d49c547b9a852dc2107e86238db231561156f924e1187452"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "0FF55D21-15F2-48CE-BA7F-92A4D7443CFD.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d Standard maximum selection and count-only feedback_0_42547FF0-276C-4016-849E-413823C23F1E.png",
+          "timestamp": 1789101091.415
+        },
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 44,
+        "sourceAttachmentName": "2d Standard maximum selection and count-only feedback latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/7E4A2DA4-34C8-4B39-857B-88CCE9CCEBA2.json",
+          "bytes": 948,
+          "sha256": "bc03327ee6e75f7256a5cf1b917491b06adbeb43d565696412df98bd5e3379b6"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "7E4A2DA4-34C8-4B39-857B-88CCE9CCEBA2.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d Standard maximum selection and count-only feedback latest sanitized observation_0_74539006-8D9E-44D4-BD22-9422CF5376D0.json",
+          "timestamp": 1789101091.416
+        },
+        "observationSequence": "433",
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.0009999275207519531,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/2",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "standard_three_selected_and_limit_feedback"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 43,
+        "sourceAttachmentName": "2d Standard Hide removes private nodes and selection",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/BA0FFB78-590E-44AC-BEF4-430B1604479F.png",
+          "bytes": 239462,
+          "sha256": "6b10553b7ac07fc9f6179371ed84440728f51a76e56afbc0592c8555a97cace0"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "BA0FFB78-590E-44AC-BEF4-430B1604479F.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d Standard Hide removes private nodes and selection_0_0CD1A07E-ECB4-4CD4-8BEC-A690644DE307.png",
+          "timestamp": 1789101117.009
+        },
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 42,
+        "sourceAttachmentName": "2d Standard Hide removes private nodes and selection latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/59A5261D-2685-45F1-B780-0700B8A88A85.json",
+          "bytes": 948,
+          "sha256": "7256c4518e3fbbd8d306819e3f1b268d62f9d94ca111148330ac64e1ca108e49"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "59A5261D-2685-45F1-B780-0700B8A88A85.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d Standard Hide removes private nodes and selection latest sanitized observation_0_27AFF5A1-6D27-459A-AF5C-4465E4F8ECAD.json",
+          "timestamp": 1789101117.01
+        },
+        "observationSequence": "560",
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.0009999275207519531,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/3",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "standard_concealed"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 41,
+        "sourceAttachmentName": "2d Standard fresh Reveal is unselected",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/BF6A4215-6134-4742-AD8E-7CDF2EA041AA.png",
+          "bytes": 208236,
+          "sha256": "eadadf889c9072d6733ff341bddb5aa8bef2702a416ea02dc90f7cb8d9c5c0c6"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "BF6A4215-6134-4742-AD8E-7CDF2EA041AA.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d Standard fresh Reveal is unselected_0_D333AD1D-E71C-4F19-8D64-CFFED98BDB4A.png",
+          "timestamp": 1789101157.556
+        },
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 40,
+        "sourceAttachmentName": "2d Standard fresh Reveal is unselected latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/32C06E13-7A64-46C6-9872-ECC3F84902E9.json",
+          "bytes": 948,
+          "sha256": "e2a33d63d587623063124004ffb945c8896e96224610200fda57f8d6de952004"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "32C06E13-7A64-46C6-9872-ECC3F84902E9.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d Standard fresh Reveal is unselected latest sanitized observation_0_56195425-1C5B-4C65-AB37-570BC84A5F58.json",
+          "timestamp": 1789101157.557
+        },
+        "observationSequence": "693",
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.0009999275207519531,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/4",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "standard_five_visible_unselected"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 39,
+        "sourceAttachmentName": "2d production concealed entry",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/B34C60A8-EA61-4820-B60D-BDE87C8323FE.png",
+          "bytes": 262633,
+          "sha256": "62e8d4da6abd771505fea7ca111aa9d7facd7ac111f2986c446d80612d2fd67b"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "B34C60A8-EA61-4820-B60D-BDE87C8323FE.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d production concealed entry_0_E9419CC3-738A-41F8-AF50-70BA21B94DE8.png",
+          "timestamp": 1789101174.919
+        },
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 38,
+        "sourceAttachmentName": "2d production concealed entry latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/97880D77-5655-41C9-AB05-EFFDB26BC821.json",
+          "bytes": 3576,
+          "sha256": "fc94478ebe19c60ac0834de06d1155f3c3d5ca8bd91b413005b4467154d998e4"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "97880D77-5655-41C9-AB05-EFFDB26BC821.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d production concealed entry latest sanitized observation_0_082386E0-DFA8-4760-A8A0-B5E8441C19A3.json",
+          "timestamp": 1789101174.921
+        },
+        "observationSequence": "743",
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.002000093460083008,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/5",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "native_2d_concealed"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 35,
+        "sourceAttachmentName": "2d real native card selection",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/872023E0-6770-4413-8B0B-7024E4075737.png",
+          "bytes": 239038,
+          "sha256": "b3eb86e6fb376df2656a4aa8f8d654e277f27887714ad44a7d2d1a9ff51ff799"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "872023E0-6770-4413-8B0B-7024E4075737.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d real native card selection_0_899BA467-F973-4DF2-A098-B5E818A8C2FD.png",
+          "timestamp": 1789101184.532
+        },
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 2
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 34,
+        "sourceAttachmentName": "2d real native card selection latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/99EF5AB5-3A77-420A-9550-288D0ABA0E1D.json",
+          "bytes": 4310,
+          "sha256": "69db882bbaecb081c117196e96b98378f6e16e011684699a9de1aa2044611e56"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "99EF5AB5-3A77-420A-9550-288D0ABA0E1D.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d real native card selection latest sanitized observation_0_C1534657-F7C4-4BCB-9DBA-E61FC79870D9.json",
+          "timestamp": 1789101184.533
+        },
+        "observationSequence": "790",
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 2
+      },
+      "observationMinusCaptureSeconds": 0.0009999275207519531,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/6",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "native_2d_first_card_selected"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 32,
+        "sourceAttachmentName": "2d Hide removes private faces labels and selection",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/85E50C54-A954-4B72-87BD-3A82DD53CBDD.png",
+          "bytes": 261996,
+          "sha256": "687847b61bf72e9e1669843852af01b14578f55178c2bd6a23c283fab37b77de"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "85E50C54-A954-4B72-87BD-3A82DD53CBDD.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d Hide removes private faces labels and selection_0_B8C9709C-C2F9-4392-9AAC-150EC32A8419.png",
+          "timestamp": 1789101189.087
+        },
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 2
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 31,
+        "sourceAttachmentName": "2d Hide removes private faces labels and selection latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/E9CA5304-7482-4DFC-9A8D-8E35C0CCEB1A.json",
+          "bytes": 3581,
+          "sha256": "9bef66c63672a367b786cbbbce9bfbc9be3acb290afb38d72e92d3b6908e4ffb"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "E9CA5304-7482-4DFC-9A8D-8E35C0CCEB1A.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d Hide removes private faces labels and selection latest sanitized observation_0_C59FA88E-DAF1-4B69-BF6C-F23CCA90D108.json",
+          "timestamp": 1789101189.088
+        },
+        "observationSequence": "812",
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 2
+      },
+      "observationMinusCaptureSeconds": 0.0010001659393310547,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/7",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "native_2d_concealed"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 27,
+        "sourceAttachmentName": "2d real authority accepted native Play",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/545A5EEB-3CA6-445A-8409-574FA9EFEF48.png",
+          "bytes": 259821,
+          "sha256": "ca69c338e7d8ce6c3c8a093be2d8129b958d380d0a4f70f9d0f4d5b1fbffafaf"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "545A5EEB-3CA6-445A-8409-574FA9EFEF48.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d real authority accepted native Play_0_704B05FD-7C22-4B60-B4FF-D411077F3E5F.png",
+          "timestamp": 1789101205.489
+        },
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 26,
+        "sourceAttachmentName": "2d real authority accepted native Play latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/84D2B202-4AA2-427C-B0E2-C6BAB2E2FDB6.json",
+          "bytes": 3763,
+          "sha256": "360dc427076b19dddd511f1c419c0a36727cf429f452e690a639c13306250898"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "84D2B202-4AA2-427C-B0E2-C6BAB2E2FDB6.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d real authority accepted native Play latest sanitized observation_0_272204F7-8C3B-4D32-8BED-8F1F2A64929A.json",
+          "timestamp": 1789101205.49
+        },
+        "observationSequence": "892",
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.0009999275207519531,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/8",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "native_public_round_result"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 25,
+        "sourceAttachmentName": "2d same session Standard return",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/FDDF061A-3803-44AB-AB9D-968D76BBF1FB.png",
+          "bytes": 224577,
+          "sha256": "7cdc60d41bfbeca8c40f9b10ea49557cfef251662826b484ae5f9a879447366b"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "FDDF061A-3803-44AB-AB9D-968D76BBF1FB.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d same session Standard return_0_D12815BE-0964-44B5-8BDA-F93EE0224987.png",
+          "timestamp": 1789101209.232
+        },
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 24,
+        "sourceAttachmentName": "2d same session Standard return latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/F4AEAE39-4AC5-4572-B36C-85D31E808AE7.json",
+          "bytes": 2217,
+          "sha256": "b0af7cb2a54f12aaf4230d479db8540097df0a72998da82cae4be93c7c294bd4"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "F4AEAE39-4AC5-4572-B36C-85D31E808AE7.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d same session Standard return latest sanitized observation_0_A3B117A5-34B1-4834-9273-C9BD725A146B.json",
+          "timestamp": 1789101209.232
+        },
+        "observationSequence": "911",
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.0,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/9",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "standard_public_round_result"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 23,
+        "sourceAttachmentName": "2d real Standard authority accepted NEXT_ROUND",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/F9BC2B55-1C77-4851-AD6B-E4DA3A07601D.png",
+          "bytes": 211477,
+          "sha256": "7835fa72a00ab9bd977926e524db0941ba180add9d3f079a41dbfc1028574b8d"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "F9BC2B55-1C77-4851-AD6B-E4DA3A07601D.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d real Standard authority accepted NEXT_ROUND_0_A28FB087-E512-422D-8AE2-336E06B86C13.png",
+          "timestamp": 1789101220.028
+        },
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 22,
+        "sourceAttachmentName": "2d real Standard authority accepted NEXT_ROUND latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/0D23EFC9-D58C-4212-AAAB-8FD0A2949681.json",
+          "bytes": 2213,
+          "sha256": "061be59cab819c91a4a4182a78f28556c0a4b9166a11968d5e25a97481c8f3e1"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "0D23EFC9-D58C-4212-AAAB-8FD0A2949681.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d real Standard authority accepted NEXT_ROUND latest sanitized observation_0_B2737FE2-6710-4EEF-BAC4-C6A035DE866B.json",
+          "timestamp": 1789101220.029
+        },
+        "observationSequence": "958",
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.0009999275207519531,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/10",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "next_round_2d_immediate_visual_limitation"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 21,
+        "sourceAttachmentName": "Actual production Leave confirmation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/8A23C534-7D00-41C2-93E2-9526DAE8B23A.png",
+          "bytes": 233633,
+          "sha256": "275cfa9f9b902b0693392691d8b31a1efdc25cd20b2a7efdc9a58ca06002c745"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "8A23C534-7D00-41C2-93E2-9526DAE8B23A.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Actual production Leave confirmation_0_B39A1911-0A8D-4727-BA31-32221CDF8162.png",
+          "timestamp": 1789101233.019
+        },
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 3
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 20,
+        "sourceAttachmentName": "Actual production Leave confirmation latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/15D27285-0ED5-4427-97BB-8E3FDBFF8624.json",
+          "bytes": 2217,
+          "sha256": "8739478afccbdfcc75083e5920478fc431f517671eff3674861fdaece6e471c0"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "15D27285-0ED5-4427-97BB-8E3FDBFF8624.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Actual production Leave confirmation latest sanitized observation_0_8529601B-E106-4969-B93E-B54B980E841F.json",
+          "timestamp": 1789101233.02
+        },
+        "observationSequence": "1017",
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 3
+      },
+      "observationMinusCaptureSeconds": 0.0009999275207519531,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/11",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "leave_dialog"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 19,
+        "sourceAttachmentName": "2d Leave cancelled on same concealed session",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/08D65E9E-794B-4E0B-8EFE-22DA74BB22EB.png",
+          "bytes": 224862,
+          "sha256": "f7bbbe90ed39dd4baefc82766f144645a0faaa1de42eb2dcd1e1bc10c2d5517f"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "08D65E9E-794B-4E0B-8EFE-22DA74BB22EB.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d Leave cancelled on same concealed session_0_6AA0B833-48A6-424E-B3AB-1F6616D976CC.png",
+          "timestamp": 1789101237.493
+        },
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 18,
+        "sourceAttachmentName": "2d Leave cancelled on same concealed session latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/B2A3ACA4-FE44-4F09-A041-1476AA881E18.json",
+          "bytes": 2218,
+          "sha256": "3640014cbaacfe2a6e11ef199c722659bc85ffe355ce22a104c38815874ad288"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "B2A3ACA4-FE44-4F09-A041-1476AA881E18.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d Leave cancelled on same concealed session latest sanitized observation_0_3E38DB77-D603-4308-8883-835C6489AB29.json",
+          "timestamp": 1789101237.494
+        },
+        "observationSequence": "1032",
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.0009999275207519531,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/12",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "standard_round_two_concealed"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 17,
+        "sourceAttachmentName": "Actual production Leave confirmation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/E1F8D7E2-5FBA-47BE-A7B3-C1B537580881.png",
+          "bytes": 233651,
+          "sha256": "6a5d073f4523572d7b2767e88f8268611a35400fd79d279d13f94f7f9e039900"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "E1F8D7E2-5FBA-47BE-A7B3-C1B537580881.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Actual production Leave confirmation_0_5E638F90-2B4C-4A5E-8388-33ABA2F4724D.png",
+          "timestamp": 1789101251.84
+        },
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 2
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 2,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 16,
+        "sourceAttachmentName": "Actual production Leave confirmation latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/F7882F0E-E038-4DA7-BD12-7813C6C2F0EA.json",
+          "bytes": 2217,
+          "sha256": "793f21fa96aad8c213c380f60f535cd1ef6c6276e7f59ffdd9ff8b588e9d68ca"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "F7882F0E-E038-4DA7-BD12-7813C6C2F0EA.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Actual production Leave confirmation latest sanitized observation_0_8C4142EA-0AFF-474F-A5C8-9018D5BE15E7.json",
+          "timestamp": 1789101251.84
+        },
+        "observationSequence": "1103",
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 2
+      },
+      "observationMinusCaptureSeconds": 0.0,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/13",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "leave_dialog"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 15,
+        "sourceAttachmentName": "2d confirmed Leave ended the session",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/2593E026-0033-4E04-8C79-6CA11D2FF597.png",
+          "bytes": 298437,
+          "sha256": "4a8584d025e8f57da646fc5f7b4f61faf5d70d04570f3dee91c7b0f6c49ffa00"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "2593E026-0033-4E04-8C79-6CA11D2FF597.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d confirmed Leave ended the session_0_CFB2D775-A80D-419A-8D4F-D3C0631E1793.png",
+          "timestamp": 1789101254.477
+        },
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 14,
+        "sourceAttachmentName": "2d confirmed Leave ended the session latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/3D20E7E7-A3E3-46A2-A653-938071AC3EAB.json",
+          "bytes": 2215,
+          "sha256": "a76983d70ef2c81990e74a67f8ebb45d508de84f9c3e4d271a2e61c557bb7e57"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "3D20E7E7-A3E3-46A2-A653-938071AC3EAB.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d confirmed Leave ended the session latest sanitized observation_0_CFFFE1DD-C83A-458B-8253-8094255BAB19.json",
+          "timestamp": 1789101254.478
+        },
+        "observationSequence": "1116",
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.0009999275207519531,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/14",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "home"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 11,
+        "sourceAttachmentName": "2d real native card selection",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/D4FBA53E-D71B-4806-85D2-E23139858D15.png",
+          "bytes": 235525,
+          "sha256": "509a41dd38805931af0c2d4dfd6723902a93b0a3ab43bf124abf93975f6e5e73"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "D4FBA53E-D71B-4806-85D2-E23139858D15.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d real native card selection_0_CC66890A-B1A1-45CF-9806-B6A4E75C38A8.png",
+          "timestamp": 1789101285.671
+        },
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 2,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 10,
+        "sourceAttachmentName": "2d real native card selection latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/1A1EF7FD-8A48-4FF7-8AFD-1267B07D9BE3.json",
+          "bytes": 4487,
+          "sha256": "1c3d37c1d4887dd9787d37d7bb9498f5df35c1bfaf36bdbdcfad0c0f46404649"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "1A1EF7FD-8A48-4FF7-8AFD-1267B07D9BE3.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d real native card selection latest sanitized observation_0_A5CD661E-517A-4BA3-A700-9692F5D5F359.json",
+          "timestamp": 1789101285.675
+        },
+        "observationSequence": "1264",
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.003999948501586914,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/15",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "native_2d_first_card_selected"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 8,
+        "sourceAttachmentName": "2d Hide removes private faces labels and selection",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/BCA52D0A-4F90-4349-BAD9-B77B60D738AE.png",
+          "bytes": 257500,
+          "sha256": "5fb254d41f72f7839b5ec9d3864debdb513f3216153484bc8d8a28365b47f119"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "BCA52D0A-4F90-4349-BAD9-B77B60D738AE.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d Hide removes private faces labels and selection_0_B62E9EC4-0E86-4172-B84A-429AFF6DCE2C.png",
+          "timestamp": 1789101292.891
+        },
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 2,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 7,
+        "sourceAttachmentName": "2d Hide removes private faces labels and selection latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/343F9314-5145-40AF-BFA2-C888FB113124.json",
+          "bytes": 3760,
+          "sha256": "58742211b3f46c54f88a0a7ba0594fbb2954309f6ba6f457c96c54958a4e3ae8"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "343F9314-5145-40AF-BFA2-C888FB113124.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d Hide removes private faces labels and selection latest sanitized observation_0_534A107F-58FB-4DE5-B124-0857B5C5BA3B.json",
+          "timestamp": 1789101292.892
+        },
+        "observationSequence": "1299",
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.0009999275207519531,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/16",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "native_2d_concealed"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 6,
+        "sourceAttachmentName": "2d new practice reuses engine and receives fresh input",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/DF6233B3-E4AE-462A-9979-F604368BA980.png",
+          "bytes": 257500,
+          "sha256": "5fb254d41f72f7839b5ec9d3864debdb513f3216153484bc8d8a28365b47f119"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "DF6233B3-E4AE-462A-9979-F604368BA980.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d new practice reuses engine and receives fresh input_0_55557D33-D7DE-4F2D-B9B5-BDBC64B0E5C6.png",
+          "timestamp": 1789101293.954
+        },
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 5,
+        "sourceAttachmentName": "2d new practice reuses engine and receives fresh input latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/4ECA18E1-4D5C-45A4-8215-7D8A2ADD1CFF.json",
+          "bytes": 3760,
+          "sha256": "58742211b3f46c54f88a0a7ba0594fbb2954309f6ba6f457c96c54958a4e3ae8"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "4ECA18E1-4D5C-45A4-8215-7D8A2ADD1CFF.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d new practice reuses engine and receives fresh input latest sanitized observation_0_C2D76156-DC74-4BC5-9AA5-A5E95AD80D72.json",
+          "timestamp": 1789101293.955
+        },
+        "observationSequence": "1299",
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.0009999275207519531,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/17",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "native_2d_concealed"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 4,
+        "sourceAttachmentName": "Actual production Leave confirmation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/9960E985-75EF-41BF-ACBD-8A1E69A92332.png",
+          "bytes": 251030,
+          "sha256": "73d1604ab86b4917d2c6fb2331c897ec32001ac8db833d9eafa6a852da93f3b9"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "9960E985-75EF-41BF-ACBD-8A1E69A92332.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Actual production Leave confirmation_0_76DDBE15-C66E-4711-9F9C-30E295F62ADE.png",
+          "timestamp": 1789101299.514
+        },
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 3,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 3,
+        "sourceAttachmentName": "Actual production Leave confirmation latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/99939228-5B8A-45C1-84B5-BFA51129EDEE.json",
+          "bytes": 2217,
+          "sha256": "ec3cb59fee4d1175942f2c60af748eaf2341042571fc85ff7cc7ce101ff25797"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "99939228-5B8A-45C1-84B5-BFA51129EDEE.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Actual production Leave confirmation latest sanitized observation_0_8638A39D-7DF1-43ED-B681-94453322D4FD.json",
+          "timestamp": 1789101299.516
+        },
+        "observationSequence": "1330",
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.002000093460083008,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/18",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "leave_dialog"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 2,
+        "sourceAttachmentName": "2d production smoke cleanup complete",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/42615FED-42C2-4100-ACF7-A5D4B20752C8.png",
+          "bytes": 299013,
+          "sha256": "673aafcba1958ea7230f56996048357f29413e0e6c10ebf559a4fde8517ea1ef"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "42615FED-42C2-4100-ACF7-A5D4B20752C8.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d production smoke cleanup complete_0_9B6286BB-B33D-4871-AF19-CDD32725D126.png",
+          "timestamp": 1789101304.995
+        },
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "caseAttachmentOrdinal": 1,
+        "sourceAttachmentName": "2d production smoke cleanup complete latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/96E23A6D-13E2-4AF2-8B90-194FB41E54FB.json",
+          "bytes": 2216,
+          "sha256": "311c7b2113619214e3aa0a978b6b02dac0c55f664c021c63a90d35b6be31b897"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "96E23A6D-13E2-4AF2-8B90-194FB41E54FB.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d production smoke cleanup complete latest sanitized observation_0_2A39E074-FBF5-479A-B89A-586A672FFFC4.json",
+          "timestamp": 1789101304.996
+        },
+        "observationSequence": "1346",
+        "manifestCaseOrdinal": 1,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.0010001659393310547,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/19",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "home"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 57,
+        "sourceAttachmentName": "3d Standard concealed",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/20C41AFB-81AD-4F3B-A568-233DBF5C4330.png",
+          "bytes": 219361,
+          "sha256": "ee6a55104ae585f6ea6d020b8a7c35250d11792f652cd98b72634c7bd8d7486e"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "20C41AFB-81AD-4F3B-A568-233DBF5C4330.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d Standard concealed_0_183F8907-EF26-4534-81EC-EE65D9E32ED0.png",
+          "timestamp": 1789101327.425
+        },
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 56,
+        "sourceAttachmentName": "3d Standard concealed latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/8A88BC21-D7D2-4E50-8912-F359111E1153.json",
+          "bytes": 948,
+          "sha256": "2b6a0359aa1cca18ceecd720dfa223fb2802efe95ee495d1b8a4d6eca2ff52f0"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "8A88BC21-D7D2-4E50-8912-F359111E1153.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d Standard concealed latest sanitized observation_0_1932E2C1-D883-4048-8FE9-E27ABC638BDF.json",
+          "timestamp": 1789101327.425
+        },
+        "observationSequence": "35",
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.0,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/20",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "standard_concealed"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 55,
+        "sourceAttachmentName": "3d Standard all five native card descriptions",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/B9F21E9C-8967-422A-87A8-B65F2644A63B.png",
+          "bytes": 187790,
+          "sha256": "02edb07347327c78a17697f21f85564441270e2eea194fe4f5f0828965d59190"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "B9F21E9C-8967-422A-87A8-B65F2644A63B.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d Standard all five native card descriptions_0_E64EA279-D4A3-4780-ACBD-E7067D72BC67.png",
+          "timestamp": 1789101351.487
+        },
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 54,
+        "sourceAttachmentName": "3d Standard all five native card descriptions latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/B6D974A7-A121-4610-B597-C326946FFC29.json",
+          "bytes": 949,
+          "sha256": "e2183d1207ff2abf6f26c3533ea42c5eab50020cc88a99f1a70180b1df53b25f"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "B6D974A7-A121-4610-B597-C326946FFC29.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d Standard all five native card descriptions latest sanitized observation_0_9658FDDC-5CB7-4FDA-B434-04BC6F10AECD.json",
+          "timestamp": 1789101351.488
+        },
+        "observationSequence": "137",
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.0009999275207519531,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/21",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "standard_five_visible_unselected"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 53,
+        "sourceAttachmentName": "3d Standard maximum selection and count-only feedback",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/9C8D8812-4C4A-40C9-9EA6-99351E77F7CF.png",
+          "bytes": 208579,
+          "sha256": "5eb6b7db545345d87c80358b1166a2df1bca54c1aa5760b5266d8d1702c8a2d6"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "9C8D8812-4C4A-40C9-9EA6-99351E77F7CF.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d Standard maximum selection and count-only feedback_0_58C721B7-E915-4681-B1B8-BDF477D65535.png",
+          "timestamp": 1789101452.624
+        },
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 52,
+        "sourceAttachmentName": "3d Standard maximum selection and count-only feedback latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/433DE4AE-B6D7-4ED7-976C-33991C943E3E.json",
+          "bytes": 949,
+          "sha256": "7b96dbacfb71c220d7f1f85459fc75e83f8e0c9b34d97d8bdb6b67a2d124fc96"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "433DE4AE-B6D7-4ED7-976C-33991C943E3E.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d Standard maximum selection and count-only feedback latest sanitized observation_0_AD0281D8-5200-406F-9250-C3655237EF5C.json",
+          "timestamp": 1789101452.625
+        },
+        "observationSequence": "512",
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.0009999275207519531,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/22",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "standard_three_selected_and_limit_feedback"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 51,
+        "sourceAttachmentName": "3d Standard Hide removes private nodes and selection",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/6902B013-E409-49DE-8B2A-A1E177999B50.png",
+          "bytes": 219783,
+          "sha256": "8b643fa11fb1385029a8dbce9a4259ba1cdc1c89387f5f0e2b08b42a908aa454"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "6902B013-E409-49DE-8B2A-A1E177999B50.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d Standard Hide removes private nodes and selection_0_45BADFA0-2081-412A-B667-91D6FCEC9F23.png",
+          "timestamp": 1789101491.977
+        },
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 50,
+        "sourceAttachmentName": "3d Standard Hide removes private nodes and selection latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/1527644F-EA40-4043-899F-81E05FF134E9.json",
+          "bytes": 949,
+          "sha256": "30883a2822f040527f38234a52eab9ae811208a254547716c956b5d5e9a4a2c3"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "1527644F-EA40-4043-899F-81E05FF134E9.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d Standard Hide removes private nodes and selection latest sanitized observation_0_102001D3-07F2-49ED-9903-FCBCDC0CF003.json",
+          "timestamp": 1789101491.978
+        },
+        "observationSequence": "679",
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.0009999275207519531,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/23",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "standard_concealed"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 49,
+        "sourceAttachmentName": "3d Standard fresh Reveal is unselected",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/609DDEB3-25F9-4AD4-8985-E127453A1F94.png",
+          "bytes": 188213,
+          "sha256": "5dd078fa895cfd2e78aa22c367c2e605af1707dec2222b29764b00a76e8f3e02"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "609DDEB3-25F9-4AD4-8985-E127453A1F94.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d Standard fresh Reveal is unselected_0_FE1C3B7F-2817-427E-8B16-2A82D826CB5F.png",
+          "timestamp": 1789101519.77
+        },
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 48,
+        "sourceAttachmentName": "3d Standard fresh Reveal is unselected latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/59ACF582-CE01-485E-88A2-8FD1A4FE9536.json",
+          "bytes": 949,
+          "sha256": "0b1d49a55890ef1f9205747a39223ea7b890fd70c2d65b83962adf7450a4cc53"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "59ACF582-CE01-485E-88A2-8FD1A4FE9536.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d Standard fresh Reveal is unselected latest sanitized observation_0_3F96EA8F-D92B-4E2A-9C8C-41A64D0BC654.json",
+          "timestamp": 1789101519.772
+        },
+        "observationSequence": "799",
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.002000093460083008,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/24",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "standard_five_visible_unselected"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 47,
+        "sourceAttachmentName": "3d production concealed entry",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/2BCEDF04-EE2E-42EE-B765-AC5DB90D88EA.png",
+          "bytes": 373723,
+          "sha256": "07b606a89b021340e74c82c6589e224c4992cc04273ef5f8494c245cfab9d9e0"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "2BCEDF04-EE2E-42EE-B765-AC5DB90D88EA.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d production concealed entry_0_60CCB8AC-8F5E-48E6-9B16-D1A8BD7A6187.png",
+          "timestamp": 1789101598.273
+        },
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 46,
+        "sourceAttachmentName": "3d production concealed entry latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/6B7971DF-9563-4180-BF60-BAAFCCFD6218.json",
+          "bytes": 3134,
+          "sha256": "53540a16117f915a4f8ae6f7c01265dac2dc0a7937603639c0aefb9d620ab92a"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "6B7971DF-9563-4180-BF60-BAAFCCFD6218.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d production concealed entry latest sanitized observation_0_7741C9FC-BE58-4916-B12A-FCBCF9A068E3.json",
+          "timestamp": 1789101598.276
+        },
+        "observationSequence": "853",
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.003000020980834961,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/25",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "native_3d_concealed",
+        "native_3d_initial_bottom_clipping"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 43,
+        "sourceAttachmentName": "3d real native card selection",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/BEFA0FD5-DCE1-4749-84EE-96E7B6EDD1AD.png",
+          "bytes": 331955,
+          "sha256": "93ea5e82e33a79fed4791217ef41a7702a5e195615e055ed2111e3e8521db168"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "BEFA0FD5-DCE1-4749-84EE-96E7B6EDD1AD.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d real native card selection_0_6BBEF266-612A-44B1-99C9-A1740421B1F5.png",
+          "timestamp": 1789101631.11
+        },
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 2
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 42,
+        "sourceAttachmentName": "3d real native card selection latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/E94047A8-0169-49A1-ABCD-A6A409BF0896.json",
+          "bytes": 4149,
+          "sha256": "ef4cef0208e661fcd8fa45f2d4fd253ee248ed44e852cb9d0cfe5871e404f0d4"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "E94047A8-0169-49A1-ABCD-A6A409BF0896.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d real native card selection latest sanitized observation_0_4CB82069-1B93-46B7-861D-D9AD6BB0A539.json",
+          "timestamp": 1789101631.111
+        },
+        "observationSequence": "889",
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 2
+      },
+      "observationMinusCaptureSeconds": 0.0010001659393310547,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/26",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "native_3d_first_card_selected",
+        "native_3d_initial_bottom_clipping"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 40,
+        "sourceAttachmentName": "3d Hide removes private faces labels and selection",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/910A258C-3158-4B80-B83A-7C0C0EFB02C9.png",
+          "bytes": 375314,
+          "sha256": "409574c92a5d01c563722fdf7dc463c296015626dca204cb91dc06cfc8edb670"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "910A258C-3158-4B80-B83A-7C0C0EFB02C9.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d Hide removes private faces labels and selection_0_A6402BF7-A87A-424D-B640-F310F9A64D7B.png",
+          "timestamp": 1789101635.458
+        },
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 2
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 39,
+        "sourceAttachmentName": "3d Hide removes private faces labels and selection latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/3E824B5D-0457-46DA-8EBB-47C9AA8293D3.json",
+          "bytes": 3136,
+          "sha256": "309d84d56594def90f5c57bf9b41cac4a53804c46050d47a073bcb0f16ca5333"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "3E824B5D-0457-46DA-8EBB-47C9AA8293D3.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d Hide removes private faces labels and selection latest sanitized observation_0_06F8D9F8-B65A-434C-B453-DB969F2086F3.json",
+          "timestamp": 1789101635.459
+        },
+        "observationSequence": "905",
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 2
+      },
+      "observationMinusCaptureSeconds": 0.0010001659393310547,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/27",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "native_3d_concealed"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 35,
+        "sourceAttachmentName": "3d real authority accepted native Play",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/8741B976-69BE-4AF4-8751-1D668B1DCAD5.png",
+          "bytes": 268670,
+          "sha256": "b28ccc42fd3bf4f167e1b37ed596dea31c6bca922d2cbb635e1c138227227b44"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "8741B976-69BE-4AF4-8751-1D668B1DCAD5.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d real authority accepted native Play_0_CAC474F5-2973-4BC1-BFB0-3A62BC7B4219.png",
+          "timestamp": 1789101682.897
+        },
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 34,
+        "sourceAttachmentName": "3d real authority accepted native Play latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/F38F3CEC-3C45-4AC8-9B7C-BBA4612257EC.json",
+          "bytes": 3171,
+          "sha256": "d768299241599e38f65c06c94275231cc63cbeaee770e617065059cc2d460b06"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "F38F3CEC-3C45-4AC8-9B7C-BBA4612257EC.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d real authority accepted native Play latest sanitized observation_0_F343FD75-8548-48E5-8695-15F028ADAAAB.json",
+          "timestamp": 1789101682.897
+        },
+        "observationSequence": "962",
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.0,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/28",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "native_public_round_result"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 33,
+        "sourceAttachmentName": "3d same session Standard return",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/3B2EF600-E81D-4789-AC94-8149D93DAC6D.png",
+          "bytes": 209302,
+          "sha256": "6bf9d74c7656800e99d4ae35845c1d257997d6c00bafe6a905f53ff371b47738"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "3B2EF600-E81D-4789-AC94-8149D93DAC6D.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d same session Standard return_0_23873868-3B32-40E3-8162-C4654FF7AEC8.png",
+          "timestamp": 1789101695.958
+        },
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 32,
+        "sourceAttachmentName": "3d same session Standard return latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/F0E8BCF9-07B2-4662-B78A-2CF779909D58.json",
+          "bytes": 2218,
+          "sha256": "0d3de77eefd69286009afad70125cb1f3764cfdf4f5c25a91cc76f58fcab7ed3"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "F0E8BCF9-07B2-4662-B78A-2CF779909D58.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d same session Standard return latest sanitized observation_0_8D829F78-994D-48CE-83A1-5BA284DCC669.json",
+          "timestamp": 1789101695.959
+        },
+        "observationSequence": "1008",
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.0010001659393310547,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/29",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "standard_public_round_result"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 31,
+        "sourceAttachmentName": "3d real Standard authority accepted NEXT_ROUND",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/6221652C-F7DD-45DD-A284-0FC83E6C1414.png",
+          "bytes": 233935,
+          "sha256": "4d31ca16ae48cb85b382ff1af498ddd205d41a985e1f15c98816c68957a50dda"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "6221652C-F7DD-45DD-A284-0FC83E6C1414.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d real Standard authority accepted NEXT_ROUND_0_6B7F3F7F-81C0-4E3D-A663-0EE12ED458BD.png",
+          "timestamp": 1789101711.598
+        },
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 30,
+        "sourceAttachmentName": "3d real Standard authority accepted NEXT_ROUND latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/9A936E28-7240-40C6-B04F-F3D0C7C3BDBE.json",
+          "bytes": 2216,
+          "sha256": "9dbc98ebacc67bfeaa713f31cafecabfd6cd45999fbd373921ca51958de1b4a0"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "9A936E28-7240-40C6-B04F-F3D0C7C3BDBE.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d real Standard authority accepted NEXT_ROUND latest sanitized observation_0_1BDD6507-E0A4-4B38-95B1-B72D60C67F27.json",
+          "timestamp": 1789101711.601
+        },
+        "observationSequence": "1060",
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.003000020980834961,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/30",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "standard_round_two_concealed"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 29,
+        "sourceAttachmentName": "Actual production Leave confirmation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/A1AE82BE-A106-4089-8ED9-3DC03C029FE3.png",
+          "bytes": 225430,
+          "sha256": "8c10ef1796bd226ac06851e31a4605fdfdd92506b2885104dcfa730d3448dc2b"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "A1AE82BE-A106-4089-8ED9-3DC03C029FE3.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Actual production Leave confirmation_0_B64E31C9-353B-4C3C-8043-A81AB94AB252.png",
+          "timestamp": 1789101751.65
+        },
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 3
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 28,
+        "sourceAttachmentName": "Actual production Leave confirmation latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/D72CB595-8FCA-401D-BEF4-BAADBA1F6842.json",
+          "bytes": 2219,
+          "sha256": "e0c779f6d53a84a6cf6bdb88d3067b5faee78f4565c05b4a82a66030322e1481"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "D72CB595-8FCA-401D-BEF4-BAADBA1F6842.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Actual production Leave confirmation latest sanitized observation_0_8ADF8ACA-5A92-4729-9412-B43668565F7B.json",
+          "timestamp": 1789101751.651
+        },
+        "observationSequence": "1122",
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 3
+      },
+      "observationMinusCaptureSeconds": 0.0009999275207519531,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/31",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "leave_dialog"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 27,
+        "sourceAttachmentName": "3d Leave cancelled on same concealed session",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/A6E03DED-D494-4139-81C3-49FD68CB8FEC.png",
+          "bytes": 213433,
+          "sha256": "7b9da1af7838a04762dc52f0b3e3a5da82d81a5b113adbe81c7b5f22d1972346"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "A6E03DED-D494-4139-81C3-49FD68CB8FEC.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d Leave cancelled on same concealed session_0_ECDF7D2B-3703-452E-82C6-7035F689ED34.png",
+          "timestamp": 1789101753.794
+        },
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 26,
+        "sourceAttachmentName": "3d Leave cancelled on same concealed session latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/9AD67926-B509-4D66-A915-233654D35E96.json",
+          "bytes": 2220,
+          "sha256": "bde1d360d7eeccb282ca9f46c65a185b3320c2a8ea3706a6f0bbe221a9c44b8f"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "9AD67926-B509-4D66-A915-233654D35E96.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d Leave cancelled on same concealed session latest sanitized observation_0_3CF4C9B7-6804-4E24-842B-D70176DA1448.json",
+          "timestamp": 1789101753.794
+        },
+        "observationSequence": "1133",
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.0,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/32",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "standard_round_two_concealed"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 25,
+        "sourceAttachmentName": "Actual production Leave confirmation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/62D9A565-0EEF-4B9E-908B-DA8E8FEDBB11.png",
+          "bytes": 225685,
+          "sha256": "0d829e4bcb8dd89c81643fff9c06f6623915d49556032f068d43a0323bb2a3c8"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "62D9A565-0EEF-4B9E-908B-DA8E8FEDBB11.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Actual production Leave confirmation_0_CC28A91F-03AF-48C4-92F7-EF47473318A8.png",
+          "timestamp": 1789101783.03
+        },
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 2
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 2,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 24,
+        "sourceAttachmentName": "Actual production Leave confirmation latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/0E6E6B29-5CD6-4749-9543-C6FD5BACFF1F.json",
+          "bytes": 2222,
+          "sha256": "12837e4c7d78663cf8df136771fd4f6f2c2fa9bfeb54362e463f511e260441be"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "0E6E6B29-5CD6-4749-9543-C6FD5BACFF1F.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Actual production Leave confirmation latest sanitized observation_0_ACE13CB3-F2B1-431B-849A-8534B3C2F38D.json",
+          "timestamp": 1789101783.031
+        },
+        "observationSequence": "1190",
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 2
+      },
+      "observationMinusCaptureSeconds": 0.0009999275207519531,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/33",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "leave_dialog"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 23,
+        "sourceAttachmentName": "3d confirmed Leave ended the session",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/D52FC7CE-FE18-49B6-A5BA-BD01FA7D3831.png",
+          "bytes": 298369,
+          "sha256": "3b9f558aa2220c1bca73f2bccaa4c3930e6fe07ca106f109d53b5e96045d9645"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "D52FC7CE-FE18-49B6-A5BA-BD01FA7D3831.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d confirmed Leave ended the session_0_F11016E3-BA0E-4B8B-95D1-D846466E2DF7.png",
+          "timestamp": 1789101785.059
+        },
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 22,
+        "sourceAttachmentName": "3d confirmed Leave ended the session latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/A49EAF4B-A885-4F67-9B50-AD6C6985578E.json",
+          "bytes": 2215,
+          "sha256": "86cde6eac3db498d19dbbe6c59c84fcbaf65b5b79cec0caee20e86c778f17bc9"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "A49EAF4B-A885-4F67-9B50-AD6C6985578E.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d confirmed Leave ended the session latest sanitized observation_0_36FA4820-C3C6-4BB5-99CA-C0BFA94604C9.json",
+          "timestamp": 1789101785.059
+        },
+        "observationSequence": "1200",
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.0,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/34",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "home"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 19,
+        "sourceAttachmentName": "3d real native card selection",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/96BF308F-29B0-4BF5-B689-8B874FF80130.png",
+          "bytes": 345700,
+          "sha256": "bb9de5c28f7c5f0f30bef7791915dd1ac78da248a25f2865140a98c6d50763bc"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "96BF308F-29B0-4BF5-B689-8B874FF80130.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d real native card selection_0_BD285FB4-A3F3-4FD0-ACF4-F196605E402E.png",
+          "timestamp": 1789101806.596
+        },
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 2,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 18,
+        "sourceAttachmentName": "3d real native card selection latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/766B5D5E-F981-465D-91C8-EB87A6CF9A05.json",
+          "bytes": 4477,
+          "sha256": "8c6fd821b64db92000d3549fc66bc857583805454e7118fc3896e6d2408b33cd"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "766B5D5E-F981-465D-91C8-EB87A6CF9A05.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d real native card selection latest sanitized observation_0_378BCF43-592B-42E7-B668-8F4BD1D28233.json",
+          "timestamp": 1789101806.597
+        },
+        "observationSequence": "1264",
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.0009999275207519531,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/35",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "native_3d_first_card_selected"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 11,
+        "sourceAttachmentName": "3d round 1 full native action bounds preserve selection",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/0896A2DA-8FFA-4722-8D67-4BA569111EC9.png",
+          "bytes": 338554,
+          "sha256": "3acee49637ec0a5d70084d028a8a6d1be54fcd098c3366126a58fb466e4a9c91"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "0896A2DA-8FFA-4722-8D67-4BA569111EC9.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d round 1 full native action bounds preserve selection_0_33248D06-F115-415C-A62D-26F87078CBC4.png",
+          "timestamp": 1789101817.014
+        },
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 10,
+        "sourceAttachmentName": "3d round 1 full native action bounds preserve selection latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/8001D5B1-5B52-4203-A1C5-BEF932DE3685.json",
+          "bytes": 4477,
+          "sha256": "0f292dc30706433eb6d497533d4a49d86743b817e86f2f8a69b316e97869b2e9"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "8001D5B1-5B52-4203-A1C5-BEF932DE3685.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d round 1 full native action bounds preserve selection latest sanitized observation_0_3E57E7A4-1FCE-40AC-AB7A-BE0695606155.json",
+          "timestamp": 1789101817.015
+        },
+        "observationSequence": "1310",
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.0010001659393310547,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/36",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "native_3d_whole_controls_after_scroll"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 8,
+        "sourceAttachmentName": "3d Hide removes private faces labels and selection",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/0C7AC701-1E72-42CC-A68A-6D1AC1EFB6B3.png",
+          "bytes": 380237,
+          "sha256": "8c94a1a9aa2dfd6f76b369b27f932d8def33566a93ebce1ec101e77e4c59d853"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "0C7AC701-1E72-42CC-A68A-6D1AC1EFB6B3.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d Hide removes private faces labels and selection_0_39EFDAD7-7476-42C6-AFE0-C96F2419BCC0.png",
+          "timestamp": 1789101822.445
+        },
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 2,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 7,
+        "sourceAttachmentName": "3d Hide removes private faces labels and selection latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/176538E4-0966-44CF-9DE0-CA0DFA50E7D1.json",
+          "bytes": 3464,
+          "sha256": "bd98b58fc4cbd3af302479de00bc9a269c2e6544ff919c5ddeb3acfb4b06d2a4"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "176538E4-0966-44CF-9DE0-CA0DFA50E7D1.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d Hide removes private faces labels and selection latest sanitized observation_0_883B1C8F-1078-4077-8D14-E67FF9263CF5.json",
+          "timestamp": 1789101822.446
+        },
+        "observationSequence": "1327",
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.0010001659393310547,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/37",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "native_3d_concealed"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 6,
+        "sourceAttachmentName": "3d new practice reuses engine and receives fresh input",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/D2EA5FDE-7418-4EB5-B70A-52C5C484D447.png",
+          "bytes": 380237,
+          "sha256": "8c94a1a9aa2dfd6f76b369b27f932d8def33566a93ebce1ec101e77e4c59d853"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "D2EA5FDE-7418-4EB5-B70A-52C5C484D447.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d new practice reuses engine and receives fresh input_0_4ED39D53-AEE7-4366-A00F-DE5404C5C00E.png",
+          "timestamp": 1789101823.944
+        },
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 5,
+        "sourceAttachmentName": "3d new practice reuses engine and receives fresh input latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/7B052DBF-D073-4CB7-9CF8-D28F67587813.json",
+          "bytes": 3464,
+          "sha256": "bd98b58fc4cbd3af302479de00bc9a269c2e6544ff919c5ddeb3acfb4b06d2a4"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "7B052DBF-D073-4CB7-9CF8-D28F67587813.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d new practice reuses engine and receives fresh input latest sanitized observation_0_1E9DE58A-7219-4ADE-8A94-6AA151B34413.json",
+          "timestamp": 1789101823.946
+        },
+        "observationSequence": "1327",
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.002000093460083008,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/38",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "native_3d_concealed"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 4,
+        "sourceAttachmentName": "Actual production Leave confirmation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/7F81DB0A-2BE1-446E-A003-8D183360D5D1.png",
+          "bytes": 248987,
+          "sha256": "46737e187ac4f538b5a370a54fd2d9ae21fa8d664e468b2372e5c2bd6f3255b9"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "7F81DB0A-2BE1-446E-A003-8D183360D5D1.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Actual production Leave confirmation_0_4DD6AF4F-9978-47AF-A8AF-5101A0FCA40D.png",
+          "timestamp": 1789101831.055
+        },
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 3,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 3,
+        "sourceAttachmentName": "Actual production Leave confirmation latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/2E90F1EB-8A0D-49DE-B368-6FCFA62906C7.json",
+          "bytes": 2217,
+          "sha256": "a45132a7032807e8bb55588c99b639e3eb04fc15cd7e984d8febbdeca8f0bc9a"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "2E90F1EB-8A0D-49DE-B368-6FCFA62906C7.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Actual production Leave confirmation latest sanitized observation_0_73C32E12-660F-4F4F-83A8-FC1D5F179FF5.json",
+          "timestamp": 1789101831.056
+        },
+        "observationSequence": "1359",
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.0009999275207519531,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/39",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "leave_dialog"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 2,
+        "sourceAttachmentName": "3d production smoke cleanup complete",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/6E61EF7D-0A35-4A58-BB49-3B72B69AA90C.png",
+          "bytes": 298369,
+          "sha256": "3b9f558aa2220c1bca73f2bccaa4c3930e6fe07ca106f109d53b5e96045d9645"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "6E61EF7D-0A35-4A58-BB49-3B72B69AA90C.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d production smoke cleanup complete_0_8F8BEB9C-D56E-4F93-9E9B-BD418FE0CE3E.png",
+          "timestamp": 1789101837.167
+        },
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "manifestScope": "production-sessions",
+      "sameCaptureLabelOccurrenceChronologically": 1,
+      "pairedSanitizedObservation": {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "caseAttachmentOrdinal": 1,
+        "sourceAttachmentName": "3d production smoke cleanup complete latest sanitized observation",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/40F0B0D7-E1A3-4FDD-82F7-FE47438C77FD.json",
+          "bytes": 2217,
+          "sha256": "b0a4572dd7aa9d606242bfb636ed41de5d7a3922be6a9985e683ef991db51881"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "40F0B0D7-E1A3-4FDD-82F7-FE47438C77FD.json",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d production smoke cleanup complete latest sanitized observation_0_DAB86E93-CCA7-443C-A59D-BE2CBC72A8E9.json",
+          "timestamp": 1789101837.168
+        },
+        "observationSequence": "1378",
+        "manifestCaseOrdinal": 2,
+        "sameSourceLabelOccurrenceInManifest": 1
+      },
+      "observationMinusCaptureSeconds": 0.0009999275207519531,
+      "independentResultPairJsonPointer": "/sourceNamedCaptureObservationPairs/40",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "home"
+      ]
+    }
+  ],
+  "ordinaryCaptures": [
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckUITests/testNativeHostCanNavigateSharedSettings()",
+        "manifestCaseOrdinal": 1,
+        "caseAttachmentOrdinal": 1,
+        "sameRawLabelOccurrenceInManifest": 1,
+        "sourceAttachmentName": "Settings",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/attachments/3D66B340-AADF-445F-A14E-49C9D080D6DC.png",
+          "bytes": 287119,
+          "sha256": "8e78c922050835675822fd64abbc49ee097b59e57aeeef41ea9ad65888dbb290"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "3D66B340-AADF-445F-A14E-49C9D080D6DC.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Settings_0_90BEE4AF-0AD4-49C9-8E4D-7EFDDBA8E341.png",
+          "timestamp": 1789100239.445
+        }
+      },
+      "manifestScope": "ordinary",
+      "ownerOutcomePointer": "/exportedAttachmentPointers/0",
+      "pairedSanitizedObservation": null,
+      "observationPairingNote": "No source-named sanitized observation is paired with this ordinary screenshot.",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "settings"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckUITests/testSharedControllerHostsANativeTableAndShowsItsInvitation()",
+        "manifestCaseOrdinal": 2,
+        "caseAttachmentOrdinal": 1,
+        "sameRawLabelOccurrenceInManifest": 1,
+        "sourceAttachmentName": "Native host invitation closed",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/attachments/AABDA185-1C33-418B-84CB-0BD1E6E78E5A.png",
+          "bytes": 223065,
+          "sha256": "f37690dc2766eb132f9c04273d1c27979e6a29be2ce05ad2ba14bb737d1446ec"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "AABDA185-1C33-418B-84CB-0BD1E6E78E5A.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Native host invitation closed_0_B81F40E2-2AFF-4C57-B940-E97497EC3BA4.png",
+          "timestamp": 1789100272.902
+        }
+      },
+      "manifestScope": "ordinary",
+      "ownerOutcomePointer": "/exportedAttachmentPointers/1",
+      "pairedSanitizedObservation": null,
+      "observationPairingNote": "No source-named sanitized observation is paired with this ordinary screenshot.",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "host_lobby"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckUITests/testSharedControllerHostsANativeTableAndShowsItsInvitation()",
+        "manifestCaseOrdinal": 2,
+        "caseAttachmentOrdinal": 2,
+        "sameRawLabelOccurrenceInManifest": 1,
+        "sourceAttachmentName": "Native host lobby",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/attachments/27A99B04-983E-4093-BBD5-856857AAAAB0.png",
+          "bytes": 223065,
+          "sha256": "f37690dc2766eb132f9c04273d1c27979e6a29be2ce05ad2ba14bb737d1446ec"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "27A99B04-983E-4093-BBD5-856857AAAAB0.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Native host lobby_0_F679D94F-CB41-492E-B10C-FFD93BFCED38.png",
+          "timestamp": 1789100266.901
+        }
+      },
+      "manifestScope": "ordinary",
+      "ownerOutcomePointer": "/exportedAttachmentPointers/2",
+      "pairedSanitizedObservation": null,
+      "observationPairingNote": "No source-named sanitized observation is paired with this ordinary screenshot.",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "host_lobby"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckUITests/testSharedHomeOpensAPlayablePracticeTable()",
+        "manifestCaseOrdinal": 3,
+        "caseAttachmentOrdinal": 1,
+        "sameRawLabelOccurrenceInManifest": 1,
+        "sourceAttachmentName": "Practice after accepted play",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/attachments/F28F669C-C729-4085-8599-E1336112B96C.png",
+          "bytes": 235849,
+          "sha256": "306373bc99297e59bb6fc40a89ea745d5cc6c1eeb10bccca6f8919b525e79cca"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "F28F669C-C729-4085-8599-E1336112B96C.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Practice after accepted play_0_5FA78450-3A17-4CAD-97A1-324C782F5F2B.png",
+          "timestamp": 1789100457.946
+        }
+      },
+      "manifestScope": "ordinary",
+      "ownerOutcomePointer": "/exportedAttachmentPointers/3",
+      "pairedSanitizedObservation": null,
+      "observationPairingNote": "No source-named sanitized observation is paired with this ordinary screenshot.",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "ordinary_public_round_result"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckUITests/testSharedHomeOpensAPlayablePracticeTable()",
+        "manifestCaseOrdinal": 3,
+        "caseAttachmentOrdinal": 2,
+        "sameRawLabelOccurrenceInManifest": 1,
+        "sourceAttachmentName": "Practice Standard fresh Reveal is unselected",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/attachments/59050287-1F7F-490B-AC7A-51E6024FF430.png",
+          "bytes": 227734,
+          "sha256": "57491ff18ec8127cebdf387531f79baca77aa8cfa7add6a2436e17ddc51f05bb"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "59050287-1F7F-490B-AC7A-51E6024FF430.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Practice Standard fresh Reveal is unselected_0_3DDA2D8D-974E-4450-8EBF-4ED7F569644A.png",
+          "timestamp": 1789100429.339
+        }
+      },
+      "manifestScope": "ordinary",
+      "ownerOutcomePointer": "/exportedAttachmentPointers/4",
+      "pairedSanitizedObservation": null,
+      "observationPairingNote": "No source-named sanitized observation is paired with this ordinary screenshot.",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "standard_five_visible_unselected"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckUITests/testSharedHomeOpensAPlayablePracticeTable()",
+        "manifestCaseOrdinal": 3,
+        "caseAttachmentOrdinal": 3,
+        "sameRawLabelOccurrenceInManifest": 1,
+        "sourceAttachmentName": "Practice Standard Hide removes private nodes and selection",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/attachments/2C4189F4-8E3A-4AEC-836F-E2D62A782A33.png",
+          "bytes": 259053,
+          "sha256": "08c03459e5962a7ef973458a27a2526e58614593a5443ca3ac6cc4a0ae022569"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "2C4189F4-8E3A-4AEC-836F-E2D62A782A33.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Practice Standard Hide removes private nodes and selection_0_F622E2AD-9DA8-4A90-8983-C8C8FFC26205.png",
+          "timestamp": 1789100409.452
+        }
+      },
+      "manifestScope": "ordinary",
+      "ownerOutcomePointer": "/exportedAttachmentPointers/5",
+      "pairedSanitizedObservation": null,
+      "observationPairingNote": "No source-named sanitized observation is paired with this ordinary screenshot.",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "standard_concealed"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckUITests/testSharedHomeOpensAPlayablePracticeTable()",
+        "manifestCaseOrdinal": 3,
+        "caseAttachmentOrdinal": 4,
+        "sameRawLabelOccurrenceInManifest": 1,
+        "sourceAttachmentName": "Practice Standard maximum selection and count-only feedback",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/attachments/3CF5875D-126E-4082-9C7E-06B6909A55A2.png",
+          "bytes": 244787,
+          "sha256": "6b4af12b0921617c5fa01b7f08dbacde7e76639fe7444a20c1105b6c31a2bfc9"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "3CF5875D-126E-4082-9C7E-06B6909A55A2.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Practice Standard maximum selection and count-only feedback_0_ECBC2C98-4DD3-4C30-8359-F1FE12447D39.png",
+          "timestamp": 1789100384.331
+        }
+      },
+      "manifestScope": "ordinary",
+      "ownerOutcomePointer": "/exportedAttachmentPointers/6",
+      "pairedSanitizedObservation": null,
+      "observationPairingNote": "No source-named sanitized observation is paired with this ordinary screenshot.",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "standard_three_selected_and_limit_feedback"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckUITests/testSharedHomeOpensAPlayablePracticeTable()",
+        "manifestCaseOrdinal": 3,
+        "caseAttachmentOrdinal": 5,
+        "sameRawLabelOccurrenceInManifest": 1,
+        "sourceAttachmentName": "Practice Standard all five native card descriptions",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/attachments/B74A1E74-163C-45EF-ACE0-3FCFC663B537.png",
+          "bytes": 227244,
+          "sha256": "56f03729a14aafba161e8d59e7d33f2f46da3f9c84ec160db55b034245162b9a"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "B74A1E74-163C-45EF-ACE0-3FCFC663B537.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Practice Standard all five native card descriptions_0_4883A3B5-18AB-4E1C-BF2C-4E783DA40686.png",
+          "timestamp": 1789100319.268
+        }
+      },
+      "manifestScope": "ordinary",
+      "ownerOutcomePointer": "/exportedAttachmentPointers/7",
+      "pairedSanitizedObservation": null,
+      "observationPairingNote": "No source-named sanitized observation is paired with this ordinary screenshot.",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "standard_five_visible_unselected"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckUITests/testSharedHomeOpensAPlayablePracticeTable()",
+        "manifestCaseOrdinal": 3,
+        "caseAttachmentOrdinal": 6,
+        "sameRawLabelOccurrenceInManifest": 1,
+        "sourceAttachmentName": "Practice Standard concealed",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/attachments/37645B95-59ED-4575-8FBE-5A57A43799AB.png",
+          "bytes": 258592,
+          "sha256": "5d907055ea239f7da4132af2697b2552add76c953ae5ed9838125cb2ee714a07"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "37645B95-59ED-4575-8FBE-5A57A43799AB.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Practice Standard concealed_0_9F927166-6082-455B-AAFA-3DB5FFF78C54.png",
+          "timestamp": 1789100293.867
+        }
+      },
+      "manifestScope": "ordinary",
+      "ownerOutcomePointer": "/exportedAttachmentPointers/8",
+      "pairedSanitizedObservation": null,
+      "observationPairingNote": "No source-named sanitized observation is paired with this ordinary screenshot.",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "standard_concealed"
+      ]
+    },
+    {
+      "capture": {
+        "testIdentifier": "PartyDeckUITests/testSharedHomeOpensAPlayablePracticeTable()",
+        "manifestCaseOrdinal": 3,
+        "caseAttachmentOrdinal": 7,
+        "sameRawLabelOccurrenceInManifest": 1,
+        "sourceAttachmentName": "Home",
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/attachments/BA4FE395-6EF1-4FCE-A00F-65AC98BB248A.png",
+          "bytes": 297695,
+          "sha256": "f3c5ce5cc33e25776c0b7b8843f0392bfbec7f2ef722bd160a7549198594659b"
+        },
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "BA4FE395-6EF1-4FCE-A00F-65AC98BB248A.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Home_0_D19BB869-38B1-4EA5-960A-5C4A072EBD59.png",
+          "timestamp": 1789100288.553
+        }
+      },
+      "manifestScope": "ordinary",
+      "ownerOutcomePointer": "/exportedAttachmentPointers/9",
+      "pairedSanitizedObservation": null,
+      "observationPairingNote": "No source-named sanitized observation is paired with this ordinary screenshot.",
+      "directlyViewedByIndependentReviewer": true,
+      "visualFindingIds": [
+        "home",
+        "ordinary_home_no_qualification_marker"
+      ]
+    }
+  ],
+  "actual3DBodyScrollNonPixelEvidence": {
+    "source": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_review/dedicated-native-results-independent-review-v1.json",
+      "bytes": 204620,
+      "sha256": "5a79f8b0450a6a0527b7ddf3438f501c23d0fc66ab773f2852ec9e575e2fdc53"
+    },
+    "jsonPointer": "/bodyScrollReview",
+    "original": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/75A1761E-42C7-428B-8A13-6B882630E7BE.json",
+      "bytes": 623,
+      "sha256": "2ff79c41077d40e12fd3d120f0712bb3f9fee785ffbfe66d760995a0efa8f857"
+    },
+    "coverage": {
+      "afterObservationSequence": "1310",
+      "afterRendererSequence": "79",
+      "authorityIntentCountAfter": 0,
+      "authorityIntentCountBefore": 0,
+      "beforeObservationSequence": "1268",
+      "beforeRendererSequence": "37",
+      "canChallenge": true,
+      "challengeCoverage": "full_bounds_after_native_scroll",
+      "controls": [
+        {
+          "action": "lobby",
+          "clipRect": [
+            16,
+            169,
+            370,
+            472
+          ],
+          "enabled": true,
+          "rect": [
+            16,
+            589,
+            362,
+            52
+          ]
+        },
+        {
+          "action": "play",
+          "clipRect": [
+            16,
+            169,
+            370,
+            472
+          ],
+          "enabled": true,
+          "rect": [
+            16,
+            527,
+            175,
+            52
+          ]
+        },
+        {
+          "action": "challenge",
+          "clipRect": [
+            16,
+            169,
+            370,
+            472
+          ],
+          "enabled": true,
+          "rect": [
+            203,
+            527,
+            175,
+            52
+          ]
+        }
+      ],
+      "handConcealed": false,
+      "round": 1,
+      "schemaVersion": 1,
+      "scrollGestures": 1,
+      "selectedCount": 1
+    },
+    "before": {
+      "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+      "caseAttachmentOrdinal": 17,
+      "sourceAttachmentName": "3d round 1 selected hand before body scroll",
+      "original": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/1BD98B12-D654-43D3-86B0-CB6BB8E508FD.json",
+        "bytes": 4477,
+        "sha256": "655611830b3d666c01a0e39e750715f181b06aa7605b4fb2b44a01b878c256b1"
+      },
+      "exportMetadata": {
+        "configurationName": "Test Scheme Action",
+        "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+        "deviceName": "iPhone 17",
+        "exportedFileName": "1BD98B12-D654-43D3-86B0-CB6BB8E508FD.json",
+        "isAssociatedWithFailure": false,
+        "suggestedHumanReadableName": "3d round 1 selected hand before body scroll_0_BF0FCBC0-35A8-444E-BA6B-E59CE388E7D8.json",
+        "timestamp": 1789101806.926
+      },
+      "observationSequence": "1268"
+    },
+    "after": {
+      "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+      "caseAttachmentOrdinal": 10,
+      "sourceAttachmentName": "3d round 1 full native action bounds preserve selection latest sanitized observation",
+      "original": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/8001D5B1-5B52-4203-A1C5-BEF932DE3685.json",
+        "bytes": 4477,
+        "sha256": "0f292dc30706433eb6d497533d4a49d86743b817e86f2f8a69b316e97869b2e9"
+      },
+      "exportMetadata": {
+        "configurationName": "Test Scheme Action",
+        "deviceId": "7D16E67F-1E34-43CB-BD36-B95CCE24981A",
+        "deviceName": "iPhone 17",
+        "exportedFileName": "8001D5B1-5B52-4203-A1C5-BEF932DE3685.json",
+        "isAssociatedWithFailure": false,
+        "suggestedHumanReadableName": "3d round 1 full native action bounds preserve selection latest sanitized observation_0_3E57E7A4-1FCE-40AC-AB7A-BE0695606155.json",
+        "timestamp": 1789101817.015
+      },
+      "observationSequence": "1310"
+    },
+    "fullBoundsAndAllSourceInputPrivacyInvariantsIndependentlyChecked": true,
+    "nativeChallengeExecuted": false,
+    "pixelEvidenceJsonPointer": "/productionCaptures/36",
+    "distinction": "The prior observation review establishes exact input/privacy/revision/geometry invariants and one actual drag; the direct image independently corroborates full visible controls and retained selection."
+  },
+  "visualLimitations": [
+    {
+      "id": "immediate_2d_next_round_pixels",
+      "captureJsonPointer": "/productionCaptures/10",
+      "finding": "The immediate accepted NEXT_ROUND capture still displays the preceding result panel, not round 2.",
+      "acceptedStateEvidence": "Its paired sanitized accepted COMPOSE NEXT_ROUND receipt independently records round 2; dedicated-native-results-independent-review-v1.json establishes acceptance.",
+      "laterVisualEvidenceJsonPointer": "/productionCaptures/12",
+      "laterVisualFinding": "The later 2D Leave-cancel capture visibly shows ROUND 2 with a concealed hand and no dialog.",
+      "scope": "A limitation of the immediate visual evidence. It does not negate the accepted authority action and does not establish a persistent rendering defect."
+    },
+    {
+      "id": "capture_and_observation_are_not_atomic",
+      "finding": "The source takes a screenshot and then attaches the latest sanitized lastDocument. Exact case, source label and close timestamps bind the exported evidence sequence, not an atomic rendered frame and authority state.",
+      "sourceReviewReceipt": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/ios_review/dedicated-auditor-source-independent-review-v1.json",
+        "bytes": 19116,
+        "sha256": "a6b5061d5b22185df41b8699bf247ff145d99ded926bb53e07ab4ce8330d23c8"
+      },
+      "scope": "Do not claim that every capture is a pixel-exact realization of its paired observation."
+    },
+    {
+      "id": "3d_initial_viewport_and_scrolled_bounds",
+      "initialExamples": [
+        "/productionCaptures/25",
+        "/productionCaptures/26"
+      ],
+      "postScrollCaptureJsonPointer": "/productionCaptures/36",
+      "finding": "Initial unscrolled 3D frames clip the bottom Return to lobby action. The actual post-scroll image shows all three full action buttons and retained selection.",
+      "scope": "Whole-button coverage is accepted for the actual post-scroll checkpoint. Challenge action execution is not claimed."
+    },
+    {
+      "id": "2d_horizontal_hand_viewport",
+      "captures": [
+        "/productionCaptures/6",
+        "/productionCaptures/15"
+      ],
+      "finding": "Native 2D selections show part of a horizontal hand strip. All five 2D native cards are not simultaneously visible in these captures."
+    },
+    {
+      "id": "ordinary_lower_scroll_content",
+      "captures": [
+        "/ordinaryCaptures/0",
+        "/ordinaryCaptures/3"
+      ],
+      "finding": "The ordinary Settings credits link and practice result next action are partly clipped in their captured scrolling viewports."
+    },
+    {
+      "id": "qualification_images",
+      "finding": "Small Q qualification markers are visible in production Standard/Home captures. These are Debug Simulator qualification images; the shipping-picker steps were skipped.",
+      "scope": "No shipping screenshot or shipping-picker execution approval."
+    }
+  ],
+  "boundedVisualAcceptance": [
+    "The exact photographed conceal, reveal, selection, Hide and fresh-Reveal checkpoints support their recorded visible-content findings.",
+    "The native 2D and 3D captures show real native content, selection and concealment at the recorded checkpoints.",
+    "Public native results, Standard returns, six Leave dialogs and four confirmed-Leave/cleanup Home captures were directly inspected.",
+    "The 3D actual post-scroll capture shows complete Play, Challenge and Return to lobby controls while retaining selection.",
+    "The immediate 2D NEXT_ROUND capture has only the narrower visual acceptance recorded in visualLimitations."
+  ],
+  "scopeExclusions": [
+    "Pixels do not establish engine identity, accepted actions, dormant counters or timing; those require the independently reviewed sanitized observations and named outcomes.",
+    "No performance, first-frame latency, later smoothness, physical-device, store-signing, physical-network, full accessibility, package-inclusion or shipping-picker approval."
+  ]
+}

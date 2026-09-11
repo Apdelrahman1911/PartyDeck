@@ -1,0 +1,195 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/pixel_o1_land3",
+  "run_id": 34559902607,
+  "source_revision": "39405bb0fd6ba0214e70ed251aab1f9f571dc9aa",
+  "test_identifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+  "created_at_utc": "2026-09-11T07:56:19.902437+00:00",
+  "status": "complete_bounded_pixel_review",
+  "review_disposition": "The requested current-run pixel review is complete with the recorded viewport findings and evidence limits. This is not a product-wide acceptance decision.",
+  "inventory": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land3/ios34559902607-3d-bounded-review-v1-_pri4hzn/identity-inventory.json",
+    "bytes": 154081,
+    "sha256": "9221565099d09f706d38a4a0163f84a420fb970d2415d0a3788a7e3afbc49e1a"
+  },
+  "capture_review_index": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land3/ios34559902607-3d-bounded-review-v1-_pri4hzn/capture-review-index.json",
+    "bytes": 70947,
+    "sha256": "784073ca34dbc03f8643c3d5069d83bd8d8119dfb35cb95ebb57f5e792bcb125"
+  },
+  "evidence_context": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land3/ios34559902607-3d-bounded-review-v1-_pri4hzn/evidence-context.json",
+    "bytes": 114062,
+    "sha256": "72baaf9ffdc5b7125533100aaac081647ae3d8efc8f09d3bf0e2df6682a0d218"
+  },
+  "direct_view_batches": [
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land3/ios34559902607-3d-bounded-review-v1-_pri4hzn/direct-views-01.json",
+      "bytes": 6409,
+      "sha256": "52351eb4ac2779491241ed696aa537721744814b8a66da72bbd183cf5b01c688"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land3/ios34559902607-3d-bounded-review-v1-_pri4hzn/direct-views-02.json",
+      "bytes": 6298,
+      "sha256": "3439e5a9a595f4518e9c92e49a4e907e49931dfd1ab78323a38392cd082623e9"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land3/ios34559902607-3d-bounded-review-v1-_pri4hzn/direct-views-03.json",
+      "bytes": 6610,
+      "sha256": "49f9335d678e831282ba4e54f42a39c63c177000291be3159d8e5fe0ad9125a6"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land3/ios34559902607-3d-bounded-review-v1-_pri4hzn/direct-views-04.json",
+      "bytes": 6749,
+      "sha256": "f6534b31b63960601143010684ddb1b7340567858462f279bc08629df9db01c5"
+    }
+  ],
+  "coverage": {
+    "assignment": {
+      "capture_identities": 9,
+      "directly_viewed": 8,
+      "reviewed_byte_match": 1,
+      "unviewed": 0,
+      "distinct_directly_viewed_originals": 8
+    },
+    "entire_case_in_this_review": {
+      "capture_identities": 21,
+      "directly_viewed": 8,
+      "reviewed_byte_match": 1,
+      "unviewed": 12
+    },
+    "unassigned_case_indices_zero_based": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      10,
+      11,
+      12,
+      13,
+      14,
+      19,
+      20
+    ]
+  },
+  "primary_finding": {
+    "id": "post-scroll-public-context-and-actions",
+    "evidence_kind": "direct_pixels",
+    "review_indices": [
+      5,
+      6
+    ],
+    "finding": "After the named body scroll, Star table · round 1, Your turn and the full Orbit claimed 2 Stars. line remain readable together with the selected first Star and the complete Play 1, Challenge Orbit and Return to lobby controls.",
+    "limitation": "Seat names have scrolled above the body viewport and right-side seat details remain horizontally clipped. The claim state does not display a separate generic play instruction. Control execution is outside this pixel finding."
+  },
+  "findings": [
+    {
+      "id": "post-scroll-public-context-and-actions",
+      "evidence_kind": "direct_pixels",
+      "review_indices": [
+        5,
+        6
+      ],
+      "finding": "After the named body scroll, Star table · round 1, Your turn and the full Orbit claimed 2 Stars. line remain readable together with the selected first Star and the complete Play 1, Challenge Orbit and Return to lobby controls.",
+      "limitation": "Seat names have scrolled above the body viewport and right-side seat details remain horizontally clipped. The claim state does not display a separate generic play instruction. Control execution is outside this pixel finding."
+    },
+    {
+      "id": "captured-hide-concealment",
+      "evidence_kind": "direct_pixels_and_one_complete_byte_match",
+      "review_indices": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7,
+        8
+      ],
+      "finding": "Shown hands have five readable ranks and a single first-card selection marker. Concealed entry/Hide checkpoints show card backs; the private rank labels and selected badge are absent after Hide.",
+      "limitation": "Only the captured endpoints are established. Continuous concealment, privacy-cover timing, accessibility-node removal and focus semantics are not established."
+    },
+    {
+      "id": "public-round-results",
+      "evidence_kind": "direct_pixels",
+      "review_indices": [
+        3,
+        4
+      ],
+      "finding": "Both result stills show the true claim and two public Wilds; the native result includes complete Next round and Return to lobby controls. These are public gameplay result cards.",
+      "limitation": "The still alone does not establish the native Play input or same-session return. The separate current observations and executed source checks carry those behavioral claims."
+    },
+    {
+      "id": "viewport-limitations",
+      "evidence_kind": "direct_pixels",
+      "review_indices": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7
+      ],
+      "finding": "The lobby control is partly clipped in the initial native states and later pre-scroll selection. Standard result content clips the lower fuse explanation and does not show the lower continuation controls. Native seat details remain horizontally clipped, with a scrollbar/swipe hint.",
+      "limitation": "Controls absent from the Standard captured viewport are not proved unreachable. Native art appears softer than UI text, without a diagnosis of the rendering cause or a performance claim."
+    }
+  ],
+  "separate_current_evidence": {
+    "passive_scroll": "The raw body-scroll JSON records one drag, selectedCount 1, handConcealed false, canChallenge true and complete lobby/Play/Challenge bounds, with authority intent count unchanged at 0. Source uses performTap: false.",
+    "accepted_native_play": "Sequence 952 has no lastViewerReceipt, revision 7 and intentEvents 0. Sequence 962 records accepted PLAY_CARDS for session/presentation 1, revision 7→8, serial 1 and intentEvents 1; by the image checkpoint the controller is at revision 10 and ROUND_ENDED.",
+    "standard_return": "Paired sequence 1008 records the same session 1, COMPOSE ordinal 0, native dormant/emptyTree true and lastCloseSucceeded true. These are diagnostic facts, separate from the Standard pixels.",
+    "later_context": "The later selected/scroll/Hide identities carry session 3, native presentation 4, intentEvents 0 and a retained old-session NEXT_ROUND receipt. Process 12118/bootstrapCount 1/retained identities are diagnostics.",
+    "original_native_outcomes": {
+      "run_id": 34559902607,
+      "summary_passed": 2,
+      "summary_failed": 0,
+      "summary_skipped": 0,
+      "2d_elapsed_seconds": "316.893",
+      "3d_elapsed_seconds": "532.216",
+      "device": "iPhone 17, arm64, iOS Simulator 26.4.1",
+      "performance_inference": false
+    },
+    "current_package_pin_from_existing_audit": {
+      "bytes": 1551096,
+      "sha256": "83b79592cb1542f2b0f7ad18222f686f9bc23cd7810b8072662bf502b9d605b1",
+      "profile": "qualification",
+      "qualification_modes": [
+        "2d",
+        "3d"
+      ],
+      "accepted_shipping_modes": [],
+      "package_bytes_audited_again_by_this_reviewer": false
+    }
+  },
+  "limitations": [
+    "Nine identities only: eight direct original views, one separately named complete-byte match. Twelve remaining case captures are explicitly unviewed in this assignment.",
+    "The first selected-hand still precedes Hide and a subsequent Reveal/selection before Play; it is not the immediate pre-Play image.",
+    "No dedicated native screenshots cover the second or third native entry. Standard/Leave views and prior-run frames cannot fill that gap.",
+    "Screenshot/paired JSON attachment times differ by 0–3 ms, but capture() attaches cached lastDocument. Neither simultaneous state sampling nor input latency is established.",
+    "Current passive scroll evidence has canChallenge true and complete bounds, but performTap is false and native intentEvents remain zero; no Challenge, Play or lobby action is proved by this helper.",
+    "Later retained NEXT_ROUND belongs to session 1 / COMPOSE, not a fresh action in session 3 / native presentation 4.",
+    "Pixels do not establish session identity, native close/dormancy, engine bootstrap reuse, continuous privacy, accessibility, performance, device/network behavior, signing or shipping readiness.",
+    "This review did not build, download, rerun native tests, generate videos, transform images, audit package bytes again, modify shared source, or perform Git operations."
+  ],
+  "provenance_preservation": {
+    "current_originals_only": true,
+    "original_identity_inventory_pin": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/restart-20260911T0457/pixel_o1_land3/ios34559902607-3d-bounded-review-v1-_pri4hzn/identity-inventory.json",
+      "bytes": 154081,
+      "sha256": "9221565099d09f706d38a4a0163f84a420fb970d2415d0a3788a7e3afbc49e1a"
+    },
+    "original_png_dimensions_all_assigned": {
+      "width": 1206,
+      "height": 2622
+    },
+    "full_byte_match": {
+      "review_index_zero_based": 8,
+      "representative_review_index_zero_based": 7,
+      "bytes": 380237,
+      "sha256": "8c94a1a9aa2dfd6f76b369b27f932d8def33566a93ebce1ec101e77e4c59d853"
+    },
+    "final_reference_and_stat_checks": "See validation.json and FROZEN.json in this directory."
+  },
+  "attempt": 1
+}

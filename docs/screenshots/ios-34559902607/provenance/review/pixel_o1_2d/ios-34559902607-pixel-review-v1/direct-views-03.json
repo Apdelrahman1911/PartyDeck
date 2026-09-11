@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/pixel_o1_2d",
+  "run_id": 34559902607,
+  "case": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+  "batch": "ios2d-03",
+  "direct_views": [
+    {
+      "index": 6,
+      "role": "later-selection",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/D4FBA53E-D71B-4806-85D2-E23139858D15.png",
+      "sha256": "509a41dd38805931af0c2d4dfd6723902a93b0a3ab43bf124abf93975f6e5e73",
+      "dimensions": {
+        "width": 1206,
+        "height": 2622
+      },
+      "direct_reference_index": 6,
+      "capture_label": "2d real native card selection",
+      "capture_timestamp": "2026-09-11T04:34:45.671000+00:00",
+      "occurrence": 2,
+      "reviewer": "/root/pixel_o1_2d",
+      "tool": "view_image",
+      "detail": "original",
+      "batch": "ios2d-03",
+      "tool_result_emitted_at_utc": "2026-09-11T07:35:51.897Z",
+      "pixel_observation": {
+        "state": "Active native 2D Moon gameplay with selected hand after fresh practice entry",
+        "private_faces_visible": true,
+        "visible_private_card_labels": [
+          "Moon",
+          "Star",
+          "Crown"
+        ],
+        "selected_card_visible": "The first Moon card has a citron outline and check badge.",
+        "visible_text": [
+          "Your table is ready",
+          "Standard table",
+          "Leave table",
+          "Exit",
+          "Last Light",
+          "Cover",
+          "Your turn \u00b7 claim Moons.",
+          "ROUND 02 \u00b7 THE RANK TO CLAIM",
+          "Moon",
+          "Pip claimed 2 Moons.",
+          "1 selected \u00b7 Your claim is Moons.",
+          "Claim 1 Moon",
+          "Call the bluff"
+        ],
+        "pixel_observation": "The later native table visibly shows round 02 and Moon gameplay with Pip's two-Moon claim. Three complete private fronts/labels are visible, with the first Moon selected; a further card is partially visible at the right edge. The complete Claim 1 Moon and Call the bluff controls are readable.",
+        "layout_note": "The horizontal viewport shows three complete cards and a sliver of the next. Remaining hand content is offscreen, and AT THE TABLE starts at the clipped lower body edge. Both scrollbars are visible; native shell, Cover and both fixed actions fit.",
+        "limits": "The new session/presentation and retained engine identity are established by the paired observations, not appearance alone. No claim that all five card fronts or later-card input are visually covered."
+      }
+    },
+    {
+      "index": 7,
+      "role": "second-hide-companion",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34559902607/ios-reports-and-simulator-app/build/ci/ios/godot-session/attachments/BCA52D0A-4F90-4349-BAD9-B77B60D738AE.png",
+      "sha256": "5fb254d41f72f7839b5ec9d3864debdb513f3216153484bc8d8a28365b47f119",
+      "dimensions": {
+        "width": 1206,
+        "height": 2622
+      },
+      "direct_reference_index": 7,
+      "capture_label": "2d Hide removes private faces labels and selection",
+      "capture_timestamp": "2026-09-11T04:34:52.891000+00:00",
+      "occurrence": 2,
+      "reviewer": "/root/pixel_o1_2d",
+      "tool": "view_image",
+      "detail": "original",
+      "batch": "ios2d-03",
+      "tool_result_emitted_at_utc": "2026-09-11T07:35:51.897Z",
+      "pixel_observation": {
+        "state": "Active native 2D Moon gameplay after Hide in the new practice session",
+        "private_faces_visible": false,
+        "private_hand_panel_visible": true,
+        "visible_text": [
+          "Your table is ready",
+          "Standard table",
+          "Leave table",
+          "Exit",
+          "Last Light",
+          "Your turn \u00b7 claim Moons.",
+          "ROUND 02 \u00b7 THE RANK TO CLAIM",
+          "Moon",
+          "Pip claimed 2 Moons.",
+          "5 cards, covered.",
+          "Reveal my hand",
+          "Choose cards to play",
+          "Call the bluff"
+        ],
+        "pixel_observation": "The later revealed Moon/Star/Crown hand row and selected-Moon badge are replaced by the complete opaque '5 cards, covered.' panel and Reveal my hand control. Cover is absent from the game header. Round 02/Moon/Pip-claimed-2 public context remains visible; no private hand front is visible.",
+        "layout_note": "Native shell, round/rank/current claim, the complete covered-hand panel/Reveal and both fixed actions fit. The lower body ends through the first seat row; later seats are outside the visible area. A vertical scrollbar is visible.",
+        "limits": "This supports visible concealment after the later selected-hand image. The following new-practice milestone PNG has independently verified identical file bytes and the same latest observation sequence 1299; it provides a separate capture identity, not a second fresh-state observation or continuous privacy evidence."
+      }
+    }
+  ]
+}
