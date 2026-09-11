@@ -12,6 +12,8 @@ Keep the host app open during play. Guests can reconnect to their existing seat 
 
 Full rules and edge cases are in [docs/game-rules.md](docs/game-rules.md).
 
+For a downloadable Android test build, see the [tester APK workflow and installation instructions](docs/android-testing.md).
+
 ## Screenshots and visual feedback
 
 Browse the [app screenshot gallery](docs/screenshots/README.md) for captured app

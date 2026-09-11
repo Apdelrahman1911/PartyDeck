@@ -1,0 +1,141 @@
+name: Publish Android preview APK
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: android-preview-release
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    name: Build and check the full PartyDeck preview
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    outputs:
+      artifact-id: ${{ steps.release-assets.outputs.artifact-id }}
+    steps:
+      - name: Require the reviewed main branch
+        env:
+          SOURCE_REF: ${{ github.ref }}
+        run: test "$SOURCE_REF" = refs/heads/main
+      - name: Check out the exact source revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Set up Java
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@40fd30fb8d7440372e1316f5d1809ec01dcd3699 # v4.0.1
+        with:
+          packages: 'platform-tools platforms;android-37.1 build-tools;36.0.0'
+          log-accepted-android-sdk-licenses: false
+      - name: Set up Gradle and validate the wrapper
+        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+        with:
+          cache-provider: basic
+      - name: Prepare graphics support and both real Godot presentations
+        run: |
+          bash scripts/setup-ubuntu-graphics.sh
+          bash scripts/prepare-godot-renderer.sh
+      - name: Test, lint and build the debug-signed preview
+        run: |
+          xvfb-run -a ./gradlew --console=plain --stacktrace \
+            -PpartydeckGodotQualificationModes=2d,3d \
+            :androidApp:recordGodotPresentationActivation \
+            :core:jvmTest :session:jvmTest :transport:jvmTest :games:jvmTest \
+            :bridge:jvmTest :androidRenderer:testDebugUnitTest \
+            :composeApp:jvmTest :androidApp:testDebugUnitTest \
+            :androidApp:lintDebug :androidApp:assembleDebug
+          ./gradlew --stop
+      - name: Install the API 36 emulator and enable KVM
+        run: |
+          sdkmanager 'emulator' 'system-images;android-36;default;x86_64'
+          test -e /dev/kvm
+          sudo chmod a+rw /dev/kvm
+      - name: Install, cold-launch and exercise Standard practice
+        timeout-minutes: 15
+        run: bash scripts/smoke-android-preview.sh
+      - name: Verify and stage the exact APK for testers
+        run: python3 -B scripts/package-android-preview.py
+      - name: Retain the checked release assets
+        id: release-assets
+        uses: ./.github/actions/upload-artifact
+        with:
+          name: android-preview-release-${{ github.run_id }}-${{ github.run_attempt }}
+          path: build/android-preview-release/
+          retention-days: 14
+          if-no-files-found: error
+      - name: Retain test, package and emulator reports
+        if: always()
+        uses: ./.github/actions/upload-artifact
+        with:
+          name: android-preview-checks-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            **/build/test-results/**
+            androidApp/build/reports/**
+            composeApp/build/ui-snapshots/**
+            build/ci/android-preview/**
+            !build/ci/android-preview/avd/**
+            !docs/screenshots/**
+            !artifacts/**
+          retention-days: 14
+          if-no-files-found: warn
+
+  publish:
+    name: Publish the checked APK as a GitHub prerelease
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      PREVIEW_TAG: android-preview-${{ github.run_id }}-${{ github.run_attempt }}
+      PREVIEW_TITLE: PartyDeck Android preview ${{ github.run_number }}.${{ github.run_attempt }}
+      SOURCE_SHA: ${{ github.sha }}
+    steps:
+      - name: Download only this run's checked assets
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          artifact-ids: ${{ needs.build.outputs.artifact-id }}
+          path: release
+          merge-multiple: true
+      - name: Verify transferred checksums and source
+        working-directory: release
+        run: |
+          sha256sum --check SHA256SUMS
+          python3 -B - <<'PY'
+          import json, os
+          from pathlib import Path
+          metadata = json.loads(Path('build-info.json').read_text())
+          # A retry of only the publish job may reuse this run's earlier successful build.
+          built_attempt = metadata['workflowAttempt']
+          if (metadata['sourceCommit'] != os.environ['SOURCE_SHA']
+                  or metadata['workflowRunId'] != os.environ['GITHUB_RUN_ID']
+                  or not isinstance(built_attempt, str) or not built_attempt.isdecimal()
+                  or not 1 <= int(built_attempt) <= int(os.environ['GITHUB_RUN_ATTEMPT'])
+                  or metadata['smoke']['passed'] is not True):
+              raise SystemExit('Release assets do not match this successful build.')
+          PY
+      - name: Create draft, upload checked assets and publish prerelease
+        working-directory: release
+        run: |
+          gh release create "$PREVIEW_TAG" \
+            PartyDeck-android-preview.apk SHA256SUMS build-info.json RELEASE-NOTES.md \
+            --target "$SOURCE_SHA" --title "$PREVIEW_TITLE" \
+            --notes-file RELEASE-NOTES.md --draft --prerelease --latest=false
+          gh release edit "$PREVIEW_TAG" --draft=false --prerelease --latest=false
+          gh release view "$PREVIEW_TAG" --json url --jq .url >> "$GITHUB_STEP_SUMMARY"
