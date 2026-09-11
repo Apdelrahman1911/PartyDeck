@@ -4,7 +4,7 @@ This standalone app offers **Play Last Light · 2D** and **Play Last Light · 3D
 Both load the real shared Godot project and use `QualificationAuthorityDriver`
 with the existing Last Light rules. This app owns its local practice authority.
 The actual `androidApp` also has an implemented session adapter; see
-[Production session preview](#production-session-preview) for its explicit build opt-in.
+[Production session preview](#production-session-preview) for shipping and explicit qualification builds.
 
 Normal practice uses Android `SecureRandom`. **Use the reference match** is an
 explicit chooser option that uses the audited seed `2` and the same four-seat
@@ -66,14 +66,14 @@ APK build or a Godot setup callback alone does not establish runtime acceptance.
 ## Production session preview
 
 The actual PartyDeck app can attach either renderer to its existing practice or
-LAN session. Its checked-in shipping mode list is empty, so enable both styles
-with the qualification build property below. From the repository root, with
-JDK 21, Python 3.11 or later and the Android SDK configured:
+LAN session. Shipping builds offer both styles, with Standard table selected
+initially. From the repository root, with JDK 21, Python 3.11 or later and the
+Android SDK configured:
 
 ```sh
 bash scripts/prepare-godot-renderer.sh
 flock /tmp/partydeck-gradle.lock ./gradlew \
-  -PpartydeckGodotQualificationModes=2d,3d :androidApp:assembleDebug --console=plain
+  :androidApp:assembleDebug --console=plain
 adb install -r androidApp/build/outputs/apk/debug/androidApp-debug.apk
 adb shell am start -n dev.partydeck.app/.MainActivity
 ```
@@ -82,12 +82,16 @@ The preparation script verifies a current PCK or exports one. Its automatic
 editor installer supports Linux x86_64; on another host, provide your verified
 Godot 4.7.2 executable through `PARTYDECK_GODOT_EXECUTABLE`.
 
+For an explicit qualification build, add
+`-PpartydeckGodotQualificationModes=2d,3d` to the Gradle command. It uses the same
+session path and permits the qualification observation only for packaged modes.
+
 Start a practice game, or enter a LAN game, then open **Table style** and choose
 **2D table** or **3D table**. The native **Standard table** button returns to the
 same session; use the picker again to try the other style once it is available.
-Standard table provides the screen-reader controls. The build opt-in does not
-qualify native lifecycle, Godot mobile accessibility, physical-device performance
-or real LAN behavior; those checks remain separate. See the
+Standard table provides the screen-reader controls. Native lifecycle, Godot
+mobile accessibility, physical-device performance and real LAN behavior require
+separate verification. See the
 [session transport](../../androidApp/src/main/kotlin/dev/partydeck/app/godot/README.md)
 and [current status](../../docs/STATUS.md).
 

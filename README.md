@@ -21,10 +21,9 @@ and preserves failed and superseded iterations.
 
 ## Try both Godot tables
 
-Both real presentations are implemented and retained for comparison. iOS shipping
-builds offer **Standard table**, **2D table** and **3D table** in the same app
-session, with Standard table selected initially. Android shipping builds offer
-**Standard table**; explicit qualification builds enable the two Godot styles.
+Both real presentations are implemented and retained for comparison. Android and
+iOS shipping builds offer **Standard table**, **2D table** and **3D table** in the
+same app session, with Standard table selected initially.
 
 | Target | Build, install and compare |
 | --- | --- |

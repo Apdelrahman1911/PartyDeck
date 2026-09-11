@@ -43,8 +43,8 @@ class GodotPresentationActivationTest {
     }
 
     @Test
-    fun futureShippingExposureUsesTheSamePackagedList() {
-        // The checked-in Gradle shipping list is empty; acceptance can later change only that list.
+    fun shippingExposureUsesTheSamePackagedList() {
+        // Shipping exposure remains limited to the packaged modes.
         assertEquals(setOf(GameplayPresentation.GODOT_3D), GodotPresentationActivation.fromPackagedMetadata("shipping", "3d"))
     }
 

@@ -82,9 +82,10 @@ gh workflow run validate.yml --ref main -f platform=android -f android_api=35 -f
 The input sets `PARTYDECK_ANDROID_GODOT_SESSION_SMOKE=1` for
 `validate-android.sh`, which passes `-PpartydeckGodotQualificationModes=2d,3d`
 to Gradle before packaging and records `build/ci/android/godot-activation-build.json`.
-The APKs contain the `qualification` profile and `2d,3d` mode metadata. Default
-Android shipping builds retain empty native mode lists. Explicit qualification makes the
-real picker choices available for testing; it does not grant shipping acceptance.
+The APKs contain the `qualification` profile and `2d,3d` mode metadata. Shipping
+builds expose the same two modes with the `shipping` profile. Explicit qualification
+admits the qualification observation and session checks; it does not grant shipping
+acceptance.
 
 For the equivalent local flow, use the same source checkout for both calls and
 set the flag during the build as well as during execution:
@@ -130,6 +131,22 @@ unknown schemas, nonnumeric IDs and inconsistent process identities still fail.
 Godot phase statuses; any requested failure fails the workflow. Inspect the
 recorded assertions for session/process continuity. Native chrome and Ready alone
 do not establish rendered gameplay or pixel privacy, which need separate review.
+
+Ordinary Android validation uses the shipping profile. To check shipping debug
+and optimized APKs on API 36:
+
+```sh
+gh workflow run validate.yml --ref main -f platform=android -f android_api=36 -f android_godot_session=false -f ios_godot_session=false
+```
+
+The wrapper selects both shipping modes from the recorded build expectation and
+runs `smoke-android-godot-shipping.py` for each APK. It verifies the actual packaged
+profile, renderer PCK and signature, then exercises the real picker, native entry,
+Standard return and Leave controls at text scale 1.0. Results are recorded under
+`build/ci/android/godot-shipping`; `runtime-variants.json` must show
+`godotShippingSmoke.requested=true` and every input/run phase passing. This route
+requests neither qualification observations nor engine gameplay. Native Ready is
+host/draw evidence; renderer pixels and privacy still require independent review.
 
 Set `PARTYDECK_ANDROID_API=36` and install
 `system-images;android-36;default;x86_64` to select Android 16 instead. Both the

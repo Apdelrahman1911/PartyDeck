@@ -65,10 +65,10 @@ session. Other seats use the driver's bounded policy, reading only each seat's
 own safe view. Continue is a real host action; round outcomes are never skipped
 automatically. Lobby/Leave closes the presentation. This runner owns a local
 practice session. The [mobile session adapters](../README.md#build-isolation)
-attach the same renderers to the actual PartyDeck app. iOS shipping builds offer
-both Godot styles alongside the initially selected Standard table. Android
-shipping offers only Standard table; Godot styles require an explicit qualification
-profile. Native and multiplayer acceptance gates remain separate.
+attach the same renderers to the actual PartyDeck app. Android and iOS shipping
+builds offer both Godot styles alongside the initially selected Standard table.
+Explicit qualification profiles retain their separate checks. Native and
+multiplayer acceptance gates remain separate.
 
 The launcher finds the installed editor at
 `godot/qualification/build/toolchain/godot`; use `--godot` for another verified

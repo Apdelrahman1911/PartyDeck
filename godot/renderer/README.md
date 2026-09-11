@@ -1,6 +1,6 @@
 # Last Light renderer prototypes
 
-This real Godot 4.7.2 project contains both the 2D and 3D Last Light presentations. The Kotlin shell owns authority, navigation, networking, preferences and lifetime. The same scenes serve the standalone comparisons and the implemented Android/iOS session adapters. Mobile Godot styles remain behind explicit qualification profiles; Standard table remains the shipping default.
+This real Godot 4.7.2 project contains both the 2D and 3D Last Light presentations. The Kotlin shell owns authority, navigation, networking, preferences and lifetime. The same scenes serve the standalone comparisons and the implemented Android/iOS session adapters. Android and iOS shipping profiles expose both Godot styles; Standard table remains the initial selection. Explicit qualification profiles retain their separate runtime checks.
 
 ## Run
 

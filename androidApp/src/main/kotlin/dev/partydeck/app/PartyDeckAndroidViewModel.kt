@@ -37,8 +37,8 @@ class PartyDeckAndroidViewModel(
     private val visibilityDeadline = Runnable { publishVisibility() }
 
     val services = AndroidPlatformServices(application)
-    // The shipping build allowlist stays empty until session/lifecycle acceptance.
-    // Explicit qualification exposure uses this same host and common authority path.
+    // Packaged shipping and explicit qualification exposure share this host
+    // and the common authority path.
     private val rendererHost = AndroidGodotPresentationHost(
         context = application,
         listener = this,

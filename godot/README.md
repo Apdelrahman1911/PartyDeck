@@ -75,9 +75,9 @@ local-practice APK with **Play Last Light · 2D** and **Play Last Light · 3D**
 choices and an explicit repeatable reference match.
 
 Session attachment is also implemented in the actual PartyDeck Android and iOS
-apps. Standard table remains the initial gameplay surface. The iOS shipping
-profile also exposes both real Godot styles. Android shipping continues to offer
-only Standard table; its Godot styles require an explicit qualification build.
+apps. Standard table remains the initial gameplay surface. Android and iOS
+shipping profiles also expose both real Godot styles. Explicit qualification
+profiles retain their separate runtime checks.
 Follow the
 [Android session preview](android-host/README.md#production-session-preview)
 or the [iOS comparison app instructions](../iosApp/README.md#compare-2d-and-3d).

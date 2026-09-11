@@ -5,7 +5,7 @@ plugins {
 // Shipping exposure changes only after acceptance. Qualification is an explicit build opt-in.
 fun resolveGodotPresentationActivation(qualificationModes: String?): Pair<String, String> {
     val modeOrder = listOf("2d", "3d")
-    val shippingModes = emptySet<String>()
+    val shippingModes = setOf("2d", "3d")
     require(shippingModes.all { it in modeOrder }) { "Unknown shipping Godot presentation mode." }
     if (qualificationModes == null) {
         return "shipping" to modeOrder.filter { it in shippingModes }.joinToString(",")
