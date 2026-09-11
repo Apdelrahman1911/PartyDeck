@@ -56,6 +56,8 @@ flock /tmp/partydeck-godot.lock xvfb-run -a \
 
 For a compact scrolling layout, add `--check-touch-drag=true` to check emulated touch dragging from a card and taps with slight motion. With a fixture that grants live-match host permission, `--check-lobby=true` checks confirmation, cancellation and the single confirmed return intent. These flags extend the local input check; native touch and authority acceptance have separate runners.
 
+For the short-window public-context regression, use `tests/fixtures/short-public-context-launch.json` as the absolute fixture path, set width and height to `389` and `215`, set text scale to `2.0`, and add `--check-short-public-context=true`. This authority-generated fixture has a current claim at revision 10, round 4. The check scrolls through the round, claim, guidance and projected actions, then runs the existing input and privacy checks.
+
 Static scene checks, full authority runs, pack checks and native checks have separate evidence. Reviewers independently executed 61 strict-parser cases and 107 actual-controller checks; see [the bridge review](../reviews/bridge-review.md). Every captured/reviewed app image is preserved by the repository screenshot gallery, including superseded visual iterations.
 
 Linux captures use Godot 4.7.2, OpenGL Compatibility, Mesa llvmpipe and Xvfb. They establish real rendering/input on that stack. Mobile screen readers, native snapshot timing, touch feel, device GPU/frame-time budgets, sustained memory and physical-network behavior require their own platform execution. Tagged Godot AccessKit support is desktop-only; Control semantics do not establish TalkBack or VoiceOver support. The native accessible controls path remains a production gate.
