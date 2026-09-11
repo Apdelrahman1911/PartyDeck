@@ -13,6 +13,7 @@ import re
 import sys
 import time
 
+import android_continuous_touch as continuous_touch
 import android_godot_adaptive_inputs as bound_inputs
 import android_godot_session_observation as engine
 import smoke_android_godot_adaptive as adaptive
@@ -80,7 +81,8 @@ def admit_inputs(args):
     return {"verified": True, "source": current, "producer_manifest_sha256": args.manifest_sha256,
             "package_report_sha256": adaptive.sha256(args.package_inputs), "variant": args.variant,
             "apk_sha256": item["apkSha256"], "pack_sha256": item["packSha256"],
-            "checker_sha256": manifest["checkerSha256"]}
+            "checker_sha256": manifest["checkerSha256"],
+            "continuous_input_helper": continuous_touch.admit_helper(args.bundle, manifest, report, args.package_inputs.parent)}
 
 
 def standard_claim(root, session, visible):
@@ -200,12 +202,27 @@ def measured_displacement(before, after):
     return displacement
 
 
+def sweep_time(smoke):
+    """Keep nested frozen-checker transports inside the active body's existing budget."""
+    deadline = getattr(smoke, "context_sweep_deadline", None)
+    if deadline is None:
+        return None
+    remaining = deadline - time.monotonic()
+    if remaining <= 0:
+        # Expiry cannot establish native idle; the existing latch also suppresses cleanup UI.
+        smoke.input_incomplete = True
+        smoke.context_sweep_expired = True
+        raise engine.ObservationFailure("Context sweep deadline exceeded its finite time budget.")
+    return remaining
+
+
 class ContextSweep:
     def __init__(self, smoke, probe):
         self.smoke, self.probe = smoke, probe
         self.positions, self.swipes = [], []
 
     def capture(self, observation, deadline):
+        sweep_time(self.smoke)
         name = f"3d-context-position-{len(self.positions):02d}"
         self.probe._owner()
 
@@ -213,9 +230,13 @@ class ContextSweep:
             value = self.probe._parse(self.probe._node(root).get("content-desc"))
             engine.fresh_for_input(observation, value, time.monotonic())
 
+        sweep_time(self.smoke)
         capture = self.smoke.capture_evidence(name, self.smoke.session.NATIVE_COMPONENT, self.probe.pid,
                                               ui_assertion=current)
-        following = self.probe.refresh(deadline)
+        sweep_time(self.smoke)
+        following = dict(self.probe.refresh(deadline))
+        following[continuous_touch.HOST_RECEIPT_TIME] = time.monotonic()
+        sweep_time(self.smoke)
         require(engine.stable_state(observation["value"]) == engine.stable_state(following["value"]),
                 "Renderer state/geometry changed around the sequential original screenshot.")
         play = context_control(following["value"])
@@ -227,7 +248,9 @@ class ContextSweep:
 
     def run(self):
         deadline = time.monotonic() + SWEEP_SECONDS
-        current = self.probe.settled(concealed)
+        self.smoke.context_sweep_deadline = deadline
+        current = self.probe.settled(concealed, seconds=min(60, sweep_time(self.smoke)))
+        sweep_time(self.smoke)
         baseline = current["value"]
         admit_native_geometry(self.probe.owner, baseline)
         current = self.capture(current, deadline)
@@ -236,17 +259,21 @@ class ContextSweep:
         meaningful_movement = False
         upper_origin = False
         for index in range(MAX_SWIPES):
-            require(time.monotonic() < deadline, "Context sweep exceeded its finite time budget.")
+            sweep_time(self.smoke)
             before = current["value"]
             gesture = body_swipe(before, upper_origin=upper_origin)
             receipt = self.probe._before_input(current, "play", -1, gesture, "context-swipe")
             swipe = {"index": index, "input": receipt, "gesture": gesture, "status": "requested",
                      "origin": "upper-body" if upper_origin else "centred-body"}
             self.swipes.append(swipe)
-            self.smoke.adb("shell", "input", "swipe", *(str(part) for part in
-                (*gesture["start"], *gesture["end"], gesture["duration_ms"])), timeout=10)
+            sweep_time(self.smoke)
+            swipe["continuous_input"] = {}
+            continuous_touch.inject_continuous_touch(self.smoke, current, gesture, deadline,
+                                                     audit=swipe["continuous_input"])
+            sweep_time(self.smoke)
             swipe["status"] = "transport-completed"
-            current = self.probe.settled(concealed, seconds=min(60, max(0, deadline - time.monotonic())))
+            current = self.probe.settled(concealed, seconds=min(60, sweep_time(self.smoke)))
+            sweep_time(self.smoke)
             same_context(baseline, current["value"])
             input_delta = engine.counter(current["value"]["input"]) - engine.counter(before["input"])
             generation_delta = engine.counter(current["value"]["generation"]) - engine.counter(before["generation"])
@@ -273,6 +300,8 @@ class ContextSweep:
                     continue
                 require(play_reached and moved >= 1 and meaningful_movement,
                         "Body scrolling stopped before meaningful movement and full Play enclosure.")
+                sweep_time(self.smoke)
+                self.smoke.context_sweep_deadline = None
                 return {"automated_geometry": "passed", "body_displacement": moved,
                         "play_fully_enclosed": True, "positions": self.positions, "swipes": self.swipes,
                         "termination": "settled-no-progress-after-play; body bottom is not established",
@@ -291,13 +320,42 @@ class PublicContextScenarios:
                     "Staging deadline expired before the submitted Standard Play outcome was confirmed.")
             raise adaptive.Unavailable("The finite real-practice staging deadline expired without a qualifying context.")
 
+    def command(self, *arguments, **kwargs):
+        remaining = sweep_time(self)
+        if remaining is not None:
+            kwargs["timeout"] = min(kwargs.get("timeout", 20), remaining)
+        result = super().command(*arguments, **kwargs)
+        sweep_time(self)
+        return result
+
+    def capture_evidence(self, *arguments, **kwargs):
+        sweep_time(self)
+        require(not self.input_incomplete, "Uncertain input forbids a new UI observation or capture.")
+        result = super().capture_evidence(*arguments, **kwargs)
+        sweep_time(self)
+        return result
+
+    def dump_ui(self, deadline=None):
+        remaining = sweep_time(self)
+        require(not self.input_incomplete, "Uncertain input forbids a new UI observation or capture.")
+        if remaining is not None:
+            deadline = min(deadline, self.context_sweep_deadline) if deadline is not None else self.context_sweep_deadline
+        result = super().dump_ui(deadline)
+        sweep_time(self)
+        return result
+
     def adb(self, *arguments, **kwargs):
+        remaining = sweep_time(self)
+        if remaining is not None:
+            kwargs["timeout"] = min(kwargs.get("timeout", 20), remaining)
         is_input = arguments[:2] == ("shell", "input")
         require(not is_input or not self.input_incomplete, "Uncertain prior input forbids another UI input.")
         if is_input:
             self.staging_time()
         try:
-            return super().adb(*arguments, **kwargs)
+            result = super().adb(*arguments, **kwargs)
+            sweep_time(self)
+            return result
         except BaseException as error:
             if is_input:
                 self.input_incomplete = True  # Never retry or perform cleanup UI after uncertain input transport.
@@ -582,6 +640,7 @@ def main(argv=None):
               "public_context_pixel_acceptance": "pending-independent-review",
               "limits": ["Automated assertions cover observed body motion and full Play geometry; public words and Challenge require pixel review.",
                          "A no-progress collection endpoint does not prove the body's bottom or complete text coverage.",
+                         "Helper completion acknowledges framework input; fresh native idle and measured overlap remain required.",
                          "Screenshots, UI XML and fresh geometry are sequential, not atomic or continuous privacy evidence.",
                          "Up to four confirmed Standard staging Plays may occur on fresh opening rounds; no native gameplay action, screen reader or physical-network qualification is claimed."]}
     failed = unsupported = False
@@ -591,6 +650,7 @@ def main(argv=None):
         require(re.fullmatch(r"free|lock [0-3]", smoke.saved_rotation), "Cannot save the exact original rotation policy.")
         smoke.save_observation("context-original-rotation", policy=smoke.saved_rotation)
         smoke.setup_session(args.apk)
+        continuous_touch.install_helper(smoke, args.bundle, smoke.identity["admitted_inputs"]["continuous_input_helper"])
         smoke.run_public_context()
     except (adaptive.Unavailable, session.UnsupportedCheck) as error:
         unsupported = True

@@ -67,6 +67,7 @@ jobs:
           ./gradlew --console=plain -PpartydeckGodotQualificationModes=2d,3d \
             :androidApp:recordGodotPresentationActivation \
             :androidApp:assembleDebug :androidApp:assembleRelease \
+            :android-continuous-input:assembleDebug \
             2>&1 | tee build/ci/android/adaptive-build.log
       - name: Prepare the optimized runtime APK with one disposable CI identity
         run: |

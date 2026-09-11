@@ -60,6 +60,31 @@ def snapshot(y=240, stamp=0):
                        visible=y < clip[1] + clip[3] and y + target[3] > clip[1])])
 
 
+HELPER_MANIFEST = (
+    '<manifest package="dev.partydeck.qualification.input" xmlns:android="http://schemas.android.com/apk/res/android">'
+    '<uses-sdk android:minSdkVersion="36" android:targetSdkVersion="36"/>'
+    '<application android:testOnly="true" android:allowBackup="false"/>'
+    '<instrumentation android:name="dev.partydeck.qualification.input.ContinuousTouchInstrumentation" '
+    'android:targetPackage="dev.partydeck.qualification.input"/></manifest>').encode()
+
+
+def continuous_output(arguments, down_time=1001):
+    """Host-only framework receipt fixture; it never injects Android input."""
+    supplied = {arguments[index + 1]: arguments[index + 2] for index, value in enumerate(arguments) if value == "-e"}
+    start = [int(supplied["x0"]), int(supplied["y0"])]
+    end = [int(supplied["x1"]), int(supplied["y1"])]
+    move = int(supplied["move_ms"])
+    endpoint, tail_end = down_time + move, down_time + move + 200
+    receipt = dict(schemaVersion=1, requestId=supplied["request_id"], ok=True, phase="completed",
+        failureClass="", releaseFailureClass="", start=start, end=end, moveDurationMs=move, tailDurationMs=200,
+        startDeadlineUptimeMs=int(supplied["start_deadline"]), stopDeadlineUptimeMs=int(supplied["stop_deadline"]),
+        downTimeUptimeMs=down_time, downAckUptimeMs=down_time + 1, endpointAckUptimeMs=endpoint,
+        tailStartUptimeMs=endpoint, tailEndUptimeMs=tail_end, upEventUptimeMs=tail_end, upAckUptimeMs=tail_end + 1,
+        eventsAttempted=6, eventsAcknowledged=6, stationaryMoveEvents=2, downAttempted=True, upAttempted=True,
+        tailCompleted=True, inputUncertain=False, automationFlags=3, pointerCount=1, pointerId=0, inputSource=4098)
+    return focused.continuous_touch.RESULT_PREFIX + json.dumps(receipt) + "\nINSTRUMENTATION_CODE: -1\n"
+
+
 def owner():
     return {"configuration": {"windowing_mode": "multi-window", "font_scale": 2.0,
                                "bounds": [0, 0, 817, 720]},
@@ -193,8 +218,8 @@ class GeometryTests(unittest.TestCase):
                 self.assertTrue(96 < logical[1] < 199)
 
     def test_body_swipe_limits_requested_speed_without_extending_short_drags(self):
-        # Real Android release has no stationary dwell. Slow the ordinary drag
-        # while leaving the short-stroke floor unchanged near full Play enclosure.
+        # Preserve the existing movement speed and short-stroke floor near full
+        # Play enclosure. The helper supplies a separate stationary endpoint tail.
         # This host geometry check does not predict or accept native displacement.
         for y in (160, 240, 900):
             for upper in (False, True):
@@ -258,9 +283,10 @@ class HostTransport:
         self.calls.append(arguments)
         if self.transport_error:
             raise self.transport_error
+        down_time = self.value["capturedUptimeMs"] + 1
         self.index += 1
         self.value = copy.deepcopy(self.values[min(self.index, len(self.values) - 1)])
-        return ""
+        return continuous_output(arguments, down_time) if arguments[:3] == ("shell", "am", "instrument") else ""
 
     def dump_ui(self, deadline=None):
         root = ET.Element("hierarchy")
@@ -1229,6 +1255,12 @@ class InputAdmissionTests(unittest.TestCase):
                 packSha256=self.manifest["files"]["partydeck-last-light.pck"]["sha256"],
                 embeddedPackSha256=self.manifest["files"]["partydeck-last-light.pck"]["sha256"], manifestExitCode=0,
                 manifestSha256=hashlib.sha256(packaged).hexdigest(), packagedActivation=self.report["activationExpectation"])
+        helper_manifest = self.package / "continuous-input-packaged-manifest.xml"
+        helper_manifest.write_bytes(HELPER_MANIFEST)
+        self.report["continuousInput"] = dict(verified=True,
+            apkSha256=focused.adaptive.sha256(self.bundle / focused.continuous_touch.APK_NAME),
+            manifestSha256=hashlib.sha256(HELPER_MANIFEST).hexdigest(), certificateSha256="c" * 64,
+            metadata=focused.continuous_touch.inspect_manifest(HELPER_MANIFEST))
         self.write_manifest()
 
     def write_manifest(self):
@@ -1348,7 +1380,8 @@ class MainStatusTests(unittest.TestCase):
             "--package-inputs", str(self.root / "package-inputs.json"), "--manifest-sha256", "b" * 64,
             "--output", str(self.root / "output")]
 
-    def main(self, *, run_error=None, missing=False, unsupported=False, admission_error=None, cleanup_error=False):
+    def main(self, *, run_error=None, missing=False, unsupported=False, admission_error=None, cleanup_error=False,
+             helper_error=None):
         instances = []
         class MainBase:
             pass
@@ -1358,6 +1391,7 @@ class MainStatusTests(unittest.TestCase):
                 self.identity, self.checks, self.captures, self.adaptive_observations, self.steps = {}, {}, [], [], []
                 self.stage, self.logcat_started, self.input_incomplete = "initialization", False, False
                 self.calls, self.setup_called = [], False
+                self.helper_installed, self.run_called = False, False
                 instances.append(self)
             def adb(self, *args, **kwargs):
                 self.calls.append(args)
@@ -1373,7 +1407,14 @@ class MainStatusTests(unittest.TestCase):
                 (self.output / name).write_text(json.dumps(value))
         fake_session = SimpleNamespace(GodotSessionSmoke=MainBase, ui=SimpleNamespace(redacted=lambda value: value),
             utc_now=lambda: "host-only-time", fresh_output=lambda path: path.mkdir(), UnsupportedCheck=session.UnsupportedCheck)
+        def install(smoke, bundle, identity):
+            engine.require(smoke.setup_called, "The owned app must be set up before helper installation.")
+            if helper_error:
+                raise helper_error
+            smoke.helper_installed = True
         def run(smoke):
+            engine.require(smoke.helper_installed, "The same-run helper must be installed before practice.")
+            smoke.run_called = True
             if run_error:
                 raise run_error
             smoke.checks.update({name: {"status": "passed"} for name in focused.REQUIRED_CHECKS})
@@ -1384,7 +1425,9 @@ class MainStatusTests(unittest.TestCase):
         with patch.object(focused.adaptive, "load_session", return_value=fake_session), \
              patch.object(focused.adaptive, "AdaptiveScenarios", MainAdaptive), \
              patch.object(focused.PublicContextScenarios, "run_public_context", run), \
-             patch.object(focused, "admit_inputs", side_effect=admission_error, return_value={"host_double": True}), \
+             patch.object(focused, "admit_inputs", side_effect=admission_error,
+                          return_value={"host_double": True, "continuous_input_helper": {"host_double": True}}), \
+             patch.object(focused.continuous_touch, "install_helper", side_effect=install), \
              redirect_stdout(io.StringIO()):
             try:
                 status = focused.main(self.argv)
@@ -1422,6 +1465,14 @@ class MainStatusTests(unittest.TestCase):
         self.assertEqual("failed", result["status"])
         self.assertEqual([], self.instances[0].calls)
         self.assertFalse(self.instances[0].setup_called)
+
+    def test_failed_helper_installation_cannot_start_practice(self):
+        status, result = self.main(helper_error=engine.ObservationFailure("Host helper install failure"))
+        self.assertEqual(1, status)
+        self.assertEqual("failed", result["status"])
+        self.assertTrue(self.instances[0].setup_called)
+        self.assertFalse(self.instances[0].helper_installed)
+        self.assertFalse(self.instances[0].run_called)
 
     def test_interrupt_propagates_but_writes_a_failed_receipt(self):
         with self.assertRaises(KeyboardInterrupt):

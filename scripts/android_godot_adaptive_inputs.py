@@ -14,9 +14,12 @@ import sys
 import xml.etree.ElementTree as ET
 import zipfile
 
+import android_continuous_touch as continuous_touch
+
 sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parents[1]
 FILES = {
+    continuous_touch.APK_NAME: "tools/android-continuous-input/build/outputs/apk/debug/" + continuous_touch.APK_NAME,
     "androidApp-debug.apk": "androidApp/build/outputs/apk/debug/androidApp-debug.apk",
     "androidApp-release-unsigned.apk": "androidApp/build/outputs/apk/release/androidApp-release-unsigned.apk",
     "PartyDeck-release-ci-test-signed.apk": "build/ci/android/packages/PartyDeck-release-ci-test-signed.apk",
@@ -34,9 +37,14 @@ PINS = {
     "scripts/smoke_android_godot_adaptive.py": "9ed771c96e7f16a8c669e4db5c11904836c0e3937341ad3513a76f037401b918",
     "scripts/android_godot_session_observation.py": "4a9340d49e69d596d2d6ed3cfd12b69eb567ab0fb49fed0fa49a643dfc877a8f",
     "scripts/tests/test_android_engine_gameplay.py": "d4cdec6444f4b7dd8240e5b8ae5b1f1ee26717ebac61efc68f92944ae7eb9f83",
-    "scripts/smoke_android_godot_public_context.py": "33486944e9afbc9976460e0e00723bad9053d0419f9f414639f87bab28f1bcc6",
-    "scripts/tests/test_android_godot_public_context.py": "14b28b00cf12f89f4d9c72215ff541719efdfbf32daf9dbd27b60c04a6f6467a",
+    "scripts/smoke_android_godot_public_context.py": "a1bab2df603e31ac24223b9f94d9091555f33d16ef7c7d1d6f8f352b91f8564e",
+    "scripts/tests/test_android_godot_public_context.py": "1454026597612fb1c0eaedf5631850549106c91814e7f1fa33641334982c50da",
     "scripts/tests/fixtures/android-focused-34568971032/debug-post-progression.xml": "ea61b13aaa764e0529224ea90c5b480c93e2376643c2e6431e1288feb6de44b7",
+    "scripts/android_continuous_touch.py": "9695a3a46dfb25461139f8abe4420a583382cc24e56489520498806a9c4e3dc1",
+    "scripts/tests/test_android_continuous_touch.py": "5462979e5b10e6cff3bb468b9f19d5319f70bfc9e315ba3e0ccc1a23ec0293be",
+    "tools/android-continuous-input/build.gradle.kts": "721693ae6fa8f04d5ae3e434fe1c970189a48df5826392436f47a99c20a6293a",
+    "tools/android-continuous-input/src/main/AndroidManifest.xml": "e197806540204fc762769fed7045cdc871e7909b681dad8e519a821cc2268d7d",
+    "tools/android-continuous-input/src/main/java/dev/partydeck/qualification/input/ContinuousTouchInstrumentation.java": "40b7c27084a483c79f763595e5b754c9770cbbee23c956b183ec7e06a9790b97"
 }
 
 
@@ -124,6 +132,19 @@ def inspect_inputs(bundle, output, report):
     sdk = Path(os.environ["ANDROID_HOME"])
     signer = sdk / "build-tools/36.0.0/apksigner"
     aligner = sdk / "build-tools/36.0.0/zipalign"
+    helper = bundle / continuous_touch.APK_NAME
+    helper_item = dict(apkSha256=digest(helper), verified=False)
+    report["continuousInput"] = helper_item
+    helper_manifest = checked_command([analyzer, "manifest", "print", helper], output, "continuous-input-manifest")
+    (output / "continuous-input-packaged-manifest.xml").write_bytes(helper_manifest)
+    helper_item.update(manifestSha256=hashlib.sha256(helper_manifest).hexdigest(),
+                       metadata=continuous_touch.inspect_manifest(helper_manifest))
+    helper_certificates = checked_command([signer, "verify", "--verbose", "--print-certs", helper], output,
+                                         "continuous-input-signature").decode("utf-8")
+    helper_fingerprints = re.findall(r"^Signer #\d+ certificate SHA-256 digest: ([0-9a-fA-F]{64})$",
+                                     helper_certificates, re.M)
+    require(len(helper_fingerprints) == 1, "Expected one verified input-helper signer.")
+    helper_item.update(certificateSha256=helper_fingerprints[0].lower(), verified=True)
     signing = read_json((bundle / "runtime-package.json").read_bytes())
     require(signing.get("variant") == "optimized-test-signed"
             and signing.get("signingIdentity") == "disposable-ci-test-key"
