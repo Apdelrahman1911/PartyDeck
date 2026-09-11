@@ -1,0 +1,81 @@
+name: JVM rule and network measurements
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  measure:
+    name: Six-player TLS and rule measurements
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Java
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Set up Android SDK for project configuration
+        uses: android-actions/setup-android@40fd30fb8d7440372e1316f5d1809ec01dcd3699 # v4.0.1
+        with:
+          packages: 'platform-tools platforms;android-37.1 build-tools;36.0.0'
+          log-accepted-android-sdk-licenses: false
+      - name: Set up Gradle and validate wrapper
+        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+        with:
+          cache-provider: basic
+          cache-read-only: true
+      - name: Record source and toolchain
+        timeout-minutes: 3
+        run: |
+          mkdir -p build/ci/jvm-rule-network
+          git rev-parse HEAD > build/ci/jvm-rule-network/source-revision.txt
+          sha256sum \
+            composeApp/src/jvmTest/kotlin/dev/partydeck/app/LanMultiplayerIntegrationTest.kt \
+            composeApp/src/jvmTest/kotlin/dev/partydeck/app/JvmMeasurementTypes.kt \
+            composeApp/src/jvmTest/kotlin/dev/partydeck/app/JvmRuleNetworkMeasurements.kt \
+            scripts/jvm-rule-network-measurements.init.gradle \
+            .github/workflows/jvm-rule-network-measurements.yml \
+            > build/ci/jvm-rule-network/source-sha256.txt
+          java -version 2>&1 | tee build/ci/jvm-rule-network/java-version.log
+          timeout --signal=TERM --kill-after=15s 2m ./gradlew --version \
+            | tee build/ci/jvm-rule-network/gradle-version.log
+      - name: Run all real TLS integration cases
+        timeout-minutes: 15
+        run: |
+          timeout --signal=TERM --kill-after=30s 14m \
+            ./gradlew --no-configuration-cache --no-daemon --max-workers=2 \
+            :composeApp:jvmTest --tests dev.partydeck.app.LanMultiplayerIntegrationTest \
+            2>&1 | tee build/ci/jvm-rule-network/integration.log
+      - name: Measure rules, codecs and six-player TLS payloads
+        timeout-minutes: 19
+        run: |
+          timeout --signal=TERM --kill-after=30s 18m \
+            ./gradlew --no-configuration-cache --no-daemon --max-workers=2 \
+            -I scripts/jvm-rule-network-measurements.init.gradle \
+            :composeApp:measureJvmRuleNetwork \
+            -PmeasurementOutput="$GITHUB_WORKSPACE/build/ci/jvm-rule-network/raw" \
+            -PmeasurementSeed=20260910 -PmeasurementWarmups=2 \
+            -PmeasurementSamples=5 -PmeasurementIdleMillis=1000 \
+            2>&1 | tee build/ci/jvm-rule-network/measurements.log
+      - name: Preserve results and raw measurements
+        if: always()
+        uses: ./.github/actions/upload-artifact
+        with:
+          name: jvm-rule-network-measurements
+          path: |
+            build/ci/jvm-rule-network/**
+            composeApp/build/test-results/jvmTest/**
+            composeApp/build/reports/tests/jvmTest/**
+          retention-days: 14
+          if-no-files-found: warn

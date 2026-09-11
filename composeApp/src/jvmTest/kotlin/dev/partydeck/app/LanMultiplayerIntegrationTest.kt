@@ -8,13 +8,19 @@ import dev.partydeck.app.controller.FeedbackCue
 import dev.partydeck.app.controller.PartyDeckController
 import dev.partydeck.app.controller.PlatformServices
 import dev.partydeck.app.controller.SettingsStore
+import dev.partydeck.core.AvailableActions
 import dev.partydeck.core.Card
 import dev.partydeck.core.CardRank
 import dev.partydeck.core.GamePhase
+import dev.partydeck.core.GameView
+import dev.partydeck.core.LastLightRules
+import dev.partydeck.core.RoundOutcome
 import dev.partydeck.session.ClientIntent
 import dev.partydeck.session.ClientMessage
 import dev.partydeck.session.ServerMessage
 import dev.partydeck.session.SessionCodec
+import dev.partydeck.session.SessionControls
+import dev.partydeck.session.SessionEndReason
 import dev.partydeck.session.SessionPhase
 import dev.partydeck.session.SessionView
 import dev.partydeck.session.WireDecodeResult
@@ -40,6 +46,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive
@@ -71,6 +78,52 @@ import kotlin.test.assertTrue
  * All waits use real time because production dispatchers and sockets do not use virtual test time.
  */
 class LanMultiplayerIntegrationTest {
+    @Test
+    fun sixRealTlsSeatsFinishRematchAndRehostUsingTheSameControllers() = runBlocking {
+        withRealTable(seatCount = LastLightRules.MAX_PLAYERS, timeoutMillis = 120_000) { table ->
+            table.playSixSeatsToWinner()
+            table.rematchAndRehost()
+        }
+    }
+
+    /** Opt-in measurements reuse the real fixture; only the rules RNG is seeded. */
+    internal suspend fun measureSixSeatTls(
+        seed: Int,
+        idleMillis: Long,
+        onInterval: (TlsPayloadInterval) -> Unit,
+    ) = coroutineScope {
+        require(idleMillis in 1..(Long.MAX_VALUE - 120_000))
+        withRealTable(
+            seatCount = LastLightRules.MAX_PLAYERS,
+            timeoutMillis = 120_000 + idleMillis,
+            gameSeed = seed,
+        ) { table ->
+            val idleBefore = table.settledPayloads()
+            val idleRevision = table.host.session().revision
+            val idleStarted = System.nanoTime()
+            delay(idleMillis)
+            val idleAfter = table.settledPayloads()
+            val idleElapsed = System.nanoTime() - idleStarted
+            assertEquals(idleRevision, table.host.session().revision, "Idle changed authority state")
+            onInterval(TlsPayloadInterval(
+                TlsMeasurementPhase.IDLE, idleElapsed, idleRevision, idleRevision, 0,
+                idleAfter.zip(idleBefore) { after, before -> after - before },
+            ))
+
+            val activeBefore = table.settledPayloads()
+            val activeRevision = table.host.session().revision
+            val activeStarted = System.nanoTime()
+            val acceptedCommands = table.playSixSeatsToWinner()
+            val activeAfter = table.settledPayloads()
+            val activeElapsed = System.nanoTime() - activeStarted
+            assertEquals(acceptedCommands.toLong(), table.host.session().revision - activeRevision)
+            onInterval(TlsPayloadInterval(
+                TlsMeasurementPhase.ACTIVE, activeElapsed, activeRevision, table.host.session().revision,
+                acceptedCommands, activeAfter.zip(activeBefore) { after, before -> after - before },
+            ))
+        }
+    }
+
     @Test
     fun realTlsGuestsPlayPrivateHandsResolveAChallengeRedealAndReleaseTheListener() = runBlocking {
         withRealTable { table ->
@@ -218,10 +271,15 @@ class LanMultiplayerIntegrationTest {
         }
     }
 
-    private suspend fun CoroutineScope.withRealTable(block: suspend (RealTable) -> Unit) {
-        val table = RealTable(this)
+    private suspend fun CoroutineScope.withRealTable(
+        seatCount: Int = 3,
+        timeoutMillis: Long = 45_000,
+        gameSeed: Int? = null,
+        block: suspend (RealTable) -> Unit,
+    ) {
+        val table = RealTable(this, seatCount, gameSeed)
         try {
-            withTimeout(45_000) {
+            withTimeout(timeoutMillis) {
                 table.start()
                 block(table)
                 table.assertNoAsyncFailures()
@@ -231,12 +289,14 @@ class LanMultiplayerIntegrationTest {
         }
     }
 
-    private class RealTable(parentScope: CoroutineScope) {
+    private class RealTable(parentScope: CoroutineScope, seatCount: Int, gameSeed: Int?) {
         private val failures = CopyOnWriteArrayList<Throwable>()
         private val owner = CoroutineScope(parentScope.coroutineContext + CoroutineExceptionHandler { _, error -> failures.add(error) })
-        val devices = listOf("Host Ada", "Guest Bo", "Guest Cy").map { Device(it, owner) }
+        val devices = listOf("Host Ada", "Guest Bo", "Guest Cy", "Guest Dee", "Guest Eli", "Guest Fay")
+            .take(seatCount).map { Device(it, owner, gameSeed) }
         val host = devices.first()
         val guests = devices.drop(1)
+        private val privacy = if (seatCount == LastLightRules.MAX_PLAYERS) RecipientAudit(devices) else null
         private var listenerEndpoint: LanEndpoint? = null
 
         suspend fun start() {
@@ -260,12 +320,133 @@ class LanMultiplayerIntegrationTest {
                 assertEquals(invitation.sessionId, guest.session().sessionId)
                 assertNull(guest.controller.state.value.invitation)
             }
-            assertTrue(sessions().all { it.players.size == 3 && it.phase == SessionPhase.LOBBY })
+            assertTrue(sessions().all { it.players.size == devices.size && it.phase == SessionPhase.LOBBY })
+            privacy?.record(sessions())
+            readyAndStart()
+        }
+
+        private suspend fun readyAndStart() {
             for (guest in guests) perform("${guest.name} becomes ready") { guest.controller.setReady(true) }
             assertTrue(host.session().controls.canStartGame)
             assertTrue(guests.none { it.session().controls.canStartGame })
             perform("host starts the real shared game") { host.controller.startGame() }
             assertTrue(sessions().all { it.phase == SessionPhase.GAME && it.game?.phase == GamePhase.PLAYING })
+        }
+
+        suspend fun playSixSeatsToWinner(): Int {
+            assertEquals(LastLightRules.MAX_PLAYERS, devices.size)
+            val firstOrbit = List(devices.size) { playOneCard() }
+            assertEquals(devices.size, firstOrbit.map { it.playerId }.toSet().size)
+            assertTrue(sessions().all { it.game?.yourHand?.size == LastLightRules.HAND_SIZE - 1 })
+            var acceptedCommands = devices.size
+            val commandBound = devices.size + devices.size * LastLightRules.FUSE_LIGHTS * 3
+            while (host.session().game?.phase != GamePhase.FINISHED) {
+                assertTrue(acceptedCommands < commandBound, "Legal match exceeded its finite fuse budget")
+                if (host.session().game?.phase == GamePhase.ROUND_ENDED) {
+                    assertTrue(host.session().controls.canAdvanceRound)
+                    perform("host advances the ended round") { host.controller.nextRound() }
+                } else {
+                    val actor = currentActor()
+                    if (assertNotNull(actor.session().game).availableActions.canChallenge) {
+                        perform("current recipient challenges the last claim") { actor.controller.challenge() }
+                    } else {
+                        playOneCard()
+                    }
+                }
+                acceptedCommands++
+            }
+            val finished = assertNotNull(host.session().game)
+            val survivor = finished.players.single { !it.eliminated }
+            assertEquals(devices.size - 1, finished.players.count { it.eliminated })
+            assertEquals(survivor.id, finished.winnerId)
+            assertTrue(sessions().all {
+                val game = it.game
+                game?.phase == GamePhase.FINISHED && game.winnerId == survivor.id &&
+                    game.availableActions == AvailableActions()
+            })
+            assertTrue(host.session().controls.canReturnToLobby)
+            settledPayloads()
+            return acceptedCommands
+        }
+
+        suspend fun rematchAndRehost() {
+            val originalSession = host.session().sessionId
+            val originalBindings = sessions().map { it.selfPlayerId }
+            val originalInvitation = assertNotNull(host.controller.state.value.invitation).joinAddress
+            val originalConnections = devices.map { it.transport.connections.toList() }
+            assertTrue(guests.all { it.transport.hellos.toList() == listOf("join") })
+            assertEquals(guests.size, originalConnections.first().size)
+            assertTrue(originalConnections.drop(1).all { it.size == 1 })
+
+            perform("winner returns all seats to the lobby") { host.controller.returnToLobby() }
+            assertTrue(sessions().all { it.phase == SessionPhase.LOBBY && it.game == null })
+            assertEquals(originalBindings, sessions().map { it.selfPlayerId })
+            assertTrue(sessions().all { it.sessionId == originalSession })
+            assertTrue(host.session().players.single { it.id == host.session().selfPlayerId }.isReady)
+            assertTrue(host.session().players.filter { it.id != host.session().selfPlayerId }.none { it.isReady })
+            assertTrue(sessions().none { it.controls.canStartGame })
+            readyAndStart()
+            assertEquals(originalBindings, sessions().map { it.selfPlayerId })
+            assertTrue(sessions().all { it.sessionId == originalSession })
+            assertEquals(devices.size, List(devices.size) { playOneCard().playerId }.toSet().size)
+
+            endSessionAndReturnHome()
+            assertTrue(originalConnections.flatten().all { it.state.value != ConnectionState.Connected })
+            start()
+            assertTrue(host.session().sessionId != originalSession, "Rehosting reused a session identity")
+            assertTrue(host.controller.state.value.invitation?.joinAddress != originalInvitation,
+                "Rehosting reused an invitation")
+            assertEquals(guests.size * 2, host.transport.connections.size)
+            for (guest in guests) {
+                assertEquals(2, guest.transport.connections.size)
+                assertEquals(listOf("join", "join"), guest.transport.hellos.toList())
+            }
+            assertEquals(devices.size, List(devices.size) { playOneCard().playerId }.toSet().size)
+            endSessionAndReturnHome()
+        }
+
+        private suspend fun endSessionAndReturnHome() {
+            settledPayloads()
+            val endingSession = host.session().sessionId
+            host.controller.leaveSession()
+            until("host termination reaches all five authenticated guests") {
+                host.controller.state.value.session == null && host.transport.allClosed() && guests.all {
+                    it.controller.state.value.connection.status == ConnectionStatus.DISCONNECTED &&
+                        it.controller.state.value.session?.phase == SessionPhase.ENDED &&
+                        it.transport.ended.any { message ->
+                            message.sessionId == endingSession && message.reason == SessionEndReason.HOST_ENDED
+                        }
+                }
+            }
+            assertNull(host.controller.state.value.invitation)
+            guests.forEach { it.controller.leaveSession() }
+            until("all six devices return Home and release their transports") {
+                devices.all {
+                    it.controller.state.value.screen == AppScreen.HOME &&
+                        it.controller.state.value.session == null && it.transport.allClosed() &&
+                        it.transport.connections.all { connection -> connection.state.value != ConnectionState.Connected }
+                }
+            }
+            privacy?.verifyWireViews()
+            assertListenerClosed()
+        }
+
+        suspend fun settledPayloads(): List<ApplicationPayloadSnapshot> {
+            awaitSynchronized("controller revisions settle before payload observation")
+            var settled: List<ApplicationPayloadSnapshot>? = null
+            until("successful sends and delivered payloads balance at all endpoints") {
+                val snapshots = devices.map { it.transport.payloads.snapshot() }
+                val hostPayloads = snapshots.first()
+                val guestPayloads = snapshots.drop(1)
+                val balanced = hostPayloads.sentMessages == guestPayloads.sumOf { it.receivedMessages } &&
+                    hostPayloads.sentBytes == guestPayloads.sumOf { it.receivedBytes } &&
+                    hostPayloads.receivedMessages == guestPayloads.sumOf { it.sentMessages } &&
+                    hostPayloads.receivedBytes == guestPayloads.sumOf { it.sentBytes }
+                if (balanced) settled = snapshots
+                balanced
+            }
+            privacy?.verifyWireViews()
+            return assertNotNull(settled)
         }
 
         fun sessions(): List<SessionView> = devices.map { it.session() }
@@ -281,19 +462,44 @@ class LanMultiplayerIntegrationTest {
             assertTrue(game.availableActions.canPlay)
             val card = game.yourHand.first()
             val claim = PlayedClaim(actor.session().selfPlayerId, card, game.tableRank)
-            perform("${actor.name} plays its received private card") { actor.controller.playCards(listOf(card.id)) }
+            perform("${actor.name} plays its received private card", playedClaim = claim) {
+                actor.controller.playCards(listOf(card.id))
+            }
             assertEquals(game.yourHand.size - 1, actor.session().game?.yourHand?.size)
             assertTrue(sessions().all { it.game?.latestClaim?.playerId == claim.playerId })
             return claim
         }
 
-        suspend fun perform(label: String, action: () -> Unit) {
+        suspend fun perform(label: String, playedClaim: PlayedClaim? = null, action: () -> Unit) {
             awaitSynchronized("ready before $label")
+            val beforeViews = sessions()
             val before = host.session().revision
+            val commandCounts = guests.map { it.transport.commands.size }
+            val receiptCounts = guests.map { it.transport.receipts.size }
             action()
             awaitSynchronized(label, minimumRevision = before + 1)
             assertEquals(before + 1, host.session().revision, "One action changed more than one authority revision")
             devices.forEach { assertNull(it.controller.state.value.problem, "$label reported a UI problem") }
+            if (privacy != null) {
+                var remoteCommands = 0
+                for ((index, guest) in guests.withIndex()) {
+                    val commands = guest.transport.commands.toList().drop(commandCounts[index])
+                    val receipts = guest.transport.receipts.toList().drop(receiptCounts[index])
+                    remoteCommands += commands.size
+                    assertTrue(commands.size <= 1 && receipts.size == commands.size,
+                        "One accepted action must have one matching remote receipt")
+                    commands.singleOrNull()?.let { command ->
+                        val receipt = receipts.single()
+                        assertEquals(before, command.expectedRevision)
+                        assertEquals(guest.session().sessionId, receipt.sessionId)
+                        assertEquals(command.id, receipt.receipt.commandId)
+                        assertEquals(before + 1, receipt.receipt.revision)
+                        assertTrue(receipt.receipt.accepted, "A generated legal command was rejected")
+                    }
+                }
+                assertTrue(remoteCommands <= 1, "One action sent commands from more than one guest")
+                privacy.record(sessions(), beforeViews, playedClaim)
+            }
         }
 
         suspend fun awaitSynchronized(label: String, minimumRevision: Long = 0, participants: List<Device> = devices) {
@@ -382,8 +588,170 @@ class LanMultiplayerIntegrationTest {
         }
     }
 
-    private class Device(val name: String, scope: CoroutineScope) {
-        val services = SilentSecureServices(name)
+    /** Checks received projections and real submitted cards, without creating a second authority. */
+    private class RecipientAudit(private val devices: List<Device>) {
+        private data class RevisionKey(val sessionId: String, val revision: Long)
+        private data class MatchKey(val sessionId: String, val startRevision: Long)
+        private data class RoundKey(val match: MatchKey, val round: Int)
+        private data class Roster(val firstFullRevision: Long, val owners: List<String>)
+
+        private val rosters = mutableMapOf<String, Roster>()
+        private val revisions = mutableMapOf<RevisionKey, Map<String, SessionView>>()
+        private val dealtHands = mutableMapOf<RoundKey, Map<String, List<Card>>>()
+        private val publicOutcomes = mutableMapOf<RoundKey, RoundOutcome>()
+        private val wireCursors = IntArray(devices.size)
+        private var match: MatchKey? = null
+        private var pendingClaim: PlayedClaim? = null
+
+        fun record(views: List<SessionView>, before: List<SessionView>? = null, playedClaim: PlayedClaim? = null) {
+            val reference = views.first()
+            val roster = rosters.getOrPut(reference.sessionId) {
+                Roster(reference.revision, views.map { it.selfPlayerId })
+            }
+            assertEquals(devices.size, roster.owners.toSet().size)
+            for ((index, view) in views.withIndex()) {
+                assertEquals(roster.owners[index], view.selfPlayerId)
+                assertEquals(devices[index].name, view.players.single { it.id == view.selfPlayerId }.displayName)
+                assertTrue(view.players.all { it.isConnected } && view.pausedPlayerIds.isEmpty())
+                assertTrue(publicProjection(view) == publicProjection(reference),
+                    "Recipient snapshots disagree on public state")
+                if (index != 0) assertEquals(SessionControls(), view.controls)
+                view.game?.let { game ->
+                    assertEquals(view.selfPlayerId, game.viewerId)
+                    val self = game.players.single { it.id == view.selfPlayerId }
+                    assertEquals(self.handCount, game.yourHand.size)
+                    assertTrue(!self.eliminated || game.yourHand.isEmpty(), "Eliminated recipient retained a hand")
+                    if (game.phase != GamePhase.PLAYING || game.turnPlayerId != view.selfPlayerId || self.eliminated) {
+                        assertEquals(AvailableActions(), game.availableActions)
+                    }
+                }
+            }
+
+            val game = reference.game
+            val previous = before?.first()?.game
+            if (game == null) {
+                assertEquals(SessionPhase.LOBBY, reference.phase)
+                match = null
+                pendingClaim = null
+            } else {
+                assertEquals(SessionPhase.GAME, reference.phase)
+                if (previous == null) {
+                    match = MatchKey(reference.sessionId, reference.revision)
+                    assertEquals(GamePhase.PLAYING, game.phase)
+                    assertEquals(1, game.roundNumber)
+                    assertNull(game.latestClaim)
+                    assertNull(game.roundOutcome)
+                    assertNull(game.winnerId)
+                    assertTrue(game.players.all { !it.eliminated && it.penaltyAttempts == 0 })
+                }
+                val currentMatch = assertNotNull(match)
+                assertEquals(reference.sessionId, currentMatch.sessionId)
+                val round = RoundKey(currentMatch, game.roundNumber)
+                if (previous == null || previous.roundNumber != game.roundNumber) {
+                    if (previous != null) {
+                        assertEquals(GamePhase.ROUND_ENDED, previous.phase)
+                        assertEquals(previous.roundNumber + 1, game.roundNumber)
+                        assertEquals(GamePhase.PLAYING, game.phase)
+                        assertNull(game.latestClaim)
+                        val oldCards = dealtHands.getValue(RoundKey(currentMatch, previous.roundNumber))
+                            .values.flatten().map { it.id }.toSet()
+                        assertTrue(views.all { view -> view.game!!.yourHand.none { it.id in oldCards } },
+                            "A redeal reused a previous round card")
+                    }
+                    val hands = views.associate { it.selfPlayerId to assertNotNull(it.game).yourHand }
+                    for (view in views) {
+                        val own = assertNotNull(view.game)
+                        val eliminated = own.players.single { it.id == view.selfPlayerId }.eliminated
+                        assertEquals(if (eliminated) 0 else LastLightRules.HAND_SIZE, own.yourHand.size)
+                    }
+                    val ids = hands.values.flatten().map { it.id }
+                    assertEquals(ids.size, ids.toSet().size, "Dealt private hands overlap")
+                    assertTrue(round !in dealtHands, "A fresh match/round reused an audit boundary")
+                    dealtHands[round] = hands
+                    pendingClaim = null
+                } else {
+                    val oldViews = assertNotNull(before).associateBy { it.selfPlayerId }
+                    for (view in views) {
+                        val own = assertNotNull(view.game)
+                        val oldHand = assertNotNull(oldViews.getValue(view.selfPlayerId).game).yourHand
+                        val expectedHand = when {
+                            own.players.single { it.id == view.selfPlayerId }.eliminated -> emptyList()
+                            playedClaim?.playerId == view.selfPlayerId -> oldHand.filterNot { it.id == playedClaim.card.id }
+                            else -> oldHand
+                        }
+                        assertTrue(expectedHand == own.yourHand, "A received hand changed outside its accepted action")
+                    }
+                    if (playedClaim != null) {
+                        val actor = assertNotNull(oldViews.getValue(playedClaim.playerId).game)
+                        assertTrue(playedClaim.card in actor.yourHand, "Play did not use the actor's received card")
+                        assertEquals(previous.turnPlayerId, playedClaim.playerId)
+                        assertEquals(playedClaim.playerId, game.latestClaim?.playerId)
+                        assertEquals(1, game.latestClaim?.cardCount)
+                        pendingClaim = playedClaim
+                    } else if (previous.phase == GamePhase.PLAYING && game.phase != GamePhase.PLAYING) {
+                        val claim = assertNotNull(pendingClaim, "Challenge has no observed private-card submission")
+                        val outcome = assertNotNull(game.roundOutcome)
+                        val truthful = claim.card.rank == CardRank.WILD || claim.card.rank == claim.tableRank
+                        val loser = if (truthful) previous.turnPlayerId else claim.playerId
+                        assertEquals(game.roundNumber, outcome.roundNumber)
+                        assertEquals(claim.tableRank, outcome.tableRank)
+                        assertEquals(claim.playerId, outcome.claimantId)
+                        assertEquals(previous.turnPlayerId, outcome.challengerId)
+                        assertTrue(outcome.revealedCards == listOf(claim.card),
+                            "Public outcome revealed cards outside the challenged claim")
+                        assertEquals(truthful, outcome.truthful)
+                        assertEquals(loser, outcome.penalizedPlayerId)
+                        assertEquals(previous.players.single { it.id == loser }.penaltyAttempts + 1, outcome.penaltyAttempt)
+                        publicOutcomes[round] = outcome
+                        pendingClaim = null
+                    }
+                }
+                for (view in views) {
+                    val own = assertNotNull(view.game)
+                    val allowed = dealtHands.getValue(round).getValue(view.selfPlayerId).toSet()
+                    assertTrue(own.yourHand.all { it in allowed }, "Another seat's dealt cards reached this recipient")
+                    own.roundOutcome?.let { outcome ->
+                        assertTrue(publicOutcomes[RoundKey(currentMatch, outcome.roundNumber)] == outcome,
+                            "Recipient received an unverified public reveal")
+                    }
+                }
+            }
+            revisions[RevisionKey(reference.sessionId, reference.revision)] = views.associateBy { it.selfPlayerId }
+            verifyWireViews()
+        }
+
+        fun verifyWireViews() {
+            for (index in 1 until devices.size) {
+                val transport = devices[index].transport
+                // Copy once, then advance only to that copy's size; concurrent arrivals stay pending.
+                val received = transport.receivedViews.toList()
+                for (view in received.drop(wireCursors[index])) {
+                    val roster = assertNotNull(rosters[view.sessionId], "Wire snapshot belongs to an unknown session")
+                    val owner = roster.owners[index]
+                    assertEquals(owner, view.selfPlayerId)
+                    val accepted = revisions[RevisionKey(view.sessionId, view.revision)]?.get(owner)
+                    if (accepted == null) {
+                        assertTrue(view.revision < roster.firstFullRevision &&
+                            view.phase == SessionPhase.LOBBY && view.game == null,
+                            "Wire snapshot has no accepted authority revision")
+                    } else {
+                        assertTrue(view == accepted, "Wire snapshot differs from its recipient's verified projection")
+                    }
+                }
+                assertEquals(0, transport.decodeFailures.get(), "A real TLS payload violated the production codec")
+                wireCursors[index] = received.size
+            }
+        }
+
+        private fun publicProjection(view: SessionView): SessionView = view.copy(
+            selfPlayerId = "",
+            controls = SessionControls(),
+            game = view.game?.copy(viewerId = null, yourHand = emptyList(), availableActions = AvailableActions()),
+        )
+    }
+
+    private class Device(val name: String, scope: CoroutineScope, gameSeed: Int?) {
+        val services = SilentSecureServices(name, gameSeed)
         val transport = ObservedRealTransportFactory()
         val controller = PartyDeckController(services, transport, scope)
         fun session(): SessionView = assertNotNull(controller.state.value.session, "$name has no active session")
@@ -399,6 +767,9 @@ class LanMultiplayerIntegrationTest {
         private val gate = AtomicReference<CompletableDeferred<Unit>?>(null)
         val connections = CopyOnWriteArrayList<LanConnection>()
         val receivedViews = CopyOnWriteArrayList<SessionView>()
+        val receipts = CopyOnWriteArrayList<ServerMessage.Receipt>()
+        val ended = CopyOnWriteArrayList<ServerMessage.Ended>()
+        val payloads = ApplicationPayloadMeter()
         val commands = CopyOnWriteArrayList<SentCommand>()
         val hellos = CopyOnWriteArrayList<String>()
         val decodeFailures = AtomicInteger()
@@ -436,10 +807,13 @@ class LanMultiplayerIntegrationTest {
         private fun observe(delegate: LanConnection, clientSide: Boolean): LanConnection {
             val observed = object : LanConnection by delegate {
                 override val incoming = delegate.incoming.onEach { bytes ->
+                    payloads.received(bytes.size)
                     if (clientSide) when (val decoded = SessionCodec.decodeServer(bytes)) {
                         is WireDecodeResult.Success -> when (val message = decoded.value) {
                             is ServerMessage.Welcome -> receivedViews.add(message.view)
                             is ServerMessage.Snapshot -> receivedViews.add(message.view)
+                            is ServerMessage.Receipt -> receipts.add(message)
+                            is ServerMessage.Ended -> ended.add(message)
                             else -> Unit
                         }
                         is WireDecodeResult.Failure -> decodeFailures.incrementAndGet()
@@ -456,6 +830,7 @@ class LanMultiplayerIntegrationTest {
                         is WireDecodeResult.Failure -> decodeFailures.incrementAndGet()
                     }
                     delegate.send(bytes)
+                    payloads.sent(bytes.size)
                 }
             }
             connections.add(observed)
@@ -463,9 +838,10 @@ class LanMultiplayerIntegrationTest {
         }
     }
 
-    /** Native UI side effects stay in memory; secrets and card outcomes still use a real CSPRNG. */
-    private class SilentSecureServices(name: String) : PlatformServices {
+    /** Only opt-in measurements seed rule outcomes; credentials always retain a real CSPRNG. */
+    private class SilentSecureServices(name: String, gameSeed: Int?) : PlatformServices {
         private val secure = SecureRandom()
+        private val rulesRandom = gameSeed?.let { Random(it) } ?: secure.asKotlinRandom()
         private var stored = AppSettings(displayName = name, soundEnabled = false, hapticsEnabled = false)
         val feedbackClosed = AtomicBoolean()
         override val settingsStore = object : SettingsStore {
@@ -481,7 +857,7 @@ class LanMultiplayerIntegrationTest {
         override fun copyText(value: String) = Unit
         override fun shareText(value: String) = Unit
         override fun scanInvitation(onResult: (String?) -> Unit) = onResult(null)
-        override fun gameRandom(): Random = secure.asKotlinRandom()
+        override fun gameRandom(): Random = rulesRandom
         override fun secureToken(): String = ByteArray(32).also(secure::nextBytes).joinToString("") {
             (it.toInt() and 255).toString(16).padStart(2, '0')
         }

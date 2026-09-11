@@ -1,0 +1,36 @@
+import org.gradle.api.tasks.JavaExec
+import org.gradle.api.tasks.testing.Test
+
+// Opt-in only. Reuse the configured Kotlin JVM test classpath and JDK without changing the build.
+gradle.projectsEvaluated {
+    def app = gradle.rootProject.project(':composeApp')
+    // Read the configured input collections directly: mapping the Test TaskProvider here would
+    // also make the measurement task depend on executing the entire ordinary test task.
+    def tests = app.tasks.named('jvmTest', Test).get()
+    def output = app.providers.gradleProperty('measurementOutput')
+    def seed = app.providers.gradleProperty('measurementSeed').orElse('20260910')
+    def warmups = app.providers.gradleProperty('measurementWarmups').orElse('2')
+    def samples = app.providers.gradleProperty('measurementSamples').orElse('5')
+    def idleMillis = app.providers.gradleProperty('measurementIdleMillis').orElse('1000')
+
+    app.tasks.register('measureJvmRuleNetwork', JavaExec) {
+        group = 'verification'
+        description = 'Measure seeded rules/codec work and six-seat real TLS application payloads.'
+        dependsOn(tests.testClassesDirs)
+        classpath(tests.classpath)
+        javaLauncher.set(tests.javaLauncher)
+        mainClass.set('dev.partydeck.app.JvmRuleNetworkMeasurements')
+        doFirst {
+            if (!output.isPresent()) {
+                throw new GradleException('Supply -PmeasurementOutput=NEW_DIRECTORY; existing directories are never overwritten.')
+            }
+            setArgs([
+                '--output=' + output.get(),
+                '--seed=' + seed.get(),
+                '--warmups=' + warmups.get(),
+                '--samples=' + samples.get(),
+                '--idle-ms=' + idleMillis.get(),
+            ])
+        }
+    }
+}
