@@ -56,8 +56,13 @@ final class PartyDeckGodotShippingUITests: XCTestCase {
                 self.nativeReady(app)
             }
             try noObservation(app)
-            try require(!element("game-table", app).exists && !options.exists,
-                        "Native entry must leave the shared game surface and picker.")
+            do {
+                try require(!element("game-table", app).exists && !options.exists,
+                            "Native entry must leave the shared game surface and picker.")
+            } catch {
+                recordEntryAbsenceFailure(mode, app, retainedOptions: options)
+                throw error
+            }
             try capture("shipping-\(mode)-native-ready", app)
             try require(nativeReady(app), "Native ready state and return controls must survive capture.")
             try await tap("godot-standard-table", app)
@@ -171,6 +176,96 @@ final class PartyDeckGodotShippingUITests: XCTestCase {
             try await Task.sleep(nanoseconds: 150_000_000)
         }
         throw Failure(message)
+    }
+
+    /// Failure-only evidence, collected before the caller rethrows and its defer terminates the app.
+    /// Later absence never changes the failed assertion into a pass. No label, value or tree dump is read.
+    @MainActor
+    private func recordEntryAbsenceFailure(_ mode: String, _ app: XCUIApplication,
+                                          retainedOptions: XCUIElement) {
+        let beforeCapture = entryAbsenceSample(app, retainedOptions: retainedOptions)
+        let captureName = "shipping-\(mode)-native-entry-absence-failure"
+        var captureOutcome = "not_attached"
+        do {
+            // Reuse every existing foreground/concealment/invitation/observation guard.
+            try capture(captureName, app)
+            captureOutcome = "attached"
+        } catch {
+            // A refused diagnostic capture must not replace the original assertion error.
+        }
+        let afterCapture = entryAbsenceSample(app, retainedOptions: retainedOptions)
+        let document: [String: Any] = [
+            "schemaVersion": 1,
+            "kind": "shipping_native_entry_absence_failure",
+            "mode": mode,
+            "phase": "before_original_error_rethrow_and_deferred_termination",
+            "sampling": "sequential_queries_not_an_atomic_snapshot",
+            "frameCoordinateSource": "XCUIElement.frame",
+            "frameComponents": ["originX", "originY", "width", "height"],
+            "captureName": captureName,
+            "captureOutcome": captureOutcome,
+            "beforeCapture": beforeCapture,
+            "afterCapture": afterCapture,
+        ]
+        let data = (try? JSONSerialization.data(withJSONObject: document, options: [.sortedKeys])) ??
+            Data("{\"schemaVersion\":1,\"kind\":\"shipping_native_entry_absence_failure\",\"diagnosticEncodingFailed\":true}".utf8)
+        let attachment = XCTAttachment(data: data, uniformTypeIdentifier: "public.json")
+        attachment.name = "shipping-\(mode)-native-entry-absence-diagnostic"
+        attachment.lifetime = .keepAlways
+        add(attachment)
+    }
+
+    @MainActor
+    private func entryAbsenceSample(_ app: XCUIApplication, retainedOptions: XCUIElement) -> [String: Any] {
+        let started = ProcessInfo.processInfo.systemUptime
+        let foreground = app.state == .runningForeground
+        let retainedPicker = entryAbsenceReferenceFacts(retainedOptions)
+        let freshPicker = entryAbsenceQueryFacts("presentation-options", app)
+        let freshGameTable = entryAbsenceQueryFacts("game-table", app)
+        let freshNativeTable = entryAbsenceQueryFacts("godot-session-table", app)
+        return [
+            "startedUptime": started,
+            "finishedUptime": ProcessInfo.processInfo.systemUptime,
+            "runningForeground": foreground,
+            "retainedPickerReference": retainedPicker,
+            "freshPickerQuery": freshPicker,
+            "freshGameTableQuery": freshGameTable,
+            "freshNativeTableQuery": freshNativeTable,
+        ]
+    }
+
+    @MainActor
+    private func entryAbsenceQueryFacts(_ identifier: String, _ app: XCUIApplication) -> [String: Any] {
+        let started = ProcessInfo.processInfo.systemUptime
+        let query = app.descendants(matching: .any).matching(identifier: identifier)
+        let count = query.count
+        var facts = entryAbsenceReferenceFacts(query.firstMatch)
+        facts["queryStartedUptime"] = started
+        facts["matchCount"] = count
+        return facts
+    }
+
+    @MainActor
+    private func entryAbsenceReferenceFacts(_ target: XCUIElement) -> [String: Any] {
+        let started = ProcessInfo.processInfo.systemUptime
+        let exists = target.exists
+        var facts: [String: Any] = [
+            "startedUptime": started,
+            "exists": exists,
+            // A retained element reference has no separately observed query count.
+            "matchCount": NSNull(),
+            "isHittable": NSNull(),
+            "frame": NSNull(),
+        ]
+        if exists {
+            facts["isHittable"] = target.isHittable
+            let frame = target.frame
+            let coordinates = [Double(frame.origin.x), Double(frame.origin.y),
+                               Double(frame.size.width), Double(frame.size.height)]
+            if coordinates.allSatisfy({ $0.isFinite }) { facts["frame"] = coordinates }
+        }
+        facts["finishedUptime"] = ProcessInfo.processInfo.systemUptime
+        return facts
     }
 
     @MainActor
