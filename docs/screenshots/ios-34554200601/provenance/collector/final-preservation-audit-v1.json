@@ -1,0 +1,2769 @@
+{
+  "runId": 34554200601,
+  "headSha": "253e9656a360a4411cab858484e1bd3dc2093a46",
+  "attempt": 1,
+  "verifiedAtUtc": "2026-09-11T03:08:19.139036+00:00",
+  "auditor": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/audit-tools/verify-final-preservation-v1.py",
+    "bytes": 9702,
+    "sha256": "267f5c170acace403c061ecc3c8973274289d334bbb4f2b18f1c1bed553dd33d"
+  },
+  "activeAllocationWindow": {
+    "recorded_at_utc": "2026-09-11T03:08:18.694929+00:00",
+    "status": "admitted",
+    "lease_id": "c53ef5c5c5b544798703089ee28695a8",
+    "owner": "engine_ci",
+    "pid": 31521,
+    "owner_physical_root": "/dev/shm/partydeck-evidence-20260910/34554200601",
+    "planned_peak_additional_bytes": 16777216,
+    "extra_memory_reserve_bytes": 67108864,
+    "started_at_utc": "2026-09-11T03:08:17.738482+00:00",
+    "initial": {
+      "observed_at_utc": "2026-09-11T03:08:17.738620+00:00",
+      "arena": "/dev/shm/partydeck-evidence-20260910",
+      "arena_allocated_bytes": 8051077120,
+      "destination_available_bytes": 2440998912,
+      "system_memavailable_bytes": 4714037248,
+      "maximum_arena_allocated_bytes": 8589934592,
+      "minimum_destination_available_bytes": 1073741824,
+      "minimum_system_memavailable_bytes": 3221225472
+    },
+    "observed": {
+      "observed_at_utc": "2026-09-11T03:08:18.219995+00:00",
+      "arena": "/dev/shm/partydeck-evidence-20260910",
+      "arena_allocated_bytes": 8051077120,
+      "destination_available_bytes": 2440998912,
+      "system_memavailable_bytes": 4705681408,
+      "maximum_arena_allocated_bytes": 8589934592,
+      "minimum_destination_available_bytes": 1073741824,
+      "minimum_system_memavailable_bytes": 3221225472,
+      "observed_growth_bytes": 0,
+      "remaining_declared_bytes": 16777216,
+      "next_allocation_bytes": 0
+    }
+  },
+  "auditInputPins": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/final-audit-inputs-v1.json",
+    "bytes": 1510,
+    "sha256": "cb3f090b05da011e75ddf5cab7ef244a123b2c44e461f02d5a3fca7126d6a6a3"
+  },
+  "collectorCompletion": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/collection-complete.json",
+    "bytes": 685,
+    "sha256": "061bb238b7494a018e3d4abd57fd46d5ef1c0c471320875e26364d77ea367ebc"
+  },
+  "finalOriginalRunMetadata": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/api-snapshots/20260911T025956.380146Z-run.json",
+    "bytes": 12888,
+    "sha256": "ff686f23d531a0fc07385c60d2b1b20de6845dc0f3eeda630c84cc9d46f7ea70"
+  },
+  "finalOriginalJobsMetadata": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/api-snapshots/20260911T025956.380146Z-jobs.json",
+    "bytes": 9153,
+    "sha256": "5d048f693824192e11f1beb2370e28e3d9ec81fe068fdbc11e78aac53b70d396"
+  },
+  "finalOriginalArtifactMetadata": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/api-snapshots/20260911T025956.380146Z-artifacts.json",
+    "bytes": 2210,
+    "sha256": "f4a7a111c9b9c2842ebd54e59e12df61067fbe888bab5852457dc46924f643fe"
+  },
+  "runConclusion": "failure",
+  "jobConclusions": [
+    {
+      "id": 103123253152,
+      "name": "Export the shared iOS renderer pack",
+      "conclusion": "success"
+    },
+    {
+      "id": 103123254257,
+      "name": "Android and shared JVM tests",
+      "conclusion": "skipped"
+    },
+    {
+      "id": 103123585125,
+      "name": "Focused iOS production Godot sessions",
+      "conclusion": "failure"
+    },
+    {
+      "id": 103123586188,
+      "name": "iOS optimized unsigned device app",
+      "conclusion": "skipped"
+    }
+  ],
+  "artifacts": [
+    {
+      "name": "ios-renderer-pack",
+      "artifactId": 10181940548,
+      "originalArchive": {
+        "path": "/dev/shm/partydeck-evidence-20260910/34554200601/artifact-zips/10181940548-ios-renderer-pack.zip",
+        "bytes": 1110403,
+        "sha256": "ddfc7bf130b35665ce0059244cc33123416e162afbec3a6526bd1060baff484a"
+      },
+      "apiArtifactMetadata": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-renderer-pack.downloaded.json",
+        "bytes": 795,
+        "sha256": "03fecc1e5da9f9d131c161154a4b3f4917060f71bd038fdc65015a7caf107b72"
+      },
+      "originalMemberInventory": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-renderer-pack.files.json",
+        "bytes": 772,
+        "sha256": "96663c2f637be6aed06d7c99e90626c22703e8eab5d61424acb0ee753709811a"
+      },
+      "originalIntegrityReceipt": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-renderer-pack.integrity.json",
+        "bytes": 1790,
+        "sha256": "ccd13738b0fc9d3828415faa66093064e958b67e380deb30315a7bdbc074a9a4"
+      },
+      "fileCount": 3,
+      "originalUncompressedBytes": 1612165,
+      "workingFileCount": 3,
+      "workingBytes": 1612165,
+      "allOriginalZipBytesStillMatchApi": true,
+      "allOriginalMemberHashesAndCrcRecorded": true,
+      "allSelectedWorkingFilesUnchanged": true
+    },
+    {
+      "name": "ios-renderer-pack-evidence",
+      "artifactId": 10181940862,
+      "originalArchive": {
+        "path": "/dev/shm/partydeck-evidence-20260910/34554200601/artifact-zips/10181940862-ios-renderer-pack-evidence.zip",
+        "bytes": 27958,
+        "sha256": "1d0ad800f212ded454911b671b8867e5f766fff099f1788cffc72a91adb8a70b"
+      },
+      "apiArtifactMetadata": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-renderer-pack-evidence.downloaded.json",
+        "bytes": 802,
+        "sha256": "bef78a43519a14fd3daf7aefe1d6d1d3059076acd53848a25bfef2a1f474ba4b"
+      },
+      "originalMemberInventory": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-renderer-pack-evidence.files.json",
+        "bytes": 3682,
+        "sha256": "d151a85d88109cd4c7cf157be2d15bb5db4ef7bc8bf5eb262bbd0411c7036b58"
+      },
+      "originalIntegrityReceipt": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-renderer-pack-evidence.integrity.json",
+        "bytes": 1822,
+        "sha256": "300e1cd0be72a85e9b3143b3a6bca6b1de12a2b2f6cbc8f30df97a7f67cce330"
+      },
+      "fileCount": 13,
+      "originalUncompressedBytes": 105597,
+      "workingFileCount": 13,
+      "workingBytes": 105597,
+      "allOriginalZipBytesStillMatchApi": true,
+      "allOriginalMemberHashesAndCrcRecorded": true,
+      "allSelectedWorkingFilesUnchanged": true
+    },
+    {
+      "name": "ios-focused-production-reports-and-simulator-app",
+      "artifactId": 10182746591,
+      "originalArchive": {
+        "path": "/dev/shm/partydeck-evidence-20260910/34554200601/artifact-zips/10182746591-ios-focused-production-reports-and-simulator-app.zip",
+        "bytes": 253204989,
+        "sha256": "11962ba8d9a7a673f51e37ccef6f81812d3ef0987cc1012ee2853a0161ccbb69"
+      },
+      "apiArtifactMetadata": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app.downloaded.json",
+        "bytes": 828,
+        "sha256": "3d50ccde0c18a882f74df75b4ee0304166ee8245fb23ac23243e490a06c5f47d"
+      },
+      "originalMemberInventory": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app.files.json",
+        "bytes": 787620,
+        "sha256": "e082fde929dbb44f68b5f21a97128b70ab66d7047bcb66b5d5550f4bdfcee226"
+      },
+      "originalIntegrityReceipt": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app.integrity.json",
+        "bytes": 1936,
+        "sha256": "933d997150f7461aed81fca1e1c4da6dd9dfda8bac26d733fb5db6a66a03d621"
+      },
+      "fileCount": 1639,
+      "originalUncompressedBytes": 398745523,
+      "workingFileCount": 132,
+      "workingBytes": 13566554,
+      "allOriginalZipBytesStillMatchApi": true,
+      "allOriginalMemberHashesAndCrcRecorded": true,
+      "allSelectedWorkingFilesUnchanged": true
+    }
+  ],
+  "workingOriginals": [
+    {
+      "artifact": "ios-renderer-pack",
+      "archiveMember": "partydeck-last-light.pck",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-renderer-pack/partydeck-last-light.pck",
+      "bytes": 1550440,
+      "sha256": "541ded4c5074b56a9e320882a23f357ff8162520fac099e32567ac3a678f2751"
+    },
+    {
+      "artifact": "ios-renderer-pack",
+      "archiveMember": "partydeck-last-light.receipt.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-renderer-pack/partydeck-last-light.receipt.json",
+      "bytes": 61684,
+      "sha256": "d88495800e66f1b15803ad7c55663a2994e2fcb40b50c6a0c0e3c759d9fdc113"
+    },
+    {
+      "artifact": "ios-renderer-pack",
+      "archiveMember": "renderer-source-commit.txt",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-renderer-pack/renderer-source-commit.txt",
+      "bytes": 41,
+      "sha256": "9c5916798600b2e3f2745af2a1f926aa8f6af92a17b736f351fb54d34dcd976c"
+    },
+    {
+      "artifact": "ios-renderer-pack-evidence",
+      "archiveMember": "godot/qualification/build/renderer/pack-logs/commands.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-renderer-pack-evidence/godot/qualification/build/renderer/pack-logs/commands.json",
+      "bytes": 3768,
+      "sha256": "99435934609639cd02c7b4fa3544f82ba9c306829b9484680aabcf2438b72113"
+    },
+    {
+      "artifact": "ios-renderer-pack-evidence",
+      "archiveMember": "godot/qualification/build/renderer/pack-logs/export-pack.log",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-renderer-pack-evidence/godot/qualification/build/renderer/pack-logs/export-pack.log",
+      "bytes": 15932,
+      "sha256": "f2e68702c4b9723d3436317a45e1b08d678d84b22c0bdc180adfbf7a10e1bfc6"
+    },
+    {
+      "artifact": "ios-renderer-pack-evidence",
+      "archiveMember": "godot/qualification/build/renderer/pack-logs/export_presets.cfg",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-renderer-pack-evidence/godot/qualification/build/renderer/pack-logs/export_presets.cfg",
+      "bytes": 3342,
+      "sha256": "d42b3142311faa1a095980ace6665f2dfd0bf6adf88303e9fe53839b008f18cd"
+    },
+    {
+      "artifact": "ios-renderer-pack-evidence",
+      "archiveMember": "godot/qualification/build/renderer/pack-logs/import.log",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-renderer-pack-evidence/godot/qualification/build/renderer/pack-logs/import.log",
+      "bytes": 12003,
+      "sha256": "8c2ee23411c2233d22b5921dc211f73f7af80f2e3b94123a6ffe444892d36a0e"
+    },
+    {
+      "artifact": "ios-renderer-pack-evidence",
+      "archiveMember": "godot/qualification/build/renderer/pack-logs/packed-scene-check.log",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-renderer-pack-evidence/godot/qualification/build/renderer/pack-logs/packed-scene-check.log",
+      "bytes": 216,
+      "sha256": "06f5be3751f83008e8b79c2b09aa8f815503cbbf0b0b252fb919ccf009ede1b4"
+    },
+    {
+      "artifact": "ios-renderer-pack-evidence",
+      "archiveMember": "godot/qualification/build/renderer/pack-logs/source-scene-check.log",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-renderer-pack-evidence/godot/qualification/build/renderer/pack-logs/source-scene-check.log",
+      "bytes": 216,
+      "sha256": "06f5be3751f83008e8b79c2b09aa8f815503cbbf0b0b252fb919ccf009ede1b4"
+    },
+    {
+      "artifact": "ios-renderer-pack-evidence",
+      "archiveMember": "godot/qualification/build/renderer/partydeck-last-light.receipt.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-renderer-pack-evidence/godot/qualification/build/renderer/partydeck-last-light.receipt.json",
+      "bytes": 61684,
+      "sha256": "d88495800e66f1b15803ad7c55663a2994e2fcb40b50c6a0c0e3c759d9fdc113"
+    },
+    {
+      "artifact": "ios-renderer-pack-evidence",
+      "archiveMember": "godot/qualification/build/renderer/renderer-source-commit.txt",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-renderer-pack-evidence/godot/qualification/build/renderer/renderer-source-commit.txt",
+      "bytes": 41,
+      "sha256": "9c5916798600b2e3f2745af2a1f926aa8f6af92a17b736f351fb54d34dcd976c"
+    },
+    {
+      "artifact": "ios-renderer-pack-evidence",
+      "archiveMember": "godot/qualification/build/toolchain/install.receipt.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-renderer-pack-evidence/godot/qualification/build/toolchain/install.receipt.json",
+      "bytes": 901,
+      "sha256": "3810cae30c9cc2c4ef56e50d1927252a8cc69e6965886b2b624d2739a3037b26"
+    },
+    {
+      "artifact": "ios-renderer-pack-evidence",
+      "archiveMember": "build/ci/android/graphics-apt-install.log",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-renderer-pack-evidence/build/ci/android/graphics-apt-install.log",
+      "bytes": 2069,
+      "sha256": "bc288bf3745d9f01808d7aa7806bfd9029d4f69d790e04f0f0b293d7aee4083d"
+    },
+    {
+      "artifact": "ios-renderer-pack-evidence",
+      "archiveMember": "build/ci/android/graphics-apt-update.log",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-renderer-pack-evidence/build/ci/android/graphics-apt-update.log",
+      "bytes": 2004,
+      "sha256": "e58d8d4f53afd9e9efab3dd78fc86078c60a2e6c9ecb4f297b7de3b8726d6a57"
+    },
+    {
+      "artifact": "ios-renderer-pack-evidence",
+      "archiveMember": "build/ci/android/graphics-packages.log",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-renderer-pack-evidence/build/ci/android/graphics-packages.log",
+      "bytes": 426,
+      "sha256": "12514c6b4027735dc7349c60c98b478cb3d569203f45e537a8291e8a1eb7d2b9"
+    },
+    {
+      "artifact": "ios-renderer-pack-evidence",
+      "archiveMember": "build/ci/android/graphics-ubuntu-sources.log",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-renderer-pack-evidence/build/ci/android/graphics-ubuntu-sources.log",
+      "bytes": 2995,
+      "sha256": "4508181e0dd5578c33d1247db48ab4847910b25da85e0789c8e7b3140d1fb289"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/focused-production-scope.log",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/focused-production-scope.log",
+      "bytes": 423,
+      "sha256": "238afcd5cf923939e29c7942baa56ab591459e886d902df26dd4b6804b88db15"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/focused-production-session.log",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/focused-production-session.log",
+      "bytes": 2484075,
+      "sha256": "a2b8d91951e1f561ad439f8929cadf80ab0c450df8fa7534c87d92c7d99f3e6c"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-native-simulator-debug.log",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-native-simulator-debug.log",
+      "bytes": 315729,
+      "sha256": "b2cbd2c063c6f9c3dd19df0a66edb28e12fcd2360372a2483fb4af0c38e0c312"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/DerivedData/Build/Products/Debug-iphonesimulator/PartyDeckGodotInputs/inputs.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/DerivedData/Build/Products/Debug-iphonesimulator/PartyDeckGodotInputs/inputs.json",
+      "bytes": 10315,
+      "sha256": "1f5d7054698f1c84d118eea10bbb03cb1da35e11f03226f06a88f89fd30f5fa4"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/activation/Info.plist",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/activation/Info.plist",
+      "bytes": 2397,
+      "sha256": "e7a89d07ce98176c6f0bc0992a377e6acc2b55e412663d5660730ab0bb4a0333"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/activation/expectation.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/activation/expectation.json",
+      "bytes": 807,
+      "sha256": "53fa1e01e2f4358540f56ae60b9b6d50880abdeb1caa9d3e73f3785410d20149"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/00E68759-DA40-4755-B06A-3FB36E0F1C26.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/00E68759-DA40-4755-B06A-3FB36E0F1C26.json",
+      "bytes": 2936,
+      "sha256": "8484918b4651d61ca729204bdf7d9569c8e34f068cd462d06041f25af975ad0a"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/app-verification.log",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/app-verification.log",
+      "bytes": 87,
+      "sha256": "b09991d7e23b0c6fda07db824194f378da23d2e0d75b4f9c67e99bc8b900eea5"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/0252A4EB-C288-4E96-9E2C-19754DE7BB93.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/0252A4EB-C288-4E96-9E2C-19754DE7BB93.png",
+      "bytes": 298905,
+      "sha256": "4ddf23e6b48b1397f395353686ffbb764bc5c71a5c0e6fcc4ef5b60dfc9a8072"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/041E4922-B9AB-4EAB-94C8-463CC9B62751.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/041E4922-B9AB-4EAB-94C8-463CC9B62751.png",
+      "bytes": 211647,
+      "sha256": "e25e7891460622161ed017c843b7f90c68c33e5a9b5b001270a06de2e9ec661c"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/081F34B0-CD0C-479E-96B7-ECA5A0B99D84",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/081F34B0-CD0C-479E-96B7-ECA5A0B99D84",
+      "bytes": 1891,
+      "sha256": "1a24957af24c464b608ee1c0dda57d4ed54a8bd9117b1d8ecfc9f802f53b4e0d"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/0CC5352F-14B9-483F-9383-B6D9295D3E4E.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/0CC5352F-14B9-483F-9383-B6D9295D3E4E.json",
+      "bytes": 3974,
+      "sha256": "93bc0ee1e4fc91dc1b947f5b6bcb42b5f28ef714bf45c2ef099d9f385957dda1"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/0D812F91-7B6F-4DF8-ABA1-B3671C8E0F42",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/0D812F91-7B6F-4DF8-ABA1-B3671C8E0F42",
+      "bytes": 1211,
+      "sha256": "a21a2704298dc980fb484aeec3fcf0d279976847f0400087f48a5a3353613d63"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/0D98BB4C-0E97-4426-B768-A9F9DA1A8A6E.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/0D98BB4C-0E97-4426-B768-A9F9DA1A8A6E.json",
+      "bytes": 1867,
+      "sha256": "858f1cdf5c273d0541aad4ca5afafb68a657e2f8f82d5bd54a32a8b75badd999"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/118BCCDE-B1F4-48D8-88C2-F129021BF742.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/118BCCDE-B1F4-48D8-88C2-F129021BF742.json",
+      "bytes": 907,
+      "sha256": "32e2cafba2996cbe422892034772b433a026f12d2291e3cec4f7b82bb754dacb"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/14D2F884-6790-4503-8381-0A849544C350.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/14D2F884-6790-4503-8381-0A849544C350.png",
+      "bytes": 239889,
+      "sha256": "385f0140e91a83075de7eb8be04fb23fc8c31cdd091a51b16719f9f36994b8a4"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/12D88B2A-0F7E-4FA0-A749-9A76B5DD315A.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/12D88B2A-0F7E-4FA0-A749-9A76B5DD315A.json",
+      "bytes": 1863,
+      "sha256": "9f119cd0eeafb5a4d286a423ec37eae9bc3bb62036ac2fe9e92fa1ad3ecd978c"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/2134F933-AE47-408C-AA85-C69EFBCBD52B.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/2134F933-AE47-408C-AA85-C69EFBCBD52B.json",
+      "bytes": 2938,
+      "sha256": "5a88e317a7a89384c9de6a0d7f103bdff8a82726c75672f5019581cf85c87d89"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/22A4A87E-DBD0-41F8-AC41-8BF7B13BA1F1.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/22A4A87E-DBD0-41F8-AC41-8BF7B13BA1F1.json",
+      "bytes": 906,
+      "sha256": "05be35c1627663d32470c45298ab6432eefcefb5927217109494960249d70e25"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/2A18FF41-367F-4187-8FA5-C72222127687",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/2A18FF41-367F-4187-8FA5-C72222127687",
+      "bytes": 1879,
+      "sha256": "5b14e6ed5dd682dba67f8aecc40cbb4fcd485106e2af100dd680d4ba4100de97"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/2C44C72D-04BC-4DC6-8C4F-DC7C867F665D",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/2C44C72D-04BC-4DC6-8C4F-DC7C867F665D",
+      "bytes": 1879,
+      "sha256": "69a173a2ef72740d5de62c2385573a8f9bd78819bb09094654892affa5cab351"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/2FA1CFC0-B5BB-430B-9621-2B59D7B165BF.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/2FA1CFC0-B5BB-430B-9621-2B59D7B165BF.json",
+      "bytes": 538,
+      "sha256": "41884b14c2301911e274c9ba99bb72f92b502dd74ed4468cd55f19d499e4c464"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/302DB57B-FC11-4673-A9A7-238884FCCE71",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/302DB57B-FC11-4673-A9A7-238884FCCE71",
+      "bytes": 1066,
+      "sha256": "fae71bb15d74e35abe90e6ce49e92136545106f25cb8922f7dd94d1c57064e89"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/314CD475-D807-4E3C-AABA-7717CD1E1AAE.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/314CD475-D807-4E3C-AABA-7717CD1E1AAE.json",
+      "bytes": 2959,
+      "sha256": "632c1254454edbad07da57e0588563ddf85fcce69c0557957aaa86ad1676a3fb"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/33627476-A4A5-44AE-8CDD-8F3D99EB95DD.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/33627476-A4A5-44AE-8CDD-8F3D99EB95DD.json",
+      "bytes": 907,
+      "sha256": "4bfd35bacb0fd2c2a6239d0c6775958b0e613a8c60ea739d65433b5cd3aac9d8"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/3BC75045-439D-483E-868E-7AF6B0FE0EC0",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/3BC75045-439D-483E-868E-7AF6B0FE0EC0",
+      "bytes": 1879,
+      "sha256": "5ee34da1c331176496b880bd3d65ee5c9c74002c495015d29fbcebd171a561a1"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/416093FC-4B1F-4F58-92D4-227640B1FBEA.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/416093FC-4B1F-4F58-92D4-227640B1FBEA.png",
+      "bytes": 395219,
+      "sha256": "aab75f0237e28c66c4052dc3a6b3746441c94d9e291d99303cfafb0399ecc803"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/4215684F-C1AF-4FD1-8A2E-C8FEAB69F661",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/4215684F-C1AF-4FD1-8A2E-C8FEAB69F661",
+      "bytes": 1066,
+      "sha256": "fae71bb15d74e35abe90e6ce49e92136545106f25cb8922f7dd94d1c57064e89"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/42BC3828-0238-4BC6-A599-4A28C59E0E12.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/42BC3828-0238-4BC6-A599-4A28C59E0E12.png",
+      "bytes": 240795,
+      "sha256": "687b0712d8f72579d0aeb70e9c55811701ad3e38650e2dc1757d6e947e7457f8"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/4509AA92-BABC-4D8A-B23F-ED06DD3DB9E1.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/4509AA92-BABC-4D8A-B23F-ED06DD3DB9E1.json",
+      "bytes": 907,
+      "sha256": "62cd1254fb1071a875ba5daea95aa6b6c01de1b3c074a88de806a56dc05a0839"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/455A6EAE-E634-4B9E-B0E3-2270BC1A38DB.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/455A6EAE-E634-4B9E-B0E3-2270BC1A38DB.png",
+      "bytes": 392548,
+      "sha256": "a789b8b7cc01c19cd9d6c4b28b8377472654f9656a511638bfe581fa79dc3586"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/45BAC248-650D-4110-B114-F73B6129E717.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/45BAC248-650D-4110-B114-F73B6129E717.png",
+      "bytes": 232265,
+      "sha256": "738250274675287b13dff2c2b328637e6f236a05bbbe7614d291593b0def376e"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/47FC2344-D4AB-4F98-9674-5D0578DFD99E.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/47FC2344-D4AB-4F98-9674-5D0578DFD99E.json",
+      "bytes": 907,
+      "sha256": "efb72759c20293c16f25163d0dec9bad9b50b3c05dc260f4f66f3f4b6753eb2c"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/4BFAAAD2-300E-4026-9911-56CA30C76D33",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/4BFAAAD2-300E-4026-9911-56CA30C76D33",
+      "bytes": 1879,
+      "sha256": "1c3ee8adf63ce40a8b3f4950ff9ed4ef7ed12594f8914383bf484a79c856c4fa"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/510C04E1-9095-4FDC-9E22-595708C0D6AF.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/510C04E1-9095-4FDC-9E22-595708C0D6AF.png",
+      "bytes": 309365,
+      "sha256": "895d4c5f28ee2eb29fbd86d2ab147904a139f8e63a69302d1ded27b119ba50cd"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/52516CD9-4B38-42BD-8B4B-4E71A41EED74.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/52516CD9-4B38-42BD-8B4B-4E71A41EED74.json",
+      "bytes": 3972,
+      "sha256": "0df3a32518172c9c0b82ab919359fc7f67e4a11885ab706fcb52e98bea3821ee"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/527713E1-2502-446B-AE82-308680358ABD",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/527713E1-2502-446B-AE82-308680358ABD",
+      "bytes": 1879,
+      "sha256": "4b2a2c2445ca0207224005920cc04309ef6bfc1d7f2c68e114473933d7e67b47"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/531E4C89-018B-44DF-8D8F-2E239E7E9743",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/531E4C89-018B-44DF-8D8F-2E239E7E9743",
+      "bytes": 1211,
+      "sha256": "a21a2704298dc980fb484aeec3fcf0d279976847f0400087f48a5a3353613d63"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/5527A3FF-0D33-419E-A04E-4A9E2423F777.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/5527A3FF-0D33-419E-A04E-4A9E2423F777.png",
+      "bytes": 210426,
+      "sha256": "d9a1616735d6b87ce78909eaff39ee19bd54a2ec87d088d0d031424509c35f25"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/55B2CB9C-7B6E-43EC-9128-19444A7FC65B.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/55B2CB9C-7B6E-43EC-9128-19444A7FC65B.json",
+      "bytes": 3951,
+      "sha256": "548b93cd84610c6d60c17be14825665e4be5bdd999d3b965cdd91897bd46075e"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/56B0C6BB-CA8E-4B29-9785-D48B50920FEF",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/56B0C6BB-CA8E-4B29-9785-D48B50920FEF",
+      "bytes": 1066,
+      "sha256": "fae71bb15d74e35abe90e6ce49e92136545106f25cb8922f7dd94d1c57064e89"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/56B28A58-23A6-4CE2-86A1-14F8C1B332FC.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/56B28A58-23A6-4CE2-86A1-14F8C1B332FC.json",
+      "bytes": 3972,
+      "sha256": "c9c17f222dbaa5c03fb8232a1e51388bf5185eb7725e384e8c7f45933fbceef0"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/58294144-5862-4F3E-BEFA-19FA7F723E6B",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/58294144-5862-4F3E-BEFA-19FA7F723E6B",
+      "bytes": 1211,
+      "sha256": "a21a2704298dc980fb484aeec3fcf0d279976847f0400087f48a5a3353613d63"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/591CF996-1D4E-403F-9669-B7D3785B9AFA.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/591CF996-1D4E-403F-9669-B7D3785B9AFA.png",
+      "bytes": 211867,
+      "sha256": "119df3e88fbe25997a0437ec32cc544a3b725843f5a09b9c87d3839933e65769"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/59A5AFB5-D9A2-4342-BF48-809047F84CA7.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/59A5AFB5-D9A2-4342-BF48-809047F84CA7.png",
+      "bytes": 249333,
+      "sha256": "1a177c5fe00f72de99f5f031e56650ed237ec99cf731f0456fbc9c5f39e8e31e"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/5B1FD078-8800-4B8E-ACF1-4915096C04C8.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/5B1FD078-8800-4B8E-ACF1-4915096C04C8.json",
+      "bytes": 1864,
+      "sha256": "6ccab939feddb8ad17cfdfa9e8cda79e4a3e3e7a0777acaf2c5e11d42a411b6f"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/5CB6CE5C-A589-4086-9B9A-E3E85B227262.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/5CB6CE5C-A589-4086-9B9A-E3E85B227262.png",
+      "bytes": 228179,
+      "sha256": "acdbbb3ab7e63b25f679fe5c6d880d6662d1b51aaa79a02e65677d7482a5f0ee"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/63020EA7-E8F4-4651-888B-AC3DAA5EA53D.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/63020EA7-E8F4-4651-888B-AC3DAA5EA53D.json",
+      "bytes": 3972,
+      "sha256": "8b2bd76847fa0a406f526f077ce7ebd82ebb84967adb4d3f7e2b7f23123274e5"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/658A6A4D-7E3A-467C-B111-DE4E81627320.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/658A6A4D-7E3A-467C-B111-DE4E81627320.png",
+      "bytes": 240632,
+      "sha256": "96fc9b9d652803cdd095319f84b70b068f92261f25b735599b45103bdeaa61e8"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/63866437-5944-4416-BE0D-4494F4CF7163.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/63866437-5944-4416-BE0D-4494F4CF7163.png",
+      "bytes": 353178,
+      "sha256": "a416af8f998505f2c9752e1cb0bcaca98fd360c6c730b200c8f41de59936ee47"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/6638CD9F-FA82-4D53-A68B-F0D0B0507029.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/6638CD9F-FA82-4D53-A68B-F0D0B0507029.json",
+      "bytes": 1865,
+      "sha256": "b88ca9faadd0374e88ca60d4aea8f486c52aac12a61242fb6904faca23e2b960"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/6C2F1372-B43B-4DA9-A40B-C65B4F4DEB2D.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/6C2F1372-B43B-4DA9-A40B-C65B4F4DEB2D.json",
+      "bytes": 2959,
+      "sha256": "632c1254454edbad07da57e0588563ddf85fcce69c0557957aaa86ad1676a3fb"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/732B977C-D0FE-4B10-BB16-E184206CA646.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/732B977C-D0FE-4B10-BB16-E184206CA646.json",
+      "bytes": 2938,
+      "sha256": "34292945420e1f916b66f4392035cdfe7a9bd6a32910bdd8ae76e14a47ec5844"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/736066E8-6B77-4632-B6DA-967F4E367710.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/736066E8-6B77-4632-B6DA-967F4E367710.json",
+      "bytes": 3972,
+      "sha256": "b39c25e2a878114838c0647bed4def554bee00d55ccafd392f11690485be5138"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/75374B17-7E0F-4FC1-8CDB-440162A11EA4",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/75374B17-7E0F-4FC1-8CDB-440162A11EA4",
+      "bytes": 1211,
+      "sha256": "a21a2704298dc980fb484aeec3fcf0d279976847f0400087f48a5a3353613d63"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/7A86EB1A-39C2-4D60-855F-E89AFE5B8C6A.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/7A86EB1A-39C2-4D60-855F-E89AFE5B8C6A.png",
+      "bytes": 211683,
+      "sha256": "9734fcbe6e3796ae8827f9edcd5da9177881a12cc95c3029faeea86ad6bb1e43"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/7BBC17E3-2AE9-4D56-938E-BA60AA9B6BEB.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/7BBC17E3-2AE9-4D56-938E-BA60AA9B6BEB.json",
+      "bytes": 2936,
+      "sha256": "091aed11c5b829f56562b74db8b38eae708dec3763a94ead21ac0f5723f0f3a3"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/7DD01DDC-24D9-42BE-BE6C-86B6D8BC6B3A",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/7DD01DDC-24D9-42BE-BE6C-86B6D8BC6B3A",
+      "bytes": 1879,
+      "sha256": "2e7d3129bdc894c4ed0028519b42f3d6783bff6bd8621f34eda8ff40fca1228e"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/849A5E6E-4FC9-4D62-8860-CB97CEDACC50.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/849A5E6E-4FC9-4D62-8860-CB97CEDACC50.png",
+      "bytes": 353178,
+      "sha256": "a416af8f998505f2c9752e1cb0bcaca98fd360c6c730b200c8f41de59936ee47"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/8DFE984C-B5BE-4B19-A2A8-8D797D22F723.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/8DFE984C-B5BE-4B19-A2A8-8D797D22F723.png",
+      "bytes": 228179,
+      "sha256": "acdbbb3ab7e63b25f679fe5c6d880d6662d1b51aaa79a02e65677d7482a5f0ee"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/8ECEC22B-8C69-4EF2-9984-2BCC6B42A394.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/8ECEC22B-8C69-4EF2-9984-2BCC6B42A394.json",
+      "bytes": 1864,
+      "sha256": "1220d286e704f998567de1b7a4a28819321e0adae925d47b0532c530827de017"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/94055116-1DC5-491A-944E-4681C7AD49A9",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/94055116-1DC5-491A-944E-4681C7AD49A9",
+      "bytes": 1891,
+      "sha256": "1a24957af24c464b608ee1c0dda57d4ed54a8bd9117b1d8ecfc9f802f53b4e0d"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/95E122AF-FF80-47CE-BC37-675AF955F4A3",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/95E122AF-FF80-47CE-BC37-675AF955F4A3",
+      "bytes": 1211,
+      "sha256": "a21a2704298dc980fb484aeec3fcf0d279976847f0400087f48a5a3353613d63"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/A472CA92-3A82-4E9C-811F-63DD25DD8A46.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/A472CA92-3A82-4E9C-811F-63DD25DD8A46.png",
+      "bytes": 359250,
+      "sha256": "39e59383bc1c9683a5538c56a0a2b8a2276a41cf52faa50c734ad00adc643d7d"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/A7D13E6A-E2FA-4072-BA5A-664A1E5DF5EB.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/A7D13E6A-E2FA-4072-BA5A-664A1E5DF5EB.png",
+      "bytes": 236747,
+      "sha256": "4641799402e174a60c80ddf1538f23a1d1e516189f0d05cb30016eb3c8548a3a"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/A8D009F6-5CA7-46C3-B964-DB010FF82AE2.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/A8D009F6-5CA7-46C3-B964-DB010FF82AE2.json",
+      "bytes": 1863,
+      "sha256": "a8ba1f46245fb0a054f1c2b8ab33c7b06a7ebe8ee674233f74cde9ab0083060b"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/AA20678A-4494-4604-967B-CF09CBA9944A.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/AA20678A-4494-4604-967B-CF09CBA9944A.json",
+      "bytes": 3972,
+      "sha256": "6588aa7e9c107ca3b7ecb6999079e6bfadf648542321c87da3b2158c1c58bc56"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/B534B160-C527-449B-A7B5-AFFD763DCD0A.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/B534B160-C527-449B-A7B5-AFFD763DCD0A.json",
+      "bytes": 3972,
+      "sha256": "87b80f39a0f3abbdb183aab8c9a0578e6d1ce61a00c58078c78abcf2e6a2a76d"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/B5791238-7616-46DA-87AD-9DD765F36543.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/B5791238-7616-46DA-87AD-9DD765F36543.json",
+      "bytes": 1688,
+      "sha256": "dd4b9210967047e4036713c672daa6b6eb71bc764cd9cad2ecd085b1871967ac"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/B72B7121-300E-4D62-A5E8-46AE2ACCB454.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/B72B7121-300E-4D62-A5E8-46AE2ACCB454.json",
+      "bytes": 2957,
+      "sha256": "23385cb4fde04523534e3f299a69e53a2576279076027b936e924cc272277412"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/BA914D30-0C45-4687-BB6F-CA28A5907678",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/BA914D30-0C45-4687-BB6F-CA28A5907678",
+      "bytes": 1211,
+      "sha256": "a21a2704298dc980fb484aeec3fcf0d279976847f0400087f48a5a3353613d63"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/BABFB49F-3F6C-4B52-8D72-6C2AA0CA5AD5",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/BABFB49F-3F6C-4B52-8D72-6C2AA0CA5AD5",
+      "bytes": 1879,
+      "sha256": "8224c9a186c179523949ef4d8bfddb4e39cce21fb9bf6455b3b4daf7240e8987"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/C3D180BF-4FA7-4839-91D2-479384466323.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/C3D180BF-4FA7-4839-91D2-479384466323.json",
+      "bytes": 3972,
+      "sha256": "e0b2e3d1b00acf9c22b33e2d7ab898c1bfee328c9b4aac3df349368792eb4f4d"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/C46AA284-40E8-411E-BBA3-B7384236BD08",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/C46AA284-40E8-411E-BBA3-B7384236BD08",
+      "bytes": 1211,
+      "sha256": "a21a2704298dc980fb484aeec3fcf0d279976847f0400087f48a5a3353613d63"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/C479938B-0E5B-44C2-9253-FF3FE8DDA342.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/C479938B-0E5B-44C2-9253-FF3FE8DDA342.json",
+      "bytes": 3953,
+      "sha256": "8eafe1cffac5703a3feee1819994089a448602b51ff0af9865e27bcf9d0c7478"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/C65595A7-B460-4DDD-80CE-26560F972B04",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/C65595A7-B460-4DDD-80CE-26560F972B04",
+      "bytes": 1211,
+      "sha256": "a21a2704298dc980fb484aeec3fcf0d279976847f0400087f48a5a3353613d63"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/C7972C10-88FE-4456-8D14-02129ED28669.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/C7972C10-88FE-4456-8D14-02129ED28669.png",
+      "bytes": 329382,
+      "sha256": "7754fa58edb300e0d927185e3ab7d1e8410b8e7e7bd5323ce484964f39c2094d"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/C7EA193B-2195-4E9A-9485-90D34FF83B39.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/C7EA193B-2195-4E9A-9485-90D34FF83B39.png",
+      "bytes": 223807,
+      "sha256": "54f47db3f04a020dbf0c40e567ca543c305be6a31bab45240d3870035283769b"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/C86F72F7-E38E-44E3-B6DD-A0513EAEC000",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/C86F72F7-E38E-44E3-B6DD-A0513EAEC000",
+      "bytes": 1879,
+      "sha256": "7b117d59c0f40530b2a3a09ea393961dcf8a8714da9f46b61905bcf984475a63"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/CA9EC918-3E42-49BC-AB66-C53E997FBB23",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/CA9EC918-3E42-49BC-AB66-C53E997FBB23",
+      "bytes": 1879,
+      "sha256": "5b14e6ed5dd682dba67f8aecc40cbb4fcd485106e2af100dd680d4ba4100de97"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/CAD8632B-631A-40D4-AE27-ED8E2218FB96.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/CAD8632B-631A-40D4-AE27-ED8E2218FB96.json",
+      "bytes": 3951,
+      "sha256": "3b23a6abcaca90ba5dca150c4d34d746358fefee236dbbe52af08391aa26d902"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/CF621201-A939-452A-BED8-B3D7E59545DD",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/CF621201-A939-452A-BED8-B3D7E59545DD",
+      "bytes": 1879,
+      "sha256": "82c6a44bf7159dc35668ce750f0e9eb286cfe2079444a58f9465c0416e8fe657"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/D306169D-A6F1-4F7C-9D37-AF9C36358980.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/D306169D-A6F1-4F7C-9D37-AF9C36358980.json",
+      "bytes": 907,
+      "sha256": "673a82b50e40430d39f9f01f08b8a7801eb213d983ac87d5aaca122463dfe6ef"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/D36924D8-7AF3-4569-95DA-88628A9BC40C",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/D36924D8-7AF3-4569-95DA-88628A9BC40C",
+      "bytes": 1879,
+      "sha256": "583ee312527997407d44f2c768b66331f9b4ca57022366b6fe9450d761f8d671"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/D3B2D87D-3F9C-4CA9-AA68-46C407FE6A96.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/D3B2D87D-3F9C-4CA9-AA68-46C407FE6A96.json",
+      "bytes": 3951,
+      "sha256": "e94a816e21c4512be23e2e56cd85c197890809b8584b5e6be63ffe7355f1fe35"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/D9756154-B67D-4C4E-854D-383C6DA20682",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/D9756154-B67D-4C4E-854D-383C6DA20682",
+      "bytes": 1879,
+      "sha256": "8224c9a186c179523949ef4d8bfddb4e39cce21fb9bf6455b3b4daf7240e8987"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/DA6C8ADF-D12F-49E6-B912-406C4BDC5CE6",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/DA6C8ADF-D12F-49E6-B912-406C4BDC5CE6",
+      "bytes": 1211,
+      "sha256": "a21a2704298dc980fb484aeec3fcf0d279976847f0400087f48a5a3353613d63"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/DFB0FA5D-5ECC-4643-8BD2-997054F659E4.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/DFB0FA5D-5ECC-4643-8BD2-997054F659E4.png",
+      "bytes": 229179,
+      "sha256": "1970a9308abdafd872274bbaa95d3c0145afd3361259c3258685cbb3faf1f19b"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/E1E77A89-EC28-4294-A83B-2781A150EE9F.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/E1E77A89-EC28-4294-A83B-2781A150EE9F.json",
+      "bytes": 906,
+      "sha256": "9b54c9315de068be018fdfa2412a856e916f8c7d79297f4176c06d0314a47095"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/E26031AF-982A-4032-B640-4C6DCE195A2D.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/E26031AF-982A-4032-B640-4C6DCE195A2D.json",
+      "bytes": 907,
+      "sha256": "79873405ad5cc0e59da838e6bb3d29357509c98a1967db500cbda22dedd04f21"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/E381C1D5-2D5E-4C14-941C-D5E7F39B2BDA.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/E381C1D5-2D5E-4C14-941C-D5E7F39B2BDA.png",
+      "bytes": 240460,
+      "sha256": "3eaa5f8bc84058e5e453a34c037b0a74a5458b32bc2d14b74790b1eacf95508d"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/E7433505-010E-44B6-9D66-320C81FDEB1A.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/E7433505-010E-44B6-9D66-320C81FDEB1A.json",
+      "bytes": 3951,
+      "sha256": "19db74f86cb1a409f58f4da25333d46ad7b5fe29433f7db814cb3fc69d755948"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/EA3770DA-A039-4A9B-884C-48FC33BE3709.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/EA3770DA-A039-4A9B-884C-48FC33BE3709.json",
+      "bytes": 2819,
+      "sha256": "f993c2cad3d0fb66cae5ff22c37dde2c966c8826823749b50125272f322cab96"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/ED43667C-16C9-49C2-B1E0-D44332FAD99A.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/ED43667C-16C9-49C2-B1E0-D44332FAD99A.png",
+      "bytes": 231212,
+      "sha256": "62a6552be1b4745a51529fb1a48e9a20858f6089a7244d464dd4f0d45c40c5ae"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/ED473BF9-950B-4909-8BD6-027FF5141F9A.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/ED473BF9-950B-4909-8BD6-027FF5141F9A.png",
+      "bytes": 298905,
+      "sha256": "4ddf23e6b48b1397f395353686ffbb764bc5c71a5c0e6fcc4ef5b60dfc9a8072"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/ED4C41CA-0492-417E-9914-D856BF970789",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/ED4C41CA-0492-417E-9914-D856BF970789",
+      "bytes": 1211,
+      "sha256": "a21a2704298dc980fb484aeec3fcf0d279976847f0400087f48a5a3353613d63"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/EF562525-61EF-475F-9746-2BD7FEE6C851.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/EF562525-61EF-475F-9746-2BD7FEE6C851.png",
+      "bytes": 240612,
+      "sha256": "b24ddb0a06521d6a99611ad750ec7d944e675849de494c41449f15e1e5dee8f8"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/F498D0F0-0D3C-4702-A239-20F73A8C95A3.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/F498D0F0-0D3C-4702-A239-20F73A8C95A3.json",
+      "bytes": 1865,
+      "sha256": "8127e8d7941ee5d95c2272d013ce32aa1f83af7d94e618e4a4871e8f1a780ea6"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/F866B348-FA2E-4C53-9041-120401FEA561.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/F866B348-FA2E-4C53-9041-120401FEA561.json",
+      "bytes": 907,
+      "sha256": "240f19be40875e8984cf56b233ffed24b06205049196d360e9f26dd7d6178f14"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/FB5E96A7-76D1-432A-9CA2-318F5C8F779C.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/FB5E96A7-76D1-432A-9CA2-318F5C8F779C.json",
+      "bytes": 907,
+      "sha256": "a43f9e6423d5025f3157c62b38c89b14c141c57fa1050a5d976001b3af6016f4"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/FBBC1570-DCF8-4DF9-A872-5780DA2C8EB1.png",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/FBBC1570-DCF8-4DF9-A872-5780DA2C8EB1.png",
+      "bytes": 237276,
+      "sha256": "b3c5b3cd9efea8d20b6cce2dcfeb8e61aa9b228f425e1dd82de2548e268feb20"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/FC299FE9-E005-4468-A9EC-611286D3530D",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/FC299FE9-E005-4468-A9EC-611286D3530D",
+      "bytes": 1211,
+      "sha256": "a21a2704298dc980fb484aeec3fcf0d279976847f0400087f48a5a3353613d63"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/FE6B2821-39D2-48C4-97A9-F4BE3C1FB6A5.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/FE6B2821-39D2-48C4-97A9-F4BE3C1FB6A5.json",
+      "bytes": 1863,
+      "sha256": "e0550b516252def7c761ac43f285a3286a05786a24d422ed5b915529a9069ca2"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments/manifest.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/manifest.json",
+      "bytes": 43261,
+      "sha256": "259d5f809b38a8ed17ce3b7d9560b40f8e04f25811659cd4bc050f2de3dd5047"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/attachments-export.log",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments-export.log",
+      "bytes": 14452,
+      "sha256": "3c94459e2120d65997dc90f499807ba8bfcec8d5fd917c97c6d633326a5259ee"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/build-settings-error.log",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/build-settings-error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/build-settings.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/build-settings.json",
+      "bytes": 78137,
+      "sha256": "68ca00cd3471ce5376bed69688fdd6145ce22fbe31dd5d37e657b0bc20bf034a"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/godot-production-session-link.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/godot-production-session-link.json",
+      "bytes": 13415,
+      "sha256": "ab3dab4d917c49fcba7baa74c8c51317a986d4ca8487252bec4df888546a586c"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/result.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/result.json",
+      "bytes": 16508,
+      "sha256": "618ac146dc62f8f402bbadcce17f627e62edc4509cbfdb00971ed707afc4f0a5"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/simulator.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/simulator.json",
+      "bytes": 20022,
+      "sha256": "ed5ccfc1f829b61623c9fb030fb447abfb8a38d11914e723c875adcf2c903ad9"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/test-evidence-export.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/test-evidence-export.json",
+      "bytes": 73,
+      "sha256": "a26fb7cf154c7bb08a3a3ff377334bab7314f8323ab0092a4674eacf1ef35a8f"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/test-summary-error.log",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/test-summary-error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/test-summary.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/test-summary.json",
+      "bytes": 1429,
+      "sha256": "0ccb14975d19b7a13d9d0d21b59a2deaeff22e1d72b569f30c7ec54df76cb851"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/godot-session/test.log",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/test.log",
+      "bytes": 2470286,
+      "sha256": "3a516f4b54998f3d9f6c6004780ffef3c60b7f79f780b048f48f2e695178084d"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "build/ci/ios/renderer-pack-check.log",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/renderer-pack-check.log",
+      "bytes": 105,
+      "sha256": "fe3e51f18c536818d80ee5bc5fa0d5850c68275bf3c3709f56f5ec46d07f0b51"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "godot/ios-host/build/evidence/engine-artifact.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/godot/ios-host/build/evidence/engine-artifact.json",
+      "bytes": 5130,
+      "sha256": "e86d2d09835aae07ae20796df43b4a02a85232caaf9f6cfe8883dd7b3347c653"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "godot/ios-host/build/evidence/clang-version.log",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/godot/ios-host/build/evidence/clang-version.log",
+      "bytes": 211,
+      "sha256": "80369b60c4e74c4dce9d35da3ac82c636050745bc6f2a6a10f2ca06f8f8f07c9"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "godot/ios-host/build/evidence/engine-build.log",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/godot/ios-host/build/evidence/engine-build.log",
+      "bytes": 312636,
+      "sha256": "eb128313c102214f412350757371ab745cba92f1258cfebef9a273aee1b1d4ce"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "godot/ios-host/build/evidence/native-module-inputs.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/godot/ios-host/build/evidence/native-module-inputs.json",
+      "bytes": 1373,
+      "sha256": "83a748f48ece938e81ea703f6c03c97b412014f5c7f9589eb76d322f056d57e9"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "godot/ios-host/build/evidence/engine-source-commit.txt",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/godot/ios-host/build/evidence/engine-source-commit.txt",
+      "bytes": 41,
+      "sha256": "9c5916798600b2e3f2745af2a1f926aa8f6af92a17b736f351fb54d34dcd976c"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "godot/ios-host/build/evidence/scons-version.log",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/godot/ios-host/build/evidence/scons-version.log",
+      "bytes": 311,
+      "sha256": "054b9f942223ebe692b0669baf8b8cb3f5c43333bda903794ea45282868b7f9b"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "godot/ios-host/build/evidence/sdk-version.log",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/godot/ios-host/build/evidence/sdk-version.log",
+      "bytes": 5,
+      "sha256": "6fbf4425f969b566d7e910f1de7e701c2542c04b7a02470b5724e529acd3becb"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "godot/ios-host/build/evidence/source-download.log",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/godot/ios-host/build/evidence/source-download.log",
+      "bytes": 2165,
+      "sha256": "a3121369f8f6b4a56e2abf7ee33377e4f6e4372d6bdf775959e5c7c24f68e88b"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "godot/ios-host/build/evidence/upstream-audit.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/godot/ios-host/build/evidence/upstream-audit.json",
+      "bytes": 18049,
+      "sha256": "172f64b47d4d2a939aa4371ad68a8ad394e73fac714b46246eda44272816e1d6"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "godot/ios-host/build/evidence/upstream-reference-audit.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/godot/ios-host/build/evidence/upstream-reference-audit.json",
+      "bytes": 18052,
+      "sha256": "fc6f3a33b4aeeb37fbec82667e138b328e41b2e71390deeace9a2f767b784b8a"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "godot/ios-host/build/evidence/upstream-postbuild-audit.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/godot/ios-host/build/evidence/upstream-postbuild-audit.json",
+      "bytes": 18050,
+      "sha256": "d813a3546a5b2370c3127796e199ce0b809e58d7b9875f9b8def0d58aa611cbf"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "godot/ios-host/build/evidence/xcode-sdks.log",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/godot/ios-host/build/evidence/xcode-sdks.log",
+      "bytes": 745,
+      "sha256": "0c57606a24b7a7a6441944959f2411674cf08f6d71a4f50f126c737fd48effd7"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "godot/ios-host/build/evidence/xcode-version.log",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/godot/ios-host/build/evidence/xcode-version.log",
+      "bytes": 34,
+      "sha256": "bbe969e3e1760bbc982b73129dcb3b303aa7e410a7a6d7f666d20df96e601bdf"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "godot/qualification/build/renderer/partydeck-last-light.receipt.json",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/godot/qualification/build/renderer/partydeck-last-light.receipt.json",
+      "bytes": 61684,
+      "sha256": "d88495800e66f1b15803ad7c55663a2994e2fcb40b50c6a0c0e3c759d9fdc113"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "godot/qualification/build/renderer/renderer-source-commit.txt",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/godot/qualification/build/renderer/renderer-source-commit.txt",
+      "bytes": 41,
+      "sha256": "9c5916798600b2e3f2745af2a1f926aa8f6af92a17b736f351fb54d34dcd976c"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "composeApp/build/bin/iosSimulatorArm64/debugFramework/PartyDeckKit.framework/Headers/PartyDeckKit.h",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/composeApp/build/bin/iosSimulatorArm64/debugFramework/PartyDeckKit.framework/Headers/PartyDeckKit.h",
+      "bytes": 277416,
+      "sha256": "bf65d7bbb45acf616d43967f85f5a1da503056c93e52548181ca8414f68eaaec"
+    },
+    {
+      "artifact": "ios-focused-production-reports-and-simulator-app",
+      "archiveMember": "iosApp/PartyDeck.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved",
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/iosApp/PartyDeck.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved",
+      "bytes": 938,
+      "sha256": "47eb4a3e1acc5072f207aaf2d4dc924544afeeda3e01800079c81d05322b08d3"
+    }
+  ],
+  "originalJobLogs": [
+    {
+      "jobId": 103123253152,
+      "conclusion": "success",
+      "originalLog": {
+        "path": "/dev/shm/partydeck-evidence-20260910/34554200601/logs/job-103123253152.log",
+        "bytes": 36831,
+        "sha256": "a6c76acf7d43d8bc0c6091b67cdc1a235649abf94f781e1da9a02a2c66284ca1"
+      },
+      "collectionReceipt": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/job-103123253152.collected.json",
+        "bytes": 443,
+        "sha256": "e327ea91104d393fb08ebca603255b0a584a5efb5267c149732044997c17b49c"
+      }
+    },
+    {
+      "jobId": 103123585125,
+      "conclusion": "failure",
+      "originalLog": {
+        "path": "/dev/shm/partydeck-evidence-20260910/34554200601/logs/job-103123585125.log",
+        "bytes": 3265170,
+        "sha256": "911151fd18d5aab6432fa3d3fc449dadc7013d13024b1e855bd9d8847c2c16cd"
+      },
+      "collectionReceipt": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/job-103123585125.collected.json",
+        "bytes": 447,
+        "sha256": "5d5c0917f03626a4d9418bb2908bf2754c1776dbcd2aade7d8f0b961a3cfe3b8"
+      }
+    }
+  ],
+  "completedAuditsAndConfigurationUnchanged": [
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-producer-native-binding-v1.json",
+      "bytes": 60461,
+      "sha256": "190c3e7094f49fbe0547b440d070c5a9358374028b5d595097a7d572da66bda2"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/focused-production-outcome-v1.json",
+      "bytes": 156101,
+      "sha256": "e528f3f1c27654c4eea59517df713a6aac260303cec096a5dd723f4c87de24b7"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/simulator-packaged-bytes-verification-v1.json",
+      "bytes": 70916,
+      "sha256": "82d261f9a081b9225bbf0c4de105e1cae9be285646850fda8d864cf3233be135"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/native-decoder-evidence-v1.json",
+      "bytes": 1826,
+      "sha256": "5d118159e41a59b248a49d13cfb4b0a967f8817c20b19ad5bb78a4955f8bf49d"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/collector-configuration-frozen-v1.json",
+      "bytes": 4402,
+      "sha256": "f4963b66f17deb7cd98632a7b3cda4337e2380c0d3fa1132a2eddf06eac629cc"
+    }
+  ],
+  "verifiedLocalAuditReferents": [
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/api-snapshots/20260911T025956.380146Z-jobs.json",
+      "bytes": 9153,
+      "sha256": "5d048f693824192e11f1beb2370e28e3d9ec81fe068fdbc11e78aac53b70d396"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/api-snapshots/20260911T025956.380146Z-run.json",
+      "bytes": 12888,
+      "sha256": "ff686f23d531a0fc07385c60d2b1b20de6845dc0f3eeda630c84cc9d46f7ea70"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/artifact-zips/10182746591-ios-focused-production-reports-and-simulator-app.zip",
+      "bytes": 253204989,
+      "sha256": "11962ba8d9a7a673f51e37ccef6f81812d3ef0987cc1012ee2853a0161ccbb69"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/audit-tools/bind-focused-source-producer-native-v1.py",
+      "bytes": 11317,
+      "sha256": "964a6fdeed6ade8d246ac1162dafd3a5f7f71325a108d943b945fc67e83e7f5a"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/audit-tools/configure-collector-v1.py",
+      "bytes": 5957,
+      "sha256": "0ff1763bbb228d6d4fa54877e03daa02f55994731be4445249e1282c0f18e6a6"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/audit-tools/inspect-focused-original-results-v1.py",
+      "bytes": 10644,
+      "sha256": "79b2b9af3fd5109641189637553cf919eb542353fe07b998521e75a1c9ca837c"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/audit-tools/monitor-focused-production-originals-v1.py",
+      "bytes": 28428,
+      "sha256": "ff4ce7f67570193cde760a2c4f410e25be16d4bfcdb6d4f9e7331ac004fca079"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/audit-tools/parse-native-decoder-evidence-v1.py",
+      "bytes": 4289,
+      "sha256": "a4463f7cc030093cdce31ebeda9c7a97741177ef60e83dd2c836738236a13fb6"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/audit-tools/verify-packaged-app-bytes-v1.py",
+      "bytes": 12717,
+      "sha256": "8c1010c831135e748b90702db9fa71ff6759062f883b13726ff1eb8a02174290"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/collector-configuration-v1.json",
+      "bytes": 2467,
+      "sha256": "21f15ba3157acd6f0b872a4c6f61e2608b37d8927f06c5fea32cd10ff37bd68d"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/collector-derivation-v2.json",
+      "bytes": 3244,
+      "sha256": "92788949ae4262a1f5173b71b9b02918ef3fa9b5dfdef1cabfd50fa7b4a5246f"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/dispatch-binding-v1.json",
+      "bytes": 1020,
+      "sha256": "f4e2843042178fed4aa21220e3bbf8b2cb8fcb5387621d78e34a42cdf2b42303"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/focused-production-outcome-v1.json",
+      "bytes": 156101,
+      "sha256": "e528f3f1c27654c4eea59517df713a6aac260303cec096a5dd723f4c87de24b7"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/initial-metadata-receipt.json",
+      "bytes": 3147,
+      "sha256": "eb42a683861e5f97453fe4b0c150150546bb779ff87d66c2c2816cb32855932b"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app.files.json",
+      "bytes": 787620,
+      "sha256": "e082fde929dbb44f68b5f21a97128b70ab66d7047bcb66b5d5550f4bdfcee226"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app.integrity.json",
+      "bytes": 1936,
+      "sha256": "933d997150f7461aed81fca1e1c4da6dd9dfda8bac26d733fb5db6a66a03d621"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/DerivedData/Build/Products/Debug-iphonesimulator/PartyDeckGodotInputs/inputs.json",
+      "bytes": 10315,
+      "sha256": "1f5d7054698f1c84d118eea10bbb03cb1da35e11f03226f06a88f89fd30f5fa4"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/00E68759-DA40-4755-B06A-3FB36E0F1C26.json",
+      "bytes": 2936,
+      "sha256": "8484918b4651d61ca729204bdf7d9569c8e34f068cd462d06041f25af975ad0a"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/0252A4EB-C288-4E96-9E2C-19754DE7BB93.png",
+      "bytes": 298905,
+      "sha256": "4ddf23e6b48b1397f395353686ffbb764bc5c71a5c0e6fcc4ef5b60dfc9a8072"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/041E4922-B9AB-4EAB-94C8-463CC9B62751.png",
+      "bytes": 211647,
+      "sha256": "e25e7891460622161ed017c843b7f90c68c33e5a9b5b001270a06de2e9ec661c"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/081F34B0-CD0C-479E-96B7-ECA5A0B99D84",
+      "bytes": 1891,
+      "sha256": "1a24957af24c464b608ee1c0dda57d4ed54a8bd9117b1d8ecfc9f802f53b4e0d"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/0CC5352F-14B9-483F-9383-B6D9295D3E4E.json",
+      "bytes": 3974,
+      "sha256": "93bc0ee1e4fc91dc1b947f5b6bcb42b5f28ef714bf45c2ef099d9f385957dda1"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/0D812F91-7B6F-4DF8-ABA1-B3671C8E0F42",
+      "bytes": 1211,
+      "sha256": "a21a2704298dc980fb484aeec3fcf0d279976847f0400087f48a5a3353613d63"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/0D98BB4C-0E97-4426-B768-A9F9DA1A8A6E.json",
+      "bytes": 1867,
+      "sha256": "858f1cdf5c273d0541aad4ca5afafb68a657e2f8f82d5bd54a32a8b75badd999"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/118BCCDE-B1F4-48D8-88C2-F129021BF742.json",
+      "bytes": 907,
+      "sha256": "32e2cafba2996cbe422892034772b433a026f12d2291e3cec4f7b82bb754dacb"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/12D88B2A-0F7E-4FA0-A749-9A76B5DD315A.json",
+      "bytes": 1863,
+      "sha256": "9f119cd0eeafb5a4d286a423ec37eae9bc3bb62036ac2fe9e92fa1ad3ecd978c"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/14D2F884-6790-4503-8381-0A849544C350.png",
+      "bytes": 239889,
+      "sha256": "385f0140e91a83075de7eb8be04fb23fc8c31cdd091a51b16719f9f36994b8a4"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/2134F933-AE47-408C-AA85-C69EFBCBD52B.json",
+      "bytes": 2938,
+      "sha256": "5a88e317a7a89384c9de6a0d7f103bdff8a82726c75672f5019581cf85c87d89"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/22A4A87E-DBD0-41F8-AC41-8BF7B13BA1F1.json",
+      "bytes": 906,
+      "sha256": "05be35c1627663d32470c45298ab6432eefcefb5927217109494960249d70e25"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/2A18FF41-367F-4187-8FA5-C72222127687",
+      "bytes": 1879,
+      "sha256": "5b14e6ed5dd682dba67f8aecc40cbb4fcd485106e2af100dd680d4ba4100de97"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/2C44C72D-04BC-4DC6-8C4F-DC7C867F665D",
+      "bytes": 1879,
+      "sha256": "69a173a2ef72740d5de62c2385573a8f9bd78819bb09094654892affa5cab351"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/2FA1CFC0-B5BB-430B-9621-2B59D7B165BF.json",
+      "bytes": 538,
+      "sha256": "41884b14c2301911e274c9ba99bb72f92b502dd74ed4468cd55f19d499e4c464"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/302DB57B-FC11-4673-A9A7-238884FCCE71",
+      "bytes": 1066,
+      "sha256": "fae71bb15d74e35abe90e6ce49e92136545106f25cb8922f7dd94d1c57064e89"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/314CD475-D807-4E3C-AABA-7717CD1E1AAE.json",
+      "bytes": 2959,
+      "sha256": "632c1254454edbad07da57e0588563ddf85fcce69c0557957aaa86ad1676a3fb"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/33627476-A4A5-44AE-8CDD-8F3D99EB95DD.json",
+      "bytes": 907,
+      "sha256": "4bfd35bacb0fd2c2a6239d0c6775958b0e613a8c60ea739d65433b5cd3aac9d8"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/3BC75045-439D-483E-868E-7AF6B0FE0EC0",
+      "bytes": 1879,
+      "sha256": "5ee34da1c331176496b880bd3d65ee5c9c74002c495015d29fbcebd171a561a1"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/416093FC-4B1F-4F58-92D4-227640B1FBEA.png",
+      "bytes": 395219,
+      "sha256": "aab75f0237e28c66c4052dc3a6b3746441c94d9e291d99303cfafb0399ecc803"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/4215684F-C1AF-4FD1-8A2E-C8FEAB69F661",
+      "bytes": 1066,
+      "sha256": "fae71bb15d74e35abe90e6ce49e92136545106f25cb8922f7dd94d1c57064e89"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/42BC3828-0238-4BC6-A599-4A28C59E0E12.png",
+      "bytes": 240795,
+      "sha256": "687b0712d8f72579d0aeb70e9c55811701ad3e38650e2dc1757d6e947e7457f8"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/4509AA92-BABC-4D8A-B23F-ED06DD3DB9E1.json",
+      "bytes": 907,
+      "sha256": "62cd1254fb1071a875ba5daea95aa6b6c01de1b3c074a88de806a56dc05a0839"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/455A6EAE-E634-4B9E-B0E3-2270BC1A38DB.png",
+      "bytes": 392548,
+      "sha256": "a789b8b7cc01c19cd9d6c4b28b8377472654f9656a511638bfe581fa79dc3586"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/45BAC248-650D-4110-B114-F73B6129E717.png",
+      "bytes": 232265,
+      "sha256": "738250274675287b13dff2c2b328637e6f236a05bbbe7614d291593b0def376e"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/47FC2344-D4AB-4F98-9674-5D0578DFD99E.json",
+      "bytes": 907,
+      "sha256": "efb72759c20293c16f25163d0dec9bad9b50b3c05dc260f4f66f3f4b6753eb2c"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/4BFAAAD2-300E-4026-9911-56CA30C76D33",
+      "bytes": 1879,
+      "sha256": "1c3ee8adf63ce40a8b3f4950ff9ed4ef7ed12594f8914383bf484a79c856c4fa"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/510C04E1-9095-4FDC-9E22-595708C0D6AF.png",
+      "bytes": 309365,
+      "sha256": "895d4c5f28ee2eb29fbd86d2ab147904a139f8e63a69302d1ded27b119ba50cd"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/52516CD9-4B38-42BD-8B4B-4E71A41EED74.json",
+      "bytes": 3972,
+      "sha256": "0df3a32518172c9c0b82ab919359fc7f67e4a11885ab706fcb52e98bea3821ee"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/527713E1-2502-446B-AE82-308680358ABD",
+      "bytes": 1879,
+      "sha256": "4b2a2c2445ca0207224005920cc04309ef6bfc1d7f2c68e114473933d7e67b47"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/531E4C89-018B-44DF-8D8F-2E239E7E9743",
+      "bytes": 1211,
+      "sha256": "a21a2704298dc980fb484aeec3fcf0d279976847f0400087f48a5a3353613d63"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/5527A3FF-0D33-419E-A04E-4A9E2423F777.png",
+      "bytes": 210426,
+      "sha256": "d9a1616735d6b87ce78909eaff39ee19bd54a2ec87d088d0d031424509c35f25"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/55B2CB9C-7B6E-43EC-9128-19444A7FC65B.json",
+      "bytes": 3951,
+      "sha256": "548b93cd84610c6d60c17be14825665e4be5bdd999d3b965cdd91897bd46075e"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/56B0C6BB-CA8E-4B29-9785-D48B50920FEF",
+      "bytes": 1066,
+      "sha256": "fae71bb15d74e35abe90e6ce49e92136545106f25cb8922f7dd94d1c57064e89"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/56B28A58-23A6-4CE2-86A1-14F8C1B332FC.json",
+      "bytes": 3972,
+      "sha256": "c9c17f222dbaa5c03fb8232a1e51388bf5185eb7725e384e8c7f45933fbceef0"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/58294144-5862-4F3E-BEFA-19FA7F723E6B",
+      "bytes": 1211,
+      "sha256": "a21a2704298dc980fb484aeec3fcf0d279976847f0400087f48a5a3353613d63"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/591CF996-1D4E-403F-9669-B7D3785B9AFA.png",
+      "bytes": 211867,
+      "sha256": "119df3e88fbe25997a0437ec32cc544a3b725843f5a09b9c87d3839933e65769"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/59A5AFB5-D9A2-4342-BF48-809047F84CA7.png",
+      "bytes": 249333,
+      "sha256": "1a177c5fe00f72de99f5f031e56650ed237ec99cf731f0456fbc9c5f39e8e31e"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/5B1FD078-8800-4B8E-ACF1-4915096C04C8.json",
+      "bytes": 1864,
+      "sha256": "6ccab939feddb8ad17cfdfa9e8cda79e4a3e3e7a0777acaf2c5e11d42a411b6f"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/5CB6CE5C-A589-4086-9B9A-E3E85B227262.png",
+      "bytes": 228179,
+      "sha256": "acdbbb3ab7e63b25f679fe5c6d880d6662d1b51aaa79a02e65677d7482a5f0ee"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/63020EA7-E8F4-4651-888B-AC3DAA5EA53D.json",
+      "bytes": 3972,
+      "sha256": "8b2bd76847fa0a406f526f077ce7ebd82ebb84967adb4d3f7e2b7f23123274e5"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/63866437-5944-4416-BE0D-4494F4CF7163.png",
+      "bytes": 353178,
+      "sha256": "a416af8f998505f2c9752e1cb0bcaca98fd360c6c730b200c8f41de59936ee47"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/658A6A4D-7E3A-467C-B111-DE4E81627320.png",
+      "bytes": 240632,
+      "sha256": "96fc9b9d652803cdd095319f84b70b068f92261f25b735599b45103bdeaa61e8"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/6638CD9F-FA82-4D53-A68B-F0D0B0507029.json",
+      "bytes": 1865,
+      "sha256": "b88ca9faadd0374e88ca60d4aea8f486c52aac12a61242fb6904faca23e2b960"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/6C2F1372-B43B-4DA9-A40B-C65B4F4DEB2D.json",
+      "bytes": 2959,
+      "sha256": "632c1254454edbad07da57e0588563ddf85fcce69c0557957aaa86ad1676a3fb"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/732B977C-D0FE-4B10-BB16-E184206CA646.json",
+      "bytes": 2938,
+      "sha256": "34292945420e1f916b66f4392035cdfe7a9bd6a32910bdd8ae76e14a47ec5844"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/736066E8-6B77-4632-B6DA-967F4E367710.json",
+      "bytes": 3972,
+      "sha256": "b39c25e2a878114838c0647bed4def554bee00d55ccafd392f11690485be5138"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/75374B17-7E0F-4FC1-8CDB-440162A11EA4",
+      "bytes": 1211,
+      "sha256": "a21a2704298dc980fb484aeec3fcf0d279976847f0400087f48a5a3353613d63"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/7A86EB1A-39C2-4D60-855F-E89AFE5B8C6A.png",
+      "bytes": 211683,
+      "sha256": "9734fcbe6e3796ae8827f9edcd5da9177881a12cc95c3029faeea86ad6bb1e43"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/7BBC17E3-2AE9-4D56-938E-BA60AA9B6BEB.json",
+      "bytes": 2936,
+      "sha256": "091aed11c5b829f56562b74db8b38eae708dec3763a94ead21ac0f5723f0f3a3"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/7DD01DDC-24D9-42BE-BE6C-86B6D8BC6B3A",
+      "bytes": 1879,
+      "sha256": "2e7d3129bdc894c4ed0028519b42f3d6783bff6bd8621f34eda8ff40fca1228e"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/849A5E6E-4FC9-4D62-8860-CB97CEDACC50.png",
+      "bytes": 353178,
+      "sha256": "a416af8f998505f2c9752e1cb0bcaca98fd360c6c730b200c8f41de59936ee47"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/8DFE984C-B5BE-4B19-A2A8-8D797D22F723.png",
+      "bytes": 228179,
+      "sha256": "acdbbb3ab7e63b25f679fe5c6d880d6662d1b51aaa79a02e65677d7482a5f0ee"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/8ECEC22B-8C69-4EF2-9984-2BCC6B42A394.json",
+      "bytes": 1864,
+      "sha256": "1220d286e704f998567de1b7a4a28819321e0adae925d47b0532c530827de017"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/94055116-1DC5-491A-944E-4681C7AD49A9",
+      "bytes": 1891,
+      "sha256": "1a24957af24c464b608ee1c0dda57d4ed54a8bd9117b1d8ecfc9f802f53b4e0d"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/95E122AF-FF80-47CE-BC37-675AF955F4A3",
+      "bytes": 1211,
+      "sha256": "a21a2704298dc980fb484aeec3fcf0d279976847f0400087f48a5a3353613d63"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/A472CA92-3A82-4E9C-811F-63DD25DD8A46.png",
+      "bytes": 359250,
+      "sha256": "39e59383bc1c9683a5538c56a0a2b8a2276a41cf52faa50c734ad00adc643d7d"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/A7D13E6A-E2FA-4072-BA5A-664A1E5DF5EB.png",
+      "bytes": 236747,
+      "sha256": "4641799402e174a60c80ddf1538f23a1d1e516189f0d05cb30016eb3c8548a3a"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/A8D009F6-5CA7-46C3-B964-DB010FF82AE2.json",
+      "bytes": 1863,
+      "sha256": "a8ba1f46245fb0a054f1c2b8ab33c7b06a7ebe8ee674233f74cde9ab0083060b"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/AA20678A-4494-4604-967B-CF09CBA9944A.json",
+      "bytes": 3972,
+      "sha256": "6588aa7e9c107ca3b7ecb6999079e6bfadf648542321c87da3b2158c1c58bc56"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/B534B160-C527-449B-A7B5-AFFD763DCD0A.json",
+      "bytes": 3972,
+      "sha256": "87b80f39a0f3abbdb183aab8c9a0578e6d1ce61a00c58078c78abcf2e6a2a76d"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/B5791238-7616-46DA-87AD-9DD765F36543.json",
+      "bytes": 1688,
+      "sha256": "dd4b9210967047e4036713c672daa6b6eb71bc764cd9cad2ecd085b1871967ac"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/B72B7121-300E-4D62-A5E8-46AE2ACCB454.json",
+      "bytes": 2957,
+      "sha256": "23385cb4fde04523534e3f299a69e53a2576279076027b936e924cc272277412"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/BA914D30-0C45-4687-BB6F-CA28A5907678",
+      "bytes": 1211,
+      "sha256": "a21a2704298dc980fb484aeec3fcf0d279976847f0400087f48a5a3353613d63"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/BABFB49F-3F6C-4B52-8D72-6C2AA0CA5AD5",
+      "bytes": 1879,
+      "sha256": "8224c9a186c179523949ef4d8bfddb4e39cce21fb9bf6455b3b4daf7240e8987"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/C3D180BF-4FA7-4839-91D2-479384466323.json",
+      "bytes": 3972,
+      "sha256": "e0b2e3d1b00acf9c22b33e2d7ab898c1bfee328c9b4aac3df349368792eb4f4d"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/C46AA284-40E8-411E-BBA3-B7384236BD08",
+      "bytes": 1211,
+      "sha256": "a21a2704298dc980fb484aeec3fcf0d279976847f0400087f48a5a3353613d63"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/C479938B-0E5B-44C2-9253-FF3FE8DDA342.json",
+      "bytes": 3953,
+      "sha256": "8eafe1cffac5703a3feee1819994089a448602b51ff0af9865e27bcf9d0c7478"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/C65595A7-B460-4DDD-80CE-26560F972B04",
+      "bytes": 1211,
+      "sha256": "a21a2704298dc980fb484aeec3fcf0d279976847f0400087f48a5a3353613d63"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/C7972C10-88FE-4456-8D14-02129ED28669.png",
+      "bytes": 329382,
+      "sha256": "7754fa58edb300e0d927185e3ab7d1e8410b8e7e7bd5323ce484964f39c2094d"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/C7EA193B-2195-4E9A-9485-90D34FF83B39.png",
+      "bytes": 223807,
+      "sha256": "54f47db3f04a020dbf0c40e567ca543c305be6a31bab45240d3870035283769b"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/C86F72F7-E38E-44E3-B6DD-A0513EAEC000",
+      "bytes": 1879,
+      "sha256": "7b117d59c0f40530b2a3a09ea393961dcf8a8714da9f46b61905bcf984475a63"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/CA9EC918-3E42-49BC-AB66-C53E997FBB23",
+      "bytes": 1879,
+      "sha256": "5b14e6ed5dd682dba67f8aecc40cbb4fcd485106e2af100dd680d4ba4100de97"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/CAD8632B-631A-40D4-AE27-ED8E2218FB96.json",
+      "bytes": 3951,
+      "sha256": "3b23a6abcaca90ba5dca150c4d34d746358fefee236dbbe52af08391aa26d902"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/CF621201-A939-452A-BED8-B3D7E59545DD",
+      "bytes": 1879,
+      "sha256": "82c6a44bf7159dc35668ce750f0e9eb286cfe2079444a58f9465c0416e8fe657"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/D306169D-A6F1-4F7C-9D37-AF9C36358980.json",
+      "bytes": 907,
+      "sha256": "673a82b50e40430d39f9f01f08b8a7801eb213d983ac87d5aaca122463dfe6ef"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/D36924D8-7AF3-4569-95DA-88628A9BC40C",
+      "bytes": 1879,
+      "sha256": "583ee312527997407d44f2c768b66331f9b4ca57022366b6fe9450d761f8d671"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/D3B2D87D-3F9C-4CA9-AA68-46C407FE6A96.json",
+      "bytes": 3951,
+      "sha256": "e94a816e21c4512be23e2e56cd85c197890809b8584b5e6be63ffe7355f1fe35"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/D9756154-B67D-4C4E-854D-383C6DA20682",
+      "bytes": 1879,
+      "sha256": "8224c9a186c179523949ef4d8bfddb4e39cce21fb9bf6455b3b4daf7240e8987"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/DA6C8ADF-D12F-49E6-B912-406C4BDC5CE6",
+      "bytes": 1211,
+      "sha256": "a21a2704298dc980fb484aeec3fcf0d279976847f0400087f48a5a3353613d63"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/DFB0FA5D-5ECC-4643-8BD2-997054F659E4.png",
+      "bytes": 229179,
+      "sha256": "1970a9308abdafd872274bbaa95d3c0145afd3361259c3258685cbb3faf1f19b"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/E1E77A89-EC28-4294-A83B-2781A150EE9F.json",
+      "bytes": 906,
+      "sha256": "9b54c9315de068be018fdfa2412a856e916f8c7d79297f4176c06d0314a47095"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/E26031AF-982A-4032-B640-4C6DCE195A2D.json",
+      "bytes": 907,
+      "sha256": "79873405ad5cc0e59da838e6bb3d29357509c98a1967db500cbda22dedd04f21"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/E381C1D5-2D5E-4C14-941C-D5E7F39B2BDA.png",
+      "bytes": 240460,
+      "sha256": "3eaa5f8bc84058e5e453a34c037b0a74a5458b32bc2d14b74790b1eacf95508d"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/E7433505-010E-44B6-9D66-320C81FDEB1A.json",
+      "bytes": 3951,
+      "sha256": "19db74f86cb1a409f58f4da25333d46ad7b5fe29433f7db814cb3fc69d755948"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/EA3770DA-A039-4A9B-884C-48FC33BE3709.json",
+      "bytes": 2819,
+      "sha256": "f993c2cad3d0fb66cae5ff22c37dde2c966c8826823749b50125272f322cab96"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/ED43667C-16C9-49C2-B1E0-D44332FAD99A.png",
+      "bytes": 231212,
+      "sha256": "62a6552be1b4745a51529fb1a48e9a20858f6089a7244d464dd4f0d45c40c5ae"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/ED473BF9-950B-4909-8BD6-027FF5141F9A.png",
+      "bytes": 298905,
+      "sha256": "4ddf23e6b48b1397f395353686ffbb764bc5c71a5c0e6fcc4ef5b60dfc9a8072"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/ED4C41CA-0492-417E-9914-D856BF970789",
+      "bytes": 1211,
+      "sha256": "a21a2704298dc980fb484aeec3fcf0d279976847f0400087f48a5a3353613d63"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/EF562525-61EF-475F-9746-2BD7FEE6C851.png",
+      "bytes": 240612,
+      "sha256": "b24ddb0a06521d6a99611ad750ec7d944e675849de494c41449f15e1e5dee8f8"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/F498D0F0-0D3C-4702-A239-20F73A8C95A3.json",
+      "bytes": 1865,
+      "sha256": "8127e8d7941ee5d95c2272d013ce32aa1f83af7d94e618e4a4871e8f1a780ea6"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/F866B348-FA2E-4C53-9041-120401FEA561.json",
+      "bytes": 907,
+      "sha256": "240f19be40875e8984cf56b233ffed24b06205049196d360e9f26dd7d6178f14"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/FB5E96A7-76D1-432A-9CA2-318F5C8F779C.json",
+      "bytes": 907,
+      "sha256": "a43f9e6423d5025f3157c62b38c89b14c141c57fa1050a5d976001b3af6016f4"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/FBBC1570-DCF8-4DF9-A872-5780DA2C8EB1.png",
+      "bytes": 237276,
+      "sha256": "b3c5b3cd9efea8d20b6cce2dcfeb8e61aa9b228f425e1dd82de2548e268feb20"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/FC299FE9-E005-4468-A9EC-611286D3530D",
+      "bytes": 1211,
+      "sha256": "a21a2704298dc980fb484aeec3fcf0d279976847f0400087f48a5a3353613d63"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/FE6B2821-39D2-48C4-97A9-F4BE3C1FB6A5.json",
+      "bytes": 1863,
+      "sha256": "e0550b516252def7c761ac43f285a3286a05786a24d422ed5b915529a9069ca2"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/manifest.json",
+      "bytes": 43261,
+      "sha256": "259d5f809b38a8ed17ce3b7d9560b40f8e04f25811659cd4bc050f2de3dd5047"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/build-settings.json",
+      "bytes": 78137,
+      "sha256": "68ca00cd3471ce5376bed69688fdd6145ce22fbe31dd5d37e657b0bc20bf034a"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/godot-production-session-link.json",
+      "bytes": 13415,
+      "sha256": "ab3dab4d917c49fcba7baa74c8c51317a986d4ca8487252bec4df888546a586c"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/result.json",
+      "bytes": 16508,
+      "sha256": "618ac146dc62f8f402bbadcce17f627e62edc4509cbfdb00971ed707afc4f0a5"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/test-evidence-export.json",
+      "bytes": 73,
+      "sha256": "a26fb7cf154c7bb08a3a3ff377334bab7314f8323ab0092a4674eacf1ef35a8f"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/test-summary.json",
+      "bytes": 1429,
+      "sha256": "0ccb14975d19b7a13d9d0d21b59a2deaeff22e1d72b569f30c7ec54df76cb851"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/test.log",
+      "bytes": 2470286,
+      "sha256": "3a516f4b54998f3d9f6c6004780ffef3c60b7f79f780b048f48f2e695178084d"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/godot/ios-host/build/evidence/engine-artifact.json",
+      "bytes": 5130,
+      "sha256": "e86d2d09835aae07ae20796df43b4a02a85232caaf9f6cfe8883dd7b3347c653"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/godot/ios-host/build/evidence/engine-source-commit.txt",
+      "bytes": 41,
+      "sha256": "9c5916798600b2e3f2745af2a1f926aa8f6af92a17b736f351fb54d34dcd976c"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/godot/ios-host/build/evidence/native-module-inputs.json",
+      "bytes": 1373,
+      "sha256": "83a748f48ece938e81ea703f6c03c97b412014f5c7f9589eb76d322f056d57e9"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/godot/qualification/build/renderer/partydeck-last-light.receipt.json",
+      "bytes": 61684,
+      "sha256": "d88495800e66f1b15803ad7c55663a2994e2fcb40b50c6a0c0e3c759d9fdc113"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/godot/qualification/build/renderer/renderer-source-commit.txt",
+      "bytes": 41,
+      "sha256": "9c5916798600b2e3f2745af2a1f926aa8f6af92a17b736f351fb54d34dcd976c"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-renderer-pack/partydeck-last-light.pck",
+      "bytes": 1550440,
+      "sha256": "541ded4c5074b56a9e320882a23f357ff8162520fac099e32567ac3a678f2751"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-renderer-pack/partydeck-last-light.receipt.json",
+      "bytes": 61684,
+      "sha256": "d88495800e66f1b15803ad7c55663a2994e2fcb40b50c6a0c0e3c759d9fdc113"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-renderer-pack/renderer-source-commit.txt",
+      "bytes": 41,
+      "sha256": "9c5916798600b2e3f2745af2a1f926aa8f6af92a17b736f351fb54d34dcd976c"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/job-103123585125.collected.json",
+      "bytes": 447,
+      "sha256": "5d5c0917f03626a4d9418bb2908bf2754c1776dbcd2aade7d8f0b961a3cfe3b8"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/job-103123585125.log",
+      "bytes": 3265170,
+      "sha256": "911151fd18d5aab6432fa3d3fc449dadc7013d13024b1e855bd9d8847c2c16cd"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/native-decoder-evidence-v1.json",
+      "bytes": 1826,
+      "sha256": "5d118159e41a59b248a49d13cfb4b0a967f8817c20b19ad5bb78a4955f8bf49d"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/observation-decoder-contract-v1.json",
+      "bytes": 3072,
+      "sha256": "947d72353816151dcd826ca9bf7260ef965b60e5be93288b33fc4f5ba4f66b33"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/post-collection-report-pins-v1.json",
+      "bytes": 951,
+      "sha256": "3b75a4b89f66bb2e4a583af357262b80b9542985c3f8454129a0f537bbd86659"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/root-dispatch.json",
+      "bytes": 594,
+      "sha256": "035fb37153fd2363d1e5ec7de0b07a4a56e76a962eead68d6e54e97ed7728837"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/simulator-packaged-bytes-verification-v1.json",
+      "bytes": 70916,
+      "sha256": "82d261f9a081b9225bbf0c4de105e1cae9be285646850fda8d864cf3233be135"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-producer-check-pack-v1.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-producer-check-pack-v1.stdout.log",
+      "bytes": 105,
+      "sha256": "fe3e51f18c536818d80ee5bc5fa0d5850c68275bf3c3709f56f5ec46d07f0b51"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source-run-binding-v1.json",
+      "bytes": 244462,
+      "sha256": "fb50cd6261e9f8f2bd414c6a64dc1b4ded15deb829ba8d9ac00dbca4cc86d8a6"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source-scope-frozen-v1.json",
+      "bytes": 113289,
+      "sha256": "54172522abc7ce35bfdcae32e24910dfa05e6fadc07cf51d5aeb9065284cbc93"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/ios-host/modules/partydeck_ios_probe/AppleExportPlugins.mm",
+      "bytes": 580,
+      "sha256": "4fd8706afd3616e59221e12969d2a16380f3f8984077b0ff2a59dba0a74f30fc"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/ios-host/modules/partydeck_ios_probe/PDGodotEngineOwner.h",
+      "bytes": 2822,
+      "sha256": "f55aed92a3c0987ce2f2e5ba544738d5a7dcd53a3f19581c6056dc1de642f1c0"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/ios-host/modules/partydeck_ios_probe/PDGodotRuntime.h",
+      "bytes": 1499,
+      "sha256": "781d0ea7d206d91a49316f30eeb905caec4b5715f5222fc363ed1b03127a647e"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/ios-host/modules/partydeck_ios_probe/PDGodotRuntime.mm",
+      "bytes": 109879,
+      "sha256": "7cb5038ad7b6a7d0c2446d83aefed94a835b1c77e328996558e87a5ebc909b1b"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/ios-host/modules/partydeck_ios_probe/SCsub",
+      "bytes": 155,
+      "sha256": "781f9abdcb30c34d0271bcc21372c6b2ca59545594b8f59625bf05cd9c52f564"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/ios-host/modules/partydeck_ios_probe/config.py",
+      "bytes": 90,
+      "sha256": "a7d49c9d253183baf38500b6427d3dde8465df1c176d14ddae240ea086e67d3f"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/ios-host/modules/partydeck_ios_probe/engine_surface_probe.mm",
+      "bytes": 1578,
+      "sha256": "d86ee6e956ba38843c4d359ff140fe1635d9537775787722d66d7caaac7206f2"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/ios-host/modules/partydeck_ios_probe/register_types.h",
+      "bytes": 214,
+      "sha256": "f4550220fcfb8bbd2bb42118823987254b40d6f9293cee61bb972acaa82e4c9c"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/ios-host/modules/partydeck_ios_probe/strict_json.h",
+      "bytes": 5170,
+      "sha256": "c3bff31433102904886a4fb1adcee109c912b7532f21a46f7e1b1ae629c9d074"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/ios-host/patches/coreaudio-dormancy.json",
+      "bytes": 2055,
+      "sha256": "7d02c1a1a20c9f941f3b94119a3a7dd4dc0f19972a1744d16acc08ad80b62724"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/ios-host/patches/coreaudio-dormancy.patch",
+      "bytes": 19100,
+      "sha256": "d5aad26c18f79c830c660cbd4f2debf401fb796381d4742706eb233afff4701c"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/ios-host/patches/main-loop-access.json",
+      "bytes": 964,
+      "sha256": "456c08911c1aa8c4c4efd5d7a372cdf12f2da6380f699b295fe3aeab8e7828ab"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/ios-host/patches/main-loop-access.patch",
+      "bytes": 676,
+      "sha256": "896fe2da52c8d3e4f9d436c4d41808e5fbc567c268294baf898843c28dbbb3c6"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/audio/card_place.wav",
+      "bytes": 21212,
+      "sha256": "fde103b8958a4a167bf733193bc345b98828e46744bfd8b7fbed852510f4739d"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/audio/card_place.wav.import",
+      "bytes": 500,
+      "sha256": "31711b4ae7d6925cc7a37bc7b2a0a43eebb16d93b60ebd0215fc86616fe1fad7"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/audio/challenge.wav",
+      "bytes": 42380,
+      "sha256": "939bffe9be3c1060efba0575b66fd1d191a83799d7f33d757c0200355229fc04"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/audio/challenge.wav.import",
+      "bytes": 498,
+      "sha256": "12bd0f610c97cdb4ddca1a116adabe46f7124a963ac4a8278bb45c9b7ac11ba2"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/audio/light_out.wav",
+      "bytes": 45908,
+      "sha256": "a31c499aeef5aa959cd35fe88b8e422b8d50a6eaf61b9c7629989d094e9e600a"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/audio/light_out.wav.import",
+      "bytes": 498,
+      "sha256": "0e128654dae2c57316306b9bdd39189e67c5ba9ab1c997fd6bd2a69df57a144e"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/audio/safe.wav",
+      "bytes": 56492,
+      "sha256": "89f360a56dff9f32585846f7869948a475d62b53be14fc4c8b095da41e4c8e7c"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/audio/safe.wav.import",
+      "bytes": 483,
+      "sha256": "bccc09d48b6c9fa3ba0a82d01cab77f520556cd3d4b369f72796e5dd32a9ed0d"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/audio/ui_tap.wav",
+      "bytes": 6218,
+      "sha256": "ede5e5301c8ebb8d8ee8773dcc64be5e27d0ee2333f6ea46391accd18d357477"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/audio/ui_tap.wav.import",
+      "bytes": 488,
+      "sha256": "a7797225de91179842560f2485049cdcecaa2df6d39115cca785b4caac47112b"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/audio/victory.wav",
+      "bytes": 112940,
+      "sha256": "7b188e1276e88c8ba8247b438b89444bc2c5f70e9af891656d327758c6616c07"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/audio/victory.wav.import",
+      "bytes": 492,
+      "sha256": "37ae475725f9d6310055a92ed61d6ff4cebbaa9781e00fc0a3f73dee94067338"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/fonts/fraunces_semibold.ttf",
+      "bytes": 105824,
+      "sha256": "ea45a557b4dd7e9fee6e263211b72986879d6bde518dbe18338d0478b91ab93c"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/fonts/fraunces_semibold.ttf.import",
+      "bytes": 789,
+      "sha256": "abb7164a4e9a2988d039b47a035f84f50a15cd982af853674b2ad4a83cbb66b4"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/fonts/manrope_medium.ttf",
+      "bytes": 144568,
+      "sha256": "42133571c5f19b6d5ded5e3935a92c1dd40721fd8ca2529719eabfa58c123aec"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/fonts/manrope_medium.ttf.import",
+      "bytes": 780,
+      "sha256": "48cb8a8477b38f40c07bff72db779e03cd08cb87703fc42272d5a4885c6628de"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/fonts/manrope_regular.ttf",
+      "bytes": 143132,
+      "sha256": "2d9a9960fd191a7f1d9060768818074dd2b76ba84a64a35efd2c22bf39030903"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/fonts/manrope_regular.ttf.import",
+      "bytes": 783,
+      "sha256": "14c2530b3af2f123363f2e504113f485e1db117cb017f972a008683e613e00a1"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/fonts/manrope_semibold.ttf",
+      "bytes": 144976,
+      "sha256": "e80a2c37e47ec09bff5a9960257bf9001e87d5fb7bf35719ef4958763a0c70ac"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/fonts/manrope_semibold.ttf.import",
+      "bytes": 786,
+      "sha256": "96cb7a93663f043cb2267f33309b3471af1f8b49cc64bddfdadcceea473ec7fb"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/licenses/font_notices.txt",
+      "bytes": 9224,
+      "sha256": "e83f58c6514173417e4ba1421dc3d43fd4a5213e5f8a39da2b9669f91c65092d"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/licenses/fraunces_ofl.txt",
+      "bytes": 4391,
+      "sha256": "bdf4c22802eaf804f998195871c6b8938aac2ac14b2d78a8bd66a6f1eced833b"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/licenses/manrope_ofl.txt",
+      "bytes": 4384,
+      "sha256": "e01b637272e0cbdfb240184dd98ea5cc671556d9894dae2668d92ab2c906787c"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/manifest.json",
+      "bytes": 66858,
+      "sha256": "37480b580dd95d88e39605f40f6062fb30a96a6fe529b25eb1a593ef77d2280e"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/textures/cards/back.png",
+      "bytes": 62164,
+      "sha256": "915e526e5691cf09f6d139c8d3549b3a3e08a4121d28355c08b70de06f3698ed"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/textures/cards/back.png.import",
+      "bytes": 936,
+      "sha256": "a7ec2e3b7f35e07e7e434e7f6eebd72ec6547d02222b6c2c9d1b5cd2f0202961"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/textures/cards/face_crown.png",
+      "bytes": 13327,
+      "sha256": "269529643938a6fcc516b06d452061e6a2c5ecab90cd66040aa926737cdbedbc"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/textures/cards/face_crown.png.import",
+      "bytes": 955,
+      "sha256": "1705cdb998f6a658629bf32508137137765dfb5d219334829651733afc9651f5"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/textures/cards/face_moon.png",
+      "bytes": 19827,
+      "sha256": "47fa60bb11fa8dec42722e027598cfc7a28605e253486d63009032cd37a0086f"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/textures/cards/face_moon.png.import",
+      "bytes": 952,
+      "sha256": "9537403af22c8c288aafd6eb10f095a96850f5040a5d90971ae9d1685bf3705f"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/textures/cards/face_star.png",
+      "bytes": 18069,
+      "sha256": "0979dedaba2aa4dafa5a15977911fbbe07ade225dcf103e0bb6272ce6eb2d5e1"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/textures/cards/face_star.png.import",
+      "bytes": 952,
+      "sha256": "60c9e595497bd58f633f04765aa339beb69af6211fe26aa2f1a29cd077d49d00"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/textures/cards/face_wild.png",
+      "bytes": 30207,
+      "sha256": "46924b3ba634f194aa3605b56d6195b114119821d7ac39b01b79197a76ce9079"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/textures/cards/face_wild.png.import",
+      "bytes": 952,
+      "sha256": "e4fd8559b8141eddd9b15f560616193a375c3b0b3a851122019fb2c94fb4a0a6"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/textures/ranks/crown.png",
+      "bytes": 3589,
+      "sha256": "dc202d7eaa158eb8187e181b1ee6558ed9ba1af271ef40175d881855838462a8"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/textures/ranks/crown.png.import",
+      "bytes": 940,
+      "sha256": "69b0442641865b2f63736ae461aa7f99e326993f82dec5588f9bcd4c36146335"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/textures/ranks/crown_mask.png",
+      "bytes": 3095,
+      "sha256": "840a9b57ba03f01566f6cf1f5c496f2d2374d65015a773557579c656078c9dd5"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/textures/ranks/crown_mask.png.import",
+      "bytes": 955,
+      "sha256": "aaa58dc6988bba6497f45120b8c754887dcd7e62465ab2cbd2d42e88d14c273a"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/textures/ranks/moon.png",
+      "bytes": 6454,
+      "sha256": "018f978ee93bc3ce56e1a05fc3d7961fce4bf5197cb7d5f9e63783ef46c87b06"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/textures/ranks/moon.png.import",
+      "bytes": 937,
+      "sha256": "70dc57d6fc270fae4dab47431ec567b3f7316c8e53a2cdd2000f1557f488c0bf"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/textures/ranks/moon_mask.png",
+      "bytes": 4940,
+      "sha256": "518e446e289ae453e8364db2c00d56f6851f4098cffb49317e30acf0f560c926"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/textures/ranks/moon_mask.png.import",
+      "bytes": 952,
+      "sha256": "ad3a70364523ff2804e357dbaac146e9c4643eb9e61cff2636df73be20c06c71"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/textures/ranks/star.png",
+      "bytes": 5975,
+      "sha256": "d0c8bc8ceb7a4cc9a17282625d54d696ee97a412a36ee916525b46003bf166e1"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/textures/ranks/star.png.import",
+      "bytes": 937,
+      "sha256": "05f394b438018e4aedbf2753445295667f68b20aa98fd228add2483a39a50f90"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/textures/ranks/star_mask.png",
+      "bytes": 4271,
+      "sha256": "eb90888d826788d1484117a0acb881e1d6adeee0471456d8e1c72468314af432"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/textures/ranks/star_mask.png.import",
+      "bytes": 952,
+      "sha256": "f92740d37b01da64f4b4709286636d3d1b3019785077ae918a8258389c17f005"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/textures/ranks/wild.png",
+      "bytes": 10686,
+      "sha256": "175d6f94d808008be539080eff8a3ba730b6a8aed0509c0d8024cab75fc3ce7c"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/textures/ranks/wild.png.import",
+      "bytes": 937,
+      "sha256": "66961a0cd8e0215a7a19ae01fa27878a231629a66093e670beb2ef78f29cf29e"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/textures/ranks/wild_mask.png",
+      "bytes": 7764,
+      "sha256": "0c35360c48f8d5552980285f34de1d7dfbf7f2f92be238ff723bd78fcb13524e"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/textures/ranks/wild_mask.png.import",
+      "bytes": 952,
+      "sha256": "294609d288cd5e16774f86be53455baa50068ea05dbc015d79a9d6093df7c169"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/card_back.svg",
+      "bytes": 3578,
+      "sha256": "075a4c133e6bf6f486fc5ffda699f8fbfc31363009d531426f027eb37b4cf02a"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/card_back.svg.import",
+      "bytes": 1042,
+      "sha256": "3248a6dd125312c255f0a4404541c4e16bfcb389e44c2b0784918e0420d43e26"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_arrow_back.svg",
+      "bytes": 429,
+      "sha256": "e178e528fcd817c02296f419d520c5cf030c4095d96a16e7a4a9be33e8c13e5a"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_arrow_back.svg.import",
+      "bytes": 1060,
+      "sha256": "7c38bf84f9a93025a708bc42cd419d56137b11d389aa546d5940de34b9407671"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_arrow_forward.svg",
+      "bytes": 428,
+      "sha256": "ca37dbaca903c73de385889ef51e33a1bf12929941ee9c03439d8492a9ea0e67"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_arrow_forward.svg.import",
+      "bytes": 1070,
+      "sha256": "d0fa29c48f5b34a7a1f2a31f22693a3bf22787a3df2c7e4e76c0b6a6c4463362"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_check.svg",
+      "bytes": 304,
+      "sha256": "5d9fe5b4f294b8ff5cb1b822ad697886c7b5ca32d9c5d32d02ca5f750092ce5a"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_check.svg.import",
+      "bytes": 1046,
+      "sha256": "721651b1c9266585f3efd39c690061e0228f11a7d05ff4ac4ffaa25fe971870d"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_close.svg",
+      "bytes": 306,
+      "sha256": "5479642ebf9c50a283d2042ac733886e52850fa7f03983ad1ec3e9cbd4b3d079"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_close.svg.import",
+      "bytes": 1046,
+      "sha256": "d3fc736587653043a636b089cd4c349aa1cb6782b7891bc5c1745077121b2391"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_copy.svg",
+      "bytes": 538,
+      "sha256": "50df168877f45b5abaa9990c8d084dd9e5daff327c569c948fab0d0ec91f9eb5"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_copy.svg.import",
+      "bytes": 1042,
+      "sha256": "97182c3555651a39591daf887498f10517509aafe093f53e928d2934fef34d19"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_exit.svg",
+      "bytes": 477,
+      "sha256": "25cd2b14c5ff6b5475b48b51b37da28f7c41a5bea8f880781c356a677cf24265"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_exit.svg.import",
+      "bytes": 1043,
+      "sha256": "62e4385ec33c3632f746028f1607c998ccd3ccf99d3edaefddd10d20111f5f0c"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_haptics.svg",
+      "bytes": 664,
+      "sha256": "d0d252de35fafeb529ac83c1b43ea8f4a3e7efbb774d4fd79f86637113e6211c"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_haptics.svg.import",
+      "bytes": 1052,
+      "sha256": "5f6bce732f246483c7933abfd15db1b603540242367242109dd7cb14b5951589"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_info.svg",
+      "bytes": 609,
+      "sha256": "72efd7fcce5cb809af5263afff1173382bf36a7b5ba4c1dac188b19b3226aa15"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_info.svg.import",
+      "bytes": 1043,
+      "sha256": "61c0b9806ea4fbef0340af635917a2d7d638b2a37e90b71d255ae8825edd98b5"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_lock.svg",
+      "bytes": 616,
+      "sha256": "df777774079618df0bffe91d4d39de281f61a4930b85713e75150eb31522cec0"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_lock.svg.import",
+      "bytes": 1043,
+      "sha256": "89336dcdaef32a2d0ec3441248dcf61a61fb2451efbceb669593f24e9116c364"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_motion.svg",
+      "bytes": 617,
+      "sha256": "d8297dac6c8600b882fc09a6ed0914987ae7d416d2f238bd5308535f53529c8b"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_motion.svg.import",
+      "bytes": 1049,
+      "sha256": "5f2146b8438c67f48c1b3cc1a695c30f3d767eae749f697205dca072c95784f5"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_nearby.svg",
+      "bytes": 541,
+      "sha256": "d77b23b878ed8bcc588d77e54986a8ab221ea8cb984140080e63134653c44490"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_nearby.svg.import",
+      "bytes": 1049,
+      "sha256": "15d519bbdf426107965e4153482f9bbb3e46f0e93cb7a56987424b24daec2cf1"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_people.svg",
+      "bytes": 672,
+      "sha256": "f162bdb2c436c0461288917c1627e9e59f2f2702fa58af531a29d0f4204a582c"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_people.svg.import",
+      "bytes": 1049,
+      "sha256": "0dffeedd7b99a06ee2a6933336562bfc0d1890e193047aa7b465821c931dba1b"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_plus.svg",
+      "bytes": 302,
+      "sha256": "4c5d4349117d9a7d03da9f77341be0c87d57b15c27b01b03fbb1ddd83c0c02c0"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_plus.svg.import",
+      "bytes": 1042,
+      "sha256": "085fe794080e995eb0b6c9e390548b628e160966f86a74749a2599c7c013c88c"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_qr_scan.svg",
+      "bytes": 534,
+      "sha256": "198b631ba94c443110bd7ab36d355f694e4efbf43583854fb9de61a1dff117f5"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_qr_scan.svg.import",
+      "bytes": 1052,
+      "sha256": "9f102b0a11642e1fa3bc68bb88aa77611ff33c773d3a6a37a806e64eabad9663"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_settings.svg",
+      "bytes": 788,
+      "sha256": "a7845d8ccda6d512c96b3d7f0da58a4b4bdb3618b8407da9c5162ba53566d879"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_settings.svg.import",
+      "bytes": 1055,
+      "sha256": "ca5b30e37afe46ee955c9c94116c63c3d021944da06aa6ece45b29f7195896b0"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_share.svg",
+      "bytes": 480,
+      "sha256": "7f25cc69dceda2cd6c0ba3f45b7e7adeaac1483069a8db78c4c189357b40e194"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_share.svg.import",
+      "bytes": 1045,
+      "sha256": "d60e3ca0a4ff4a1869ad018c051347a5ad744cbb18722334978c93c99ede5565"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_sound.svg",
+      "bytes": 486,
+      "sha256": "7476f679fac71b12637e3f6c18380700280e193029dbc7ef24621f0885015ee7"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_sound.svg.import",
+      "bytes": 1045,
+      "sha256": "51bf420f89e0f5d6832d26696c234d08d940e9bdf8d1d479673e4e3894c81668"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_sound_off.svg",
+      "bytes": 447,
+      "sha256": "a17aab6788a781227c7320eb85c3806426414752611c34bcc6d4068dcff135a7"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/icon_sound_off.svg.import",
+      "bytes": 1058,
+      "sha256": "b858e05c67f441cde8c1c239941e7aeef961455bada419ae22056e357ad37efc"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/partydeck_mark.svg",
+      "bytes": 833,
+      "sha256": "c78b13cf00b282ede72d922f0a602e30230a9df1780613d45e1f446abb79bc29"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/partydeck_mark.svg.import",
+      "bytes": 1057,
+      "sha256": "a698a4a1ed7465a7c119876bb6475b05cd7775d85768d165f2a66e8d3ae19f02"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/rank_crown.svg",
+      "bytes": 401,
+      "sha256": "9376dc76d07e9f1c33037c02add85b840018f00ff03e016d37cf6c61388a611e"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/rank_crown.svg.import",
+      "bytes": 1046,
+      "sha256": "47f986d49bfc289dd61b57f66806a1be656ddf37b8e522f060a6ab72e2688f13"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/rank_moon.svg",
+      "bytes": 415,
+      "sha256": "14c55e880ff4c435b611965779bfb82a4c1f079b5dce84b3ebfd1508625e1afb"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/rank_moon.svg.import",
+      "bytes": 1043,
+      "sha256": "4b785db06b4a0e3be96a9298c5a673442287333770363fa9e15a531411209031"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/rank_star.svg",
+      "bytes": 425,
+      "sha256": "e7400c283c4c97f42b7e4e4df642d72a25aa91e1e7cce7cd6e94217da0aefcc5"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/rank_star.svg.import",
+      "bytes": 1043,
+      "sha256": "43b848a209d01565bed746566e961f5fb9431c37d06bcfac4a1f878f12c5530d"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/rank_wild.svg",
+      "bytes": 652,
+      "sha256": "934ffff62fa1bc479e7fefdf601e8726f1ad352f38ce3a79cd51f5eef243900a"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/assets/vectors/rank_wild.svg.import",
+      "bytes": 1043,
+      "sha256": "39660fb34d2948f6803c82795d8f06d509961ca59a8a5ae969b20ac568ac402e"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/export_presets.cfg",
+      "bytes": 562,
+      "sha256": "c960e2c42296d9294179183e572dfe737c979d035cbd0749651cd4163f3d1abc"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/licenses/ANDROID_NDK_LLVM_NOTICE.txt",
+      "bytes": 130424,
+      "sha256": "f96f763beb66a7ba7a667647fc64c0226ace875e590c831fdd9579ec1c1d91e1"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/licenses/GODOT_CA_BUNDLE_SOURCE.txt",
+      "bytes": 225076,
+      "sha256": "33a22c7286f7752131636a11fb9feb3fb12ecd02f1a9b3e54e5901349d37362e"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/licenses/GODOT_CA_CERTIFICATES_SOURCE.txt",
+      "bytes": 1241,
+      "sha256": "c68edd43fa15b39be0aa724eaf28cdfa9df22a83eb74f66614b93993bdcde1f7"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/licenses/GODOT_COPYRIGHT.txt",
+      "bytes": 100108,
+      "sha256": "cb1980c88089573bcacd7221d777c689bb8bbd778799f24c27fca0fe5f774d6d"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/licenses/GODOT_LICENSE.txt",
+      "bytes": 1149,
+      "sha256": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/licenses/NOTICE_PROVENANCE.json",
+      "bytes": 5002,
+      "sha256": "c702de9b8f36aa7144902b816a74b8a4718dc34245bfbbe3cb056fed4f65f062"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/licenses/README.txt",
+      "bytes": 1322,
+      "sha256": "1ccab8a45f6dab1e3a9117b8f29c56fe67ec969b5c3083fe1a0027eabf3b9231"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/main.tscn",
+      "bytes": 201,
+      "sha256": "0eaba43494ffa3e8f46b30712564e609938bbeb18daa690b5b1a68249334536f"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/presentations/three_d/card_3d.gd",
+      "bytes": 3044,
+      "sha256": "6383be0e044f1f54792ab3f575917ef29a2d843e697f792d748627059c9bcba5"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/presentations/three_d/card_3d.gd.uid",
+      "bytes": 20,
+      "sha256": "3f5307e57f5df4203209167d9235336420ed253835950dca862276c6ce94038f"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/presentations/three_d/table.gd",
+      "bytes": 40950,
+      "sha256": "a9edd383b71832b41d3fd307d3cf4397fe33df099c54471cb16006da0246e061"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/presentations/three_d/table.gd.uid",
+      "bytes": 20,
+      "sha256": "cc531df6de68c189dd3054f55558bd710566692ab766d7315796178975884416"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/presentations/three_d/table.tscn",
+      "bytes": 332,
+      "sha256": "90e347f9fd7c5283ddab1b31b09afd86cf6343ea5f49e612cf95be31480b417a"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/presentations/two_d/deck_style.gd",
+      "bytes": 4443,
+      "sha256": "0ca38f06b16c0b1f829131c6fd88f7defc5541a0145ed8f86fdf21f3e69e8823"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/presentations/two_d/deck_style.gd.uid",
+      "bytes": 20,
+      "sha256": "a8649e66f4f70a5d61739bb6cd51c8c25a84969e071ba965de341a992a5add0a"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/presentations/two_d/hand_card.gd",
+      "bytes": 4409,
+      "sha256": "db697ead3a631b6c838ee5f2f53d4f601b9e6060a1d59a44486c4f19ee2a119b"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/presentations/two_d/hand_card.gd.uid",
+      "bytes": 20,
+      "sha256": "c41210ce6930e05f386c80233f58d6b0bf3626d41446e29e5c91745353705cef"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/presentations/two_d/seat_view.gd",
+      "bytes": 2309,
+      "sha256": "21fece61a8c171e1bd7665ef0ab3751c156ff780d11f7cf7eac8135d8c6d6dae"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/presentations/two_d/seat_view.gd.uid",
+      "bytes": 20,
+      "sha256": "8f3209ef95782683bd55cb34c6de3645c7bc40f0a6fcd4a29617ee297c228d28"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/presentations/two_d/table.gd",
+      "bytes": 33068,
+      "sha256": "de0bec7b083327f1210a9413d0236208be832ed49c0cec329b4999fb2994ba9a"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/presentations/two_d/table.gd.uid",
+      "bytes": 20,
+      "sha256": "b27f68ffa160ac3d720b5826576f289f38d0bcf70a6197ae171f0828e9d3d40b"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/presentations/two_d/table.tscn",
+      "bytes": 326,
+      "sha256": "036e401b2d1b92b15b5bdf118759d150e9a5c40b4a63d1acdb77379fdd38998a"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/presentations/two_d/table_surface.gd",
+      "bytes": 1690,
+      "sha256": "f90f764b8e5789c92f9ec8685c64f45ba0941fb89b5a4e50377ba388a6f995b2"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/presentations/two_d/table_surface.gd.uid",
+      "bytes": 19,
+      "sha256": "7593857d01839e11588d0ca1b7b3995a5edf35afa7428198e57eac2db2a7ff73"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/project.godot",
+      "bytes": 1034,
+      "sha256": "44e386494e8711fa537781bc55f2f5fe061efc073d589d872328a892fcd6c07f"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/scripts/main.gd",
+      "bytes": 16303,
+      "sha256": "e8f4fa5ca26ef5ec7ea7f9c853c41788b04d10ab1fb6dba4ed0abe73dfebf4b6"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/scripts/main.gd.uid",
+      "bytes": 19,
+      "sha256": "d9a93bbdfa8a9e534c5d8fa0c7bed9f5d18151d4d6ed2a0ef8f2aefe9dd55f90"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/scripts/renderer_controller.gd",
+      "bytes": 8384,
+      "sha256": "b9086357bc985cad84079ec080955a4ce85df9b7eebd997deb575b37a8b38276"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/scripts/renderer_controller.gd.uid",
+      "bytes": 20,
+      "sha256": "973013be1a40f88ec63c68b8d5082176306336dbc79c350e6c5f3f48e64b04ca"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/scripts/strict_json.gd",
+      "bytes": 4401,
+      "sha256": "0696e5741c915c42c5b386dd27b6ed3611f3b7a3780d8fb8e0fabd88d6f2f4b3"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/scripts/strict_json.gd.uid",
+      "bytes": 20,
+      "sha256": "9a2be3f0edc6b34fbbce3aa7af4474e9ad27a2f4256d2757b0327d4356f53561"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/scripts/view_validator.gd",
+      "bytes": 6974,
+      "sha256": "0ea110b7851614644c36ab97536433d19fadfd026a92e2f156cdaf1aa4e206ba"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/renderer/scripts/view_validator.gd.uid",
+      "bytes": 20,
+      "sha256": "c45ffbb63458431e7e6b2d7d33e1d11e564b444eeb00b48ab869610830f21b36"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/tools/godot-pins.json",
+      "bytes": 1172,
+      "sha256": "ea7e6314a4f3953e99141a8e7bb1a6e64b0d1f2de034e7b25dcce826c0d7d8bf"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/tools/partydeck_pck.py",
+      "bytes": 3301,
+      "sha256": "ee8ac5c99b54950f571052fee70aac522a93edeab0b82b0fcd853a913fd9bb8a"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/tools/renderer.py",
+      "bytes": 24012,
+      "sha256": "4a83e3eaaf9e5db50e0f4257a2e3ed92fc09296bbed6d5c35bfe5b6da8fceb1e"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/godot/tools/scene_check.gd",
+      "bytes": 1115,
+      "sha256": "c860c0c92e090301b1bb354230839736d8024b10537f9244938625dd6fc0355f"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/iosApp/PartyDeck/Info.plist",
+      "bytes": 2495,
+      "sha256": "b83321c5f3bcf8ee09e92a9f758f8c02f3b3b65adfe046daa9fc59a504d0b502"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/iosApp/PartyDeckUITests/PartyDeckGodotSessionUITests.swift",
+      "bytes": 59132,
+      "sha256": "c33f576d67d2497cabe5f4f4294d732cd1ef8005121bf1e615516818e08830ec"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/scripts/check-ios-production-session-smoke.py",
+      "bytes": 5715,
+      "sha256": "03a4aec41a60fd29522d6dee97d3732a470b5e1e868cba711a8a1da928229b41"
+    },
+    {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/shm-evidence-arena-20260910/configuration-freeze-v11.json",
+      "bytes": 4752,
+      "sha256": "2bade1049d43df99f9be221cfb84a5916a27fce0a26a352acdf3e0aaa05ea84b"
+    },
+    {
+      "path": "/tmp/partydeck-ios-decoder-parser-review-34550903117-v1-4anbo2ap/REVIEW.json",
+      "bytes": 1426,
+      "sha256": "e35c1b32209a1aa93182c5a9403201a554acff1e24ceaa1707be1b87c804a98b"
+    },
+    {
+      "path": "/tmp/partydeck-ios-rerun-preparation-review-34554200601-v1-x3jjt5hg/REVIEW.md",
+      "bytes": 4118,
+      "sha256": "47cd86369309c1bd1f76644e3daed8002701cfcb49fedf0f41d16e246ceb347d"
+    }
+  ],
+  "preservedPartialTransfers": [],
+  "originalArchiveCount": 3,
+  "originalArchiveBytes": 254343350,
+  "originalMemberCount": 1655,
+  "originalUncompressedMemberBytes": 400463285,
+  "selectedWorkingOriginalCount": 148,
+  "selectedWorkingOriginalBytes": 15284316,
+  "ownedJobLogCount": 2,
+  "ownedJobLogBytes": 3302001,
+  "allExpectedOriginalArchivesPreservedAndUnchanged": true,
+  "allSelectedWorkingOriginalsUnchanged": true,
+  "allOwnedJobLogsUnchanged": true,
+  "allCompletedAuditReportsAndLocalReferentsUnchanged": true,
+  "scope": "Final preservation only. Each complete original ZIP was rehashed against saved API digest; all original member hashes/CRC receipts remain intact. Every selected working original, owned job log, four completed outcome/source/package/diagnostic audit reports, the frozen collector configuration and their local byte/hash referents match preceding receipts. No repeat ZIP-member decompression, package tar streaming, build, XCTest, JUnit, source execution, media decoding/viewing or download occurred. Archive-only XCResult, app, recording, linker and symbol members remain preserved. Runner-only archive receipt hashes remain distinct from collected package bytes."
+}

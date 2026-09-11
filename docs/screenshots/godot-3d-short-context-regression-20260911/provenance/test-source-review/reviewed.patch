@@ -1,0 +1,119 @@
+--- a/godot/renderer/tests/three_d_scene_check.gd
++++ b/godot/renderer/tests/three_d_scene_check.gd
+@@ -53,6 +53,8 @@
+ 		_fail("The concealed scene still contains private card nodes.")
+ 		return
+ 	var state: Dictionary = _main.controller.presentation_state()
++	if _options.get("short-public-context", "false") == "true" and not await _check_short_public_context(state.game):
++		return
+ 	var proof := get_nodes_in_group("partydeck_public_card")
+ 	if state.game.get("phase") == "PLAYING":
+ 		if not proof.is_empty():
+@@ -180,6 +182,93 @@
+ 	print("3D scene input/privacy check passed: ", _output)
+ 	quit(0)
+ 
++func _check_short_public_context(game: Dictionary) -> bool:
++	if game.phase != "PLAYING" or game.latestClaim == null:
++		_fail("The short public-context check requires an authority fixture with a current claim.")
++		return false
++	var scroll: ScrollContainer = _main.find_child("TableBodyScroll", true, false)
++	if scroll == null or not _context_clip(scroll).intersection(scroll.get_global_rect()).has_area():
++		_fail("The short viewport leaves no visible scroll space for public context or actions.")
++		return false
++	var round_label: Label
++	var claim_label: Label
++	for label: Label in _main.find_children("*", "Label", true, false):
++		if not label.is_visible_in_tree():
++			continue
++		if label.text == "ROUND %d" % int(game.roundNumber) or label.text.ends_with(" · round %d" % int(game.roundNumber)):
++			round_label = label
++		if " claimed " in label.text:
++			claim_label = label
++	var claimant := ""
++	for player in game.players:
++		if player.id == game.latestClaim.playerId:
++			claimant = player.displayName
++	var claim := "claimed %d %s" % [int(game.latestClaim.cardCount), str(game.tableRank).capitalize()]
++	var guidance := "Only a challenge remains." if game.forcedChallenge else "Challenge or play on."
++	if round_label == null or claim_label == null or claimant.is_empty() \
++		or claimant not in claim_label.text or claim not in claim_label.text or guidance not in claim_label.text:
++		_fail("The short viewport omitted its authoritative round, claim, or challenge guidance.")
++		return false
++	var initial_scroll := scroll.scroll_vertical
++	for label: Label in [round_label, claim_label]:
++		await _scroll_into_view(label)
++		# Wrapped text may exceed a page. Check each glyph at a reachable scroll position.
++		for character in range(label.text.length()):
++			if label.text.substr(character, 1).strip_edges().is_empty():
++				continue
++			var bounds := label.get_global_transform_with_canvas() * label.get_character_bounds(character)
++			if not _context_clip(label).encloses(bounds) and scroll.is_ancestor_of(label):
++				scroll.scroll_vertical += int(bounds.get_center().y - _context_clip(label).get_center().y)
++				await _settle()
++				bounds = label.get_global_transform_with_canvas() * label.get_character_bounds(character)
++			if not bounds.has_area() or not _context_clip(label).encloses(bounds):
++				_fail("Public context remains clipped after scrolling: " + label.text)
++				return false
++	var actions_reached := 0
++	for group in ["partydeck_action_play", "partydeck_action_challenge"]:
++		if not bool(game.availableActions.canPlay if group == "partydeck_action_play" else game.availableActions.canChallenge):
++			continue
++		var button: Button
++		for node in get_nodes_in_group(group):
++			if node is Button and _main.is_ancestor_of(node) and node.is_visible_in_tree():
++				button = node
++				break
++		if button == null:
++			_fail("A projected action is missing from the short viewport: " + group)
++			return false
++		await _scroll_into_view(button)
++		if not button.get_global_rect().has_area() or not _context_clip(button).encloses(button.get_global_rect()):
++			_fail("A projected action remains clipped after scrolling: " + group)
++			return false
++		actions_reached += 1
++	if scroll.scroll_vertical == initial_scroll:
++		_fail("The short public-context check did not exercise scrolling.")
++		return false
++	_observations.append({"check": "short-public-context", "round": round_label.text,
++		"claim": claim_label.text, "actionsReached": actions_reached,
++		"scrollHeight": scroll.size.y, "scrollReached": scroll.scroll_vertical,
++		"allPublicCharactersReached": true})
++	scroll.scroll_vertical = initial_scroll
++	await _settle()
++	return true
++
++func _context_clip(control: Control) -> Rect2:
++	var clip := root.get_visible_rect()
++	var ancestor := control.get_parent()
++	while ancestor != null and ancestor != root:
++		if ancestor is Control and ancestor.clip_contents:
++			clip = clip.intersection(ancestor.get_global_rect())
++		ancestor = ancestor.get_parent()
++	return clip
++
++func _scroll_into_view(target: Control) -> void:
++	var ancestor := target.get_parent()
++	while ancestor != null:
++		if ancestor is ScrollContainer:
++			ancestor.ensure_control_visible(target)
++		ancestor = ancestor.get_parent()
++	await _settle()
++
+ func _click(group: String, index: int = -1) -> bool:
+ 	var target: Button
+ 	for node in get_nodes_in_group(group):
+@@ -190,12 +279,7 @@
+ 	if target == null:
+ 		_fail("No enabled button for " + group)
+ 		return false
+-	var ancestor := target.get_parent()
+-	while ancestor != null:
+-		if ancestor is ScrollContainer:
+-			ancestor.ensure_control_visible(target)
+-		ancestor = ancestor.get_parent()
+-	await _settle()
++	await _scroll_into_view(target)
+ 	var point := target.get_global_transform_with_canvas() * (target.size * 0.5)
+ 	if not root.get_visible_rect().has_point(point):
+ 		_fail("Button center is outside the viewport: " + group)

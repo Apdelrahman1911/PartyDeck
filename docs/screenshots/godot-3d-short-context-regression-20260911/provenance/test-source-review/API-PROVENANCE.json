@@ -1,0 +1,94 @@
+{
+  "application": "The check queries Label character bounds, transforms them with the existing canvas transform API, intersects Control clipping ancestors, and uses settled ScrollContainer positioning. The target fixture uses ordinary unrotated UI controls in the same canvas; this is not a general transformed-canvas clipping checker.",
+  "commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+  "officialRepository": "https://github.com/godotengine/godot",
+  "reviewer": "/root/pixel_d2_sea",
+  "sources": [
+    {
+      "bytes": 11654,
+      "equalsPinnedCommitBlob": true,
+      "excerpts": [
+        {
+          "lineEnd": 20,
+          "lineStart": 14,
+          "text": "\t\t<method name=\"get_character_bounds\" qualifiers=\"const\">\n\t\t\t<return type=\"Rect2\" />\n\t\t\t<param index=\"0\" name=\"pos\" type=\"int\" />\n\t\t\t<description>\n\t\t\t\tReturns the bounding rectangle of the character at position [param pos] in the label's local coordinate system. If the character is a non-visual character or [param pos] is outside the valid range, an empty [Rect2] is returned. If the character is a part of a composite grapheme, the bounding rectangle of the whole grapheme is returned.\n\t\t\t</description>\n\t\t</method>"
+        }
+      ],
+      "file": "/root/projects/PartyDeck/godot/ios-host/build/upstream/doc/classes/Label.xml",
+      "repositoryPath": "doc/classes/Label.xml",
+      "sha256": "42089065f29c53a62b276c65f5890a53f9a3d929347477b8585febe80702553a",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/doc/classes/Label.xml"
+    },
+    {
+      "bytes": 113375,
+      "equalsPinnedCommitBlob": true,
+      "excerpts": [
+        {
+          "lineEnd": 491,
+          "lineStart": 484,
+          "text": "\t\t<method name=\"get_global_rect\" qualifiers=\"const\">\n\t\t\t<return type=\"Rect2\" />\n\t\t\t<description>\n\t\t\t\tReturns the position and size of the control relative to the containing canvas. See [member global_position] and [member size].\n\t\t\t\t[b]Note:[/b] If the node itself or any parent [CanvasItem] between the node and the canvas have a non default rotation or skew, the resulting size is likely not meaningful.\n\t\t\t\t[b]Note:[/b] Setting [member Viewport.gui_snap_controls_to_pixels] to [code]true[/code] can lead to rounding inaccuracies between the displayed control and the returned [Rect2].\n\t\t\t</description>\n\t\t</method>"
+        },
+        {
+          "lineEnd": 1077,
+          "lineStart": 1074,
+          "text": "\t\t<member name=\"clip_contents\" type=\"bool\" setter=\"set_clip_contents\" getter=\"is_clipping_contents\" default=\"false\">\n\t\t\tEnables whether rendering of [CanvasItem] based children should be clipped to this control's rectangle. If [code]true[/code], parts of a child which would be visibly outside of this control's rectangle will not be rendered and won't receive input.\n\t\t</member>\n\t\t<member name=\"custom_maximum_size\" type=\"Vector2\" setter=\"set_custom_maximum_size\" getter=\"get_custom_maximum_size\" default=\"Vector2(-1, -1)\">"
+        }
+      ],
+      "file": "/root/projects/PartyDeck/godot/ios-host/build/upstream/doc/classes/Control.xml",
+      "repositoryPath": "doc/classes/Control.xml",
+      "sha256": "07187df29c9cc0ccb1516457821e0a5827b7735743ad9e458cf45ebef63048bf",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/doc/classes/Control.xml"
+    },
+    {
+      "bytes": 11360,
+      "equalsPinnedCommitBlob": true,
+      "excerpts": [
+        {
+          "lineEnd": 26,
+          "lineStart": 13,
+          "text": "\t\t<method name=\"ensure_control_visible\">\n\t\t\t<return type=\"void\" />\n\t\t\t<param index=\"0\" name=\"control\" type=\"Control\" />\n\t\t\t<description>\n\t\t\t\tEnsures the given [param control] is visible (must be a direct or indirect child of the ScrollContainer). Used by [member follow_focus].\n\t\t\t\t[b]Note:[/b] This will not work on a node that was just added during the same frame. If you want to scroll to a newly added child, you must wait until the next frame using [signal SceneTree.process_frame]:\n\t\t\t\t[codeblock]\n\t\t\t\tadd_child(child_node)\n\t\t\t\tawait get_tree().process_frame\n\t\t\t\tensure_control_visible(child_node)\n\t\t\t\t[/codeblock]\n\t\t\t</description>\n\t\t</method>\n\t\t<method name=\"get_h_scroll_bar\">"
+        },
+        {
+          "lineEnd": 82,
+          "lineStart": 75,
+          "text": "\t\t<member name=\"scroll_vertical\" type=\"int\" setter=\"set_v_scroll\" getter=\"get_v_scroll\" default=\"0\">\n\t\t\tThe current vertical scroll value.\n\t\t\t[b]Note:[/b] Setting it early needs to be deferred, just like in [member scroll_horizontal].\n\t\t\t[codeblock]\n\t\t\tfunc _ready():\n\t\t\t\tset_deferred(\"scroll_vertical\", 600)\n\t\t\t[/codeblock]\n\t\t</member>"
+        }
+      ],
+      "file": "/root/projects/PartyDeck/godot/ios-host/build/upstream/doc/classes/ScrollContainer.xml",
+      "repositoryPath": "doc/classes/ScrollContainer.xml",
+      "sha256": "9a80037549da39e3080f06567fb2d6a2b8cb50b428454c74cde42974cc1b2cc8",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/doc/classes/ScrollContainer.xml"
+    },
+    {
+      "bytes": 101558,
+      "equalsPinnedCommitBlob": true,
+      "excerpts": [
+        {
+          "lineEnd": 313,
+          "lineStart": 301,
+          "text": "\t\t<method name=\"find_children\" qualifiers=\"const\">\n\t\t\t<return type=\"Node[]\" />\n\t\t\t<param index=\"0\" name=\"pattern\" type=\"String\" />\n\t\t\t<param index=\"1\" name=\"type\" type=\"String\" default=\"&quot;&quot;\" />\n\t\t\t<param index=\"2\" name=\"recursive\" type=\"bool\" default=\"true\" />\n\t\t\t<param index=\"3\" name=\"owned\" type=\"bool\" default=\"true\" />\n\t\t\t<description>\n\t\t\t\tFinds all descendants of this node whose names match [param pattern], returning an empty [Array] if no match is found. The matching is done against node names, [i]not[/i] their paths, through [method String.match]. As such, it is case-sensitive, [code]\"*\"[/code] matches zero or more characters, and [code]\"?\"[/code] matches any single character.\n\t\t\t\tIf [param type] is not empty, only descendants inheriting from [param type] are included (see [method Object.is_class]).\n\t\t\t\tIf [param recursive] is [code]false[/code], only this node's direct children are checked. Nodes are checked in tree order, so this node's first direct child is checked first, then its own direct children, etc., before moving to the second direct child, and so on. Internal children are also included in the search (see [code]internal[/code] parameter in [method add_child]).\n\t\t\t\tIf [param owned] is [code]true[/code], only descendants with a valid [member owner] node are checked.\n\t\t\t\t[b]Note:[/b] This method can be very slow. Consider storing references to the found nodes in a variable.\n\t\t\t\t[b]Note:[/b] To find a single descendant node matching a pattern, see [method find_child]."
+        }
+      ],
+      "file": "/root/projects/PartyDeck/godot/ios-host/build/upstream/doc/classes/Node.xml",
+      "repositoryPath": "doc/classes/Node.xml",
+      "sha256": "a01a3f510be5ff6fc3389c28b7347f01823edc359ac2e4b1f60bf343177b1f5d",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/doc/classes/Node.xml"
+    },
+    {
+      "bytes": 67095,
+      "equalsPinnedCommitBlob": true,
+      "excerpts": [
+        {
+          "lineEnd": 507,
+          "lineStart": 501,
+          "text": "\t\t<method name=\"get_global_transform_with_canvas\" qualifiers=\"const\">\n\t\t\t<return type=\"Transform2D\" />\n\t\t\t<description>\n\t\t\t\tReturns the transform from the local coordinate system of this [CanvasItem] to the [Viewport]s coordinate system.\n\t\t\t</description>\n\t\t</method>\n\t\t<method name=\"get_instance_shader_parameter\" qualifiers=\"const\">"
+        }
+      ],
+      "file": "/root/projects/PartyDeck/godot/ios-host/build/upstream/doc/classes/CanvasItem.xml",
+      "repositoryPath": "doc/classes/CanvasItem.xml",
+      "sha256": "dea41259286d52a77549c386770f185a99b55b2a3b59a83f969f18cbf327227c",
+      "url": "https://github.com/godotengine/godot/blob/ed1daf0bf001b61586d9930840f2f1394092c079/doc/classes/CanvasItem.xml"
+    }
+  ],
+  "verifiedAtUtc": "2026-09-11T03:03:27.757835+00:00"
+}

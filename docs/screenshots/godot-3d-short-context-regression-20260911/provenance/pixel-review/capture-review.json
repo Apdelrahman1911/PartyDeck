@@ -1,0 +1,628 @@
+{
+  "schema_version": 1,
+  "status": "complete_for_nine_assigned_capture_identities",
+  "reviewer": "/root/pixel_d1_split",
+  "task": "Independent visual review of 3D short-window public-context regression captures",
+  "source_freeze": {
+    "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/FROZEN.json",
+    "bytes": 105882,
+    "sha256": "322d21d29051067fa8f0e8355ee5159937ede9921f59680b96db1ab4951c65ff"
+  },
+  "source_capture_manifest": {
+    "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/CAPTURES.json",
+    "bytes": 3654,
+    "sha256": "5fa95837fde9563f6d816777ae3160a2c881196aecfb64b8685da767e9ac7092"
+  },
+  "source_input_snapshot": {
+    "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/input-snapshot.json",
+    "bytes": 2201,
+    "sha256": "45d68553a801e57e3e94dc0fa94b6483bd1874eaf7a85e2529fbc2c4056a2cd2"
+  },
+  "source_run_documentation": {
+    "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/RUN.md",
+    "bytes": 2802,
+    "sha256": "2501de70d0f462d5a5b3868263957cc0292fac04d68190a50ee973150085f3de"
+  },
+  "producer_report": {
+    "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/REPORT.md",
+    "bytes": 3908,
+    "sha256": "15953b683e29994950539b82d133f590cffc01e7f3c3e5a90a31ffd35b8d7708"
+  },
+  "source_renderer_pins": {
+    "baseline": {
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/baseline-project/presentations/three_d/table.gd",
+      "bytes": 40950,
+      "sha256": "a9edd383b71832b41d3fd307d3cf4397fe33df099c54471cb16006da0246e061"
+    },
+    "candidate": {
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/candidate-project/presentations/three_d/table.gd",
+      "bytes": 42269,
+      "sha256": "a91e94b910f763efb9c108d9e7602230736c503c6e53e4bd018a61ad9eebeb4d"
+    }
+  },
+  "producer_geometry": {
+    "physicalWidth": 389,
+    "physicalHeight": 215,
+    "logicalWidth": 389,
+    "logicalHeight": 215,
+    "density": 1,
+    "textScale": 2.0
+  },
+  "geometry_attribution": "PNG width and height independently checked; other geometry fields retained from pinned producer metadata.",
+  "expected_source_outcome_counts": {
+    "baseline_failed_regression": 2,
+    "candidate_passed_regression": 7
+  },
+  "source_outcome_attribution": "Outcomes above come from producer CAPTURES.json. Coordinator assigned test/source approval to pixel_d2_sea separately; this receipt makes visual findings only.",
+  "method": {
+    "pixel_review_only": true,
+    "full_resolution_original_detail": true,
+    "no_sampling_cropping_scaling_or_new_captures": true,
+    "direct_tool": "tools.view_image",
+    "repeats": "Independent raw-byte comparison plus SHA-256 and length equality to an original-detail direct representative.",
+    "frozen_source_files_hashed_before_and_after_review": 531
+  },
+  "coverage": {
+    "capture_count": 9,
+    "direct": 8,
+    "reviewed_byte_match": 1,
+    "unviewed": 0,
+    "distinct_payloads": 8
+  },
+  "conclusion": "The baseline current-claim line is visibly clipped. Candidate captures show turn/round content in a body viewport, full card-selection controls at saved positions, and a fully visible Challenge Orbit control. The complete current-claim sentence and complete Play control are not displayed in this nine-image set, so the visual result is narrower than the separate regression test approval.",
+  "findings": [
+    {
+      "id": "baseline-claim-clipped",
+      "classification": "visible_text_clipping",
+      "capture_indices": [
+        0,
+        1
+      ],
+      "observation": "The baseline shows Crown table · round 4 and Your turn, while the current-claim line starts at the bottom edge and is visibly cut off. The two baseline PNGs are exact-byte duplicates.",
+      "interaction_defect_confirmed_by_this_review": false
+    },
+    {
+      "id": "candidate-initial-turn-and-round",
+      "classification": "visible_fixed_source_difference",
+      "capture_indices": [
+        2
+      ],
+      "observation": "The candidate shows a body scrollbar with Your turn and ROUND 4 beneath the persistent back/Show hand row. The Crown rank label and full claim are absent at this saved position.",
+      "interaction_defect_confirmed_by_this_review": false
+    },
+    {
+      "id": "candidate-selection-state-labels",
+      "classification": "visible_state_presentation",
+      "capture_indices": [
+        3,
+        4,
+        5
+      ],
+      "observation": "Selected · Crown, Select · Moon and Select · Crown controls are fully legible in their respective captures. The Crown selected/deselected presentations differ in both wording and fill, under a visible Hide hand control. Adjacent control fragments are clipped at the lower body boundary.",
+      "interaction_defect_confirmed_by_this_review": false
+    },
+    {
+      "id": "candidate-visible-challenge",
+      "classification": "visible_control_with_scope_limit",
+      "capture_indices": [
+        6,
+        7
+      ],
+      "observation": "Challenge Orbit is fully visible. Another control is only a bottom fragment at the top of the body; its complete label and rectangle are not visually available.",
+      "interaction_defect_confirmed_by_this_review": false
+    },
+    {
+      "id": "candidate-history-clipping",
+      "classification": "visible_scroll_viewport_clipping",
+      "capture_indices": [
+        8
+      ],
+      "observation": "Hide last round is fully legible. ROUND 3 · PREVIOUS REVEAL begins at the lower edge and is vertically clipped; detailed historical content is not visible. This is previous-round context.",
+      "interaction_defect_confirmed_by_this_review": false
+    },
+    {
+      "id": "full-current-context-not-captured",
+      "classification": "visual_coverage_limitation",
+      "capture_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "observation": "The nine captures document baseline clipping and candidate control presentations, but do not visually establish the complete current-claim sentence or a fully visible Play control. Reachability approval remains separate source/test evidence.",
+      "interaction_defect_confirmed_by_this_review": false
+    }
+  ],
+  "limits": [
+    "This is a review of nine static PNG source identities only. Capture order is the source manifest order and is not an inferred timeline. No packet PTS, UTC/action alignment or continuous-privacy guarantee is assigned.",
+    "No PNG displays the complete ordinary current-claim sentence. Candidate 01-concealed displays Your turn and ROUND 4; the complete claim is outside the saved viewport.",
+    "Challenge Orbit is fully visible in candidate 03-covered-again and 04-resumed-covered. A complete readable Play control is not shown in the nine captures, so both projected actions are not visually qualified by these stills.",
+    "Drawn scrollbars and different saved content positions do not establish successful input, scrolling reachability, selection-limit enforcement, lifecycle recovery, authority acceptance, touch-target accessibility or physical-device behavior.",
+    "The selection-state captures show hand rank text under Hide hand. These are producer-labeled revealed states; their pixels do not establish cover ordering before or after input.",
+    "No 3D table geometry or card-face artwork is visible in these short-window captures. Renderer source attribution is preserved by hash; the stills alone do not qualify real 3D geometry rendering.",
+    "PNG IHDR dimensions of 389 by 215 were independently checked. Logical dimensions, density and text scale are producer metadata from the pinned input snapshot, not platform facts inferred from pixels.",
+    "No tests, builds, captures, downloads, renderer launches, original-video decodes or shared-file writes were performed. Original frozen files were rehashed after review and remain byte-identical."
+  ],
+  "direct_view_calls": [
+    {
+      "capture_index_zero_based": 0,
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/baseline/01-concealed.png",
+      "sha256": "7d7bfb85cb75d9371dc3e238a76f8c8206812018271919f894baf6150cd161b7",
+      "bytes": 18707,
+      "reviewer": "/root/pixel_d1_split",
+      "detail": "original"
+    },
+    {
+      "capture_index_zero_based": 2,
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/candidate/01-concealed.png",
+      "sha256": "9dd0d8e133adb620c0b466adb7bc4425082fd678af8e555a914baff67ac86f40",
+      "bytes": 11908,
+      "reviewer": "/root/pixel_d1_split",
+      "detail": "original"
+    },
+    {
+      "capture_index_zero_based": 3,
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/candidate/02-revealed-selected.png",
+      "sha256": "e8f78bb666da87bea1d4fa306382103223502ecb6ccbee6ed04ac8708c1d5f4c",
+      "bytes": 13653,
+      "reviewer": "/root/pixel_d1_split",
+      "detail": "original"
+    },
+    {
+      "capture_index_zero_based": 4,
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/candidate/02a-selection-limit.png",
+      "sha256": "4447566988fdc893cd00663e2f60d77a4661be982c24cdf1b737a7746684f35a",
+      "bytes": 12491,
+      "reviewer": "/root/pixel_d1_split",
+      "detail": "original"
+    },
+    {
+      "capture_index_zero_based": 5,
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/candidate/02b-deselected-last.png",
+      "sha256": "25e0c0aafb0a81ce312f5af968f7e83251aefb6b4835b577c1e1798de6c0e77c",
+      "bytes": 13288,
+      "reviewer": "/root/pixel_d1_split",
+      "detail": "original"
+    },
+    {
+      "capture_index_zero_based": 6,
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/candidate/03-covered-again.png",
+      "sha256": "758ff4b8db30d4042342786a240da7e3fba1042a84a2523d76efd05b151e2b29",
+      "bytes": 14613,
+      "reviewer": "/root/pixel_d1_split",
+      "detail": "original"
+    },
+    {
+      "capture_index_zero_based": 7,
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/candidate/04-resumed-covered.png",
+      "sha256": "9e5247ecff9a4c08902999886450aa2aee3795c84e7eb64b292e3eaf98142125",
+      "bytes": 14046,
+      "reviewer": "/root/pixel_d1_split",
+      "detail": "original"
+    },
+    {
+      "capture_index_zero_based": 8,
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/candidate/04a-previous-round.png",
+      "sha256": "736f0cbd1a70f1320b8e650da516a9ea9c2db459767ffe9b57a51c47e0b1f75f",
+      "bytes": 16212,
+      "reviewer": "/root/pixel_d1_split",
+      "detail": "original"
+    }
+  ],
+  "captures": [
+    {
+      "capture_index_zero_based": 0,
+      "source_manifest_index_zero_based": 0,
+      "source_id": "runs/pair-v1/baseline/01-concealed.png",
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/baseline/01-concealed.png",
+      "sha256": "7d7bfb85cb75d9371dc3e238a76f8c8206812018271919f894baf6150cd161b7",
+      "bytes": 18707,
+      "width": 389,
+      "height": 215,
+      "source_run": "baseline",
+      "source_expected_outcome": "failed regression",
+      "source_outcome_attribution": "Producer CAPTURES.json; test execution and source approval are separate from this visual review.",
+      "historical_source_review_status": "not independently pixel-reviewed",
+      "reviewer": "/root/pixel_d1_split",
+      "coverage": "direct",
+      "reviewed_reference": {
+        "capture_index_zero_based": 0,
+        "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/baseline/01-concealed.png",
+        "sha256": "7d7bfb85cb75d9371dc3e238a76f8c8206812018271919f894baf6150cd161b7",
+        "bytes": 18707,
+        "reviewer": "/root/pixel_d1_split",
+        "detail": "original",
+        "width": 389,
+        "height": 215
+      },
+      "independent_validation": {
+        "sha256_verified_before_and_after_review": true,
+        "length_verified_before_and_after_review": true,
+        "png_ihdr_dimensions_verified": true,
+        "raw_bytes_equal_to_direct_reference": null
+      },
+      "pixel_observation": {
+        "state": "Baseline initial concealed capture",
+        "private_card_faces_visible": false,
+        "visible_public_context": [
+          "Crown table · round 4",
+          "Your turn"
+        ],
+        "observation": "A large Show hand control and back control occupy the top. Crown table · round 4 and Your turn are visible below. Only the top of the ordinary claim line begins at the bottom edge; its full wording and the action controls are not visible.",
+        "layout_finding": "Ordinary claim text is visibly clipped by the bottom image boundary. No body scrollbar is visible in this captured viewport.",
+        "limits": [
+          "This still does not establish whether or how the baseline can scroll; producer regression failure is separate evidence."
+        ],
+        "private_hand_information_visible": false
+      }
+    },
+    {
+      "capture_index_zero_based": 1,
+      "source_manifest_index_zero_based": 1,
+      "source_id": "runs/pair-v1/baseline/failure.png",
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/baseline/failure.png",
+      "sha256": "7d7bfb85cb75d9371dc3e238a76f8c8206812018271919f894baf6150cd161b7",
+      "bytes": 18707,
+      "width": 389,
+      "height": 215,
+      "source_run": "baseline",
+      "source_expected_outcome": "failed regression",
+      "source_outcome_attribution": "Producer CAPTURES.json; test execution and source approval are separate from this visual review.",
+      "historical_source_review_status": "not independently pixel-reviewed",
+      "reviewer": "/root/pixel_d1_split",
+      "coverage": "reviewed_byte_match",
+      "reviewed_reference": {
+        "capture_index_zero_based": 0,
+        "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/baseline/01-concealed.png",
+        "sha256": "7d7bfb85cb75d9371dc3e238a76f8c8206812018271919f894baf6150cd161b7",
+        "bytes": 18707,
+        "reviewer": "/root/pixel_d1_split",
+        "detail": "original",
+        "width": 389,
+        "height": 215
+      },
+      "independent_validation": {
+        "sha256_verified_before_and_after_review": true,
+        "length_verified_before_and_after_review": true,
+        "png_ihdr_dimensions_verified": true,
+        "raw_bytes_equal_to_direct_reference": true
+      },
+      "pixel_observation": {
+        "state": "Baseline initial concealed capture",
+        "private_card_faces_visible": false,
+        "visible_public_context": [
+          "Crown table · round 4",
+          "Your turn"
+        ],
+        "observation": "A large Show hand control and back control occupy the top. Crown table · round 4 and Your turn are visible below. Only the top of the ordinary claim line begins at the bottom edge; its full wording and the action controls are not visible.",
+        "layout_finding": "Ordinary claim text is visibly clipped by the bottom image boundary. No body scrollbar is visible in this captured viewport.",
+        "limits": [
+          "This still does not establish whether or how the baseline can scroll; producer regression failure is separate evidence."
+        ],
+        "private_hand_information_visible": false
+      }
+    },
+    {
+      "capture_index_zero_based": 2,
+      "source_manifest_index_zero_based": 2,
+      "source_id": "runs/pair-v1/candidate/01-concealed.png",
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/candidate/01-concealed.png",
+      "sha256": "9dd0d8e133adb620c0b466adb7bc4425082fd678af8e555a914baff67ac86f40",
+      "bytes": 11908,
+      "width": 389,
+      "height": 215,
+      "source_run": "candidate",
+      "source_expected_outcome": "passed regression",
+      "source_outcome_attribution": "Producer CAPTURES.json; test execution and source approval are separate from this visual review.",
+      "historical_source_review_status": "not independently pixel-reviewed",
+      "reviewer": "/root/pixel_d1_split",
+      "coverage": "direct",
+      "reviewed_reference": {
+        "capture_index_zero_based": 2,
+        "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/candidate/01-concealed.png",
+        "sha256": "9dd0d8e133adb620c0b466adb7bc4425082fd678af8e555a914baff67ac86f40",
+        "bytes": 11908,
+        "reviewer": "/root/pixel_d1_split",
+        "detail": "original",
+        "width": 389,
+        "height": 215
+      },
+      "independent_validation": {
+        "sha256_verified_before_and_after_review": true,
+        "length_verified_before_and_after_review": true,
+        "png_ihdr_dimensions_verified": true,
+        "raw_bytes_equal_to_direct_reference": null
+      },
+      "pixel_observation": {
+        "state": "Candidate initial concealed capture",
+        "private_card_faces_visible": false,
+        "visible_public_context": [
+          "Your turn",
+          "ROUND 4"
+        ],
+        "observation": "The top back and Show hand controls remain fully visible. The body below shows Your turn and ROUND 4, with a vertical scrollbar at the right. The ordinary claim text, Crown rank label and actions are not visible at this saved position.",
+        "layout_finding": "The candidate visibly has a scrollable-looking body area under the header; this still shows turn and round without the baseline's partially clipped claim line.",
+        "limits": [
+          "A drawn scrollbar is not evidence of successful scrolling, full current-claim readability, or reachable actions."
+        ],
+        "private_hand_information_visible": false
+      }
+    },
+    {
+      "capture_index_zero_based": 3,
+      "source_manifest_index_zero_based": 3,
+      "source_id": "runs/pair-v1/candidate/02-revealed-selected.png",
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/candidate/02-revealed-selected.png",
+      "sha256": "e8f78bb666da87bea1d4fa306382103223502ecb6ccbee6ed04ac8708c1d5f4c",
+      "bytes": 13653,
+      "width": 389,
+      "height": 215,
+      "source_run": "candidate",
+      "source_expected_outcome": "passed regression",
+      "source_outcome_attribution": "Producer CAPTURES.json; test execution and source approval are separate from this visual review.",
+      "historical_source_review_status": "not independently pixel-reviewed",
+      "reviewer": "/root/pixel_d1_split",
+      "coverage": "direct",
+      "reviewed_reference": {
+        "capture_index_zero_based": 3,
+        "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/candidate/02-revealed-selected.png",
+        "sha256": "e8f78bb666da87bea1d4fa306382103223502ecb6ccbee6ed04ac8708c1d5f4c",
+        "bytes": 13653,
+        "reviewer": "/root/pixel_d1_split",
+        "detail": "original",
+        "width": 389,
+        "height": 215
+      },
+      "independent_validation": {
+        "sha256_verified_before_and_after_review": true,
+        "length_verified_before_and_after_review": true,
+        "png_ihdr_dimensions_verified": true,
+        "raw_bytes_equal_to_direct_reference": null
+      },
+      "pixel_observation": {
+        "state": "Candidate revealed selected-card capture",
+        "private_card_faces_visible": false,
+        "private_hand_information_visible": true,
+        "visible_public_context": [],
+        "observation": "Hide hand and the back control remain visible at the top. A complete citron-filled control reads Selected · Crown. The upper edge of another filled control is clipped at the body viewport's bottom. No 3D card artwork is displayed.",
+        "layout_finding": "The selected-card control has both a text state and a filled treatment. The full ordinary claim, round and action controls are outside this saved position.",
+        "limits": [
+          "The Crown rank is visible hand information in the producer-labeled revealed state, not evidence of unintended exposure.",
+          "The image does not prove a successful selection action or authority acceptance."
+        ]
+      }
+    },
+    {
+      "capture_index_zero_based": 4,
+      "source_manifest_index_zero_based": 4,
+      "source_id": "runs/pair-v1/candidate/02a-selection-limit.png",
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/candidate/02a-selection-limit.png",
+      "sha256": "4447566988fdc893cd00663e2f60d77a4661be982c24cdf1b737a7746684f35a",
+      "bytes": 12491,
+      "width": 389,
+      "height": 215,
+      "source_run": "candidate",
+      "source_expected_outcome": "passed regression",
+      "source_outcome_attribution": "Producer CAPTURES.json; test execution and source approval are separate from this visual review.",
+      "historical_source_review_status": "not independently pixel-reviewed",
+      "reviewer": "/root/pixel_d1_split",
+      "coverage": "direct",
+      "reviewed_reference": {
+        "capture_index_zero_based": 4,
+        "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/candidate/02a-selection-limit.png",
+        "sha256": "4447566988fdc893cd00663e2f60d77a4661be982c24cdf1b737a7746684f35a",
+        "bytes": 12491,
+        "reviewer": "/root/pixel_d1_split",
+        "detail": "original",
+        "width": 389,
+        "height": 215
+      },
+      "independent_validation": {
+        "sha256_verified_before_and_after_review": true,
+        "length_verified_before_and_after_review": true,
+        "png_ihdr_dimensions_verified": true,
+        "raw_bytes_equal_to_direct_reference": null
+      },
+      "pixel_observation": {
+        "state": "Candidate selection-limit capture",
+        "private_card_faces_visible": false,
+        "private_hand_information_visible": true,
+        "visible_public_context": [],
+        "observation": "Hide hand and the back control remain visible. A complete outlined control reads Select · Moon. The next control is partly visible below the body boundary, and a scrollbar thumb is visible on the right.",
+        "layout_finding": "The Moon control label fits and carries a text selection affordance. No selection-count or selection-limit message is visible at this saved position.",
+        "limits": [
+          "The Moon rank is visible hand information in the producer-labeled revealed state.",
+          "Selection-limit enforcement is not independently established by this still; it is a separate test result."
+        ]
+      }
+    },
+    {
+      "capture_index_zero_based": 5,
+      "source_manifest_index_zero_based": 5,
+      "source_id": "runs/pair-v1/candidate/02b-deselected-last.png",
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/candidate/02b-deselected-last.png",
+      "sha256": "25e0c0aafb0a81ce312f5af968f7e83251aefb6b4835b577c1e1798de6c0e77c",
+      "bytes": 13288,
+      "width": 389,
+      "height": 215,
+      "source_run": "candidate",
+      "source_expected_outcome": "passed regression",
+      "source_outcome_attribution": "Producer CAPTURES.json; test execution and source approval are separate from this visual review.",
+      "historical_source_review_status": "not independently pixel-reviewed",
+      "reviewer": "/root/pixel_d1_split",
+      "coverage": "direct",
+      "reviewed_reference": {
+        "capture_index_zero_based": 5,
+        "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/candidate/02b-deselected-last.png",
+        "sha256": "25e0c0aafb0a81ce312f5af968f7e83251aefb6b4835b577c1e1798de6c0e77c",
+        "bytes": 13288,
+        "reviewer": "/root/pixel_d1_split",
+        "detail": "original",
+        "width": 389,
+        "height": 215
+      },
+      "independent_validation": {
+        "sha256_verified_before_and_after_review": true,
+        "length_verified_before_and_after_review": true,
+        "png_ihdr_dimensions_verified": true,
+        "raw_bytes_equal_to_direct_reference": null
+      },
+      "pixel_observation": {
+        "state": "Candidate deselected-card capture",
+        "private_card_faces_visible": false,
+        "private_hand_information_visible": true,
+        "visible_public_context": [],
+        "observation": "Hide hand and the back control remain visible. A complete outlined control reads Select · Crown, compared with Selected · Crown and a filled treatment in the selected capture. Another filled control is partially cut at the body boundary.",
+        "layout_finding": "The visible Crown control distinguishes the saved selected and deselected presentations in both wording and treatment. Other content remains outside the short viewport.",
+        "limits": [
+          "The Crown rank is visible hand information in the producer-labeled revealed state.",
+          "The image does not establish the input sequence or authority acceptance."
+        ]
+      }
+    },
+    {
+      "capture_index_zero_based": 6,
+      "source_manifest_index_zero_based": 6,
+      "source_id": "runs/pair-v1/candidate/03-covered-again.png",
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/candidate/03-covered-again.png",
+      "sha256": "758ff4b8db30d4042342786a240da7e3fba1042a84a2523d76efd05b151e2b29",
+      "bytes": 14613,
+      "width": 389,
+      "height": 215,
+      "source_run": "candidate",
+      "source_expected_outcome": "passed regression",
+      "source_outcome_attribution": "Producer CAPTURES.json; test execution and source approval are separate from this visual review.",
+      "historical_source_review_status": "not independently pixel-reviewed",
+      "reviewer": "/root/pixel_d1_split",
+      "coverage": "direct",
+      "reviewed_reference": {
+        "capture_index_zero_based": 6,
+        "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/candidate/03-covered-again.png",
+        "sha256": "758ff4b8db30d4042342786a240da7e3fba1042a84a2523d76efd05b151e2b29",
+        "bytes": 14613,
+        "reviewer": "/root/pixel_d1_split",
+        "detail": "original",
+        "width": 389,
+        "height": 215
+      },
+      "independent_validation": {
+        "sha256_verified_before_and_after_review": true,
+        "length_verified_before_and_after_review": true,
+        "png_ihdr_dimensions_verified": true,
+        "raw_bytes_equal_to_direct_reference": null
+      },
+      "pixel_observation": {
+        "state": "Candidate covered-again action capture",
+        "private_card_faces_visible": false,
+        "private_hand_information_visible": false,
+        "visible_public_context": [
+          "Challenge Orbit"
+        ],
+        "observation": "Show hand and the back control are fully visible. Challenge Orbit is fully visible in the lower body. Only the bottom fragment of another control and its unreadable text appears at the top of the clipped body area. No hand rank text or card face is visible.",
+        "layout_finding": "Challenge Orbit fits in the saved viewport. The other projected action is not shown as a complete readable control here; the ordinary claim and round are absent at this saved position.",
+        "limits": [
+          "The still records visible covered-state content only; it does not prove cover ordering or continuous privacy.",
+          "No action invocation or authority acceptance is established."
+        ]
+      }
+    },
+    {
+      "capture_index_zero_based": 7,
+      "source_manifest_index_zero_based": 7,
+      "source_id": "runs/pair-v1/candidate/04-resumed-covered.png",
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/candidate/04-resumed-covered.png",
+      "sha256": "9e5247ecff9a4c08902999886450aa2aee3795c84e7eb64b292e3eaf98142125",
+      "bytes": 14046,
+      "width": 389,
+      "height": 215,
+      "source_run": "candidate",
+      "source_expected_outcome": "passed regression",
+      "source_outcome_attribution": "Producer CAPTURES.json; test execution and source approval are separate from this visual review.",
+      "historical_source_review_status": "not independently pixel-reviewed",
+      "reviewer": "/root/pixel_d1_split",
+      "coverage": "direct",
+      "reviewed_reference": {
+        "capture_index_zero_based": 7,
+        "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/candidate/04-resumed-covered.png",
+        "sha256": "9e5247ecff9a4c08902999886450aa2aee3795c84e7eb64b292e3eaf98142125",
+        "bytes": 14046,
+        "reviewer": "/root/pixel_d1_split",
+        "detail": "original",
+        "width": 389,
+        "height": 215
+      },
+      "independent_validation": {
+        "sha256_verified_before_and_after_review": true,
+        "length_verified_before_and_after_review": true,
+        "png_ihdr_dimensions_verified": true,
+        "raw_bytes_equal_to_direct_reference": null
+      },
+      "pixel_observation": {
+        "state": "Candidate resumed-covered action capture",
+        "private_card_faces_visible": false,
+        "private_hand_information_visible": false,
+        "visible_public_context": [
+          "Challenge Orbit"
+        ],
+        "observation": "Show hand and the back control remain visible, with Challenge Orbit fully visible in the lower body. The bottom fragment of another control is clipped at the body's top. No hand rank text or card face is visible.",
+        "layout_finding": "The same action content remains visible as in the covered-again capture, with a different visible Show hand outline treatment. Current-claim text and round are absent at this saved position.",
+        "limits": [
+          "The producer's resumed label does not by itself prove a lifecycle transition or recovery behavior.",
+          "No continuous privacy, action invocation or authority acceptance is established."
+        ]
+      }
+    },
+    {
+      "capture_index_zero_based": 8,
+      "source_manifest_index_zero_based": 8,
+      "source_id": "runs/pair-v1/candidate/04a-previous-round.png",
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/candidate/04a-previous-round.png",
+      "sha256": "736f0cbd1a70f1320b8e650da516a9ea9c2db459767ffe9b57a51c47e0b1f75f",
+      "bytes": 16212,
+      "width": 389,
+      "height": 215,
+      "source_run": "candidate",
+      "source_expected_outcome": "passed regression",
+      "source_outcome_attribution": "Producer CAPTURES.json; test execution and source approval are separate from this visual review.",
+      "historical_source_review_status": "not independently pixel-reviewed",
+      "reviewer": "/root/pixel_d1_split",
+      "coverage": "direct",
+      "reviewed_reference": {
+        "capture_index_zero_based": 8,
+        "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/candidate/04a-previous-round.png",
+        "sha256": "736f0cbd1a70f1320b8e650da516a9ea9c2db459767ffe9b57a51c47e0b1f75f",
+        "bytes": 16212,
+        "reviewer": "/root/pixel_d1_split",
+        "detail": "original",
+        "width": 389,
+        "height": 215
+      },
+      "independent_validation": {
+        "sha256_verified_before_and_after_review": true,
+        "length_verified_before_and_after_review": true,
+        "png_ihdr_dimensions_verified": true,
+        "raw_bytes_equal_to_direct_reference": null
+      },
+      "pixel_observation": {
+        "state": "Candidate previous-round capture",
+        "private_card_faces_visible": false,
+        "private_hand_information_visible": false,
+        "visible_public_context": [
+          "Hide last round",
+          "Partially clipped ROUND 3 · PREVIOUS REVEAL heading"
+        ],
+        "observation": "Show hand and the back control are visible above a complete Hide last round control. The start of the ROUND 3 · PREVIOUS REVEAL heading appears at the lower body edge and is vertically clipped. No prior revealed-card detail is visible.",
+        "layout_finding": "The history toggle label is readable, while the history heading and any detail continue beyond the short viewport. This is previous-round context, not a displayed change to the current round.",
+        "limits": [
+          "This capture does not visually establish the full prior-round content or the complete current-claim sentence.",
+          "History interaction behavior is separate test evidence."
+        ]
+      }
+    }
+  ]
+}

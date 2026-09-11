@@ -1,0 +1,184 @@
+{
+  "apiProvenance": {
+    "bytes": 8408,
+    "path": "/tmp/partydeck-public-context-test-independent-d2sea-s75fvth6/API-PROVENANCE.json",
+    "sha256": "83f605de092757ac2a2c877116b4f86169b3a09a3e0ad6e6c31cd5e9585adcd3"
+  },
+  "approvedCandidate": {
+    "bytes": 20460,
+    "destination": "/root/projects/PartyDeck/godot/renderer/tests/three_d_scene_check.gd",
+    "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/three_d_scene_check.gd",
+    "replacesSha256": "5d36c98fc638ebeb28c906350950bb6e7b7e5f111d560e2c62461db0c5e3d32e",
+    "sha256": "3524494dd0f1baa6f1016e2e6bb3ef9f746472202c2018559f0515140bf604d7"
+  },
+  "approvedPatch": {
+    "bytes": 5514,
+    "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/candidate.patch",
+    "sha256": "f0f2da534a699d053bdaa79aef9b5e3238e02f110e11586cb7d2cbaf471caecb"
+  },
+  "blockingFindings": [],
+  "completedAtUtc": "2026-09-11T03:05:05.273209+00:00",
+  "diff": {
+    "addedLines": 90,
+    "proposedRepositoryFiles": 1,
+    "removedLines": 6
+  },
+  "executedPairReview": {
+    "baseline": {
+      "elapsedSeconds": 1.542,
+      "exitCode": 1,
+      "expectedError": "The short viewport leaves no visible scroll space for public context or actions.",
+      "otherEngineErrors": []
+    },
+    "baselineReceipt": {
+      "bytes": 52354,
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/baseline/run-receipt.json",
+      "sha256": "3fcdf20053e3c1edaa6bace08d397ac96e80651c3f82dd3454e52d997cf4d760"
+    },
+    "existingExecutedChecks": "The fixed run completes the original reveal, card selection, selection limit, deselection, cover, foreground, previous-round history and close checks. The original Ready-only event assertion is before the history checks.",
+    "existingUnexecutedOptions": [
+      "touch-drag",
+      "lobby"
+    ],
+    "fixed": {
+      "contextObservation": {
+        "actionsReached": 2,
+        "allPublicCharactersReached": true,
+        "check": "short-public-context",
+        "claim": "Orbit claimed 1 Crown. Challenge or play on.",
+        "round": "ROUND 4",
+        "scrollHeight": 103.0,
+        "scrollReached": 907
+      },
+      "elapsedSeconds": 7.724,
+      "engineErrors": [],
+      "exitCode": 0,
+      "reportResult": "passed"
+    },
+    "fixedReceipt": {
+      "bytes": 57928,
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/candidate/run-receipt.json",
+      "sha256": "19b25318c757b4c26de44a512521eaff69d5f8b550a1c568b63a845aec7a147b"
+    },
+    "geometry": {
+      "density": 1.0,
+      "height": 215,
+      "textScale": 2.0,
+      "width": 389
+    },
+    "integrity": "All 531 files / 6,028,952 bytes of the owner seal verified; both 132-file source manifests and their four tool hashes verified against current bytes and their canonical fingerprints; pair entries equal individual receipts.",
+    "pairReceipt": {
+      "bytes": 125027,
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/pair-receipt.json",
+      "sha256": "4ef0d192b599106b6b6cb5f0a2ad48ab15e8dbed3cdcbc67392ae847bd417388"
+    },
+    "reviewerRuntimeExecution": false,
+    "sameCheckerFixtureToolsAndNormalizedArguments": true,
+    "sourceBeforeAfterIdentical": true,
+    "sourceManifestDifference": [
+      "presentations/three_d/table.gd"
+    ]
+  },
+  "functionLineNumbers": {
+    "_capture": 348,
+    "_card_stayed_visible": 339,
+    "_check_hand_drag": 392,
+    "_check_short_public_context": 185,
+    "_click": 272,
+    "_context_clip": 255,
+    "_fail": 384,
+    "_hand_targets_are_separate": 323,
+    "_initialize": 12,
+    "_private_nodes_erased": 361,
+    "_restore_integer_tokens": 366,
+    "_run": 22,
+    "_scroll_into_view": 264,
+    "_settle": 379
+  },
+  "independentEvidenceVerification": {
+    "bytes": 12552,
+    "path": "/tmp/partydeck-public-context-test-independent-d2sea-s75fvth6/EVIDENCE-VERIFICATION.json",
+    "sha256": "7e7d79c4de4fe920263d8e768c67f2fd90a28c928ce85705c2f7dd45c62526fa"
+  },
+  "nonblockingFindings": [],
+  "ownerFreeze": {
+    "bytes": 105882,
+    "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/FROZEN.json",
+    "sha256": "322d21d29051067fa8f0e8355ee5159937ede9921f59680b96db1ab4951c65ff"
+  },
+  "reviewer": "/root/pixel_d2_sea",
+  "reviewerActions": {
+    "godotRuns": 0,
+    "newCapturesDecoded": 0,
+    "patchReplay": "Private git apply --check and git apply both exited 0; the result exactly matches the approved candidate.",
+    "sharedEdits": false
+  },
+  "schemaVersion": 1,
+  "scopeLimits": [
+    "Public-context reachability uses programmatic ScrollContainer positioning, not a real wheel or swipe gesture. The original mouse-input checks continue afterward.",
+    "The new run pair omits --check-touch-drag=true and --check-lobby=true. Those optional assertions remain byte-identical but are not executed by this pair.",
+    "All nine newly generated PNG identities were hashed for integrity and remain unviewed by this reviewer; no new independent pixel coverage is claimed.",
+    "The clip helper is appropriate for the ordinary unrotated controls in this fixture. It is not qualified for transformed CanvasLayers, other SubViewports, arbitrary-name shaping or overlay occlusion.",
+    "The engine pin is verified in recorded runner evidence and official source provenance; this reviewer did not execute or freshly rehash the engine binary.",
+    "This desktop geometry/input assertion does not establish native accessibility, device rendering/input, accepted authority actions or physical-network behavior.",
+    "The completed source-fix 33-identity pixel review and all prior frozen reviews were not repeated or modified."
+  ],
+  "sharedScopedGitStatus": "",
+  "sharedSourcesAtCompletion": [
+    {
+      "bytes": 16311,
+      "path": "/root/projects/PartyDeck/godot/renderer/tests/three_d_scene_check.gd",
+      "sha256": "5d36c98fc638ebeb28c906350950bb6e7b7e5f111d560e2c62461db0c5e3d32e"
+    },
+    {
+      "bytes": 42269,
+      "path": "/root/projects/PartyDeck/godot/renderer/presentations/three_d/table.gd",
+      "sha256": "a91e94b910f763efb9c108d9e7602230736c503c6e53e4bd018a61ad9eebeb4d"
+    }
+  ],
+  "sourceReview": {
+    "apiGrounding": "Five official Godot XML documents match their blobs at ed1daf0bf001b61586d9930840f2f1394092c079. ensure_control_visible has a settled descendant; scroll changes are followed by the existing settle helper.",
+    "assertions": [
+      "The new check is opt-in and requires a validated recipient PLAYING view with a current claim.",
+      "It rejects an empty visible TableBodyScroll intersection before inspecting public content.",
+      "Expected round, claimant display name, claim count/rank and challenge guidance come from the recipient view.",
+      "Every non-whitespace character must have a positive character/grapheme rectangle enclosed by the visible ancestor clip at a reachable scroll position.",
+      "Every action projected by canPlay/canChallenge must have a visible Button with a positive full rectangle reachable inside the clip. Disabled Play before selection remains valid.",
+      "The body scroll must change; the original offset is restored before the original input/privacy assertions continue.",
+      "The new assertion does not call the renderer context-pinning or fit/layout helpers.",
+      "Whole-checker restoration is byte-identical to the original after removing the opt-in addition and reversing the exact scroll helper extraction."
+    ],
+    "existingFunctionProof": {
+      "candidateFunctionCount": 14,
+      "changedExistingFunctions": [
+        "_run",
+        "_click"
+      ],
+      "clickEqualsOriginalAfterInliningExtractedHelper": true,
+      "extractedHelperBodyExactlyMatchesOldScrollLoop": true,
+      "newFunctions": [
+        "_check_short_public_context",
+        "_context_clip",
+        "_scroll_into_view"
+      ],
+      "originalFunctionCount": 11,
+      "restoredSha256": "5d36c98fc638ebeb28c906350950bb6e7b7e5f111d560e2c62461db0c5e3d32e",
+      "runEqualsOriginalAfterRemovingOptInCall": true,
+      "unchangedFunctions": [
+        "_initialize",
+        "_hand_targets_are_separate",
+        "_card_stayed_visible",
+        "_capture",
+        "_private_nodes_erased",
+        "_restore_integer_tokens",
+        "_settle",
+        "_fail",
+        "_check_hand_drag"
+      ],
+      "wholeCheckerEqualsOriginalAfterMechanicalRestoration": true
+    },
+    "fixtureAppropriateness": "The exact ordinary-name fixture exercises both projected actions in the short desktop body. String selection and axis-aligned clipping are sufficient for this fixed regression scenario."
+  },
+  "task": "Independent source and evidence review of the opt-in short public-context regression test",
+  "verdict": "approved_for_source_integration"
+}

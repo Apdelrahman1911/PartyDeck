@@ -1,0 +1,89 @@
+{
+  "argv": [
+    "xvfb-run",
+    "-a",
+    "-s",
+    "-screen 0 1280x1600x24",
+    "/root/projects/PartyDeck/godot/qualification/build/toolchain/godot",
+    "--path",
+    "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/baseline-project",
+    "--rendering-method",
+    "gl_compatibility",
+    "--display-driver",
+    "x11",
+    "--audio-driver",
+    "Dummy",
+    "--resolution",
+    "389x215",
+    "--position",
+    "0,0",
+    "--script",
+    "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/three_d_scene_check.gd",
+    "--",
+    "--manual-bridge",
+    "--presentation=3d",
+    "--check-output=/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/baseline",
+    "--check-fixture=/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/inputs/ordinary-claim-launch.json",
+    "--check-width=389",
+    "--check-height=215",
+    "--check-text-scale=2.0",
+    "--check-short-public-context=true"
+  ],
+  "cwd": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/baseline-project",
+  "startedUtc": "2026-09-11T02:49:06.723464+00:00",
+  "before": {
+    "utc": "2026-09-11T02:49:06.723315+00:00",
+    "memAvailableBytes": 5055217664,
+    "tmpFreeBytes": 3570024448,
+    "privateWorkBytes": 5463149
+  },
+  "guardSamples": [
+    {
+      "utc": "2026-09-11T02:49:06.731377+00:00",
+      "memAvailableBytes": 5056503808,
+      "tmpFreeBytes": 3570024448,
+      "privateWorkBytes": 5463149
+    },
+    {
+      "utc": "2026-09-11T02:49:06.988455+00:00",
+      "memAvailableBytes": 5019799552,
+      "tmpFreeBytes": 3570012160,
+      "privateWorkBytes": 5463221
+    },
+    {
+      "utc": "2026-09-11T02:49:07.244838+00:00",
+      "memAvailableBytes": 4969926656,
+      "tmpFreeBytes": 3570012160,
+      "privateWorkBytes": 5463773
+    },
+    {
+      "utc": "2026-09-11T02:49:07.502248+00:00",
+      "memAvailableBytes": 4936921088,
+      "tmpFreeBytes": 3570012160,
+      "privateWorkBytes": 5463773
+    },
+    {
+      "utc": "2026-09-11T02:49:07.758882+00:00",
+      "memAvailableBytes": 4903567360,
+      "tmpFreeBytes": 3570012160,
+      "privateWorkBytes": 5463773
+    },
+    {
+      "utc": "2026-09-11T02:49:08.015209+00:00",
+      "memAvailableBytes": 4911652864,
+      "tmpFreeBytes": 3569963008,
+      "privateWorkBytes": 5504337
+    }
+  ],
+  "exitCode": 1,
+  "finishedUtc": "2026-09-11T02:49:08.265641+00:00",
+  "elapsedSeconds": 1.542,
+  "after": {
+    "utc": "2026-09-11T02:49:08.272447+00:00",
+    "memAvailableBytes": 5057146880,
+    "tmpFreeBytes": 3569971200,
+    "privateWorkBytes": 5504337
+  },
+  "log": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/baseline/godot.log",
+  "logSha256": "4e0cd03fc5d62ab3ef7c98082b50c254cc54c62a0e6f932939c9cf39ca8a4d60"
+}

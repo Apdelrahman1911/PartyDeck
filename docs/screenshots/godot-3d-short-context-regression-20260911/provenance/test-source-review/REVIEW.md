@@ -1,0 +1,13 @@
+Approved for source integration, with no blocking findings. The single proposed file is the opt-in public-context addition to `godot/renderer/tests/three_d_scene_check.gd`; its SHA-256 is `3524494dd0f1baa6f1016e2e6bb3ef9f746472202c2018559f0515140bf604d7`.
+
+The check asserts visible public text and projected-action bounds without calling the renderer's fit helpers. Expected text comes from the recipient view. It requires a nonempty body viewport, checks each non-whitespace character through ancestor clipping, reaches both projected actions, exercises the body scroll, and restores the initial offset. Disabled Play before selection is valid.
+
+The 90-added/6-removed-line patch preserves the original checker exactly after removing the opt-in addition and reversing the scroll-helper extraction. Nine existing functions are byte-identical; `_run` and `_click` restore exactly. A private `git apply --check` and replay both passed, and the replay produced the candidate bytes. Five official Godot API documents were matched to commit `ed1daf0bf001b61586d9930840f2f1394092c079`.
+
+The existing execution evidence binds the same checker, fixture, tools and arguments to both runs; their 132-file source manifests differ only at `presentations/three_d/table.gd`. At 389 × 215 and text scale 2.0, the baseline exits 1 for no visible body scroll space. The fixed renderer exits 0, reaches `ROUND 4`, all characters of `Orbit claimed 1 Crown. Challenge or play on.`, and both action rectangles. It reports body height 103 and scroll offset 907. The fixed log has no engine error. All 531 sealed owner files, totaling 6,028,952 bytes, match their recorded hashes and sizes.
+
+The fixed run also completes the original reveal, selection, selection-limit, deselection, cover, foreground, history and close checks. The original Ready-only event assertion runs before history checks. Touch-drag and lobby options were absent from this pair; their unchanged assertions were not executed here.
+
+Public-context scrolling is programmatic. All nine new PNG identities remain unviewed by this reviewer; hashing established integrity only. The checker targets ordinary unrotated controls in this exact fixture. No native accessibility, device input/rendering, authority acceptance or physical-network qualification follows. No Godot rerun, shared edit, new image decoding or repeat of the completed 33-identity source-fix pixel review occurred.
+
+Exact pins and scope are in [INDEPENDENT-REVIEW.json](INDEPENDENT-REVIEW.json). Reproducible static checks and patch replay are recorded in [EVIDENCE-VERIFICATION.json](EVIDENCE-VERIFICATION.json) and [verify_evidence.py](verify_evidence.py). [API-PROVENANCE.json](API-PROVENANCE.json) records the official API sources and excerpts.

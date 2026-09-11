@@ -1,0 +1,340 @@
+{
+  "completedAtUtc": "2026-09-11T03:02:46.587734+00:00",
+  "executionEvidence": {
+    "baselineExpectedErrorOnly": true,
+    "engineExecutedOrRehashedByReviewer": false,
+    "fixedEngineErrors": [],
+    "fixedReport": {
+      "bytes": 19227,
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/candidate/report.json",
+      "sha256": "587200547eafa3b91ab3f217270c7194161cae2940479303bb016a70825435d3"
+    },
+    "newObservation": {
+      "actionsReached": 2,
+      "allPublicCharactersReached": true,
+      "check": "short-public-context",
+      "claim": "Orbit claimed 1 Crown. Challenge or play on.",
+      "round": "ROUND 4",
+      "scrollHeight": 103.0,
+      "scrollReached": 907
+    },
+    "recordedEngine": {
+      "path": "/root/projects/PartyDeck/godot/qualification/build/toolchain/godot",
+      "sha256": "8d106cbe6144c2dc7e881d61d2429c1a8a76e6b22ef48bd5e48dcf934953f71e",
+      "version": "4.7.2.stable.official.ed1daf0bf"
+    },
+    "recordedInputs": [
+      {
+        "cardIndex": -1,
+        "input": "partydeck_action_reveal",
+        "x": 224.5,
+        "y": 50.0
+      },
+      {
+        "cardIndex": 0,
+        "input": "partydeck_hand_card",
+        "x": 190.5,
+        "y": 165.0
+      },
+      {
+        "cardIndex": 4,
+        "input": "partydeck_hand_card",
+        "x": 190.5,
+        "y": 165.0
+      },
+      {
+        "cardIndex": 1,
+        "input": "partydeck_hand_card",
+        "x": 190.5,
+        "y": 130.0
+      },
+      {
+        "cardIndex": 2,
+        "input": "partydeck_hand_card",
+        "x": 190.5,
+        "y": 165.0
+      },
+      {
+        "cardIndex": 4,
+        "input": "partydeck_hand_card",
+        "x": 190.5,
+        "y": 165.0
+      },
+      {
+        "cardIndex": -1,
+        "input": "partydeck_action_hide",
+        "x": 224.5,
+        "y": 50.0
+      },
+      {
+        "cardIndex": -1,
+        "input": "partydeck_action_reveal",
+        "x": 224.5,
+        "y": 50.0
+      },
+      {
+        "cardIndex": -1,
+        "input": "partydeck_action_history",
+        "x": 190.5,
+        "y": 144.0
+      },
+      {
+        "cardIndex": -1,
+        "input": "partydeck_action_history",
+        "x": 190.5,
+        "y": 138.0
+      }
+    ],
+    "runs": [
+      {
+        "captureCount": 2,
+        "capturesHashedOnly": true,
+        "command": {
+          "argv": [
+            "xvfb-run",
+            "-a",
+            "-s",
+            "-screen 0 1280x1600x24",
+            "/root/projects/PartyDeck/godot/qualification/build/toolchain/godot",
+            "--path",
+            "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/baseline-project",
+            "--rendering-method",
+            "gl_compatibility",
+            "--display-driver",
+            "x11",
+            "--audio-driver",
+            "Dummy",
+            "--resolution",
+            "389x215",
+            "--position",
+            "0,0",
+            "--script",
+            "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/three_d_scene_check.gd",
+            "--",
+            "--manual-bridge",
+            "--presentation=3d",
+            "--check-output=/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/baseline",
+            "--check-fixture=/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/inputs/ordinary-claim-launch.json",
+            "--check-width=389",
+            "--check-height=215",
+            "--check-text-scale=2.0",
+            "--check-short-public-context=true"
+          ],
+          "cwd": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/baseline-project",
+          "elapsedSeconds": 1.542,
+          "exitCode": 1,
+          "finishedUtc": "2026-09-11T02:49:08.265641+00:00",
+          "log": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/baseline/godot.log",
+          "logSha256": "4e0cd03fc5d62ab3ef7c98082b50c254cc54c62a0e6f932939c9cf39ca8a4d60",
+          "startedUtc": "2026-09-11T02:49:06.723464+00:00"
+        },
+        "externalInputs": {
+          "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/inputs/ordinary-claim-launch.json": "e2ebe47a74369422fe9c45feb4836d757a5e3bd5238a1c3aaaa3b980be533671",
+          "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/run_pair.py": "a4c8bc7dccf9f7db0efc7d6e282dc89f273f189c39160c9e0c64c09de36f20e6",
+          "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/three_d_scene_check.gd": "3524494dd0f1baa6f1016e2e6bb3ef9f746472202c2018559f0515140bf604d7"
+        },
+        "name": "baseline",
+        "pairEntryEqualsIndividualReceipt": true,
+        "sourceBeforeEqualsAfter": true,
+        "sourceFingerprint": "7a7997a8d4b31564e882825810e345c0ff4a2d4bd8b9f487bf286db9c577398f",
+        "verifiedSourceFiles": 132,
+        "verifiedSourceTools": 4
+      },
+      {
+        "captureCount": 7,
+        "capturesHashedOnly": true,
+        "command": {
+          "argv": [
+            "xvfb-run",
+            "-a",
+            "-s",
+            "-screen 0 1280x1600x24",
+            "/root/projects/PartyDeck/godot/qualification/build/toolchain/godot",
+            "--path",
+            "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/candidate-project",
+            "--rendering-method",
+            "gl_compatibility",
+            "--display-driver",
+            "x11",
+            "--audio-driver",
+            "Dummy",
+            "--resolution",
+            "389x215",
+            "--position",
+            "0,0",
+            "--script",
+            "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/three_d_scene_check.gd",
+            "--",
+            "--manual-bridge",
+            "--presentation=3d",
+            "--check-output=/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/candidate",
+            "--check-fixture=/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/inputs/ordinary-claim-launch.json",
+            "--check-width=389",
+            "--check-height=215",
+            "--check-text-scale=2.0",
+            "--check-short-public-context=true"
+          ],
+          "cwd": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/candidate-project",
+          "elapsedSeconds": 7.724,
+          "exitCode": 0,
+          "finishedUtc": "2026-09-11T02:49:16.038247+00:00",
+          "log": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/candidate/godot.log",
+          "logSha256": "bf5ee075b99da08912d67837a33c0a4472eefabaed16d7913b3caeff4faed41a",
+          "startedUtc": "2026-09-11T02:49:08.314179+00:00"
+        },
+        "externalInputs": {
+          "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/inputs/ordinary-claim-launch.json": "e2ebe47a74369422fe9c45feb4836d757a5e3bd5238a1c3aaaa3b980be533671",
+          "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/run_pair.py": "a4c8bc7dccf9f7db0efc7d6e282dc89f273f189c39160c9e0c64c09de36f20e6",
+          "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/three_d_scene_check.gd": "3524494dd0f1baa6f1016e2e6bb3ef9f746472202c2018559f0515140bf604d7"
+        },
+        "name": "candidate",
+        "pairEntryEqualsIndividualReceipt": true,
+        "sourceBeforeEqualsAfter": true,
+        "sourceFingerprint": "df3f323e06fcc8cfdd99998eb405044ccf3eaf4607bcac96507df334211adc79",
+        "verifiedSourceFiles": 132,
+        "verifiedSourceTools": 4
+      }
+    ],
+    "sameCheckerFixtureToolsAndNormalizedArguments": true,
+    "sourceDifferences": [
+      "presentations/three_d/table.gd"
+    ]
+  },
+  "newPixelReview": {
+    "directlyViewed": 0,
+    "identities": 9,
+    "manifest": {
+      "bytes": 3654,
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/CAPTURES.json",
+      "sha256": "5fa95837fde9563f6d816777ae3160a2c881196aecfb64b8685da767e9ac7092"
+    },
+    "note": "Hash integrity only; no new capture decoding or prior pixel review repeated.",
+    "pixelCoverageByAlias": 0,
+    "unviewed": 9
+  },
+  "ownerFreeze": {
+    "allReadOnly": true,
+    "inventoryExact": true,
+    "manifest": {
+      "bytes": 105882,
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/FROZEN.json",
+      "sha256": "322d21d29051067fa8f0e8355ee5159937ede9921f59680b96db1ab4951c65ff"
+    },
+    "verifiedBytes": 6028952,
+    "verifiedFiles": 531
+  },
+  "patchReplay": {
+    "byteIdenticalToCandidate": true,
+    "commands": [
+      {
+        "argv": [
+          "git",
+          "apply",
+          "--check",
+          "--whitespace=error-all",
+          "/tmp/partydeck-public-context-test-independent-d2sea-s75fvth6/reviewed.patch"
+        ],
+        "cwd": "/tmp/partydeck-public-context-test-independent-d2sea-s75fvth6/patch-replay",
+        "exitCode": 0,
+        "stderr": "",
+        "stdout": ""
+      },
+      {
+        "argv": [
+          "git",
+          "apply",
+          "--whitespace=error-all",
+          "/tmp/partydeck-public-context-test-independent-d2sea-s75fvth6/reviewed.patch"
+        ],
+        "cwd": "/tmp/partydeck-public-context-test-independent-d2sea-s75fvth6/patch-replay",
+        "exitCode": 0,
+        "stderr": "",
+        "stdout": ""
+      }
+    ],
+    "result": {
+      "bytes": 20460,
+      "path": "/tmp/partydeck-public-context-test-independent-d2sea-s75fvth6/patch-replay/godot/renderer/tests/three_d_scene_check.gd",
+      "sha256": "3524494dd0f1baa6f1016e2e6bb3ef9f746472202c2018559f0515140bf604d7"
+    }
+  },
+  "pinnedInputs": [
+    {
+      "bytes": 20460,
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/three_d_scene_check.gd",
+      "sha256": "3524494dd0f1baa6f1016e2e6bb3ef9f746472202c2018559f0515140bf604d7"
+    },
+    {
+      "bytes": 5514,
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/candidate.patch",
+      "sha256": "f0f2da534a699d053bdaa79aef9b5e3238e02f110e11586cb7d2cbaf471caecb"
+    },
+    {
+      "bytes": 125027,
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/pair-receipt.json",
+      "sha256": "4ef0d192b599106b6b6cb5f0a2ad48ab15e8dbed3cdcbc67392ae847bd417388"
+    },
+    {
+      "bytes": 52354,
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/baseline/run-receipt.json",
+      "sha256": "3fcdf20053e3c1edaa6bace08d397ac96e80651c3f82dd3454e52d997cf4d760"
+    },
+    {
+      "bytes": 57928,
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/runs/pair-v1/candidate/run-receipt.json",
+      "sha256": "19b25318c757b4c26de44a512521eaff69d5f8b550a1c568b63a845aec7a147b"
+    },
+    {
+      "bytes": 105882,
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/FROZEN.json",
+      "sha256": "322d21d29051067fa8f0e8355ee5159937ede9921f59680b96db1ab4951c65ff"
+    },
+    {
+      "bytes": 1392,
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/inputs/ordinary-claim-launch.json",
+      "sha256": "e2ebe47a74369422fe9c45feb4836d757a5e3bd5238a1c3aaaa3b980be533671"
+    },
+    {
+      "bytes": 40950,
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/baseline-project/presentations/three_d/table.gd",
+      "sha256": "a9edd383b71832b41d3fd307d3cf4397fe33df099c54471cb16006da0246e061"
+    },
+    {
+      "bytes": 42269,
+      "path": "/tmp/partydeck-3d-short-context-regression-20260911-w5prkctr/candidate-project/presentations/three_d/table.gd",
+      "sha256": "a91e94b910f763efb9c108d9e7602230736c503c6e53e4bd018a61ad9eebeb4d"
+    }
+  ],
+  "result": "passed",
+  "reviewer": "/root/pixel_d2_sea",
+  "sourcePreservation": {
+    "candidateFunctionCount": 14,
+    "changedExistingFunctions": [
+      "_run",
+      "_click"
+    ],
+    "clickEqualsOriginalAfterInliningExtractedHelper": true,
+    "extractedHelperBodyExactlyMatchesOldScrollLoop": true,
+    "newFunctions": [
+      "_check_short_public_context",
+      "_context_clip",
+      "_scroll_into_view"
+    ],
+    "originalFunctionCount": 11,
+    "restoredSha256": "5d36c98fc638ebeb28c906350950bb6e7b7e5f111d560e2c62461db0c5e3d32e",
+    "runEqualsOriginalAfterRemovingOptInCall": true,
+    "unchangedFunctions": [
+      "_initialize",
+      "_hand_targets_are_separate",
+      "_card_stayed_visible",
+      "_capture",
+      "_private_nodes_erased",
+      "_restore_integer_tokens",
+      "_settle",
+      "_fail",
+      "_check_hand_drag"
+    ],
+    "wholeCheckerEqualsOriginalAfterMechanicalRestoration": true
+  },
+  "verifiedAtUtc": "2026-09-11T03:02:46.473795+00:00"
+}

@@ -1,10 +1,17 @@
 # Screenshot review gallery
 
-This collection preserves **4,663 original app and renderer captures**, including failed attempts, and **2,806 supplemental images**, plus four existing asset proofs. Open a collection and click any thumbnail for its full original image. [manifest.json](manifest.json) retains filenames, dimensions, hashes, source paths, exact source revisions and timestamp metadata.
+This collection preserves **4,699 original app and renderer captures**, including failed attempts, and **2,806 supplemental images**, plus four existing asset proofs. Open a collection and click any thumbnail for its full original image. [manifest.json](manifest.json) retains filenames, dimensions, hashes, source paths, exact source revisions and timestamp metadata.
 
-The latest addition preserves **63 original 3D desktop captures**: **36 attributed direct views, one reviewed byte match and 26 historical unviewed images**. Its **33 final V2 captures** have **32 direct views and one byte match**; the 30 earlier captures retain their original outcomes.
+The latest addition preserves **36 original stills**: **27 from focused iOS CI 34554200601** and **nine from a separate desktop regression**. It records **32 attributed direct views, 4 reviewed byte matches and 0 unviewed images**.
 
-| Latest preserved collection | Images | Review scope |
+| Latest preserved collections | Images | Review scope |
+| --- | ---: | --- |
+| [Focused iOS practice sessions — CI 34554200601](ios-34554200601/README.md) | 27 originals | Six stills belong to the failed 2D case and 21 to the passed 3D case; the combined gate failed. This native run uses the earlier 3D renderer source. |
+| [3D short-context desktop regression](godot-3d-short-context-regression-20260911/README.md) | 9 originals | Two expected-failure baseline captures and seven passing fixed-source captures. Executed geometry checks and the narrower static pixel findings are recorded separately. |
+
+The preceding addition preserves **63 original 3D desktop captures**: **36 attributed direct views, one reviewed byte match and 26 historical unviewed images**. Its **33 final V2 captures** have **32 direct views and one byte match**; the 30 earlier captures retain their original outcomes.
+
+| Previous preserved collection | Images | Review scope |
 | --- | ---: | --- |
 | [3D context fitting — desktop correction evidence](godot-3d-context-fit-20260911/README.md) | 63 originals | Scoped desktop checks expose the complete claim and actions through scrollbar input; the round is shown initially. Final V2 has 33 captures, with 30 earlier captures retained. Native acceptance remains separate. |
 

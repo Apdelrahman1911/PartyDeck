@@ -1,0 +1,282 @@
+{
+  "schemaVersion": 1,
+  "kind": "frozen-still-handoff-provenance",
+  "createdAtUtc": "2026-09-11T03:30:33.285807+00:00",
+  "preparedBy": "/root/ios_evidence",
+  "runBinding": {
+    "runId": 34554200601,
+    "attempt": 1,
+    "headSha": "253e9656a360a4411cab858484e1bd3dc2093a46",
+    "nativeJobId": 103123585125,
+    "workflowConclusion": "failure",
+    "nativeJobConclusion": "failure"
+  },
+  "originalFreezeReference": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/FROZEN.json",
+    "bytes": 70886,
+    "sha256": "aad308fc0c7f812569bbabfc5608039b05957bbb681b2c063ff605e10f06e50c"
+  },
+  "originalOutcomeReference": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/focused-production-outcome-v1.json",
+    "bytes": 156101,
+    "sha256": "e528f3f1c27654c4eea59517df713a6aac260303cec096a5dd723f4c87de24b7"
+  },
+  "originalFinalHandoffReference": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/final-evidence-handoff-v1.json",
+    "bytes": 41531,
+    "sha256": "0bc0d62382d6418cbff1dd7d3b1f5001ebe8a9e4d95647f9be9280b3109c6bb0"
+  },
+  "combinedNativeOutcome": {
+    "tests": 2,
+    "passed": 1,
+    "failed": 1,
+    "skipped": 0,
+    "xcodebuildExitCode": 65,
+    "twoCaseGatePassed": false,
+    "cases": [
+      {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "nativeCase": "PartyDeckUITests.PartyDeckGodotSessionUITests/testProduction2DPracticeSession",
+        "status": "failed",
+        "durationSeconds": "282.554",
+        "expectedSelectedPngCount": 6
+      },
+      {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "nativeCase": "PartyDeckUITests.PartyDeckGodotSessionUITests/testProduction3DPracticeSession",
+        "status": "passed",
+        "durationSeconds": "401.939",
+        "expectedSelectedPngCount": 21
+      }
+    ],
+    "twoDFailure": {
+      "message": "Observe fresh, current production renderer diagnostics.",
+      "originalNativeLogLine": 12515,
+      "originalTestLogLine": 8680,
+      "reportedSwiftFailureLine": 112
+    },
+    "malformedObservationDiagnosticMarkerCount": 0,
+    "diagnosticInterpretation": "The original completed native log contains no malformed-observation diagnostic marker. This alone does not establish a route, phase, success or implementation cause. The separate named log and original summary report a 2D timeout and a 3D pass."
+  },
+  "originalMetadataReferences": {
+    "originalRunMetadata": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/api-snapshots/20260911T025956.380146Z-run.json",
+      "bytes": 12888,
+      "sha256": "ff686f23d531a0fc07385c60d2b1b20de6845dc0f3eeda630c84cc9d46f7ea70"
+    },
+    "originalJobMetadata": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/api-snapshots/20260911T025956.380146Z-jobs.json",
+      "bytes": 9153,
+      "sha256": "5d048f693824192e11f1beb2370e28e3d9ec81fe068fdbc11e78aac53b70d396"
+    },
+    "originalArchiveIntegrity": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app.integrity.json",
+      "bytes": 1936,
+      "sha256": "933d997150f7461aed81fca1e1c4da6dd9dfda8bac26d733fb5db6a66a03d621"
+    },
+    "originalMemberInventory": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app.files.json",
+      "bytes": 787620,
+      "sha256": "e082fde929dbb44f68b5f21a97128b70ab66d7047bcb66b5d5550f4bdfcee226"
+    },
+    "originalManifest": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/manifest.json",
+      "bytes": 43261,
+      "sha256": "259d5f809b38a8ed17ce3b7d9560b40f8e04f25811659cd4bc050f2de3dd5047",
+      "archiveMember": "build/ci/ios/godot-session/attachments/manifest.json",
+      "retainedExtracted": true
+    },
+    "originalSummaryFile": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/test-summary.json",
+      "bytes": 1429,
+      "sha256": "0ccb14975d19b7a13d9d0d21b59a2deaeff22e1d72b569f30c7ec54df76cb851",
+      "archiveMember": "build/ci/ios/godot-session/test-summary.json",
+      "retainedExtracted": true
+    },
+    "originalGateReceipt": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/result.json",
+      "bytes": 16508,
+      "sha256": "618ac146dc62f8f402bbadcce17f627e62edc4509cbfdb00971ed707afc4f0a5",
+      "archiveMember": "build/ci/ios/godot-session/result.json",
+      "retainedExtracted": true
+    }
+  },
+  "originalLogReferences": {
+    "originalNativeJobLog": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/job-103123585125.log",
+      "bytes": 3265170,
+      "sha256": "911151fd18d5aab6432fa3d3fc449dadc7013d13024b1e855bd9d8847c2c16cd"
+    },
+    "originalTestLog": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/test.log",
+      "bytes": 2470286,
+      "sha256": "3a516f4b54998f3d9f6c6004780ffef3c60b7f79f780b048f48f2e695178084d",
+      "archiveMember": "build/ci/ios/godot-session/test.log",
+      "retainedExtracted": true
+    }
+  },
+  "sourceReferences": {
+    "testSource": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source/iosApp/PartyDeckUITests/PartyDeckGodotSessionUITests.swift",
+      "bytes": 59132,
+      "sha256": "c33f576d67d2497cabe5f4f4294d732cd1ef8005121bf1e615516818e08830ec"
+    },
+    "frozenSourceReferences": [
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source-scope-frozen-v1.json",
+        "bytes": 113289,
+        "sha256": "54172522abc7ce35bfdcae32e24910dfa05e6fadc07cf51d5aeb9065284cbc93"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source-run-binding-v1.json",
+        "bytes": 244462,
+        "sha256": "fb50cd6261e9f8f2bd414c6a64dc1b4ded15deb829ba8d9ac00dbca4cc86d8a6"
+      }
+    ],
+    "sourceProducerNativeBinding": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-producer-native-binding-v1.json",
+      "bytes": 60461,
+      "sha256": "190c3e7094f49fbe0547b440d070c5a9358374028b5d595097a7d572da66bda2"
+    },
+    "packagedSimulatorBytes": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/simulator-packaged-bytes-verification-v1.json",
+      "bytes": 70916,
+      "sha256": "82d261f9a081b9225bbf0c4de105e1cae9be285646850fda8d864cf3233be135"
+    }
+  },
+  "exactMetadataReceiptsRecommendedForRetention": [
+    {
+      "role": "original run freeze",
+      "reference": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/FROZEN.json",
+        "bytes": 70886,
+        "sha256": "aad308fc0c7f812569bbabfc5608039b05957bbb681b2c063ff605e10f06e50c"
+      }
+    },
+    {
+      "role": "original final collector handoff",
+      "reference": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/final-evidence-handoff-v1.json",
+        "bytes": 41531,
+        "sha256": "0bc0d62382d6418cbff1dd7d3b1f5001ebe8a9e4d95647f9be9280b3109c6bb0"
+      }
+    },
+    {
+      "role": "original focused outcome and capture pointers",
+      "reference": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/focused-production-outcome-v1.json",
+        "bytes": 156101,
+        "sha256": "e528f3f1c27654c4eea59517df713a6aac260303cec096a5dd723f4c87de24b7"
+      }
+    },
+    {
+      "role": "exact source, renderer producer and native package binding",
+      "reference": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-producer-native-binding-v1.json",
+        "bytes": 60461,
+        "sha256": "190c3e7094f49fbe0547b440d070c5a9358374028b5d595097a7d572da66bda2"
+      }
+    },
+    {
+      "role": "packaged Simulator bytes verification",
+      "reference": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/simulator-packaged-bytes-verification-v1.json",
+        "bytes": 70916,
+        "sha256": "82d261f9a081b9225bbf0c4de105e1cae9be285646850fda8d864cf3233be135"
+      }
+    },
+    {
+      "role": "final preservation audit",
+      "reference": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/final-preservation-audit-v1.json",
+        "bytes": 166226,
+        "sha256": "90547f1ffc2ad5352e2f026d7b8149b581e4c325ce84acd8bf9fd5d14683ab90"
+      }
+    },
+    {
+      "role": "separately frozen source subset",
+      "reference": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source-scope-frozen-v1.json",
+        "bytes": 113289,
+        "sha256": "54172522abc7ce35bfdcae32e24910dfa05e6fadc07cf51d5aeb9065284cbc93"
+      }
+    },
+    {
+      "role": "source subset and exact run binding",
+      "reference": {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/source-scope/source-run-binding-v1.json",
+        "bytes": 244462,
+        "sha256": "fb50cd6261e9f8f2bd414c6a64dc1b4ded15deb829ba8d9ac00dbca4cc86d8a6"
+      }
+    },
+    {
+      "role": "independent final preservation review",
+      "reference": {
+        "path": "/tmp/partydeck-ios-final-preservation-review-34554200601-v1-IuL8vOWq/REVIEW.md",
+        "bytes": 6361,
+        "sha256": "35fca1656378caf97cf030a383df1678fec67d253d08ba3aa6ce391a00162080"
+      }
+    },
+    {
+      "role": "independent final preservation review handoff",
+      "reference": {
+        "path": "/tmp/partydeck-ios-final-preservation-review-34554200601-v1-IuL8vOWq/REVIEW-HANDOFF.json",
+        "bytes": 1391,
+        "sha256": "dc617d91ff4eb18a4986cd9edadcced1f4ff0ffa21fa1f9030adb3cc32d1c9ab"
+      }
+    }
+  ],
+  "receiptRetentionInstructions": "Preserve exact bytes and these original path/size/SHA-256 identities when retaining the listed receipts. Original logs remain references only in this supplement. The media selection is solely the 27 PNG entries; no video asset or video pointer is selected.",
+  "independentFinalPreservationReview": {
+    "reviewer": "/root/package_inclusion",
+    "status": "PASS within scope",
+    "checksPassed": 1445,
+    "unresolvedFindings": [],
+    "report": {
+      "path": "/tmp/partydeck-ios-final-preservation-review-34554200601-v1-IuL8vOWq/REVIEW.md",
+      "bytes": 6361,
+      "sha256": "35fca1656378caf97cf030a383df1678fec67d253d08ba3aa6ce391a00162080"
+    },
+    "handoff": {
+      "path": "/tmp/partydeck-ios-final-preservation-review-34554200601-v1-IuL8vOWq/REVIEW-HANDOFF.json",
+      "bytes": 1391,
+      "sha256": "dc617d91ff4eb18a4986cd9edadcced1f4ff0ffa21fa1f9030adb3cc32d1c9ab"
+    },
+    "scope": "Independent preservation verification; does not change native test outcomes or provide pixel review.",
+    "pinsVerifiedByThisMetadataCompiler": true
+  },
+  "compilationScope": {
+    "sourceMetadataPinsVerified": [
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/FROZEN.json",
+        "bytes": 70886,
+        "sha256": "aad308fc0c7f812569bbabfc5608039b05957bbb681b2c063ff605e10f06e50c"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/focused-production-outcome-v1.json",
+        "bytes": 156101,
+        "sha256": "e528f3f1c27654c4eea59517df713a6aac260303cec096a5dd723f4c87de24b7"
+      },
+      {
+        "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34554200601/final-evidence-handoff-v1.json",
+        "bytes": 41531,
+        "sha256": "0bc0d62382d6418cbff1dd7d3b1f5001ebe8a9e4d95647f9be9280b3109c6bb0"
+      }
+    ],
+    "imagePayloadsReadCopiedDecodedOrRehashed": false,
+    "videoPayloadsReadCopiedDecodedOrRehashed": false,
+    "opaqueUiSnapshotsOrSynthesizedEventsRead": false,
+    "bodyScrollPayloadReread": false,
+    "rawXCResultDecoded": false,
+    "collectionOrPreservationAuditRepeated": false,
+    "frozenRunFilesModified": false,
+    "hashesAndBytesForOriginalAssetsReusedFromFrozenOutcome": true
+  },
+  "scopeLimits": [
+    "Collector has performed no pixel review for this run. Pixel reviewers own visual findings and may reuse prior exact-byte review receipts.",
+    "Attachment names are original test labels and are not independent visual findings or proof that the overall case passed.",
+    "2D case failed; 3D case passed; the combined two-case native gate failed.",
+    "Body-scroll evidence records one gesture and zero authority intents before/after; Challenge was unavailable and not exercised in that coverage.",
+    "No device, shipping, physical-network, signing or hardware-performance acceptance is added."
+  ]
+}
