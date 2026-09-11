@@ -153,4 +153,3 @@ Original: `77397327-DE50-4252-A28C-40124C2608FF.png`; SHA-256 `cd289b6af7723d2fc
 Test: `PartyDeckGodotSessionUITests/testProduction3DPracticeSession()`. Export timestamp: `1789087469.612`.
 
 [Attributed observation and limits](provenance/review/review.json).
-

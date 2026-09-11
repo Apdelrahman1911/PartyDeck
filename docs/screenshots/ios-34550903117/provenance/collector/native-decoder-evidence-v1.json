@@ -1,0 +1,56 @@
+{
+  "runId": 34550903117,
+  "headSha": "ac2200aed8d170e55009257a9ab5b48ef0b02081",
+  "attempt": 1,
+  "nativeJobId": 103113719812,
+  "createdAtUtc": "2026-09-11T02:00:17.127364+00:00",
+  "auditor": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34550903117/audit-tools/parse-native-decoder-evidence-v1.py",
+    "bytes": 4289,
+    "sha256": "da09096c7f303b90cc930deb76a0571f88fe22983bde90943a3597d0b4cefa73"
+  },
+  "sourceDecoderContract": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34550903117/observation-decoder-contract-v1.json",
+    "bytes": 3072,
+    "sha256": "23a0aaf67b7c73da9ca15064867cbc29915a76a07c053b4b0be1786db9c3f86c"
+  },
+  "originalNativeJobLog": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34550903117/job-103113719812.log",
+    "bytes": 2973716,
+    "sha256": "74f54a3fcec02279e925f2de734ed848ca3a8176801b75a86bbc932494ac09cd"
+  },
+  "originalLogCollectionReceipt": {
+    "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34550903117/job-103113719812.collected.json",
+    "bytes": 447,
+    "sha256": "430324f6a7fdecceb247b74f6af5952638bbb26e55ec8b66c50168a4db26c78e"
+  },
+  "nativeJobConclusion": "failure",
+  "malformedObservationMarkerCount": 2,
+  "parsedDiagnosticCount": 2,
+  "unparsedMarkerLineNumbers": [],
+  "diagnostics": [
+    {
+      "originalLogLine": 11094,
+      "case": "testProduction2DPracticeSession",
+      "category": "data_corrupted",
+      "path": "$",
+      "byteCount": 512
+    },
+    {
+      "originalLogLine": 11120,
+      "case": "testProduction3DPracticeSession",
+      "category": "data_corrupted",
+      "path": "$",
+      "byteCount": 512
+    }
+  ],
+  "firstDiagnostic": {
+    "originalLogLine": 11094,
+    "case": "testProduction2DPracticeSession",
+    "category": "data_corrupted",
+    "path": "$",
+    "byteCount": 512
+  },
+  "allExportedPathsUseExactSourceAllowlist": true,
+  "scope": "First original completed native log only. Parser exports fixed category, source-allowlisted coding path, UTF-8 byte count and log line number; it never exports the rejected observation JSON or decoder debug descriptions. A recorded path identifies the decoding failure location, not an independently verified implementation cause. Artifact, source/package and named test outcome audits remain separate."
+}

@@ -1,0 +1,195 @@
+{
+  "runId": 34550903117,
+  "headSha": "ac2200aed8d170e55009257a9ab5b48ef0b02081",
+  "attempt": 1,
+  "runConclusion": "failure",
+  "collectorComplete": true,
+  "nativeJobId": 103113719812,
+  "originalArchiveCount": 3,
+  "originalArchiveBytes": 173469897,
+  "ownedOriginalJobLogs": 2,
+  "missingExpectedArtifacts": [],
+  "collectionErrors": {},
+  "actualDecoderDiagnostics": [
+    {
+      "originalLogLine": 11094,
+      "case": "testProduction2DPracticeSession",
+      "category": "data_corrupted",
+      "path": "$",
+      "byteCount": 512
+    },
+    {
+      "originalLogLine": 11120,
+      "case": "testProduction3DPracticeSession",
+      "category": "data_corrupted",
+      "path": "$",
+      "byteCount": 512
+    }
+  ],
+  "diagnosticInterpretation": "Both initial Home reads failed JSON decoding at the document root on a 512-byte value. The original log provides no rejected JSON or decoder debug description. These facts do not independently establish truncation, a particular field defect or another implementation cause.",
+  "outcomes": {
+    "rendererProducer": "success; actual PCK and 132 renderer files plus four tools bind to exact source, with 136 packed entries",
+    "productionSessions": {
+      "tests": 2,
+      "passed": 0,
+      "failed": 2,
+      "skipped": 0,
+      "xcodebuildExitCode": 65,
+      "cases": [
+        {
+          "case": "PartyDeckUITests.PartyDeckGodotSessionUITests/testProduction2DPracticeSession",
+          "status": "failed",
+          "seconds": "25.549"
+        },
+        {
+          "case": "PartyDeckUITests.PartyDeckGodotSessionUITests/testProduction3DPracticeSession",
+          "status": "failed",
+          "seconds": "5.809"
+        }
+      ],
+      "failureSourceLine": 112,
+      "effectiveQualificationFlagsVerifiedForBothTargets": true,
+      "initialHomeObservationReadAttempted": true,
+      "practiceEntryOrBodyScrollQualified": false
+    },
+    "summaryExportExitCode": 0,
+    "attachmentExportExitCode": 0,
+    "packagedSimulatorApp": "actual arm64 Simulator Mach-O, resources, PCK, executable/plist and qualification activation verified",
+    "sharedNativeJUnit": "not selected",
+    "ordinarySimulator": "not selected",
+    "UIKitLayout": "not selected",
+    "unsignedDevice": "not selected",
+    "android": "not selected",
+    "shippingAcceptance": false
+  },
+  "capturedEvidence": {
+    "failurePngs": 2,
+    "recordingsRetainedInZip": 2,
+    "sanitizedObservationJson": 0,
+    "passiveBodyScrollAttachments": 0,
+    "capturePointers": [
+      {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "6762BD8F-E960-4E21-B8DB-9D43947B47AF",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "E1016319-35B8-4FA1-A9D7-770A73A5AFA2.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "2d production smoke failure_0_8C57D42E-9B0D-498B-9CAA-8D0EE1C164EF.png",
+          "timestamp": 1789091843.398
+        },
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34550903117/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/E1016319-35B8-4FA1-A9D7-770A73A5AFA2.png",
+          "bytes": 298227,
+          "sha256": "440efa98eaaead8f980601c6a6bba66e2497ef3f33a9e3079853b726b3894a9c",
+          "archiveMember": "build/ci/ios/godot-session/attachments/E1016319-35B8-4FA1-A9D7-770A73A5AFA2.png",
+          "retainedExtracted": true
+        },
+        "mediaDirectlyViewedByCollector": false
+      },
+      {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction2DPracticeSession()",
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "6762BD8F-E960-4E21-B8DB-9D43947B47AF",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "30CD6E00-0C25-424C-879E-4B37C13F570E.mp4",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Screen Recording 2026-09-11 at 01.56.59 AM.mp4",
+          "timestamp": 1789091819.621
+        },
+        "original": {
+          "archivePath": "/root/projects/PartyDeck/artifacts/evidence-storage/34550903117/artifact-zips/10181422790-ios-focused-production-reports-and-simulator-app.zip",
+          "archiveMember": "build/ci/ios/godot-session/attachments/30CD6E00-0C25-424C-879E-4B37C13F570E.mp4",
+          "bytes": 7425276,
+          "sha256": "8fe3d795a6ef29d64642e910c7b69c98cde6879c6819abf490453da1232a6fcd",
+          "zipCRC32": "14ed82a0",
+          "retainedExtracted": false
+        },
+        "mediaDirectlyViewedByCollector": false
+      },
+      {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "6762BD8F-E960-4E21-B8DB-9D43947B47AF",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "07493D56-3236-421F-B007-0E8512019F5B.png",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "3d production smoke failure_0_7A5B917D-93B6-4A96-AC72-20F821DE3AB3.png",
+          "timestamp": 1789091853.799
+        },
+        "original": {
+          "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34550903117/ios-focused-production-reports-and-simulator-app/build/ci/ios/godot-session/attachments/07493D56-3236-421F-B007-0E8512019F5B.png",
+          "bytes": 298227,
+          "sha256": "440efa98eaaead8f980601c6a6bba66e2497ef3f33a9e3079853b726b3894a9c",
+          "archiveMember": "build/ci/ios/godot-session/attachments/07493D56-3236-421F-B007-0E8512019F5B.png",
+          "retainedExtracted": true
+        },
+        "mediaDirectlyViewedByCollector": false
+      },
+      {
+        "testIdentifier": "PartyDeckGodotSessionUITests/testProduction3DPracticeSession()",
+        "exportMetadata": {
+          "configurationName": "Test Scheme Action",
+          "deviceId": "6762BD8F-E960-4E21-B8DB-9D43947B47AF",
+          "deviceName": "iPhone 17",
+          "exportedFileName": "C7944C25-80B1-4A53-8807-422B294C4DBA.mp4",
+          "isAssociatedWithFailure": false,
+          "suggestedHumanReadableName": "Screen Recording 2026-09-11 at 01.57.28 AM.mp4",
+          "timestamp": 1789091848.171
+        },
+        "original": {
+          "archivePath": "/root/projects/PartyDeck/artifacts/evidence-storage/34550903117/artifact-zips/10181422790-ios-focused-production-reports-and-simulator-app.zip",
+          "archiveMember": "build/ci/ios/godot-session/attachments/C7944C25-80B1-4A53-8807-422B294C4DBA.mp4",
+          "bytes": 709174,
+          "sha256": "57bf66d7c50aa0e77f312e7de0d4a6723b914ef739cbcb7184fa1b170beb4f2a",
+          "zipCRC32": "0aed8f96",
+          "retainedExtracted": false
+        },
+        "mediaDirectlyViewedByCollector": false
+      }
+    ],
+    "collectorViewedOrDecodedMedia": false,
+    "visualReviewAndPublicationSeparate": true
+  },
+  "references": {
+    "preservation": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34550903117/final-preservation-audit-v1.json",
+      "bytes": 87781,
+      "sha256": "ac271647518be6c11bfcc0bff45d96bb9336632e81acb0cebf148b1bdbdaea68"
+    },
+    "collectionCompletion": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34550903117/collection-complete.json",
+      "bytes": 685,
+      "sha256": "63b834bd7f3f9b8bd5f8b0394b20679ced87385ddf950481a956855ffedefcd8"
+    },
+    "collectorConfigurationFreeze": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34550903117/collector-configuration-frozen-v1.json",
+      "bytes": 3569,
+      "sha256": "4e48374eb579d7c500c0bf4f69eba664c719926b6ad38f40da5e16277dee22ef"
+    },
+    "actualDecoderEvidence": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34550903117/native-decoder-evidence-v1.json",
+      "bytes": 2322,
+      "sha256": "fd10601a33f99dac901676c1e69428c3f796fe12e282a51d47e093e3004b9e34"
+    },
+    "sourceProducerNativeBinding": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34550903117/source-producer-native-binding-v1.json",
+      "bytes": 60569,
+      "sha256": "7f174758c2c0b1a665e270863cac30758d466c0efca2fa203b5cba6b41528587"
+    },
+    "packagedSimulatorBytes": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34550903117/simulator-packaged-bytes-verification-v1.json",
+      "bytes": 70914,
+      "sha256": "e205ec5856522096fbde728b5b69a2f21e18e1daf82320c23bacf70cf073b362"
+    },
+    "focusedOutcomeAndCaptures": {
+      "path": "/root/projects/PartyDeck/artifacts/evidence-storage/34550903117/focused-production-outcome-v1.json",
+      "bytes": 20799,
+      "sha256": "0b105112b09364cfd50d0f585b0e17307fbc0d01d6a49a62825847504ac0daf1"
+    }
+  },
+  "scope": "Complete originals and final audited handoff for this exact fresh diagnostic. Original native log was collected and parsed before native ZIP collection; root and ios_fix received the two actual sanitized diagnostics. Source, compiled qualification flags, actual packaged bytes, original named failures and captures are reconciled separately. No native test, video or XCResult metadata decode was repeated. Prior full/canceled runs remain separate and frozen. No hardware, signing, shipping, performance or runtime-cause acceptance is inferred."
+}

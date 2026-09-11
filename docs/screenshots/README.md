@@ -1,10 +1,16 @@
 # Screenshot review gallery
 
-This collection preserves **4,598 original app and renderer captures**, including failed attempts, and **2,806 supplemental images**, plus four existing asset proofs. Open a collection and click any thumbnail for its full original image. [manifest.json](manifest.json) retains filenames, dimensions, hashes, source paths, exact source revisions and timestamp metadata.
+This collection preserves **4,600 original app and renderer captures**, including failed attempts, and **2,806 supplemental images**, plus four existing asset proofs. Open a collection and click any thumbnail for its full original image. [manifest.json](manifest.json) retains filenames, dimensions, hashes, source paths, exact source revisions and timestamp metadata.
 
-The latest addition preserves **12 original iOS stills**: **10 direct views and two reviewed byte matches**; and **2,476 Android adaptive video-frame identities**: **1,379 attributed direct views and 1,097 reviewed byte matches**, with zero unviewed identities in this addition. The 32 existing Android MP4s are reused. Earlier collections retain their original review status.
+The latest addition preserves **two original iOS diagnostic stills** from CI 34550903117: **one direct view and one reviewed byte match**, with zero unviewed images. The separate 2D and 3D case identities and export timestamps are retained.
 
 | Latest preserved collection | Images | Review scope |
+| --- | ---: | --- |
+| [iOS focused production diagnostic — CI 34550903117](ios-34550903117/README.md) | 2 originals | Both production cases fail the initial Home observation decode (`category=data_corrupted, path=$, bytes=512`). One direct view and one byte match; no gameplay or body-scroll evidence. |
+
+The preceding addition preserves **12 original iOS stills**: **10 direct views and two reviewed byte matches**; and **2,476 Android adaptive video-frame identities**: **1,379 attributed direct views and 1,097 reviewed byte matches**, with zero unviewed identities in this addition. The 32 existing Android MP4s are reused. Earlier collections retain their original review status.
+
+| Previous preserved collections | Images | Review scope |
 | --- | ---: | --- |
 | [Android adaptive recording frames — CI 34540229407](supplemental/android-adaptive-34540229407-frames/README.md) | 2,476 supplements | All source identities covered directly or by exact bytes; packet PTS preserved. Old-source font-2.0 3D split-exit claim truncation is confirmed; continuous privacy and control reachability remain separate. |
 | [Full iOS retry — CI 34545222517](ios-34545222517/README.md) | 12 originals | Ten direct views and two byte matches. Ordinary 9/9 and separate UIKit 3/3 pass; both production cases fail initial Home observation decoding. Two iOS videos remain archive-only and unviewed. |
