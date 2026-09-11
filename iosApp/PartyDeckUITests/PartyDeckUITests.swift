@@ -56,6 +56,9 @@ final class PartyDeckUITests: XCTestCase {
             name.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: existingName.count))
         }
         name.typeText("Native Host")
+        waitUntil("The entered host name must reach the native field value before hosting.") {
+            (name.value as? String) == "Native Host"
+        }
         XCTAssertEqual(name.value as? String, "Native Host", "The host name must replace the previous field value.")
         let create = element("host-create", in: app)
         for _ in 0..<3 where !create.isHittable { app.swipeUp() }
