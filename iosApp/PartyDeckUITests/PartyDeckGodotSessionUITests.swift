@@ -629,9 +629,22 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
             pending.append(contentsOf: snapshot.children.reversed())
         }
         guard let text = node?.value as? String, !text.isEmpty else { return nil }
-        guard let data = text.data(using: .utf8), data.count <= 32768,
-              let value = try? JSONDecoder().decode(Observation.self, from: data) else {
-            throw Failure("Production qualification observation is malformed; missing values cannot pass a privacy assertion.")
+        guard let data = text.data(using: .utf8), data.count <= 32768 else {
+            throw malformedObservation("encoding_or_size", [], text.utf8.count)
+        }
+        let value: Observation
+        do {
+            value = try JSONDecoder().decode(Observation.self, from: data)
+        } catch DecodingError.keyNotFound(let key, let context) {
+            throw malformedObservation("key_not_found", context.codingPath + [key], data.count)
+        } catch DecodingError.valueNotFound(_, let context) {
+            throw malformedObservation("value_not_found", context.codingPath, data.count)
+        } catch DecodingError.typeMismatch(_, let context) {
+            throw malformedObservation("type_mismatch", context.codingPath, data.count)
+        } catch DecodingError.dataCorrupted(let context) {
+            throw malformedObservation("data_corrupted", context.codingPath, data.count)
+        } catch {
+            throw malformedObservation("other", [], data.count)
         }
         lastDocument = data
         try require(value.schemaVersion == 1 && value.observationInstalled && value.port.activationValid &&
@@ -652,6 +665,36 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
         }
         lastObservation = value
         return value
+    }
+
+    // Rejected documents may contain private data. Export only fixed categories and schema keys.
+    private func malformedObservation(_ category: String, _ codingPath: [any CodingKey], _ byteCount: Int) -> Failure {
+        let allowedKeys: Set<String> = [
+            "accepted", "action", "activationValid", "active", "applicationBackgrounded", "authorityForegroundGrant",
+            "authorityReadyConfirmed", "backgrounded", "bootstrapCount", "bounds", "canAdvanceRound", "canChallenge",
+            "canPlay", "canSendAction", "cardIndex", "clipRect", "closing", "controller", "controls", "coordinateSpace",
+            "disposed", "dormant", "drawCalls", "emptyTree", "enabled", "enabledModes", "engineAccessibilityHidden",
+            "error", "exhausted", "exitEvents", "expectedRevision", "failurePresent", "foreground", "frame", "geometry",
+            "group", "handConcealed", "handCount", "height", "inputGeneration", "inputViewEnabled", "intentEvents",
+            "iterations", "lastCloseSucceeded", "lastViewerReceipt", "leaveConfirmation", "lifecycle",
+            "lifecycleGeneration", "mode", "native", "nativeFailedPresentations", "nativeForeground",
+            "nativePresentedFrames", "observationInstalled", "observationSequence", "outerCoverVisible", "ownTurn",
+            "ownerCreated", "pending", "phase", "port", "portReadyConfirmed", "practice", "presentationGeneration",
+            "presentationMode", "presentationOrdinal", "privacyCoverVisible", "privacyEpoch", "privateFaceCount",
+            "privateLabelCount", "problem", "processIdentifier", "profile", "projectedRendererRevision",
+            "projectedSessionRevision", "quarantined", "queuedBytes", "queuedCommands", "queuedEvents", "readyEvents",
+            "rect", "rejectedEvents", "renderLoopActive", "renderer", "requestId", "retainedEnginePolicy",
+            "retainedIdentitiesMatchFirstEntry", "revision", "round", "sceneStateApplied", "schemaVersion", "screen",
+            "selected", "selectedCount", "sequence", "serial", "sessionGeneration", "sessionPresent", "sessionRevision",
+            "supported", "surfaceAccessibilityHidden", "surfaceAccessibilityHiddenByContainer", "surfaceAttached",
+            "surfaceSize", "viewport", "visible", "width"
+        ]
+        let path = codingPath.reduce("$") { path, key in
+            if key.intValue != nil { return "\(path)[]" }
+            return "\(path).\(allowedKeys.contains(key.stringValue) ? key.stringValue : "<unknown>")"
+        }
+        return Failure("Production qualification observation is malformed; missing values cannot pass a privacy assertion. " +
+            "category=\(category), path=\(path), bytes=\(byteCount)")
     }
 
     private func controller(_ value: Observation) throws -> Controller {
@@ -710,10 +753,12 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
     private struct Counter: Decodable, Comparable {
         let value: UInt64
         init(from decoder: Decoder) throws {
-            let text = try decoder.singleValueContainer().decode(String.self)
+            let container = try decoder.singleValueContainer()
+            let text = try container.decode(String.self)
             guard !text.isEmpty, text.utf8.allSatisfy({ $0 >= 48 && $0 <= 57 }),
                   text == "0" || text.first != "0", let value = UInt64(text) else {
-                throw Failure("A required production counter is malformed.")
+                throw DecodingError.dataCorruptedError(in: container,
+                    debugDescription: "A required production counter is malformed.")
             }
             self.value = value
         }
