@@ -1,4 +1,5 @@
 import Foundation
+import CoreFoundation
 import PartyDeckKit
 import UIKit
 
@@ -460,6 +461,7 @@ final class GodotPresentationPort: NSObject, IosGodotNativePort {
             "closing": active?.closing == true, "quarantined": quarantined, "disposed": disposed,
             "portReadyConfirmed": active?.readyConfirmed == true,
             "native": NSNull(), "geometry": NSNull(), "renderer": NSNull(), "preparation": NSNull(),
+            "jointVisibility": NSNull(),
         ]
         if let qualificationPreparation { output["preparation"] = qualificationPreparation.snapshot() }
         if let lastClosed { output["lastCloseSucceeded"] = lastClosed.success }
@@ -475,7 +477,7 @@ final class GodotPresentationPort: NSObject, IosGodotNativePort {
             "queuedCommands", "queuedEvents", "queuedBytes", "surfaceSize", "retainedEnginePolicy", "quarantined"]
         var native: [String: Any] = [:]
         for key in nativeKeys { native[key] = raw[key] ?? NSNull() }
-        // Existing cumulative, inclusive maxima for completed native scopes; these overlap.
+        // Lifetime maxima of individual completed inclusive native scopes; these overlap, and are not elapsed totals.
         // Missing or uncompleted scopes stay unknown. Timing never grants readiness.
         let timings = raw["timings"] as? [String: Any]
         for (key, stage) in [("maxDrawSeconds", "drawView"), ("maxIterateSeconds", "iterate"),
@@ -508,9 +510,41 @@ final class GodotPresentationPort: NSObject, IosGodotNativePort {
         }
         native["retainedIdentitiesMatchFirstEntry"] = currentIdentities.count == identityKeys.count &&
             !qualificationIdentityBaseline.isEmpty && currentIdentities == qualificationIdentityBaseline
+        // Separate fixed schema: no native dictionary or arbitrary string is copied.
+        let frameTiming = sanitizedFrameTiming(raw["frameTiming"])
+        native["frameTiming"] = frameTiming as Any? ?? NSNull()
+        native["frameTimingStatus"] = frameTiming == nil ? "invalid" : "available"
         output["native"] = native
         if let geometry = active?.screen?.sessionQualificationGeometry(), !geometry.isEmpty {
             output["geometry"] = geometry
+            if let lifetime = active, isCurrent(lifetime), lifetime.visible, lifetime.readyConfirmed,
+               let nativePresentation = lifetime.native,
+               sceneForeground, !sceneBackgrounded, let lifecycle = lifetime.publishedLifecycle,
+               raw["presentationGeneration"] as? String == String(nativePresentation.nativeGeneration),
+               raw["lifecycleGeneration"] as? String == String(lifecycle.generation),
+               raw["surfaceAttached"] as? Bool == true, raw["nativeForeground"] as? Bool == true,
+               raw["authorityReadyConfirmed"] as? Bool == true, raw["authorityForegroundGrant"] as? Bool == true,
+               raw["renderLoopActive"] as? Bool == true, raw["dormant"] as? Bool == false,
+               raw["emptyTree"] as? Bool == false, raw["applicationBackgrounded"] as? Bool == false,
+               let shell = lifetime.screen?.sessionQualificationCoverTiming(),
+               let nativeCovered = raw["privacyCoverVisible"] as? Bool,
+               let outerCovered = shell["outerCoverVisible"] as? Bool,
+               let timing = frameTiming,
+               timing["presentationGeneration"] as? String == raw["presentationGeneration"] as? String,
+               let input = raw["inputGeneration"] as? String, input.utf8.count <= 20,
+               let inputCounter = UInt64(input), String(inputCounter) == input {
+                // Two sequential main-thread samples, with their actual clock bounds.
+                // The cover flags describe this attached/current surface. They
+                // do not establish compositor visibility or first scanout.
+                output["jointVisibility"] = [
+                    "presentationGeneration": timing["presentationGeneration"]!,
+                    "lifecycleGeneration": String(lifecycle.generation),
+                    "inputGeneration": input,
+                    "nativeSnapshotUptime": timing["snapshotUptime"]!,
+                    "shell": shell, "nativeCoverVisible": nativeCovered,
+                    "bothCoversClear": !nativeCovered && !outerCovered,
+                ]
+            }
         }
         if let lifetime = active, isCurrent(lifetime), let nativePresentation = lifetime.native,
            let diagnostics = raw["rendererDiagnostics"] as? [String: Any],
@@ -533,6 +567,85 @@ final class GodotPresentationPort: NSObject, IosGodotNativePort {
             _ = lifetime.native?.requestRendererDiagnostics()
         }
         return output
+    }
+
+
+    /// Qualification-only numeric projection. Missing keys, wrong types and
+    /// nonfinite values fail this measurement; null remains explicit unknown.
+    private func sanitizedFrameTiming(_ raw: Any?) -> [String: Any]? {
+        func shape(_ value: Any?, _ keys: [String]) -> [String: Any]? {
+            guard let value = value as? [String: Any], Set(value.keys) == Set(keys) else { return nil }
+            return value
+        }
+        func number(_ value: Any?) -> Double? {
+            guard let value = value as? NSNumber, CFGetTypeID(value) != CFBooleanGetTypeID(),
+                  value.doubleValue.isFinite, value.doubleValue >= 0 else { return nil }
+            return value.doubleValue
+        }
+        func counter(_ value: Any?) -> String? {
+            guard let text = value as? String, text.utf8.count <= 20,
+                  let parsed = UInt64(text), String(parsed) == text else { return nil }
+            return text
+        }
+        func boolean(_ value: Any?) -> Bool? {
+            guard let value = value as? NSNumber, CFGetTypeID(value) == CFBooleanGetTypeID() else { return nil }
+            return value.boolValue
+        }
+        func context(_ value: Any?) -> [Any]? {
+            guard let values = value as? [Any], values.count == 8,
+                  let flags = number(values[7]), flags <= 511, flags.rounded(.towardZero) == flags else { return nil }
+            var output: [Any] = []
+            for index in 0..<7 { guard let value = counter(values[index]) else { return nil }; output.append(value) }
+            output.append(Int(flags))
+            return output
+        }
+        func sample(_ raw: Any?) -> Any? {
+            if raw is NSNull { return NSNull() }
+            guard let value = shape(raw, ["scopeOrdinal", "completedOrdinal", "startedUptime", "completedUptime", "seconds", "begin", "end"]),
+                  let ordinal = counter(value["scopeOrdinal"]), let completedOrdinal = counter(value["completedOrdinal"]),
+                  let start = number(value["startedUptime"]), let finish = number(value["completedUptime"]),
+                  let seconds = number(value["seconds"]), finish >= start,
+                  abs(seconds - (finish - start)) <= 0.000001,
+                  let begin = context(value["begin"]), let end = context(value["end"]) else { return nil }
+            return ["scopeOrdinal": ordinal, "completedOrdinal": completedOrdinal, "startedUptime": start,
+                    "completedUptime": finish, "seconds": seconds, "begin": begin, "end": end]
+        }
+        func marker(_ raw: Any?) -> Any? {
+            if raw is NSNull { return NSNull() }
+            guard let value = shape(raw, ["uptime", "context"]), let time = number(value["uptime"]),
+                  let at = context(value["context"]) else { return nil }
+            return ["uptime": time, "context": at]
+        }
+        func stage(_ raw: Any?) -> [String: Any]? {
+            let counters = ["startedCount", "completedCount", "slowCompletedCount", "overwrittenCount", "invalidCompletedCount"]
+            guard let value = shape(raw, counters + ["counterExhausted", "last", "maximum", "slowSamples"]),
+                  let exhausted = boolean(value["counterExhausted"]),
+                  let last = sample(value["last"]), let maximum = sample(value["maximum"]),
+                  let rawSamples = value["slowSamples"] as? [Any], rawSamples.count <= 4 else { return nil }
+            var output: [String: Any] = ["counterExhausted": exhausted, "last": last, "maximum": maximum]
+            for key in counters { guard let counter = counter(value[key]) else { return nil }; output[key] = counter }
+            var samples: [Any] = []
+            for rawSample in rawSamples {
+                guard !(rawSample is NSNull), let sample = sample(rawSample) else { return nil }
+                samples.append(sample)
+            }
+            output["slowSamples"] = samples
+            return output
+        }
+        guard let value = shape(raw, ["schemaVersion", "clock", "snapshotUptime", "presentationGeneration",
+            "slowThresholdSeconds", "sampleCapacity", "draw", "iterate", "readyConfirmed", "firstNativeCoverRelease",
+            "firstNativeReleaseDraw", "lastIterationInReleaseDraw"]),
+              number(value["schemaVersion"]) == 1, value["clock"] as? String == "system_uptime",
+              number(value["slowThresholdSeconds"]) == 1, number(value["sampleCapacity"]) == 4,
+              let time = number(value["snapshotUptime"]), let generation = counter(value["presentationGeneration"]),
+              let draw = stage(value["draw"]), let iterate = stage(value["iterate"]),
+              let ready = marker(value["readyConfirmed"]), let first = marker(value["firstNativeCoverRelease"]),
+              let firstDraw = sample(value["firstNativeReleaseDraw"]),
+              let lastIteration = sample(value["lastIterationInReleaseDraw"]) else { return nil }
+        return ["schemaVersion": 1, "clock": "system_uptime", "snapshotUptime": time, "presentationGeneration": generation,
+                "slowThresholdSeconds": 1.0, "sampleCapacity": 4, "draw": draw, "iterate": iterate,
+                "readyConfirmed": ready, "firstNativeCoverRelease": first, "firstNativeReleaseDraw": firstDraw,
+                "lastIterationInReleaseDraw": lastIteration]
     }
 
     func setSessionQualificationValue(_ document: String) {

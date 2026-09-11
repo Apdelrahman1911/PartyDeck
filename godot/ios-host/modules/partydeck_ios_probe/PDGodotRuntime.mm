@@ -2,6 +2,7 @@
 // Real bootstrap, SceneTree, input, rendering and cleanup; one attempt/process.
 #include "register_types.h"
 #include "strict_json.h"
+#include "frame_timing.h"
 #import "PDGodotRuntime.h"
 #import "PDGodotEngineOwner.h"
 
@@ -104,13 +105,29 @@ static double PDNativeTimingUptime() {
 class PDNativeTimingScope {
 	PDNativeStageTiming &stage;
 	const double started;
+	PDFrameTiming::Recorder *frame_recorder;
+	PDFrameTiming::Context (*context_reader)(void *);
+	void *context_owner;
+	PDFrameTiming::Token frame_token{ PDFrameTiming::Kind::Draw };
+	PDFrameTiming::Context frame_begin;
 
 public:
-	explicit PDNativeTimingScope(PDNativeStageTiming &p_stage) : stage(p_stage), started(PDNativeTimingUptime()) {
+	explicit PDNativeTimingScope(PDNativeStageTiming &p_stage,
+			PDFrameTiming::Recorder *p_frames = nullptr, PDFrameTiming::Kind kind = PDFrameTiming::Kind::Draw,
+			PDFrameTiming::Context (*p_reader)(void *) = nullptr, void *p_owner = nullptr) :
+			stage(p_stage), started(PDNativeTimingUptime()), frame_recorder(p_frames),
+			context_reader(p_reader), context_owner(p_owner) {
 		stage.begin(started);
+		if (frame_recorder) {
+			frame_token = frame_recorder->begin(kind);
+			frame_begin = context_reader(context_owner);
+		}
 	}
 	~PDNativeTimingScope() {
-		stage.finish(started, PDNativeTimingUptime());
+		const PDFrameTiming::Context end = frame_recorder ? context_reader(context_owner) : PDFrameTiming::Context{};
+		const double completed = PDNativeTimingUptime();
+		stage.finish(started, completed);
+		if (frame_recorder) { frame_recorder->finish(frame_token, started, completed, frame_begin, end); }
 	}
 	PDNativeTimingScope(const PDNativeTimingScope &) = delete;
 	PDNativeTimingScope &operator=(const PDNativeTimingScope &) = delete;
@@ -125,6 +142,46 @@ static NSDictionary *PDNativeStageTimingSnapshot(const PDNativeStageTiming &stag
 		@"lastSeconds": @(stage.last_seconds), @"maxSeconds": @(stage.max_seconds),
 		@"lastCompletedUptime": @(stage.last_completed_uptime), @"maxCompletedUptime": @(stage.max_completed_uptime)
 	};
+}
+
+
+// Compact, fixed numeric context. Array positions are schema, not arbitrary data:
+// presentation, lifecycle, input, owning draw, presented frames, iterations,
+// cover-install count (canonical decimal strings), then the fixed flag bitset.
+static NSArray *PDFrameContextSnapshot(const PDFrameTiming::Context &value) {
+	return @[ @(value.presentation).stringValue, @(value.lifecycle).stringValue,
+		@(value.input).stringValue, @(value.draw).stringValue, @(value.presented).stringValue,
+		@(value.iterations).stringValue, @(value.covers).stringValue, @(value.flags) ];
+}
+static id PDFrameSampleSnapshot(const PDFrameTiming::Sample &value) {
+	if (!value.valid) { return NSNull.null; }
+	return @{ @"scopeOrdinal": @(value.ordinal).stringValue,
+		@"completedOrdinal": @(value.completed_ordinal).stringValue,
+		@"startedUptime": @(value.started), @"completedUptime": @(value.completed),
+		@"seconds": @(value.seconds), @"begin": PDFrameContextSnapshot(value.begin),
+		@"end": PDFrameContextSnapshot(value.end) };
+}
+static id PDFrameMarkerSnapshot(const PDFrameTiming::Marker &value) {
+	return value.valid ? (id)@{ @"uptime": @(value.uptime), @"context": PDFrameContextSnapshot(value.context) } : NSNull.null;
+}
+static NSDictionary *PDFrameStageSnapshot(const PDFrameTiming::Stage &value) {
+	NSMutableArray *samples = [NSMutableArray arrayWithCapacity:PDFrameTiming::Capacity];
+	for (size_t index = 0; index < value.retained; ++index) { [samples addObject:PDFrameSampleSnapshot(value.ordered(index))]; }
+	return @{ @"startedCount": @(value.started).stringValue, @"completedCount": @(value.completed).stringValue,
+		@"slowCompletedCount": @(value.slow).stringValue, @"overwrittenCount": @(value.overwritten).stringValue,
+		@"invalidCompletedCount": @(value.invalid).stringValue, @"counterExhausted": @(value.exhausted),
+		@"last": PDFrameSampleSnapshot(value.last), @"maximum": PDFrameSampleSnapshot(value.maximum),
+		@"slowSamples": samples };
+}
+static NSDictionary *PDFrameTimingSnapshot(const PDFrameTiming::Recorder &value, double now) {
+	return @{ @"schemaVersion": @1, @"clock": @"system_uptime", @"snapshotUptime": @(now),
+		@"presentationGeneration": @(value.presentation).stringValue,
+		@"slowThresholdSeconds": @(PDFrameTiming::SlowSeconds), @"sampleCapacity": @(PDFrameTiming::Capacity),
+		@"draw": PDFrameStageSnapshot(value.draw), @"iterate": PDFrameStageSnapshot(value.iterate),
+		@"readyConfirmed": PDFrameMarkerSnapshot(value.ready),
+		@"firstNativeCoverRelease": PDFrameMarkerSnapshot(value.first_native_release),
+		@"firstNativeReleaseDraw": PDFrameSampleSnapshot(value.first_release_draw),
+		@"lastIterationInReleaseDraw": PDFrameSampleSnapshot(value.last_iteration_in_release_draw) };
 }
 
 static BOOL processConsumed = NO;
@@ -449,6 +506,7 @@ static NSDictionary *PDSanitizedDiagnostics(NSDictionary *value, NSString *prese
 	NSMutableArray<NSDictionary<NSString *, id> *> *_events;
 	NSUInteger _queuedBytes, _drawDepth, _engineDepth, _deliveryDepth, _drawCalls, _iterations;
 	PDNativeTimings _nativeTimings;
+	PDFrameTiming::Recorder _frameTimings;
 	NSUInteger _cleanupCount, _cleanupDepth, _readyEvents, _exitEvents, _intentEvents, _rejectedEvents;
 	NSUInteger _backgroundTransitions, _closeDuringDraw, _closeDuringInitialization, _coverUntilIteration, _privacyCoverCount;
 	NSUInteger _foregroundGeneration;
@@ -495,6 +553,8 @@ static NSDictionary *PDSanitizedDiagnostics(NSDictionary *value, NSString *prese
 - (BOOL)canDraw;
 - (BOOL)canReceiveInput;
 - (PDNativeTimings *)nativeTimings;
+- (PDFrameTiming::Recorder *)frameTimings;
+- (PDFrameTiming::Context)frameTimingContext;
 - (void)beginDraw;
 - (void)endDrawPresented:(BOOL)presented;
 - (void)requestSurfaceLayout;
@@ -571,6 +631,12 @@ static NSDictionary *PDSanitizedDiagnostics(NSDictionary *value, NSString *prese
 - (BOOL)performGuardedLayout;
 @end
 
+// The enclosing draw local / active runtime owns this nonretained pointer for
+// the entire scope. This reader only snapshots main-thread numeric state.
+static PDFrameTiming::Context PDReadFrameTimingContext(void *owner) {
+	return [(__bridge PDGodotRuntime *)owner frameTimingContext];
+}
+
 @implementation PDGuardedGodotView
 - (void)drawView {
 	PDGodotRuntime *runtime = self.runtime;
@@ -578,7 +644,8 @@ static NSDictionary *PDSanitizedDiagnostics(NSDictionary *value, NSString *prese
 		return;
 	}
 	PDNativeTimings *timings = [runtime nativeTimings];
-	PDNativeTimingScope drawTiming(timings->draw_view);
+	PDNativeTimingScope drawTiming(timings->draw_view, [runtime frameTimings], PDFrameTiming::Kind::Draw,
+		PDReadFrameTimingContext, (__bridge void *)runtime);
 	[runtime beginDraw];
 	// Upstream pumps UIKit before touching its layer, but never rechecks app
 	// activity afterward. Own that exact boundary so a Home/close handled in
@@ -868,6 +935,21 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 
 @implementation PDGodotRuntime
 - (PDNativeTimings *)nativeTimings { return &_nativeTimings; }
+- (PDFrameTiming::Recorder *)frameTimings { return &_frameTimings; }
+- (PDFrameTiming::Context)frameTimingContext {
+	PDFrameTiming::Context value;
+	value.presentation = _presentationGeneration; value.lifecycle = _lifecycleGeneration;
+	value.input = _foregroundGeneration; value.draw = _frameTimings.active_draw;
+	value.presented = _presentedFrames; value.iterations = _iterations; value.covers = _privacyCoverCount;
+	value.flags = (_presentationActive ? PDFrameTiming::Active : 0) |
+		(_foreground ? PDFrameTiming::Foreground : 0) | (_appliedForeground ? PDFrameTiming::Applied : 0) |
+		(_authorityReadyConfirmed ? PDFrameTiming::Ready : 0) | (_privacyCover ? PDFrameTiming::Covered : 0) |
+		(_maintenance ? PDFrameTiming::Maintenance : 0) |
+		((_leaveRequested || _closeRequested || _closed || _quarantined || _dormant || _pendingForegroundLoss) ? PDFrameTiming::Terminal : 0) |
+		([self applicationAllowsGraphics] ? PDFrameTiming::ApplicationActive : 0) |
+		(_retainedPolicy ? PDFrameTiming::Retained : 0);
+	return value;
+}
 
 - (instancetype)init {
 	self = [super init];
@@ -937,6 +1019,7 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 	_retainedOwner = owner;
 	_fixedPackSHA256 = hash;
 	_presentationGeneration = generation;
+	_frameTimings.reset_presentation(generation);
 	++_presentationCount;
 	++_foregroundGeneration;
 	++_lifecycleGeneration;
@@ -1172,6 +1255,9 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 		[_privacyCover removeFromSuperview];
 		_privacyCover = nil;
 		_observedView.accessibilityElementsHidden = NO;
+		// The existing successful-present/current-concealed gate above owns
+		// uncovering. This marker grants nothing and is not a scanout timestamp.
+		_frameTimings.mark_native_release(PDNativeTimingUptime(), [self frameTimingContext]);
 	}
 	if (_closeRequested || _leaveRequested || _surfaceLayoutRequested || _events.count || _commands.count || _diagnosticsRequest || _pendingForegroundLoss || !_lifecycleApplied || _appliedForeground != _foreground ||
 			(_retainedPolicy && _privacyCover && _foreground && _readySeen && ![self hasConcealedCurrentDiagnostics])) {
@@ -1224,7 +1310,8 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 	if ([self requiresFreshFrame]) { Main::force_redraw(); }
 	BOOL requestedQuit;
 	{
-		PDNativeTimingScope iterateTiming(_nativeTimings.iterate);
+		PDNativeTimingScope iterateTiming(_nativeTimings.iterate, &_frameTimings, PDFrameTiming::Kind::Iterate,
+			PDReadFrameTimingContext, (__bridge void *)self);
 		requestedQuit = OS_AppleEmbedded::get_singleton()->iterate();
 	}
 	++_iterations;
@@ -2091,6 +2178,7 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 - (BOOL)confirmRetainedReady {
 	if (![self acceptsGeneration:_presentationGeneration] || !_readySeen || _readyEvents != 1) { return NO; }
 	_authorityReadyConfirmed = YES;
+	_frameTimings.mark_ready(PDNativeTimingUptime(), [self frameTimingContext]);
 	[self scheduleDrain];
 	return YES;
 }
@@ -2109,6 +2197,7 @@ void uninitialize_partydeck_ios_probe_module(ModuleInitializationLevel level) {
 		@"diagnosticsRequests": @(_diagnosticsRequests), @"acceptedDiagnostics": @(_acceptedDiagnostics),
 		@"rejectedDiagnostics": @(_rejectedDiagnostics), @"unansweredDiagnostics": @(_unansweredDiagnostics),
 		@"iterations": @(_iterations), @"drawCalls": @(_drawCalls), @"drawDepth": @(_drawDepth),
+		@"frameTiming": PDFrameTimingSnapshot(_frameTimings, timingSnapshotUptime),
 		@"timings": @{
 			@"schemaVersion": @1, @"snapshotUptime": @(timingSnapshotUptime),
 			@"bootstrap": PDNativeStageTimingSnapshot(_nativeTimings.bootstrap),

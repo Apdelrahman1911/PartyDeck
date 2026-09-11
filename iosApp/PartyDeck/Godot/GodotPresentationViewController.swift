@@ -24,6 +24,12 @@ final class GodotPresentationViewController: UIViewController {
     private var returnRequested = false
     private var closing = false
     private var ready = false
+    #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION
+    private var qualificationCoverTransitions: UInt64 = 0
+    private var qualificationCoverCounterExhausted = false
+    private var qualificationFirstCoverRelease: TimeInterval?
+    private var qualificationLastCoverTransition: TimeInterval?
+    #endif
 
     init(nativeController: UIViewController) {
         self.nativeController = nativeController
@@ -185,6 +191,22 @@ final class GodotPresentationViewController: UIViewController {
                     engineContainer.accessibilityElementsHidden]
     }
 
+    private func noteQualificationCoverTransition() {
+        let now = ProcessInfo.processInfo.systemUptime
+        if qualificationCoverTransitions < UInt64.max { qualificationCoverTransitions += 1 }
+        else { qualificationCoverCounterExhausted = true }
+        qualificationLastCoverTransition = now
+        if cover.isHidden && qualificationFirstCoverRelease == nil { qualificationFirstCoverRelease = now }
+    }
+
+    func sessionQualificationCoverTiming() -> [String: Any] {
+        return ["snapshotUptime": ProcessInfo.processInfo.systemUptime,
+                "outerCoverVisible": !cover.isHidden, "coverTransitions": String(qualificationCoverTransitions),
+                "counterExhausted": qualificationCoverCounterExhausted,
+                "firstReleaseUptime": qualificationFirstCoverRelease as Any? ?? NSNull(),
+                "lastTransitionUptime": qualificationLastCoverTransition as Any? ?? NSNull()]
+    }
+
     func setSessionQualificationValue(_ document: String) {
         guard isViewLoaded else { return }
         // Reuse native chrome; no new layout, input target, or engine accessibility node.
@@ -196,7 +218,13 @@ final class GodotPresentationViewController: UIViewController {
         guard isViewLoaded else { return }
         engineContainer.isUserInteractionEnabled = false
         engineContainer.accessibilityElementsHidden = true
+        #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION
+        let qualificationCoverChanged = cover.isHidden
+        #endif
         cover.isHidden = false
+        #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION
+        if qualificationCoverChanged { noteQualificationCoverTransition() }
+        #endif
         if !closing {
             let label = ready ? text("Godot.HandCovered", "Your hand is covered") : text("Godot.Opening", "Opening your table…")
             cover.text = label
@@ -214,7 +242,13 @@ final class GodotPresentationViewController: UIViewController {
         // This visual surface has no mobile accessibility adapter. The native toolbar
         // returns to the complete standard-table controls on the same session.
         engineContainer.accessibilityElementsHidden = true
+        #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION
+        let qualificationCoverChanged = !cover.isHidden
+        #endif
         cover.isHidden = true
+        #if DEBUG && PARTYDECK_GODOT_SESSION_QUALIFICATION
+        if qualificationCoverChanged { noteQualificationCoverTransition() }
+        #endif
     }
 
     func beginClosing() {

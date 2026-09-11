@@ -648,6 +648,7 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
             try require(!native.failurePresent && !native.quarantined && native.nativeFailedPresentations == 0 && native.rejectedEvents == 0,
                         "The retained native owner reported a real failure or rejected production event.")
         }
+        try validateFrameMeasurement(value)
         if let lastObservation {
             try require(value.observationSequence >= lastObservation.observationSequence,
                         "The selected production observation must not regress to an older sample.")
@@ -708,7 +709,14 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
             "retainedIdentitiesMatchFirstEntry", "revision", "round", "sceneStateApplied", "schemaVersion", "screen",
             "selected", "selectedCount", "sequence", "serial", "sessionGeneration", "sessionPresent", "sessionRevision",
             "supported", "surfaceAccessibilityHidden", "surfaceAccessibilityHiddenByContainer", "surfaceAttached",
-            "surfaceSize", "viewport", "visible", "width"
+            "surfaceSize", "viewport", "visible", "width",
+            "frameTiming", "frameTimingStatus", "clock", "snapshotUptime", "slowThresholdSeconds", "sampleCapacity",
+            "draw", "iterate", "startedCount", "completedCount", "slowCompletedCount", "overwrittenCount",
+            "invalidCompletedCount", "counterExhausted", "last", "maximum", "slowSamples", "scopeOrdinal",
+            "completedOrdinal", "startedUptime", "completedUptime", "seconds", "begin", "end", "uptime", "context",
+            "readyConfirmed", "firstNativeCoverRelease", "firstNativeReleaseDraw", "lastIterationInReleaseDraw",
+            "jointVisibility", "nativeSnapshotUptime", "shell", "nativeCoverVisible", "bothCoversClear",
+            "coverTransitions", "firstReleaseUptime", "lastTransitionUptime"
         ]
         let path = codingPath.reduce("$") { path, key in
             if key.intValue != nil { return "\(path)[]" }
@@ -716,6 +724,217 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
         }
         return Failure("Production qualification observation is malformed; missing values cannot pass a privacy assertion. " +
             "category=\(category), path=\(path), bytes=\(byteCount)")
+    }
+
+
+    // Structural measurement qualification only. These checks never provide a
+    // performance budget, a first-display timestamp, or a readiness grant.
+    private func validateFrameMeasurement(_ observation: Observation) throws {
+        guard let native = observation.port.native else {
+            try require(observation.port.jointVisibility.value == nil,
+                        "A cover observation requires the actual native owner.")
+            return
+        }
+        guard native.frameTimingStatus == .available, let frame = native.frameTiming.value else {
+            throw Failure("The frame measurement is unavailable; omitted or invalid timing cannot qualify as zero elapsed time.")
+        }
+        try require(frame.schemaVersion == 1 && frame.clock == "system_uptime" &&
+                    frame.slowThresholdSeconds == 1 && frame.sampleCapacity == 4 &&
+                    frame.snapshotUptime.isFinite && frame.snapshotUptime >= 0 &&
+                    frame.presentationGeneration == native.presentationGeneration,
+                    "The frame measurement must use the supported bounded schema and current generation.")
+        try validateTimingStage(frame.draw, draw: true, frame: frame, native: native)
+        try validateTimingStage(frame.iterate, draw: false, frame: frame, native: native)
+        for marker in [frame.readyConfirmed.value, frame.firstNativeCoverRelease.value].compactMap({ $0 }) {
+            try validateTimingContext(marker.context, frame: frame, native: native)
+            try require(frame.presentationGeneration.value > 0 &&
+                        marker.context.presentation == frame.presentationGeneration &&
+                        marker.uptime.isFinite && marker.uptime >= 0 && marker.uptime <= frame.snapshotUptime,
+                        "A first-presentation marker must retain its actual current identity and bounded uptime.")
+        }
+        if let ready = frame.readyConfirmed.value {
+            try require(ready.context.flags & 9 == 9,
+                        "The Ready marker must be sampled after the existing authority confirmation.")
+        }
+        if let release = frame.firstNativeCoverRelease.value {
+            guard let ready = frame.readyConfirmed.value else {
+                throw Failure("The native cover release has no qualified Ready marker.")
+            }
+            try require(release.context.releaseEligible && release.context.draw.value > 0 &&
+                        release.context.presented.value > 0 && release.uptime >= ready.uptime,
+                        "The native cover release must retain a successful current concealed-presentation context.")
+        }
+        if let draw = frame.firstNativeReleaseDraw.value {
+            guard let release = frame.firstNativeCoverRelease.value else {
+                throw Failure("The completed first-release draw has no native release marker.")
+            }
+            try validateTimingSample(draw, stage: frame.draw, draw: true, frame: frame, native: native)
+            try require(draw.begin.presentation == frame.presentationGeneration &&
+                        draw.end.presentation == frame.presentationGeneration &&
+                        draw.scopeOrdinal == release.context.draw &&
+                        draw.startedUptime <= release.uptime && release.uptime <= draw.completedUptime &&
+                        draw.begin.presented < release.context.presented && release.context.presented <= draw.end.presented,
+                        "The release draw must be its completed owning scope, not another callback or an old presentation.")
+        }
+        if let iteration = frame.lastIterationInReleaseDraw.value {
+            guard let release = frame.firstNativeCoverRelease.value else {
+                throw Failure("The release-associated iteration has no native release marker.")
+            }
+            try validateTimingSample(iteration, stage: frame.iterate, draw: false, frame: frame, native: native)
+            try require(iteration.begin.presentation == frame.presentationGeneration &&
+                        iteration.end.presentation == frame.presentationGeneration &&
+                        iteration.begin.draw == release.context.draw && iteration.end.draw == release.context.draw &&
+                        iteration.completedUptime <= release.uptime &&
+                        iteration.end.iterations < release.context.iterations,
+                        "The release-associated iteration must have completed in the owning draw before release.")
+            if let draw = frame.firstNativeReleaseDraw.value {
+                try require(iteration.startedUptime >= draw.startedUptime && iteration.completedUptime <= draw.completedUptime,
+                            "The associated iteration must fit within the measured inclusive draw scope.")
+            }
+        }
+        // Null firstNativeReleaseDraw can mean in flight, an invalid scope, or
+        // a cross-presentation closing scope. A null matching iteration is also
+        // unknown: iterate.last is the latest global sample, not an event log.
+        if let joint = observation.port.jointVisibility.value {
+            guard let geometry = observation.port.geometry else {
+                throw Failure("A joint cover observation requires current attached shell geometry.")
+            }
+            try require(observation.port.active && !observation.port.closing && observation.port.portReadyConfirmed &&
+                        native.surfaceAttached && native.nativeForeground && native.authorityForegroundGrant &&
+                        native.authorityReadyConfirmed && native.renderLoopActive && !native.applicationBackgrounded &&
+                        !native.dormant && !native.emptyTree &&
+                        joint.presentationGeneration == native.presentationGeneration &&
+                        joint.lifecycleGeneration == native.lifecycleGeneration && joint.inputGeneration == native.inputGeneration &&
+                        joint.nativeSnapshotUptime == frame.snapshotUptime &&
+                        joint.nativeCoverVisible == native.privacyCoverVisible &&
+                        joint.shell.outerCoverVisible == geometry.outerCoverVisible &&
+                        joint.bothCoversClear == (!joint.nativeCoverVisible && !joint.shell.outerCoverVisible),
+                        "Joint cover samples must belong to the same current attached presentation and preserve the observed cover flags.")
+            let shell = joint.shell
+            try require(shell.snapshotUptime.isFinite && shell.snapshotUptime >= joint.nativeSnapshotUptime &&
+                        !shell.counterExhausted &&
+                        shell.outerCoverVisible == (shell.coverTransitions.value % 2 == 0),
+                        "Shell cover timing requires ordered uptime samples and unexhausted actual transition counts.")
+            if shell.coverTransitions.value == 0 {
+                try require(shell.firstReleaseUptime.value == nil && shell.lastTransitionUptime.value == nil,
+                            "An untouched shell cover must retain explicit unknown transition times.")
+            } else {
+                guard let first = shell.firstReleaseUptime.value, let last = shell.lastTransitionUptime.value else {
+                    throw Failure("Observed shell transitions require their recorded finite times.")
+                }
+                try require(first.isFinite && last.isFinite && first >= 0 && first <= last && last <= shell.snapshotUptime,
+                            "Shell transition markers must fit within their actual sample clock.")
+            }
+        }
+        if let previousNative = lastObservation?.port.native,
+           previousNative.processIdentifier == native.processIdentifier,
+           let previous = previousNative.frameTiming.value {
+            try require(frame.snapshotUptime >= previous.snapshotUptime &&
+                        frame.presentationGeneration >= previous.presentationGeneration,
+                        "The same native process must not regress its frame measurement clock or presentation.")
+            for (before, after) in [(previous.draw, frame.draw), (previous.iterate, frame.iterate)] {
+                try require(after.startedCount >= before.startedCount && after.completedCount >= before.completedCount &&
+                            after.slowCompletedCount >= before.slowCompletedCount && after.overwrittenCount >= before.overwrittenCount,
+                            "Lifetime completed-scope and bounded-history counters must not regress between observations.")
+            }
+            if previous.presentationGeneration == frame.presentationGeneration {
+                try require(previous.readyConfirmed.value == nil || previous.readyConfirmed.value == frame.readyConfirmed.value,
+                            "An existing first Ready marker must remain stable within its presentation.")
+                try require(previous.firstNativeCoverRelease.value == nil ||
+                            previous.firstNativeCoverRelease.value == frame.firstNativeCoverRelease.value,
+                            "An existing first native release marker must remain stable within its presentation.")
+                try require(previous.firstNativeReleaseDraw.value == nil ||
+                            previous.firstNativeReleaseDraw.value == frame.firstNativeReleaseDraw.value,
+                            "A completed first-release draw must not be relabelled by a later scope.")
+                try require(previous.lastIterationInReleaseDraw.value == nil ||
+                            previous.lastIterationInReleaseDraw.value == frame.lastIterationInReleaseDraw.value,
+                            "A recorded release-associated iteration must not be replaced by later activity.")
+                if let before = lastObservation?.port.jointVisibility.value, let after = observation.port.jointVisibility.value {
+                    try require(after.shell.coverTransitions >= before.shell.coverTransitions &&
+                                (before.shell.firstReleaseUptime.value == nil ||
+                                 before.shell.firstReleaseUptime.value == after.shell.firstReleaseUptime.value),
+                                "The same shell must retain monotonic cover transitions and its first release marker.")
+                }
+            }
+        }
+    }
+
+    private func validateTimingStage(_ stage: FrameStage, draw: Bool, frame: FrameMeasurement, native: Native) throws {
+        // Bad clocks/exhaustion are represented by the native trace, but cannot
+        // produce timing qualification. A still-open scope is not an error.
+        try require(!stage.counterExhausted && stage.invalidCompletedCount.value == 0 &&
+                    stage.completedCount <= stage.startedCount && stage.slowCompletedCount <= stage.completedCount &&
+                    stage.slowSamples.count == Int(min(UInt64(4), stage.slowCompletedCount.value)) &&
+                    stage.overwrittenCount.value == stage.slowCompletedCount.value - UInt64(stage.slowSamples.count),
+                    "Completed timing counts must be valid and explicitly account for every overwritten bounded sample.")
+        try require((stage.completedCount.value == 0) == (stage.last.value == nil) &&
+                    (stage.completedCount.value == 0) == (stage.maximum.value == nil),
+                    "Never-completed scopes must remain unknown; completed valid scopes require their last and maximum samples.")
+        if let last = stage.last.value {
+            try require(last.completedOrdinal == stage.completedCount,
+                        "The latest completed sample must use completion order, not scope-start order.")
+        }
+        if let maximum = stage.maximum.value {
+            try require((stage.slowCompletedCount.value > 0) == (maximum.seconds >= frame.slowThresholdSeconds),
+                        "The recurrence count must agree with whether any completed scope met its diagnostic filter.")
+        }
+        let samples = [stage.last.value, stage.maximum.value].compactMap({ $0 }) + stage.slowSamples
+        for sample in samples {
+            try validateTimingSample(sample, stage: stage, draw: draw, frame: frame, native: native)
+        }
+        var previous: FrameSample?
+        for sample in stage.slowSamples {
+            try require(sample.seconds >= frame.slowThresholdSeconds,
+                        "The bounded recurrence trace contains only completed scopes meeting its diagnostic filter.")
+            if let previous {
+                try require(sample.completedOrdinal > previous.completedOrdinal && sample.completedUptime >= previous.completedUptime,
+                            "Bounded recurrence samples must retain chronological completion order.")
+            }
+            previous = sample
+        }
+        if let last = stage.last.value, last.seconds >= frame.slowThresholdSeconds {
+            try require(stage.slowSamples.last == last,
+                        "A latest qualifying completion must be retained even when it ties the historical maximum.")
+        }
+    }
+
+    private func validateTimingSample(_ sample: FrameSample, stage: FrameStage, draw: Bool,
+                                      frame: FrameMeasurement, native: Native) throws {
+        try require(sample.scopeOrdinal.value > 0 && sample.scopeOrdinal <= stage.startedCount &&
+                    sample.completedOrdinal.value > 0 && sample.completedOrdinal <= stage.completedCount &&
+                    sample.startedUptime.isFinite && sample.completedUptime.isFinite && sample.seconds.isFinite &&
+                    sample.startedUptime >= 0 && sample.seconds >= 0 &&
+                    sample.completedUptime >= sample.startedUptime && sample.completedUptime <= frame.snapshotUptime &&
+                    abs(sample.seconds - (sample.completedUptime - sample.startedUptime)) <= 0.000001,
+                    "A measured scope requires finite ordered start/completion times and valid lifetime ordinals.")
+        try validateTimingContext(sample.begin, frame: frame, native: native)
+        try validateTimingContext(sample.end, frame: frame, native: native)
+        try require(sample.begin.presentation <= sample.end.presentation && sample.begin.lifecycle <= sample.end.lifecycle &&
+                    sample.begin.input <= sample.end.input && sample.begin.presented <= sample.end.presented &&
+                    sample.begin.iterations <= sample.end.iterations && sample.begin.coverInstalls <= sample.end.coverInstalls &&
+                    sample.begin.draw == sample.end.draw && (!draw || sample.begin.draw == sample.scopeOrdinal),
+                    "Each inclusive scope must retain both boundary contexts and its stable owning draw ordinal.")
+        if let maximum = stage.maximum.value {
+            try require(sample.seconds <= maximum.seconds,
+                        "A completed scope cannot exceed the reported inclusive maximum.")
+        }
+        for other in [stage.last.value, stage.maximum.value].compactMap({ $0 }) + stage.slowSamples {
+            if sample.completedOrdinal == other.completedOrdinal {
+                try require(sample == other, "Duplicate completion ordinals must preserve the same measured scope.")
+            } else if sample.completedOrdinal < other.completedOrdinal {
+                try require(sample.completedUptime <= other.completedUptime,
+                            "Completed scope timestamps must agree with their completion order.")
+            }
+        }
+        // Iterate's end context precedes the existing _iterations increment.
+        // completedOrdinal, not end.iterations, identifies its completion.
+    }
+
+    private func validateTimingContext(_ context: FrameContext, frame: FrameMeasurement, native: Native) throws {
+        try require(context.presentation <= frame.presentationGeneration && context.lifecycle <= native.lifecycleGeneration &&
+                    context.input <= native.inputGeneration && context.draw <= frame.draw.startedCount &&
+                    context.presented.value <= native.nativePresentedFrames && context.iterations.value <= native.iterations,
+                    "Timing contexts must preserve bounded lifetime counters without referring to future native state.")
     }
 
     private func controller(_ value: Observation) throws -> Controller {
@@ -785,6 +1004,170 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
         }
         static func < (left: Counter, right: Counter) -> Bool { left.value < right.value }
     }
+
+    // A required nullable field differs from an absent key. In particular,
+    // missing or omitted measurements must never decode as zero durations.
+    private struct TimingNullable<Value: Decodable>: Decodable {
+        let value: Value?
+        init(from decoder: Decoder) throws {
+            let container = try decoder.singleValueContainer()
+            if container.decodeNil() { value = nil }
+            else { value = try container.decode(Value.self) }
+        }
+    }
+    private enum FrameTimingStatus: String, Decodable {
+        case available, invalid
+        case payloadBudget = "payload_budget"
+    }
+    private enum TimingShape {
+        private struct Key: CodingKey {
+            let stringValue: String
+            var intValue: Int? { nil }
+            init?(stringValue: String) { self.stringValue = stringValue }
+            init?(intValue: Int) { return nil }
+        }
+        static func require(_ decoder: Decoder, _ keys: [String]) throws {
+            let container = try decoder.container(keyedBy: Key.self)
+            guard Set(container.allKeys.map(\.stringValue)) == Set(keys) else {
+                throw DecodingError.dataCorrupted(.init(codingPath: decoder.codingPath,
+                    debugDescription: "A fixed timing object has missing or unknown keys."))
+            }
+        }
+    }
+    private struct FrameContext: Decodable, Equatable {
+        let presentation: Counter, lifecycle: Counter, input: Counter, draw: Counter
+        let presented: Counter, iterations: Counter, coverInstalls: Counter
+        let flags: UInt16
+        var releaseEligible: Bool { flags & 399 == 399 && flags & 112 == 0 }
+        init(from decoder: Decoder) throws {
+            var values = try decoder.unkeyedContainer()
+            presentation = try values.decode(Counter.self); lifecycle = try values.decode(Counter.self)
+            input = try values.decode(Counter.self); draw = try values.decode(Counter.self)
+            presented = try values.decode(Counter.self); iterations = try values.decode(Counter.self)
+            coverInstalls = try values.decode(Counter.self); flags = try values.decode(UInt16.self)
+            guard values.isAtEnd && flags <= 511 else {
+                throw DecodingError.dataCorruptedError(in: values, debugDescription: "A fixed numeric timing context is malformed.")
+            }
+        }
+    }
+    private struct FrameSample: Decodable, Equatable {
+        let scopeOrdinal: Counter, completedOrdinal: Counter
+        let startedUptime: Double, completedUptime: Double, seconds: Double
+        let begin: FrameContext, end: FrameContext
+        enum CodingKeys: String, CodingKey, CaseIterable {
+            case scopeOrdinal, completedOrdinal, startedUptime, completedUptime, seconds, begin, end
+        }
+        init(from decoder: Decoder) throws {
+            try TimingShape.require(decoder, CodingKeys.allCases.map(\.rawValue))
+            let values = try decoder.container(keyedBy: CodingKeys.self)
+            scopeOrdinal = try values.decode(Counter.self, forKey: .scopeOrdinal)
+            completedOrdinal = try values.decode(Counter.self, forKey: .completedOrdinal)
+            startedUptime = try values.decode(Double.self, forKey: .startedUptime)
+            completedUptime = try values.decode(Double.self, forKey: .completedUptime)
+            seconds = try values.decode(Double.self, forKey: .seconds)
+            begin = try values.decode(FrameContext.self, forKey: .begin)
+            end = try values.decode(FrameContext.self, forKey: .end)
+        }
+    }
+    private struct FrameMarker: Decodable, Equatable {
+        let uptime: Double
+        let context: FrameContext
+        enum CodingKeys: String, CodingKey, CaseIterable { case uptime, context }
+        init(from decoder: Decoder) throws {
+            try TimingShape.require(decoder, CodingKeys.allCases.map(\.rawValue))
+            let values = try decoder.container(keyedBy: CodingKeys.self)
+            uptime = try values.decode(Double.self, forKey: .uptime)
+            context = try values.decode(FrameContext.self, forKey: .context)
+        }
+    }
+    private struct FrameStage: Decodable {
+        let startedCount: Counter, completedCount: Counter, slowCompletedCount: Counter
+        let overwrittenCount: Counter, invalidCompletedCount: Counter
+        let counterExhausted: Bool
+        let last: TimingNullable<FrameSample>, maximum: TimingNullable<FrameSample>
+        let slowSamples: [FrameSample]
+        enum CodingKeys: String, CodingKey, CaseIterable {
+            case startedCount, completedCount, slowCompletedCount, overwrittenCount, invalidCompletedCount
+            case counterExhausted, last, maximum, slowSamples
+        }
+        init(from decoder: Decoder) throws {
+            try TimingShape.require(decoder, CodingKeys.allCases.map(\.rawValue))
+            let values = try decoder.container(keyedBy: CodingKeys.self)
+            startedCount = try values.decode(Counter.self, forKey: .startedCount)
+            completedCount = try values.decode(Counter.self, forKey: .completedCount)
+            slowCompletedCount = try values.decode(Counter.self, forKey: .slowCompletedCount)
+            overwrittenCount = try values.decode(Counter.self, forKey: .overwrittenCount)
+            invalidCompletedCount = try values.decode(Counter.self, forKey: .invalidCompletedCount)
+            counterExhausted = try values.decode(Bool.self, forKey: .counterExhausted)
+            last = try values.decode(TimingNullable<FrameSample>.self, forKey: .last)
+            maximum = try values.decode(TimingNullable<FrameSample>.self, forKey: .maximum)
+            slowSamples = try values.decode([FrameSample].self, forKey: .slowSamples)
+        }
+    }
+    private struct FrameMeasurement: Decodable {
+        let schemaVersion: Int, clock: String, snapshotUptime: Double, presentationGeneration: Counter
+        let slowThresholdSeconds: Double, sampleCapacity: Int
+        let draw: FrameStage, iterate: FrameStage
+        let readyConfirmed: TimingNullable<FrameMarker>, firstNativeCoverRelease: TimingNullable<FrameMarker>
+        let firstNativeReleaseDraw: TimingNullable<FrameSample>, lastIterationInReleaseDraw: TimingNullable<FrameSample>
+        enum CodingKeys: String, CodingKey, CaseIterable {
+            case schemaVersion, clock, snapshotUptime, presentationGeneration, slowThresholdSeconds, sampleCapacity, draw, iterate
+            case readyConfirmed, firstNativeCoverRelease, firstNativeReleaseDraw, lastIterationInReleaseDraw
+        }
+        init(from decoder: Decoder) throws {
+            try TimingShape.require(decoder, CodingKeys.allCases.map(\.rawValue))
+            let values = try decoder.container(keyedBy: CodingKeys.self)
+            schemaVersion = try values.decode(Int.self, forKey: .schemaVersion)
+            clock = try values.decode(String.self, forKey: .clock)
+            snapshotUptime = try values.decode(Double.self, forKey: .snapshotUptime)
+            presentationGeneration = try values.decode(Counter.self, forKey: .presentationGeneration)
+            slowThresholdSeconds = try values.decode(Double.self, forKey: .slowThresholdSeconds)
+            sampleCapacity = try values.decode(Int.self, forKey: .sampleCapacity)
+            draw = try values.decode(FrameStage.self, forKey: .draw)
+            iterate = try values.decode(FrameStage.self, forKey: .iterate)
+            readyConfirmed = try values.decode(TimingNullable<FrameMarker>.self, forKey: .readyConfirmed)
+            firstNativeCoverRelease = try values.decode(TimingNullable<FrameMarker>.self, forKey: .firstNativeCoverRelease)
+            firstNativeReleaseDraw = try values.decode(TimingNullable<FrameSample>.self, forKey: .firstNativeReleaseDraw)
+            lastIterationInReleaseDraw = try values.decode(TimingNullable<FrameSample>.self, forKey: .lastIterationInReleaseDraw)
+        }
+    }
+    private struct ShellCoverMeasurement: Decodable {
+        let snapshotUptime: Double, outerCoverVisible: Bool, coverTransitions: Counter, counterExhausted: Bool
+        let firstReleaseUptime: TimingNullable<Double>, lastTransitionUptime: TimingNullable<Double>
+        enum CodingKeys: String, CodingKey, CaseIterable {
+            case snapshotUptime, outerCoverVisible, coverTransitions, counterExhausted, firstReleaseUptime, lastTransitionUptime
+        }
+        init(from decoder: Decoder) throws {
+            try TimingShape.require(decoder, CodingKeys.allCases.map(\.rawValue))
+            let values = try decoder.container(keyedBy: CodingKeys.self)
+            snapshotUptime = try values.decode(Double.self, forKey: .snapshotUptime)
+            outerCoverVisible = try values.decode(Bool.self, forKey: .outerCoverVisible)
+            coverTransitions = try values.decode(Counter.self, forKey: .coverTransitions)
+            counterExhausted = try values.decode(Bool.self, forKey: .counterExhausted)
+            firstReleaseUptime = try values.decode(TimingNullable<Double>.self, forKey: .firstReleaseUptime)
+            lastTransitionUptime = try values.decode(TimingNullable<Double>.self, forKey: .lastTransitionUptime)
+        }
+    }
+    private struct JointCoverMeasurement: Decodable {
+        let presentationGeneration: Counter, lifecycleGeneration: Counter, inputGeneration: Counter
+        let nativeSnapshotUptime: Double, nativeCoverVisible: Bool, bothCoversClear: Bool
+        let shell: ShellCoverMeasurement
+        enum CodingKeys: String, CodingKey, CaseIterable {
+            case presentationGeneration, lifecycleGeneration, inputGeneration, nativeSnapshotUptime, nativeCoverVisible, bothCoversClear, shell
+        }
+        init(from decoder: Decoder) throws {
+            try TimingShape.require(decoder, CodingKeys.allCases.map(\.rawValue))
+            let values = try decoder.container(keyedBy: CodingKeys.self)
+            presentationGeneration = try values.decode(Counter.self, forKey: .presentationGeneration)
+            lifecycleGeneration = try values.decode(Counter.self, forKey: .lifecycleGeneration)
+            inputGeneration = try values.decode(Counter.self, forKey: .inputGeneration)
+            nativeSnapshotUptime = try values.decode(Double.self, forKey: .nativeSnapshotUptime)
+            nativeCoverVisible = try values.decode(Bool.self, forKey: .nativeCoverVisible)
+            bothCoversClear = try values.decode(Bool.self, forKey: .bothCoversClear)
+            shell = try values.decode(ShellCoverMeasurement.self, forKey: .shell)
+        }
+    }
+
     private struct Observation: Decodable {
         let schemaVersion: Int
         let observationSequence: Counter
@@ -819,6 +1202,7 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
         let geometry: Geometry?
         let renderer: Renderer?
         let preparation: Preparation?
+        let jointVisibility: TimingNullable<JointCoverMeasurement>
     }
     private struct Preparation: Decodable {
         enum Phase: String, Decodable { case preparing, succeeded, failed, rejected }
@@ -839,6 +1223,8 @@ final class PartyDeckGodotSessionUITests: XCTestCase {
         let readyEvents: UInt64, intentEvents: UInt64, exitEvents: UInt64, rejectedEvents: UInt64
         let nativePresentedFrames: UInt64, nativeFailedPresentations: UInt64, iterations: UInt64, drawCalls: UInt64
         let maxDrawSeconds: Double?, maxIterateSeconds: Double?, maxDrainSeconds: Double?
+        let frameTimingStatus: FrameTimingStatus
+        let frameTiming: TimingNullable<FrameMeasurement>
         let maxBootstrapSeconds: Double?, bootstrapPhase: BootstrapPhase?
         let authorityReadyConfirmed: Bool, nativeForeground: Bool, authorityForegroundGrant: Bool, applicationBackgrounded: Bool
         let inputViewEnabled: Bool, privacyCoverVisible: Bool, renderLoopActive: Bool, dormant: Bool, emptyTree: Bool

@@ -33,10 +33,25 @@ final class GodotSessionQualificationObservation: ObservableObject {
            data.count <= 8192, let state = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
             payload["controller"] = state
         }
+        // Keep the existing total observation limit. If added timing metadata
+        // exceeds it, omit only that measurement explicitly; never drop privacy
+        // fields or represent an omitted timing trace as zero elapsed time.
+        var encodedData: Data? = nil
+        if JSONSerialization.isValidJSONObject(payload) {
+            encodedData = try? JSONSerialization.data(withJSONObject: payload, options: [.sortedKeys])
+        }
+        if let data = encodedData, data.count > 32768,
+           var portDocument = payload["port"] as? [String: Any],
+           var native = portDocument["native"] as? [String: Any] {
+            native["frameTiming"] = NSNull()
+            native["frameTimingStatus"] = "payload_budget"
+            portDocument["native"] = native
+            payload["port"] = portDocument
+            encodedData = try? JSONSerialization.data(withJSONObject: payload, options: [.sortedKeys])
+        }
         let document: String
-        if JSONSerialization.isValidJSONObject(payload),
-           let data = try? JSONSerialization.data(withJSONObject: payload, options: [.sortedKeys]), data.count <= 32768,
-           let encoded = String(data: data, encoding: .utf8) {
+        if let data = encodedData, data.count <= 32768,
+            let encoded = String(data: data, encoding: .utf8) {
             document = encoded
         } else { document = "{\"schemaVersion\":1,\"observationError\":true}" }
         self.document = document
