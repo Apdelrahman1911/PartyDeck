@@ -14,6 +14,8 @@ Full rules and edge cases are in [docs/game-rules.md](docs/game-rules.md).
 
 For a downloadable Android test build, see the [tester APK workflow and installation instructions](docs/android-testing.md).
 
+The latest [3D before-and-after screenshots](docs/screenshots/3d-polish-20260912/README.md) show the sharper cards, complete table rim and card-play motion.
+
 ## Screenshots and visual feedback
 
 Browse the [app screenshot gallery](docs/screenshots/README.md) for captured app

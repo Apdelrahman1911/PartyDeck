@@ -40,6 +40,9 @@ multiplayer, everyone needs the same build and reachable Wi-Fi, and the host mus
 keep the app open. The standalone Godot comparison APK is a separate practice
 tool; this release contains the real PartyDeck host/join app.
 
+Review the [3D before-and-after screenshots and motion frames](screenshots/3d-polish-20260912/README.md)
+for the display-resolution and table-framing update.
+
 Physical phone/LAN testing, speaker output, accessibility and device performance
 remain open. This workflow does not grant production or store qualification.
 Send feedback through repository issues with the release tag, device, Android

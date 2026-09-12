@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PartyDeck — 3D table before and after</title>
+<style>
+:root{color-scheme:dark;font:16px/1.5 system-ui,sans-serif;color:#f4f2ed;background:#13151c}
+*{box-sizing:border-box}body{margin:0}main{max-width:1480px;margin:auto;padding:28px}
+h1{font-size:clamp(24px,3vw,36px);margin:0 0 8px}p{max-width:80ch;margin:0 0 20px;color:#c4c7d2}
+a{color:#d8ef83}a:focus-visible,select:focus-visible{outline:3px solid #d8ef83;outline-offset:4px}
+.controls{display:flex;flex-wrap:wrap;gap:20px;margin-bottom:18px}label{display:grid;gap:5px;font-size:14px}
+select{background:#242833;color:#f4f2ed;border:1px solid #657081;border-radius:5px;padding:10px;font:inherit;min-height:44px}
+.metrics{margin-bottom:20px;padding:14px 16px;background:#20242e;border-left:3px solid #d8ef83}
+.comparison{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+figure{margin:0;min-width:0}figcaption{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+figcaption strong{font-size:20px}.frame{display:block;background:#1b1726;border:1px solid #454959}
+img{display:block;width:100%;height:auto}footer{margin-top:26px;border-top:1px solid #3d424e;padding-top:18px;font-size:14px;color:#c4c7d2}
+footer p{margin-bottom:12px}code{overflow-wrap:anywhere;font-size:12px}.links{display:flex;flex-wrap:wrap;gap:16px}
+@media(max-width:650px){main{padding:18px}.comparison{gap:10px}figcaption{display:block;font-size:12px}figcaption strong{display:block;font-size:17px}.controls{gap:12px}select{max-width:calc(100vw - 36px)}}
+</style>
+<main>
+<h1>3D table: before and after</h1>
+<p>Compare the full table rim and card edges at the same physical resolution. Open either unchanged PNG to inspect it at full size.</p>
+<div class="controls">
+<label>Window and display density<select id="case">
+<option value="portrait-d3">Portrait · 1080 × 2340 · density 3</option>
+<option value="landscape-d3">Landscape · 2340 × 1080 · density 3</option>
+<option value="portrait-d1p75">Portrait · 720 × 1560 · density 1.75</option>
+</select></label>
+<label>Hand state<select id="state">
+<option value="01-concealed">Concealed</option>
+<option value="02-revealed" selected>Revealed</option>
+<option value="03-selected">Selected</option>
+</select></label>
+</div>
+<div class="metrics" id="metrics" aria-live="polite"></div>
+<div class="comparison">
+<figure><figcaption><strong>Before</strong><a id="before-link" href="before/portrait-d3/02-revealed.png">Open original PNG</a></figcaption>
+<a class="frame" id="before-image-link" href="before/portrait-d3/02-revealed.png"><img id="before-image" src="before/portrait-d3/02-revealed.png" alt="Baseline portrait with the own hand revealed"></a></figure>
+<figure><figcaption><strong>After</strong><a id="after-link" href="after/portrait-d3/02-revealed.png">Open original PNG</a></figcaption>
+<a class="frame" id="after-image-link" href="after/portrait-d3/02-revealed.png"><img id="after-image" src="after/portrait-d3/02-revealed.png" alt="Candidate portrait with the own hand revealed"></a></figure>
+</div>
+<noscript><p>JavaScript enables the viewport and state selectors. <a href="README.md">All viewport pairs are linked in the readme.</a></p></noscript>
+<footer>
+<p>Real Godot 4.7.2 frames from the same safe fixture, rendered with desktop Mesa llvmpipe. The candidate was loaded from its exported resource pack. These captures verify appearance and input in this renderer environment; they do not establish device performance or multiplayer behavior.</p>
+<p>Baseline <code>e8e05709</code> · Candidate pack <code>1a8642527d6115817a0683d95ded2619d7396122db1acba167decbcb63e8d06b</code></p>
+<div class="links"><a href="README.md">Measurements and scope</a><a href="manifest.json">Capture manifest</a><a href="SHA256SUMS">Original file hashes</a></div>
+</footer>
+</main>
+<script>
+'use strict';
+const cases = [{"key": "portrait-d3", "title": "Portrait \u00b7 1080 \u00d7 2340 \u00b7 density 3", "before": {"cameraKeepAspect": 0, "cameraProjection": 1, "cameraSize": 7.25, "contentScaleFactor": 3.0, "nativePixelRoundingError": [656.0, 666.0], "nativeViewportPixels": false, "renderTargetToStagePhysicalRatio": [0.333333343267441, 0.333333343267441], "rimLogicalMarginsLeftTopRightBottom": [-23.7517280578613, 84.1520156860352, -23.7517395019531, 71.3027954101562], "rimMeshRadius": 4.15000009536743, "rimProjectedStageRect": [-23.7517280578613, 84.1520156860352, 375.503479003906, 177.545196533203], "rimProjectedViewportRect": [-23.7517280578613, 84.1520156860352, 375.503479003906, 177.545196533203], "rimSuggestedSideMargin": 13.12, "rimVertexCount": 2304, "rootFinalTransform": [3.0, 0.0, 0.0, 3.0, 0.0, 0.0], "rootPhysicalSize": [1080.0, 2340.0], "rootStretchTransform": [3.0, 0.0, 0.0, 3.0, 0.0, 0.0], "rootVisibleRect": [0.0, 0.0, 360.0, 780.0], "stageExpectedPhysicalSize": [984.0, 999.0], "stageLogicalRect": [16.0, 305.0, 328.0, 333.0], "stagePhysicalRect": [48.0, 915.0, 984.0, 999.0], "stagePhysicalScale": [3.0, 3.0], "subViewportMsaa3D": 1, "subViewportSize": [328.0, 333.0], "tableRimContained": false}, "after": {"cameraKeepAspect": 0, "cameraProjection": 1, "cameraSize": 9.10000038146973, "contentScaleFactor": 3.0, "nativePixelRoundingError": [0.0, 0.0], "nativeViewportPixels": true, "renderTargetToStagePhysicalRatio": [1.0, 1.0], "rimLogicalMarginsLeftTopRightBottom": [14.4175910949707, 100.893089294434, 14.4175415039062, 90.6560668945312], "rimMeshRadius": 4.15000009536743, "rimProjectedStageRect": [14.4175910949707, 100.893089294434, 299.164855957031, 141.45085144043], "rimProjectedViewportRect": [43.2527732849121, 302.679260253906, 897.494506835938, 424.3525390625], "rimSuggestedSideMargin": 13.12, "rimVertexCount": 4608, "rootFinalTransform": [3.0, 0.0, 0.0, 3.0, 0.0, 0.0], "rootPhysicalSize": [1080.0, 2340.0], "rootStretchTransform": [3.0, 0.0, 0.0, 3.0, 0.0, 0.0], "rootVisibleRect": [0.0, 0.0, 360.0, 780.0], "stageExpectedPhysicalSize": [984.0, 999.0], "stageLogicalRect": [16.0, 305.0, 328.0, 333.0], "stagePhysicalRect": [48.0, 915.0, 984.0, 999.0], "stagePhysicalScale": [3.0, 3.0], "subViewportMsaa3D": 2, "subViewportSize": [984.0, 999.0], "tableRimContained": true}}, {"key": "landscape-d3", "title": "Landscape \u00b7 2340 \u00d7 1080 \u00b7 density 3", "before": {"cameraKeepAspect": 0, "cameraProjection": 1, "cameraSize": 7.25, "contentScaleFactor": 3.0, "nativePixelRoundingError": [776.0, 524.0], "nativeViewportPixels": false, "renderTargetToStagePhysicalRatio": [0.333333343267441, 0.333333343267441], "rimLogicalMarginsLeftTopRightBottom": [-28.0965557098389, 33.5883522033691, -28.0965576171875, 18.388671875], "rimMeshRadius": 4.15000009536743, "rimProjectedStageRect": [-28.0965557098389, 33.5883522033691, 444.193115234375, 210.022979736328], "rimProjectedViewportRect": [-28.0965557098389, 33.5883522033691, 444.193115234375, 210.022979736328], "rimSuggestedSideMargin": 15.52, "rimVertexCount": 2304, "rootFinalTransform": [3.0, 0.0, 0.0, 3.0, 0.0, 0.0], "rootPhysicalSize": [2340.0, 1080.0], "rootStretchTransform": [3.0, 0.0, 0.0, 3.0, 0.0, 0.0], "rootVisibleRect": [0.0, 0.0, 780.0, 360.0], "stageExpectedPhysicalSize": [1164.0, 786.0], "stageLogicalRect": [16.0, 82.0, 388.0, 262.0], "stagePhysicalRect": [48.0, 246.0, 1164.0, 786.0], "stagePhysicalScale": [3.0, 3.0], "subViewportMsaa3D": 1, "subViewportSize": [388.0, 262.0], "tableRimContained": false}, "after": {"cameraKeepAspect": 0, "cameraProjection": 1, "cameraSize": 9.10000038146973, "contentScaleFactor": 3.0, "nativePixelRoundingError": [0.0, 0.0], "nativeViewportPixels": true, "renderTargetToStagePhysicalRatio": [1.0, 1.0], "rimLogicalMarginsLeftTopRightBottom": [17.0549564361572, 53.3918228149414, 17.0549621582031, 41.2821960449219], "rimMeshRadius": 4.15000009536743, "rimProjectedStageRect": [17.0549564361572, 53.3918228149414, 353.890075683594, 167.325988769531], "rimProjectedViewportRect": [51.164867401123, 160.17546081543, 1061.67016601562, 501.977966308594], "rimSuggestedSideMargin": 15.52, "rimVertexCount": 4608, "rootFinalTransform": [3.0, 0.0, 0.0, 3.0, 0.0, 0.0], "rootPhysicalSize": [2340.0, 1080.0], "rootStretchTransform": [3.0, 0.0, 0.0, 3.0, 0.0, 0.0], "rootVisibleRect": [0.0, 0.0, 780.0, 360.0], "stageExpectedPhysicalSize": [1164.0, 786.0], "stageLogicalRect": [16.0, 82.0, 388.0, 262.0], "stagePhysicalRect": [48.0, 246.0, 1164.0, 786.0], "stagePhysicalScale": [3.0, 3.0], "subViewportMsaa3D": 2, "subViewportSize": [1164.0, 786.0], "tableRimContained": true}}, {"key": "portrait-d1p75", "title": "Portrait \u00b7 720 \u00d7 1560 \u00b7 density 1.75", "before": {"cameraKeepAspect": 0, "cameraProjection": 1, "cameraSize": 7.25, "contentScaleFactor": 1.75, "nativePixelRoundingError": [284.25, 352.5], "nativeViewportPixels": false, "renderTargetToStagePhysicalRatio": [0.571428596973419, 0.571428596973419], "rimLogicalMarginsLeftTopRightBottom": [-27.4448318481445, 139.847915649414, -27.44482421875, 125.000793457031], "rimMeshRadius": 4.15000009536743, "rimProjectedStageRect": [-27.4448318481445, 139.847915649414, 433.8896484375, 205.151290893555], "rimProjectedViewportRect": [-27.4448318481445, 139.847915649414, 433.8896484375, 205.151290893555], "rimSuggestedSideMargin": 15.16, "rimVertexCount": 2304, "rootFinalTransform": [1.75, 0.0, 0.0, 1.75, 0.0, 0.0], "rootPhysicalSize": [720.0, 1560.0], "rootStretchTransform": [1.75, 0.0, 0.0, 1.75, 0.0, 0.0], "rootVisibleRect": [0.0, 0.0, 411.428558349609, 891.428588867188], "stageExpectedPhysicalSize": [663.25, 822.5], "stageLogicalRect": [16.0, 279.0, 379.0, 470.0], "stagePhysicalRect": [28.0, 488.25, 663.25, 822.5], "stagePhysicalScale": [1.75, 1.75], "subViewportMsaa3D": 1, "subViewportSize": [379.0, 470.0], "tableRimContained": false}, "after": {"cameraKeepAspect": 0, "cameraProjection": 1, "cameraSize": 9.10000038146973, "contentScaleFactor": 1.75, "nativePixelRoundingError": [0.25, 0.5], "nativeViewportPixels": true, "renderTargetToStagePhysicalRatio": [0.99962306022644, 0.999392092227936], "rimLogicalMarginsLeftTopRightBottom": [16.659351348877, 159.17448425293, 16.6593017578125, 147.343017578125], "rimMeshRadius": 4.15000009536743, "rimProjectedStageRect": [16.659351348877, 159.17448425293, 345.681335449219, 163.482482910156], "rimProjectedViewportRect": [29.1428756713867, 278.386016845703, 604.714294433594, 285.920440673828], "rimSuggestedSideMargin": 15.16, "rimVertexCount": 4608, "rootFinalTransform": [1.75, 0.0, 0.0, 1.75, 0.0, 0.0], "rootPhysicalSize": [720.0, 1560.0], "rootStretchTransform": [1.75, 0.0, 0.0, 1.75, 0.0, 0.0], "rootVisibleRect": [0.0, 0.0, 411.428558349609, 891.428588867188], "stageExpectedPhysicalSize": [663.25, 822.5], "stageLogicalRect": [16.0, 279.0, 379.0, 470.0], "stagePhysicalRect": [28.0, 488.25, 663.25, 822.5], "stagePhysicalScale": [1.75, 1.75], "subViewportMsaa3D": 2, "subViewportSize": [663.0, 822.0], "tableRimContained": true}}];
+const caseSelect = document.getElementById('case');
+const stateSelect = document.getElementById('state');
+function update() {
+  const selected = cases.find(item => item.key === caseSelect.value);
+  for (const edition of ['before', 'after']) {
+    const path = edition + '/' + selected.key + '/' + stateSelect.value + '.png';
+    document.getElementById(edition + '-image').src = path;
+    document.getElementById(edition + '-image').alt = edition + ': ' + selected.title + ', ' + stateSelect.options[stateSelect.selectedIndex].text.toLowerCase() + ' hand';
+    document.getElementById(edition + '-link').href = path;
+    document.getElementById(edition + '-image-link').href = path;
+  }
+  const pixels = item => item.subViewportSize.map(Math.round).join(' × ');
+  const margin = item => Math.min(item.rimLogicalMarginsLeftTopRightBottom[0], item.rimLogicalMarginsLeftTopRightBottom[2]).toFixed(2);
+  document.getElementById('metrics').textContent = 'Revealed table target: ' + pixels(selected.before) + ' → ' + pixels(selected.after) + ' px. Smallest side margin: ' + margin(selected.before) + ' → +' + margin(selected.after) + ' logical px. Candidate: all 9 capture/input/privacy checks passed.';
+}
+caseSelect.addEventListener('change', update);
+stateSelect.addEventListener('change', update);
+update();
+</script>
+</html>
