@@ -1,0 +1,4588 @@
+{
+  "schemaVersion": 1,
+  "passed": false,
+  "status": "failed",
+  "startedUtc": "2026-09-12T01:11:52.920+00:00",
+  "sourceRevision": "c0bf954adb950cae5f3e861dd0bb81b2eed21b43",
+  "apkSha256": "777065ff25a70a3bcf3db6bbed5f21867cc5533d0118a8265f9788aca30fdad2",
+  "variant": "debug",
+  "requestedModes": [
+    "3d"
+  ],
+  "qualificationObservationRequested": true,
+  "scope": "Actual API36 preview APK: 3D picker, Reveal/select/single Play, Standard authority outcome and Leave.",
+  "runtimeEvidenceRoot": "runtime",
+  "checks": {
+    "package-inputs": {
+      "status": "passed",
+      "started_utc": "2026-09-12T01:11:52.920+00:00",
+      "inputs": {
+        "verified": true,
+        "apk_sha256": "777065ff25a70a3bcf3db6bbed5f21867cc5533d0118a8265f9788aca30fdad2",
+        "pack_sha256": "7ec66f903ed41b55bdb4c3d8972de56900c85fe765f1bf7cc81306150c86e9f2",
+        "package_receipt_sha256": "0f3faf9f34fd62c91226a1cfb064d2d139a0813ea875fea29dc1c9e079cb14ab",
+        "packaged_activation": {
+          "profile": "qualification",
+          "modesCsv": "2d,3d",
+          "modes": [
+            "2d",
+            "3d"
+          ]
+        },
+        "manifest_sha256": "22b575a4ea2afd0d325fd8272cca2e2d856ddfdfd4bbc8c38dbe95eecc4ae069",
+        "manifest_command": [
+          "/usr/local/lib/android/sdk/cmdline-tools/latest/bin/apkanalyzer",
+          "manifest",
+          "print",
+          "androidApp/build/outputs/apk/debug/androidApp-debug.apk"
+        ],
+        "limit": "Exact APK/PCK/activation binding to the existing wrapper receipt; source revision remains caller-attributed."
+      },
+      "scope": "UI/lifecycle observation only",
+      "ended_utc": "2026-09-12T01:11:58.112+00:00"
+    },
+    "installation": {
+      "status": "passed",
+      "started_utc": "2026-09-12T01:11:58.112+00:00",
+      "installed_apk_sha256": "777065ff25a70a3bcf3db6bbed5f21867cc5533d0118a8265f9788aca30fdad2",
+      "scope": "UI/lifecycle observation only",
+      "ended_utc": "2026-09-12T01:12:18.320+00:00"
+    },
+    "display": {
+      "status": "passed",
+      "started_utc": "2026-09-12T01:12:18.320+00:00",
+      "sizePx": [
+        1080,
+        2400
+      ],
+      "densityDpi": 420,
+      "fontScale": 1.0,
+      "densitySource": "Original wm density output; each native capture also checks Activity configuration.",
+      "scope": "UI/lifecycle observation only",
+      "ended_utc": "2026-09-12T01:12:18.340+00:00"
+    },
+    "3d.engine-practice-baseline": {
+      "status": "passed",
+      "started_utc": "2026-09-12T01:12:18.340+00:00",
+      "baseline": {
+        "public": {
+          "round": 1,
+          "table_rank": "Crown",
+          "turn": "Your turn"
+        },
+        "first_card": {
+          "index": 0,
+          "rank": "Crown",
+          "hand_count": 5
+        }
+      },
+      "scope": "UI/lifecycle observation only",
+      "ended_utc": "2026-09-12T01:12:46.704+00:00"
+    },
+    "3d.engine-reveal-selection": {
+      "status": "passed",
+      "started_utc": "2026-09-12T01:12:46.704+00:00",
+      "concealed": {
+        "file": "captures/3d-engine-0009-observation.xml",
+        "sha256": "26c8604c30a6616670d6bc2ed170830b51330db173b97881102b5ccef46a26bc",
+        "received_utc": "2026-09-12T01:13:21.215+00:00",
+        "sequence": 31,
+        "stage": "3d.engine-reveal-selection",
+        "observation": {
+          "schemaVersion": 1,
+          "mode": "3d",
+          "request": "2",
+          "sequence": "1",
+          "generation": "5",
+          "command": "2",
+          "input": "0",
+          "projectionRevision": "5",
+          "requestedUptimeMs": 245750,
+          "capturedUptimeMs": 245758,
+          "expiresUptimeMs": 257758,
+          "surface": [
+            0,
+            389,
+            1080,
+            1885
+          ],
+          "viewport": [
+            411.428558349609,
+            718.09521484375
+          ],
+          "sceneStateApplied": true,
+          "handConcealed": true,
+          "selectedCount": 0,
+          "privateFaceCount": 0,
+          "privateLabelCount": 0,
+          "controls": [
+            {
+              "role": "reveal",
+              "slot": -1,
+              "rect": [
+                211,
+                526,
+                184,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "play",
+              "slot": -1,
+              "rect": [
+                16,
+                588,
+                379,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": false,
+              "selected": false
+            }
+          ]
+        },
+        "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+      },
+      "reveal": {
+        "before": {
+          "schemaVersion": 1,
+          "mode": "3d",
+          "request": "4",
+          "sequence": "3",
+          "generation": "5",
+          "command": "2",
+          "input": "0",
+          "projectionRevision": "5",
+          "requestedUptimeMs": 254487,
+          "capturedUptimeMs": 254499,
+          "expiresUptimeMs": 266499,
+          "surface": [
+            0,
+            389,
+            1080,
+            1885
+          ],
+          "viewport": [
+            411.428558349609,
+            718.09521484375
+          ],
+          "sceneStateApplied": true,
+          "handConcealed": true,
+          "selectedCount": 0,
+          "privateFaceCount": 0,
+          "privateLabelCount": 0,
+          "controls": [
+            {
+              "role": "reveal",
+              "slot": -1,
+              "rect": [
+                211,
+                526,
+                184,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "play",
+              "slot": -1,
+              "rect": [
+                16,
+                588,
+                379,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": false,
+              "selected": false
+            }
+          ]
+        },
+        "input_xml": {
+          "file": "captures/3d-engine-0020-tap.xml",
+          "sha256": "b5ffc35898c18bbb28d033d70b78a96bc3d12a2bbd67c0bf62af958427a7fbc0",
+          "received_utc": "2026-09-12T01:13:32.165+00:00",
+          "sequence": 36,
+          "stage": "3d.engine-reveal-selection",
+          "observation": {
+            "action": "tap",
+            "role": "reveal",
+            "slot": -1,
+            "coordinates": {
+              "point": [
+                795,
+                1838
+              ]
+            },
+            "observation": {
+              "schemaVersion": 1,
+              "mode": "3d",
+              "request": "4",
+              "sequence": "3",
+              "generation": "5",
+              "command": "2",
+              "input": "0",
+              "projectionRevision": "5",
+              "requestedUptimeMs": 254487,
+              "capturedUptimeMs": 254499,
+              "expiresUptimeMs": 266499,
+              "surface": [
+                0,
+                389,
+                1080,
+                1885
+              ],
+              "viewport": [
+                411.428558349609,
+                718.09521484375
+              ],
+              "sceneStateApplied": true,
+              "handConcealed": true,
+              "selectedCount": 0,
+              "privateFaceCount": 0,
+              "privateLabelCount": 0,
+              "controls": [
+                {
+                  "role": "reveal",
+                  "slot": -1,
+                  "rect": [
+                    211,
+                    526,
+                    184,
+                    52
+                  ],
+                  "clip": [
+                    0,
+                    0,
+                    411.428558349609,
+                    718.09521484375
+                  ],
+                  "visible": true,
+                  "enabled": true,
+                  "selected": false
+                },
+                {
+                  "role": "play",
+                  "slot": -1,
+                  "rect": [
+                    16,
+                    588,
+                    379,
+                    52
+                  ],
+                  "clip": [
+                    0,
+                    0,
+                    411.428558349609,
+                    718.09521484375
+                  ],
+                  "visible": true,
+                  "enabled": false,
+                  "selected": false
+                }
+              ]
+            }
+          },
+          "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+        },
+        "point": [
+          795,
+          1838
+        ]
+      },
+      "revealed": {
+        "file": "captures/3d-engine-0028-observation.xml",
+        "sha256": "3c7e3756d2482944a9493ff05e2c229653cf88f5f80aad9370ebc4da724c5287",
+        "received_utc": "2026-09-12T01:13:41.459+00:00",
+        "sequence": 40,
+        "stage": "3d.engine-reveal-selection",
+        "observation": {
+          "schemaVersion": 1,
+          "mode": "3d",
+          "request": "6",
+          "sequence": "5",
+          "generation": "7",
+          "command": "2",
+          "input": "2",
+          "projectionRevision": "5",
+          "requestedUptimeMs": 265997,
+          "capturedUptimeMs": 266021,
+          "expiresUptimeMs": 278021,
+          "surface": [
+            0,
+            389,
+            1080,
+            1885
+          ],
+          "viewport": [
+            411.428558349609,
+            718.09521484375
+          ],
+          "sceneStateApplied": true,
+          "handConcealed": false,
+          "selectedCount": 0,
+          "privateFaceCount": 5,
+          "privateLabelCount": 5,
+          "controls": [
+            {
+              "role": "hide",
+              "slot": -1,
+              "rect": [
+                211,
+                526,
+                184,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 0,
+              "rect": [
+                67,
+                399,
+                52,
+                63
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 1,
+              "rect": [
+                125,
+                399,
+                49,
+                62
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 2,
+              "rect": [
+                181,
+                400,
+                49,
+                61
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 3,
+              "rect": [
+                237,
+                399,
+                49,
+                62
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 4,
+              "rect": [
+                292,
+                399,
+                52,
+                63
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "play",
+              "slot": -1,
+              "rect": [
+                16,
+                588,
+                379,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": false,
+              "selected": false
+            }
+          ]
+        },
+        "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+      },
+      "selection": {
+        "before": {
+          "schemaVersion": 1,
+          "mode": "3d",
+          "request": "8",
+          "sequence": "7",
+          "generation": "7",
+          "command": "2",
+          "input": "2",
+          "projectionRevision": "5",
+          "requestedUptimeMs": 274740,
+          "capturedUptimeMs": 274753,
+          "expiresUptimeMs": 286753,
+          "surface": [
+            0,
+            389,
+            1080,
+            1885
+          ],
+          "viewport": [
+            411.428558349609,
+            718.09521484375
+          ],
+          "sceneStateApplied": true,
+          "handConcealed": false,
+          "selectedCount": 0,
+          "privateFaceCount": 5,
+          "privateLabelCount": 5,
+          "controls": [
+            {
+              "role": "hide",
+              "slot": -1,
+              "rect": [
+                211,
+                526,
+                184,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 0,
+              "rect": [
+                67,
+                399,
+                52,
+                63
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 1,
+              "rect": [
+                125,
+                399,
+                49,
+                62
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 2,
+              "rect": [
+                181,
+                400,
+                49,
+                61
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 3,
+              "rect": [
+                237,
+                399,
+                49,
+                62
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 4,
+              "rect": [
+                292,
+                399,
+                52,
+                63
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "play",
+              "slot": -1,
+              "rect": [
+                16,
+                588,
+                379,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": false,
+              "selected": false
+            }
+          ]
+        },
+        "input_xml": {
+          "file": "captures/3d-engine-0039-tap.xml",
+          "sha256": "656d542c052b851340ac20032937f168001d2f9f947e2da2484689d1f6cbaf41",
+          "received_utc": "2026-09-12T01:13:52.425+00:00",
+          "sequence": 45,
+          "stage": "3d.engine-reveal-selection",
+          "observation": {
+            "action": "tap",
+            "role": "select",
+            "slot": 0,
+            "coordinates": {
+              "point": [
+                244,
+                1519
+              ]
+            },
+            "observation": {
+              "schemaVersion": 1,
+              "mode": "3d",
+              "request": "8",
+              "sequence": "7",
+              "generation": "7",
+              "command": "2",
+              "input": "2",
+              "projectionRevision": "5",
+              "requestedUptimeMs": 274740,
+              "capturedUptimeMs": 274753,
+              "expiresUptimeMs": 286753,
+              "surface": [
+                0,
+                389,
+                1080,
+                1885
+              ],
+              "viewport": [
+                411.428558349609,
+                718.09521484375
+              ],
+              "sceneStateApplied": true,
+              "handConcealed": false,
+              "selectedCount": 0,
+              "privateFaceCount": 5,
+              "privateLabelCount": 5,
+              "controls": [
+                {
+                  "role": "hide",
+                  "slot": -1,
+                  "rect": [
+                    211,
+                    526,
+                    184,
+                    52
+                  ],
+                  "clip": [
+                    0,
+                    0,
+                    411.428558349609,
+                    718.09521484375
+                  ],
+                  "visible": true,
+                  "enabled": true,
+                  "selected": false
+                },
+                {
+                  "role": "select",
+                  "slot": 0,
+                  "rect": [
+                    67,
+                    399,
+                    52,
+                    63
+                  ],
+                  "clip": [
+                    0,
+                    0,
+                    411.428558349609,
+                    718.09521484375
+                  ],
+                  "visible": true,
+                  "enabled": true,
+                  "selected": false
+                },
+                {
+                  "role": "select",
+                  "slot": 1,
+                  "rect": [
+                    125,
+                    399,
+                    49,
+                    62
+                  ],
+                  "clip": [
+                    0,
+                    0,
+                    411.428558349609,
+                    718.09521484375
+                  ],
+                  "visible": true,
+                  "enabled": true,
+                  "selected": false
+                },
+                {
+                  "role": "select",
+                  "slot": 2,
+                  "rect": [
+                    181,
+                    400,
+                    49,
+                    61
+                  ],
+                  "clip": [
+                    0,
+                    0,
+                    411.428558349609,
+                    718.09521484375
+                  ],
+                  "visible": true,
+                  "enabled": true,
+                  "selected": false
+                },
+                {
+                  "role": "select",
+                  "slot": 3,
+                  "rect": [
+                    237,
+                    399,
+                    49,
+                    62
+                  ],
+                  "clip": [
+                    0,
+                    0,
+                    411.428558349609,
+                    718.09521484375
+                  ],
+                  "visible": true,
+                  "enabled": true,
+                  "selected": false
+                },
+                {
+                  "role": "select",
+                  "slot": 4,
+                  "rect": [
+                    292,
+                    399,
+                    52,
+                    63
+                  ],
+                  "clip": [
+                    0,
+                    0,
+                    411.428558349609,
+                    718.09521484375
+                  ],
+                  "visible": true,
+                  "enabled": true,
+                  "selected": false
+                },
+                {
+                  "role": "play",
+                  "slot": -1,
+                  "rect": [
+                    16,
+                    588,
+                    379,
+                    52
+                  ],
+                  "clip": [
+                    0,
+                    0,
+                    411.428558349609,
+                    718.09521484375
+                  ],
+                  "visible": true,
+                  "enabled": false,
+                  "selected": false
+                }
+              ]
+            }
+          },
+          "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+        },
+        "point": [
+          244,
+          1519
+        ]
+      },
+      "selected": {
+        "file": "captures/3d-engine-0047-observation.xml",
+        "sha256": "9ec85dcf23c617de9a5d272324d392783d05b56cc7109df3d5d5bede9ce82f09",
+        "received_utc": "2026-09-12T01:14:01.309+00:00",
+        "sequence": 49,
+        "stage": "3d.engine-reveal-selection",
+        "observation": {
+          "schemaVersion": 1,
+          "mode": "3d",
+          "request": "10",
+          "sequence": "9",
+          "generation": "9",
+          "command": "2",
+          "input": "4",
+          "projectionRevision": "5",
+          "requestedUptimeMs": 285853,
+          "capturedUptimeMs": 285873,
+          "expiresUptimeMs": 297873,
+          "surface": [
+            0,
+            389,
+            1080,
+            1885
+          ],
+          "viewport": [
+            411.428558349609,
+            718.09521484375
+          ],
+          "sceneStateApplied": true,
+          "handConcealed": false,
+          "selectedCount": 1,
+          "privateFaceCount": 5,
+          "privateLabelCount": 6,
+          "controls": [
+            {
+              "role": "hide",
+              "slot": -1,
+              "rect": [
+                211,
+                526,
+                184,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 0,
+              "rect": [
+                67,
+                393,
+                52,
+                64
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": true
+            },
+            {
+              "role": "select",
+              "slot": 1,
+              "rect": [
+                125,
+                399,
+                49,
+                62
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 2,
+              "rect": [
+                181,
+                400,
+                49,
+                61
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 3,
+              "rect": [
+                237,
+                399,
+                49,
+                62
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 4,
+              "rect": [
+                292,
+                399,
+                52,
+                63
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "play",
+              "slot": -1,
+              "rect": [
+                16,
+                588,
+                379,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            }
+          ]
+        },
+        "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+      },
+      "scope": "Real engine Reveal/card touches and local state only; no authority progress claimed.",
+      "ended_utc": "2026-09-12T01:14:03.947+00:00"
+    },
+    "3d.engine-play-standard-outcome": {
+      "status": "passed",
+      "started_utc": "2026-09-12T01:14:03.947+00:00",
+      "play": {
+        "before": {
+          "schemaVersion": 1,
+          "mode": "3d",
+          "request": "12",
+          "sequence": "11",
+          "generation": "9",
+          "command": "2",
+          "input": "4",
+          "projectionRevision": "5",
+          "requestedUptimeMs": 297136,
+          "capturedUptimeMs": 297155,
+          "expiresUptimeMs": 309155,
+          "surface": [
+            0,
+            389,
+            1080,
+            1885
+          ],
+          "viewport": [
+            411.428558349609,
+            718.09521484375
+          ],
+          "sceneStateApplied": true,
+          "handConcealed": false,
+          "selectedCount": 1,
+          "privateFaceCount": 5,
+          "privateLabelCount": 6,
+          "controls": [
+            {
+              "role": "hide",
+              "slot": -1,
+              "rect": [
+                211,
+                526,
+                184,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 0,
+              "rect": [
+                67,
+                393,
+                52,
+                64
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": true
+            },
+            {
+              "role": "select",
+              "slot": 1,
+              "rect": [
+                125,
+                399,
+                49,
+                62
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 2,
+              "rect": [
+                181,
+                400,
+                49,
+                61
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 3,
+              "rect": [
+                237,
+                399,
+                49,
+                62
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 4,
+              "rect": [
+                292,
+                399,
+                52,
+                63
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "play",
+              "slot": -1,
+              "rect": [
+                16,
+                588,
+                379,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            }
+          ]
+        },
+        "input_xml": {
+          "file": "captures/3d-engine-0058-tap.xml",
+          "sha256": "049c9d27cda8b7a2066455697cae92c563ab997f43c6fe3880a34fb558127f16",
+          "received_utc": "2026-09-12T01:14:14.837+00:00",
+          "sequence": 55,
+          "stage": "3d.engine-play-standard-outcome",
+          "observation": {
+            "action": "tap",
+            "role": "play",
+            "slot": -1,
+            "coordinates": {
+              "point": [
+                539,
+                2000
+              ]
+            },
+            "observation": {
+              "schemaVersion": 1,
+              "mode": "3d",
+              "request": "12",
+              "sequence": "11",
+              "generation": "9",
+              "command": "2",
+              "input": "4",
+              "projectionRevision": "5",
+              "requestedUptimeMs": 297136,
+              "capturedUptimeMs": 297155,
+              "expiresUptimeMs": 309155,
+              "surface": [
+                0,
+                389,
+                1080,
+                1885
+              ],
+              "viewport": [
+                411.428558349609,
+                718.09521484375
+              ],
+              "sceneStateApplied": true,
+              "handConcealed": false,
+              "selectedCount": 1,
+              "privateFaceCount": 5,
+              "privateLabelCount": 6,
+              "controls": [
+                {
+                  "role": "hide",
+                  "slot": -1,
+                  "rect": [
+                    211,
+                    526,
+                    184,
+                    52
+                  ],
+                  "clip": [
+                    0,
+                    0,
+                    411.428558349609,
+                    718.09521484375
+                  ],
+                  "visible": true,
+                  "enabled": true,
+                  "selected": false
+                },
+                {
+                  "role": "select",
+                  "slot": 0,
+                  "rect": [
+                    67,
+                    393,
+                    52,
+                    64
+                  ],
+                  "clip": [
+                    0,
+                    0,
+                    411.428558349609,
+                    718.09521484375
+                  ],
+                  "visible": true,
+                  "enabled": true,
+                  "selected": true
+                },
+                {
+                  "role": "select",
+                  "slot": 1,
+                  "rect": [
+                    125,
+                    399,
+                    49,
+                    62
+                  ],
+                  "clip": [
+                    0,
+                    0,
+                    411.428558349609,
+                    718.09521484375
+                  ],
+                  "visible": true,
+                  "enabled": true,
+                  "selected": false
+                },
+                {
+                  "role": "select",
+                  "slot": 2,
+                  "rect": [
+                    181,
+                    400,
+                    49,
+                    61
+                  ],
+                  "clip": [
+                    0,
+                    0,
+                    411.428558349609,
+                    718.09521484375
+                  ],
+                  "visible": true,
+                  "enabled": true,
+                  "selected": false
+                },
+                {
+                  "role": "select",
+                  "slot": 3,
+                  "rect": [
+                    237,
+                    399,
+                    49,
+                    62
+                  ],
+                  "clip": [
+                    0,
+                    0,
+                    411.428558349609,
+                    718.09521484375
+                  ],
+                  "visible": true,
+                  "enabled": true,
+                  "selected": false
+                },
+                {
+                  "role": "select",
+                  "slot": 4,
+                  "rect": [
+                    292,
+                    399,
+                    52,
+                    63
+                  ],
+                  "clip": [
+                    0,
+                    0,
+                    411.428558349609,
+                    718.09521484375
+                  ],
+                  "visible": true,
+                  "enabled": true,
+                  "selected": false
+                },
+                {
+                  "role": "play",
+                  "slot": -1,
+                  "rect": [
+                    16,
+                    588,
+                    379,
+                    52
+                  ],
+                  "clip": [
+                    0,
+                    0,
+                    411.428558349609,
+                    718.09521484375
+                  ],
+                  "visible": true,
+                  "enabled": true,
+                  "selected": false
+                }
+              ]
+            }
+          },
+          "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+        },
+        "point": [
+          539,
+          2000
+        ]
+      },
+      "renderer_after_input": {
+        "file": "captures/3d-engine-0066-observation.xml",
+        "sha256": "0d2a6724258d4b4c182408e52e74879937f71c56af00f7d4dde00342e8969979",
+        "received_utc": "2026-09-12T01:14:24.567+00:00",
+        "sequence": 59,
+        "stage": "3d.engine-play-standard-outcome",
+        "observation": {
+          "schemaVersion": 1,
+          "mode": "3d",
+          "request": "14",
+          "sequence": "13",
+          "generation": "16",
+          "command": "7",
+          "input": "6",
+          "projectionRevision": "10",
+          "requestedUptimeMs": 309090,
+          "capturedUptimeMs": 309103,
+          "expiresUptimeMs": 321103,
+          "surface": [
+            0,
+            389,
+            1080,
+            1885
+          ],
+          "viewport": [
+            411.428558349609,
+            718.09521484375
+          ],
+          "sceneStateApplied": true,
+          "handConcealed": true,
+          "selectedCount": 0,
+          "privateFaceCount": 0,
+          "privateLabelCount": 0,
+          "controls": []
+        },
+        "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+      },
+      "play_attempts": 1,
+      "accepted_outcome": {
+        "outcome": {
+          "kind": "same-round public result",
+          "round": 1,
+          "verdict": "The claim was true.",
+          "challenge": "Pip challenged Moxie.",
+          "claim": "Moxie claimed 1 Crown."
+        },
+        "outcome_xml": {
+          "file": "captures/3d-engine-standard-outcome.xml",
+          "sha256": "6583de9491d82f33b938ee13dd1cb034a552e5fbf36d68899b9bf619ca520592",
+          "received_utc": "2026-09-12T01:14:32.238+00:00",
+          "sequence": 62,
+          "stage": "3d.engine-play-standard-outcome",
+          "observation": {
+            "kind": "same-round public result",
+            "round": 1,
+            "verdict": "The claim was true.",
+            "challenge": "Pip challenged Moxie.",
+            "claim": "Moxie claimed 1 Crown."
+          },
+          "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+        },
+        "concealed_return_xml": {
+          "file": "captures/3d-engine-standard-concealed.xml",
+          "sha256": "6583de9491d82f33b938ee13dd1cb034a552e5fbf36d68899b9bf619ca520592",
+          "received_utc": "2026-09-12T01:14:30.171+00:00",
+          "sequence": 61,
+          "stage": "3d.engine-play-standard-outcome",
+          "observation": {
+            "kind": "public result",
+            "tag": "game-round-result"
+          },
+          "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+        },
+        "limit": "Same surviving shell/task and changed recipient hand or same-round result; no authority receipt/session revision is exposed."
+      },
+      "scope": "One real engine Play plus an action-specific Standard authority-derived outcome.",
+      "ended_utc": "2026-09-12T01:14:34.865+00:00"
+    },
+    "3d.engine-leave-end": {
+      "status": "passed",
+      "started_utc": "2026-09-12T01:14:34.865+00:00",
+      "session_end_observation": "Isolated engine practice ended at Home with the surviving shell and no renderer child.",
+      "scope": "UI/lifecycle observation only",
+      "ended_utc": "2026-09-12T01:15:13.642+00:00"
+    }
+  },
+  "identity": {
+    "input_apk": "/home/runner/work/PartyDeck/PartyDeck/androidApp/build/outputs/apk/debug/androidApp-debug.apk",
+    "input_apk_sha256": "777065ff25a70a3bcf3db6bbed5f21867cc5533d0118a8265f9788aca30fdad2",
+    "source_revision": "c0bf954adb950cae5f3e861dd0bb81b2eed21b43",
+    "checker_sha256": "365424545c8cb8eaf36879d6323716084d94c05cf0cd5d2f87eb364e1cdbdb3b",
+    "session_helper_sha256": "610971b22dc8ee60d62fa4e213224833cdd43fb0fa533c0fdd5fa39227a39fc4",
+    "ui_helper_sha256": "831b57634a0cee99a466e6820059bb55209a26db3723b2ffff703b2ee0f60836",
+    "installed_paths": [
+      "/data/app/~~a_XLXcSd5YHM9rhf8gVNSA==/dev.partydeck.app-QKXOEdayDYAj7kFCykdnFg==/base.apk"
+    ],
+    "installed_apk_sha256": "777065ff25a70a3bcf3db6bbed5f21867cc5533d0118a8265f9788aca30fdad2",
+    "installed_apk_bytes": 334823155,
+    "installed_copy": "identity/installed-base.apk",
+    "logcat_cleared_utc": "2026-09-12T01:12:10.836+00:00",
+    "shell": {
+      "pid": 4082,
+      "uid": 10150,
+      "name": "dev.partydeck.app"
+    },
+    "shell_task_id": 9,
+    "launcher_component": "com.android.launcher3/com.android.launcher3.uioverrides.QuickstepLauncher",
+    "actual_font_scale": "1.0"
+  },
+  "captures": [
+    {
+      "name": "home-cold",
+      "stage": "emulator readiness",
+      "started_utc": "2026-09-12T01:12:15.814+00:00",
+      "status": "captured",
+      "provenance": "Original adb exec-out screencap PNG and fresh uiautomator XML; acquired sequentially, not atomically.",
+      "pixel_privacy": "Requires visual review; native chrome and absent semantics do not verify engine pixels.",
+      "before": {
+        "started_utc": "2026-09-12T01:12:15.815+00:00",
+        "ended_utc": "2026-09-12T01:12:15.882+00:00",
+        "foreground": {
+          "user_id": 0,
+          "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+          "task_id": 9,
+          "display_id": 0
+        },
+        "processes": [
+          {
+            "pid": 4082,
+            "uid": 10150,
+            "name": "dev.partydeck.app"
+          }
+        ],
+        "shell_pids": [
+          4082
+        ],
+        "renderer_pids": []
+      },
+      "ui": {
+        "file": "captures/home-cold.xml",
+        "sha256": "0bbedcfaec1e73bbabee6bad306f2fc0e7c57d557bfb873a16c0f3d9f2bd2536",
+        "received_utc": "2026-09-12T01:12:17.935+00:00",
+        "sequence": 5
+      },
+      "screenshot_started_utc": "2026-09-12T01:12:17.935+00:00",
+      "screenshot_received_utc": "2026-09-12T01:12:18.217+00:00",
+      "screenshot": {
+        "file": "captures/home-cold.png",
+        "sha256": "15d474434660a330f827cd06ceef25735b834e44f863e6d1a760d2501a245991",
+        "width": 1080,
+        "height": 2400
+      },
+      "after": {
+        "started_utc": "2026-09-12T01:12:18.244+00:00",
+        "ended_utc": "2026-09-12T01:12:18.319+00:00",
+        "foreground": {
+          "user_id": 0,
+          "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+          "task_id": 9,
+          "display_id": 0
+        },
+        "processes": [
+          {
+            "pid": 4082,
+            "uid": 10150,
+            "name": "dev.partydeck.app"
+          }
+        ],
+        "shell_pids": [
+          4082
+        ],
+        "renderer_pids": []
+      },
+      "ended_utc": "2026-09-12T01:12:18.320+00:00"
+    },
+    {
+      "name": "3d-engine-baseline-public",
+      "stage": "3d.engine-practice-baseline",
+      "started_utc": "2026-09-12T01:12:29.053+00:00",
+      "status": "captured",
+      "provenance": "Original adb exec-out screencap PNG and fresh uiautomator XML; acquired sequentially, not atomically.",
+      "pixel_privacy": "Requires visual review; native chrome and absent semantics do not verify engine pixels.",
+      "before": {
+        "started_utc": "2026-09-12T01:12:29.053+00:00",
+        "ended_utc": "2026-09-12T01:12:29.124+00:00",
+        "foreground": {
+          "user_id": 0,
+          "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+          "task_id": 9,
+          "display_id": 0
+        },
+        "processes": [
+          {
+            "pid": 4082,
+            "uid": 10150,
+            "name": "dev.partydeck.app"
+          }
+        ],
+        "shell_pids": [
+          4082
+        ],
+        "renderer_pids": []
+      },
+      "ui": {
+        "file": "captures/3d-engine-baseline-public.xml",
+        "sha256": "10ce9e216350fc02fba4467611c5806f86ba839561239394f9a57174b0682874",
+        "received_utc": "2026-09-12T01:12:31.170+00:00",
+        "sequence": 11
+      },
+      "screenshot_started_utc": "2026-09-12T01:12:31.170+00:00",
+      "screenshot_received_utc": "2026-09-12T01:12:31.449+00:00",
+      "screenshot": {
+        "file": "captures/3d-engine-baseline-public.png",
+        "sha256": "44a0ef2b5dd8c4b38e6171b02c1c5cc0a0c9e82b06037ef72b1d787b2bb42e02",
+        "width": 1080,
+        "height": 2400
+      },
+      "after": {
+        "started_utc": "2026-09-12T01:12:31.477+00:00",
+        "ended_utc": "2026-09-12T01:12:31.556+00:00",
+        "foreground": {
+          "user_id": 0,
+          "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+          "task_id": 9,
+          "display_id": 0
+        },
+        "processes": [
+          {
+            "pid": 4082,
+            "uid": 10150,
+            "name": "dev.partydeck.app"
+          }
+        ],
+        "shell_pids": [
+          4082
+        ],
+        "renderer_pids": []
+      },
+      "ended_utc": "2026-09-12T01:12:31.557+00:00"
+    },
+    {
+      "name": "3d-engine-baseline-first-card",
+      "stage": "3d.engine-practice-baseline",
+      "started_utc": "2026-09-12T01:12:35.799+00:00",
+      "status": "captured",
+      "provenance": "Original adb exec-out screencap PNG and fresh uiautomator XML; acquired sequentially, not atomically.",
+      "pixel_privacy": "Requires visual review; native chrome and absent semantics do not verify engine pixels.",
+      "before": {
+        "started_utc": "2026-09-12T01:12:35.799+00:00",
+        "ended_utc": "2026-09-12T01:12:35.870+00:00",
+        "foreground": {
+          "user_id": 0,
+          "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+          "task_id": 9,
+          "display_id": 0
+        },
+        "processes": [
+          {
+            "pid": 4082,
+            "uid": 10150,
+            "name": "dev.partydeck.app"
+          }
+        ],
+        "shell_pids": [
+          4082
+        ],
+        "renderer_pids": []
+      },
+      "ui": {
+        "file": "captures/3d-engine-baseline-first-card.xml",
+        "sha256": "a3c2d82da86cfb565133e174f531165a0394be7835393f445045ec1812982d14",
+        "received_utc": "2026-09-12T01:12:37.955+00:00",
+        "sequence": 14
+      },
+      "screenshot_started_utc": "2026-09-12T01:12:37.955+00:00",
+      "screenshot_received_utc": "2026-09-12T01:12:38.234+00:00",
+      "screenshot": {
+        "file": "captures/3d-engine-baseline-first-card.png",
+        "sha256": "a3ee5ad58c3f5541b1c8b9242d521fe2ddfff29228aedae2987482c6408d051d",
+        "width": 1080,
+        "height": 2400
+      },
+      "after": {
+        "started_utc": "2026-09-12T01:12:38.258+00:00",
+        "ended_utc": "2026-09-12T01:12:38.335+00:00",
+        "foreground": {
+          "user_id": 0,
+          "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+          "task_id": 9,
+          "display_id": 0
+        },
+        "processes": [
+          {
+            "pid": 4082,
+            "uid": 10150,
+            "name": "dev.partydeck.app"
+          }
+        ],
+        "shell_pids": [
+          4082
+        ],
+        "renderer_pids": []
+      },
+      "ended_utc": "2026-09-12T01:12:38.336+00:00"
+    },
+    {
+      "name": "3d-engine-entry-selector",
+      "stage": "3d.engine-reveal-selection",
+      "started_utc": "2026-09-12T01:12:53.882+00:00",
+      "status": "captured",
+      "provenance": "Original adb exec-out screencap PNG and fresh uiautomator XML; acquired sequentially, not atomically.",
+      "pixel_privacy": "Requires visual review; native chrome and absent semantics do not verify engine pixels.",
+      "before": {
+        "started_utc": "2026-09-12T01:12:53.882+00:00",
+        "ended_utc": "2026-09-12T01:12:53.951+00:00",
+        "foreground": {
+          "user_id": 0,
+          "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+          "task_id": 9,
+          "display_id": 0
+        },
+        "processes": [
+          {
+            "pid": 4082,
+            "uid": 10150,
+            "name": "dev.partydeck.app"
+          }
+        ],
+        "shell_pids": [
+          4082
+        ],
+        "renderer_pids": []
+      },
+      "ui": {
+        "file": "captures/3d-engine-entry-selector.xml",
+        "sha256": "b21a7a7d4a7d12222c36cf3d85ae8a903a985e46b1505ad7d1b375546e5aaf2d",
+        "received_utc": "2026-09-12T01:12:55.996+00:00",
+        "sequence": 22
+      },
+      "screenshot_started_utc": "2026-09-12T01:12:55.997+00:00",
+      "screenshot_received_utc": "2026-09-12T01:12:56.285+00:00",
+      "screenshot": {
+        "file": "captures/3d-engine-entry-selector.png",
+        "sha256": "592969222f6ecf5364ef1434c2cc9bde3325001507e8e4e668fc90c79a6d49e1",
+        "width": 1080,
+        "height": 2400
+      },
+      "after": {
+        "started_utc": "2026-09-12T01:12:56.308+00:00",
+        "ended_utc": "2026-09-12T01:12:56.386+00:00",
+        "foreground": {
+          "user_id": 0,
+          "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+          "task_id": 9,
+          "display_id": 0
+        },
+        "processes": [
+          {
+            "pid": 4082,
+            "uid": 10150,
+            "name": "dev.partydeck.app"
+          }
+        ],
+        "shell_pids": [
+          4082
+        ],
+        "renderer_pids": []
+      },
+      "ended_utc": "2026-09-12T01:12:56.387+00:00"
+    },
+    {
+      "name": "3d-engine-entry-native-ready",
+      "stage": "3d.engine-reveal-selection",
+      "started_utc": "2026-09-12T01:13:09.937+00:00",
+      "status": "captured",
+      "provenance": "Original adb exec-out screencap PNG and fresh uiautomator XML; acquired sequentially, not atomically.",
+      "pixel_privacy": "Requires visual review; native chrome and absent semantics do not verify engine pixels.",
+      "before": {
+        "started_utc": "2026-09-12T01:13:09.937+00:00",
+        "ended_utc": "2026-09-12T01:13:10.007+00:00",
+        "foreground": {
+          "user_id": 0,
+          "component": "dev.partydeck.app/dev.partydeck.app.godot.SessionGodotActivity",
+          "task_id": 9,
+          "display_id": 0
+        },
+        "processes": [
+          {
+            "pid": 4082,
+            "uid": 10150,
+            "name": "dev.partydeck.app"
+          },
+          {
+            "pid": 4687,
+            "uid": 10150,
+            "name": "dev.partydeck.app:godot"
+          }
+        ],
+        "shell_pids": [
+          4082
+        ],
+        "renderer_pids": [
+          4687
+        ]
+      },
+      "ui": {
+        "file": "captures/3d-engine-entry-native-ready.xml",
+        "sha256": "7f705b442cf5f48c311a741a99f7dd220fbf81c7124f5cce2b4f36bf949c4174",
+        "received_utc": "2026-09-12T01:13:12.039+00:00",
+        "sequence": 27
+      },
+      "screenshot_started_utc": "2026-09-12T01:13:12.039+00:00",
+      "screenshot_received_utc": "2026-09-12T01:13:12.369+00:00",
+      "screenshot": {
+        "file": "captures/3d-engine-entry-native-ready.png",
+        "sha256": "c1d7c8d473d4e5ec9e699892bd2302b455e4a2357de8499a11b7f7736abef324",
+        "width": 1080,
+        "height": 2400
+      },
+      "after": {
+        "started_utc": "2026-09-12T01:13:12.393+00:00",
+        "ended_utc": "2026-09-12T01:13:12.473+00:00",
+        "foreground": {
+          "user_id": 0,
+          "component": "dev.partydeck.app/dev.partydeck.app.godot.SessionGodotActivity",
+          "task_id": 9,
+          "display_id": 0
+        },
+        "processes": [
+          {
+            "pid": 4082,
+            "uid": 10150,
+            "name": "dev.partydeck.app"
+          },
+          {
+            "pid": 4687,
+            "uid": 10150,
+            "name": "dev.partydeck.app:godot"
+          }
+        ],
+        "shell_pids": [
+          4082
+        ],
+        "renderer_pids": [
+          4687
+        ]
+      },
+      "ended_utc": "2026-09-12T01:13:12.473+00:00",
+      "previewDisplay": {
+        "sizePx": [
+          1080,
+          2400
+        ],
+        "rotation": 0,
+        "configuration": {
+          "font_scale": 1.0,
+          "orientation": "port",
+          "layout_direction": "ldltr",
+          "width_dp": 411,
+          "height_dp": 914,
+          "density_dpi": 420,
+          "bounds": [
+            0,
+            0,
+            1080,
+            2400
+          ],
+          "window_size": [
+            1080,
+            2400
+          ],
+          "windowing_mode": "fullscreen",
+          "display_rotation": 0
+        },
+        "verified": true
+      }
+    },
+    {
+      "name": "3d-engine-selected",
+      "stage": "3d.engine-reveal-selection",
+      "started_utc": "2026-09-12T01:14:01.403+00:00",
+      "status": "captured",
+      "provenance": "Original adb exec-out screencap PNG and fresh uiautomator XML; acquired sequentially, not atomically.",
+      "pixel_privacy": "Requires visual review; native chrome and absent semantics do not verify engine pixels.",
+      "before": {
+        "started_utc": "2026-09-12T01:14:01.403+00:00",
+        "ended_utc": "2026-09-12T01:14:01.474+00:00",
+        "foreground": {
+          "user_id": 0,
+          "component": "dev.partydeck.app/dev.partydeck.app.godot.SessionGodotActivity",
+          "task_id": 9,
+          "display_id": 0
+        },
+        "processes": [
+          {
+            "pid": 4082,
+            "uid": 10150,
+            "name": "dev.partydeck.app"
+          },
+          {
+            "pid": 4687,
+            "uid": 10150,
+            "name": "dev.partydeck.app:godot"
+          }
+        ],
+        "shell_pids": [
+          4082
+        ],
+        "renderer_pids": [
+          4687
+        ]
+      },
+      "ui": {
+        "file": "captures/3d-engine-selected.xml",
+        "sha256": "9ec85dcf23c617de9a5d272324d392783d05b56cc7109df3d5d5bede9ce82f09",
+        "received_utc": "2026-09-12T01:14:03.507+00:00",
+        "sequence": 50
+      },
+      "screenshot_started_utc": "2026-09-12T01:14:03.507+00:00",
+      "screenshot_received_utc": "2026-09-12T01:14:03.821+00:00",
+      "screenshot": {
+        "file": "captures/3d-engine-selected.png",
+        "sha256": "25f220200584fe1e8af47f5e3897fabe5eeea9e1095b0ce70a620d32be789113",
+        "width": 1080,
+        "height": 2400
+      },
+      "after": {
+        "started_utc": "2026-09-12T01:14:03.845+00:00",
+        "ended_utc": "2026-09-12T01:14:03.926+00:00",
+        "foreground": {
+          "user_id": 0,
+          "component": "dev.partydeck.app/dev.partydeck.app.godot.SessionGodotActivity",
+          "task_id": 9,
+          "display_id": 0
+        },
+        "processes": [
+          {
+            "pid": 4082,
+            "uid": 10150,
+            "name": "dev.partydeck.app"
+          },
+          {
+            "pid": 4687,
+            "uid": 10150,
+            "name": "dev.partydeck.app:godot"
+          }
+        ],
+        "shell_pids": [
+          4082
+        ],
+        "renderer_pids": [
+          4687
+        ]
+      },
+      "ended_utc": "2026-09-12T01:14:03.927+00:00",
+      "previewDisplay": {
+        "sizePx": [
+          1080,
+          2400
+        ],
+        "rotation": 0,
+        "configuration": {
+          "font_scale": 1.0,
+          "orientation": "port",
+          "layout_direction": "ldltr",
+          "width_dp": 411,
+          "height_dp": 914,
+          "density_dpi": 420,
+          "bounds": [
+            0,
+            0,
+            1080,
+            2400
+          ],
+          "window_size": [
+            1080,
+            2400
+          ],
+          "windowing_mode": "fullscreen",
+          "display_rotation": 0
+        },
+        "verified": true
+      }
+    },
+    {
+      "name": "3d-engine-standard-after-play",
+      "stage": "3d.engine-play-standard-outcome",
+      "started_utc": "2026-09-12T01:14:32.318+00:00",
+      "status": "captured",
+      "provenance": "Original adb exec-out screencap PNG and fresh uiautomator XML; acquired sequentially, not atomically.",
+      "pixel_privacy": "Requires visual review; native chrome and absent semantics do not verify engine pixels.",
+      "before": {
+        "started_utc": "2026-09-12T01:14:32.318+00:00",
+        "ended_utc": "2026-09-12T01:14:32.393+00:00",
+        "foreground": {
+          "user_id": 0,
+          "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+          "task_id": 9,
+          "display_id": 0
+        },
+        "processes": [
+          {
+            "pid": 4082,
+            "uid": 10150,
+            "name": "dev.partydeck.app"
+          }
+        ],
+        "shell_pids": [
+          4082
+        ],
+        "renderer_pids": []
+      },
+      "ui": {
+        "file": "captures/3d-engine-standard-after-play.xml",
+        "sha256": "6583de9491d82f33b938ee13dd1cb034a552e5fbf36d68899b9bf619ca520592",
+        "received_utc": "2026-09-12T01:14:34.461+00:00",
+        "sequence": 63
+      },
+      "screenshot_started_utc": "2026-09-12T01:14:34.461+00:00",
+      "screenshot_received_utc": "2026-09-12T01:14:34.755+00:00",
+      "screenshot": {
+        "file": "captures/3d-engine-standard-after-play.png",
+        "sha256": "8a1663fe6a74d3a3b301db71d51648d22d6582bf1f6f92af3b3687d82534579c",
+        "width": 1080,
+        "height": 2400
+      },
+      "after": {
+        "started_utc": "2026-09-12T01:14:34.779+00:00",
+        "ended_utc": "2026-09-12T01:14:34.864+00:00",
+        "foreground": {
+          "user_id": 0,
+          "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+          "task_id": 9,
+          "display_id": 0
+        },
+        "processes": [
+          {
+            "pid": 4082,
+            "uid": 10150,
+            "name": "dev.partydeck.app"
+          }
+        ],
+        "shell_pids": [
+          4082
+        ],
+        "renderer_pids": []
+      },
+      "ended_utc": "2026-09-12T01:14:34.865+00:00"
+    },
+    {
+      "name": "3d-engine-leave-selector",
+      "stage": "3d.engine-leave-end",
+      "started_utc": "2026-09-12T01:14:42.341+00:00",
+      "status": "captured",
+      "provenance": "Original adb exec-out screencap PNG and fresh uiautomator XML; acquired sequentially, not atomically.",
+      "pixel_privacy": "Requires visual review; native chrome and absent semantics do not verify engine pixels.",
+      "before": {
+        "started_utc": "2026-09-12T01:14:42.341+00:00",
+        "ended_utc": "2026-09-12T01:14:42.415+00:00",
+        "foreground": {
+          "user_id": 0,
+          "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+          "task_id": 9,
+          "display_id": 0
+        },
+        "processes": [
+          {
+            "pid": 4082,
+            "uid": 10150,
+            "name": "dev.partydeck.app"
+          }
+        ],
+        "shell_pids": [
+          4082
+        ],
+        "renderer_pids": []
+      },
+      "ui": {
+        "file": "captures/3d-engine-leave-selector.xml",
+        "sha256": "b21a7a7d4a7d12222c36cf3d85ae8a903a985e46b1505ad7d1b375546e5aaf2d",
+        "received_utc": "2026-09-12T01:14:44.459+00:00",
+        "sequence": 67
+      },
+      "screenshot_started_utc": "2026-09-12T01:14:44.460+00:00",
+      "screenshot_received_utc": "2026-09-12T01:14:44.751+00:00",
+      "screenshot": {
+        "file": "captures/3d-engine-leave-selector.png",
+        "sha256": "7054a4f389f77d4cb67ea2338d9e0a9a91968225334c680d6348b02c973e569a",
+        "width": 1080,
+        "height": 2400
+      },
+      "after": {
+        "started_utc": "2026-09-12T01:14:44.775+00:00",
+        "ended_utc": "2026-09-12T01:14:44.858+00:00",
+        "foreground": {
+          "user_id": 0,
+          "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+          "task_id": 9,
+          "display_id": 0
+        },
+        "processes": [
+          {
+            "pid": 4082,
+            "uid": 10150,
+            "name": "dev.partydeck.app"
+          }
+        ],
+        "shell_pids": [
+          4082
+        ],
+        "renderer_pids": []
+      },
+      "ended_utc": "2026-09-12T01:14:44.859+00:00"
+    },
+    {
+      "name": "3d-engine-leave-confirmation",
+      "stage": "3d.engine-leave-end",
+      "started_utc": "2026-09-12T01:15:01.910+00:00",
+      "status": "captured",
+      "provenance": "Original adb exec-out screencap PNG and fresh uiautomator XML; acquired sequentially, not atomically.",
+      "pixel_privacy": "Requires visual review; native chrome and absent semantics do not verify engine pixels.",
+      "before": {
+        "started_utc": "2026-09-12T01:15:01.910+00:00",
+        "ended_utc": "2026-09-12T01:15:01.986+00:00",
+        "foreground": {
+          "user_id": 0,
+          "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+          "task_id": 9,
+          "display_id": 0
+        },
+        "processes": [
+          {
+            "pid": 4082,
+            "uid": 10150,
+            "name": "dev.partydeck.app"
+          }
+        ],
+        "shell_pids": [
+          4082
+        ],
+        "renderer_pids": []
+      },
+      "ui": {
+        "file": "captures/3d-engine-leave-confirmation.xml",
+        "sha256": "bdba37f1454013d7f4d42c1aaeef9c96a2bffa098697e1d08172de763c0c6961",
+        "received_utc": "2026-09-12T01:15:04.042+00:00",
+        "sequence": 73
+      },
+      "screenshot_started_utc": "2026-09-12T01:15:04.043+00:00",
+      "screenshot_received_utc": "2026-09-12T01:15:04.342+00:00",
+      "screenshot": {
+        "file": "captures/3d-engine-leave-confirmation.png",
+        "sha256": "ef50b92926f4439947feff738f93c65b7d6c06ac51262a10c04dcfcc7f070bc6",
+        "width": 1080,
+        "height": 2400
+      },
+      "after": {
+        "started_utc": "2026-09-12T01:15:04.366+00:00",
+        "ended_utc": "2026-09-12T01:15:04.449+00:00",
+        "foreground": {
+          "user_id": 0,
+          "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+          "task_id": 9,
+          "display_id": 0
+        },
+        "processes": [
+          {
+            "pid": 4082,
+            "uid": 10150,
+            "name": "dev.partydeck.app"
+          }
+        ],
+        "shell_pids": [
+          4082
+        ],
+        "renderer_pids": []
+      },
+      "ended_utc": "2026-09-12T01:15:04.449+00:00"
+    },
+    {
+      "name": "3d-engine-home",
+      "stage": "3d.engine-leave-end",
+      "started_utc": "2026-09-12T01:15:11.109+00:00",
+      "status": "captured",
+      "provenance": "Original adb exec-out screencap PNG and fresh uiautomator XML; acquired sequentially, not atomically.",
+      "pixel_privacy": "Requires visual review; native chrome and absent semantics do not verify engine pixels.",
+      "before": {
+        "started_utc": "2026-09-12T01:15:11.109+00:00",
+        "ended_utc": "2026-09-12T01:15:11.185+00:00",
+        "foreground": {
+          "user_id": 0,
+          "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+          "task_id": 9,
+          "display_id": 0
+        },
+        "processes": [
+          {
+            "pid": 4082,
+            "uid": 10150,
+            "name": "dev.partydeck.app"
+          }
+        ],
+        "shell_pids": [
+          4082
+        ],
+        "renderer_pids": []
+      },
+      "ui": {
+        "file": "captures/3d-engine-home.xml",
+        "sha256": "0bbedcfaec1e73bbabee6bad306f2fc0e7c57d557bfb873a16c0f3d9f2bd2536",
+        "received_utc": "2026-09-12T01:15:13.235+00:00",
+        "sequence": 77
+      },
+      "screenshot_started_utc": "2026-09-12T01:15:13.235+00:00",
+      "screenshot_received_utc": "2026-09-12T01:15:13.534+00:00",
+      "screenshot": {
+        "file": "captures/3d-engine-home.png",
+        "sha256": "e3a2944e71996e170768a72c21efa95154bc9b40c5a26e93c6f0bb0d0138ba04",
+        "width": 1080,
+        "height": 2400
+      },
+      "after": {
+        "started_utc": "2026-09-12T01:15:13.558+00:00",
+        "ended_utc": "2026-09-12T01:15:13.641+00:00",
+        "foreground": {
+          "user_id": 0,
+          "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+          "task_id": 9,
+          "display_id": 0
+        },
+        "processes": [
+          {
+            "pid": 4082,
+            "uid": 10150,
+            "name": "dev.partydeck.app"
+          }
+        ],
+        "shell_pids": [
+          4082
+        ],
+        "renderer_pids": []
+      },
+      "ended_utc": "2026-09-12T01:15:13.642+00:00"
+    },
+    {
+      "name": "final-diagnostic",
+      "stage": "3d.engine-leave-end",
+      "started_utc": "2026-09-12T01:15:14.037+00:00",
+      "status": "captured",
+      "provenance": "Original adb exec-out screencap PNG and fresh uiautomator XML; acquired sequentially, not atomically.",
+      "pixel_privacy": "Requires visual review; native chrome and absent semantics do not verify engine pixels.",
+      "before": {
+        "started_utc": "2026-09-12T01:15:14.037+00:00",
+        "ended_utc": "2026-09-12T01:15:14.111+00:00",
+        "foreground": {
+          "user_id": 0,
+          "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+          "task_id": 9,
+          "display_id": 0
+        },
+        "processes": [
+          {
+            "pid": 4082,
+            "uid": 10150,
+            "name": "dev.partydeck.app"
+          }
+        ],
+        "shell_pids": [
+          4082
+        ],
+        "renderer_pids": []
+      },
+      "ui": {
+        "file": "captures/final-diagnostic.xml",
+        "sha256": "0bbedcfaec1e73bbabee6bad306f2fc0e7c57d557bfb873a16c0f3d9f2bd2536",
+        "received_utc": "2026-09-12T01:15:16.185+00:00",
+        "sequence": 78
+      },
+      "screenshot_started_utc": "2026-09-12T01:15:16.186+00:00",
+      "screenshot_received_utc": "2026-09-12T01:15:16.482+00:00",
+      "screenshot": {
+        "file": "captures/final-diagnostic.png",
+        "sha256": "e3a2944e71996e170768a72c21efa95154bc9b40c5a26e93c6f0bb0d0138ba04",
+        "width": 1080,
+        "height": 2400
+      },
+      "after": {
+        "started_utc": "2026-09-12T01:15:16.506+00:00",
+        "ended_utc": "2026-09-12T01:15:16.588+00:00",
+        "foreground": {
+          "user_id": 0,
+          "component": "dev.partydeck.app/dev.partydeck.app.MainActivity",
+          "task_id": 9,
+          "display_id": 0
+        },
+        "processes": [
+          {
+            "pid": 4082,
+            "uid": 10150,
+            "name": "dev.partydeck.app"
+          }
+        ],
+        "shell_pids": [
+          4082
+        ],
+        "renderer_pids": []
+      },
+      "ended_utc": "2026-09-12T01:15:16.589+00:00"
+    }
+  ],
+  "steps": [
+    "Checking package-inputs",
+    "Checking installation",
+    "Verified responsive Android launcher before app installation",
+    "Checking display",
+    "Checking 3d.engine-practice-baseline",
+    "Tapped home-practice",
+    "Tapped game-reveal-hand",
+    "Tapped game-hide-hand",
+    "Checking 3d.engine-reveal-selection",
+    "Tapped presentation-picker",
+    "Tapped presentation-choice-godot_3d",
+    "Tapped qualification-observation-refresh",
+    "Tapped qualification-observation-refresh",
+    "Tapped qualification-observation-refresh",
+    "Tapped qualification-observation-refresh",
+    "Tapped qualification-observation-refresh",
+    "Tapped qualification-observation-refresh",
+    "Tapped qualification-observation-refresh",
+    "Tapped qualification-observation-refresh",
+    "Tapped qualification-observation-refresh",
+    "Tapped qualification-observation-refresh",
+    "Checking 3d.engine-play-standard-outcome",
+    "Tapped qualification-observation-refresh",
+    "Tapped qualification-observation-refresh",
+    "Tapped qualification-observation-refresh",
+    "Tapped qualification-observation-refresh",
+    "Tapped native-standard-table",
+    "Checking 3d.engine-leave-end",
+    "Tapped presentation-picker",
+    "Tapped presentation-choice-godot_3d",
+    "Tapped native-leave-table",
+    "Tapped leave-confirm"
+  ],
+  "observations": {
+    "display_size": [
+      1080,
+      2400
+    ],
+    "standard_ui": {
+      "3d-engine-0005-observation": {
+        "file": "captures/3d-engine-0005-observation.xml",
+        "sha256": "bf08287789ecc4e69872c9dc1b10e64c1ed72be604fe65d5332896d9e4bc8935",
+        "received_utc": "2026-09-12T01:13:16.869+00:00",
+        "sequence": 29,
+        "stage": "3d.engine-reveal-selection",
+        "observation": {
+          "schemaVersion": 1,
+          "mode": "3d",
+          "request": "1",
+          "sequence": "0",
+          "generation": "5",
+          "command": "2",
+          "input": "0",
+          "projectionRevision": "5",
+          "requestedUptimeMs": 241401,
+          "capturedUptimeMs": 241409,
+          "expiresUptimeMs": 253409,
+          "surface": [
+            0,
+            389,
+            1080,
+            1885
+          ],
+          "viewport": [
+            411.428558349609,
+            718.09521484375
+          ],
+          "sceneStateApplied": true,
+          "handConcealed": true,
+          "selectedCount": 0,
+          "privateFaceCount": 0,
+          "privateLabelCount": 0,
+          "controls": [
+            {
+              "role": "reveal",
+              "slot": -1,
+              "rect": [
+                211,
+                526,
+                184,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "play",
+              "slot": -1,
+              "rect": [
+                16,
+                588,
+                379,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": false,
+              "selected": false
+            }
+          ]
+        },
+        "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+      },
+      "3d-engine-0009-observation": {
+        "file": "captures/3d-engine-0009-observation.xml",
+        "sha256": "26c8604c30a6616670d6bc2ed170830b51330db173b97881102b5ccef46a26bc",
+        "received_utc": "2026-09-12T01:13:21.215+00:00",
+        "sequence": 31,
+        "stage": "3d.engine-reveal-selection",
+        "observation": {
+          "schemaVersion": 1,
+          "mode": "3d",
+          "request": "2",
+          "sequence": "1",
+          "generation": "5",
+          "command": "2",
+          "input": "0",
+          "projectionRevision": "5",
+          "requestedUptimeMs": 245750,
+          "capturedUptimeMs": 245758,
+          "expiresUptimeMs": 257758,
+          "surface": [
+            0,
+            389,
+            1080,
+            1885
+          ],
+          "viewport": [
+            411.428558349609,
+            718.09521484375
+          ],
+          "sceneStateApplied": true,
+          "handConcealed": true,
+          "selectedCount": 0,
+          "privateFaceCount": 0,
+          "privateLabelCount": 0,
+          "controls": [
+            {
+              "role": "reveal",
+              "slot": -1,
+              "rect": [
+                211,
+                526,
+                184,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "play",
+              "slot": -1,
+              "rect": [
+                16,
+                588,
+                379,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": false,
+              "selected": false
+            }
+          ]
+        },
+        "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+      },
+      "3d-engine-0013-observation": {
+        "file": "captures/3d-engine-0013-observation.xml",
+        "sha256": "c97460c930e1179d3d9b8173741c3e3b00010dcf0b6620861809c598a14cab45",
+        "received_utc": "2026-09-12T01:13:25.583+00:00",
+        "sequence": 33,
+        "stage": "3d.engine-reveal-selection",
+        "observation": {
+          "schemaVersion": 1,
+          "mode": "3d",
+          "request": "3",
+          "sequence": "2",
+          "generation": "5",
+          "command": "2",
+          "input": "0",
+          "projectionRevision": "5",
+          "requestedUptimeMs": 250126,
+          "capturedUptimeMs": 250134,
+          "expiresUptimeMs": 262134,
+          "surface": [
+            0,
+            389,
+            1080,
+            1885
+          ],
+          "viewport": [
+            411.428558349609,
+            718.09521484375
+          ],
+          "sceneStateApplied": true,
+          "handConcealed": true,
+          "selectedCount": 0,
+          "privateFaceCount": 0,
+          "privateLabelCount": 0,
+          "controls": [
+            {
+              "role": "reveal",
+              "slot": -1,
+              "rect": [
+                211,
+                526,
+                184,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "play",
+              "slot": -1,
+              "rect": [
+                16,
+                588,
+                379,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": false,
+              "selected": false
+            }
+          ]
+        },
+        "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+      },
+      "3d-engine-0017-observation": {
+        "file": "captures/3d-engine-0017-observation.xml",
+        "sha256": "b5ffc35898c18bbb28d033d70b78a96bc3d12a2bbd67c0bf62af958427a7fbc0",
+        "received_utc": "2026-09-12T01:13:29.954+00:00",
+        "sequence": 35,
+        "stage": "3d.engine-reveal-selection",
+        "observation": {
+          "schemaVersion": 1,
+          "mode": "3d",
+          "request": "4",
+          "sequence": "3",
+          "generation": "5",
+          "command": "2",
+          "input": "0",
+          "projectionRevision": "5",
+          "requestedUptimeMs": 254487,
+          "capturedUptimeMs": 254499,
+          "expiresUptimeMs": 266499,
+          "surface": [
+            0,
+            389,
+            1080,
+            1885
+          ],
+          "viewport": [
+            411.428558349609,
+            718.09521484375
+          ],
+          "sceneStateApplied": true,
+          "handConcealed": true,
+          "selectedCount": 0,
+          "privateFaceCount": 0,
+          "privateLabelCount": 0,
+          "controls": [
+            {
+              "role": "reveal",
+              "slot": -1,
+              "rect": [
+                211,
+                526,
+                184,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "play",
+              "slot": -1,
+              "rect": [
+                16,
+                588,
+                379,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": false,
+              "selected": false
+            }
+          ]
+        },
+        "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+      },
+      "3d-engine-0020-tap": {
+        "file": "captures/3d-engine-0020-tap.xml",
+        "sha256": "b5ffc35898c18bbb28d033d70b78a96bc3d12a2bbd67c0bf62af958427a7fbc0",
+        "received_utc": "2026-09-12T01:13:32.165+00:00",
+        "sequence": 36,
+        "stage": "3d.engine-reveal-selection",
+        "observation": {
+          "action": "tap",
+          "role": "reveal",
+          "slot": -1,
+          "coordinates": {
+            "point": [
+              795,
+              1838
+            ]
+          },
+          "observation": {
+            "schemaVersion": 1,
+            "mode": "3d",
+            "request": "4",
+            "sequence": "3",
+            "generation": "5",
+            "command": "2",
+            "input": "0",
+            "projectionRevision": "5",
+            "requestedUptimeMs": 254487,
+            "capturedUptimeMs": 254499,
+            "expiresUptimeMs": 266499,
+            "surface": [
+              0,
+              389,
+              1080,
+              1885
+            ],
+            "viewport": [
+              411.428558349609,
+              718.09521484375
+            ],
+            "sceneStateApplied": true,
+            "handConcealed": true,
+            "selectedCount": 0,
+            "privateFaceCount": 0,
+            "privateLabelCount": 0,
+            "controls": [
+              {
+                "role": "reveal",
+                "slot": -1,
+                "rect": [
+                  211,
+                  526,
+                  184,
+                  52
+                ],
+                "clip": [
+                  0,
+                  0,
+                  411.428558349609,
+                  718.09521484375
+                ],
+                "visible": true,
+                "enabled": true,
+                "selected": false
+              },
+              {
+                "role": "play",
+                "slot": -1,
+                "rect": [
+                  16,
+                  588,
+                  379,
+                  52
+                ],
+                "clip": [
+                  0,
+                  0,
+                  411.428558349609,
+                  718.09521484375
+                ],
+                "visible": true,
+                "enabled": false,
+                "selected": false
+              }
+            ]
+          }
+        },
+        "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+      },
+      "3d-engine-0024-observation": {
+        "file": "captures/3d-engine-0024-observation.xml",
+        "sha256": "21e9d5072913d84aab76af44ee78b9b517759da84ae7c54e7d2d66b50f8ccc0d",
+        "received_utc": "2026-09-12T01:13:37.105+00:00",
+        "sequence": 38,
+        "stage": "3d.engine-reveal-selection",
+        "observation": {
+          "schemaVersion": 1,
+          "mode": "3d",
+          "request": "5",
+          "sequence": "4",
+          "generation": "7",
+          "command": "2",
+          "input": "2",
+          "projectionRevision": "5",
+          "requestedUptimeMs": 261639,
+          "capturedUptimeMs": 261654,
+          "expiresUptimeMs": 273654,
+          "surface": [
+            0,
+            389,
+            1080,
+            1885
+          ],
+          "viewport": [
+            411.428558349609,
+            718.09521484375
+          ],
+          "sceneStateApplied": true,
+          "handConcealed": false,
+          "selectedCount": 0,
+          "privateFaceCount": 5,
+          "privateLabelCount": 5,
+          "controls": [
+            {
+              "role": "hide",
+              "slot": -1,
+              "rect": [
+                211,
+                526,
+                184,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 0,
+              "rect": [
+                67,
+                399,
+                52,
+                63
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 1,
+              "rect": [
+                125,
+                399,
+                49,
+                62
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 2,
+              "rect": [
+                181,
+                400,
+                49,
+                61
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 3,
+              "rect": [
+                237,
+                399,
+                49,
+                62
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 4,
+              "rect": [
+                292,
+                399,
+                52,
+                63
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "play",
+              "slot": -1,
+              "rect": [
+                16,
+                588,
+                379,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": false,
+              "selected": false
+            }
+          ]
+        },
+        "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+      },
+      "3d-engine-0028-observation": {
+        "file": "captures/3d-engine-0028-observation.xml",
+        "sha256": "3c7e3756d2482944a9493ff05e2c229653cf88f5f80aad9370ebc4da724c5287",
+        "received_utc": "2026-09-12T01:13:41.459+00:00",
+        "sequence": 40,
+        "stage": "3d.engine-reveal-selection",
+        "observation": {
+          "schemaVersion": 1,
+          "mode": "3d",
+          "request": "6",
+          "sequence": "5",
+          "generation": "7",
+          "command": "2",
+          "input": "2",
+          "projectionRevision": "5",
+          "requestedUptimeMs": 265997,
+          "capturedUptimeMs": 266021,
+          "expiresUptimeMs": 278021,
+          "surface": [
+            0,
+            389,
+            1080,
+            1885
+          ],
+          "viewport": [
+            411.428558349609,
+            718.09521484375
+          ],
+          "sceneStateApplied": true,
+          "handConcealed": false,
+          "selectedCount": 0,
+          "privateFaceCount": 5,
+          "privateLabelCount": 5,
+          "controls": [
+            {
+              "role": "hide",
+              "slot": -1,
+              "rect": [
+                211,
+                526,
+                184,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 0,
+              "rect": [
+                67,
+                399,
+                52,
+                63
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 1,
+              "rect": [
+                125,
+                399,
+                49,
+                62
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 2,
+              "rect": [
+                181,
+                400,
+                49,
+                61
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 3,
+              "rect": [
+                237,
+                399,
+                49,
+                62
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 4,
+              "rect": [
+                292,
+                399,
+                52,
+                63
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "play",
+              "slot": -1,
+              "rect": [
+                16,
+                588,
+                379,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": false,
+              "selected": false
+            }
+          ]
+        },
+        "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+      },
+      "3d-engine-0032-observation": {
+        "file": "captures/3d-engine-0032-observation.xml",
+        "sha256": "642babed23164258f1edf2811bdbf4b129c8b66d7c5469d173a341a5d049ad21",
+        "received_utc": "2026-09-12T01:13:45.840+00:00",
+        "sequence": 42,
+        "stage": "3d.engine-reveal-selection",
+        "observation": {
+          "schemaVersion": 1,
+          "mode": "3d",
+          "request": "7",
+          "sequence": "6",
+          "generation": "7",
+          "command": "2",
+          "input": "2",
+          "projectionRevision": "5",
+          "requestedUptimeMs": 270358,
+          "capturedUptimeMs": 270371,
+          "expiresUptimeMs": 282371,
+          "surface": [
+            0,
+            389,
+            1080,
+            1885
+          ],
+          "viewport": [
+            411.428558349609,
+            718.09521484375
+          ],
+          "sceneStateApplied": true,
+          "handConcealed": false,
+          "selectedCount": 0,
+          "privateFaceCount": 5,
+          "privateLabelCount": 5,
+          "controls": [
+            {
+              "role": "hide",
+              "slot": -1,
+              "rect": [
+                211,
+                526,
+                184,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 0,
+              "rect": [
+                67,
+                399,
+                52,
+                63
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 1,
+              "rect": [
+                125,
+                399,
+                49,
+                62
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 2,
+              "rect": [
+                181,
+                400,
+                49,
+                61
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 3,
+              "rect": [
+                237,
+                399,
+                49,
+                62
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 4,
+              "rect": [
+                292,
+                399,
+                52,
+                63
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "play",
+              "slot": -1,
+              "rect": [
+                16,
+                588,
+                379,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": false,
+              "selected": false
+            }
+          ]
+        },
+        "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+      },
+      "3d-engine-0036-observation": {
+        "file": "captures/3d-engine-0036-observation.xml",
+        "sha256": "656d542c052b851340ac20032937f168001d2f9f947e2da2484689d1f6cbaf41",
+        "received_utc": "2026-09-12T01:13:50.201+00:00",
+        "sequence": 44,
+        "stage": "3d.engine-reveal-selection",
+        "observation": {
+          "schemaVersion": 1,
+          "mode": "3d",
+          "request": "8",
+          "sequence": "7",
+          "generation": "7",
+          "command": "2",
+          "input": "2",
+          "projectionRevision": "5",
+          "requestedUptimeMs": 274740,
+          "capturedUptimeMs": 274753,
+          "expiresUptimeMs": 286753,
+          "surface": [
+            0,
+            389,
+            1080,
+            1885
+          ],
+          "viewport": [
+            411.428558349609,
+            718.09521484375
+          ],
+          "sceneStateApplied": true,
+          "handConcealed": false,
+          "selectedCount": 0,
+          "privateFaceCount": 5,
+          "privateLabelCount": 5,
+          "controls": [
+            {
+              "role": "hide",
+              "slot": -1,
+              "rect": [
+                211,
+                526,
+                184,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 0,
+              "rect": [
+                67,
+                399,
+                52,
+                63
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 1,
+              "rect": [
+                125,
+                399,
+                49,
+                62
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 2,
+              "rect": [
+                181,
+                400,
+                49,
+                61
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 3,
+              "rect": [
+                237,
+                399,
+                49,
+                62
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 4,
+              "rect": [
+                292,
+                399,
+                52,
+                63
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "play",
+              "slot": -1,
+              "rect": [
+                16,
+                588,
+                379,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": false,
+              "selected": false
+            }
+          ]
+        },
+        "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+      },
+      "3d-engine-0039-tap": {
+        "file": "captures/3d-engine-0039-tap.xml",
+        "sha256": "656d542c052b851340ac20032937f168001d2f9f947e2da2484689d1f6cbaf41",
+        "received_utc": "2026-09-12T01:13:52.425+00:00",
+        "sequence": 45,
+        "stage": "3d.engine-reveal-selection",
+        "observation": {
+          "action": "tap",
+          "role": "select",
+          "slot": 0,
+          "coordinates": {
+            "point": [
+              244,
+              1519
+            ]
+          },
+          "observation": {
+            "schemaVersion": 1,
+            "mode": "3d",
+            "request": "8",
+            "sequence": "7",
+            "generation": "7",
+            "command": "2",
+            "input": "2",
+            "projectionRevision": "5",
+            "requestedUptimeMs": 274740,
+            "capturedUptimeMs": 274753,
+            "expiresUptimeMs": 286753,
+            "surface": [
+              0,
+              389,
+              1080,
+              1885
+            ],
+            "viewport": [
+              411.428558349609,
+              718.09521484375
+            ],
+            "sceneStateApplied": true,
+            "handConcealed": false,
+            "selectedCount": 0,
+            "privateFaceCount": 5,
+            "privateLabelCount": 5,
+            "controls": [
+              {
+                "role": "hide",
+                "slot": -1,
+                "rect": [
+                  211,
+                  526,
+                  184,
+                  52
+                ],
+                "clip": [
+                  0,
+                  0,
+                  411.428558349609,
+                  718.09521484375
+                ],
+                "visible": true,
+                "enabled": true,
+                "selected": false
+              },
+              {
+                "role": "select",
+                "slot": 0,
+                "rect": [
+                  67,
+                  399,
+                  52,
+                  63
+                ],
+                "clip": [
+                  0,
+                  0,
+                  411.428558349609,
+                  718.09521484375
+                ],
+                "visible": true,
+                "enabled": true,
+                "selected": false
+              },
+              {
+                "role": "select",
+                "slot": 1,
+                "rect": [
+                  125,
+                  399,
+                  49,
+                  62
+                ],
+                "clip": [
+                  0,
+                  0,
+                  411.428558349609,
+                  718.09521484375
+                ],
+                "visible": true,
+                "enabled": true,
+                "selected": false
+              },
+              {
+                "role": "select",
+                "slot": 2,
+                "rect": [
+                  181,
+                  400,
+                  49,
+                  61
+                ],
+                "clip": [
+                  0,
+                  0,
+                  411.428558349609,
+                  718.09521484375
+                ],
+                "visible": true,
+                "enabled": true,
+                "selected": false
+              },
+              {
+                "role": "select",
+                "slot": 3,
+                "rect": [
+                  237,
+                  399,
+                  49,
+                  62
+                ],
+                "clip": [
+                  0,
+                  0,
+                  411.428558349609,
+                  718.09521484375
+                ],
+                "visible": true,
+                "enabled": true,
+                "selected": false
+              },
+              {
+                "role": "select",
+                "slot": 4,
+                "rect": [
+                  292,
+                  399,
+                  52,
+                  63
+                ],
+                "clip": [
+                  0,
+                  0,
+                  411.428558349609,
+                  718.09521484375
+                ],
+                "visible": true,
+                "enabled": true,
+                "selected": false
+              },
+              {
+                "role": "play",
+                "slot": -1,
+                "rect": [
+                  16,
+                  588,
+                  379,
+                  52
+                ],
+                "clip": [
+                  0,
+                  0,
+                  411.428558349609,
+                  718.09521484375
+                ],
+                "visible": true,
+                "enabled": false,
+                "selected": false
+              }
+            ]
+          }
+        },
+        "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+      },
+      "3d-engine-0043-observation": {
+        "file": "captures/3d-engine-0043-observation.xml",
+        "sha256": "9d6f10428487f23f1b5e350d9b228f30e049f73e5b54a0cf453d93a0d58e1b17",
+        "received_utc": "2026-09-12T01:13:56.957+00:00",
+        "sequence": 47,
+        "stage": "3d.engine-reveal-selection",
+        "observation": {
+          "schemaVersion": 1,
+          "mode": "3d",
+          "request": "9",
+          "sequence": "8",
+          "generation": "9",
+          "command": "2",
+          "input": "4",
+          "projectionRevision": "5",
+          "requestedUptimeMs": 281499,
+          "capturedUptimeMs": 281508,
+          "expiresUptimeMs": 293508,
+          "surface": [
+            0,
+            389,
+            1080,
+            1885
+          ],
+          "viewport": [
+            411.428558349609,
+            718.09521484375
+          ],
+          "sceneStateApplied": true,
+          "handConcealed": false,
+          "selectedCount": 1,
+          "privateFaceCount": 5,
+          "privateLabelCount": 6,
+          "controls": [
+            {
+              "role": "hide",
+              "slot": -1,
+              "rect": [
+                211,
+                526,
+                184,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 0,
+              "rect": [
+                67,
+                393,
+                52,
+                64
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": true
+            },
+            {
+              "role": "select",
+              "slot": 1,
+              "rect": [
+                125,
+                399,
+                49,
+                62
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 2,
+              "rect": [
+                181,
+                400,
+                49,
+                61
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 3,
+              "rect": [
+                237,
+                399,
+                49,
+                62
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 4,
+              "rect": [
+                292,
+                399,
+                52,
+                63
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "play",
+              "slot": -1,
+              "rect": [
+                16,
+                588,
+                379,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            }
+          ]
+        },
+        "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+      },
+      "3d-engine-0047-observation": {
+        "file": "captures/3d-engine-0047-observation.xml",
+        "sha256": "9ec85dcf23c617de9a5d272324d392783d05b56cc7109df3d5d5bede9ce82f09",
+        "received_utc": "2026-09-12T01:14:01.309+00:00",
+        "sequence": 49,
+        "stage": "3d.engine-reveal-selection",
+        "observation": {
+          "schemaVersion": 1,
+          "mode": "3d",
+          "request": "10",
+          "sequence": "9",
+          "generation": "9",
+          "command": "2",
+          "input": "4",
+          "projectionRevision": "5",
+          "requestedUptimeMs": 285853,
+          "capturedUptimeMs": 285873,
+          "expiresUptimeMs": 297873,
+          "surface": [
+            0,
+            389,
+            1080,
+            1885
+          ],
+          "viewport": [
+            411.428558349609,
+            718.09521484375
+          ],
+          "sceneStateApplied": true,
+          "handConcealed": false,
+          "selectedCount": 1,
+          "privateFaceCount": 5,
+          "privateLabelCount": 6,
+          "controls": [
+            {
+              "role": "hide",
+              "slot": -1,
+              "rect": [
+                211,
+                526,
+                184,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 0,
+              "rect": [
+                67,
+                393,
+                52,
+                64
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": true
+            },
+            {
+              "role": "select",
+              "slot": 1,
+              "rect": [
+                125,
+                399,
+                49,
+                62
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 2,
+              "rect": [
+                181,
+                400,
+                49,
+                61
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 3,
+              "rect": [
+                237,
+                399,
+                49,
+                62
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 4,
+              "rect": [
+                292,
+                399,
+                52,
+                63
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "play",
+              "slot": -1,
+              "rect": [
+                16,
+                588,
+                379,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            }
+          ]
+        },
+        "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+      },
+      "3d-engine-0051-observation": {
+        "file": "captures/3d-engine-0051-observation.xml",
+        "sha256": "46a79f1dcc1a6e7bb6cd3339ac08cc8f45230f4cc844596ae8aba602c7e5f2bb",
+        "received_utc": "2026-09-12T01:14:08.234+00:00",
+        "sequence": 52,
+        "stage": "3d.engine-play-standard-outcome",
+        "observation": {
+          "schemaVersion": 1,
+          "mode": "3d",
+          "request": "11",
+          "sequence": "10",
+          "generation": "9",
+          "command": "2",
+          "input": "4",
+          "projectionRevision": "5",
+          "requestedUptimeMs": 292773,
+          "capturedUptimeMs": 292788,
+          "expiresUptimeMs": 304788,
+          "surface": [
+            0,
+            389,
+            1080,
+            1885
+          ],
+          "viewport": [
+            411.428558349609,
+            718.09521484375
+          ],
+          "sceneStateApplied": true,
+          "handConcealed": false,
+          "selectedCount": 1,
+          "privateFaceCount": 5,
+          "privateLabelCount": 6,
+          "controls": [
+            {
+              "role": "hide",
+              "slot": -1,
+              "rect": [
+                211,
+                526,
+                184,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 0,
+              "rect": [
+                67,
+                393,
+                52,
+                64
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": true
+            },
+            {
+              "role": "select",
+              "slot": 1,
+              "rect": [
+                125,
+                399,
+                49,
+                62
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 2,
+              "rect": [
+                181,
+                400,
+                49,
+                61
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 3,
+              "rect": [
+                237,
+                399,
+                49,
+                62
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 4,
+              "rect": [
+                292,
+                399,
+                52,
+                63
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "play",
+              "slot": -1,
+              "rect": [
+                16,
+                588,
+                379,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            }
+          ]
+        },
+        "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+      },
+      "3d-engine-0055-observation": {
+        "file": "captures/3d-engine-0055-observation.xml",
+        "sha256": "049c9d27cda8b7a2066455697cae92c563ab997f43c6fe3880a34fb558127f16",
+        "received_utc": "2026-09-12T01:14:12.604+00:00",
+        "sequence": 54,
+        "stage": "3d.engine-play-standard-outcome",
+        "observation": {
+          "schemaVersion": 1,
+          "mode": "3d",
+          "request": "12",
+          "sequence": "11",
+          "generation": "9",
+          "command": "2",
+          "input": "4",
+          "projectionRevision": "5",
+          "requestedUptimeMs": 297136,
+          "capturedUptimeMs": 297155,
+          "expiresUptimeMs": 309155,
+          "surface": [
+            0,
+            389,
+            1080,
+            1885
+          ],
+          "viewport": [
+            411.428558349609,
+            718.09521484375
+          ],
+          "sceneStateApplied": true,
+          "handConcealed": false,
+          "selectedCount": 1,
+          "privateFaceCount": 5,
+          "privateLabelCount": 6,
+          "controls": [
+            {
+              "role": "hide",
+              "slot": -1,
+              "rect": [
+                211,
+                526,
+                184,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 0,
+              "rect": [
+                67,
+                393,
+                52,
+                64
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": true
+            },
+            {
+              "role": "select",
+              "slot": 1,
+              "rect": [
+                125,
+                399,
+                49,
+                62
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 2,
+              "rect": [
+                181,
+                400,
+                49,
+                61
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 3,
+              "rect": [
+                237,
+                399,
+                49,
+                62
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "select",
+              "slot": 4,
+              "rect": [
+                292,
+                399,
+                52,
+                63
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            },
+            {
+              "role": "play",
+              "slot": -1,
+              "rect": [
+                16,
+                588,
+                379,
+                52
+              ],
+              "clip": [
+                0,
+                0,
+                411.428558349609,
+                718.09521484375
+              ],
+              "visible": true,
+              "enabled": true,
+              "selected": false
+            }
+          ]
+        },
+        "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+      },
+      "3d-engine-0058-tap": {
+        "file": "captures/3d-engine-0058-tap.xml",
+        "sha256": "049c9d27cda8b7a2066455697cae92c563ab997f43c6fe3880a34fb558127f16",
+        "received_utc": "2026-09-12T01:14:14.837+00:00",
+        "sequence": 55,
+        "stage": "3d.engine-play-standard-outcome",
+        "observation": {
+          "action": "tap",
+          "role": "play",
+          "slot": -1,
+          "coordinates": {
+            "point": [
+              539,
+              2000
+            ]
+          },
+          "observation": {
+            "schemaVersion": 1,
+            "mode": "3d",
+            "request": "12",
+            "sequence": "11",
+            "generation": "9",
+            "command": "2",
+            "input": "4",
+            "projectionRevision": "5",
+            "requestedUptimeMs": 297136,
+            "capturedUptimeMs": 297155,
+            "expiresUptimeMs": 309155,
+            "surface": [
+              0,
+              389,
+              1080,
+              1885
+            ],
+            "viewport": [
+              411.428558349609,
+              718.09521484375
+            ],
+            "sceneStateApplied": true,
+            "handConcealed": false,
+            "selectedCount": 1,
+            "privateFaceCount": 5,
+            "privateLabelCount": 6,
+            "controls": [
+              {
+                "role": "hide",
+                "slot": -1,
+                "rect": [
+                  211,
+                  526,
+                  184,
+                  52
+                ],
+                "clip": [
+                  0,
+                  0,
+                  411.428558349609,
+                  718.09521484375
+                ],
+                "visible": true,
+                "enabled": true,
+                "selected": false
+              },
+              {
+                "role": "select",
+                "slot": 0,
+                "rect": [
+                  67,
+                  393,
+                  52,
+                  64
+                ],
+                "clip": [
+                  0,
+                  0,
+                  411.428558349609,
+                  718.09521484375
+                ],
+                "visible": true,
+                "enabled": true,
+                "selected": true
+              },
+              {
+                "role": "select",
+                "slot": 1,
+                "rect": [
+                  125,
+                  399,
+                  49,
+                  62
+                ],
+                "clip": [
+                  0,
+                  0,
+                  411.428558349609,
+                  718.09521484375
+                ],
+                "visible": true,
+                "enabled": true,
+                "selected": false
+              },
+              {
+                "role": "select",
+                "slot": 2,
+                "rect": [
+                  181,
+                  400,
+                  49,
+                  61
+                ],
+                "clip": [
+                  0,
+                  0,
+                  411.428558349609,
+                  718.09521484375
+                ],
+                "visible": true,
+                "enabled": true,
+                "selected": false
+              },
+              {
+                "role": "select",
+                "slot": 3,
+                "rect": [
+                  237,
+                  399,
+                  49,
+                  62
+                ],
+                "clip": [
+                  0,
+                  0,
+                  411.428558349609,
+                  718.09521484375
+                ],
+                "visible": true,
+                "enabled": true,
+                "selected": false
+              },
+              {
+                "role": "select",
+                "slot": 4,
+                "rect": [
+                  292,
+                  399,
+                  52,
+                  63
+                ],
+                "clip": [
+                  0,
+                  0,
+                  411.428558349609,
+                  718.09521484375
+                ],
+                "visible": true,
+                "enabled": true,
+                "selected": false
+              },
+              {
+                "role": "play",
+                "slot": -1,
+                "rect": [
+                  16,
+                  588,
+                  379,
+                  52
+                ],
+                "clip": [
+                  0,
+                  0,
+                  411.428558349609,
+                  718.09521484375
+                ],
+                "visible": true,
+                "enabled": true,
+                "selected": false
+              }
+            ]
+          }
+        },
+        "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+      },
+      "3d-engine-0062-observation": {
+        "file": "captures/3d-engine-0062-observation.xml",
+        "sha256": "c8749ca8a546a9e93fbb04a302902857d9efa75ebc103fb48b55d5eacf8971cf",
+        "received_utc": "2026-09-12T01:14:20.156+00:00",
+        "sequence": 57,
+        "stage": "3d.engine-play-standard-outcome",
+        "observation": {
+          "schemaVersion": 1,
+          "mode": "3d",
+          "request": "13",
+          "sequence": "12",
+          "generation": "16",
+          "command": "7",
+          "input": "6",
+          "projectionRevision": "10",
+          "requestedUptimeMs": 304382,
+          "capturedUptimeMs": 304854,
+          "expiresUptimeMs": 316854,
+          "surface": [
+            0,
+            389,
+            1080,
+            1885
+          ],
+          "viewport": [
+            411.428558349609,
+            718.09521484375
+          ],
+          "sceneStateApplied": true,
+          "handConcealed": true,
+          "selectedCount": 0,
+          "privateFaceCount": 0,
+          "privateLabelCount": 0,
+          "controls": []
+        },
+        "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+      },
+      "3d-engine-0066-observation": {
+        "file": "captures/3d-engine-0066-observation.xml",
+        "sha256": "0d2a6724258d4b4c182408e52e74879937f71c56af00f7d4dde00342e8969979",
+        "received_utc": "2026-09-12T01:14:24.567+00:00",
+        "sequence": 59,
+        "stage": "3d.engine-play-standard-outcome",
+        "observation": {
+          "schemaVersion": 1,
+          "mode": "3d",
+          "request": "14",
+          "sequence": "13",
+          "generation": "16",
+          "command": "7",
+          "input": "6",
+          "projectionRevision": "10",
+          "requestedUptimeMs": 309090,
+          "capturedUptimeMs": 309103,
+          "expiresUptimeMs": 321103,
+          "surface": [
+            0,
+            389,
+            1080,
+            1885
+          ],
+          "viewport": [
+            411.428558349609,
+            718.09521484375
+          ],
+          "sceneStateApplied": true,
+          "handConcealed": true,
+          "selectedCount": 0,
+          "privateFaceCount": 0,
+          "privateLabelCount": 0,
+          "controls": []
+        },
+        "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+      },
+      "3d-engine-standard-concealed": {
+        "file": "captures/3d-engine-standard-concealed.xml",
+        "sha256": "6583de9491d82f33b938ee13dd1cb034a552e5fbf36d68899b9bf619ca520592",
+        "received_utc": "2026-09-12T01:14:30.171+00:00",
+        "sequence": 61,
+        "stage": "3d.engine-play-standard-outcome",
+        "observation": {
+          "kind": "public result",
+          "tag": "game-round-result"
+        },
+        "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+      },
+      "3d-engine-standard-outcome": {
+        "file": "captures/3d-engine-standard-outcome.xml",
+        "sha256": "6583de9491d82f33b938ee13dd1cb034a552e5fbf36d68899b9bf619ca520592",
+        "received_utc": "2026-09-12T01:14:32.238+00:00",
+        "sequence": 62,
+        "stage": "3d.engine-play-standard-outcome",
+        "observation": {
+          "kind": "same-round public result",
+          "round": 1,
+          "verdict": "The claim was true.",
+          "challenge": "Pip challenged Moxie.",
+          "claim": "Moxie claimed 1 Crown."
+        },
+        "provenance": "Original fresh uiautomator XML; no screenshot, speech or focus recording."
+      }
+    }
+  },
+  "limits": [
+    "Original native pixels require independent sharpness, table-clipping and privacy review.",
+    "No animation-quality, audible-sound, physical-phone, LAN or performance acceptance.",
+    "The accepted Play oracle is the existing action-specific Standard outcome; local counters alone never qualify Play."
+  ],
+  "package": {
+    "verified": true,
+    "apk_sha256": "777065ff25a70a3bcf3db6bbed5f21867cc5533d0118a8265f9788aca30fdad2",
+    "pack_sha256": "7ec66f903ed41b55bdb4c3d8972de56900c85fe765f1bf7cc81306150c86e9f2",
+    "package_receipt_sha256": "0f3faf9f34fd62c91226a1cfb064d2d139a0813ea875fea29dc1c9e079cb14ab",
+    "packaged_activation": {
+      "profile": "qualification",
+      "modesCsv": "2d,3d",
+      "modes": [
+        "2d",
+        "3d"
+      ]
+    },
+    "manifest_sha256": "22b575a4ea2afd0d325fd8272cca2e2d856ddfdfd4bbc8c38dbe95eecc4ae069",
+    "manifest_command": [
+      "/usr/local/lib/android/sdk/cmdline-tools/latest/bin/apkanalyzer",
+      "manifest",
+      "print",
+      "androidApp/build/outputs/apk/debug/androidApp-debug.apk"
+    ],
+    "limit": "Exact APK/PCK/activation binding to the existing wrapper receipt; source revision remains caller-attributed."
+  },
+  "display": {
+    "sizePx": [
+      1080,
+      2400
+    ],
+    "densityDpi": 420,
+    "fontScale": 1.0,
+    "densitySource": "Original wm density output; each native capture also checks Activity configuration."
+  },
+  "diagnosticOrRestoreErrors": [
+    "Missing successful native display capture: 3d-engine-entry"
+  ],
+  "endedUtc": "2026-09-12T01:15:16.697+00:00"
+}

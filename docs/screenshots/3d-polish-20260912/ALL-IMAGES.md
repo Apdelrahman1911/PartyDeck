@@ -1,6 +1,30 @@
 # All original screenshots
 
-82 unchanged PNGs, including the earlier reviewed iterations. Click any image for the original pixels; full SHA-256 values are in the [catalogue](original-catalogue.json) and [file inventory](SHA256SUMS). [Back to the focused comparison](README.md).
+[Download the current Android testing APK](https://github.com/Apdelrahman1911/PartyDeck/releases/download/android-preview-34664818655-1/PartyDeck-android-preview.apk) · [Published prerelease](https://github.com/Apdelrahman1911/PartyDeck/releases/tag/android-preview-34664818655-1) · [Release verification](published-release-34664818655-1/download-verification.json). Workflow **34664818655, attempt 1** passed. Earlier runs below retain their original status.
+
+104 unchanged PNGs, including the earlier reviewed iterations. Click any image for the original pixels; full SHA-256 values are in the [catalogue](original-catalogue.json) and [file inventory](SHA256SUMS). [Back to the focused comparison](README.md).
+
+## Android API 36 preview: successful published run
+
+**passed** · All 7 native smoke checks passed with no final diagnostic errors. Workflow 34664818655 attempt 1; the original source and APK hashes match the published testing release. Native Android emulator captures at 1080 × 2400 and 420 dpi. The earlier failed run remains preserved.
+
+[Original smoke result](android-api36-successful-run/smoke-result.json) · [Artifact provenance](android-api36-successful-run/append-provenance.json)
+
+| 3d-engine-baseline-first-card.png | 3d-engine-baseline-public.png | 3d-engine-entry-native-ready.png |
+| --- | --- | --- |
+| <a href="android-api36-successful-run/runtime/captures/3d-engine-baseline-first-card.png"><img src="android-api36-successful-run/runtime/captures/3d-engine-baseline-first-card.png" width="240" alt="3d-engine-baseline-first-card.png"></a> | <a href="android-api36-successful-run/runtime/captures/3d-engine-baseline-public.png"><img src="android-api36-successful-run/runtime/captures/3d-engine-baseline-public.png" width="240" alt="3d-engine-baseline-public.png"></a> | <a href="android-api36-successful-run/runtime/captures/3d-engine-entry-native-ready.png"><img src="android-api36-successful-run/runtime/captures/3d-engine-entry-native-ready.png" width="240" alt="3d-engine-entry-native-ready.png"></a> |
+
+| 3d-engine-entry-selector.png | 3d-engine-home.png | 3d-engine-leave-confirmation.png |
+| --- | --- | --- |
+| <a href="android-api36-successful-run/runtime/captures/3d-engine-entry-selector.png"><img src="android-api36-successful-run/runtime/captures/3d-engine-entry-selector.png" width="240" alt="3d-engine-entry-selector.png"></a> | <a href="android-api36-successful-run/runtime/captures/3d-engine-home.png"><img src="android-api36-successful-run/runtime/captures/3d-engine-home.png" width="240" alt="3d-engine-home.png"></a> | <a href="android-api36-successful-run/runtime/captures/3d-engine-leave-confirmation.png"><img src="android-api36-successful-run/runtime/captures/3d-engine-leave-confirmation.png" width="240" alt="3d-engine-leave-confirmation.png"></a> |
+
+| 3d-engine-leave-selector.png | 3d-engine-selected.png | 3d-engine-standard-after-play.png |
+| --- | --- | --- |
+| <a href="android-api36-successful-run/runtime/captures/3d-engine-leave-selector.png"><img src="android-api36-successful-run/runtime/captures/3d-engine-leave-selector.png" width="240" alt="3d-engine-leave-selector.png"></a> | <a href="android-api36-successful-run/runtime/captures/3d-engine-selected.png"><img src="android-api36-successful-run/runtime/captures/3d-engine-selected.png" width="240" alt="3d-engine-selected.png"></a> | <a href="android-api36-successful-run/runtime/captures/3d-engine-standard-after-play.png"><img src="android-api36-successful-run/runtime/captures/3d-engine-standard-after-play.png" width="240" alt="3d-engine-standard-after-play.png"></a> |
+
+| final-diagnostic.png | home-cold.png |
+| --- | --- |
+| <a href="android-api36-successful-run/runtime/captures/final-diagnostic.png"><img src="android-api36-successful-run/runtime/captures/final-diagnostic.png" width="240" alt="final-diagnostic.png"></a> | <a href="android-api36-successful-run/runtime/captures/home-cold.png"><img src="android-api36-successful-run/runtime/captures/home-cold.png" width="240" alt="home-cold.png"></a> |
 
 ## Final candidate: native-density matrix
 
@@ -157,3 +181,25 @@
 | remote-01-start.png | remote-02-travel.png | remote-03-settled.png |
 | --- | --- | --- |
 | <a href="iterations/play-effect-run3/remote-01-start.png"><img src="iterations/play-effect-run3/remote-01-start.png" width="240" alt="remote-01-start.png"></a> | <a href="iterations/play-effect-run3/remote-02-travel.png"><img src="iterations/play-effect-run3/remote-02-travel.png" width="240" alt="remote-02-travel.png"></a> | <a href="iterations/play-effect-run3/remote-03-settled.png"><img src="iterations/play-effect-run3/remote-03-settled.png" width="240" alt="remote-03-settled.png"></a> |
+
+## Android API 36 preview: first run
+
+**failed** · All 7 smoke checks passed. Overall run failed only because the final evidence check requested the missing capture label 3d-engine-entry; the successfully captured 3d-engine-entry-native-ready and selected originals are retained. Native Android emulator captures at 1080 × 2400 and 420 dpi.
+
+[Original smoke result](android-api36-first-run/smoke-result.json) · [Artifact provenance](android-api36-first-run/append-provenance.json)
+
+| 3d-engine-baseline-first-card.png | 3d-engine-baseline-public.png | 3d-engine-entry-native-ready.png |
+| --- | --- | --- |
+| <a href="android-api36-first-run/runtime/captures/3d-engine-baseline-first-card.png"><img src="android-api36-first-run/runtime/captures/3d-engine-baseline-first-card.png" width="240" alt="3d-engine-baseline-first-card.png"></a> | <a href="android-api36-first-run/runtime/captures/3d-engine-baseline-public.png"><img src="android-api36-first-run/runtime/captures/3d-engine-baseline-public.png" width="240" alt="3d-engine-baseline-public.png"></a> | <a href="android-api36-first-run/runtime/captures/3d-engine-entry-native-ready.png"><img src="android-api36-first-run/runtime/captures/3d-engine-entry-native-ready.png" width="240" alt="3d-engine-entry-native-ready.png"></a> |
+
+| 3d-engine-entry-selector.png | 3d-engine-home.png | 3d-engine-leave-confirmation.png |
+| --- | --- | --- |
+| <a href="android-api36-first-run/runtime/captures/3d-engine-entry-selector.png"><img src="android-api36-first-run/runtime/captures/3d-engine-entry-selector.png" width="240" alt="3d-engine-entry-selector.png"></a> | <a href="android-api36-first-run/runtime/captures/3d-engine-home.png"><img src="android-api36-first-run/runtime/captures/3d-engine-home.png" width="240" alt="3d-engine-home.png"></a> | <a href="android-api36-first-run/runtime/captures/3d-engine-leave-confirmation.png"><img src="android-api36-first-run/runtime/captures/3d-engine-leave-confirmation.png" width="240" alt="3d-engine-leave-confirmation.png"></a> |
+
+| 3d-engine-leave-selector.png | 3d-engine-selected.png | 3d-engine-standard-after-play.png |
+| --- | --- | --- |
+| <a href="android-api36-first-run/runtime/captures/3d-engine-leave-selector.png"><img src="android-api36-first-run/runtime/captures/3d-engine-leave-selector.png" width="240" alt="3d-engine-leave-selector.png"></a> | <a href="android-api36-first-run/runtime/captures/3d-engine-selected.png"><img src="android-api36-first-run/runtime/captures/3d-engine-selected.png" width="240" alt="3d-engine-selected.png"></a> | <a href="android-api36-first-run/runtime/captures/3d-engine-standard-after-play.png"><img src="android-api36-first-run/runtime/captures/3d-engine-standard-after-play.png" width="240" alt="3d-engine-standard-after-play.png"></a> |
+
+| final-diagnostic.png | home-cold.png |
+| --- | --- |
+| <a href="android-api36-first-run/runtime/captures/final-diagnostic.png"><img src="android-api36-first-run/runtime/captures/final-diagnostic.png" width="240" alt="final-diagnostic.png"></a> | <a href="android-api36-first-run/runtime/captures/home-cold.png"><img src="android-api36-first-run/runtime/captures/home-cold.png" width="240" alt="home-cold.png"></a> |
