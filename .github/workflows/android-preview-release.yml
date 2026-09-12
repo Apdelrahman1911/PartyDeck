@@ -49,6 +49,11 @@ jobs:
         run: |
           bash scripts/setup-ubuntu-graphics.sh
           bash scripts/prepare-godot-renderer.sh
+      - name: Check packed 3D resolution, play feedback and redraws
+        timeout-minutes: 10
+        env:
+          LIBGL_ALWAYS_SOFTWARE: 'true'
+        run: bash scripts/check-godot-3d-polish.sh
       - name: Test, lint and build the debug-signed preview
         run: |
           xvfb-run -a ./gradlew --console=plain --stacktrace \
@@ -64,8 +69,8 @@ jobs:
           sdkmanager 'emulator' 'system-images;android-36;default;x86_64'
           test -e /dev/kvm
           sudo chmod a+rw /dev/kvm
-      - name: Install, cold-launch and exercise Standard practice
-        timeout-minutes: 15
+      - name: Exercise Standard and 3D practice on a high-density display
+        timeout-minutes: 22
         run: bash scripts/smoke-android-preview.sh
       - name: Verify and stage the exact APK for testers
         run: python3 -B scripts/package-android-preview.py
@@ -127,7 +132,9 @@ jobs:
                   or metadata['workflowRunId'] != os.environ['GITHUB_RUN_ID']
                   or not isinstance(built_attempt, str) or not built_attempt.isdecimal()
                   or not 1 <= int(built_attempt) <= int(os.environ['GITHUB_RUN_ATTEMPT'])
-                  or metadata['smoke']['passed'] is not True):
+                  or metadata['smoke']['passed'] is not True
+                  or metadata['godotSmoke']['passed'] is not True
+                  or metadata['rendererChecks']['passed'] is not True):
               raise SystemExit('Release assets do not match this successful build.')
           PY
       - name: Create draft, upload checked assets and publish prerelease

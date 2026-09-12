@@ -4,7 +4,14 @@ signal redraw_requested
 
 const Card3D = preload("res://presentations/three_d/card_3d.gd")
 const BodyScroll = preload("res://presentations/three_d/body_scroll.gd")
+const PlayFeedback = preload("res://presentations/three_d/play_feedback.gd")
 const SCROLL_STAGE_MIN_HEIGHT := 220.0
+const TABLE_RADIUS := 4.15
+const TABLE_DEPTH_SCALE := 0.69
+const TABLE_FRAME_MARGIN := 0.4
+const HAND_TARGET_SPACING := 50.0
+const MAX_VIEWPORT_EDGE := 2560.0
+const MAX_VIEWPORT_PIXELS := 3.0 * 1024.0 * 1024.0
 const INK := Color("#191526")
 const PAPER := Color("#f4f0e8")
 const CITRON := Color("#d6ef82")
@@ -17,6 +24,7 @@ var _controller: Node
 var _state: Dictionary = {}
 var _layout: MarginContainer
 var _stage: Control
+var _viewport_surface: Control
 var _viewport_container: SubViewportContainer
 var _viewport: SubViewport
 var _world: Node3D
@@ -26,7 +34,10 @@ var _card_resources: Card3D.SharedResources
 var _ornament: Node3D
 var _hits: Control
 var _card_bindings: Array = []
+var _hand_cards: Array[Node3D] = []
+var _claim_cards: Array[Node3D] = []
 var _feedback: AudioStreamPlayer
+var _play_feedback: Node
 var _viewport_dirty := true
 var _viewport_draw_pending := false
 var _viewport_requested_signature: Array = []
@@ -60,6 +71,8 @@ func _ready() -> void:
 	_feedback = AudioStreamPlayer.new()
 	_feedback.add_to_group("partydeck_feedback")
 	add_child(_feedback)
+	_play_feedback = PlayFeedback.new()
+	add_child(_play_feedback)
 	resized.connect(_resize)
 	set_process(false)
 
@@ -71,8 +84,11 @@ func bind(controller: Node) -> void:
 func store_state(state: Dictionary) -> void:
 	# CPU-only replacement: lifecycle callbacks must not keep an older private hand.
 	_state = state
+	if is_instance_valid(_play_feedback) and is_instance_valid(_controller):
+		_play_feedback.observe(state, _controller.revision)
 	if state.closed or not state.foreground:
 		_history_visible = false
+		_last_public_cue = ""
 	if state.closed or not state.foreground or not state.controls.canReturnToLobby:
 		_lobby_requested = false
 	if not state.soundEnabled:
@@ -109,6 +125,7 @@ func _render(state: Dictionary) -> bool:
 	if not same_page:
 		_history_visible = false
 	store_state(state)
+	_play_feedback.cancel()
 	if not _lobby_requested:
 		_remove_lobby_dialog()
 	if state.closed:
@@ -116,6 +133,8 @@ func _render(state: Dictionary) -> bool:
 		_clear(_cards)
 		_clear(_hits)
 		_card_bindings.clear()
+		_hand_cards.clear()
+		_claim_cards.clear()
 		return false
 	if state.game.is_empty():
 		return false
@@ -125,12 +144,17 @@ func _render(state: Dictionary) -> bool:
 		_history_visible = false
 	_build_layout(same_page)
 	_show_cards()
-	_public_sound()
 	if _lobby_requested:
 		_show_lobby_dialog()
+	# A coalesced local tap must not replace accepted public feedback on this player.
 	if not _pending_sound.is_empty():
 		_sound(_pending_sound)
 		_pending_sound = ""
+	_public_sound()
+	var accepted_play: Dictionary = _play_feedback.take_play()
+	if not accepted_play.is_empty() and _claim_cards.size() == int(accepted_play.cardCount):
+		_play_feedback.animate_play(_claim_cards, _play_origin(accepted_play.playerId), state.reduceMotion)
+		_sound("card_place")
 	if _bring_hand_requested:
 		_bring_hand_requested = false
 		_bring_hand_into_view()
@@ -148,15 +172,22 @@ func _make_stage() -> void:
 	_stage.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_stage.resized.connect(_request_target_update)
 	add_child(_stage)
+	# Keep the stage and its hit targets in logical units. This plain Control gives
+	# the existing container physical-pixel dimensions without scaling the container
+	# itself or changing its stretch/input behavior.
+	_viewport_surface = Control.new()
+	_viewport_surface.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_stage.add_child(_viewport_surface)
 	_viewport_container = SubViewportContainer.new()
 	_viewport_container.stretch = true
+	_viewport_container.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	_viewport_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_viewport_container.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	_stage.add_child(_viewport_container)
+	_viewport_surface.add_child(_viewport_container)
 	_viewport = SubViewport.new()
 	_viewport.size = Vector2i(640, 360)
 	_viewport.own_world_3d = true
-	_viewport.msaa_3d = Viewport.MSAA_2X
+	_viewport.msaa_3d = Viewport.MSAA_4X
 	_viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
 	_viewport_container.add_child(_viewport)
 	_world = Node3D.new()
@@ -179,15 +210,15 @@ func _make_stage() -> void:
 	_camera = Camera3D.new()
 	_camera.projection = Camera3D.PROJECTION_ORTHOGONAL
 	_camera.keep_aspect = Camera3D.KEEP_WIDTH
-	_camera.size = 7.25
+	_camera.size = 2.0 * (TABLE_RADIUS + TABLE_FRAME_MARGIN)
 	_camera.position = Vector3(0, 8, 9)
 	_camera.far = 40
 	_world.add_child(_camera)
 	_camera.look_at(Vector3.ZERO)
 	_camera.current = true
-	_cylinder(4.15, 0.16, Vector3(0, -0.19, 0), OUTLINE.darkened(0.42), Vector3(1, 1, 0.69))
-	_cylinder(4.07, 0.14, Vector3(0, -0.09, 0), SURFACE, Vector3(1, 1, 0.69))
-	_cylinder(3.92, 0.01, Vector3(0, -0.013, 0), INK.lightened(0.045), Vector3(1, 1, 0.69))
+	_cylinder(TABLE_RADIUS, 0.16, Vector3(0, -0.19, 0), OUTLINE.darkened(0.42), Vector3(1, 1, TABLE_DEPTH_SCALE))
+	_cylinder(4.07, 0.14, Vector3(0, -0.09, 0), SURFACE, Vector3(1, 1, TABLE_DEPTH_SCALE))
+	_cylinder(3.92, 0.01, Vector3(0, -0.013, 0), INK.lightened(0.045), Vector3(1, 1, TABLE_DEPTH_SCALE))
 	_cards = Node3D.new()
 	_world.add_child(_cards)
 	_ornament = Node3D.new()
@@ -479,6 +510,8 @@ func _show_cards() -> void:
 	_clear(_ornament)
 	_clear(_hits)
 	_card_bindings.clear()
+	_hand_cards.clear()
+	_claim_cards.clear()
 	var game: Dictionary = _state.game
 	var rank: String = game.tableRank
 	_cylinder(0.67, 0.025, Vector3(0, 0.025, -0.45), CITRON, Vector3.ONE, _ornament)
@@ -489,7 +522,10 @@ func _show_cards() -> void:
 	symbol.position = Vector3(0, 0.044, -0.45)
 	var material := StandardMaterial3D.new()
 	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR
+	# One alpha-blended plane sits above the opaque badge. Preserve antialiased
+	# symbol coverage instead of hard-discarding its edge texels in Compatibility.
+	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC
 	material.albedo_texture = load("res://assets/textures/ranks/%s.png" % rank.to_lower())
 	symbol.material_override = material
 	_ornament.add_child(symbol)
@@ -511,6 +547,8 @@ func _show_cards() -> void:
 			card.position = Vector3(index * 0.1, 0.08 + index * 0.035, -0.25)
 			card.rotation_degrees.y = -8 + index * 8
 			card.configure("", false, false, false)
+			card.add_to_group("partydeck_play_back")
+			_claim_cards.append(card)
 	if not (game.forcedChallenge and game.availableActions.canChallenge):
 		for index in range(game.yourHand.size()):
 			var card: Dictionary = game.yourHand[index]
@@ -530,6 +568,8 @@ func _add_card(card_data: Dictionary, index: int, count: int, face_up: bool, pri
 	depth: float, table_rank: String = "") -> void:
 	var card = _create_card()
 	_cards.add_child(card)
+	if private_card:
+		_hand_cards.append(card)
 	if not private_card:
 		card.add_to_group("partydeck_public_card")
 	card.position = Vector3((index - (count - 1) / 2.0) * 1.35, 0.36, depth)
@@ -603,13 +643,20 @@ func _add_card(card_data: Dictionary, index: int, count: int, face_up: bool, pri
 func _position_targets() -> void:
 	if not is_instance_valid(_stage) or _stage.size.x < 1 or _stage.size.y < 1:
 		return
-	# KEEP_WIDTH preserves width. Expand it on short viewports to keep the table in view.
-	_camera.size = maxf(7.25, 4.7 * _stage.size.x / _stage.size.y)
+	_sync_viewport_resolution()
+	if _viewport.size.x <= 1 or _viewport.size.y <= 1:
+		return
+	_fit_table_camera()
+	# Leave a small gap between the 48-logical-pixel hit targets on narrow phones.
+	var hand_spacing := maxf(1.35, HAND_TARGET_SPACING * _camera.size / _stage.size.x)
+	for index in range(_hand_cards.size()):
+		_hand_cards[index].position.x = (index - (_hand_cards.size() - 1) / 2.0) * hand_spacing
+	var viewport_to_stage := _stage.size / Vector2(_viewport.size)
 	for binding in _card_bindings:
 		var points: Array[Vector3] = binding.card.corners()
-		var bounds := Rect2(_camera.unproject_position(points[0]), Vector2.ZERO)
+		var bounds := Rect2(_camera.unproject_position(points[0]) * viewport_to_stage, Vector2.ZERO)
 		for point in points:
-			bounds = bounds.expand(_camera.unproject_position(point))
+			bounds = bounds.expand(_camera.unproject_position(point) * viewport_to_stage)
 		if binding.label != null:
 			binding.label.position = Vector2(bounds.position.x, bounds.end.y + 6)
 			binding.label.size = Vector2(bounds.size.x, 24 * _state.textScale)
@@ -618,12 +665,69 @@ func _position_targets() -> void:
 			binding.marker.size = Vector2(24, 24)
 		if binding.target != null:
 			var hit_size := Vector2(maxf(48, bounds.size.x), maxf(48, bounds.size.y))
-			binding.target.position = bounds.get_center() - hit_size * 0.5
-			binding.target.size = hit_size
+			# Control reconstructs size from offsets. Fractional starts can otherwise
+			# turn a requested 48 into 47.99999; snap outward to retain the real floor.
+			var hit_start := (bounds.get_center() - hit_size * 0.5).floor()
+			var hit_end := (bounds.get_center() + hit_size * 0.5).ceil()
+			binding.target.position = hit_start
+			binding.target.size = hit_end - hit_start
 		if binding.explanation != null:
 			var explanation_width := maxf(50, bounds.size.x + 4)
 			binding.explanation.position = Vector2(bounds.get_center().x - explanation_width * 0.5, bounds.end.y + 30)
 			binding.explanation.size = Vector2(explanation_width, 42 * _state.textScale)
+
+
+func _physical_stage_scale() -> Vector2:
+	# CanvasItem::get_viewport_transform includes Window's final stretch/density
+	# transform; get_global_transform_with_canvas alone stops in logical units.
+	# https://github.com/godotengine/godot/blob/4.7.2-stable/scene/main/canvas_item.cpp
+	var physical_transform := _stage.get_viewport_transform() * _stage.get_global_transform()
+	return Vector2(physical_transform.x.length(), physical_transform.y.length())
+
+
+func _sync_viewport_resolution() -> void:
+	# SubViewportContainer::recalc_force_viewport_sizes uses the unscaled Control
+	# size, so stretch=true does not inherit native density. Allocate those physical
+	# pixels here, then map the surface back into the same logical stage rectangle.
+	# https://github.com/godotengine/godot/blob/4.7.2-stable/scene/gui/subviewport_container.cpp
+	var physical_size := _stage.size * _physical_stage_scale()
+	if not physical_size.is_finite() or physical_size.x <= 0 or physical_size.y <= 0:
+		return
+	var reduction := minf(1.0, minf(MAX_VIEWPORT_EDGE / maxf(physical_size.x, physical_size.y),
+		sqrt(MAX_VIEWPORT_PIXELS / (physical_size.x * physical_size.y))))
+	var pixels := Vector2(maxf(2, floorf(physical_size.x * reduction)), maxf(2, floorf(physical_size.y * reduction)))
+	if _viewport_surface.size != pixels:
+		_viewport_surface.size = pixels
+		_viewport_dirty = true
+	_viewport_surface.scale = _stage.size / pixels
+
+
+func _fit_table_camera() -> void:
+	# KEEP_WIDTH is the visible horizontal span. Project the full rim/thickness
+	# into the camera plane and fit both axes, preserving margin even in landscape.
+	# https://github.com/godotengine/godot/blob/4.7.2-stable/scene/3d/camera_3d.cpp
+	var table_bounds := AABB(Vector3(-TABLE_RADIUS, -0.27, -TABLE_RADIUS * TABLE_DEPTH_SCALE),
+		Vector3(TABLE_RADIUS * 2.0, 0.27, TABLE_RADIUS * TABLE_DEPTH_SCALE * 2.0))
+	var camera_inverse := _camera.get_camera_transform().affine_inverse()
+	var half_extent := Vector2.ZERO
+	for index in range(8):
+		var point: Vector3 = camera_inverse * table_bounds.get_endpoint(index)
+		half_extent.x = maxf(half_extent.x, absf(point.x))
+		half_extent.y = maxf(half_extent.y, absf(point.y))
+	var aspect := float(_viewport.size.x) / float(_viewport.size.y)
+	var fit_width := 2.0 * maxf(half_extent.x + TABLE_FRAME_MARGIN, (half_extent.y + TABLE_FRAME_MARGIN) * aspect)
+	if not is_equal_approx(_camera.size, fit_width):
+		_camera.size = fit_width
+
+
+func _play_origin(player_id: String) -> Vector3:
+	if player_id == _state.game.viewerId:
+		return _world.to_global(Vector3(0, 0.65, 2.2))
+	for index in range(_state.game.players.size()):
+		if _state.game.players[index].id == player_id:
+			var angle: float = PI + (index + 0.5) * PI / _state.game.players.size()
+			return _world.to_global(Vector3(cos(angle) * 3.25, 0.65, sin(angle) * 1.9))
+	return _world.to_global(Vector3(0, 0.65, -1.9))
 
 
 func _process(_delta: float) -> void:
@@ -665,7 +769,7 @@ func _prepare_viewport_frame() -> void:
 
 func _viewport_frame_signature() -> Array:
 	var signature: Array = [_viewport.size, _viewport.view_count, _stage.size,
-		_camera.get_camera_transform(), _camera.get_camera_projection()]
+		_physical_stage_scale(), _camera.get_camera_transform(), _camera.get_camera_projection()]
 	# Sample every card through the final Tween pose, including covered cards that
 	# have no hit binding. State changes separately invalidate materials and ornaments.
 	for card in _cards.get_children():
@@ -745,7 +849,7 @@ func _cylinder(radius: float, height_value: float, position_value: Vector3, colo
 	mesh.top_radius = radius
 	mesh.bottom_radius = radius
 	mesh.height = height_value
-	mesh.radial_segments = 64 if radius > 1 else 24
+	mesh.radial_segments = 128 if radius > 1 else (64 if radius > 0.5 else 32)
 	instance.mesh = mesh
 	instance.position = position_value
 	instance.scale = scale_value
@@ -973,12 +1077,14 @@ func _public_sound() -> void:
 		_sound("victory")
 	elif game.phase == "ROUND_ENDED":
 		_sound("light_out" if game.roundOutcome.burnedOut else "safe")
-	elif game.latestClaim != null:
-		_sound("card_place")
 
 
 func _exit_tree() -> void:
 	RenderingServer.frame_pre_draw.disconnect(_prepare_viewport_frame)
+	if is_instance_valid(_play_feedback):
+		_play_feedback.cancel()
+	_hand_cards.clear()
+	_claim_cards.clear()
 	_card_resources = null
 	if is_instance_valid(_feedback):
 		_feedback.stop()
@@ -986,6 +1092,7 @@ func _exit_tree() -> void:
 	_controller = null
 	_lobby_requested = false
 	_pending_sound = ""
+	_last_public_cue = ""
 	_bring_hand_requested = false
 	_applied_revision = ""
 	_focus_request.clear()

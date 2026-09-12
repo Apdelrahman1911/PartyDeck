@@ -11,7 +11,13 @@ The workflow builds the full PartyDeck debug APK with Standard initially selecte
 and both real Godot styles explicitly enabled for testing. It checks JVM behavior,
 Android lint, the actual APK signature/alignment, native phone library, activation
 metadata and source-matching renderer pack. An API36 emulator installs and
-cold-launches the exact APK and exercises the existing Standard practice checks.
+cold-launches the exact APK and exercises Standard and native 3D practice at
+1080×2400 and 420 dpi. The 3D route uses the real table picker, reveals and selects
+a card, submits a play, checks its accepted authority outcome, returns to the 3D
+table and then leaves. A separate desktop check runs the exported renderer with real OpenGL
+rendering to verify display-density resolution, the complete table rim, accepted
+play animation/audio routing, privacy and idle redraw. Both smoke reports bind
+the exact APK; the render report binds its embedded PCK.
 
 Only a successful build/check job can publish. The separate publication job
 receives `contents: write`, downloads that run's checked assets, verifies checksums
@@ -34,7 +40,7 @@ multiplayer, everyone needs the same build and reachable Wi-Fi, and the host mus
 keep the app open. The standalone Godot comparison APK is a separate practice
 tool; this release contains the real PartyDeck host/join app.
 
-Physical phone/LAN testing and native Godot interaction/performance acceptance
+Physical phone/LAN testing, speaker output, accessibility and device performance
 remain open. This workflow does not grant production or store qualification.
 Send feedback through repository issues with the release tag, device, Android
 version, table style and reproduction steps. Keep live invitations private.

@@ -39,8 +39,8 @@ python3 -B - "$ANDROID_AVD_HOME/partydeck_preview_api36.avd/config.ini" <<'PY'
 from pathlib import Path
 import sys
 path = Path(sys.argv[1])
-values = {'hw.lcd.width': '720', 'hw.lcd.height': '1600', 'hw.lcd.density': '280',
-          'skin.name': '720x1600', 'skin.path': '720x1600'}
+values = {'hw.lcd.width': '1080', 'hw.lcd.height': '2400', 'hw.lcd.density': '420',
+          'skin.name': '1080x2400', 'skin.path': '1080x2400'}
 lines = [line for line in path.read_text().splitlines() if line.partition('=')[0].strip() not in values]
 path.write_text('\n'.join(lines + [f'{key}={value}' for key, value in values.items()]) + '\n')
 PY
@@ -60,3 +60,8 @@ python3 -B scripts/smoke-android-preview.py \
   --serial "$PARTYDECK_PREVIEW_SERIAL" \
   --apk androidApp/build/outputs/apk/debug/androidApp-debug.apk \
   --output "$PARTYDECK_PREVIEW_OUTPUT/runtime"
+timeout --signal=TERM --kill-after=10s 12m python3 -B scripts/smoke-android-preview-3d.py \
+  --serial "$PARTYDECK_PREVIEW_SERIAL" \
+  --apk androidApp/build/outputs/apk/debug/androidApp-debug.apk \
+  --source-revision "${GITHUB_SHA:?The exact build source is required}" \
+  --output "$PARTYDECK_PREVIEW_OUTPUT/godot-3d"

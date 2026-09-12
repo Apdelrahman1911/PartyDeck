@@ -20,7 +20,7 @@ import wave
 from xml.etree import ElementTree
 
 import cairosvg
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageColor, ImageDraw, ImageFont
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -34,6 +34,9 @@ DOCUMENTATION = [
     "https://raw.githubusercontent.com/godotengine/godot-docs/4.7/tutorials/assets_pipeline/importing_audio_samples.rst",
     "https://raw.githubusercontent.com/godotengine/godot-docs/4.7/tutorials/ui/gui_using_fonts.rst",
     "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/doc/classes/ResourceImporterTexture.xml",
+    "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/doc/classes/Image.xml",
+    "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/core/io/image.cpp",
+    "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/modules/webp/webp_common.cpp",
     "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/doc/classes/ResourceImporterDynamicFont.xml",
     "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/doc/classes/ResourceImporterWAV.xml",
     "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/doc/classes/HashingContext.xml",
@@ -76,7 +79,8 @@ def record_sidecars(manifest: dict) -> None:
 def write_asset(entries: list, relative: str, data: bytes, kind: str, sources: list[Path], transformation: str, **metadata) -> None:
     path = DESTINATION / relative
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_bytes(data)
+    if not path.is_file() or path.read_bytes() != data:
+        path.write_bytes(data)
     entries.append({
         "file": relative,
         "resource": None if relative.startswith("sources/") else "res://assets/" + relative,
@@ -89,10 +93,17 @@ def write_asset(entries: list, relative: str, data: bytes, kind: str, sources: l
     })
 
 
-def raster(svg: bytes, size: tuple[int, int]) -> bytes:
+def raster(svg: bytes, size: tuple[int, int], *, transparent_rgb: str | None = None) -> bytes:
     rendered = cairosvg.svg2png(bytestring=svg, output_width=size[0], output_height=size[1])
     with Image.open(BytesIO(rendered)) as image:
         image = image.convert("RGBA")
+        if transparent_rgb is not None:
+            # Godot's alpha-edge fix only reaches four pixels into transparency.
+            # Fill the remaining hidden RGB too, so mipmaps retain the card's
+            # base color at the rounded opaque mesh edge. Preserve all alpha
+            # and every pixel with visible coverage from the SVG raster.
+            transparent = image.getchannel("A").point(lambda alpha: 255 if alpha == 0 else 0)
+            image.paste((*ImageColor.getrgb(transparent_rgb), 0), mask=transparent)
         output = BytesIO()
         image.save(output, format="PNG", optimize=True)
         return output.getvalue()
@@ -165,9 +176,9 @@ def prepare() -> dict:
         sources = [source, ROOT / "assets/vectors/card_back.svg", ROOT / GENERATOR]
         write_asset(entries, f"sources/cards/face_{rank}.svg", face, "editable_card_source", sources, "Original composition reusing existing rank and card-border paths; no text or lighting.", size=[512, 768], origin="Original PartyDeck geometry.")
         editable = DESTINATION / f"sources/cards/face_{rank}.svg"
-        write_asset(entries, f"textures/cards/face_{rank}.png", raster(face, (512, 768)), "card_texture", [editable, *sources], "Rasterized wordless original card composition; transparent rounded corners, no baked lighting or shadows.", size=[512, 768], rank=rank, origin="Original PartyDeck geometry.")
+        write_asset(entries, f"textures/cards/face_{rank}.png", raster(face, (512, 768), transparent_rgb=PALETTE["paper"]), "card_texture", [editable, *sources], "Rasterized wordless original card composition; transparent rounded corners, no baked lighting or shadows. RGB beneath zero alpha retains the paper base for clean mipmap edges.", size=[512, 768], rank=rank, transparent_rgb=PALETTE["paper"], origin="Original PartyDeck geometry.")
     back = ROOT / "assets/vectors/card_back.svg"
-    write_asset(entries, "textures/cards/back.png", raster(back.read_bytes(), (512, 768)), "card_texture", [back, ROOT / GENERATOR], "Rasterized original card back at 512 by 768; original colors and transparent corners retained.", size=[512, 768], origin="Original PartyDeck geometry.")
+    write_asset(entries, "textures/cards/back.png", raster(back.read_bytes(), (512, 768), transparent_rgb=PALETTE["ink"]), "card_texture", [back, ROOT / GENERATOR], "Rasterized original card back at 512 by 768; original colors and transparent corners retained. RGB beneath zero alpha retains the ink base for clean mipmap edges.", size=[512, 768], transparent_rgb=PALETTE["ink"], origin="Original PartyDeck geometry.")
 
     for clip in json.loads((ROOT / "assets/audio_manifest.json").read_text()):
         path = COMMON / clip["resource_path"]
@@ -211,6 +222,12 @@ def verify(manifest: dict) -> dict:
                 require(image.mode == "RGBA" and list(image.size) == entry["size"], f"Unexpected texture format: {path}")
                 require(image.getchannel("A").getextrema() == (0, 255), f"Texture alpha range changed: {path}")
                 require(image.getpixel((0, 0))[3] == 0, f"Opaque outer corner: {path}")
+                if entry["kind"] == "card_texture":
+                    expected_rgb = bytes(ImageColor.getrgb(entry["transparent_rgb"]))
+                    pixels = image.tobytes()
+                    require(all(pixels[index:index + 3] == expected_rgb
+                                for index in range(0, len(pixels), 4) if pixels[index + 3] == 0),
+                            f"Card base color missing beneath transparent corners: {path}")
     require(source_record(ROOT / GENERATOR) == manifest["generator"], "Regenerate the manifest after changing the asset tool")
     sidecars = manifest.get("import_sidecars", [])
     if sidecars:
@@ -249,7 +266,7 @@ func _initialize() -> void:
         var resource: Resource = ResourceLoader.load(path)
         if not expect(resource != null, "Unable to import " + path):
             continue
-        var result: Dictionary = {"resource": path, "class": resource.get_class()}
+        var result: Dictionary = {"resource": path, "class": resource.get_class(), "kind": kind}
         if kind == "font":
             if not expect(resource is FontFile, "Expected FontFile: " + path):
                 continue
@@ -283,6 +300,13 @@ func _initialize() -> void:
                 expect(image.has_mipmaps() == (kind != "vector"), "Unexpected mipmaps: " + path)
                 if kind in ["rank_texture", "card_texture"]:
                     expect(image.get_pixel(0, 0).a == 0.0, "Opaque texture corner: " + path)
+                if kind == "card_texture":
+                    var base_color := Color(entry["transparent_rgb"])
+                    base_color.a = 0.0
+                    expect(image.get_pixel(0, 0).is_equal_approx(base_color), "Card corner RGB changed on import: " + path)
+                result["image_format"] = image.get_format()
+                result["mipmap_levels"] = image.get_mipmap_count()
+                result["decoded_bytes_with_mipmaps"] = image.get_data().size()
                 if kind == "vector":
                     expect(image.save_png("res://raster_" + path.get_file().get_basename() + ".png") == OK, "Cannot save imported SVG raster: " + path)
             result["size"] = [expected_size.x, expected_size.y]
@@ -357,18 +381,23 @@ def check_imports(binary: Path, manifest: dict, write_sidecars: bool) -> dict:
         run_godot(binary, ["--headless", "--path", str(fixture), "--script", "check_assets.gd"])
         result = json.loads((fixture / "asset_import_result.json").read_text())
         require(not result["failures"] and len(result["resources"]) == len(expected_sidecars), "Incomplete Godot resource verification")
+        result["decoded_texture_bytes_by_kind"] = {
+            kind: sum(resource["decoded_bytes_with_mipmaps"] for resource in result["resources"] if resource["kind"] == kind)
+            for kind in ("card_texture", "rank_texture", "vector")
+        }
         result["svg_raster_comparison"] = compare_svg_rasters(fixture, manifest)
         for relative in sorted(expected_sidecars):
             data = (fixture / "assets" / relative).read_bytes()
             target = DESTINATION / relative
             if write_sidecars:
-                target.write_bytes(data)
+                if not target.is_file() or target.read_bytes() != data:
+                    target.write_bytes(data)
             else:
                 require(target.read_bytes() == data, f"Importer settings need regeneration: {relative}")
         record_sidecars(manifest)
         if write_sidecars:
             write_manifest(manifest)
-        result.update({"godot_version": version, "godot_binary_sha256": sha256(binary.read_bytes()).hexdigest(), "manifest_sha256": sha256((DESTINATION / "manifest.json").read_bytes()).hexdigest(), "isolated_import": True, "import_settings_verified": len(expected_sidecars), "limits": ["Headless import does not establish rendered 2D/3D scene quality or physical speaker playback.", "The shared asset/font audit does not cover Godot engine or exported native-library licenses."]})
+        result.update({"godot_version": version, "godot_binary_sha256": sha256(binary.read_bytes()).hexdigest(), "manifest_sha256": sha256((DESTINATION / "manifest.json").read_bytes()).hexdigest(), "isolated_import": True, "import_settings_verified": len(expected_sidecars), "limits": ["Headless import does not establish rendered 2D/3D scene quality or physical speaker playback.", "Decoded texture data totals exclude scene-generated resources, geometry, render targets, and driver/resource overhead.", "The shared asset/font audit does not cover Godot engine or exported native-library licenses."]})
         (DESTINATION / "proofs").mkdir(exist_ok=True)
         (DESTINATION / "proofs/.gdignore").write_text("Review evidence is excluded from runtime imports.\n")
         (DESTINATION / "proofs/import_verification.json").write_text(json.dumps(result, indent=2) + "\n")
