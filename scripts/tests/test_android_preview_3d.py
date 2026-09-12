@@ -1,6 +1,6 @@
 """Focused host regressions for the native preview gate; no device qualification."""
 
-from contextlib import redirect_stderr, redirect_stdout
+from contextlib import ExitStack, redirect_stderr, redirect_stdout
 import copy
 import hashlib
 import importlib.util
@@ -103,6 +103,28 @@ class PreviewGateTests(unittest.TestCase):
         del smoke.checks["2d.unrequested"]
         smoke.captures[0]["previewDisplay"]["verified"] = False
         self.assertTrue(preview.completed_errors(smoke))
+
+    def test_required_entry_capture_matches_the_real_session_helper_name(self):
+        smoke = self.complete_smoke()
+        smoke.shell_identity = {"pid": 601, "uid": 10234, "name": preview.session.PACKAGE}
+        native_state = {
+            "renderer_pids": [602],
+            "processes": [{"pid": 602, "uid": 10234, "name": preview.session.RENDERER_PROCESS}],
+            "foreground": {"component": preview.session.NATIVE_COMPONENT, "task_id": 19},
+        }
+        # Execute the actual inherited enter_native body. Device interactions are
+        # isolated, but the producer's capture-name construction is never mocked.
+        with ExitStack() as stack:
+            for name, value in (("wait_activity", native_state), ("state", native_state),
+                                ("tap_action", None), ("wait_until", object()),
+                                ("wait_for_presentation_choice", object()), ("tap_node", None),
+                                ("require_shell", None)):
+                stack.enter_context(patch.object(smoke, name, return_value=value))
+            capture = stack.enter_context(patch.object(smoke, "capture_evidence"))
+            smoke.enter_native("3d", "3d-engine-entry")
+        actual_native_names = {call.args[0] for call in capture.call_args_list
+                               if call.args[1] == preview.session.NATIVE_COMPONENT}
+        self.assertEqual(preview.REQUIRED_NATIVE_CAPTURES - {"3d-engine-selected"}, actual_native_names)
 
     def test_actual_density_override_and_size_must_match(self):
         smoke = self.complete_smoke()

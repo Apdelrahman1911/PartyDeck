@@ -33,7 +33,7 @@ EXPECTED_CHECKS = frozenset({
     "package-inputs", "installation", "display", "3d.engine-practice-baseline",
     "3d.engine-reveal-selection", "3d.engine-play-standard-outcome", "3d.engine-leave-end",
 })
-REQUIRED_NATIVE_CAPTURES = frozenset({"3d-engine-entry", "3d-engine-selected"})
+REQUIRED_NATIVE_CAPTURES = frozenset({"3d-engine-entry-native-ready", "3d-engine-selected"})
 
 
 def write_json(path, value):
